@@ -35,7 +35,9 @@ Follow `docs/ENGINEERING_STANDARDS.md` in full. In particular:
 ## Product constraints
 
 - Do not treat assumptions as confirmed requirements.
-- Preserve quick journal entry as the primary experience.
+- Preserve reviewed stage guidance and recommended tasks as the primary experience.
+- Completing a recommended task must create history without duplicate input.
+- Keep manual Quick Entry fast as a fallback for unplanned work.
 - Do not present unsupported plant-care advice as fact.
 - Prefer small, testable changes traceable to a product outcome.
 

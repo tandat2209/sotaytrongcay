@@ -1,37 +1,44 @@
 # Sổ tay trồng cây
 
-A mobile-first gardening journal. Grapes are the first supported plant, while the product model remains extensible to other plants.
+A mobile-first intelligent gardening coach for beginners. It guides users through each growth stage and automatically builds a gardening journal as recommended work is completed.
+
+Grapes are the first fully guided plant. The product model remains extensible to other species and their own stage playbooks.
 
 ## Problem
 
-Garden history is often split across memory, paper notes, photos, and messages. Users struggle to remember what they did, follow plant changes, diagnose poor growth, and plan the next task.
+Beginners rarely fail because they cannot store notes. They struggle to decide what to do, why it matters, what to avoid, and what to prepare next.
+
+Generic advice is difficult to apply because it lacks the plant's current stage, recent care, local weather, and progress.
 
 ## Product goals
 
 The first release focuses on three outcomes:
 
-1. Record care or observations quickly while in the garden.
-2. Review a plant's timeline.
-3. Receive reminders for upcoming care.
+1. Tell beginners what matters today and explain why.
+2. Guide each plant toward the next growth-stage milestone.
+3. Build trustworthy history automatically as work is completed.
 
 ## Proposed MVP
 
-- Create and manage plants.
-- Record watering, fertilizing, pruning, spraying, and observations.
-- Attach photos to journal entries.
-- View a timeline for each plant.
-- Create and complete one-time reminders.
-- View today's due work.
-
-The MVP starts with grapes but uses the broader **Plant** model. See [TODO.md](./TODO.md) for open validation work.
+- Create grape plants and select their current growth stage.
+- Show one reviewed stage playbook with goal, guidance, risks, completion criteria, and next stage.
+- Generate deterministic recommended tasks from the stage playbook.
+- Adjust simple recommendations using weather rules.
+- Complete a task and automatically create a journal entry.
+- Add optional notes and photos after completion.
+- Keep manual quick logging through the global FAB.
+- Show guidance-first Today and Plant Dashboard experiences.
+- Review automatic and manual history in Plant Timeline and global Journal.
+- Create and manage one-time reminders.
 
 ## Outside the initial scope
 
+- AI-generated recommendations.
 - Automated disease diagnosis.
-- IoT irrigation or sensor control.
-- Agricultural marketplace or social network.
-- Large-farm administration.
-- Advanced recurring schedules and analytics.
+- Guidance for every plant species.
+- Complex task scheduling or recurring automation.
+- 7-day weather, alerts, and advanced forecasting.
+- IoT devices, marketplace, social network, and large-farm administration.
 
 ## Documentation
 
@@ -46,4 +53,4 @@ The MVP starts with grapes but uses the broader **Plant** model. See [TODO.md](.
 
 ## Status
 
-The project is in pre-implementation design. The mobile stack and target architecture are defined; detailed scope, business model, and release plan still require validation.
+The project is in pre-implementation design. Guidance quality, grape stage playbooks, recommendation rules, and beginner comprehension require validation before implementation.
