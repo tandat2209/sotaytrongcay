@@ -15,32 +15,16 @@ references:
   - ref.umn.growing-grapes-home-garden
 ---
 
-# Kiểm tra đất trước khi tưới
+## Hướng dẫn
 
-## Khi nào có thể hiển thị
+Kiểm tra độ ẩm của lớp đất mặt và khả năng thoát nước của chậu trước khi quyết định tưới nước. Gợi ý có thể xuất hiện khi người dùng đang xem cây ở giai đoạn “Nuôi thân” và ứng dụng không có bằng chứng rằng cây vừa được tưới hoặc sắp nhận đủ lượng mưa.
 
-Gợi ý có thể xuất hiện khi người dùng đang xem cây ở giai đoạn “Nuôi thân” và ứng dụng không có bằng chứng đáng tin cậy rằng cây vừa được tưới hoặc sắp nhận đủ mưa.
+## Vì sao nên làm
 
-Thiếu lịch sử không có nghĩa là cây chắc chắn cần nước.
+Nhu cầu nước của cây thay đổi theo từng loại chậu, đất hoặc giá thể, khả năng thoát nước, thời tiết hiện tại và tình trạng sinh trưởng thực tế của cây. Kiểm tra trực tiếp giúp tránh tưới thừa gây úng rễ.
 
-## Nội dung hiển thị
+## Điều cần tránh
 
-**Tiêu đề:** Kiểm tra đất trước khi tưới
-
-**Vì sao:** Nhu cầu nước thay đổi theo chậu, đất hoặc giá thể, khả năng thoát nước, thời tiết và tình trạng cây.
-
-**Hành động:** Tưới nước
-
-## Hành vi
-
-Nút mở Care Entry với cây và loại hoạt động `watering` đã chọn.
-
-Ứng dụng không điền sẵn lượng nước, phương pháp, độ ẩm đất hoặc kết luận rằng người dùng đã tưới.
-
-Chỉ khi người dùng chọn “Lưu hoạt động” thì lịch sử tưới mới được tạo.
-
-## Điều chỉnh theo thời tiết
-
-- Nếu có mưa đáng kể được dự báo trong cửa sổ còn hiệu lực, giải thích rằng người dùng nên kiểm tra đất và khả năng thoát nước trước khi quyết định.
-- Nếu dữ liệu thời tiết thiếu hoặc cũ, không suy đoán mưa và không gắn nhãn “lý tưởng”.
-- Không chuyển xác suất mưa thành lượng nước tưới.
+- Không tự động điền sẵn lượng nước, phương pháp hoặc độ ẩm đất khi người dùng chưa xác nhận.
+- Không suy đoán mưa nếu dữ liệu thời tiết thiếu hoặc cũ.
+- Không chuyển xác xuất mưa thành lượng nước tưới tự động.
