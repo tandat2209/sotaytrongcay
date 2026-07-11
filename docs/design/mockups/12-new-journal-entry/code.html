@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Botanical Mentor - Thêm nhật ký</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0eded",
+                        "on-background": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#dde3eb",
+                        "surface-container-low": "#f6f3f2",
+                        "inverse-on-surface": "#f3f0ef",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#bdc3cb",
+                        "primary-container": "#2d5a27",
+                        "surface-dim": "#dcd9d9",
+                        "surface-tint": "#3b6934",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "on-secondary-container": "#594982",
+                        "surface-container-high": "#eae7e7",
+                        "outline-variant": "#c2c9bb",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#cfbdfe",
+                        "primary": "#154212",
+                        "tertiary-container": "#4a5157",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "tertiary": "#343a40",
+                        "background": "#fcf9f8",
+                        "on-surface-variant": "#42493e",
+                        "on-secondary-fixed": "#201047",
+                        "secondary": "#65558f",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline": "#72796e",
+                        "on-primary-fixed": "#002201",
+                        "on-primary-fixed-variant": "#23501e",
+                        "secondary-container": "#cfbdfe",
+                        "primary-fixed-dim": "#a1d494",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#161c22",
+                        "inverse-surface": "#313030",
+                        "inverse-primary": "#a1d494",
+                        "surface": "#fcf9f8",
+                        "surface-bright": "#fcf9f8",
+                        "on-surface": "#1c1b1b",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#4d3d75",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#bcf0ae",
+                        "on-primary-container": "#9dd090"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "container-margin": "16px",
+                        "base": "4px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["10px", { "lineHeight": "12px", "fontWeight": "600" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FAFAF7; /* Standardizing off-white background as per style guide */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Style Guide overrides */
+        .card-shadow {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .rounded-eight {
+            border-radius: 8px; /* Forcing the ROUND_EIGHT requested in prompt, mapping to standard lg/xl */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-background font-body-md h-screen flex flex-col overflow-hidden relative">
+<!-- Top Navigation (Modal Style) -->
+<header class="w-full top-0 sticky bg-surface border-b border-outline-variant flex items-center justify-between px-md h-16 z-50">
+<div class="flex-1 flex justify-start">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-100 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface text-center flex-1">Thêm nhật ký</h1>
+<div class="flex-1"></div> <!-- Spacer for center alignment -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto px-gutter py-lg pb-[100px] flex flex-col gap-lg">
+<!-- Time Section -->
+<section class="flex justify-between items-center bg-surface-container-lowest p-md rounded-lg border border-outline-variant card-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Thời gian</p>
+<p class="font-body-lg text-body-lg text-on-surface" id="current-time">Hôm nay, 10:30 SA</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</section>
+<!-- Plant Selection Horizontal Scroll -->
+<section class="flex flex-col gap-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Chọn cây trồng</h2>
+<div class="flex gap-sm overflow-x-auto hide-scrollbar pb-xs">
+<!-- Selected Plant -->
+<button class="flex-shrink-0 flex items-center gap-sm bg-primary-container text-on-primary-container px-md py-sm rounded-full border border-primary-container transition-colors shadow-sm">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, stylized circular icon of a lush green grapevine growing in a terracotta pot, isolated on a bright white background, crisp vector style, soft studio lighting, organic rounded aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCuonbi3mwJiP2E3_2iAmvakBDAP3vuWx9j2RK1RE3LXCa1_AMxcW-wIot3cXirrlwTTXtUV72GeMXUFkYK4VGW1FyMBqi2klNVjxviWqrliUQRe5Nrk53WpvAnT5cSruHN76WFDI-1r1yHdriWIhdcegPIt9T299Vc0U8HBrnlG72g_q4bwD2kr1bNr7itmTLNJCE9Ak9f6xZQGcioHZIrWUKvYSiQVxa2WzjBUI-eqxXDGI7ES55YCbxlUPuar3ckEGlKZkOnIF9"/>
+<span class="font-label-md text-label-md font-bold">Nho sân thượng</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<!-- Unselected Plant 1 -->
+<button class="flex-shrink-0 flex items-center gap-sm bg-surface-container-lowest text-on-surface px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container-low transition-colors">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, stylized circular icon of a bright red cherry tomato plant in a minimal grey pot, isolated on a bright white background, crisp vector style, soft studio lighting, clean contemporary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxMLPY_ixs2tf8gKREeHulthToVg_HS1Xp3gFi8zlwk8Cmdvm_PIus4Ofo0WSECe68e4_aIqSpQvpAxjKKFq4ah7cmc2SUFI9t_gtix3TcXwzB4pSZn-UHoOxr_4ZqdAHtn-Iy8ghoFscdz6V_OIvSLGVGGjAsIyj-_TvVvcLKJHvWj30c7_d1qLRQjJ-3HjYi0x9m_TbvChDLrVLn0fY1Q3NkbymfL4PGYUKFQzfv2pRXN5Kbua02iwPn1oyTYWTN8dUgy5ZESjx"/>
+<span class="font-label-md text-label-md">Cà chua bi</span>
+</button>
+<!-- Unselected Plant 2 -->
+<button class="flex-shrink-0 flex items-center gap-sm bg-surface-container-lowest text-on-surface px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container-low transition-colors">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, stylized circular icon of a delicate pink rose bush in a modern white ceramic pot, isolated on a bright white background, crisp vector style, soft studio lighting, elegant gardening aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfLa6n7vZekqAJ1vkh_Bj9QxIddYLoV4jRQWma_LW_c6yacZXw-AQ-3SWBXrvP30zaJRwpT6birYgTrOfpAao9yO8Yh93MhHWDJdd5yC0WpZN8BhNAC952ZhPyk6IctoDtu5XNZ4wn-kGwDI8H9JGZ-DJTmHYg8NCLQThDLIIuK8Q7SppweqpVQLS1MYoueCL_mYRBPHr4KakSAeJUAQs58hSl036BnMKTksqJD1nGD3mz0BSp5_tZE5SPmUQCvGGLsgMqfYZdtDBo"/>
+<span class="font-label-md text-label-md">Hoa hồng</span>
+</button>
+</div>
+</section>
+<!-- Add Photo Area -->
+<section class="flex justify-between items-center bg-surface-container-lowest p-md rounded-lg border border-outline-variant card-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">potted_plant</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Giai đoạn hiện tại</p>
+<p class="font-body-lg text-body-lg text-on-surface">Phát triển lá</p>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md font-bold px-sm py-xs hover:bg-surface-container-low rounded-lg transition-colors">Thay đổi</button>
+</section><section class="flex flex-col gap-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Hình ảnh</h2>
+<div class="w-full h-48 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-sm cursor-pointer hover:bg-surface-container transition-colors active:scale-[0.99]">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-[200px]">Thêm ảnh để lưu lại khoảnh khắc</p>
+</div>
+</section>
+<!-- Notes Textarea -->
+<section class="flex flex-col gap-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Ghi chú</h2>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl p-md font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none card-shadow" placeholder="Viết ghi chú... (ví dụ: cây mới tỉa cành, đang ra trái,...)" rows="5"></textarea>
+</section>
+</main>
+<!-- Fixed Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full bg-surface/90 backdrop-blur-md border-t border-outline-variant p-gutter pb-safe z-50">
+<button class="w-full bg-primary text-on-primary font-headline-sm text-headline-sm py-md rounded-xl flex items-center justify-center gap-sm active:scale-95 transition-transform shadow-sm min-h-[48px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">save</span>
+            Lưu nhật ký
+        </button>
+</div>
+<script>
+        // Simple script to set current date/time to make it feel alive
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeElement = document.getElementById('current-time');
+            const now = new Date();
+
+            // Format time as HH:MM SA/CH
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'CH' : 'SA';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+
+            // Basic date format mapping
+            const dateStr = `Hôm nay, ${hours}:${minutes} ${ampm}`;
+            timeElement.textContent = dateStr;
+        });
+    </script>
+</body></html>

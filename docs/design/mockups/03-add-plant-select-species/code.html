@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thêm cây mới - Lá Xanh</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#65558f",
+                    "tertiary-fixed": "#dde3eb",
+                    "outline": "#72796e",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1c1b1b",
+                    "tertiary": "#343a40",
+                    "on-tertiary-container": "#bdc3cb",
+                    "on-background": "#1c1b1b",
+                    "tertiary-container": "#4a5157",
+                    "surface-container-highest": "#e5e2e1",
+                    "secondary-fixed-dim": "#cfbdfe",
+                    "on-primary-fixed": "#002201",
+                    "secondary-fixed": "#e9ddff",
+                    "on-primary-container": "#9dd090",
+                    "surface-container": "#f0eded",
+                    "primary-container": "#2d5a27",
+                    "secondary-container": "#cfbdfe",
+                    "on-secondary-fixed-variant": "#4d3d75",
+                    "on-primary-fixed-variant": "#23501e",
+                    "background": "#fcf9f8",
+                    "surface-variant": "#e5e2e1",
+                    "surface-bright": "#fcf9f8",
+                    "on-secondary-container": "#594982",
+                    "inverse-primary": "#a1d494",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#313030",
+                    "on-tertiary-fixed-variant": "#41474e",
+                    "on-surface-variant": "#42493e",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-container-low": "#f6f3f2",
+                    "surface-dim": "#dcd9d9",
+                    "surface": "#fcf9f8",
+                    "on-secondary-fixed": "#201047",
+                    "tertiary-fixed-dim": "#c1c7cf",
+                    "primary": "#154212",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c2c9bb",
+                    "surface-container-high": "#eae7e7",
+                    "on-tertiary-fixed": "#161c22",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#a1d494",
+                    "surface-tint": "#3b6934",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#bcf0ae"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "16px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf9f8;
+            color: #1c1b1b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for horizontal categories */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E5E7EB;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-background flex items-center justify-between px-container-margin h-16">
+<button class="active:opacity-70 transition-opacity flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary">Thêm cây mới</h1>
+<button class="active:opacity-70 transition-opacity flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+</header>
+<main class="px-container-margin space-y-lg py-md">
+<!-- Search Section -->
+<section class="space-y-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-[52px] pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-body-md text-on-surface" id="plant-search" placeholder="Tìm tên cây (ví dụ: Nho, Cà chua...)" type="text"/>
+</div>
+</section>
+<!-- Categories Slider -->
+<section class="space-y-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Danh mục</h2>
+</div>
+<div class="flex gap-sm overflow-x-auto no-scrollbar -mx-container-margin px-container-margin py-xs">
+<button class="whitespace-nowrap px-lg py-2 rounded-full bg-primary text-on-primary font-label-md transition-transform active:scale-95">Phổ biến</button>
+<button class="whitespace-nowrap px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant font-label-md hover:bg-surface-container transition-colors">Ăn trái</button>
+<button class="whitespace-nowrap px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant font-label-md hover:bg-surface-container transition-colors">Rau xanh</button>
+<button class="whitespace-nowrap px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant font-label-md hover:bg-surface-container transition-colors">Hoa</button>
+<button class="whitespace-nowrap px-lg py-2 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant font-label-md hover:bg-surface-container transition-colors">Thảo mộc</button>
+</div>
+</section>
+<!-- Results Bento Grid / List -->
+<section class="space-y-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Kết quả gợi ý</h2>
+<!-- Result Container -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md" id="results-container">
+<!-- Nho Card -->
+<div class="plant-card bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md hover:shadow-sm transition-all cursor-pointer group">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A macro photograph of fresh organic green and purple grapes hanging from a vine in a sunlit garden, vibrant natural colors, soft ambient lighting, high resolution photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDHrNg1E6t2_C_o3OnSwW7euGKZcYr1FOENAirpy55h_X3-IZLIfWE7qE3u2-TOUcMISpUjvG--iIM55OciJ6_NUcaXiB73s1Tn66RrXBnJ7N_YWqLNWoCMDfZ22lauNDYfz7goA5IAQmsjoX5IDPQUY_WGV9xSa15Y__uQ1zBuCiD_u1P6kubK0LWE0WeAlz8wYFuMNT3MkWyYSJz0-6rNKO0LN30UTM4YvyTpMxuSeAk2ieIoi6obaz-WzYmMSMYFRHpkXdR-Ffp"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-on-surface">Nho</h3>
+<p class="font-label-md text-on-surface-variant italic">Vitis vinifera</p>
+<div class="mt-2 flex gap-xs">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed-dim/20 text-primary text-[10px] font-semibold uppercase tracking-wider">Cần nắng</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Cà chua Card -->
+<div class="plant-card bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md hover:shadow-sm transition-all cursor-pointer group">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Ripe bright red heirloom tomatoes growing in a modern greenhouse, lush green foliage, crisp daylight, professional botanical photography, gardening aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgF09DgrdRPkISquL_Tt8VitPmvlByuSBcZK9m8qpX9YHylYscfpKnsKQ5GhOEP_Ew3oNcfYy4FB58Aim9Ff8tW_0QteDGf4g8slIRDu-1cw-2Bd-mdASlZDEGX6sZtieBcg15kK23eoMTS7HjNd8wPZapJgp5GcfbUTIjf1gbgj3Nv_zDn1T0QOVvlv0daINJIiB-kza5_Vh6ZH007f9HP8gAWqPDH-LaAcLQVtmYAlm97AirENywiXdWOMBzDP_q3WPvGA_AahcW"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-on-surface">Cà chua</h3>
+<p class="font-label-md text-on-surface-variant italic">Solanum lycopersicum</p>
+<div class="mt-2 flex gap-xs">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed-dim/20 text-primary text-[10px] font-semibold uppercase tracking-wider">Dễ trồng</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Dâu tây Card -->
+<div class="plant-card bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md hover:shadow-sm transition-all cursor-pointer group">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of vibrant red strawberries growing on a small plant in a white ceramic pot, clean white background, soft morning sunlight, organic lifestyle photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5KLlt_odc5NvQzMVXnef-Jk0e-uiIELzrGDhpy6kCTIgoyrq7CCl7B2x-g04IoHBIjthOMtz7QqVOrIDyBn1uXUiUTIoZVtaq9HBXGQp8lHWULyPFBCTJs1-EhYvFpXYsV4A751rjHcOrm9Zu8_n739YUzW61EKBF8LVepHB9tiG7Xx1ganxjwVdDDxgZVropWsOCPqxKHBs1XM1bsLR0MhJA_UBgyW45D-z_KVsVyX4_sSfI1vOMWtWBMpSC6MyQJ2zsEd85sGsJ"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-on-surface">Dâu tây</h3>
+<p class="font-label-md text-on-surface-variant italic">Fragaria × ananassa</p>
+<div class="mt-2 flex gap-xs">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed-dim/20 text-primary text-[10px] font-semibold uppercase tracking-wider">Ăn trái</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Ớt chuông Card -->
+<div class="plant-card bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md hover:shadow-sm transition-all cursor-pointer group">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Multiple colorful bell peppers including yellow, red, and orange hanging from branches in a neat vegetable garden, professional photography, natural bright lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGnJSPw6xljf3gcXT0dPFrvkc2XsaqnmFrE0B4iQpqE7OS0CDri1wReY5CRm2Z1e7T8JJyhmg6sS1qTCvHkhTlEwGW1IHSixfRmtwpZDo8w95AxtfgN0jhUuIlOoCotfbVWfebjad5A7dudoBSDkQvrACkzNp9fj_grWKw6bDyVMjgMa7ptRKp5mEQp1iB2d0xoC16kJVORyal0iuuZPSW51c97cFlIRSYSYQus1C8yjANncm9ouVd-Us4QHVBO-R2lKkp4rwvjXcf"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-on-surface">Ớt chuông</h3>
+<p class="font-label-md text-on-surface-variant italic">Capsicum annuum</p>
+<div class="mt-2 flex gap-xs">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed-dim/20 text-primary text-[10px] font-semibold uppercase tracking-wider">Đa dạng</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Empty State (Hidden by default) -->
+<div class="hidden flex-col items-center justify-center py-xl px-lg text-center space-y-md" id="empty-state">
+<div class="w-24 h-24 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-4xl">potted_plant</span>
+</div>
+<div class="space-y-xs">
+<p class="font-headline-sm text-on-surface">Không tìm thấy cây này</p>
+<p class="font-body-md text-on-surface-variant px-md">Hãy thử tìm với tên khác hoặc thêm cây thủ công vào nhật ký của bạn.</p>
+</div>
+<button class="px-xl py-3 bg-primary text-on-primary rounded-full font-label-md active:scale-95 transition-transform">Thêm cây thủ công</button>
+</div>
+</section>
+<!-- Quick Tips -->
+<section class="bg-primary-container/10 border border-primary-container/20 rounded-2xl p-lg space-y-sm">
+<div class="flex items-center gap-sm text-primary">
+<span class="material-symbols-outlined">lightbulb</span>
+<h3 class="font-headline-sm">Mẹo nhỏ</h3>
+</div>
+<p class="font-body-md text-on-surface-variant">Bạn có thể tìm kiếm bằng tên tiếng Việt hoặc tên khoa học để có kết quả chính xác nhất.</p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container-lowest border-t border-outline-variant shadow-sm flex justify-around items-center h-16 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">today</span>
+<span class="font-label-md text-label-md">Hôm nay</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-semibold active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
+<span class="font-label-md text-label-md">Cây trồng</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Nhật ký</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Tôi</span>
+</a>
+</nav>
+<script>
+        // Simple search interaction logic
+        const searchInput = document.getElementById('plant-search');
+        const resultsContainer = document.getElementById('results-container');
+        const emptyState = document.getElementById('empty-state');
+        const plantCards = document.querySelectorAll('.plant-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            plantCards.forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                const latin = card.querySelector('p').textContent.toLowerCase();
+
+                if (name.includes(query) || latin.includes(query)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                resultsContainer.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+            } else {
+                resultsContainer.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+        });
+
+        // Feedback on click
+        plantCards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.backgroundColor = 'var(--tw-bg-opacity, #f0eded)';
+                setTimeout(() => {
+                    card.style.backgroundColor = '';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

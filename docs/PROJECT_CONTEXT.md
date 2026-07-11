@@ -2,175 +2,152 @@
 
 ## Product vision
 
-Sổ tay trồng cây is an intelligent gardening coach for beginners. It accompanies users through a plant's lifecycle, explains what to do today, and builds history automatically as guided work is completed.
+Sổ tay trồng cây is a plant-care companion that helps users keep reliable care history and understand what matters for the plant's current growth stage.
 
-Guidance is the primary value. Tracking is a low-effort outcome of following guidance, not the first decision a beginner must make.
+Tracking watering, fertilizing, and spraying is the core utility. Photo journal entries preserve other work and observations. Stage guidance adds concise tips, warnings, and milestones.
 
-Grapes are the first fully guided species. The product model supports other species and stage playbooks without changing the core experience.
+Grapes are the first supported species. Other species can provide their own stages and tips without changing the tracking model.
 
 ## Problem statement
 
-Beginners do not mainly lack a place to write notes. They lack confidence about:
+Gardeners often cannot answer:
 
-- what to do today;
-- why an action matters now;
-- what to avoid during the current stage;
-- what to prepare for next;
-- whether the plant is ready to move forward.
+- when the plant was last watered, fertilized, or sprayed;
+- which product, amount, or method was used;
+- what care is due next;
+- which stage-specific mistakes should be avoided;
+- whether a visible condition is new or recurring.
 
-Generic content ignores growth stage, recent history, local weather, and progress. A blank journal still leaves the user responsible for interpreting all of that information.
+A blank journal is too much work, while a guidance-heavy coach can overcomplicate simple care. The product should make important tracking fast and keep guidance contextual.
 
 ## Target user
 
-The primary MVP user is a beginner growing one or a few grape plants at home. They want a successful outcome but have limited horticultural knowledge and do not want farm-management software.
+The primary MVP user grows one or a few grape plants at home and wants a simple care record with practical stage context.
 
-Hobby gardeners and small growers remain future segments. MVP guidance quality should not be diluted to support every experience level or plant species.
+They may be a beginner, but the product should not require them to follow or complete every tip.
 
 ## Desired outcomes
 
 Users can:
 
-- understand today's goal in plain Vietnamese;
-- see a short prioritized list of recommended tasks;
-- understand why each task matters and what to avoid;
-- adapt simple care decisions to current weather;
-- see progress toward the next growth stage;
-- complete routine care without manually creating a journal entry;
-- add notes or photos only when useful;
-- review trustworthy history when they need it.
+- record watering or fertilizing in seconds;
+- see the last important care for each plant;
+- remember products, amounts, methods, notes, and photos;
+- receive reminders for future care;
+- understand concise tips for the current stage;
+- see warnings and the next milestone without managing extra tasks;
+- review one plant's timeline or all activity in Journal.
 
 ## Core journey
 
 1. Create a grape plant and select its current stage.
-2. Read the stage goal, current risks, and upcoming milestone.
-3. Open Today to see reviewed recommended tasks adjusted by simple weather rules.
-4. Open a task to understand what, why, what to avoid, and what to prepare.
-5. Complete the task; the app creates a journal entry automatically.
-6. Add optional notes/photos or continue without extra input.
-7. Confirm stage completion when observable criteria are met.
-8. Begin the next stage playbook.
-
-Manual logging remains available through the FAB for unplanned work and observations.
+2. Open Plant Detail to see last care, next reminder, stage tips, warnings, and milestone.
+3. Use a button in “Việc cần làm hôm nay” to enter performed care.
+4. Record the performed activity with optional details.
+5. Review the saved activity in Plant Timeline and Journal.
+6. Create a reminder when future care should be scheduled.
 
 ## Product principles
 
-- **Guide first:** the product proposes the next useful action before asking users to record anything.
-- **Track automatically:** completed guided work creates history without duplicate input.
-- **Teach progressively:** explain only the knowledge relevant to the current stage and task.
-- **Explain why:** every recommendation includes a reason, not only an instruction.
-- **Reduce decision fatigue:** prioritize a small number of tasks instead of presenting a complete care encyclopedia.
-- **Beginner success:** optimize for confidence and safe progress, not data-entry completeness.
-- **User confirms reality:** the app never advances a growth stage or claims a diagnosis without user confirmation.
-- **Reviewed guidance:** MVP recommendations come from curated playbooks and deterministic rules, not generative AI.
-- **Weather as context:** weather may delay, suppress, or prioritize guidance; it is not a separate product.
-- **Manual escape hatch:** quick logging remains available for work outside the generated plan.
-- **Knowledge separation:** curated guidance never becomes user-owned data.
-- **User control:** users can edit history, dismiss tasks, change stages, and export or delete data.
+- **Track essential care:** watering, fertilizing, and spraying are first-class activity history.
+- **Journal the rest:** pruning, observations, and other updates belong in photo-and-note journal entries.
+- **Keep logging fast:** the minimum path is plant, activity, time, and Save.
+- **Guide in context:** tips live with the plant and stage instead of becoming a task list.
+- **Do not manufacture work:** informational tips have no completion state, reminder, or journal entry.
+- **Prompt, then confirm:** a Today care button may prefill entry, but the user saves what actually happened.
+- **Explain safely:** advice comes from reviewed Knowledge Base content and avoids unsupported certainty.
+- **Weather as context:** weather may adjust care suggestions but never fabricate measurements or actions.
+- **User-controlled history:** activities remain editable, exportable, and deletable.
 
 ## MVP capabilities
 
-- Grape profiles with a current growth stage.
-- One curated playbook for each supported grape stage.
-- Stage goal, description, watering, fertilizers, recommended activities, avoid list, common problems, completion criteria, and next stage.
-- Deterministic generation of a short daily recommended-task list.
-- Simple weather rules for rain, spraying, heat, and soil-moisture checks.
-- Task detail that explains what, why, what to avoid, and what to prepare.
-- One-tap task completion that automatically creates a journal entry.
-- Optional notes and photos after completion.
-- Guidance-first Today and Plant Dashboard.
-- Manual quick logging through the FAB.
-- Plant Timeline and global Journal for automatic and manual history.
+- Grape plant profiles with current growth stage.
+- Contextual care entry for watering, fertilizing, and spraying.
+- “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
+- Optional structured details for products, NPK, amounts, dosage, methods, notes, and photos.
+- Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
+- Stage tips, things to avoid, warning signs, and upcoming milestone inside Plant Detail.
+- Contextual care prompts under “Việc cần làm hôm nay”, based on stage, weather, reminders, and recent history.
+- Today care prompts deep-link into a prefilled care form; they are not persistent tasks.
+- Plant Timeline and global Journal.
 - One-time reminders and local notifications.
-
-MVP does not generate advice with AI, diagnose disease, support every species, or create complex adaptive schedules.
 
 ## Capability rationale
 
 | Capability | User value | MVP constraint |
 | --- | --- | --- |
-| Stage playbook | Makes guidance relevant to the plant's development | Curated grape content only |
-| Recommended tasks | Converts knowledge into clear daily action | Small deterministic list |
-| Explanation | Builds confidence and teaches progressively | One short reason per task |
-| Avoid list | Prevents common beginner mistakes | Stage/task-specific only |
-| Weather rules | Prevents obviously mistimed care | Reviewed rain/heat/spray rules only |
-| Automatic journal | Removes duplicate tracking work | One entry per completed task |
-| Completion criteria | Makes stage progress observable | User confirms advancement |
-| Manual FAB | Captures unplanned work | Secondary to guided tasks |
-| Journal | Preserves evidence and learning | History, not primary value |
-| AI readiness | Avoids a later data-model rewrite | No AI feature in MVP |
+| Quick care tracking | Preserves reliable history | Minimum required fields only |
+| Plant Dashboard | Answers when care last happened | Summary, not analytics |
+| Stage tips | Adds relevant learning | Informational and non-trackable |
+| Today care prompts | Surfaces likely next care | User must confirm by saving activity |
+| Weather context | Avoids obvious timing mistakes | Reviewed rules and freshness labels |
+| Reminders | Supports planned future care | One-time scheduling first |
+| Journal | Makes activity history searchable | No knowledge articles mixed into history |
 
 ## Conceptual data model
 
 - A **Plant** references one **Plant Species** and one current **Growth Stage**.
-- A **Stage Playbook** belongs to one species/stage and defines goal, guidance, risks, completion criteria, and next stage.
-- A **Recommended Task Definition** belongs to a playbook and explains what, why, and applicable constraints.
-- A **Recommended Task** is a user-specific task instance generated from a definition and context.
-- A **Weather Rule** may prioritize, delay, suppress, or annotate a task with an explanation.
-- Completing a task creates one **Journal Entry** in the same operation.
-- A journal entry records its source: recommended task, reminder, or manual activity.
-- Notes and photos may be attached during or after completion.
-- A **Reminder** is scheduled future care; it is distinct from a recommendation.
-- Stage progress is based on user-confirmed completion criteria, not inferred certainty.
+- A **Stage Guide** supplies informational tips, avoid text, warning signs, and milestone context.
+- A **Care Recommendation Definition** describes when a trackable activity may be worth considering and why.
+- A recommendation is derived at read time; it has no completion status and creates no history.
+- A **Care Activity** records performed watering, fertilizing, or spraying.
+- A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
+- Saving either record adds it to the plant Timeline and global Journal.
+- A care record may store its origin as Today, reminder, or manual entry.
+- A **Reminder** schedules future care and is distinct from suggestions and history.
+- Weather Rules may prioritize, delay, suppress, or annotate a suggestion.
 - User data references stable Knowledge Base IDs but never owns curated content.
 
 ## Knowledge Base model
 
-Each growth stage playbook contains:
+Each growth-stage guide contains:
 
-- stage name;
-- goal;
-- description;
-- recommended watering;
-- recommended fertilizers;
-- recommended activities;
+- stage name, description, and goal;
+- watering and fertilizer context;
+- stage tips;
 - things to avoid;
-- common problems;
-- completion criteria;
-- next stage.
+- common problems and warning signs;
+- milestone and next stage;
+- references and review metadata.
 
-Recommended activities reference reusable fertilizer, disease, pest, care-guide, and weather-rule content where relevant.
+Care recommendation definitions exist only for trackable activities. General techniques and cautions remain stage tips or guides.
 
 ## Assumptions to validate
 
-- Beginners prefer a small guided task list over a blank journal.
-- A short explanation increases task confidence and completion.
-- Automatic history feels helpful rather than surprising.
-- Users can assess stage completion with observable criteria.
-- Reviewed deterministic guidance is sufficient for MVP value.
-- Weather can improve guidance with a small rule set.
-- Users still need manual logging for unplanned care.
+- Watering and fertilizing history provide the strongest repeat value.
+- Users want stage tips but do not want to manage them as tasks.
+- Today care prompts are useful when they open a prefilled form rather than auto-recording activity.
+- Optional details do not slow the minimum logging path.
+- One-time reminders are sufficient for MVP.
+- Weather can improve timing with a small rule set.
 
 ## Constraints and risks
 
-- Incorrect guidance may harm plants; every rule needs source, reviewer, scope, and version.
-- Over-generating tasks may create anxiety and notification fatigue.
-- Stage selection may be wrong, making guidance irrelevant.
+- Product and dosage guidance may harm plants without expert review and complete context.
+- A suggestion must not imply that an activity was performed.
+- Stage tips can overwhelm Plant Detail if not concise.
+- Fabricated sensor or soil-moisture values would damage trust.
 - Weather may be stale or location-inaccurate.
-- Task completion does not prove the action was performed correctly.
-- Automatic journal entries must be editable and clearly attributed.
-- Guidance must not be presented as diagnosis or guaranteed outcome.
-- Rich playbooks may expand MVP content work faster than engineering work.
+- Rich activity forms may slow routine logging.
+- Disease content must not become unsupported diagnosis.
 
 ## Candidate success metrics
 
-- Percentage of activated plants with a selected growth stage.
-- Daily recommended-task view rate.
-- Recommended-task completion rate.
-- Percentage of completed tasks that create a journal entry successfully.
-- Percentage of users who understand why a task was recommended.
-- Stage milestone completion rate.
-- Week-four retention for beginner grape growers.
-- Manual-entry rate compared with automatic-entry rate.
-- Dismissed or repeatedly ignored task rate.
+- Time to record watering or fertilizing.
+- Percentage of activities saved with correct plant and time.
+- Weekly active care-recording rate.
+- Plant Dashboard usage before new care entry.
+- Reminder creation and completion rate.
+- Timeline and Journal retrieval success.
+- Stage-tip comprehension without task-completion confusion.
+- Suggestion-to-saved-activity conversion rate.
 
 ## Open questions
 
-- Does the product name “Sổ tay trồng cây” still communicate a guidance-first coach?
-- Which grape stages are essential for the first guided journey?
-- How many recommended tasks per day avoid overload?
-- Which completion criteria can beginners assess reliably?
+- Which activity fields are essential for watering and fertilizing?
+- Should suggestions appear on Today, Plant Detail, or both?
+- Which stage tips are useful enough to show by default?
+- How many tips can Plant Detail show without clutter?
 - Which weather rules are safe enough for MVP?
-- Should skipped tasks return tomorrow, be dismissed, or require a reason?
-- How should users correct an initially wrong growth stage?
-- Which sources and experts approve playbook content?
-- Does a dedicated Journal tab remain frequent enough once tracking is automatic?
+- Should reminders support recurrence after MVP?
+- Does Journal remain frequent enough for a primary tab?

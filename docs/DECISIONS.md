@@ -42,7 +42,7 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 ## 2026-07-11 — Make guidance the core product value
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-11 track-essential-care decision
 
 **Decision:** Position the product as an intelligent gardening coach. Stage-based guidance and recommended tasks are primary; journal history is created naturally from completed work.
 
@@ -50,7 +50,7 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 ## 2026-07-11 — Use deterministic guidance for MVP
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-11 derived-care-suggestions decision
 
 **Decision:** Generate MVP recommendations from reviewed grape stage playbooks and deterministic weather rules. Do not use generative AI for care recommendations.
 
@@ -60,17 +60,41 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Status:** Accepted
 
-**Decision:** Weather may prioritize, delay, suppress, or annotate recommended tasks. MVP still excludes a weather destination, alerts, and complex automated scheduling.
+**Decision:** Weather may prioritize, delay, suppress, or annotate care suggestions. MVP still excludes a weather destination, alerts, and complex automated scheduling.
 
 **Rationale:** Weather is valuable when it changes a care decision. Display-only weather misses that value, while a full forecasting product would distract from guidance.
 
 ## 2026-07-11 — Create journal entries from task completion
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-11 explicit-activity-save decision
 
 **Decision:** Completing a recommended task atomically marks the task complete and creates one attributed journal entry. Notes and photos remain optional and editable.
 
 **Rationale:** This removes duplicate work while preserving an accurate history. Attribution and editability prevent automatic entries from becoming opaque or irreversible.
+
+## 2026-07-11 — Track essential care and keep stage tips informational
+
+**Status:** Superseded by the 2026-07-11 track-three-core-care-types decision
+
+**Decision:** Treat watering, fertilizing, pruning, spraying, and observations as trackable activities. Show stage guidance as non-trackable tips inside Plant Detail.
+
+**Rationale:** Users need reliable care history more than another task system. Informational techniques and cautions add context but do not need completion, reminders, or journal entries.
+
+## 2026-07-11 — Record activity only after explicit Save
+
+**Status:** Accepted
+
+**Decision:** A Today care prompt or reminder may open a prefilled Care Entry, but history is created only after the user confirms the performed activity by saving it.
+
+**Rationale:** A recommendation is not evidence that care happened. Explicit Save keeps history trustworthy while preserving a fast entry path.
+
+## 2026-07-11 — Derive care suggestions without persistent tasks
+
+**Status:** Accepted
+
+**Decision:** Compute contextual care suggestions from stage, weather, reminders, and recent history. Do not persist suggestion instances or task-completion state in MVP.
+
+**Rationale:** Derived suggestions provide useful timing context without adding task lifecycle, deduplication, skip, completion, or automatic-history complexity.
 
 ## 2026-07-11 — Store MVP knowledge as Markdown
 
@@ -86,7 +110,7 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Decision:** Knowledge documents and relationships use immutable, language-neutral IDs and explicit versions across Markdown, PostgreSQL, CMS, and vector indexes.
 
-**Rationale:** Stable identity prevents storage migration, localization, or wording changes from breaking playbook relationships or the provenance of generated tasks.
+**Rationale:** Stable identity prevents storage migration, localization, or wording changes from breaking playbook relationships, suggestion provenance, or saved-activity explanations.
 
 ## 2026-07-11 — Keep rule execution deterministic and outside RAG
 
@@ -98,11 +122,43 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 ## 2026-07-11 — Separate navigation destinations from logging
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-11 contextual-actions-without-fab decision
 
 **Decision:** Bottom navigation contains “Hôm nay”, “Cây trồng”, “Nhật ký”, and “Tôi”. A bottom-right FAB opens quick logging. Reminder management becomes secondary.
 
 **Rationale:** The four tabs are persistent places users revisit. Logging is a global action, while reminders are encountered mainly through daily and plant context. This gives cross-plant history a justified destination.
+
+## 2026-07-11 — Track three core care types
+
+**Status:** Accepted
+
+**Decision:** Use dedicated activity records only for watering, fertilizing, and spraying. Capture pruning, observations, growth, and other updates as photo-and-note journal entries.
+
+**Rationale:** The three core activities provide the most useful recurring care history. A flexible journal preserves other context without adding equal-weight forms and reminder behavior for every subactivity.
+
+## 2026-07-11 — Use contextual actions without a FAB
+
+**Status:** Superseded by the 2026-07-11 stage-update-inside-journal decision
+
+**Decision:** Remove the global FAB and Quick Action menu. Put relevant care buttons under “Việc cần làm hôm nay”, and expose “Thêm nhật ký” and “Cập nhật giai đoạn” on Today and Plant Detail.
+
+**Rationale:** Today already presents the actions users should take. Contextual actions reduce duplication, keep plant selection clear, and prevent secondary activities from competing with core care.
+
+## 2026-07-11 — Update stage inside the journal flow
+
+**Status:** Accepted
+
+**Decision:** Remove the standalone “Cập nhật giai đoạn” action. Show the confirmed current stage inside “Thêm nhật ký” and let the user optionally change it before saving the journal entry.
+
+**Rationale:** Photos are the natural evidence of plant development. Combining both actions removes another screen entry point while preserving explicit user confirmation and stage history.
+
+## 2026-07-11 — Require confirmation for future photo stage detection
+
+**Status:** Accepted
+
+**Decision:** Future AI may suggest a growth stage from a journal photo, but it must never update the confirmed plant stage automatically.
+
+**Rationale:** Image interpretation can be uncertain. Showing a candidate with confidence helps the user, while confirmation keeps the plant timeline and guidance context trustworthy.
 
 ## Decision template
 

@@ -1,66 +1,60 @@
 # Work backlog
 
-Prioritize guidance quality and beginner comprehension before implementation volume.
+Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## Product validation
 
-- [ ] Interview 5–8 beginner grape growers about daily care decisions and uncertainty.
-- [ ] Validate the minimum grape growth stages for the first guided journey.
-- [ ] Validate the goal, avoid list, common problems, and completion criteria for each MVP stage.
-- [ ] Test whether beginners can assess stage completion without expert help.
-- [ ] Validate the safe maximum number of recommended tasks per day.
-- [ ] Test whether users understand why each task was recommended.
-- [ ] Validate skip, dismiss, and resurface behavior for incomplete tasks.
-- [ ] Validate weather rules for rain, spraying, heat, and soil-moisture checks.
-- [ ] Validate that automatic journal creation feels expected and controllable.
-- [ ] Confirm the global Journal remains a frequent destination after tracking becomes automatic.
+- [ ] Interview 5–8 grape growers about watering and fertilizing records.
+- [ ] Identify the minimum fields for watering, fertilizing, and spraying.
+- [ ] Test whether users can find last care and next reminder from Plant Detail.
+- [ ] Validate which stage tips are useful without becoming tasks.
+- [ ] Validate care buttons inside “Việc cần làm hôm nay”.
+- [ ] Validate weather rules for watering, fertilizing, and spraying timing.
+- [ ] Confirm the global Journal remains a frequent destination.
 
 ## MVP content
 
 - [ ] Define the reviewed grape stage sequence.
-- [ ] Write one complete playbook for each supported stage.
+- [ ] Write concise tips, avoid text, warning signs, and milestones for each supported stage.
+- [ ] Define reviewed care recommendation rules only for trackable activities.
 - [ ] Add source, reviewer, version, locale, and review-date metadata.
-- [ ] Define reusable watering, fertilizer, disease, pest, and weather-rule references.
-- [ ] Review every instruction for unsafe certainty or diagnosis language.
-- [ ] Create Vietnamese user-facing copy for goals, reasons, avoid lists, milestones, and task completion.
+- [ ] Review every product, dosage, and weather claim for unsafe certainty.
 
 ## MVP UX
 
-- [ ] Prototype guidance-first Today with weather, stage, tasks, recent completions, and progress.
-- [ ] Prototype the guidance-first Plant Dashboard and secondary Timeline.
-- [ ] Prototype Task Guidance with what, why, avoid, and prepare-next content.
-- [ ] Prototype one-tap completion, automatic journal creation, and optional details.
-- [ ] Preserve the global FAB for manual care and observations.
-- [ ] Test the four-tab shell and reminder management without a Reminder tab.
-- [ ] Verify all loading, empty, error, stale-weather, and offline states.
-- [ ] Define guidance and task-generation success metrics.
+- [ ] Prototype Plant Detail with last care, next reminder, tips, warnings, and milestone.
+- [ ] Prototype fast watering and fertilizing entry flows.
+- [ ] Prototype Today care buttons that open prefilled care entry.
+- [ ] Remove standalone Task Guidance and guided-completion flows.
+- [ ] Add “Thêm nhật ký” with optional stage change to Today and Plant Detail.
+- [ ] Remove the global FAB and Quick Action menu.
+- [ ] Add Journal source labels and filters.
+- [ ] Verify loading, empty, error, stale-weather, and offline states.
 
 ## Engineering
 
 - [x] Define the feature-first, local-first architecture and Supabase sync strategy.
-- [ ] Update the architecture for playbooks, recommendation rules, task instances, and automatic journal transactions.
+- [x] Update architecture for derived care suggestions and three tracked care activities.
 - [ ] Bootstrap strict TypeScript, quality gates, and test infrastructure.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
-- [ ] Build plants with species-defined growth stages and stage history.
-- [ ] Build the deterministic Recommendation Engine with explainable reasons.
-- [ ] Build weather-rule evaluation with freshness and safe fallback behavior.
-- [ ] Build atomic task completion and attributed journal creation.
-- [ ] Add optional completion notes/photos and manual quick logging.
-- [ ] Add reminders, local notifications, and offline synchronization.
+- [ ] Build plants with species-defined stages and stage tips.
+- [ ] Build contextual care entry and activity history.
+- [ ] Build Plant Dashboard summaries from activity history.
+- [ ] Build deterministic care suggestions without persistent task instances.
+- [ ] Add reminders, weather context, photos, and offline synchronization.
 - [ ] Verify backup, restore, export, deletion, and content-version migration.
 
 ## Future
 
+- [ ] Evaluate recurring care schedules.
 - [ ] Evaluate guidance for additional plant species.
-- [ ] Evaluate AI personalization only after deterministic guidance proves useful.
-- [ ] Evaluate diagnostics with suitable experts, data, and safeguards.
-- [ ] Evaluate collaboration, analytics, premium features, and connected devices.
+- [ ] Evaluate AI personalization only after deterministic suggestions prove useful.
+- [ ] Evaluate diagnostics, collaboration, analytics, and connected devices.
 
 ## Completed
 
-- [x] Create project context and domain vocabulary.
-- [x] Define mobile navigation and screen states.
-- [x] Define technical architecture and engineering standards.
-- [x] Separate user data from the Knowledge Base.
-- [x] Define the complete Knowledge Base domain, authoring, rule, and RAG architecture.
-- [x] Reposition the product around guidance-first value.
+- [x] Create project context and canonical vocabulary.
+- [x] Define mobile navigation and design guidelines.
+- [x] Define technical and Knowledge Base architecture.
+- [x] Separate user data from curated knowledge.
+- [x] Distinguish trackable care from informational stage tips.

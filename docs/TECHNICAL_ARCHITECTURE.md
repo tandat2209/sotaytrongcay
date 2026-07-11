@@ -2,7 +2,7 @@
 
 ## 1. Goals
 
-The Expo application must deliver reviewed stage guidance, work offline, and create history automatically without coupling the product to grapes or future AI.
+The Expo application must make essential care tracking fast, work offline, and show reviewed stage tips without coupling the product to grapes or future AI.
 
 Feature ownership, small public interfaces, content provenance, runtime validation, and deterministic verification are core constraints.
 
@@ -44,25 +44,25 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 
 **Decision:** Zod validates every untrusted boundary: environment, route params, deep links, notifications, Supabase responses, and Edge Function payloads.
 
-### Deterministic guidance for MVP
+### Deterministic care suggestions for MVP
 
 **Context:** Care recommendations can affect plant health, while MVP content and behavioral evidence are limited.
 
-**Decision:** Generate tasks locally from versioned stage playbooks and a small set of typed weather rules. AI does not produce MVP guidance.
+**Decision:** Derive optional care suggestions locally from versioned stage playbooks, recent activity, and a small set of typed weather rules. Suggestions are ephemeral and AI does not produce MVP guidance.
 
 **Rationale:** Reviewed deterministic rules are explainable, testable, offline-ready, and easier to correct.
 
 **Consequences:** Content review becomes a release gate. The rule set stays narrow, but its interface can later accept an AI-backed adapter.
 
-### Atomic task completion
+### Explicit activity saving
 
-**Context:** Users should not complete a guided task and then repeat the same work in a journal form.
+**Context:** Tips, suggestions, and reminders must not claim that care happened.
 
-**Decision:** One application command completes the task and creates its attributed journal entry in the same local transaction.
+**Decision:** History is created only when the user explicitly saves a Care Entry. A Today prompt or reminder may prefill that form but cannot create history itself.
 
-**Rationale:** This removes duplicate input and prevents task/history divergence.
+**Rationale:** The journal remains trustworthy while prefilled entry keeps suggested care fast.
 
-**Consequences:** Completion, retry, undo, and sync must preserve a unique task-to-entry relationship.
+**Consequences:** Activity saves must be idempotent and may retain an origin label such as suggestion, reminder, or manual entry.
 
 ## 3. Target folder structure
 
@@ -73,14 +73,13 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   ├── index.tsx
 │   ├── (onboarding)/
 │   ├── (tabs)/
-│   │   ├── _layout.tsx          # Four tabs + global FAB shell
+│   │   ├── _layout.tsx          # Four destination tabs
 │   │   ├── today.tsx
 │   │   ├── plants.tsx
 │   │   ├── journal.tsx
 │   │   └── me.tsx
 │   ├── plants/
 │   ├── entries/
-│   ├── tasks/
 │   ├── reminders/
 │   ├── settings/
 │   └── data-management/
@@ -98,7 +97,6 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   ├── journal/
 │   │   ├── guidance/
 │   │   ├── reminders/
-│   │   ├── quick-actions/
 │   │   ├── weather/
 │   │   ├── knowledge/
 │   │   ├── today/
@@ -166,12 +164,11 @@ Dependencies point inward: model → nothing; application → model/interfaces; 
 Each feature is a deep module with one public `index.ts`. Export only screens, public use cases, required IDs/events, query composition, and intentional test builders.
 
 - `plants`: plant identity, species, metadata, active/archive state, current growth stage, criterion progress, and stage history.
-- `guidance`: deterministic recommendation generation, task instances, explanations, skip/completion behavior, and stage progress.
-- `journal`: entries, activity details, structured health observations, photos, timeline.
+- `guidance`: reviewed stage tips and deterministic, ephemeral care suggestions with explanations and optional Care Entry prefills.
+- `journal`: core care records, photo-and-note plant updates, photos, and timeline.
 - `reminders`: due, completed, and snoozed care reminders.
-- `quick-actions`: global FAB visibility, Quick Action menu, and routing into plant/journal commands; owns no domain data.
 - `weather`: current conditions, freshness, location precision, and care-context summary.
-- `knowledge`: read-only species, stage playbooks, tasks, health, fertilizer, seasonal, and weather-rule content.
+- `knowledge`: read-only species, stage playbooks, tips, care recommendations, health, fertilizer, seasonal, and weather-rule content.
 - `today`: derived guidance/weather/reminder/journal read model; owns no source data.
 - `me`: composition for preferences, data tools, support, and future account capabilities; owns no business records.
 - `auth`: guest identity, session, account upgrade, sign-out.
@@ -179,25 +176,23 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 
 Features never import another feature's internals or database tables.
 
-The Guidance module exposes a small capability surface: read today's guidance, read the current stage guide, complete or skip a task, update criterion progress, and confirm a stage transition.
+The Guidance module exposes a small capability surface: read stage tips, derive care suggestions, build a validated Care Entry prefill, update criterion progress, and confirm a stage transition.
 
-Playbook parsing, applicability, weather adjustment, prioritization, explanation, and deduplication remain internal to the module.
+Playbook parsing, applicability, weather adjustment, prioritization, explanation, and suggestion deduplication remain internal to the module.
 
 ### Navigation composition
 
-The `(tabs)` layout owns the four destination tabs and mounts one global bottom-right FAB. Route files remain thin and import public screens from `today`, `plants`, `journal`, and `me`.
+The `(tabs)` layout owns four destination tabs. Route files remain thin and import public screens from `today`, `plants`, `journal`, and `me`.
 
-The `quick-actions` module coordinates navigation only. It never writes plants or journal data.
-
-Selecting “Thêm cây” opens the public plant-creation route. Care actions open the public Quick Entry route with a validated activity parameter.
+Today and Plant Detail open public care-entry and new-journal-entry routes with validated plant and activity parameters.
 
 Reminder Management is a secondary route reachable from Today, Plant Detail, and Me. These entry points share one screen and preserve a single reminder behavior.
 
-FAB visibility is derived from route metadata and keyboard/modal state. Feature screens do not create their own global FAB, preventing duplicate actions and inconsistent placement.
+There is no global action overlay. Today derives relevant core-care prompts; Plant Detail supplies the current plant context directly.
 
 ### User data and Knowledge Base separation
 
-User data includes plants, current stage selection, activities, observations, photos, timeline, and reminders. It is private, mutable, synchronized, and protected by Supabase RLS.
+User data includes plants, current stage selection, core care activities, plant journal updates, photos, timeline, and reminders. It is private, mutable, synchronized, and protected by Supabase RLS.
 
 Knowledge Base data includes plant species, valid growth stages, diseases, pests, fertilizers, care guides, and seasonal tips. It is curated, read-only in the app, versioned, and never mixed into user-owned tables.
 
@@ -207,7 +202,7 @@ Stage playbooks are guidance contracts, not user data. Each playbook defines the
 
 ### Structured user-data model
 
-A plant stores `speciesId`, `currentGrowthStageId`, and the time the stage became current. Stage changes create a small history record so the timeline and future AI context can reconstruct development.
+A plant stores `speciesId`, `currentGrowthStageId`, and the time the stage became current. A confirmed change inside New Journal Entry creates stage history linked to that journal entry.
 
 Stage progress stores the stable criterion ID, checked state, user-confirmed time, and playbook version. Progress is evidence for the user; it never advances the stage automatically.
 
@@ -215,21 +210,23 @@ Every species definition contains at least one stage. The generic `other` specie
 
 This keeps the database invariant valid without inventing a plant-specific stage.
 
-A journal entry keeps common fields: plant, activity type, occurrence time, notes, photos, and sync metadata. Optional type-specific detail uses validated one-to-one records, not an unbounded key/value model.
+A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Optional type-specific detail uses validated one-to-one records, not an unbounded key/value model.
 
-A recommended task instance stores plant, task-definition ID, playbook version, intended date, status, priority, reason, weather adjustment, and completion metadata.
+A plant update stores plant, occurrence time, optional note, photos, confirmed stage ID, and sync metadata. Pruning and observations may be described in the note but do not introduce dedicated activity types.
 
-Task status is `pending`, `completed`, or `skipped`. Weather-derived visibility or delay is evaluation output, not a destructive status change.
+If the selected stage differs from the plant's current stage, one transaction saves the journal entry, updates the plant, creates stage history, and adds the required outbox items.
 
-Completing a recommended task runs one local transaction that marks the task complete, creates one journal entry, and adds required outbox items.
+If the stage is unchanged, the save creates no redundant stage-history row. Retry uses one mutation ID so the journal entry and optional stage transition remain idempotent.
 
-The journal entry stores `source = recommended_task` and a unique source task ID. This makes retries idempotent and prevents duplicate automatic history.
+Care suggestions are derived read models, not stored task instances. A suggestion contains its knowledge definition ID and version, plant, proposed activity, reason, priority, optional weather adjustment, and validated Care Entry prefill.
 
-Undo reopens the task and tombstones the generated entry in another transaction. Optional notes and photos update that same entry.
+Opening, dismissing, or ignoring a suggestion creates no user record. Saving its Care Entry creates one care record and outbox item in a local transaction.
+
+The care record may store `origin = today`, `reminder`, or `manual`, plus an optional recommendation ID and version for explanation and analytics.
+
+The save command uses a client-generated mutation ID so retries cannot duplicate history.
 
 Fertilizing detail stores product name, fertilizer type, NPK ratio, amount with unit, and application method. Spraying detail stores product name, purpose, dosage with unit, and notes.
-
-An observation stores one stable health-condition key plus notes and photos. MVP conditions are app-defined and localized in Vietnamese; future species content may map them to richer Knowledge Base concepts.
 
 Do not use free-form units when a structured value is available. Preserve the original user-entered value for display while storing a normalized value when conversion is safe.
 
@@ -249,7 +246,7 @@ knowledge/
 │       │   ├── seedling.md
 │       │   ├── trunk-development.md
 │       │   └── flowering.md
-│       ├── task-definitions/
+│       ├── care-recommendations/
 │       └── care-guides/
 ├── diseases/
 ├── pests/
@@ -265,7 +262,9 @@ Each growth-stage file includes name, goal, description, watering, fertilizers, 
 
 Recommended fertilizers, watering, diseases, pests, and guides are referenced by stable knowledge IDs rather than copied into every playbook.
 
-Task definitions include activity type, instruction, reason, optional preparation, applicability, and a deliberately small repeat policy.
+Care-recommendation definitions include one allowed core activity type, reason, optional instruction and preparation, applicability, a deliberately small repeat policy, and a safe Care Entry prefill policy.
+
+MVP recommendation activity types are limited to `watering`, `fertilizing`, and `spraying`. Pruning or observation knowledge may become a stage tip or guide, never a generated care-entry type.
 
 Weather rules contain typed conditions and one allowed effect: prioritize, delay, suppress, or annotate. Every effect includes a Vietnamese explanation and source metadata.
 
@@ -317,7 +316,7 @@ Follow [ENGINEERING_STANDARDS.md](./ENGINEERING_STANDARDS.md). Architecture-spec
 | Durable business data | SQLite feature repositories |
 | Curated plant knowledge | Read-only Knowledge Repository |
 | Current/stale weather | Weather repository + SQLite cache |
-| Recommended tasks and completion | Guidance repository/application module |
+| Derived care suggestions | Guidance application module; no durable suggestion state |
 | Async lifecycle/projections | TanStack Query |
 | Form drafts/validation | React Hook Form + Zod |
 | Auth state machine | Auth module |
@@ -346,15 +345,15 @@ TanStack Query reads local repositories. Mutations run application use cases, co
 
 Weather responses include observation time, forecast window, location precision, and provider attribution. They become normalized input to the local Guidance module.
 
-### Deterministic Recommendation Engine
+### Deterministic Care Suggestion Evaluator
 
 The Guidance module reads plant stage, validated playbook, recent relevant history, due reminders, and fresh-enough weather through read-only interfaces.
 
-It returns a small ordered list containing task ID, action, reason, avoid/preparation content, source version, and any weather adjustment.
+It returns a small ordered list containing suggestion ID, activity type, reason, optional preparation content, source version, Care Entry prefill, and any weather adjustment.
 
 MVP uses typed evaluators rather than a general rules language. Rules are reviewed in Git and limited to known cases such as rain, heavy rain, heat, watering, spraying, and soil-moisture checks.
 
-Generation is idempotent for plant + local date + task definition + playbook version. Reopening Today does not create duplicate tasks.
+Suggestion identity is deterministic for plant + local date + recommendation definition + playbook version. Reopening Today does not duplicate visible suggestions or write user data.
 
 If weather is missing or stale, the engine returns safe base guidance and marks it unadjusted. A weather failure never invents a recommendation.
 
@@ -373,7 +372,7 @@ Updates send `base_version`. On conflict, preserve local pending data and the re
 
 Photos save a local URI first, upload independently with checksum and retry, and never roll back the journal entry when upload fails.
 
-Recommended-task completion and its journal entry sync as one logical mutation. Remote retries use one completion ID and preserve the unique source-task relationship.
+An explicit activity save syncs as one logical mutation. Remote retries use its mutation ID and preserve the optional suggestion or reminder origin.
 
 ## 11. Caching
 
@@ -433,8 +432,8 @@ Track crash-free sessions, startup, migrations, sync latency/backlog, upload fai
 | Supabase | Migrations, RPC, Storage, RLS |
 | Knowledge | Schema validation, stable IDs, links, ordering, localization |
 | Weather | Normalization, freshness, stale fallback, provider errors |
-| Guidance | Playbook evaluation, reasons, deduplication, weather effects, skip/completion |
-| Automatic journal | Atomic completion, idempotency, undo, optional detail updates |
+| Guidance | Stage tips, suggestion derivation, reasons, deduplication, weather effects, prefills |
+| Activity saving | Validation, idempotency, origin attribution, optional detail updates |
 | Sync | Offline, retry, idempotency, conflicts, restart |
 | E2E | P0 flows with Maestro on iOS and Android |
 
@@ -442,7 +441,7 @@ Use real local/test infrastructure by default. Do not add mock/fake implementati
 
 Required offline scenarios include restart before sync, network loss mid-push/upload, duplicate delivery, expired auth, migration with pending outbox, remote version conflict, timezone changes, and storage exhaustion.
 
-Guidance tests cover stale weather, playbook updates, duplicate daily generation, skipped tasks, stage changes, completion retries, automatic-entry uniqueness, and undo.
+Guidance tests cover stale weather, playbook updates, duplicate visible suggestions, stage changes, safe prefills, and the absence of writes before Save. Activity tests cover save retries and journal-entry uniqueness.
 
 CI runs typecheck, lint, tests, architecture checks, Supabase tests, Expo preview compile, and P0 E2E smoke flows.
 
@@ -461,19 +460,21 @@ The architecture prepares data for a future gardening assistant without implemen
 
 An AI context builder can combine four explicit inputs:
 
-- **User history:** recent activities, observations, photos metadata, and reminders through feature read interfaces.
-- **Plant stage:** the current stage ID plus species-specific stage knowledge.
+- **User history:** recent core care activities, plant updates, photo metadata, and reminders through feature read interfaces.
+- **Plant stage:** the current confirmed stage ID plus species-specific stage knowledge.
 - **Weather:** timestamped current conditions and rain context with freshness metadata.
 - **Knowledge Base:** approved passages with stable IDs, locale, sources, review dates, and versions.
-- **Deterministic guidance:** generated tasks, reasons, outcomes, skips, and rule versions.
+- **Deterministic suggestions:** proposed activities, reasons, rule versions, and whether users later saved related care.
 
 The future AI module must depend on read-only application interfaces, never query feature tables directly. This preserves feature ownership and allows Markdown, PostgreSQL, CMS, or vector adapters to change independently.
 
 Recommendations must carry evidence references, input timestamps, knowledge versions, confidence/limitations, and a clear distinction between observed facts and generated suggestions.
 
+Future photo analysis may propose a stage candidate with confidence and model version. It cannot update `currentGrowthStageId`; only a user-confirmed journal save may do that.
+
 User data requires explicit consent and least-privilege retrieval. Sensitive notes, photos, and location must not be sent to an AI provider by default.
 
-Structured stages, tasks, reasons, outcomes, stable IDs, timestamps, units, and weather freshness make later personalization possible without redesigning guidance or history.
+Structured stages, suggestions, reasons, saved activities, stable IDs, timestamps, units, and weather freshness make later personalization possible without redesigning guidance or history.
 
 ## 18. AI-friendly development
 
@@ -490,11 +491,11 @@ Structured stages, tasks, reasons, outcomes, stable IDs, timestamps, units, and 
 2. Add SQLite migrations, transactions, and boot state.
 3. Add the validated Markdown Knowledge Repository and one complete grape stage playbook.
 4. Build plants with species-defined stages and user-confirmed stage transitions.
-5. Build deterministic guidance from stage and local history without weather.
-6. Build atomic task completion and automatic journal creation.
-7. Add guidance-first Today and Plant Dashboard.
+5. Build contextual care entry and trustworthy activity history.
+6. Add reviewed stage tips to Plant Detail.
+7. Build deterministic care suggestions that prefill Care Entry without writing history.
 8. Add weather normalization and reviewed weather-rule adjustments.
-9. Add manual Quick Entry, observations, photos, Journal, and reminders.
+9. Add photo-and-note plant updates with optional stage transition, Journal, and reminders.
 10. Create Supabase schema, RLS, and generated types locally.
 11. Add outbox and sync; verify offline completion/restart before production connectivity.
 12. Add guest-to-account auth, observability, E2E, and release gates.

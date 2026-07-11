@@ -5,12 +5,13 @@
 1. `README.md`
 2. `docs/PROJECT_CONTEXT.md`
 3. `docs/MOBILE_UX_DESIGN.md`
-4. `docs/TECHNICAL_ARCHITECTURE.md`
-5. `docs/KNOWLEDGE_BASE_ARCHITECTURE.md`
-6. `docs/ENGINEERING_STANDARDS.md`
-7. `CONTEXT.md`
-8. `docs/DECISIONS.md`
-9. `TODO.md`
+4. `docs/design/DESIGN.md`
+5. `docs/TECHNICAL_ARCHITECTURE.md`
+6. `docs/KNOWLEDGE_BASE_ARCHITECTURE.md`
+7. `docs/ENGINEERING_STANDARDS.md`
+8. `CONTEXT.md`
+9. `docs/DECISIONS.md`
+10. `TODO.md`
 
 ## Language policy
 
@@ -36,9 +37,12 @@ Follow `docs/ENGINEERING_STANDARDS.md` in full. In particular:
 ## Product constraints
 
 - Do not treat assumptions as confirmed requirements.
-- Preserve reviewed stage guidance and recommended tasks as the primary experience.
-- Completing a recommended task must create history without duplicate input.
-- Keep manual Quick Entry fast as a fallback for unplanned work.
+- Preserve fast tracking for watering, fertilizing, and spraying as the primary utility.
+- Keep stage tips informational inside Plant Detail; do not turn them into tasks or history.
+- A Today care button may prefill entry, but activity is recorded only after the user saves it.
+- Keep care entry fast and contextual; do not add a global FAB or Quick Action menu.
+- Treat pruning and observations as journal notes/photos, not dedicated tracked activity types.
+- Keep stage changes inside journal entry; future AI may suggest a stage from a photo, but only the user can confirm it.
 - Do not present unsupported plant-care advice as fact.
 - Prefer small, testable changes traceable to a product outcome.
 

@@ -2,18 +2,18 @@
 
 ## 1. Purpose
 
-The Knowledge Base supplies reviewed, reusable plant-care knowledge for stage guidance, deterministic recommendations, progressive teaching, and future AI assistance.
+The Knowledge Base supplies reviewed, reusable plant-care knowledge for stage tips, deterministic care suggestions, progressive teaching, and future AI assistance.
 
-It is not a database schema and never stores user plants, task completion, weather observations, journal entries, photos, or reminders.
+It is not a database schema and never stores user plants, suggestion state, weather observations, journal entries, photos, or reminders.
 
 The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later, and a vector index for RAG without changing the application's knowledge interface.
 
 ## 2. Design principles
 
-- **Guide first:** knowledge must resolve into useful action, not only descriptive articles.
+- **Useful context:** knowledge should support decisions without turning every tip into a task.
 - **Stage-centered:** the current growth stage selects the relevant playbook and limits information overload.
-- **Explain why:** every recommended task links to a reviewed reason.
-- **Compose, do not copy:** playbooks reference reusable tasks, guides, fertilizers, nutrients, diseases, pests, and rules.
+- **Explain why:** every care suggestion links to a reviewed reason.
+- **Compose, do not copy:** playbooks reference reusable tips, care recommendations, guides, fertilizers, nutrients, diseases, pests, and rules.
 - **Deterministic before generative:** executable rules remain typed and testable; AI may explain or personalize later.
 - **Evidence-backed:** agronomic claims include sources, review status, and review dates.
 - **Locale-aware:** stable IDs are language-neutral; user-facing MVP content is Vietnamese.
@@ -24,12 +24,12 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 | Class | Examples | Ownership |
 | --- | --- | --- |
-| Curated knowledge | Species, stages, task definitions, nutrients, threats, guides, rules | Knowledge Base |
+| Curated knowledge | Species, stages, tips, care recommendations, nutrients, threats, guides, rules | Knowledge Base |
 | Runtime context | Current plant, stage, weather, recent activities, local date | User/external data |
-| Generated output | Today's recommended tasks, reasons, weather adjustments | Guidance module |
-| User history | Completed tasks, manual activities, notes, photos | User data |
+| Generated output | Ephemeral care suggestions, reasons, weather adjustments, Care Entry prefills | Guidance module |
+| User history | Explicitly saved activities, notes, photos | User data |
 
-Rules consume runtime context but are themselves curated knowledge. Generated tasks reference knowledge versions but are user-specific data.
+Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
 ## 4. Domain relationship map
 
@@ -37,7 +37,8 @@ Rules consume runtime context but are themselves curated knowledge. Generated ta
 flowchart TD
     Species["Plant Species"] --> Stage["Growth Stage Playbook"]
     Stage --> Goal["Goal + Completion Criteria"]
-    Stage --> Task["Recommended Task Definition"]
+    Stage --> Tip["Stage Tip"]
+    Stage --> Recommendation["Care Recommendation Definition"]
     Stage --> Water["Watering Guide"]
     Stage --> Fert["Fertilizer Profile"]
     Fert --> Nutrient["Nutrient"]
@@ -46,13 +47,14 @@ flowchart TD
     Disease --> Sign["Warning Sign"]
     Pest --> Sign
     Sign --> Troubleshoot["Troubleshooting Guide"]
-    Task --> Care["Care / Pruning Guide"]
-    Weather["Weather Rule"] --> Task
+    Recommendation --> Care["Care / Pruning Guide"]
+    Weather["Weather Rule"] --> Recommendation
     Seasonal["Seasonal Guidance"] --> Stage
     Harvest["Harvest / Post-harvest Guide"] --> Stage
     Companion["Companion Plant Guidance"] --> Species
     Source["Reference Source"] --> Stage
-    Source --> Task
+    Source --> Tip
+    Source --> Recommendation
     Source --> Weather
     Source --> Disease
 ```
@@ -65,10 +67,10 @@ flowchart LR
     Stage["Current Stage Playbook"] --> Engine
     Weather["Fresh Weather Context"] --> Engine
     History["Recent User Activities"] --> Engine
-    Engine --> Eligible["Eligible Base Tasks"]
+    Engine --> Eligible["Eligible Care Recommendations"]
     Eligible --> Rules["Typed Rule Evaluation"]
-    Rules --> Ranked["Prioritized 4-5 Tasks"]
-    Ranked --> Output["Vietnamese Task + Why + Avoid + Prepare"]
+    Rules --> Ranked["Prioritized Suggestions"]
+    Ranked --> Output["Vietnamese Suggestion + Why + Care Entry Prefill"]
 ```
 
 ## 5. Domain catalog
@@ -93,7 +95,7 @@ flowchart LR
 
 - ID, species ID, sequence, Vietnamese name, description, and goal;
 - entry criteria and observable completion criteria;
-- recommended task IDs;
+- stage-tip IDs and care-recommendation IDs;
 - watering-guide and fertilizer-profile references;
 - recommended nutrient IDs;
 - things to avoid;
@@ -105,7 +107,7 @@ flowchart LR
 
 **Optional fields:** Typical duration range, climate/growing-method variants, pruning guides, seasonal notes, harvest/post-harvest guides, images, expert notes.
 
-**Relationships:** Belongs to Species; composes tasks and guides; references threats and rules; transitions to the next stage.
+**Relationships:** Belongs to Species; composes tips, care recommendations, and guides; references threats and rules; transitions to the next stage.
 
 **Example:** `grape.stage.trunk-development`, shown as “Nuôi thân”, with goal “Phát triển thân chính khỏe và thẳng”.
 
@@ -121,27 +123,41 @@ flowchart LR
 
 **Example:** `main-trunk-reaches-trellis` / “Thân chính đã chạm tới giàn”.
 
-### 5.4 Recommended Task Definition
+### 5.3.1 Stage Tip
 
-**Purpose:** Defines a reusable action the Guidance Engine may instantiate for a user.
+**Purpose:** Provides concise, informational guidance inside Plant Detail without completion state, reminders, or journal behavior.
 
-**Required fields:** ID, Vietnamese title, activity type, instruction, reason, applicable species/stages, eligibility, repeat policy, completion behavior, status, version, references.
+**Required fields:** ID, Vietnamese text, category, applicable species/stages, display order, status, version, and references.
 
-**Optional fields:** Preparation, avoid text, care-guide IDs, fertilizer/watering references, estimated effort, photo suggestion, priority, weather-rule IDs.
+**Optional fields:** Short title, rationale, related guide, image, and growing-method or climate scope.
 
-**Relationships:** Referenced by Stage Playbooks; modified by Weather Rules; may reference guides, fertilizers, nutrients, diseases, or pests.
+**Categories:** `advice`, `avoid`, `warning_sign`, and `milestone`.
 
-**Example:** `grape.task.tie-main-trunk` / “Buộc thân vào giàn” / reason “Giúp thân chính phát triển thẳng và giảm nguy cơ gãy khi có gió.”
+**Relationships:** Referenced by a Stage Playbook. It is never instantiated as user data.
+
+### 5.4 Care Recommendation Definition
+
+**Purpose:** Defines a reusable, trackable care action the Guidance Engine may suggest to a user.
+
+**Required fields:** ID, Vietnamese title, activity type, reason, applicable species/stages, eligibility, repeat policy, Care Entry prefill policy, status, version, references.
+
+**Optional fields:** Instruction, preparation, avoid text, care-guide IDs, fertilizer/watering references, estimated effort, photo suggestion, priority, and weather-rule IDs.
+
+**Relationships:** Referenced by Stage Playbooks and rules. Evaluation produces an ephemeral suggestion, not a persistent task.
+
+For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and observation content belongs in Stage Tips or Care Guides.
+
+**Example:** `grape.recommendation.check-soil-moisture` / “Kiểm tra độ ẩm đất” / reason “Giúp quyết định có cần tưới hay không trước khi ghi nhận hoạt động.”
 
 ### 5.5 Care Guide
 
-**Purpose:** Explains a reusable care technique shared across tasks or stages.
+**Purpose:** Explains a reusable care technique shared across care recommendations or stages.
 
 **Required fields:** ID, guide type, Vietnamese title, purpose, steps, safety/avoid notes, applicable species/stages, status, version, references.
 
-**Optional fields:** Tools, materials, images, duration, difficulty, climate variants, related tasks, troubleshooting links.
+**Optional fields:** Tools, materials, images, duration, difficulty, climate variants, related recommendations, troubleshooting links.
 
-**Relationships:** Referenced by tasks, stages, troubleshooting, harvest, and seasonal content.
+**Relationships:** Referenced by care recommendations, stages, troubleshooting, harvest, and seasonal content.
 
 **Example:** `guide.tie-vine-to-support` with steps for selecting soft ties and avoiding stem constriction.
 
@@ -153,7 +169,7 @@ flowchart LR
 
 **Optional fields:** Amount range with unit and assumptions, soil/growing-method variants, time-of-day guidance, drainage checks, warning signs.
 
-**Relationships:** Referenced by stages and watering tasks; modified by weather and recent watering history.
+**Relationships:** Referenced by stages and watering recommendations; modified by weather and recent watering history.
 
 **Example:** “Kiểm tra lớp đất mặt; tưới khi đất bắt đầu khô. Hoãn tưới nếu dự báo mưa lớn và chậu thoát nước chậm.”
 
@@ -165,7 +181,7 @@ flowchart LR
 
 **Optional fields:** Diagrams, season constraints, recovery guidance, linked diseases, warning signs.
 
-**Relationships:** Referenced by pruning tasks and stage playbooks.
+**Relationships:** Referenced by pruning recommendations and stage playbooks.
 
 **Example:** A “Nuôi thân” guide that removes competing side shoots while explicitly avoiding cutting the main trunk.
 
@@ -177,7 +193,7 @@ flowchart LR
 
 **Optional fields:** NPK range, amount range with unit and assumptions, organic/synthetic classification, compatibility, example product names.
 
-**Relationships:** Composes Nutrients; referenced by stages, fertilizing tasks, troubleshooting, and weather rules.
+**Relationships:** Composes Nutrients; referenced by stages, fertilizing recommendations, troubleshooting, and weather rules.
 
 **Example:** `fertilizer.nitrogen-forward-balanced` for vegetative growth, with over-fertilization cautions.
 
@@ -243,25 +259,25 @@ flowchart LR
 
 ### 5.14 Weather Rule
 
-**Purpose:** Modifies a known task using normalized weather facts. It does not create free-form agronomic advice.
+**Purpose:** Modifies a known care suggestion using normalized weather facts. It does not create free-form agronomic advice.
 
-**Required fields:** ID, scope, priority, typed conditions, target task/activity, allowed effect, Vietnamese explanation, fallback behavior, status, version, references.
+**Required fields:** ID, scope, priority, typed conditions, target recommendation/activity, allowed effect, Vietnamese explanation, fallback behavior, status, version, references.
 
 **Optional fields:** Stage/species scope, valid forecast window, conflict group, safety severity, related guide.
 
-**Relationships:** Targets Recommended Task Definitions and may reference stages, diseases, fertilizers, or care guides.
+**Relationships:** Targets Care Recommendation Definitions and may reference stages, diseases, fertilizers, or care guides.
 
-**Example:** Flowering + rain probability above 70% delays a spraying task and explains “Mưa có thể làm giảm hiệu quả phun.”
+**Example:** Flowering + rain probability above 70% delays a spraying suggestion and explains “Mưa có thể làm giảm hiệu quả phun.”
 
 ### 5.15 Seasonal Guidance
 
 **Purpose:** Adds climate/season context that is broader than today's weather.
 
-**Required fields:** ID, species scope, climate/region scope, season definition, guidance, relevant stage/task IDs, status, version, references.
+**Required fields:** ID, species scope, climate/region scope, season definition, guidance, relevant stage/recommendation IDs, status, version, references.
 
 **Optional fields:** Month range, hemisphere, weather patterns, preparation checklist, threat links.
 
-**Relationships:** Supplements stages, tasks, diseases, pests, harvest, and post-harvest guides.
+**Relationships:** Supplements stages, care recommendations, diseases, pests, harvest, and post-harvest guides.
 
 **Example:** Rainy-season grape guidance emphasizing airflow, drainage, observation frequency, and spray timing cautions.
 
@@ -313,28 +329,28 @@ flowchart LR
 
 **Example:** An agricultural-extension guide used to support grape flowering and disease-risk guidance.
 
-## 6. Recommendation generation model
+## 6. Care-suggestion derivation model
 
 ### Inputs
 
 - Plant species and current stage.
 - User-confirmed stage criteria.
 - Local date and timezone.
-- Recent completed/skipped tasks and journal activities.
+- Recent saved activities and due reminders.
 - Fresh-enough normalized weather.
 - Approved playbook and rule versions.
 
 ### Pipeline
 
 1. Load the approved species and current Stage Playbook.
-2. Resolve referenced task definitions and care content.
-3. Evaluate task eligibility and repeat policy against recent history.
+2. Resolve referenced care-recommendation definitions and care content.
+3. Evaluate suggestion eligibility and repeat policy against recent history.
 4. Apply seasonal constraints.
 5. Apply weather rules.
 6. Apply safety suppression and rule-conflict resolution.
 7. Rank by safety, stage importance, due state, and fatigue limits.
-8. Return at most 4–5 tasks with reason, avoid text, preparation, and provenance.
-9. Persist user-specific task instances outside the Knowledge Base.
+8. Return a small set of suggestions with reason, optional preparation, provenance, and validated Care Entry prefills.
+9. Do not persist suggestion instances. Persist only an activity the user explicitly saves.
 
 ### Example derivation
 
@@ -344,8 +360,7 @@ Stage: Ra hoa
 Weather: Mưa lớn có khả năng xảy ra ngày mai
 History: Chưa phun trong 10 ngày
 
-Base tasks:
-- Theo dõi hoa
+Candidate suggestions:
 - Kiểm tra độ ẩm đất
 - Phun phòng theo hướng dẫn
 
@@ -353,8 +368,7 @@ Weather effects:
 - Hoãn phun
 - Giảm ưu tiên tưới
 
-Output:
-- Quan sát hoa — “Theo dõi khả năng đậu quả và dấu hiệu bất thường.”
+Ephemeral output:
 - Kiểm tra độ ẩm đất — “Chỉ tưới nếu đất bắt đầu khô; ngày mai có khả năng mưa lớn.”
 - Tránh phun hôm nay — “Mưa có thể làm giảm hiệu quả phun.”
 ```
@@ -375,7 +389,7 @@ Facts use a controlled namespace:
 - `history.days_since.<activity_type>`
 - `history.last_product_id.<activity_type>`
 - `calendar.season_id`
-- `task.definition_id`
+- `recommendation.definition_id`
 
 ### Supported operators
 
@@ -389,11 +403,11 @@ Conditions may use one `all` group and one nested `any` group. Arbitrary scripts
 
 ### Supported effects
 
-- `recommend_task`
-- `prioritize_task`
-- `delay_task`
-- `suppress_task`
-- `annotate_task`
+- `suggest_activity`
+- `prioritize_suggestion`
+- `delay_suggestion`
+- `suppress_suggestion`
+- `annotate_suggestion`
 - `show_warning`
 
 Every effect includes a user-facing Vietnamese explanation. Delay/suppress effects require fallback behavior and stronger review than an annotation.
@@ -421,11 +435,11 @@ when:
     - fact: weather.rain_probability
       operator: greater_than
       value: 70
-    - fact: task.activity_type
+    - fact: recommendation.activity_type
       operator: equals
       value: spraying
 then:
-  effect: delay_task
+  effect: delay_suggestion
   message_vi: "Nên hoãn phun vì mưa có thể làm giảm hiệu quả."
   fallback: keep_visible_as_avoid
 priority: 80
@@ -449,14 +463,14 @@ when:
       operator: greater_than
       value: 14
 then:
-  effect: recommend_task
-  task_definition_id: grape.task.review-potassium-feeding
+  effect: suggest_activity
+  recommendation_definition_id: grape.recommendation.review-potassium-feeding
   message_vi: "Đã hơn 14 ngày từ lần bón phân gần nhất. Hãy kiểm tra nhu cầu dinh dưỡng trước khi bón."
 priority: 50
 references: [ref.expert.grape-fruit-nutrition]
 ```
 
-The task says “review” rather than automatically prescribing fertilizer. The user still needs stage, product, plant, and safety context.
+The suggestion says “review” rather than automatically prescribing fertilizer. The user still needs stage, product, plant, and safety context, and must explicitly save any resulting activity.
 
 ## 8. Markdown storage architecture
 
@@ -466,7 +480,7 @@ knowledge/
 │   ├── common.schema.json
 │   ├── species.schema.json
 │   ├── stage-playbook.schema.json
-│   ├── task-definition.schema.json
+│   ├── care-recommendation.schema.json
 │   └── rule.schema.json
 ├── _taxonomies/
 │   ├── activity-types.md
@@ -481,7 +495,7 @@ knowledge/
 │       │   ├── trunk-development.md
 │       │   ├── flowering.md
 │       │   └── post-harvest.md
-│       ├── tasks/
+│       ├── care-recommendations/
 │       ├── guides/
 │       │   ├── watering/
 │       │   ├── pruning/
@@ -534,7 +548,7 @@ reviewed_by: [expert.nguyen-van-a]
 last_reviewed: 2026-07-11
 references: [ref.extension.grape-training]
 related_documents:
-  - grape.task.tie-main-trunk
+  - grape.tip.tie-main-trunk
   - guide.tie-vine-to-support
 ```
 
@@ -556,7 +570,7 @@ related_documents:
 - Minor: additive guidance or relationships that preserve meaning.
 - Major: changed recommendation, criteria, rule effect, safety instruction, or stage transition.
 
-Generated user tasks store the knowledge ID and version used at generation time.
+Saved activities opened from a suggestion may store the recommendation ID and version used to build the prefill.
 
 ## 10. Content templates
 
@@ -597,11 +611,14 @@ Giai đoạn tập trung vào một thân chính và nền tảng cho tán cây 
 - Tham chiếu: `fertilizer.nitrogen-forward-balanced`
 - Dinh dưỡng: `nutrient.nitrogen`
 
-## Công việc đề xuất
+## Mẹo theo giai đoạn
 
-- `grape.task.tie-main-trunk`
-- `grape.task.remove-competing-shoots`
-- `grape.task.check-soil-moisture`
+- `grape.tip.tie-main-trunk`
+- `grape.tip.remove-competing-shoots`
+
+## Gợi ý chăm sóc
+
+- `grape.recommendation.check-soil-moisture`
 
 ## Điều cần tránh
 
@@ -623,38 +640,38 @@ Giai đoạn tập trung vào một thân chính và nền tảng cho tán cây 
 `grape.stage.climbing-trellis`
 ```
 
-### Task template
+### Care recommendation template
 
 ```md
 ---
-id: grape.task.tie-main-trunk
-type: recommended_task_definition
-title: "Buộc thân vào giàn"
+id: grape.recommendation.check-soil-moisture
+type: care_recommendation_definition
+title: "Kiểm tra độ ẩm đất"
 locale: vi-VN
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
-activity_type: training
-repeat_policy: event_or_observation_based
+activity_type: watering
+repeat_policy: history_based
 version: 1.0.0
 status: approved
-references: [ref.extension.grape-training]
+references: [ref.extension.grape-watering]
 ---
 
 ## Hướng dẫn
 
-Buộc nhẹ thân chính vào điểm tựa bằng dây mềm.
+Kiểm tra lớp đất mặt và khả năng thoát nước trước khi quyết định tưới.
 
 ## Vì sao nên làm
 
-Giúp thân phát triển thẳng và giảm nguy cơ gãy khi có gió.
+Giúp tránh tưới theo lịch cứng khi đất vẫn còn đủ ẩm.
 
 ## Điều cần tránh
 
-Không buộc quá chặt vào thân.
+Không tự động điền lượng nước khi chưa có đủ bối cảnh.
 
 ## Chuẩn bị tiếp theo
 
-Kiểm tra lại điểm buộc sau 3–5 ngày.
+Nếu cần tưới, mở biểu mẫu đã điền sẵn cây và loại hoạt động; người dùng vẫn phải chọn “Lưu”.
 ```
 
 ### Threat template
@@ -698,7 +715,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 - Every relationship resolves.
 - Stage order is complete and has no unintended cycles.
 - Every non-terminal stage has a valid next stage.
-- Task and rule facts/operators/effects use allowlists.
+- Care-recommendation and rule facts/operators/effects use allowlists.
 - Rule conflicts resolve deterministically.
 - Vietnamese user content exists for approved MVP documents.
 
@@ -729,7 +746,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 2. Create Plant Species identity and scope.
 3. Define the ordered growth-stage journey.
 4. Write one complete Stage Playbook at a time.
-5. Reuse or create task definitions and care guides.
+5. Reuse or create stage tips, care-recommendation definitions, and care guides.
 6. Link nutrients and fertilizer profiles.
 7. Link common diseases, pests, signs, and troubleshooting.
 8. Add seasonal and weather rules.
@@ -742,7 +759,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 
 - All supported stages form a valid ordered journey.
 - Every stage has a goal, action, avoid list, criteria, and next-stage behavior.
-- Every generated task explains why.
+- Every care suggestion explains why and maps to a trackable activity.
 - Required reusable references exist and resolve.
 - Weather and history scenarios produce safe bounded outputs.
 - At least one expert approves all safety-impacting content.
@@ -791,7 +808,7 @@ References use stable IDs, and the indexing pipeline may resolve selected labels
 
 - Species: overview, lifecycle/stage map, general constraints.
 - Stage Playbook: one overview chunk plus one chunk per major section.
-- Task: one atomic chunk containing instruction, reason, avoid, preparation, and scope.
+- Care recommendation: one atomic chunk containing instruction, reason, avoid, preparation, and scope.
 - Disease/Pest: signs, risks, prevention, safe response, escalation as separate chunks.
 - Troubleshooting: one chunk per decision path or starting sign.
 - Guides: one chunk per procedure or safety section.
@@ -812,7 +829,7 @@ An AI assistant may combine:
 - structured user history;
 - current plant and stage;
 - fresh weather with timestamp;
-- deterministic baseline tasks and rule outcomes;
+- deterministic baseline suggestions and rule outcomes;
 - retrieved approved Knowledge Base chunks.
 
 AI output must cite knowledge IDs/versions, distinguish observations from inference, preserve deterministic safety constraints, and disclose missing or stale context.
@@ -825,5 +842,5 @@ AI output must cite knowledge IDs/versions, distinguish observations from infere
 - Stable IDs survive Markdown, PostgreSQL, CMS, and vector migration.
 - Typed rules prevent an unreviewable scripting platform.
 - Content compilation catches broken links before release.
-- Versions keep generated tasks and journal explanations historically traceable.
+- Versions keep suggestion explanations and saved-activity origins historically traceable.
 - Editorial workflow and source metadata scale independently from mobile releases.
