@@ -22,7 +22,10 @@ describe("compiler selection and serialization integration", () => {
     status: "approved",
     references: ["ref.osu"],
     scientificName: "Vitis vinifera",
-    stageJourney: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved" }],
+    stateMachines: {
+      development: { stages: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved" }] },
+      production: { stages: [] }
+    },
     path: "species.md",
   };
 
@@ -37,8 +40,7 @@ describe("compiler selection and serialization integration", () => {
     references: ["ref.osu"],
     speciesId: "plant.grape",
     sequence: 1,
-    stageGroup: "development",
-    repeatable: false,
+    machineId: "development",
     primaryObjective: "Objective",
     entryCriteria: [],
     exitCriteria: [],
@@ -120,7 +122,10 @@ describe("compiler selection and serialization integration", () => {
     it("fails with KNOWLEDGE_DEPENDENCY_INELIGIBLE when a dependency is ineligible in production mode", () => {
       const speciesWithReviewStage: NormalizedPlantSpecies = {
         ...mockSpecies,
-        stageJourney: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review" }],
+        stateMachines: {
+          development: { stages: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review" }] },
+          production: { stages: [] }
+        },
       };
 
       const reviewPlaybook: NormalizedGrowthStagePlaybook = {

@@ -83,9 +83,13 @@ export function selectEligibleContent(
     switch (doc.type) {
       case "plant_species": {
         const species = doc as NormalizedPlantSpecies;
-        for (const item of species.stageJourney) {
+        const allStages = [
+          ...(species.stateMachines?.development?.stages ?? []),
+          ...(species.stateMachines?.production?.stages ?? [])
+        ];
+        for (const item of allStages) {
           if (item.playbookStatus !== "unavailable") {
-            checkUfDependency(species, item.id, "stageJourney");
+            checkUfDependency(species, item.id, "stateMachines");
           }
         }
         break;

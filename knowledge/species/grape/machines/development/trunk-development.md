@@ -1,33 +1,31 @@
 ---
 id: grape.stage.trunk-development
 type: growth_stage_playbook
-title: "Nuôi thân chính"
+title: Nuôi thân chính
 locale: vi-VN
 species_id: plant.grape
 sequence: 2
 version: 1.0.0
 status: review
-stage_group: development
-repeatable: false
-primary_objective: "Tạo ra một thân chính khỏe mạnh, mập mạp và vươn tới mặt giàn."
+machine_id: development
+primary_objective: Tạo ra một thân chính khỏe mạnh, mập mạp và vươn tới mặt giàn.
 entry_criteria:
-  - "Mầm chính khỏe mạnh, bắt đầu vươn cao"
+  - Mầm chính khỏe mạnh, bắt đầu vươn cao
 exit_criteria:
-  - "Thân chính chạm dây kẽm mặt giàn"
-  - "Đã bấm ngọn thân chính"
-estimated_duration: "1-3 tháng"
+  - Thân chính chạm dây kẽm mặt giàn
+  - Đã bấm ngọn thân chính
+estimated_duration: 1-3 tháng
 recommended_playbook: playbook.grape.trunk-development
 default_reminder_templates:
-  - "Cột dây định hình thân"
-  - "Lẩy chồi nách (chồi phụ)"
-  - "Bón phân đạm định kỳ"
+  - Cột dây định hình thân
+  - Lẩy chồi nách (chồi phụ)
+  - Bón phân đạm định kỳ
 recommended_knowledge_topics:
-  - "Kỹ thuật lẩy chồi nách"
-  - "Cách cột dây không làm nghẹt thân"
+  - Kỹ thuật lẩy chồi nách
+  - Cách cột dây không làm nghẹt thân
 references:
   - ref.osu.growing-table-grapes
 ---
-
 Tập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.
 
 ## UX & Behavioral Design

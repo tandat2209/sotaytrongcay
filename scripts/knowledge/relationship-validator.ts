@@ -82,7 +82,11 @@ export function validateRelationships(
         // Validate if this playbook is present in its species stage journey
         const species = idMap.get(doc.speciesId);
         if (species && species.type === "plant_species") {
-          const inJourney = species.stageJourney.some((j) => j.id === doc.id);
+          const allStages = [
+            ...(species.stateMachines?.development?.stages ?? []),
+            ...(species.stateMachines?.production?.stages ?? [])
+          ];
+          const inJourney = allStages.some((j) => j.id === doc.id);
           if (!inJourney) {
             diagnostics.push({
               code: "KNOWLEDGE_RELATIONSHIP_MISSING",

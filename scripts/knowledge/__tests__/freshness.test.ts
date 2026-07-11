@@ -48,11 +48,19 @@ locale: vi-VN
 version: 1.0.0
 status: approved
 scientific_name: "Vitis vinifera"
-stage_journey:
-  - id: grape.stage.trunk-development
-    title: "Nuôi thân"
-    sequence: 1
-    playbook_status: unavailable
+state_machines:
+  development:
+    stages:
+      - id: grape.stage.trunk-development
+        title: "Nuôi thân"
+        sequence: 1
+        playbook_status: unavailable
+  production:
+    stages:
+      - id: grape.stage.pruning
+        title: "Cắt cành"
+        sequence: 1
+        playbook_status: unavailable
 references: ["ref.osu"]
 ---
 # Cây nho
@@ -105,11 +113,19 @@ locale: vi-VN
 version: 1.0.0
 status: approved
 scientific_name: "Vitis vinifera"
-stage_journey:
-  - id: grape.stage.trunk-development
-    title: "Nuôi thân"
-    sequence: 1
-    playbook_status: unavailable
+state_machines:
+  development:
+    stages:
+      - id: grape.stage.trunk-development
+        title: "Nuôi thân"
+        sequence: 1
+        playbook_status: unavailable
+  production:
+    stages:
+      - id: grape.stage.pruning
+        title: "Cắt cành"
+        sequence: 1
+        playbook_status: unavailable
 references: ["ref.osu"]
 ---
 # Cây nho
@@ -134,14 +150,28 @@ references: ["ref.osu"]
             status: "approved",
             references: ["ref.osu"],
             scientificName: "Vitis vinifera",
-            stageJourney: [
-              {
-                id: "grape.stage.trunk-development",
-                title: "Nuôi thân",
-                sequence: 1,
-                playbookStatus: "unavailable",
+            stateMachines: {
+              development: {
+                stages: [
+                  {
+                    id: "grape.stage.trunk-development",
+                    title: "Nuôi thân",
+                    sequence: 1,
+                    playbookStatus: "unavailable",
+                  }
+                ]
+              },
+              production: {
+                stages: [
+                  {
+                    id: "grape.stage.pruning",
+                    title: "Cắt cành",
+                    sequence: 1,
+                    playbookStatus: "unavailable",
+                  }
+                ]
               }
-            ],
+            },
             bodyMarkdown: "# Cây nho\n",
           },
         ],

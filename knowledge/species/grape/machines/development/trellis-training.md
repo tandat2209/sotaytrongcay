@@ -1,33 +1,31 @@
 ---
 id: grape.stage.trellis-training
 type: growth_stage_playbook
-title: "Leo giàn"
+title: Leo giàn
 locale: vi-VN
 species_id: plant.grape
 sequence: 3
 version: 1.0.0
 status: review
-stage_group: development
-repeatable: false
-primary_objective: "Phân nhánh cành cấp 1 đều khắp mặt giàn."
+machine_id: development
+primary_objective: Phân nhánh cành cấp 1 đều khắp mặt giàn.
 entry_criteria:
-  - "Đã bấm ngọn thân chính tại mặt giàn"
+  - Đã bấm ngọn thân chính tại mặt giàn
 exit_criteria:
-  - "Cành cấp 1 đạt độ dài tiêu chuẩn"
-  - "Bấm ngọn cành cấp 1"
-estimated_duration: "2-4 tháng"
+  - Cành cấp 1 đạt độ dài tiêu chuẩn
+  - Bấm ngọn cành cấp 1
+estimated_duration: 2-4 tháng
 recommended_playbook: playbook.grape.trellis-training
 default_reminder_templates:
-  - "Định hướng cành bò ngang"
-  - "Phòng trừ nấm bệnh"
-  - "Bón bổ sung vi lượng"
+  - Định hướng cành bò ngang
+  - Phòng trừ nấm bệnh
+  - Bón bổ sung vi lượng
 recommended_knowledge_topics:
-  - "Cách tạo cành cấp 1"
-  - "Nhận biết bệnh sương mai"
+  - Cách tạo cành cấp 1
+  - Nhận biết bệnh sương mai
 references:
   - ref.osu.growing-table-grapes
 ---
-
 Chuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.
 
 ## UX & Behavioral Design

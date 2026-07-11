@@ -124,7 +124,7 @@ function matchesPlacement(document: ParsedSourceDocument, type: KnowledgeDocumen
     case "plant_species":
       return /^knowledge\/species\/[^/]+\/species\.md$/.test(path);
     case "growth_stage_playbook":
-      return /^knowledge\/species\/[^/]+\/stages\/[^/]+\.md$/.test(path);
+      return /^knowledge\/species\/[^/]+\/machines\/[^/]+\/[^/]+\.md$/.test(path);
     case "care_recommendation_definition":
       return /^knowledge\/species\/[^/]+\/care-recommendations\/[^/]+\.md$/.test(path);
     case "care_guide":

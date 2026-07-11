@@ -11,14 +11,23 @@ export function normalizeDocument(
 
   switch (doc.type) {
     case "plant_species": {
-      const stageJourney = ((fm.stage_journey ?? []) as readonly any[]).map(
-        (item): StageJourneyItem => ({
+      const fmStateMachines = fm.state_machines as Record<string, { stages: readonly any[] }>;
+      const parseStages = (stages: readonly any[]): StageJourneyItem[] =>
+        stages.map((item) => ({
           id: String(item.id),
           title: String(item.title),
           sequence: Number(item.sequence),
           playbookStatus: item.playbook_status,
-        }),
-      );
+        }));
+
+      const stateMachines = {
+        development: {
+          stages: parseStages(fmStateMachines?.development?.stages ?? []),
+        },
+        production: {
+          stages: parseStages(fmStateMachines?.production?.stages ?? []),
+        },
+      };
 
       return {
         id: doc.id,
@@ -31,7 +40,7 @@ export function normalizeDocument(
         status: fm.status as any,
         references: (fm.references ?? []) as readonly string[],
         scientificName: String(fm.scientific_name),
-        stageJourney,
+        stateMachines,
       };
     }
 
@@ -48,8 +57,7 @@ export function normalizeDocument(
         references: (fm.references ?? []) as readonly string[],
         speciesId: String(fm.species_id),
         sequence: Number(fm.sequence),
-        stageGroup: fm.stage_group as "development" | "production",
-        repeatable: Boolean(fm.repeatable),
+        machineId: fm.machine_id as "development" | "production",
         primaryObjective: String(fm.primary_objective),
         entryCriteria: (fm.entry_criteria ?? []) as readonly string[],
         exitCriteria: (fm.exit_criteria ?? []) as readonly string[],

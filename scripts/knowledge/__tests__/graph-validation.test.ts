@@ -23,14 +23,19 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           scientific_name: "Vitis vinifera",
-          stage_journey: [
-            {
-              id: "grape.stage.trunk-development",
-              title: "Nuôi thân",
-              sequence: 1,
-              playbook_status: "approved",
+          state_machines: {
+            development: {
+              stages: [
+                {
+                  id: "grape.stage.trunk-development",
+                  title: "Nuôi thân",
+                  sequence: 1,
+                  playbook_status: "approved",
+                },
+              ]
             },
-          ],
+            production: { stages: [] }
+          },
           references: ["ref.osu"],
         },
       };
@@ -45,14 +50,19 @@ describe("graph validation and normalization", () => {
         locale: "vi-VN",
         status: "approved",
         scientificName: "Vitis vinifera",
-        stageJourney: [
-          {
-            id: "grape.stage.trunk-development",
-            title: "Nuôi thân",
-            sequence: 1,
-            playbookStatus: "approved",
+        stateMachines: {
+          development: {
+            stages: [
+              {
+                id: "grape.stage.trunk-development",
+                title: "Nuôi thân",
+                sequence: 1,
+                playbookStatus: "approved",
+              },
+            ]
           },
-        ],
+          production: { stages: [] }
+        },
         references: ["ref.osu"],
       });
       // Ensure raw snake_case and path properties do not seep into the output document fields unless permitted
@@ -74,7 +84,7 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           scientificName: "Vitis vinifera",
-          stageJourney: [],
+          stateMachines: { development: { stages: [] }, production: { stages: [] } },
           references: [],
         },
         {
@@ -114,8 +124,7 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape", // Correct type
           sequence: 1,
-          stageGroup: "development",
-          repeatable: false,
+          machineId: "development",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
@@ -135,7 +144,7 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           scientificName: "Vitis vinifera",
-          stageJourney: [{ id: "grape.stage.trunk-development", title: "Nuôi thân", sequence: 1, playbookStatus: "approved" }],
+          stateMachines: { development: { stages: [{ id: "grape.stage.trunk-development", title: "Nuôi thân", sequence: 1, playbookStatus: "approved" }] }, production: { stages: [] } },
           references: [],
         },
       ];
@@ -165,10 +174,15 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           scientificName: "Vitis vinifera",
-          stageJourney: [
-            { id: "stage1", title: "Stage 1", sequence: 1, playbookStatus: "approved" },
-            { id: "stage2", title: "Stage 2", sequence: 3, playbookStatus: "approved" }, // Gap: sequence 2 missing
-          ],
+          stateMachines: {
+            development: {
+              stages: [
+                { id: "stage1", title: "Stage 1", sequence: 1, playbookStatus: "approved" },
+                { id: "stage2", title: "Stage 2", sequence: 3, playbookStatus: "approved" }, // Gap: sequence 2 missing
+              ]
+            },
+            production: { stages: [] }
+          },
           references: [],
         },
       ];
@@ -178,7 +192,7 @@ describe("graph validation and normalization", () => {
         expect.objectContaining({
           code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
           documentId: "plant.grape",
-          field: "stageJourney",
+          field: "stateMachines.development",
         }),
       );
     });
@@ -195,10 +209,15 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           scientificName: "Vitis vinifera",
-          stageJourney: [
-            { id: "stage1", title: "Stage 1", sequence: 1, playbookStatus: "approved" },
-            { id: "stage2", title: "Stage 2", sequence: 2, playbookStatus: "approved" },
-          ],
+          stateMachines: {
+            development: {
+              stages: [
+                { id: "stage1", title: "Stage 1", sequence: 1, playbookStatus: "approved" },
+                { id: "stage2", title: "Stage 2", sequence: 2, playbookStatus: "approved" },
+              ]
+            },
+            production: { stages: [] }
+          },
           references: [],
         },
         {
@@ -212,8 +231,7 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape",
           sequence: 1,
-          stageGroup: "development",
-          repeatable: false,
+          machineId: "development",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
@@ -234,8 +252,7 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape",
           sequence: 2,
-          stageGroup: "development",
-          repeatable: false,
+          machineId: "development",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
@@ -322,7 +339,7 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           scientificName: "Vitis vinifera",
-          stageJourney: [],
+          stateMachines: { development: { stages: [] }, production: { stages: [] } },
           references: [],
         },
       ];

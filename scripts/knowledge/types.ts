@@ -114,18 +114,26 @@ export interface StageJourneyItem {
   readonly playbookStatus: "unavailable" | "draft" | "review" | "approved";
 }
 
+export interface StateMachineDefinition {
+  readonly stages: readonly StageJourneyItem[];
+}
+
+export interface PlantSpeciesStateMachines {
+  readonly development: StateMachineDefinition;
+  readonly production: StateMachineDefinition;
+}
+
 export interface NormalizedPlantSpecies extends NormalizedUserFacingBaseDocument {
   readonly type: "plant_species";
   readonly scientificName: string;
-  readonly stageJourney: readonly StageJourneyItem[];
+  readonly stateMachines: PlantSpeciesStateMachines;
 }
 
 export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseDocument {
   readonly type: "growth_stage_playbook";
   readonly speciesId: string;
   readonly sequence: number;
-  readonly stageGroup: "development" | "production";
-  readonly repeatable: boolean;
+  readonly machineId: "development" | "production";
   readonly primaryObjective: string;
   readonly entryCriteria: readonly string[];
   readonly exitCriteria: readonly string[];

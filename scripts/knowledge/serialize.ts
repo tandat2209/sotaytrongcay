@@ -37,14 +37,24 @@ export function serializeBundle(
 
   // 2. Build objects in contract key order
   const compiledSpecies = speciesDocs.map((s) => {
-    const stageJourney = [...s.stageJourney]
-      .sort((a, b) => a.sequence - b.sequence)
-      .map((item) => ({
-        id: item.id,
-        title: item.title,
-        sequence: item.sequence,
-        playbookStatus: item.playbookStatus,
-      }));
+    const parseStages = (stages: readonly any[]) =>
+      [...stages]
+        .sort((a, b) => a.sequence - b.sequence)
+        .map((item) => ({
+          id: item.id,
+          title: item.title,
+          sequence: item.sequence,
+          playbookStatus: item.playbookStatus,
+        }));
+
+    const stateMachines = {
+      development: {
+        stages: parseStages(s.stateMachines?.development?.stages ?? []),
+      },
+      production: {
+        stages: parseStages(s.stateMachines?.production?.stages ?? []),
+      },
+    };
 
     return {
       id: s.id,
@@ -55,7 +65,7 @@ export function serializeBundle(
       status: s.status,
       references: sortArray(s.references),
       scientificName: s.scientificName,
-      stageJourney,
+      stateMachines,
       bodyMarkdown: s.bodyMarkdown,
     };
   });
@@ -70,8 +80,7 @@ export function serializeBundle(
     references: sortArray(s.references),
     speciesId: s.speciesId,
     sequence: s.sequence,
-    stageGroup: s.stageGroup,
-    repeatable: s.repeatable,
+    machineId: s.machineId,
     primaryObjective: s.primaryObjective,
     entryCriteria: s.entryCriteria,
     exitCriteria: s.exitCriteria,

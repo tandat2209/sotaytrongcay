@@ -33,7 +33,7 @@
           "status",
           "references",
           "scientificName",
-          "stageJourney",
+          "stateMachines",
           "bodyMarkdown"
         ],
         "properties": {
@@ -45,19 +45,36 @@
           "status": { "$ref": "#/$defs/status" },
           "references": { "$ref": "#/$defs/references" },
           "scientificName": { "type": "string", "minLength": 1 },
-          "stageJourney": {
-            "type": "array",
-            "uniqueItems": true,
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["id", "title", "sequence", "playbookStatus"],
-              "properties": {
-                "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
-                "title": { "type": "string", "minLength": 1 },
-                "sequence": { "type": "integer", "minimum": 1 },
-                "playbookStatus": { "enum": ["unavailable", "draft", "review", "approved"] }
+          "stateMachines": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["development", "production"],
+            "properties": {
+              "development": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["stages"],
+                "properties": {
+                  "stages": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/stage_journey_item"
+                    }
+                  }
+                }
+              },
+              "production": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["stages"],
+                "properties": {
+                  "stages": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/stage_journey_item"
+                    }
+                  }
+                }
               }
             }
           },
@@ -81,8 +98,7 @@
           "references",
           "speciesId",
           "sequence",
-          "stageGroup",
-          "repeatable",
+          "machineId",
           "primaryObjective",
           "entryCriteria",
           "exitCriteria",
@@ -102,11 +118,8 @@
           "references": { "$ref": "#/$defs/references" },
           "speciesId": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" },
           "sequence": { "type": "integer", "minimum": 1 },
-          "stageGroup": {
+          "machineId": {
             "enum": ["development", "production"]
-          },
-          "repeatable": {
-            "type": "boolean"
           },
           "primaryObjective": {
             "type": "string",
@@ -268,6 +281,17 @@
       "items": {
         "type": "string",
         "pattern": "^ref\\.[a-z0-9.-]+$"
+      }
+    },
+    "stage_journey_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "sequence", "playbookStatus"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
+        "title": { "type": "string", "minLength": 1 },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "playbookStatus": { "enum": ["unavailable", "draft", "review", "approved"] }
       }
     }
   }

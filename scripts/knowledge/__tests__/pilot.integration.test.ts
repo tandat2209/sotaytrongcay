@@ -27,7 +27,7 @@ describe("grape knowledge pilot integration test", () => {
 
     // Check sizes
     expect(bundle.species).toHaveLength(1);
-    expect(bundle.stagePlaybooks).toHaveLength(13);
+    expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.careRecommendations).toHaveLength(1);
     expect(bundle.guides).toHaveLength(1);
     expect(bundle.references).toHaveLength(3);

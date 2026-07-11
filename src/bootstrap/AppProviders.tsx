@@ -3,6 +3,8 @@ import type { PropsWithChildren } from "react";
 import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { DatabaseProvider } from "@/shared/providers/DatabaseProvider";
+
 export function AppProviders({ children }: PropsWithChildren) {
   const [queryClient] = useState(
     () =>
@@ -18,7 +20,9 @@ export function AppProviders({ children }: PropsWithChildren) {
 
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <DatabaseProvider>{children}</DatabaseProvider>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 }

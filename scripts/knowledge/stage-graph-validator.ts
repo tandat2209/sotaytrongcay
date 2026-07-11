@@ -23,75 +23,86 @@ export function validateStageGraphs(
   }
 
   for (const species of speciesDocs) {
-    const journey = species.stageJourney;
-    if (journey.length === 0) {
-      continue;
-    }
-
-    // 1. Verify sequence numbers in stage journey are unique and contiguous 1..N
-    const sortedJourney = [...journey].sort((a, b) => a.sequence - b.sequence);
-    let sequenceContiguous = true;
-    for (let i = 0; i < sortedJourney.length; i++) {
-      const item = sortedJourney[i];
-      if (item === undefined || item.sequence !== i + 1) {
-        sequenceContiguous = false;
-        break;
+    const validateMachine = (machineName: "development" | "production", stages: readonly any[]) => {
+      if (stages.length === 0) {
+        return;
       }
-    }
 
-    if (!sequenceContiguous) {
-      diagnostics.push({
-        code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-        path: species.path,
-        documentId: species.id,
-        field: "stageJourney",
-        message: `Stage journey for species ${species.id} has invalid or non-contiguous sequences.`,
-      });
-      continue; // Skip further stage graph validation for this species if journey is broken
-    }
-
-    // 2. Validate playbooks against registry journey items
-    for (let i = 0; i < sortedJourney.length; i++) {
-      const item = sortedJourney[i];
-      if (item === undefined) {
-        continue;
-      }
-      const playbook = playbookMap.get(item.id);
-
-      if (item.playbookStatus === "unavailable") {
-        if (playbook) {
-          diagnostics.push({
-            code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-            path: playbook.path,
-            documentId: playbook.id,
-            field: "status",
-            message: `Playbook ${playbook.id} exists but is marked 'unavailable' in the journey of species ${species.id}.`,
-          });
+      // 1. Verify sequence numbers in stage journey are unique and contiguous 1..N
+      const sortedJourney = [...stages].sort((a, b) => a.sequence - b.sequence);
+      let sequenceContiguous = true;
+      for (let i = 0; i < sortedJourney.length; i++) {
+        const item = sortedJourney[i];
+        if (item === undefined || item.sequence !== i + 1) {
+          sequenceContiguous = false;
+          break;
         }
-      } else {
-        if (!playbook) {
-          diagnostics.push({
-            code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-            path: species.path,
-            documentId: species.id,
-            field: "stageJourney",
-            message: `Playbook ${item.id} is marked '${item.playbookStatus}' in species ${species.id} but the document is missing.`,
-          });
-        } else {
-          // Playbook exists, check sequence matches journey
-          if (playbook.sequence !== item.sequence) {
+      }
+
+      if (!sequenceContiguous) {
+        diagnostics.push({
+          code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
+          path: species.path,
+          documentId: species.id,
+          field: `stateMachines.${machineName}`,
+          message: `${machineName} state machine for species ${species.id} has invalid or non-contiguous sequences.`,
+        });
+        return; // Skip further stage graph validation for this machine
+      }
+
+      // 2. Validate playbooks against registry journey items
+      for (let i = 0; i < sortedJourney.length; i++) {
+        const item = sortedJourney[i];
+        if (item === undefined) continue;
+        
+        const playbook = playbookMap.get(item.id);
+
+        if (item.playbookStatus === "unavailable") {
+          if (playbook) {
             diagnostics.push({
               code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
               path: playbook.path,
               documentId: playbook.id,
-              field: "sequence",
-              message: `Playbook ${playbook.id} sequence (${playbook.sequence}) does not match the journey sequence (${item.sequence}) for species ${species.id}.`,
+              field: "status",
+              message: `Playbook ${playbook.id} exists but is marked 'unavailable' in ${machineName} machine of species ${species.id}.`,
             });
           }
-
+        } else {
+          if (!playbook) {
+            diagnostics.push({
+              code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
+              path: species.path,
+              documentId: species.id,
+              field: `stateMachines.${machineName}`,
+              message: `Playbook ${item.id} is marked '${item.playbookStatus}' in species ${species.id} but the document is missing.`,
+            });
+          } else {
+            // Playbook exists, check sequence matches journey
+            if (playbook.sequence !== item.sequence) {
+              diagnostics.push({
+                code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
+                path: playbook.path,
+                documentId: playbook.id,
+                field: "sequence",
+                message: `Playbook ${playbook.id} sequence (${playbook.sequence}) does not match the ${machineName} machine sequence (${item.sequence}) for species ${species.id}.`,
+              });
+            }
+            if (playbook.machineId !== machineName) {
+              diagnostics.push({
+                code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
+                path: playbook.path,
+                documentId: playbook.id,
+                field: "machineId",
+                message: `Playbook ${playbook.id} machineId (${playbook.machineId}) does not match the ${machineName} machine for species ${species.id}.`,
+              });
+            }
+          }
         }
       }
-    }
+    };
+
+    validateMachine("development", species.stateMachines?.development?.stages ?? []);
+    validateMachine("production", species.stateMachines?.production?.stages ?? []);
   }
 
   return diagnostics;

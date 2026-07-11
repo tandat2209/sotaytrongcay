@@ -13,8 +13,7 @@
     "sequence",
     "version",
     "status",
-    "stage_group",
-    "repeatable",
+    "machine_id",
     "primary_objective",
     "entry_criteria",
     "exit_criteria",
@@ -61,14 +60,11 @@
         "archived"
       ]
     },
-    "stage_group": {
+    "machine_id": {
       "enum": [
         "development",
         "production"
       ]
-    },
-    "repeatable": {
-      "type": "boolean"
     },
     "primary_objective": {
       "type": "string",

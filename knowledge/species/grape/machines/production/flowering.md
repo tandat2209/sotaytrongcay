@@ -1,33 +1,31 @@
 ---
 id: grape.stage.flowering
 type: growth_stage_playbook
-title: "Ra hoa"
+title: Ra hoa
 locale: vi-VN
 species_id: plant.grape
-sequence: 8
+sequence: 3
 version: 1.0.0
 status: review
-stage_group: production
-repeatable: true
-primary_objective: "Đảm bảo tỉ lệ thụ phấn cao nhất, tránh rụng bông."
+machine_id: production
+primary_objective: Đảm bảo tỉ lệ thụ phấn cao nhất, tránh rụng bông.
 entry_criteria:
-  - "Nụ hoa bắt đầu hé mở cánh"
+  - Nụ hoa bắt đầu hé mở cánh
 exit_criteria:
-  - "Hoa tàn"
-  - "Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)"
-estimated_duration: "1-2 tuần"
+  - Hoa tàn
+  - Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)
+estimated_duration: 1-2 tuần
 recommended_playbook: playbook.grape.flowering
 default_reminder_templates:
-  - "DỪNG phun tất cả các loại thuốc"
-  - "DỪNG bón phân"
-  - "Giảm tối đa tưới nước"
+  - DỪNG phun tất cả các loại thuốc
+  - DỪNG bón phân
+  - Giảm tối đa tưới nước
 recommended_knowledge_topics:
-  - "Tại sao nho rụng bông?"
-  - "Ảnh hưởng của sương mù đến thụ phấn"
+  - Tại sao nho rụng bông?
+  - Ảnh hưởng của sương mù đến thụ phấn
 references:
   - ref.osu.growing-table-grapes
 ---
-
 Hoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.
 
 ## UX & Behavioral Design

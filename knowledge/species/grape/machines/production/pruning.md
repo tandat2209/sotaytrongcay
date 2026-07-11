@@ -1,34 +1,32 @@
 ---
 id: grape.stage.pruning
 type: growth_stage_playbook
-title: "Cắt cành"
+title: Cắt cành
 locale: vi-VN
 species_id: plant.grape
-sequence: 6
+sequence: 1
 version: 1.0.0
 status: review
-stage_group: production
-repeatable: true
-primary_objective: "Tạo vết cắt kích thích mầm ngủ nảy nở đồng loạt."
+machine_id: production
+primary_objective: Tạo vết cắt kích thích mầm ngủ nảy nở đồng loạt.
 entry_criteria:
-  - "Từ trạng thái Trưởng thành hoặc Phục hồi"
-  - "Người dùng thực hiện cắt cành"
+  - Từ trạng thái Trưởng thành hoặc Phục hồi
+  - Người dùng thực hiện cắt cành
 exit_criteria:
-  - "Mắt ngủ bắt đầu sưng to"
-  - "Nứt nanh (mầm xanh xuất hiện)"
-estimated_duration: "1-2 tuần"
+  - Mắt ngủ bắt đầu sưng to
+  - Nứt nanh (mầm xanh xuất hiện)
+estimated_duration: 1-2 tuần
 recommended_playbook: playbook.grape.pruning
 default_reminder_templates:
-  - "Quét thuốc chống nấm vết cắt"
-  - "Dọn sạch lá rụng khỏi vườn"
-  - "Siết nước (ngưng tưới)"
+  - Quét thuốc chống nấm vết cắt
+  - Dọn sạch lá rụng khỏi vườn
+  - Siết nước (ngưng tưới)
 recommended_knowledge_topics:
-  - "Cách xác định mắt ngủ khỏe"
-  - "Vệ sinh vườn sau cắt cành"
+  - Cách xác định mắt ngủ khỏe
+  - Vệ sinh vườn sau cắt cành
 references:
   - ref.osu.growing-table-grapes
 ---
-
 Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.
 
 ## UX & Behavioral Design

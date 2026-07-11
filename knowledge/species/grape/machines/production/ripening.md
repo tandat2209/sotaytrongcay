@@ -1,34 +1,32 @@
 ---
 id: grape.stage.ripening
 type: growth_stage_playbook
-title: "Chín quả"
+title: Chín quả
 locale: vi-VN
 species_id: plant.grape
-sequence: 11
+sequence: 6
 version: 1.0.0
 status: review
-stage_group: production
-repeatable: true
-primary_objective: "Tăng độ ngọt, lên màu đẹp và chống chim chóc."
+machine_id: production
+primary_objective: Tăng độ ngọt, lên màu đẹp và chống chim chóc.
 entry_criteria:
-  - "Trái bắt đầu đổi màu (Veraison)"
+  - Trái bắt đầu đổi màu (Veraison)
 exit_criteria:
-  - "Cuống trái hơi héo"
-  - "Đạt độ ngọt mong muốn"
-  - "Hạt chuyển màu đen"
-estimated_duration: "2-4 tuần"
+  - Cuống trái hơi héo
+  - Đạt độ ngọt mong muốn
+  - Hạt chuyển màu đen
+estimated_duration: 2-4 tuần
 recommended_playbook: playbook.grape.ripening
 default_reminder_templates:
-  - "Cắt giảm nước hoàn toàn"
-  - "Chỉ bón Kali (K), dừng Đạm (N)"
-  - "Phòng chim, chuột ăn quả"
+  - Cắt giảm nước hoàn toàn
+  - Chỉ bón Kali (K), dừng Đạm (N)
+  - Phòng chim, chuột ăn quả
 recommended_knowledge_topics:
-  - "Bí quyết tăng độ ngọt cho nho"
-  - "Cách xác định nho đã chín hoàn toàn"
+  - Bí quyết tăng độ ngọt cho nho
+  - Cách xác định nho đã chín hoàn toàn
 references:
   - ref.osu.growing-table-grapes
 ---
-
 Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.
 
 ## UX & Behavioral Design

@@ -1,33 +1,31 @@
 ---
 id: grape.stage.seedling
 type: growth_stage_playbook
-title: "Cây con"
+title: Cây con
 locale: vi-VN
 species_id: plant.grape
 sequence: 1
 version: 1.0.0
 status: review
-stage_group: development
-repeatable: false
-primary_objective: "Giúp cây bén rễ, sống khỏe và bắt đầu đâm chồi mới."
+machine_id: development
+primary_objective: Giúp cây bén rễ, sống khỏe và bắt đầu đâm chồi mới.
 entry_criteria:
-  - "Cây giống được trồng xuống đất hoặc chậu lớn"
+  - Cây giống được trồng xuống đất hoặc chậu lớn
 exit_criteria:
-  - "Mầm chính vươn dài trên 30-50cm"
-  - "Bắt đầu bám giàn/cọc"
-estimated_duration: "2-4 tuần"
+  - Mầm chính vươn dài trên 30-50cm
+  - Bắt đầu bám giàn/cọc
+estimated_duration: 2-4 tuần
 recommended_playbook: playbook.grape.seedling-care
 default_reminder_templates:
-  - "Tưới nước giữ ẩm"
-  - "Che nắng gắt"
-  - "Kiểm tra sâu bệnh ăn lá"
+  - Tưới nước giữ ẩm
+  - Che nắng gắt
+  - Kiểm tra sâu bệnh ăn lá
 recommended_knowledge_topics:
-  - "Cách chọn đất trồng"
-  - "Nhận biết sâu hại mầm non"
+  - Cách chọn đất trồng
+  - Nhận biết sâu hại mầm non
 references:
   - ref.osu.growing-table-grapes
 ---
-
 Giai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.
 
 ## UX & Behavioral Design
