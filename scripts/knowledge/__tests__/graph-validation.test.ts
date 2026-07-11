@@ -114,9 +114,15 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape", // Correct type
           sequence: 1,
-          careRecommendationIds: ["missing.recommendation"], // Missing
-          guideIds: ["plant.grape"], // Wrong type (plant_species instead of care_guide)
-          nextStageId: null,
+          stageGroup: "development",
+          repeatable: false,
+          primaryObjective: "Objective",
+          entryCriteria: [],
+          exitCriteria: [],
+          estimatedDuration: "1 week",
+          recommendedPlaybook: "playbook",
+          defaultReminderTemplates: [],
+          recommendedKnowledgeTopics: [],
           references: ["missing.ref"], // Missing reference
         },
         {
@@ -142,20 +148,7 @@ describe("graph validation and normalization", () => {
           field: "references",
         }),
       );
-      expect(diagnostics).toContainEqual(
-        expect.objectContaining({
-          code: "KNOWLEDGE_RELATIONSHIP_MISSING",
-          documentId: "grape.stage.trunk-development",
-          field: "careRecommendationIds",
-        }),
-      );
-      expect(diagnostics).toContainEqual(
-        expect.objectContaining({
-          code: "KNOWLEDGE_RELATIONSHIP_WRONG_TYPE",
-          documentId: "grape.stage.trunk-development",
-          field: "guideIds",
-        }),
-      );
+
     });
   });
 
@@ -219,9 +212,15 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape",
           sequence: 1,
-          careRecommendationIds: [],
-          guideIds: [],
-          nextStageId: "wrong.successor", // Mismatched
+          stageGroup: "development",
+          repeatable: false,
+          primaryObjective: "Objective",
+          entryCriteria: [],
+          exitCriteria: [],
+          estimatedDuration: "1 week",
+          recommendedPlaybook: "playbook",
+          defaultReminderTemplates: [],
+          recommendedKnowledgeTopics: [],
           references: [],
         },
         {
@@ -235,28 +234,21 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape",
           sequence: 2,
-          careRecommendationIds: [],
-          guideIds: [],
-          nextStageId: "stage1", // Terminal stage must have nextStageId = null
+          stageGroup: "development",
+          repeatable: false,
+          primaryObjective: "Objective",
+          entryCriteria: [],
+          exitCriteria: [],
+          estimatedDuration: "1 week",
+          recommendedPlaybook: "playbook",
+          defaultReminderTemplates: [],
+          recommendedKnowledgeTopics: [],
           references: [],
         },
       ];
 
       const diagnostics = validateStageGraphs(docs);
-      expect(diagnostics).toContainEqual(
-        expect.objectContaining({
-          code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-          documentId: "stage1",
-          field: "nextStageId",
-        }),
-      );
-      expect(diagnostics).toContainEqual(
-        expect.objectContaining({
-          code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-          documentId: "stage2",
-          field: "nextStageId",
-        }),
-      );
+      expect(diagnostics).toEqual([]);
     });
   });
 

@@ -48,9 +48,15 @@ export function normalizeDocument(
         references: (fm.references ?? []) as readonly string[],
         speciesId: String(fm.species_id),
         sequence: Number(fm.sequence),
-        careRecommendationIds: (fm.care_recommendation_ids ?? []) as readonly string[],
-        guideIds: (fm.guide_ids ?? []) as readonly string[],
-        nextStageId: fm.next_stage_id ? String(fm.next_stage_id) : null,
+        stageGroup: fm.stage_group as "development" | "production",
+        repeatable: Boolean(fm.repeatable),
+        primaryObjective: String(fm.primary_objective),
+        entryCriteria: (fm.entry_criteria ?? []) as readonly string[],
+        exitCriteria: (fm.exit_criteria ?? []) as readonly string[],
+        estimatedDuration: String(fm.estimated_duration),
+        recommendedPlaybook: String(fm.recommended_playbook),
+        defaultReminderTemplates: (fm.default_reminder_templates ?? []) as readonly string[],
+        recommendedKnowledgeTopics: (fm.recommended_knowledge_topics ?? []) as readonly string[],
       };
     }
 

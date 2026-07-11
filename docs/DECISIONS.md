@@ -7,6 +7,14 @@ This file records confirmed decisions. Unvalidated ideas remain in `PROJECT_CONT
 Each entry includes a date, status, decision, and rationale. Valid statuses are `Proposed`, `Accepted`, and `Superseded`.
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
+## 2026-07-11 — Replace stage graph with sequence and state-machine criteria
+
+**Status:** Accepted
+
+**Decision:** Growth stages are now modeled as a sequential state machine ordered by `sequence`, replacing the previous directed graph (`next_stage_id`). Stages now declare `entry_criteria`, `exit_criteria`, `stage_group` (development vs. production), and `repeatable` to drive the UX. Hardcoded links like `care_recommendation_ids` and `guide_ids` were removed from playbooks.
+
+**Rationale:** The directed graph approach was brittle and didn't match the reality of plant growth, which features a one-time structural phase (development) followed by repeating seasonal cycles (production). Removing hardcoded arrays for recommendations allows the system to query guidance dynamically based on current conditions.
+
 
 ## 2026-07-10 — Make gardening history the core value
 

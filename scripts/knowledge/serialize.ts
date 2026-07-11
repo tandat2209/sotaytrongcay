@@ -70,9 +70,15 @@ export function serializeBundle(
     references: sortArray(s.references),
     speciesId: s.speciesId,
     sequence: s.sequence,
-    careRecommendationIds: sortArray(s.careRecommendationIds),
-    guideIds: sortArray(s.guideIds),
-    nextStageId: s.nextStageId,
+    stageGroup: s.stageGroup,
+    repeatable: s.repeatable,
+    primaryObjective: s.primaryObjective,
+    entryCriteria: s.entryCriteria,
+    exitCriteria: s.exitCriteria,
+    estimatedDuration: s.estimatedDuration,
+    recommendedPlaybook: s.recommendedPlaybook,
+    defaultReminderTemplates: sortArray(s.defaultReminderTemplates),
+    recommendedKnowledgeTopics: sortArray(s.recommendedKnowledgeTopics),
     bodyMarkdown: s.bodyMarkdown,
   }));
 

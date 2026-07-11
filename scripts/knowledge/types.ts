@@ -124,9 +124,15 @@ export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseD
   readonly type: "growth_stage_playbook";
   readonly speciesId: string;
   readonly sequence: number;
-  readonly careRecommendationIds: readonly string[];
-  readonly guideIds: readonly string[];
-  readonly nextStageId: string | null;
+  readonly stageGroup: "development" | "production";
+  readonly repeatable: boolean;
+  readonly primaryObjective: string;
+  readonly entryCriteria: readonly string[];
+  readonly exitCriteria: readonly string[];
+  readonly estimatedDuration: string;
+  readonly recommendedPlaybook: string;
+  readonly defaultReminderTemplates: readonly string[];
+  readonly recommendedKnowledgeTopics: readonly string[];
 }
 
 export interface NormalizedCareRecommendationDefinition extends NormalizedUserFacingBaseDocument {

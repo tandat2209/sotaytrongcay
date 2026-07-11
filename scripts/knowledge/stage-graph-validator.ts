@@ -89,33 +89,6 @@ export function validateStageGraphs(
             });
           }
 
-          // Check nextStageId
-          const isTerminal = i === sortedJourney.length - 1;
-          if (isTerminal) {
-            if (playbook.nextStageId !== null) {
-              diagnostics.push({
-                code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-                path: playbook.path,
-                documentId: playbook.id,
-                field: "nextStageId",
-                message: `Terminal playbook ${playbook.id} has a nextStageId: ${playbook.nextStageId}, expected null.`,
-              });
-            }
-          } else {
-            const nextItem = sortedJourney[i + 1];
-            if (nextItem !== undefined) {
-              const expectedNextId = nextItem.id;
-              if (playbook.nextStageId !== expectedNextId) {
-                diagnostics.push({
-                  code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-                  path: playbook.path,
-                  documentId: playbook.id,
-                  field: "nextStageId",
-                  message: `Playbook ${playbook.id} has nextStageId '${playbook.nextStageId}', expected '${expectedNextId}'.`,
-                });
-              }
-            }
-          }
         }
       }
     }

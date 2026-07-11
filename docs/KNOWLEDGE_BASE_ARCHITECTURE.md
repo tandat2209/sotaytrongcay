@@ -93,23 +93,18 @@ flowchart LR
 
 **Required fields:**
 
-- ID, species ID, sequence, Vietnamese name, description, and goal;
-- entry criteria and observable completion criteria;
-- stage-tip IDs and care-recommendation IDs;
-- watering-guide and fertilizer-profile references;
-- recommended nutrient IDs;
-- things to avoid;
-- weather considerations;
-- common disease, pest, and warning-sign IDs;
-- success indicators;
-- next-stage ID or terminal marker;
+- ID, species ID, sequence, Vietnamese name;
+- stage group (development or production) and repeatable flag;
+- primary objective, entry criteria, and exit criteria;
+- estimated duration and recommended playbook references;
+- default reminder templates and recommended knowledge topics;
 - status, version, review metadata, and references.
 
-**Optional fields:** Typical duration range, climate/growing-method variants, pruning guides, seasonal notes, harvest/post-harvest guides, images, expert notes.
+**Optional fields:** Typical climate/growing-method variants, images, expert notes.
 
-**Relationships:** Belongs to Species; composes tips, care recommendations, and guides; references threats and rules; transitions to the next stage.
+**Relationships:** Belongs to Species. Evaluated sequentially according to its sequence. Uses entry and exit criteria to guide users through the state machine.
 
-**Example:** `grape.stage.trunk-development`, shown as “Nuôi thân”, with goal “Phát triển thân chính khỏe và thẳng”.
+**Example:** `grape.stage.trunk-development`, shown as “Nuôi thân chính”, with primary objective “Xây dựng trục thân chính thẳng và khỏe để lên giàn.”
 
 ### 5.3 Completion Criterion
 
@@ -580,64 +575,43 @@ Saved activities opened from a suggestion may store the recommendation ID and ve
 ---
 id: grape.stage.trunk-development
 type: growth_stage_playbook
-title: "Nuôi thân"
+title: "Nuôi thân chính"
 locale: vi-VN
-species_ids: [plant.grape]
+species_id: plant.grape
+sequence: 2
 version: 1.0.0
 status: review
-references: [ref.extension.grape-training]
+stage_group: development
+repeatable: false
+primary_objective: "Xây dựng trục thân chính thẳng và khỏe để lên giàn."
+entry_criteria:
+  - "Cây con đã bén rễ cứng cáp"
+  - "Chồi non bắt đầu leo theo cọc tạm"
+exit_criteria:
+  - "Thân chính vươn tới mặt giàn"
+estimated_duration: "1-2 tháng"
+recommended_playbook: playbook.grape.trunk-development
+default_reminder_templates:
+  - "Buộc thân chính vào cọc"
+  - "Tỉa chồi nách (chồi phụ)"
+  - "Tưới nước giữ ẩm"
+recommended_knowledge_topics:
+  - "Kỹ thuật tỉa chồi nách"
+  - "Nhận biết thân chính và chồi phụ"
+references:
+  - ref.osu.growing-table-grapes
 ---
 
-# Nuôi thân
+Giai đoạn tập trung toàn bộ năng lượng để nuôi một thân chính duy nhất vươn thẳng lên giàn.
 
-## Mục tiêu
+## UX & Behavioral Design
 
-Phát triển thân chính khỏe, thẳng và đạt tới giàn.
-
-## Mô tả
-
-Giai đoạn tập trung vào một thân chính và nền tảng cho tán cây sau này.
-
-## Điều kiện bắt đầu
-
-- Cây đã bén rễ và xuất hiện chồi khỏe.
-
-## Tưới nước
-
-- Tham chiếu: `grape.watering.trunk-development`
-
-## Phân bón và dinh dưỡng
-
-- Tham chiếu: `fertilizer.nitrogen-forward-balanced`
-- Dinh dưỡng: `nutrient.nitrogen`
-
-## Mẹo theo giai đoạn
-
-- `grape.tip.tie-main-trunk`
-- `grape.tip.remove-competing-shoots`
-
-## Gợi ý chăm sóc
-
-- `grape.recommendation.check-soil-moisture`
-
-## Điều cần tránh
-
-- Không cắt ngọn thân chính.
-- Không để nhiều thân cạnh tranh.
-
-## Vấn đề thường gặp
-
-- `sign.yellow-young-leaves`
-- `pest.aphid`
-
-## Tiêu chí hoàn thành
-
-- `main-trunk-reaches-trellis`: Thân chính đã chạm tới giàn.
-- `main-trunk-is-secure`: Thân được cố định an toàn và không bị siết.
-
-## Giai đoạn tiếp theo
-
-`grape.stage.climbing-trellis`
+- **Why it exists:** The foundational structural phase. Mistakes here cause permanent architectural flaws in the vine.
+- **Why separated:** The singular goal is vertical growth. All lateral growth must be stopped.
+- **User Actions to Advance:** Tapping "Đã vươn tới giàn" (Reaches trellis).
+- **Active Reminders:** Tying the vine, pinching lateral shoots.
+- **Timeline Highlights:** "Bắt đầu leo cọc", "Cắt tỉa nách lá lần 1".
+- **UI Communication:** A visual of a single vine growing straight up a bamboo stake.
 ```
 
 ### Care recommendation template

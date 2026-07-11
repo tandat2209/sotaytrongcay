@@ -37,9 +37,15 @@ describe("compiler selection and serialization integration", () => {
     references: ["ref.osu"],
     speciesId: "plant.grape",
     sequence: 1,
-    careRecommendationIds: [],
-    guideIds: [],
-    nextStageId: null,
+    stageGroup: "development",
+    repeatable: false,
+    primaryObjective: "Objective",
+    entryCriteria: [],
+    exitCriteria: [],
+    estimatedDuration: "1 week",
+    recommendedPlaybook: "playbook",
+    defaultReminderTemplates: [],
+    recommendedKnowledgeTopics: [],
     path: "stage.md",
   };
 

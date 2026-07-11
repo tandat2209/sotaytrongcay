@@ -140,9 +140,15 @@ species_id: plant.grape
 sequence: 1
 version: 1.0.0
 status: approved
-care_recommendation_ids: [grape.recommendation.check-soil]
-guide_ids: [grape.guide.train-main-shoot]
-next_stage_id: null
+stage_group: development
+repeatable: false
+primary_objective: "Objective"
+entry_criteria: ["Criteria"]
+exit_criteria: ["Criteria"]
+estimated_duration: "1 week"
+recommended_playbook: playbook.grape
+default_reminder_templates: ["Reminder"]
+recommended_knowledge_topics: ["Topic"]
 references: [ref.example]
 ---
 # Nuôi thân

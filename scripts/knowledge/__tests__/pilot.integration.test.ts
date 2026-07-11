@@ -27,14 +27,14 @@ describe("grape knowledge pilot integration test", () => {
 
     // Check sizes
     expect(bundle.species).toHaveLength(1);
-    expect(bundle.stagePlaybooks).toHaveLength(1);
+    expect(bundle.stagePlaybooks).toHaveLength(13);
     expect(bundle.careRecommendations).toHaveLength(1);
     expect(bundle.guides).toHaveLength(1);
     expect(bundle.references).toHaveLength(3);
 
     // Verify IDs
     expect(bundle.species[0].id).toBe("plant.grape");
-    expect(bundle.stagePlaybooks[0].id).toBe("grape.stage.trunk-development");
+    expect(bundle.stagePlaybooks.map((s: any) => s.id)).toContain("grape.stage.trunk-development");
     expect(bundle.careRecommendations[0].id).toBe("grape.recommendation.check-soil-before-watering");
     expect(bundle.guides[0].id).toBe("grape.guide.train-main-shoot");
 

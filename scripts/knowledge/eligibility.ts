@@ -94,15 +94,7 @@ export function selectEligibleContent(
       case "growth_stage_playbook": {
         const playbook = doc as NormalizedGrowthStagePlaybook;
         checkUfDependency(playbook, playbook.speciesId, "speciesId");
-        for (const recId of playbook.careRecommendationIds) {
-          checkUfDependency(playbook, recId, "careRecommendationIds");
-        }
-        for (const guideId of playbook.guideIds) {
-          checkUfDependency(playbook, guideId, "guideIds");
-        }
-        if (playbook.nextStageId !== null) {
-          checkUfDependency(playbook, playbook.nextStageId, "nextStageId");
-        }
+
         break;
       }
 

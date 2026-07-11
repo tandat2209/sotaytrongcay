@@ -77,15 +77,7 @@ export function validateRelationships(
         // Validate speciesId exists and has type plant_species
         validateIdRef(doc, doc.speciesId, "speciesId", "plant_species");
 
-        // Validate careRecommendationIds
-        for (const recId of doc.careRecommendationIds) {
-          validateIdRef(doc, recId, "careRecommendationIds", "care_recommendation_definition");
-        }
 
-        // Validate guideIds
-        for (const guideId of doc.guideIds) {
-          validateIdRef(doc, guideId, "guideIds", "care_guide");
-        }
 
         // Validate if this playbook is present in its species stage journey
         const species = idMap.get(doc.speciesId);
