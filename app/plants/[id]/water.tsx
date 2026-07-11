@@ -8,7 +8,7 @@ import { createId } from "@/shared/lib/identifiers";
 export default function WateringRoute() {
   const { id, name = "Cây trồng" } = z.object({ id: z.string().uuid(), name: z.string().optional() }).parse(useLocalSearchParams());
   const queryClient = useQueryClient();
-  return <WateringEntryScreen plantName={name} onSave={async (details) => {
+  return <WateringEntryScreen onBack={() => router.back()} plantName={name} onSave={async (details) => {
     const now = new Date().toISOString();
     await saveCareActivity({ id: createId(), mutationId: createId(), plantId: id, type: "watering", occurredAt: now, origin: "manual", ...details, createdAt: now });
     await Promise.all([

@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
-
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { StyleSheet, View } from "react-native";
+import { SurfaceCard } from "./SurfaceCard";
+import { Typography } from "./Typography";
 import { colors, radius, spacing } from "./theme";
 
 type EmptyStateProps = {
@@ -9,23 +11,19 @@ type EmptyStateProps = {
 
 export function EmptyState({ description, title }: EmptyStateProps) {
   return (
-    <View accessibilityRole="summary" style={styles.container}>
+    <SurfaceCard style={styles.container}>
       <View accessibilityElementsHidden style={styles.leaf}>
-        <Text style={styles.leafText}>⌁</Text>
+        <Ionicons color={colors.primary} name="leaf-outline" size={24} />
       </View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
-    </View>
+      <Typography style={styles.title} variant="headlineSmall">{title}</Typography>
+      <Typography color="textSecondary" style={styles.description} variant="bodyMedium">{description}</Typography>
+    </SurfaceCard>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.card,
-    borderWidth: StyleSheet.hairlineWidth,
     gap: spacing.sm,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.xl,
@@ -38,18 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 48,
   },
-  leafText: { color: colors.primary, fontSize: 30, fontWeight: "600" },
-  title: {
-    color: colors.text,
-    fontSize: 18,
-    fontWeight: "600",
-    lineHeight: 24,
-    textAlign: "center",
-  },
-  description: {
-    color: colors.textSecondary,
-    fontSize: 14,
-    lineHeight: 20,
-    textAlign: "center",
-  },
+  title: { textAlign: "center" },
+  description: { textAlign: "center" },
 });

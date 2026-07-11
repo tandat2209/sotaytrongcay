@@ -2,7 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 
 import { tabDestinations } from "@/bootstrap/navigation";
-import { colors } from "@/shared/ui/theme";
+import { colors, control, typography } from "@/shared/ui/theme";
 
 export default function TabLayout() {
   return (
@@ -12,7 +12,13 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,
-        tabBarStyle: { backgroundColor: colors.surface },
+        tabBarLabelStyle: { ...typography.label, marginBottom: 2 },
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopColor: colors.border,
+          minHeight: control.tabBarHeight,
+          paddingTop: 4,
+        },
       }}
     >
       {tabDestinations.map((destination) => (

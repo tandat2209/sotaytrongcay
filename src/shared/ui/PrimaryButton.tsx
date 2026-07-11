@@ -2,18 +2,22 @@ import { ActivityIndicator, Pressable, StyleSheet, Text } from "react-native";
 import { colors, radius, spacing } from "./theme";
 
 type PrimaryButtonProps = {
+  disabled?: boolean;
   label: string;
   onPress: () => void;
   loading?: boolean;
 };
 
-export function PrimaryButton({ label, loading = false, onPress }: PrimaryButtonProps) {
+export function PrimaryButton({ disabled = false, label, loading = false, onPress }: PrimaryButtonProps) {
+  const unavailable = disabled || loading;
+
   return (
     <Pressable
       accessibilityRole="button"
-      disabled={loading}
+      accessibilityState={{ busy: loading, disabled: unavailable }}
+      disabled={unavailable}
       onPress={onPress}
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      style={({ pressed }) => [styles.button, unavailable && styles.disabled, pressed && !unavailable && styles.pressed]}
     >
       {loading ? <ActivityIndicator color={colors.surface} /> : <Text style={styles.label}>{label}</Text>}
     </Pressable>
@@ -30,5 +34,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
   },
   label: { color: colors.surface, fontSize: 16, fontWeight: "600" },
+  disabled: { opacity: 0.45 },
   pressed: { opacity: 0.82 },
 });

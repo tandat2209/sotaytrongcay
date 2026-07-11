@@ -1,7 +1,8 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Typography } from "./Typography";
 import { colors, spacing } from "./theme";
 
 type ScreenProps = PropsWithChildren<{
@@ -17,12 +18,8 @@ export function Screen({ children, introduction, title }: ScreenProps) {
         contentInsetAdjustmentBehavior="automatic"
       >
         <View style={styles.heading}>
-          <Text accessibilityRole="header" style={styles.title}>
-            {title}
-          </Text>
-          {introduction ? (
-            <Text style={styles.introduction}>{introduction}</Text>
-          ) : null}
+          {title ? <Typography style={styles.title} variant="headlineLarge">{title}</Typography> : null}
+          {introduction ? <Typography color="textSecondary" variant="bodyLarge">{introduction}</Typography> : null}
         </View>
         {children}
       </ScrollView>
@@ -39,15 +36,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
   },
   heading: { gap: spacing.sm, paddingTop: spacing.md },
-  title: {
-    color: colors.text,
-    fontSize: 28,
-    fontWeight: "600",
-    lineHeight: 34,
-  },
-  introduction: {
-    color: colors.textSecondary,
-    fontSize: 16,
-    lineHeight: 24,
-  },
+  title: { color: colors.text },
 });

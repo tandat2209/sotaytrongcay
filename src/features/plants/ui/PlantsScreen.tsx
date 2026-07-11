@@ -1,7 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Pressable, StyleSheet, View } from "react-native";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { Screen } from "@/shared/ui/Screen";
-import { colors, radius, spacing } from "@/shared/ui/theme";
+import { SurfaceCard } from "@/shared/ui/SurfaceCard";
+import { Typography } from "@/shared/ui/Typography";
+import { colors, spacing } from "@/shared/ui/theme";
 import { Plant } from "../models/plant";
 
 type Props = {
@@ -28,10 +31,15 @@ export function PlantsScreen({ onOpenPlant = () => undefined, plants = [] }: Pro
               accessibilityRole="button"
               key={plant.id}
               onPress={() => onOpenPlant(plant.id)}
-              style={styles.card}
             >
-              <Text style={styles.name}>{plant.name}</Text>
-              <Text style={styles.meta}>Nho · Giai đoạn đã chọn</Text>
+              <SurfaceCard style={styles.card}>
+                <View style={styles.plantIcon}><Ionicons color={colors.primary} name="leaf-outline" size={22} /></View>
+                <View style={styles.copy}>
+                  <Typography variant="bodyLarge">{plant.name}</Typography>
+                  <Typography color="textSecondary" variant="bodyMedium">Nho · Giai đoạn đã chọn</Typography>
+                </View>
+                <Ionicons color={colors.textSecondary} name="chevron-forward" size={20} />
+              </SurfaceCard>
             </Pressable>
           ))}
         </View>
@@ -41,16 +49,8 @@ export function PlantsScreen({ onOpenPlant = () => undefined, plants = [] }: Pro
 }
 
 const styles = StyleSheet.create({
+  card: { alignItems: "center", flexDirection: "row", gap: spacing.md, minHeight: 76 },
+  copy: { flex: 1, gap: spacing.xs },
   list: { gap: spacing.md },
-  card: {
-    backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.card,
-    borderWidth: StyleSheet.hairlineWidth,
-    gap: spacing.xs,
-    minHeight: 72,
-    padding: spacing.md,
-  },
-  name: { color: colors.text, fontSize: 16, fontWeight: "600" },
-  meta: { color: colors.textSecondary, fontSize: 14 },
+  plantIcon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: 22, height: 44, justifyContent: "center", width: 44 },
 });

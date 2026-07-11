@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 import { z } from "zod";
 import { getCareActivity } from "@/features/journal/data/care-activity-repository";
@@ -15,5 +15,5 @@ export default function ActivityDetailRoute() {
   if (query.isPending) return <Text>Đang tải…</Text>;
   if (query.isError) return <Text>Chưa thể tải hoạt động. Hãy thử lại.</Text>;
   if (!query.data.activity) return <Text>Hoạt động này không còn tồn tại.</Text>;
-  return <ActivityDetailScreen activity={query.data.activity} plantName={query.data.plant?.name ?? "Cây trồng"} />;
+  return <ActivityDetailScreen activity={query.data.activity} onBack={() => router.back()} plantName={query.data.plant?.name ?? "Cây trồng"} />;
 }
