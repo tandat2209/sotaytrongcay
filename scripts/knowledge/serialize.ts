@@ -44,15 +44,16 @@ export function serializeBundle(
           id: item.id,
           title: item.title,
           sequence: item.sequence,
+          transitions: item.transitions,
           playbookStatus: item.playbookStatus,
         }));
 
-    const stateMachines = {
+    const lifecycles = {
       development: {
-        stages: parseStages(s.stateMachines?.development?.stages ?? []),
+        stages: parseStages(s.lifecycles?.development?.stages ?? []),
       },
       production: {
-        stages: parseStages(s.stateMachines?.production?.stages ?? []),
+        stages: parseStages(s.lifecycles?.production?.stages ?? []),
       },
     };
 
@@ -65,31 +66,59 @@ export function serializeBundle(
       status: s.status,
       references: sortArray(s.references),
       scientificName: s.scientificName,
-      stateMachines,
+      lifecycles,
       bodyMarkdown: s.bodyMarkdown,
     };
   });
 
-  const compiledStagePlaybooks = stageDocs.map((s) => ({
-    id: s.id,
-    type: s.type,
-    title: s.title,
-    locale: s.locale,
-    version: s.version,
-    status: s.status,
-    references: sortArray(s.references),
-    speciesId: s.speciesId,
-    sequence: s.sequence,
-    machineId: s.machineId,
-    primaryObjective: s.primaryObjective,
-    entryCriteria: s.entryCriteria,
-    exitCriteria: s.exitCriteria,
-    estimatedDuration: s.estimatedDuration,
-    recommendedPlaybook: s.recommendedPlaybook,
-    defaultReminderTemplates: sortArray(s.defaultReminderTemplates),
-    recommendedKnowledgeTopics: sortArray(s.recommendedKnowledgeTopics),
-    bodyMarkdown: s.bodyMarkdown,
-  }));
+  const compiledStagePlaybooks = stageDocs.map((s) => {
+    // Find the species document to extract title, sequence, lifecycleId, transitions
+    const species = compiledSpecies.find(sp => sp.id === s.speciesId);
+    let title = s.title;
+    let sequence = s.sequence;
+    let lifecycleId = s.lifecycleId;
+    let transitions: readonly string[] = [];
+
+    if (species) {
+      const devStage = species.lifecycles.development.stages.find(st => st.id === s.id);
+      if (devStage) {
+        title = devStage.title;
+        sequence = devStage.sequence;
+        lifecycleId = "development";
+        transitions = devStage.transitions ?? [];
+      } else {
+        const prodStage = species.lifecycles.production.stages.find(st => st.id === s.id);
+        if (prodStage) {
+          title = prodStage.title;
+          sequence = prodStage.sequence;
+          lifecycleId = "production";
+          transitions = prodStage.transitions ?? [];
+        }
+      }
+    }
+
+    return {
+      id: s.id,
+      type: s.type,
+      title,
+      locale: s.locale,
+      version: s.version,
+      status: s.status,
+      references: sortArray(s.references),
+      speciesId: s.speciesId,
+      sequence,
+      lifecycleId,
+      transitions,
+      primaryObjective: s.primaryObjective,
+      entryCriteria: s.entryCriteria,
+      exitCriteria: s.exitCriteria,
+      estimatedDuration: s.estimatedDuration,
+      recommendedPlaybook: s.recommendedPlaybook,
+      defaultReminderTemplates: sortArray(s.defaultReminderTemplates),
+      recommendedKnowledgeTopics: sortArray(s.recommendedKnowledgeTopics),
+      bodyMarkdown: s.bodyMarkdown,
+    };
+  });
 
   const compiledCareRecommendations = recDocs.map((r) => ({
     id: r.id,

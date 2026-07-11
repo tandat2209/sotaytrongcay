@@ -1,13 +1,10 @@
 ---
 id: grape.stage.trunk-development
 type: growth_stage_playbook
-title: Nuôi thân chính
 locale: vi-VN
 species_id: plant.grape
-sequence: 2
 version: 1.0.0
 status: review
-machine_id: development
 primary_objective: Tạo ra một thân chính khỏe mạnh, mập mạp và vươn tới mặt giàn.
 entry_criteria:
   - Mầm chính khỏe mạnh, bắt đầu vươn cao

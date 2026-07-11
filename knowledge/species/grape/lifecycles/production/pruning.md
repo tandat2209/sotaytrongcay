@@ -1,13 +1,10 @@
 ---
 id: grape.stage.pruning
 type: growth_stage_playbook
-title: Cắt cành
 locale: vi-VN
 species_id: plant.grape
-sequence: 1
 version: 1.0.0
 status: review
-machine_id: production
 primary_objective: Tạo vết cắt kích thích mầm ngủ nảy nở đồng loạt.
 entry_criteria:
   - Từ trạng thái Trưởng thành hoặc Phục hồi
@@ -35,5 +32,5 @@ Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắ
 - **Why separated:** It's a violent intervention that temporarily strips the vine of leaves.
 - **User Actions to Advance:** "Mắt ngủ sưng to" (Bud swelling observation).
 - **Active Reminders:** Disease control on fresh cuts (quét nấm), stopping watering to simulate stress (siết nước).
-- **Timeline Highlights:** "Cắt cành vụ X". This zero-indexes the season timeline.
+- **Timeline Highlights:** "Sau cắt cành vụ X". This zero-indexes the season timeline.
 - **UI Communication:** A dramatic UI shift. Bare branches icon. The overarching "Season 1" tracker begins.

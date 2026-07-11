@@ -1,14 +1,11 @@
 ---
 id: grape.stage.harvest
 type: growth_stage_playbook
-title: Thu hoạch
 locale: vi-VN
 species_id: plant.grape
-sequence: 7
 version: 1.0.0
 status: review
-machine_id: production
-primary_objective: Thu hoạch an toàn, bảo quản đúng cách.
+primary_objective: Sẵn sàng thu hoạch an toàn, bảo quản đúng cách.
 entry_criteria:
   - Kiểm tra độ ngọt đạt yêu cầu
   - Hạt bên trong đã đen lõi

@@ -7,13 +7,10 @@
   "required": [
     "id",
     "type",
-    "title",
     "locale",
     "species_id",
-    "sequence",
     "version",
     "status",
-    "machine_id",
     "primary_objective",
     "entry_criteria",
     "exit_criteria",
@@ -31,10 +28,6 @@
     "type": {
       "const": "growth_stage_playbook"
     },
-    "title": {
-      "type": "string",
-      "minLength": 1
-    },
     "locale": {
       "type": "string",
       "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
@@ -42,10 +35,6 @@
     "species_id": {
       "type": "string",
       "pattern": "^plant\\.[a-z0-9-]+$"
-    },
-    "sequence": {
-      "type": "integer",
-      "minimum": 1
     },
     "version": {
       "type": "string",
@@ -58,12 +47,6 @@
         "approved",
         "deprecated",
         "archived"
-      ]
-    },
-    "machine_id": {
-      "enum": [
-        "development",
-        "production"
       ]
     },
     "primary_objective": {

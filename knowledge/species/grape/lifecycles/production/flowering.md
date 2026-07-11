@@ -1,13 +1,10 @@
 ---
 id: grape.stage.flowering
 type: growth_stage_playbook
-title: Ra hoa
 locale: vi-VN
 species_id: plant.grape
-sequence: 3
 version: 1.0.0
 status: review
-machine_id: production
 primary_objective: Đảm bảo tỉ lệ thụ phấn cao nhất, tránh rụng bông.
 entry_criteria:
   - Nụ hoa bắt đầu hé mở cánh

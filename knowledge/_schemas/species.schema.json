@@ -12,7 +12,7 @@
     "locale",
     "version",
     "status",
-    "state_machines",
+    "lifecycles",
     "references"
   ],
   "properties": {
@@ -48,7 +48,7 @@
         "archived"
       ]
     },
-    "state_machines": {
+    "lifecycles": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -117,6 +117,12 @@
         "sequence": {
           "type": "integer",
           "minimum": 1
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "playbook_status": {
           "enum": [

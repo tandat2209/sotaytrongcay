@@ -1,14 +1,11 @@
 ---
 id: grape.stage.bud-break
 type: growth_stage_playbook
-title: Kích mầm
 locale: vi-VN
 species_id: plant.grape
-sequence: 2
 version: 1.0.0
 status: review
-machine_id: production
-primary_objective: Bảo vệ mầm non khỏi côn trùng và nấm bệnh.
+primary_objective: Theo dõi sự phát triển của mầm và bảo vệ khỏi côn trùng, nấm bệnh.
 entry_criteria:
   - Mắt ngủ sưng to và nứt xanh
 exit_criteria:
@@ -19,7 +16,7 @@ recommended_playbook: playbook.grape.bud-break
 default_reminder_templates:
   - Phun ngừa bọ trĩ ăn mầm
   - Tưới nước trở lại (lượng nhỏ)
-  - Bón phân đạm kích chồi
+  - Cung cấp dinh dưỡng kích chồi (nếu cần)
 recommended_knowledge_topics:
   - Nhận biết bọ trĩ
   - Phân biệt chồi hoa và chồi điếc

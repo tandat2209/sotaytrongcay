@@ -84,12 +84,12 @@ export function selectEligibleContent(
       case "plant_species": {
         const species = doc as NormalizedPlantSpecies;
         const allStages = [
-          ...(species.stateMachines?.development?.stages ?? []),
-          ...(species.stateMachines?.production?.stages ?? [])
+          ...(species.lifecycles?.development?.stages ?? []),
+          ...(species.lifecycles?.production?.stages ?? [])
         ];
         for (const item of allStages) {
           if (item.playbookStatus !== "unavailable") {
-            checkUfDependency(species, item.id, "stateMachines");
+            checkUfDependency(species, item.id, "lifecycles");
           }
         }
         break;

@@ -15,9 +15,20 @@
     "references"
   ],
   "properties": {
-    "schemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-    "contentVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-    "mode": { "enum": ["production", "preview"] },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "contentVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "mode": {
+      "enum": [
+        "production",
+        "preview"
+      ]
+    },
     "species": {
       "type": "array",
       "uniqueItems": true,
@@ -33,27 +44,53 @@
           "status",
           "references",
           "scientificName",
-          "stateMachines",
+          "lifecycles",
           "bodyMarkdown"
         ],
         "properties": {
-          "id": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" },
-          "type": { "const": "plant_species" },
-          "title": { "type": "string", "minLength": 1 },
-          "locale": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$" },
-          "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-          "status": { "$ref": "#/$defs/status" },
-          "references": { "$ref": "#/$defs/references" },
-          "scientificName": { "type": "string", "minLength": 1 },
-          "stateMachines": {
+          "id": {
+            "type": "string",
+            "pattern": "^plant\\.[a-z0-9-]+$"
+          },
+          "type": {
+            "const": "plant_species"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "references": {
+            "$ref": "#/$defs/references"
+          },
+          "scientificName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lifecycles": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["development", "production"],
+            "required": [
+              "development",
+              "production"
+            ],
             "properties": {
               "development": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["stages"],
+                "required": [
+                  "stages"
+                ],
                 "properties": {
                   "stages": {
                     "type": "array",
@@ -66,7 +103,9 @@
               "production": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["stages"],
+                "required": [
+                  "stages"
+                ],
                 "properties": {
                   "stages": {
                     "type": "array",
@@ -78,7 +117,9 @@
               }
             }
           },
-          "bodyMarkdown": { "type": "string" }
+          "bodyMarkdown": {
+            "type": "string"
+          }
         }
       }
     },
@@ -98,7 +139,7 @@
           "references",
           "speciesId",
           "sequence",
-          "machineId",
+          "lifecycleId",
           "primaryObjective",
           "entryCriteria",
           "exitCriteria",
@@ -109,17 +150,44 @@
           "bodyMarkdown"
         ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
-          "type": { "const": "growth_stage_playbook" },
-          "title": { "type": "string", "minLength": 1 },
-          "locale": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$" },
-          "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-          "status": { "$ref": "#/$defs/status" },
-          "references": { "$ref": "#/$defs/references" },
-          "speciesId": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" },
-          "sequence": { "type": "integer", "minimum": 1 },
-          "machineId": {
-            "enum": ["development", "production"]
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9.-]+$"
+          },
+          "type": {
+            "const": "growth_stage_playbook"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "references": {
+            "$ref": "#/$defs/references"
+          },
+          "speciesId": {
+            "type": "string",
+            "pattern": "^plant\\.[a-z0-9-]+$"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "lifecycleId": {
+            "enum": [
+              "development",
+              "production"
+            ]
           },
           "primaryObjective": {
             "type": "string",
@@ -127,11 +195,15 @@
           },
           "entryCriteria": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "exitCriteria": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "estimatedDuration": {
             "type": "string"
@@ -142,13 +214,25 @@
           },
           "defaultReminderTemplates": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "recommendedKnowledgeTopics": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
-          "bodyMarkdown": { "type": "string" }
+          "bodyMarkdown": {
+            "type": "string"
+          },
+          "transitions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -172,27 +256,59 @@
           "bodyMarkdown"
         ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
-          "type": { "const": "care_recommendation_definition" },
-          "title": { "type": "string", "minLength": 1 },
-          "locale": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$" },
-          "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-          "status": { "$ref": "#/$defs/status" },
-          "references": { "$ref": "#/$defs/references" },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9.-]+$"
+          },
+          "type": {
+            "const": "care_recommendation_definition"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "references": {
+            "$ref": "#/$defs/references"
+          },
           "speciesIds": {
             "type": "array",
             "uniqueItems": true,
             "minItems": 1,
-            "items": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" }
+            "items": {
+              "type": "string",
+              "pattern": "^plant\\.[a-z0-9-]+$"
+            }
           },
           "stageIds": {
             "type": "array",
             "uniqueItems": true,
             "minItems": 1,
-            "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9.-]+$"
+            }
           },
-          "activityType": { "enum": ["watering", "fertilizing", "spraying"] },
-          "bodyMarkdown": { "type": "string" }
+          "activityType": {
+            "enum": [
+              "watering",
+              "fertilizing",
+              "spraying"
+            ]
+          },
+          "bodyMarkdown": {
+            "type": "string"
+          }
         }
       }
     },
@@ -215,26 +331,52 @@
           "bodyMarkdown"
         ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
-          "type": { "const": "care_guide" },
-          "title": { "type": "string", "minLength": 1 },
-          "locale": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$" },
-          "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-          "status": { "$ref": "#/$defs/status" },
-          "references": { "$ref": "#/$defs/references" },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9.-]+$"
+          },
+          "type": {
+            "const": "care_guide"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "references": {
+            "$ref": "#/$defs/references"
+          },
           "speciesIds": {
             "type": "array",
             "uniqueItems": true,
             "minItems": 1,
-            "items": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" }
+            "items": {
+              "type": "string",
+              "pattern": "^plant\\.[a-z0-9-]+$"
+            }
           },
           "stageIds": {
             "type": "array",
             "uniqueItems": true,
             "minItems": 1,
-            "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9.-]+$"
+            }
           },
-          "bodyMarkdown": { "type": "string" }
+          "bodyMarkdown": {
+            "type": "string"
+          }
         }
       }
     },
@@ -257,23 +399,64 @@
           "bodyMarkdown"
         ],
         "properties": {
-          "id": { "type": "string", "pattern": "^ref\\.[a-z0-9.-]+$" },
-          "type": { "const": "reference_source" },
-          "title": { "type": "string", "minLength": 1 },
-          "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
-          "status": { "enum": ["active", "superseded", "unavailable"] },
-          "publisher": { "type": "string", "minLength": 1 },
-          "sourceType": { "enum": ["extension_guide", "research_paper", "expert_review", "regulatory_guidance"] },
-          "url": { "type": "string", "format": "uri" },
-          "accessed": { "type": "string", "format": "date" },
-          "bodyMarkdown": { "type": "string" }
+          "id": {
+            "type": "string",
+            "pattern": "^ref\\.[a-z0-9.-]+$"
+          },
+          "type": {
+            "const": "reference_source"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "superseded",
+              "unavailable"
+            ]
+          },
+          "publisher": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceType": {
+            "enum": [
+              "extension_guide",
+              "research_paper",
+              "expert_review",
+              "regulatory_guidance"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "accessed": {
+            "type": "string",
+            "format": "date"
+          },
+          "bodyMarkdown": {
+            "type": "string"
+          }
         }
       }
     }
   },
   "$defs": {
     "status": {
-      "enum": ["draft", "review", "approved", "deprecated", "archived"]
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "deprecated",
+        "archived"
+      ]
     },
     "references": {
       "type": "array",
@@ -286,12 +469,39 @@
     "stage_journey_item": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "sequence", "playbookStatus"],
+      "required": [
+        "id",
+        "title",
+        "sequence",
+        "playbookStatus"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
-        "title": { "type": "string", "minLength": 1 },
-        "sequence": { "type": "integer", "minimum": 1 },
-        "playbookStatus": { "enum": ["unavailable", "draft", "review", "approved"] }
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9.-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "playbookStatus": {
+          "enum": [
+            "unavailable",
+            "draft",
+            "review",
+            "approved"
+          ]
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     }
   }

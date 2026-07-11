@@ -1,13 +1,10 @@
 ---
 id: grape.stage.fruit-set
 type: growth_stage_playbook
-title: Đậu quả
 locale: vi-VN
 species_id: plant.grape
-sequence: 4
 version: 1.0.0
 status: review
-machine_id: production
 primary_objective: Tuyển chọn và định hình chùm nho, bổ sung dinh dưỡng ngay lập tức.
 entry_criteria:
   - Hoa rụng hết cánh

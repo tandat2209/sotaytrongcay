@@ -1,13 +1,10 @@
 ---
 id: grape.stage.seedling
 type: growth_stage_playbook
-title: Cây con
 locale: vi-VN
 species_id: plant.grape
-sequence: 1
 version: 1.0.0
 status: review
-machine_id: development
 primary_objective: Giúp cây bén rễ, sống khỏe và bắt đầu đâm chồi mới.
 entry_criteria:
   - Cây giống được trồng xuống đất hoặc chậu lớn

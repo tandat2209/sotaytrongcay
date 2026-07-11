@@ -1,13 +1,10 @@
 ---
 id: grape.stage.trellis-training
 type: growth_stage_playbook
-title: Leo giàn
 locale: vi-VN
 species_id: plant.grape
-sequence: 3
 version: 1.0.0
 status: review
-machine_id: development
 primary_objective: Phân nhánh cành cấp 1 đều khắp mặt giàn.
 entry_criteria:
   - Đã bấm ngọn thân chính tại mặt giàn

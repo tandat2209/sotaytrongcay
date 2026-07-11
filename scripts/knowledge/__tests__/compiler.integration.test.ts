@@ -22,9 +22,9 @@ describe("compiler selection and serialization integration", () => {
     status: "approved",
     references: ["ref.osu"],
     scientificName: "Vitis vinifera",
-    stateMachines: {
-      development: { stages: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved" }] },
-      production: { stages: [] }
+    lifecycles: {
+      development: { stages: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved", transitions: ["stage.prod"] }] },
+      production: { stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
     },
     path: "species.md",
   };
@@ -122,9 +122,9 @@ describe("compiler selection and serialization integration", () => {
     it("fails with KNOWLEDGE_DEPENDENCY_INELIGIBLE when a dependency is ineligible in production mode", () => {
       const speciesWithReviewStage: NormalizedPlantSpecies = {
         ...mockSpecies,
-        stateMachines: {
-          development: { stages: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review" }] },
-          production: { stages: [] }
+        lifecycles: {
+          development: { stages: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review", transitions: ["stage.prod"] }] },
+          production: { stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
         },
       };
 

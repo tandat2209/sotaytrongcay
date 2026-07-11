@@ -33,7 +33,7 @@ describe("knowledge source discovery and parsing", () => {
   it("retains the exact Markdown body after parsing frontmatter", async () => {
     const markdownBody = "# Nuôi thân\n\nGiữ nguyên nội dung.\n";
     const sourcePath = await workspace.writeKnowledgeFile(
-      "species/grape/machines/development/trunk-development.md",
+      "species/grape/lifecycles/development/trunk-development.md",
       `---\nid: grape.stage.trunk-development\ntype: growth_stage_playbook\n---\n${markdownBody}`,
     );
 
@@ -46,7 +46,7 @@ describe("knowledge source discovery and parsing", () => {
       id: "grape.stage.trunk-development",
       type: "growth_stage_playbook",
       body: markdownBody,
-      path: "knowledge/species/grape/machines/development/trunk-development.md",
+      path: "knowledge/species/grape/lifecycles/development/trunk-development.md",
     });
     expect(result.diagnostics).toEqual([]);
   });
@@ -122,18 +122,20 @@ scientific_name: "Vitis vinifera"
 locale: vi-VN
 version: 1.0.0
 status: approved
-state_machines:
+lifecycles:
   development:
     stages:
       - id: grape.stage.trunk-development
         title: "Nuôi thân"
         sequence: 1
+        transitions: []
         playbook_status: approved
   production:
     stages:
       - id: grape.stage.pruning
         title: "Cắt cành"
         sequence: 1
+        transitions: []
         playbook_status: approved
 references: [ref.example]
 ---
@@ -142,13 +144,10 @@ references: [ref.example]
   stage: `---
 id: grape.stage.trunk-development
 type: growth_stage_playbook
-title: "Nuôi thân"
 locale: vi-VN
 species_id: plant.grape
-sequence: 1
 version: 1.0.0
 status: approved
-machine_id: development
 primary_objective: "Objective"
 entry_criteria: ["Criteria"]
 exit_criteria: ["Criteria"]
@@ -215,7 +214,7 @@ describe("knowledge source schema validation", () => {
 
   it("validates one correctly placed document for every supported type", async () => {
     await workspace.writeKnowledgeFile("species/grape/species.md", validDocuments.species);
-    await workspace.writeKnowledgeFile("species/grape/machines/development/trunk-development.md", validDocuments.stage);
+    await workspace.writeKnowledgeFile("species/grape/lifecycles/development/trunk-development.md", validDocuments.stage);
     await workspace.writeKnowledgeFile("species/grape/care-recommendations/check-soil.md", validDocuments.recommendation);
     await workspace.writeKnowledgeFile("species/grape/guides/training/train-main-shoot.md", validDocuments.guide);
     await workspace.writeKnowledgeFile("references/ref-example.md", validDocuments.reference);
@@ -302,7 +301,11 @@ title: "Nho"
 locale: vi-VN
 version: 1
 status: approved
-state_machines: []
+lifecycles:
+  development:
+    stages: []
+  production:
+    stages: []
 references: []
 ---
 # Nho
@@ -315,12 +318,14 @@ references: []
     });
 
     expect(result.documents).toEqual([]);
-    expect(result.diagnostics).toEqual([
+    expect(result.diagnostics).toHaveLength(5);
+    expect(result.diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "lifecycles.development.stages" }),
+      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "lifecycles.production.stages" }),
       expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "references" }),
       expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "scientific_name" }),
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "state_machines" }),
       expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "version" }),
-    ]);
+    ]));
     for (const diagnostic of result.diagnostics) {
       expect(diagnostic.path).toBe("knowledge/species/grape/species.md");
       expect(diagnostic.path).not.toContain(workspace.repositoryRoot);

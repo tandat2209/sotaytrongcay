@@ -1,13 +1,10 @@
 ---
 id: grape.stage.ripening
 type: growth_stage_playbook
-title: Chín quả
 locale: vi-VN
 species_id: plant.grape
-sequence: 6
 version: 1.0.0
 status: review
-machine_id: production
 primary_objective: Tăng độ ngọt, lên màu đẹp và chống chim chóc.
 entry_criteria:
   - Trái bắt đầu đổi màu (Veraison)

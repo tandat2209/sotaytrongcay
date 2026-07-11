@@ -83,8 +83,8 @@ export function validateRelationships(
         const species = idMap.get(doc.speciesId);
         if (species && species.type === "plant_species") {
           const allStages = [
-            ...(species.stateMachines?.development?.stages ?? []),
-            ...(species.stateMachines?.production?.stages ?? [])
+            ...(species.lifecycles?.development?.stages ?? []),
+            ...(species.lifecycles?.production?.stages ?? [])
           ];
           const inJourney = allStages.some((j) => j.id === doc.id);
           if (!inJourney) {

@@ -48,18 +48,20 @@ locale: vi-VN
 version: 1.0.0
 status: approved
 scientific_name: "Vitis vinifera"
-state_machines:
+lifecycles:
   development:
     stages:
       - id: grape.stage.trunk-development
         title: "Nuôi thân"
         sequence: 1
+        transitions: ["grape.stage.pruning"]
         playbook_status: unavailable
   production:
     stages:
       - id: grape.stage.pruning
         title: "Cắt cành"
         sequence: 1
+        transitions: []
         playbook_status: unavailable
 references: ["ref.osu"]
 ---
@@ -113,18 +115,20 @@ locale: vi-VN
 version: 1.0.0
 status: approved
 scientific_name: "Vitis vinifera"
-state_machines:
+lifecycles:
   development:
     stages:
       - id: grape.stage.trunk-development
         title: "Nuôi thân"
         sequence: 1
+        transitions: ["grape.stage.pruning"]
         playbook_status: unavailable
   production:
     stages:
       - id: grape.stage.pruning
         title: "Cắt cành"
         sequence: 1
+        transitions: []
         playbook_status: unavailable
 references: ["ref.osu"]
 ---
@@ -150,16 +154,17 @@ references: ["ref.osu"]
             status: "approved",
             references: ["ref.osu"],
             scientificName: "Vitis vinifera",
-            stateMachines: {
+            lifecycles: {
               development: {
                 stages: [
                   {
                     id: "grape.stage.trunk-development",
                     title: "Nuôi thân",
                     sequence: 1,
+                    transitions: ["grape.stage.pruning"],
                     playbookStatus: "unavailable",
-                  }
-                ]
+                  },
+                ],
               },
               production: {
                 stages: [
@@ -167,10 +172,11 @@ references: ["ref.osu"]
                     id: "grape.stage.pruning",
                     title: "Cắt cành",
                     sequence: 1,
+                    transitions: [],
                     playbookStatus: "unavailable",
-                  }
-                ]
-              }
+                  },
+                ],
+              },
             },
             bodyMarkdown: "# Cây nho\n",
           },
@@ -205,6 +211,9 @@ references: ["ref.osu"]
       committedBundlePath,
     });
 
+    if (!result.ok) {
+      console.log("FRESHNESS DIAGNOSTICS:", result.diagnostics);
+    }
     expect(result.ok).toBe(true);
 
     // Write mismatched content (e.g. trailing characters or minor change)

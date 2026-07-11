@@ -1,13 +1,10 @@
 ---
 id: grape.stage.canopy-formation
 type: growth_stage_playbook
-title: Tạo tán
 locale: vi-VN
 species_id: plant.grape
-sequence: 4
 version: 1.0.0
 status: review
-machine_id: development
 primary_objective: Hoàn thiện bộ tán lá quang hợp và tích lũy dinh dưỡng vào cành mẹ.
 entry_criteria:
   - Cành cấp 1 đã hoàn thiện

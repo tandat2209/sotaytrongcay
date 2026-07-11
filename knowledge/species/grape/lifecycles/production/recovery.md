@@ -1,14 +1,11 @@
 ---
 id: grape.stage.recovery
 type: growth_stage_playbook
-title: Phục hồi
 locale: vi-VN
 species_id: plant.grape
-sequence: 8
 version: 1.0.0
 status: review
-machine_id: production
-primary_objective: Phục hồi sức khỏe toàn diện cho cây, cải tạo đất.
+primary_objective: Sau thu hoạch sức khỏe toàn diện cho cây, cải tạo đất.
 entry_criteria:
   - Vừa thu hoạch xong toàn bộ trái
 exit_criteria:

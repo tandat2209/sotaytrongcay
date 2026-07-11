@@ -1,13 +1,10 @@
 ---
 id: grape.stage.fruit-development
 type: growth_stage_playbook
-title: Nuôi quả
 locale: vi-VN
 species_id: plant.grape
-sequence: 5
 version: 1.0.0
 status: review
-machine_id: production
 primary_objective: Tối đa hóa kích thước trái và giữ chùm nho sạch bệnh.
 entry_criteria:
   - Đã tỉa trái xong
