@@ -14,6 +14,8 @@ Use this precedence when sources disagree:
 
 Mockups may contain exploratory copy, generated images, placeholders, unsupported recommendations, or outdated flows. Engineering must not infer requirements from those details.
 
+See [SCREEN_REVIEW.md](./SCREEN_REVIEW.md) for the current screen-by-screen product and Knowledge Base assessment.
+
 ## 2. Reference index
 
 | Order | Reference | Intended use | Status notes |

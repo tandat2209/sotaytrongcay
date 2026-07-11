@@ -52,6 +52,8 @@ The first release focuses on three outcomes:
 - [Mobile design guidelines and mockup index](./docs/design/DESIGN.md)
 - [Technical architecture](./docs/TECHNICAL_ARCHITECTURE.md)
 - [Knowledge Base architecture](./docs/KNOWLEDGE_BASE_ARCHITECTURE.md)
+- [Grape Knowledge Base pilot](./knowledge/README.md)
+- [Mockup review](./docs/design/SCREEN_REVIEW.md)
 - [Engineering standards](./docs/ENGINEERING_STANDARDS.md)
 - [Decision log](./docs/DECISIONS.md)
 - [Vietnamese domain language](./CONTEXT.md)

@@ -14,11 +14,12 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## MVP content
 
-- [ ] Define the reviewed grape stage sequence.
+- [x] Define the canonical grape stage sequence in the review-ready pilot.
 - [ ] Write concise tips, avoid text, warning signs, and milestones for each supported stage.
 - [ ] Define reviewed care recommendation rules only for trackable activities.
 - [ ] Add source, reviewer, version, locale, and review-date metadata.
 - [ ] Review every product, dosage, and weather claim for unsafe certainty.
+- [ ] Obtain qualified Vietnamese grape-growing review for the “Nuôi thân” pilot.
 
 ## MVP UX
 
@@ -58,3 +59,5 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Define technical and Knowledge Base architecture.
 - [x] Separate user data from curated knowledge.
 - [x] Distinguish trackable care from informational stage tips.
+- [x] Review mockups 01–14 against the current product and Knowledge Base contract.
+- [x] Author a sourced “Nuôi thân” grape Knowledge Base pilot with stable IDs and schemas.
