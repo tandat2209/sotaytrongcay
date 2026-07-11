@@ -38,9 +38,10 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Update architecture for derived care suggestions and three tracked care activities.
 - [x] Bootstrap strict TypeScript, quality gates, and test infrastructure.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
-- [ ] Build plants with species-defined stages and stage tips.
-- [ ] Build contextual care entry and activity history.
-- [ ] Build Plant Dashboard summaries from activity history.
+- [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
+- [x] Build first-slice manual watering entry and activity history.
+- [x] Build first-slice Plant Detail recent-watering summary and global Journal/Activity Detail views.
+- [ ] Extend the first slice with fertilizing, spraying, Journal updates, stage transitions, and full Plant Dashboard summaries.
 - [ ] Build deterministic care suggestions without persistent task instances.
 - [ ] Add reminders, weather context, photos, and offline synchronization.
 - [ ] Verify backup, restore, export, deletion, and content-version migration.

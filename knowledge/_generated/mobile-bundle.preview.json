@@ -1,0 +1,594 @@
+{
+  "schemaVersion": "1.0.0",
+  "contentVersion": "1.0.0",
+  "mode": "preview",
+  "species": [
+    {
+      "id": "plant.grape",
+      "type": "plant_species",
+      "title": "Nho",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "scientificName": "Vitis spp.",
+      "lifecycles": {
+        "development": {
+          "title": "Sinh trưởng kiến thiết",
+          "repeatable": false,
+          "initialStageId": "grape.stage.seedling",
+          "stages": [
+            {
+              "id": "grape.stage.seedling",
+              "title": "Cây con",
+              "sequence": 1,
+              "transitions": [
+                {
+                  "to": "grape.stage.trunk-development"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.trunk-development",
+              "title": "Phát triển thân",
+              "sequence": 2,
+              "transitions": [
+                {
+                  "to": "grape.stage.trellis-training"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.trellis-training",
+              "title": "Leo giàn",
+              "sequence": 3,
+              "transitions": [
+                {
+                  "to": "grape.stage.canopy-formation"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.canopy-formation",
+              "title": "Hình thành tán",
+              "sequence": 4,
+              "transitions": [
+                {
+                  "to": "grape.stage.pruning"
+                }
+              ],
+              "playbookStatus": "review"
+            }
+          ]
+        },
+        "production": {
+          "title": "Chu kỳ sản xuất",
+          "repeatable": true,
+          "initialStageId": "grape.stage.pruning",
+          "stages": [
+            {
+              "id": "grape.stage.pruning",
+              "title": "Sau cắt cành",
+              "sequence": 1,
+              "transitions": [
+                {
+                  "to": "grape.stage.bud-break"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.bud-break",
+              "title": "Bật mầm",
+              "sequence": 2,
+              "transitions": [
+                {
+                  "to": "grape.stage.flowering"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.flowering",
+              "title": "Ra hoa",
+              "sequence": 3,
+              "transitions": [
+                {
+                  "to": "grape.stage.fruit-set"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.fruit-set",
+              "title": "Đậu quả",
+              "sequence": 4,
+              "transitions": [
+                {
+                  "to": "grape.stage.fruit-development"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.fruit-development",
+              "title": "Nuôi quả",
+              "sequence": 5,
+              "transitions": [
+                {
+                  "to": "grape.stage.ripening"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.ripening",
+              "title": "Quả chín",
+              "sequence": 6,
+              "transitions": [
+                {
+                  "to": "grape.stage.harvest"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.harvest",
+              "title": "Sẵn sàng thu hoạch",
+              "sequence": 7,
+              "transitions": [
+                {
+                  "to": "grape.stage.recovery"
+                }
+              ],
+              "playbookStatus": "review"
+            },
+            {
+              "id": "grape.stage.recovery",
+              "title": "Sau thu hoạch",
+              "sequence": 8,
+              "transitions": [
+                {
+                  "to": "grape.stage.pruning"
+                }
+              ],
+              "playbookStatus": "review"
+            }
+          ]
+        }
+      },
+      "bodyMarkdown": "# Nho\n\n## Phạm vi\n\nGói thí điểm hỗ trợ người trồng nho tại nhà và thiết lập toàn bộ vòng đời của cây nho thông qua 12 giai đoạn.\n\nTên khoa học dùng `Vitis spp.` vì “Nho” trong sản phẩm là nhóm cây chung. Giống cụ thể có thể được bổ sung vào dữ liệu cây trồng mà không thay đổi ID loài.\n\n## Hành trình sinh trưởng\n\nToàn bộ 12 giai đoạn tạo thành một mô hình lifecycles (vòng đời).\n- **Giai đoạn kiến thiết (Development):** Diễn ra một lần duy nhất từ lúc trồng (Cây con) đến khi hoàn thiện khung giàn (Hình thành tán).\n- **Chu kỳ sản xuất (Production):** Lặp lại hàng năm, bắt đầu từ Sau cắt cành và kết thúc ở Sau thu hoạch để bắt đầu vụ mới. Việc chuyển tiếp từ giai đoạn kiến thiết (Hình thành tán) sẽ dẫn thẳng tới chu kỳ sản xuất (Sau cắt cành).\n\n## Giới hạn\n\nGói này không quy định giống nho cụ thể, hệ giàn, khí hậu, loại đất, kích thước chậu, lượng nước, công thức phân bón hoặc chương trình phun thuốc. Đây là mô hình tổng quan đóng vai trò làm khung xương cho các ứng dụng chăm sóc.\n"
+    }
+  ],
+  "stagePlaybooks": [
+    {
+      "id": "grape.stage.bud-break",
+      "type": "growth_stage_playbook",
+      "title": "Bật mầm",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 2,
+      "lifecycleId": "production",
+      "primaryObjective": "Theo dõi sự phát triển của mầm và bảo vệ khỏi côn trùng, nấm bệnh.",
+      "entryCriteria": [
+        "Mắt ngủ sưng to và nứt xanh"
+      ],
+      "exitCriteria": [
+        "Chồi vươn dài",
+        "Nụ hoa (bông gió) xuất hiện rõ rệt"
+      ],
+      "estimatedDuration": "2-3 tuần",
+      "recommendedKnowledgeTopics": [
+        "Nhận biết bọ trĩ",
+        "Phân biệt chồi hoa và chồi điếc"
+      ],
+      "bodyMarkdown": "Mầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ.\n"
+    },
+    {
+      "id": "grape.stage.canopy-formation",
+      "type": "growth_stage_playbook",
+      "title": "Hình thành tán",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 4,
+      "lifecycleId": "development",
+      "primaryObjective": "Hoàn thiện bộ tán lá quang hợp và tích lũy dinh dưỡng vào cành mẹ.",
+      "entryCriteria": [
+        "Cành cấp 1 đã hoàn thiện",
+        "Mầm nách cấp 1 nảy thành cành cấp 2"
+      ],
+      "exitCriteria": [
+        "Cành hóa gỗ (chuyển màu nâu)",
+        "Tán lá phủ kín mặt giàn"
+      ],
+      "estimatedDuration": "2-3 tháng",
+      "recommendedKnowledgeTopics": [
+        "Quá trình hóa gỗ của cành nho",
+        "Tỉ lệ N-P-K giai đoạn tạo tán"
+      ],
+      "bodyMarkdown": "Nuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.\n"
+    },
+    {
+      "id": "grape.stage.flowering",
+      "type": "growth_stage_playbook",
+      "title": "Ra hoa",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 3,
+      "lifecycleId": "production",
+      "primaryObjective": "Đảm bảo tỉ lệ thụ phấn cao nhất, tránh rụng bông.",
+      "entryCriteria": [
+        "Nụ hoa bắt đầu hé mở cánh"
+      ],
+      "exitCriteria": [
+        "Hoa tàn",
+        "Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)"
+      ],
+      "estimatedDuration": "1-2 tuần",
+      "recommendedKnowledgeTopics": [
+        "Tại sao nho rụng bông?",
+        "Ảnh hưởng của sương mù đến thụ phấn"
+      ],
+      "bodyMarkdown": "Hoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.\n"
+    },
+    {
+      "id": "grape.stage.fruit-development",
+      "type": "growth_stage_playbook",
+      "title": "Nuôi quả",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 5,
+      "lifecycleId": "production",
+      "primaryObjective": "Tối đa hóa kích thước trái và giữ chùm nho sạch bệnh.",
+      "entryCriteria": [
+        "Đã tỉa trái xong",
+        "Trái bắt đầu lớn nhanh"
+      ],
+      "exitCriteria": [
+        "Trái ngừng lớn",
+        "Trái bắt đầu chuyển màu (Veraison)"
+      ],
+      "estimatedDuration": "4-6 tuần",
+      "recommendedKnowledgeTopics": [
+        "Sử dụng túi bọc loại nào?",
+        "Vì sao nho bị nứt trái?"
+      ],
+      "bodyMarkdown": "Trái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ.\n"
+    },
+    {
+      "id": "grape.stage.fruit-set",
+      "type": "growth_stage_playbook",
+      "title": "Đậu quả",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 4,
+      "lifecycleId": "production",
+      "primaryObjective": "Tuyển chọn và định hình chùm nho, bổ sung dinh dưỡng ngay lập tức.",
+      "entryCriteria": [
+        "Hoa rụng hết cánh",
+        "Trái non hình thành kích thước 2-3mm"
+      ],
+      "exitCriteria": [
+        "Trái đạt kích thước bằng đầu ngón tay",
+        "Đã tỉa xong chùm"
+      ],
+      "estimatedDuration": "2-3 tuần",
+      "recommendedKnowledgeTopics": [
+        "Kỹ thuật tỉa trái nho chuẩn",
+        "Phòng nấm phấn trắng trên trái non"
+      ],
+      "bodyMarkdown": "Hoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).\n"
+    },
+    {
+      "id": "grape.stage.harvest",
+      "type": "growth_stage_playbook",
+      "title": "Sẵn sàng thu hoạch",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 7,
+      "lifecycleId": "production",
+      "primaryObjective": "Sẵn sàng thu hoạch an toàn, bảo quản đúng cách.",
+      "entryCriteria": [
+        "Kiểm tra độ ngọt đạt yêu cầu",
+        "Hạt bên trong đã đen lõi"
+      ],
+      "exitCriteria": [
+        "Cắt hết trái trên cây"
+      ],
+      "estimatedDuration": "1-2 tuần",
+      "recommendedKnowledgeTopics": [
+        "Bí quyết pha nước ép nho",
+        "Cách bảo quản nho tươi lâu"
+      ],
+      "bodyMarkdown": "Khoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.\n"
+    },
+    {
+      "id": "grape.stage.pruning",
+      "type": "growth_stage_playbook",
+      "title": "Sau cắt cành",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 1,
+      "lifecycleId": "production",
+      "primaryObjective": "Tạo vết cắt kích thích mầm ngủ nảy nở đồng loạt.",
+      "entryCriteria": [
+        "Từ trạng thái Trưởng thành hoặc Phục hồi",
+        "Người dùng thực hiện cắt cành"
+      ],
+      "exitCriteria": [
+        "Mắt ngủ bắt đầu sưng to",
+        "Nứt nanh (mầm xanh xuất hiện)"
+      ],
+      "estimatedDuration": "1-2 tuần",
+      "recommendedKnowledgeTopics": [
+        "Cách xác định mắt ngủ khỏe",
+        "Vệ sinh vườn sau cắt cành"
+      ],
+      "bodyMarkdown": "Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.\n"
+    },
+    {
+      "id": "grape.stage.recovery",
+      "type": "growth_stage_playbook",
+      "title": "Sau thu hoạch",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 8,
+      "lifecycleId": "production",
+      "primaryObjective": "Sau thu hoạch sức khỏe toàn diện cho cây, cải tạo đất.",
+      "entryCriteria": [
+        "Vừa thu hoạch xong toàn bộ trái"
+      ],
+      "exitCriteria": [
+        "Lá bắt đầu già úa",
+        "Cây sẵn sàng cho chu kỳ cắt cành mới"
+      ],
+      "estimatedDuration": "1-2 tháng",
+      "recommendedKnowledgeTopics": [
+        "Cách ủ phân vi sinh bón gốc",
+        "Vì sao nho cần ngủ đông?"
+      ],
+      "bodyMarkdown": "Cây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.\n"
+    },
+    {
+      "id": "grape.stage.ripening",
+      "type": "growth_stage_playbook",
+      "title": "Quả chín",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 6,
+      "lifecycleId": "production",
+      "primaryObjective": "Tăng độ ngọt, lên màu đẹp và chống chim chóc.",
+      "entryCriteria": [
+        "Trái bắt đầu đổi màu (Veraison)"
+      ],
+      "exitCriteria": [
+        "Cuống trái hơi héo",
+        "Đạt độ ngọt mong muốn",
+        "Hạt chuyển màu đen"
+      ],
+      "estimatedDuration": "2-4 tuần",
+      "recommendedKnowledgeTopics": [
+        "Bí quyết tăng độ ngọt cho nho",
+        "Cách xác định nho đã chín hoàn toàn"
+      ],
+      "bodyMarkdown": "Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.\n"
+    },
+    {
+      "id": "grape.stage.seedling",
+      "type": "growth_stage_playbook",
+      "title": "Cây con",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 1,
+      "lifecycleId": "development",
+      "primaryObjective": "Giúp cây bén rễ, sống khỏe và bắt đầu đâm chồi mới.",
+      "entryCriteria": [
+        "Cây giống được trồng xuống đất hoặc chậu lớn"
+      ],
+      "exitCriteria": [
+        "Mầm chính vươn dài trên 30-50cm",
+        "Bắt đầu bám giàn/cọc"
+      ],
+      "estimatedDuration": "2-4 tuần",
+      "recommendedKnowledgeTopics": [
+        "Cách chọn đất trồng",
+        "Nhận biết sâu hại mầm non"
+      ],
+      "bodyMarkdown": "Giai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.\n"
+    },
+    {
+      "id": "grape.stage.trellis-training",
+      "type": "growth_stage_playbook",
+      "title": "Leo giàn",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 3,
+      "lifecycleId": "development",
+      "primaryObjective": "Phân nhánh cành cấp 1 đều khắp mặt giàn.",
+      "entryCriteria": [
+        "Đã bấm ngọn thân chính tại mặt giàn"
+      ],
+      "exitCriteria": [
+        "Cành cấp 1 đạt độ dài tiêu chuẩn",
+        "Bấm ngọn cành cấp 1"
+      ],
+      "estimatedDuration": "2-4 tháng",
+      "recommendedKnowledgeTopics": [
+        "Cách tạo cành cấp 1",
+        "Nhận biết bệnh sương mai"
+      ],
+      "bodyMarkdown": "Chuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.\n"
+    },
+    {
+      "id": "grape.stage.trunk-development",
+      "type": "growth_stage_playbook",
+      "title": "Phát triển thân",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesId": "plant.grape",
+      "sequence": 2,
+      "lifecycleId": "development",
+      "primaryObjective": "Tạo ra một thân chính khỏe mạnh, mập mạp và vươn tới mặt giàn.",
+      "entryCriteria": [
+        "Mầm chính khỏe mạnh, bắt đầu vươn cao"
+      ],
+      "exitCriteria": [
+        "Thân chính chạm dây kẽm mặt giàn",
+        "Đã bấm ngọn thân chính"
+      ],
+      "estimatedDuration": "1-3 tháng",
+      "recommendedKnowledgeTopics": [
+        "Cách cột dây không làm nghẹt thân",
+        "Kỹ thuật lẩy chồi nách"
+      ],
+      "bodyMarkdown": "Tập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.\n"
+    }
+  ],
+  "careRecommendations": [
+    {
+      "id": "grape.recommendation.check-soil-before-watering",
+      "type": "care_recommendation_definition",
+      "title": "Kiểm tra đất trước khi tưới",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.trunk-development"
+      ],
+      "activityType": "watering",
+      "bodyMarkdown": "\n## Hướng dẫn\n\nKiểm tra độ ẩm của lớp đất mặt và khả năng thoát nước của chậu trước khi quyết định tưới nước. Gợi ý có thể xuất hiện khi người dùng đang xem cây ở giai đoạn “Nuôi thân” và ứng dụng không có bằng chứng rằng cây vừa được tưới hoặc sắp nhận đủ lượng mưa.\n\n## Vì sao nên làm\n\nNhu cầu nước của cây thay đổi theo từng loại chậu, đất hoặc giá thể, khả năng thoát nước, thời tiết hiện tại và tình trạng sinh trưởng thực tế của cây. Kiểm tra trực tiếp giúp tránh tưới thừa gây úng rễ.\n\n## Điều cần tránh\n\n- Không tự động điền sẵn lượng nước, phương pháp hoặc độ ẩm đất khi người dùng chưa xác nhận.\n- Không suy đoán mưa nếu dữ liệu thời tiết thiếu hoặc cũ.\n- Không chuyển xác xuất mưa thành lượng nước tưới tự động.\n"
+    }
+  ],
+  "guides": [
+    {
+      "id": "grape.guide.train-main-shoot",
+      "type": "care_guide",
+      "title": "Định hướng thân chính",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.trunk-development"
+      ],
+      "bodyMarkdown": "\n# Định hướng thân chính\n\n## Mục đích\n\nGiúp một chồi khỏe phát triển thành thân chính theo hệ cọc hoặc giàn mà người trồng đã chọn.\n\nĐây là hướng dẫn tham khảo, không phải hoạt động có trạng thái hoàn thành và không tự tạo lịch sử.\n\n## Trước khi làm\n\n- Xác định hệ đỡ đủ chắc cho cây khi lớn hơn.\n- Quan sát các chồi hiện có và chọn chồi phù hợp với hướng tạo thân.\n- Chuẩn bị vật liệu buộc mềm, không có cạnh sắc.\n\n## Cách thực hiện an toàn\n\n1. Đưa chồi chính về gần cọc hoặc điểm đỡ mà không bẻ gập.\n2. Buộc lỏng để thân còn khoảng phát triển và có thể chuyển động nhẹ.\n3. Đặt thêm điểm buộc khi cần thay vì siết một điểm quá chặt.\n4. Kiểm tra định kỳ và nới hoặc thay dây khi thân lớn.\n5. Ghi ảnh vào “Thêm nhật ký” nếu muốn theo dõi thay đổi của thân.\n\n## Dừng lại và đánh giá lại\n\n- Chồi bị nứt, dập hoặc phải uốn mạnh mới chạm điểm đỡ.\n- Dây để lại vết hằn trên thân.\n- Không xác định được chồi nào nên giữ theo hệ giàn hoặc giống đang trồng.\n\nTrong các trường hợp này, không tiếp tục cắt hoặc buộc chỉ để khớp với hình minh họa chung.\n"
+    }
+  ],
+  "references": [
+    {
+      "id": "ref.osu.growing-table-grapes",
+      "type": "reference_source",
+      "title": "Growing table grapes",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "Oregon State University Extension Service",
+      "sourceType": "extension_guide",
+      "url": "https://extension.oregonstate.edu/catalog/ec-1639-growing-table-grapes",
+      "accessed": "2026-07-11",
+      "bodyMarkdown": "\n# Review notes\n\nUsed for young-vine establishment, selecting a vigorous shoot for a straight trunk, keeping soil adequately moist without saturation, weed competition, and the dependence of irrigation on soil and growing conditions.\n\nThe source includes region-specific rates and fertilizer examples. Those values are not transferred into the pilot because the app does not yet know enough about local climate, soil, container, cultivar, or nutrient status.\n"
+    },
+    {
+      "id": "ref.uc-ipm.young-grape-pruning",
+      "type": "reference_source",
+      "title": "First- and Second-Year Pruning for Grapes",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "University of California Statewide Integrated Pest Management Program",
+      "sourceType": "extension_guide",
+      "url": "https://ipm.ucanr.edu/home-and-landscape/first-and-second-year-pruning-for-grapes/",
+      "accessed": "2026-07-11",
+      "bodyMarkdown": "\n# Review notes\n\nUsed for the young-vine goal of developing a main trunk, supporting new growth with loose ties, and avoiding automatic pruning decisions that ignore vine vigor and the chosen training system.\n\nThe source's training details are not converted into universal completion thresholds for the app.\n"
+    },
+    {
+      "id": "ref.umn.growing-grapes-home-garden",
+      "type": "reference_source",
+      "title": "Growing grapes in the home garden",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "University of Minnesota Extension",
+      "sourceType": "extension_guide",
+      "url": "https://extension.umn.edu/gardening-minnesota/growing-grapes-home-garden",
+      "accessed": "2026-07-11",
+      "bodyMarkdown": "\n# Review notes\n\nUsed for the need to support young vines, establish roots before relying on shoot growth, apply water to the root zone, avoid unnecessary wetting of foliage, and adapt watering to rainfall and growing conditions.\n\nRegional volumes and seasonal timing are not transferred into the pilot as universal Vietnamese guidance.\n"
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-export { JournalScreen } from "./ui/JournalScreen";
+export { JournalRouteScreen as JournalScreen } from "./ui/JournalRouteScreen";

@@ -1,6 +1,3 @@
-# Ignore preview bundles
-mobile-bundle.preview.json
-
 # Ignore temporary compilation files
 .mobile-bundle.*
 *.tmp-*

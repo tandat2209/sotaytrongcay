@@ -1,4 +1,4 @@
 module.exports = {
   preset: "jest-expo",
-  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/.claude/", "test-workspace.ts"],
+  testPathIgnorePatterns: ["/node_modules/", "/dist/", "<rootDir>/.claude/", "test-workspace.ts"],
 };
