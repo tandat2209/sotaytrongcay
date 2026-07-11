@@ -38,6 +38,10 @@ _Avoid_: Lời nhắc, hoạt động đã làm
 A stage-specific action or condition that may harm progress and should be explained to the grower.
 _Avoid_: Cảnh báo chung, lỗi
 
+**Quy tắc hướng dẫn** (Guidance rule):
+A reviewed condition-and-effect rule that adjusts a recommended task using stage, weather, season, or recent history.
+_Avoid_: Lời khuyên AI, mã tùy ý
+
 **Lời nhắc** (Reminder):
 A scheduled prompt for future care. It may be created by the user or offered after an activity, but it is not a recommendation by itself.
 _Avoid_: Công việc đề xuất, thông báo
@@ -63,6 +67,10 @@ _Avoid_: Chẩn đoán, kiểm tra
 **Tình trạng cây** (Plant health condition):
 A structured condition selected for an observation, such as yellow leaves, pests, or wilting. It is not a diagnosis.
 _Avoid_: Chẩn đoán bệnh, trạng thái cây
+
+**Dấu hiệu cảnh báo** (Warning sign):
+An observable plant condition that may have several possible causes and can start a troubleshooting path.
+_Avoid_: Bệnh, chẩn đoán
 
 ## Context and knowledge
 

@@ -235,6 +235,8 @@ Do not use free-form units when a structured value is available. Preserve the or
 
 ### MVP Knowledge Base structure
 
+The complete domain model, authoring contract, rule format, migration path, and RAG strategy live in [KNOWLEDGE_BASE_ARCHITECTURE.md](./KNOWLEDGE_BASE_ARCHITECTURE.md).
+
 ```text
 knowledge/
 ├── schemas/

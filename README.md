@@ -45,6 +45,7 @@ The first release focuses on three outcomes:
 - [Project context](./docs/PROJECT_CONTEXT.md)
 - [Mobile UX design](./docs/MOBILE_UX_DESIGN.md)
 - [Technical architecture](./docs/TECHNICAL_ARCHITECTURE.md)
+- [Knowledge Base architecture](./docs/KNOWLEDGE_BASE_ARCHITECTURE.md)
 - [Engineering standards](./docs/ENGINEERING_STANDARDS.md)
 - [Decision log](./docs/DECISIONS.md)
 - [Vietnamese domain language](./CONTEXT.md)

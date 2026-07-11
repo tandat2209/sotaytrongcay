@@ -80,6 +80,22 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Rationale:** Markdown is reviewable, versioned, inexpensive, offline-bundle friendly, and sufficient for the initial editorial volume. The repository seam allows later PostgreSQL, CMS, vector, or RAG adapters.
 
+## 2026-07-11 — Preserve stable knowledge IDs across storage systems
+
+**Status:** Accepted
+
+**Decision:** Knowledge documents and relationships use immutable, language-neutral IDs and explicit versions across Markdown, PostgreSQL, CMS, and vector indexes.
+
+**Rationale:** Stable identity prevents storage migration, localization, or wording changes from breaking playbook relationships or the provenance of generated tasks.
+
+## 2026-07-11 — Keep rule execution deterministic and outside RAG
+
+**Status:** Accepted
+
+**Decision:** Execute only schema-validated rules with allowlisted facts, operators, and effects. Vector retrieval may supply explanations and evidence but never executable care logic.
+
+**Rationale:** Deterministic rules are testable, reviewable, conflict-checkable, and safe to run offline. Semantic retrieval is probabilistic and unsuitable as the source of rule execution.
+
 ## 2026-07-11 — Separate navigation destinations from logging
 
 **Status:** Accepted

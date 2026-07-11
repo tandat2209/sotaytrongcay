@@ -6,10 +6,11 @@
 2. `docs/PROJECT_CONTEXT.md`
 3. `docs/MOBILE_UX_DESIGN.md`
 4. `docs/TECHNICAL_ARCHITECTURE.md`
-5. `docs/ENGINEERING_STANDARDS.md`
-6. `CONTEXT.md`
-7. `docs/DECISIONS.md`
-8. `TODO.md`
+5. `docs/KNOWLEDGE_BASE_ARCHITECTURE.md`
+6. `docs/ENGINEERING_STANDARDS.md`
+7. `CONTEXT.md`
+8. `docs/DECISIONS.md`
+9. `TODO.md`
 
 ## Language policy
 

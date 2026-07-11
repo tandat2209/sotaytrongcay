@@ -62,4 +62,5 @@ Prioritize guidance quality and beginner comprehension before implementation vol
 - [x] Define mobile navigation and screen states.
 - [x] Define technical architecture and engineering standards.
 - [x] Separate user data from the Knowledge Base.
+- [x] Define the complete Knowledge Base domain, authoring, rule, and RAG architecture.
 - [x] Reposition the product around guidance-first value.
