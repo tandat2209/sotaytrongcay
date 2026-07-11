@@ -12,7 +12,6 @@ exit_criteria:
   - Thân chính chạm dây kẽm mặt giàn
   - Đã bấm ngọn thân chính
 estimated_duration: 1-3 tháng
-recommended_playbook: playbook.grape.trunk-development
 default_reminder_templates:
   - Cột dây định hình thân
   - Lẩy chồi nách (chồi phụ)

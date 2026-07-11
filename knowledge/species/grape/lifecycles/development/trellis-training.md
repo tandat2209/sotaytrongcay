@@ -12,7 +12,6 @@ exit_criteria:
   - Cành cấp 1 đạt độ dài tiêu chuẩn
   - Bấm ngọn cành cấp 1
 estimated_duration: 2-4 tháng
-recommended_playbook: playbook.grape.trellis-training
 default_reminder_templates:
   - Định hướng cành bò ngang
   - Phòng trừ nấm bệnh

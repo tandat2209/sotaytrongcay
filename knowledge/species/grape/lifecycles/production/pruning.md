@@ -13,7 +13,6 @@ exit_criteria:
   - Mắt ngủ bắt đầu sưng to
   - Nứt nanh (mầm xanh xuất hiện)
 estimated_duration: 1-2 tuần
-recommended_playbook: playbook.grape.pruning
 default_reminder_templates:
   - Quét thuốc chống nấm vết cắt
   - Dọn sạch lá rụng khỏi vườn

@@ -12,7 +12,6 @@ entry_criteria:
 exit_criteria:
   - Cắt hết trái trên cây
 estimated_duration: 1-2 tuần
-recommended_playbook: playbook.grape.harvest
 default_reminder_templates:
   - Cắt nho vào sáng sớm
   - Bảo quản tủ lạnh

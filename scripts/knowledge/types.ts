@@ -111,11 +111,14 @@ export interface StageJourneyItem {
   readonly id: string;
   readonly title: string;
   readonly sequence: number;
-  readonly transitions?: readonly string[];
+  readonly transitions?: readonly { readonly to: string; readonly condition?: string }[];
   readonly playbookStatus: "unavailable" | "draft" | "review" | "approved";
 }
 
 export interface LifecycleDefinition {
+  readonly title: string;
+  readonly repeatable: boolean;
+  readonly initialStageId: string;
   readonly stages: readonly StageJourneyItem[];
 }
 
@@ -139,7 +142,6 @@ export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseD
   readonly entryCriteria: readonly string[];
   readonly exitCriteria: readonly string[];
   readonly estimatedDuration: string;
-  readonly recommendedPlaybook: string;
   readonly defaultReminderTemplates: readonly string[];
   readonly recommendedKnowledgeTopics: readonly string[];
 }

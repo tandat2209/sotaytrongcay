@@ -23,8 +23,8 @@ describe("compiler selection and serialization integration", () => {
     references: ["ref.osu"],
     scientificName: "Vitis vinifera",
     lifecycles: {
-      development: { stages: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved", transitions: ["stage.prod"] }] },
-      production: { stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
+      development: { title: "Dev", repeatable: false, initialStageId: "stage.trunk", stages: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved", transitions: [{ to: "stage.prod" }] }] },
+      production: { title: "Prod", repeatable: true, initialStageId: "stage.prod", stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
     },
     path: "species.md",
   };
@@ -45,8 +45,7 @@ describe("compiler selection and serialization integration", () => {
     entryCriteria: [],
     exitCriteria: [],
     estimatedDuration: "1 week",
-    recommendedPlaybook: "playbook",
-    defaultReminderTemplates: [],
+        defaultReminderTemplates: [],
     recommendedKnowledgeTopics: [],
     path: "stage.md",
   };
@@ -123,8 +122,8 @@ describe("compiler selection and serialization integration", () => {
       const speciesWithReviewStage: NormalizedPlantSpecies = {
         ...mockSpecies,
         lifecycles: {
-          development: { stages: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review", transitions: ["stage.prod"] }] },
-          production: { stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
+          development: { title: "Dev", repeatable: false, initialStageId: "stage.review", stages: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review", transitions: [{ to: "stage.prod" }] }] },
+          production: { title: "Prod", repeatable: true, initialStageId: "stage.prod", stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
         },
       };
 

@@ -12,80 +12,86 @@ references:
   - ref.umn.growing-grapes-home-garden
 lifecycles:
   development:
+    title: Sinh trưởng kiến thiết
+    repeatable: false
+    initial_stage_id: grape.stage.seedling
     stages:
       - id: grape.stage.seedling
         title: Cây con
         sequence: 1
         transitions:
-          - grape.stage.trunk-development
+          - to: grape.stage.trunk-development
         playbook_status: review
       - id: grape.stage.trunk-development
         title: Phát triển thân
         sequence: 2
         transitions:
-          - grape.stage.trellis-training
+          - to: grape.stage.trellis-training
         playbook_status: review
       - id: grape.stage.trellis-training
         title: Leo giàn
         sequence: 3
         transitions:
-          - grape.stage.canopy-formation
+          - to: grape.stage.canopy-formation
         playbook_status: review
       - id: grape.stage.canopy-formation
         title: Hình thành tán
         sequence: 4
         transitions:
-          - grape.stage.pruning
+          - to: grape.stage.pruning
         playbook_status: review
   production:
+    title: Chu kỳ sản xuất
+    repeatable: true
+    initial_stage_id: grape.stage.pruning
     stages:
       - id: grape.stage.pruning
         title: Sau cắt cành
         sequence: 1
         transitions:
-          - grape.stage.bud-break
+          - to: grape.stage.bud-break
         playbook_status: review
       - id: grape.stage.bud-break
         title: Bật mầm
         sequence: 2
         transitions:
-          - grape.stage.flowering
+          - to: grape.stage.flowering
         playbook_status: review
       - id: grape.stage.flowering
         title: Ra hoa
         sequence: 3
         transitions:
-          - grape.stage.fruit-set
+          - to: grape.stage.fruit-set
         playbook_status: review
       - id: grape.stage.fruit-set
         title: Đậu quả
         sequence: 4
         transitions:
-          - grape.stage.fruit-development
+          - to: grape.stage.fruit-development
         playbook_status: review
       - id: grape.stage.fruit-development
         title: Nuôi quả
         sequence: 5
         transitions:
-          - grape.stage.ripening
+          - to: grape.stage.ripening
         playbook_status: review
       - id: grape.stage.ripening
         title: Quả chín
         sequence: 6
         transitions:
-          - grape.stage.harvest
+          - to: grape.stage.harvest
         playbook_status: review
       - id: grape.stage.harvest
         title: Sẵn sàng thu hoạch
         sequence: 7
         transitions:
-          - grape.stage.recovery
+          - to: grape.stage.recovery
         playbook_status: review
       - id: grape.stage.recovery
         title: Sau thu hoạch
         sequence: 8
         transitions:
-          - grape.stage.pruning
+          - to: grape.stage.pruning
         playbook_status: review
 ---
 # Nho

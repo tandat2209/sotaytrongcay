@@ -12,10 +12,9 @@ exit_criteria:
   - Hoa tàn
   - Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)
 estimated_duration: 1-2 tuần
-recommended_playbook: playbook.grape.flowering
 default_reminder_templates:
   - DỪNG phun tất cả các loại thuốc
-  - DỪNG bón phân
+  - Giảm thiểu hoặc hạn chế bón phân tùy tình trạng cây
   - Giảm tối đa tưới nước
 recommended_knowledge_topics:
   - Tại sao nho rụng bông?

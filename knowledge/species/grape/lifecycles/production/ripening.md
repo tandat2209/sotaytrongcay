@@ -13,10 +13,9 @@ exit_criteria:
   - Đạt độ ngọt mong muốn
   - Hạt chuyển màu đen
 estimated_duration: 2-4 tuần
-recommended_playbook: playbook.grape.ripening
 default_reminder_templates:
   - Cắt giảm nước hoàn toàn
-  - Chỉ bón Kali (K), dừng Đạm (N)
+  - Ưu tiên Kali (K), hạn chế Đạm (N) để trái chuyển màu tốt
   - Phòng chim, chuột ăn quả
 recommended_knowledge_topics:
   - Bí quyết tăng độ ngọt cho nho

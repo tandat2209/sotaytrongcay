@@ -25,6 +25,9 @@ describe("graph validation and normalization", () => {
           scientific_name: "Vitis vinifera",
           lifecycles: {
             development: {
+              title: "Dev",
+              repeatable: false,
+              initial_stage_id: "grape.stage.trunk-development",
               stages: [
                 {
                   id: "grape.stage.trunk-development",
@@ -34,7 +37,7 @@ describe("graph validation and normalization", () => {
                 },
               ]
             },
-            production: { stages: [] }
+            production: { title: "Prod", repeatable: true, initial_stage_id: "prod.start", stages: [] }
           },
           references: ["ref.osu"],
         },
@@ -210,8 +213,8 @@ describe("graph validation and normalization", () => {
           lifecycles: {
             development: {
               stages: [
-                { id: "stage1", title: "Stage 1", sequence: 1, playbookStatus: "approved", transitions: ["stage2"] },
-                { id: "stage2", title: "Stage 2", sequence: 2, playbookStatus: "approved", transitions: ["stage3"] },
+                { id: "stage1", title: "Stage 1", sequence: 1, playbookStatus: "approved", transitions: [{ to: "stage2" }] },
+                { id: "stage2", title: "Stage 2", sequence: 2, playbookStatus: "approved", transitions: [{ to: "stage3" }] },
               ]
             },
             production: { 

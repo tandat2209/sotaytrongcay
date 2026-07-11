@@ -50,9 +50,15 @@ export function serializeBundle(
 
     const lifecycles = {
       development: {
+        title: s.lifecycles?.development?.title,
+        repeatable: s.lifecycles?.development?.repeatable,
+        initialStageId: s.lifecycles?.development?.initialStageId,
         stages: parseStages(s.lifecycles?.development?.stages ?? []),
       },
       production: {
+        title: s.lifecycles?.production?.title,
+        repeatable: s.lifecycles?.production?.repeatable,
+        initialStageId: s.lifecycles?.production?.initialStageId,
         stages: parseStages(s.lifecycles?.production?.stages ?? []),
       },
     };
@@ -77,7 +83,6 @@ export function serializeBundle(
     let title = s.title;
     let sequence = s.sequence;
     let lifecycleId = s.lifecycleId;
-    let transitions: readonly string[] = [];
 
     if (species) {
       const devStage = species.lifecycles.development.stages.find(st => st.id === s.id);
@@ -85,14 +90,12 @@ export function serializeBundle(
         title = devStage.title;
         sequence = devStage.sequence;
         lifecycleId = "development";
-        transitions = devStage.transitions ?? [];
       } else {
         const prodStage = species.lifecycles.production.stages.find(st => st.id === s.id);
         if (prodStage) {
           title = prodStage.title;
           sequence = prodStage.sequence;
           lifecycleId = "production";
-          transitions = prodStage.transitions ?? [];
         }
       }
     }
@@ -108,12 +111,10 @@ export function serializeBundle(
       speciesId: s.speciesId,
       sequence,
       lifecycleId,
-      transitions,
       primaryObjective: s.primaryObjective,
       entryCriteria: s.entryCriteria,
       exitCriteria: s.exitCriteria,
       estimatedDuration: s.estimatedDuration,
-      recommendedPlaybook: s.recommendedPlaybook,
       defaultReminderTemplates: sortArray(s.defaultReminderTemplates),
       recommendedKnowledgeTopics: sortArray(s.recommendedKnowledgeTopics),
       bodyMarkdown: s.bodyMarkdown,

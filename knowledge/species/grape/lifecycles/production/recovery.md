@@ -12,7 +12,6 @@ exit_criteria:
   - Lá bắt đầu già úa
   - Cây sẵn sàng cho chu kỳ cắt cành mới
 estimated_duration: 1-2 tháng
-recommended_playbook: playbook.grape.recovery
 default_reminder_templates:
   - Bón lót phân chuồng, phân lân
   - Tưới đẫm nước rửa rễ

@@ -124,6 +124,9 @@ version: 1.0.0
 status: approved
 lifecycles:
   development:
+    title: Dev
+    repeatable: false
+    initial_stage_id: dev1
     stages:
       - id: grape.stage.trunk-development
         title: "Nuôi thân"
@@ -131,6 +134,9 @@ lifecycles:
         transitions: []
         playbook_status: approved
   production:
+    title: Prod
+    repeatable: true
+    initial_stage_id: prod1
     stages:
       - id: grape.stage.pruning
         title: "Cắt cành"
@@ -152,7 +158,6 @@ primary_objective: "Objective"
 entry_criteria: ["Criteria"]
 exit_criteria: ["Criteria"]
 estimated_duration: "1 week"
-recommended_playbook: playbook.grape
 default_reminder_templates: ["Reminder"]
 recommended_knowledge_topics: ["Topic"]
 references: [ref.example]
@@ -303,8 +308,14 @@ version: 1
 status: approved
 lifecycles:
   development:
+    title: Dev
+    repeatable: false
+    initial_stage_id: dev.start
     stages: []
   production:
+    title: Prod
+    repeatable: true
+    initial_stage_id: prod.start
     stages: []
 references: []
 ---

@@ -33,8 +33,6 @@ export function validateStageGraphs(
       allStages.set(st.id, { ...st, lifecycleId: "production" });
     }
 
-    let hasCrossLifecycleTransition = false;
-
     for (const [stageId, item] of allStages.entries()) {
       const playbook = playbookMap.get(item.id);
 
@@ -61,7 +59,8 @@ export function validateStageGraphs(
       }
 
       // Validate transitions
-      for (const targetId of item.transitions ?? []) {
+      for (const transition of item.transitions ?? []) {
+        const targetId = transition.to;
         const targetStage = allStages.get(targetId);
         if (!targetStage) {
           diagnostics.push({
@@ -71,20 +70,8 @@ export function validateStageGraphs(
             field: `lifecycles.${item.lifecycleId}`,
             message: `Stage ${item.id} transitions to an unknown stage ${targetId}.`,
           });
-        } else if (item.lifecycleId === "development" && targetStage.lifecycleId === "production") {
-          hasCrossLifecycleTransition = true;
         }
       }
-    }
-
-    if (!hasCrossLifecycleTransition && allStages.size > 0) {
-      diagnostics.push({
-        code: "KNOWLEDGE_STAGE_CHAIN_INVALID",
-        path: species.path,
-        documentId: species.id,
-        field: "lifecycles",
-        message: `Species ${species.id} is missing a transition from development to production lifecycle.`,
-      });
     }
   }
 

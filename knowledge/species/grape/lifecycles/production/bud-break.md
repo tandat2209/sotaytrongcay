@@ -12,7 +12,6 @@ exit_criteria:
   - Chồi vươn dài
   - Nụ hoa (bông gió) xuất hiện rõ rệt
 estimated_duration: 2-3 tuần
-recommended_playbook: playbook.grape.bud-break
 default_reminder_templates:
   - Phun ngừa bọ trĩ ăn mầm
   - Tưới nước trở lại (lượng nhỏ)

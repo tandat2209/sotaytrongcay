@@ -11,21 +11,27 @@ export function normalizeDocument(
 
   switch (doc.type) {
     case "plant_species": {
-      const fmLifecycles = fm.lifecycles as Record<string, { stages: readonly any[] }>;
+      const fmLifecycles = fm.lifecycles as Record<string, { title: string, repeatable: boolean, initial_stage_id: string, stages: readonly any[] }>;
       const parseStages = (stages: readonly any[]): StageJourneyItem[] =>
         stages.map((item) => ({
           id: String(item.id),
           title: String(item.title),
           sequence: Number(item.sequence),
-          transitions: (item.transitions ?? []) as readonly string[],
+          transitions: (item.transitions ?? []) as readonly { readonly to: string; readonly condition?: string }[],
           playbookStatus: item.playbook_status,
         }));
 
       const lifecycles = {
         development: {
+          title: String(fmLifecycles?.development?.title),
+          repeatable: Boolean(fmLifecycles?.development?.repeatable),
+          initialStageId: String(fmLifecycles?.development?.initial_stage_id),
           stages: parseStages(fmLifecycles?.development?.stages ?? []),
         },
         production: {
+          title: String(fmLifecycles?.production?.title),
+          repeatable: Boolean(fmLifecycles?.production?.repeatable),
+          initialStageId: String(fmLifecycles?.production?.initial_stage_id),
           stages: parseStages(fmLifecycles?.production?.stages ?? []),
         },
       };
@@ -63,7 +69,6 @@ export function normalizeDocument(
         entryCriteria: (fm.entry_criteria ?? []) as readonly string[],
         exitCriteria: (fm.exit_criteria ?? []) as readonly string[],
         estimatedDuration: String(fm.estimated_duration),
-        recommendedPlaybook: String(fm.recommended_playbook),
         defaultReminderTemplates: (fm.default_reminder_templates ?? []) as readonly string[],
         recommendedKnowledgeTopics: (fm.recommended_knowledge_topics ?? []) as readonly string[],
       };

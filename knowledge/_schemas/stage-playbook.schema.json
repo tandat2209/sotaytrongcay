@@ -15,7 +15,6 @@
     "entry_criteria",
     "exit_criteria",
     "estimated_duration",
-    "recommended_playbook",
     "default_reminder_templates",
     "recommended_knowledge_topics",
     "references"
@@ -67,10 +66,6 @@
     },
     "estimated_duration": {
       "type": "string"
-    },
-    "recommended_playbook": {
-      "type": "string",
-      "pattern": "^[a-z0-9.-]+$"
     },
     "default_reminder_templates": {
       "type": "array",

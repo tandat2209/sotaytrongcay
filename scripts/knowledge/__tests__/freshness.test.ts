@@ -50,13 +50,20 @@ status: approved
 scientific_name: "Vitis vinifera"
 lifecycles:
   development:
+    title: "Dev"
+    repeatable: false
+    initial_stage_id: "grape.stage.trunk-development"
     stages:
       - id: grape.stage.trunk-development
         title: "Nuôi thân"
         sequence: 1
-        transitions: ["grape.stage.pruning"]
+        transitions:
+          - to: "grape.stage.pruning"
         playbook_status: unavailable
   production:
+    title: "Prod"
+    repeatable: true
+    initial_stage_id: "grape.stage.pruning"
     stages:
       - id: grape.stage.pruning
         title: "Cắt cành"
@@ -117,13 +124,20 @@ status: approved
 scientific_name: "Vitis vinifera"
 lifecycles:
   development:
+    title: Dev
+    repeatable: false
+    initial_stage_id: grape.stage.trunk-development
     stages:
       - id: grape.stage.trunk-development
         title: "Nuôi thân"
         sequence: 1
-        transitions: ["grape.stage.pruning"]
+        transitions:
+          - to: "grape.stage.pruning"
         playbook_status: unavailable
   production:
+    title: Prod
+    repeatable: true
+    initial_stage_id: grape.stage.pruning
     stages:
       - id: grape.stage.pruning
         title: "Cắt cành"
@@ -156,17 +170,23 @@ references: ["ref.osu"]
             scientificName: "Vitis vinifera",
             lifecycles: {
               development: {
+                title: "Dev",
+                repeatable: false,
+                initialStageId: "grape.stage.trunk-development",
                 stages: [
                   {
                     id: "grape.stage.trunk-development",
                     title: "Nuôi thân",
                     sequence: 1,
-                    transitions: ["grape.stage.pruning"],
+                    transitions: [{ to: "grape.stage.pruning" }],
                     playbookStatus: "unavailable",
                   },
                 ],
               },
               production: {
+                title: "Prod",
+                repeatable: true,
+                initialStageId: "grape.stage.pruning",
                 stages: [
                   {
                     id: "grape.stage.pruning",

@@ -13,9 +13,8 @@ exit_criteria:
   - Cành hóa gỗ (chuyển màu nâu)
   - Tán lá phủ kín mặt giàn
 estimated_duration: 2-3 tháng
-recommended_playbook: playbook.grape.canopy-formation
 default_reminder_templates:
-  - Ngừng bón phân đạm (N)
+  - Giảm hoặc hạn chế phân đạm (N) khi đã đủ lá
   - Bón phân Lân (P) và Kali (K)
   - Cắt tỉa lá già/bệnh
 recommended_knowledge_topics:

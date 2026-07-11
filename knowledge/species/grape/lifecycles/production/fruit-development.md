@@ -13,7 +13,6 @@ exit_criteria:
   - Trái ngừng lớn
   - Trái bắt đầu chuyển màu (Veraison)
 estimated_duration: 4-6 tuần
-recommended_playbook: playbook.grape.fruit-development
 default_reminder_templates:
   - Bọc chùm nho
   - Bón thúc định kỳ (NPK)

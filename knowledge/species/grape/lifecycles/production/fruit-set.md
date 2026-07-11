@@ -13,7 +13,6 @@ exit_criteria:
   - Trái đạt kích thước bằng đầu ngón tay
   - Đã tỉa xong chùm
 estimated_duration: 2-3 tuần
-recommended_playbook: playbook.grape.fruit-set
 default_reminder_templates:
   - Tỉa trái non (giảm mật độ)
   - Bón Canxi-Bo chống rụng trái

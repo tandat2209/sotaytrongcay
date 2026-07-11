@@ -89,9 +89,22 @@
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
+                  "title",
+                  "repeatable",
+                  "initialStageId",
                   "stages"
                 ],
                 "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "repeatable": {
+                    "type": "boolean"
+                  },
+                  "initialStageId": {
+                    "type": "string"
+                  },
                   "stages": {
                     "type": "array",
                     "items": {
@@ -104,9 +117,22 @@
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
+                  "title",
+                  "repeatable",
+                  "initialStageId",
                   "stages"
                 ],
                 "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "repeatable": {
+                    "type": "boolean"
+                  },
+                  "initialStageId": {
+                    "type": "string"
+                  },
                   "stages": {
                     "type": "array",
                     "items": {
@@ -144,7 +170,6 @@
           "entryCriteria",
           "exitCriteria",
           "estimatedDuration",
-          "recommendedPlaybook",
           "defaultReminderTemplates",
           "recommendedKnowledgeTopics",
           "bodyMarkdown"
@@ -208,10 +233,6 @@
           "estimatedDuration": {
             "type": "string"
           },
-          "recommendedPlaybook": {
-            "type": "string",
-            "pattern": "^[a-z0-9.-]+$"
-          },
           "defaultReminderTemplates": {
             "type": "array",
             "items": {
@@ -226,12 +247,6 @@
           },
           "bodyMarkdown": {
             "type": "string"
-          },
-          "transitions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         }
       }
@@ -499,7 +514,19 @@
         "transitions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "to"
+            ],
+            "properties": {
+              "to": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string"
+              }
+            }
           }
         }
       }
