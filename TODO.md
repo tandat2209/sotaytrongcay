@@ -35,7 +35,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 - [x] Define the feature-first, local-first architecture and Supabase sync strategy.
 - [x] Update architecture for derived care suggestions and three tracked care activities.
-- [ ] Bootstrap strict TypeScript, quality gates, and test infrastructure.
+- [x] Bootstrap strict TypeScript, quality gates, and test infrastructure.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
 - [ ] Build plants with species-defined stages and stage tips.
 - [ ] Build contextual care entry and activity history.

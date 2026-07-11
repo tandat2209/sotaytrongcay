@@ -60,4 +60,29 @@ The first release focuses on three outcomes:
 
 ## Status
 
-The project is in pre-implementation design. Care-entry speed, tracking fields, reminder value, and stage-tip comprehension require validation before implementation.
+The Expo application foundation is bootstrapped with strict TypeScript, four approved Vietnamese navigation destinations, shared design primitives, TanStack Query providers, and automated quality gates. Product validation remains required before care-entry implementation.
+
+## Local development
+
+Prerequisites:
+
+- Node.js 22.13 or newer.
+- pnpm 10.32.1 or a compatible pnpm 10 release.
+
+Install and start the application:
+
+```sh
+pnpm install
+pnpm start
+```
+
+Run the quality gates:
+
+```sh
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm export
+```
+
+The Expo SDK 57 baseline targets iOS, Android, and static web output. Supabase credentials are not required yet because remote data access has not been implemented.

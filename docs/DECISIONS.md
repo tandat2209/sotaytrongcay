@@ -138,9 +138,9 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 ## 2026-07-11 — Use contextual actions without a FAB
 
-**Status:** Superseded by the 2026-07-11 stage-update-inside-journal decision
+**Status:** Accepted
 
-**Decision:** Remove the global FAB and Quick Action menu. Put relevant care buttons under “Việc cần làm hôm nay”, and expose “Thêm nhật ký” and “Cập nhật giai đoạn” on Today and Plant Detail.
+**Decision:** Remove the global FAB and Quick Action menu. Put relevant care buttons under “Việc cần làm hôm nay”, expose “Thêm nhật ký” contextually, and keep optional stage changes inside that journal flow.
 
 **Rationale:** Today already presents the actions users should take. Contextual actions reduce duplication, keep plant selection clear, and prevent secondary activities from competing with core care.
 
@@ -151,6 +151,14 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 **Decision:** Remove the standalone “Cập nhật giai đoạn” action. Show the confirmed current stage inside “Thêm nhật ký” and let the user optionally change it before saving the journal entry.
 
 **Rationale:** Photos are the natural evidence of plant development. Combining both actions removes another screen entry point while preserving explicit user confirmation and stage history.
+
+## 2026-07-11 — Bootstrap on Expo SDK 57
+
+**Status:** Accepted
+
+**Decision:** Start the application on Expo SDK 57 with React Native 0.86 and require Node.js 22.13 or newer. Keep routes thin, expose only the four approved destinations, and activate infrastructure libraries only when a real feature needs them.
+
+**Rationale:** SDK 57 is Expo's current new-project baseline and provides the supported Router and React Native versions. Declaring the Node requirement prevents inconsistent Metro behavior, while incremental infrastructure activation avoids placeholder integrations and keeps each feature slice testable.
 
 ## 2026-07-11 — Require confirmation for future photo stage detection
 
