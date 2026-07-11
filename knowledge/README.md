@@ -34,9 +34,18 @@ The generated directory is build output and must not be edited by hand.
 
 ## Pilot scope
 
-The grape species registry defines the canonical ten-stage journey, but only `grape.stage.trunk-development` currently has a playbook.
+The grape species registry defines the canonical development and production lifecycles. All 12 grape stage playbooks are review-stage material, not approved production guidance.
 
-Until more playbooks are approved, the product must not imply that every selectable stage has complete tips or recommendations.
+A review-stage playbook provides concise objective, observations, duration, knowledge topics, and sources. It does not create reminders, tasks, transitions, or care instructions. The product must not imply that a selectable stage has approved tips or recommendations until the relevant content is approved.
+
+## Documentation ownership
+
+- The schemas in `_schemas/` define the authored and mobile-bundle field contracts.
+- This README defines package scope, publishing states, and safety boundaries.
+- `docs/KNOWLEDGE_BASE_ARCHITECTURE.md` defines the conceptual authoring model and must conform to the schemas.
+- Product behavior comes from `docs/PROJECT_CONTEXT.md`, `docs/MOBILE_UX_DESIGN.md`, and accepted entries in `docs/DECISIONS.md`.
+
+When these sources conflict, schema field contracts and accepted product decisions take precedence. Update lower-precedence documentation rather than inferring runtime behavior from review content.
 
 ## Safety constraints
 

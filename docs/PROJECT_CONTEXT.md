@@ -87,9 +87,9 @@ Users can:
 ## Conceptual data model
 
 - A **Plant** references one **Plant Species** and one current **Growth Stage**.
-- A **Stage Guide** supplies informational tips, avoid text, warning signs, and milestone context.
-- A **Care Recommendation Definition** describes when a trackable activity may be worth considering and why.
-- A recommendation is derived at read time; it has no completion status and creates no history.
+- A **Stage Guide** supplies review-stage context: objective, observations, duration, knowledge topics, and sources. It never creates reminders, tasks, automatic transitions, or executable rules.
+- A **Care Recommendation Definition** may later describe when a trackable activity is worth considering and why, but it requires a separate reviewed product and knowledge contract.
+- Review-stage content remains informational and creates no history.
 - A **Care Activity** records performed watering, fertilizing, or spraying.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
 - Saving either record adds it to the plant Timeline and global Journal.

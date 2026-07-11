@@ -2,6 +2,17 @@
 
 This directory stores product context, UX decisions, architecture, and engineering standards.
 
+## Documentation ownership and precedence
+
+- [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) owns product scope, users, risks, and MVP capabilities.
+- [MOBILE_UX_DESIGN.md](./MOBILE_UX_DESIGN.md) owns interaction and screen behavior.
+- [DECISIONS.md](./DECISIONS.md) owns confirmed decisions and their rationale.
+- `knowledge/_schemas/` owns authored and mobile-bundle field contracts.
+- [KNOWLEDGE_BASE_ARCHITECTURE.md](./KNOWLEDGE_BASE_ARCHITECTURE.md) owns the conceptual authoring model and must conform to schemas and accepted decisions.
+- [Engineering standards](./ENGINEERING_STANDARDS.md) owns implementation and verification requirements.
+
+When sources conflict, accepted decisions control behavior and schemas control data shape. Update lower-precedence documentation rather than inferring automation from mockups or review-stage knowledge content.
+
 ## Reading order
 
 1. [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md)

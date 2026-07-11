@@ -170,7 +170,6 @@
           "entryCriteria",
           "exitCriteria",
           "estimatedDuration",
-          "defaultReminderTemplates",
           "recommendedKnowledgeTopics",
           "bodyMarkdown"
         ],
@@ -232,12 +231,6 @@
           },
           "estimatedDuration": {
             "type": "string"
-          },
-          "defaultReminderTemplates": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "recommendedKnowledgeTopics": {
             "type": "array",

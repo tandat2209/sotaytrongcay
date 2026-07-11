@@ -115,7 +115,6 @@ export function serializeBundle(
       entryCriteria: s.entryCriteria,
       exitCriteria: s.exitCriteria,
       estimatedDuration: s.estimatedDuration,
-      defaultReminderTemplates: sortArray(s.defaultReminderTemplates),
       recommendedKnowledgeTopics: sortArray(s.recommendedKnowledgeTopics),
       bodyMarkdown: s.bodyMarkdown,
     };

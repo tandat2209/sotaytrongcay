@@ -47,6 +47,12 @@ The first release focuses on three outcomes:
 
 ## Documentation
 
+### Ownership and precedence
+
+Product scope is owned by [Project context](./docs/PROJECT_CONTEXT.md); interaction behavior by [Mobile UX design](./docs/MOBILE_UX_DESIGN.md); confirmed decisions by [Decision log](./docs/DECISIONS.md); and validated knowledge field contracts by `knowledge/_schemas/`. [Knowledge Base architecture](./docs/KNOWLEDGE_BASE_ARCHITECTURE.md) and [Grape Knowledge Base pilot](./knowledge/README.md) explain the authoring model and package scope, but must not override those contracts or infer runtime automation from review-stage content.
+
+When sources conflict, use accepted product decisions for behavior and schemas for data shape; then align the lower-precedence documentation.
+
 - [Project context](./docs/PROJECT_CONTEXT.md)
 - [Mobile UX design](./docs/MOBILE_UX_DESIGN.md)
 - [Mobile design guidelines and mockup index](./docs/design/DESIGN.md)

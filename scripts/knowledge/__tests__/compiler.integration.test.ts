@@ -40,12 +40,11 @@ describe("compiler selection and serialization integration", () => {
     references: ["ref.osu"],
     speciesId: "plant.grape",
     sequence: 1,
-    machineId: "development",
+    lifecycleId: "development",
     primaryObjective: "Objective",
     entryCriteria: [],
     exitCriteria: [],
     estimatedDuration: "1 week",
-        defaultReminderTemplates: [],
     recommendedKnowledgeTopics: [],
     path: "stage.md",
   };
@@ -188,6 +187,12 @@ describe("compiler selection and serialization integration", () => {
       const result = serializeBundle([playbookWithUnorderedRefs], "production");
       const parsed = JSON.parse(result);
       expect(parsed.stagePlaybooks[0].references).toEqual(["ref.a", "ref.m", "ref.z"]);
+    });
+
+    it("omits default reminder templates from serialized stage playbooks", () => {
+      const parsed = JSON.parse(serializeBundle([mockPlaybook], "production"));
+
+      expect(parsed.stagePlaybooks[0]).not.toHaveProperty("defaultReminderTemplates");
     });
 
     it("ensures output has exactly one trailing newline and no metadata timestamp", () => {

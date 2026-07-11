@@ -89,36 +89,22 @@ flowchart LR
 
 ### 5.2 Growth Stage Playbook
 
-**Purpose:** Provides the complete guidance context for one species stage. This is the heart of the system.
+**Purpose:** Provides concise, review-stage context for one species stage.
 
 **Required fields:**
 
-- ID, species ID, sequence, Vietnamese name;
-- stage group (development or production) and repeatable flag;
-- primary objective, entry criteria, and exit criteria;
-- estimated duration and recommended playbook references;
-- default reminder templates and recommended knowledge topics;
+- ID, species ID, Vietnamese name;
+- primary objective, entry observations, and exit observations;
+- estimated duration and recommended knowledge topics;
 - status, version, review metadata, and references.
 
 **Optional fields:** Typical climate/growing-method variants, images, expert notes.
 
-**Relationships:** Belongs to Species. Evaluated sequentially according to its sequence. Uses entry and exit criteria to guide users through the state machine.
+**Relationships:** Belongs to a Species lifecycle and follows its ordered position. Entry and exit observations support review; they do not create task state, reminders, automatic transitions, or executable rules.
 
 **Example:** `grape.stage.trunk-development`, shown as “Nuôi thân chính”, with primary objective “Xây dựng trục thân chính thẳng và khỏe để lên giàn.”
 
-### 5.3 Completion Criterion
-
-**Purpose:** Gives users observable evidence for stage progress without automatic stage advancement.
-
-**Required fields:** Stable child ID, Vietnamese label, observation method, required/optional flag, display order.
-
-**Optional fields:** Threshold, unit, supporting image, caution, linked guide.
-
-**Relationships:** Embedded in one Stage Playbook; user data stores checked state by criterion ID and playbook version.
-
-**Example:** `main-trunk-reaches-trellis` / “Thân chính đã chạm tới giàn”.
-
-### 5.3.1 Stage Tip
+### 5.3 Stage Tip
 
 **Purpose:** Provides concise, informational guidance inside Plant Detail without completion state, reminders, or journal behavior.
 
@@ -138,7 +124,7 @@ flowchart LR
 
 **Optional fields:** Instruction, preparation, avoid text, care-guide IDs, fertilizer/watering references, estimated effort, photo suggestion, priority, and weather-rule IDs.
 
-**Relationships:** Referenced by Stage Playbooks and rules. Evaluation produces an ephemeral suggestion, not a persistent task.
+**Relationships:** May be referenced by separately reviewed product behavior. A recommendation is informational until a user explicitly saves a related care activity.
 
 For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and observation content belongs in Stage Tips or Care Guides.
 
@@ -329,7 +315,7 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 ### Inputs
 
 - Plant species and current stage.
-- User-confirmed stage criteria.
+- Current user-confirmed stage and its journal-linked history.
 - Local date and timezone.
 - Recent saved activities and due reminders.
 - Fresh-enough normalized weather.
@@ -575,14 +561,10 @@ Saved activities opened from a suggestion may store the recommendation ID and ve
 ---
 id: grape.stage.trunk-development
 type: growth_stage_playbook
-title: "Nuôi thân chính"
 locale: vi-VN
 species_id: plant.grape
-sequence: 2
 version: 1.0.0
 status: review
-stage_group: development
-repeatable: false
 primary_objective: "Xây dựng trục thân chính thẳng và khỏe để lên giàn."
 entry_criteria:
   - "Cây con đã bén rễ cứng cáp"
@@ -590,11 +572,6 @@ entry_criteria:
 exit_criteria:
   - "Thân chính vươn tới mặt giàn"
 estimated_duration: "1-2 tháng"
-recommended_playbook: playbook.grape.trunk-development
-default_reminder_templates:
-  - "Buộc thân chính vào cọc"
-  - "Tỉa chồi nách (chồi phụ)"
-  - "Tưới nước giữ ẩm"
 recommended_knowledge_topics:
   - "Kỹ thuật tỉa chồi nách"
   - "Nhận biết thân chính và chồi phụ"
@@ -602,17 +579,20 @@ references:
   - ref.osu.growing-table-grapes
 ---
 
-Giai đoạn tập trung toàn bộ năng lượng để nuôi một thân chính duy nhất vươn thẳng lên giàn.
-
-## UX & Behavioral Design
-
-- **Why it exists:** The foundational structural phase. Mistakes here cause permanent architectural flaws in the vine.
-- **Why separated:** The singular goal is vertical growth. All lateral growth must be stopped.
-- **User Actions to Advance:** Tapping "Đã vươn tới giàn" (Reaches trellis).
-- **Active Reminders:** Tying the vine, pinching lateral shoots.
-- **Timeline Highlights:** "Bắt đầu leo cọc", "Cắt tỉa nách lá lần 1".
-- **UI Communication:** A visual of a single vine growing straight up a bamboo stake.
+Giai đoạn tập trung vào bối cảnh phát triển của thân chính. Nội dung review không tạo lời nhắc, nhiệm vụ, chuyển giai đoạn, hoặc hướng dẫn can thiệp chưa được duyệt.
 ```
+
+The stage schema is authoritative for frontmatter keys. `entry_criteria` and `exit_criteria` are observable review context, not a checklist or automatic-transition contract.
+
+### 10.1 Content ownership and precedence
+
+- `knowledge/_schemas/*.schema.json` owns the validated authored and compiled data contracts.
+- `knowledge/README.md` owns package scope, publishing states, and safety boundaries.
+- This document owns the conceptual model and authoring guidance; examples must conform to the schemas.
+- `docs/PROJECT_CONTEXT.md`, `docs/MOBILE_UX_DESIGN.md`, and `docs/DECISIONS.md` own product behavior and confirmed product decisions.
+- If sources disagree, the schema controls field shape, accepted decisions control behavior, and this document must be updated rather than treated as an alternate contract.
+
+Review-stage playbooks are intentionally non-executable. Do not infer a rule engine, reminder schedule, task workflow, transition automation, or agronomic prescription from their metadata or body.
 
 ### Care recommendation template
 

@@ -163,7 +163,7 @@ Dependencies point inward: model → nothing; application → model/interfaces; 
 
 Each feature is a deep module with one public `index.ts`. Export only screens, public use cases, required IDs/events, query composition, and intentional test builders.
 
-- `plants`: plant identity, species, metadata, active/archive state, current growth stage, criterion progress, and stage history.
+- `plants`: plant identity, species, metadata, active/archive state, current growth stage, and stage history.
 - `guidance`: reviewed stage tips and deterministic, ephemeral care suggestions with explanations and optional Care Entry prefills.
 - `journal`: core care records, photo-and-note plant updates, photos, and timeline.
 - `reminders`: due, completed, and snoozed care reminders.
@@ -176,9 +176,9 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 
 Features never import another feature's internals or database tables.
 
-The Guidance module exposes a small capability surface: read stage tips, derive care suggestions, build a validated Care Entry prefill, update criterion progress, and confirm a stage transition.
+The Guidance module exposes a small capability surface: read reviewed stage tips, derive separately reviewed care suggestions, and build a validated Care Entry prefill. A user confirms a stage change only while saving a journal entry.
 
-Playbook parsing, applicability, weather adjustment, prioritization, explanation, and suggestion deduplication remain internal to the module.
+Playbook parsing and presentation remain internal to the module. Care-suggestion applicability, weather adjustment, prioritization, explanation, and deduplication require their own reviewed contracts; this change does not add a rule engine.
 
 ### Navigation composition
 
@@ -198,13 +198,11 @@ Knowledge Base data includes plant species, valid growth stages, diseases, pests
 
 User records reference stable knowledge IDs such as `speciesId`, `growthStageId`, or optional catalog IDs. A label change in knowledge must not rewrite journal history.
 
-Stage playbooks are guidance contracts, not user data. Each playbook defines the stage goal, description, care guidance, risks, completion criteria, and next stage.
+Stage playbooks are review-stage guidance contracts, not user data. Each playbook defines concise stage context: objective, entry and exit observations, estimated duration, knowledge topics, and sources. They do not define reminders, tasks, automatic transitions, or executable agronomic rules.
 
 ### Structured user-data model
 
-A plant stores `speciesId`, `currentGrowthStageId`, and the time the stage became current. A confirmed change inside New Journal Entry creates stage history linked to that journal entry.
-
-Stage progress stores the stable criterion ID, checked state, user-confirmed time, and playbook version. Progress is evidence for the user; it never advances the stage automatically.
+A plant stores `speciesId`, `currentGrowthStageId`, and the time the stage became current. A confirmed change inside New Journal Entry creates stage history linked to that journal entry. Entry and exit observations guide user review only; they are not persisted progress or automatic transition criteria.
 
 Every species definition contains at least one stage. The generic `other` species provides a stable `unspecified` stage, displayed as “Chưa xác định”.
 

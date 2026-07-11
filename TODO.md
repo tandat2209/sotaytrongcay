@@ -61,3 +61,10 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Distinguish trackable care from informational stage tips.
 - [x] Review mockups 01–14 against the current product and Knowledge Base contract.
 - [x] Author a sourced “Nuôi thân” grape Knowledge Base pilot with stable IDs and schemas.
+- [x] Remove reminder-template and task/transition behavior from the review-stage grape playbook contract.
+- [x] Align Knowledge Base documentation ownership and precedence with schemas and accepted product decisions.
+
+## Deferred pending reviewed contracts
+
+- [ ] Define any future care-suggestion or reminder behavior through separately reviewed product and knowledge contracts; do not infer it from review-stage playbooks.
+- [ ] Obtain qualified Vietnamese grape-growing review before promoting any grape stage content beyond `review`.

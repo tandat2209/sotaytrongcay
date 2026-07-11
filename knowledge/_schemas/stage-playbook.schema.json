@@ -15,7 +15,6 @@
     "entry_criteria",
     "exit_criteria",
     "estimated_duration",
-    "default_reminder_templates",
     "recommended_knowledge_topics",
     "references"
   ],
@@ -66,12 +65,6 @@
     },
     "estimated_duration": {
       "type": "string"
-    },
-    "default_reminder_templates": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     },
     "recommended_knowledge_topics": {
       "type": "array",

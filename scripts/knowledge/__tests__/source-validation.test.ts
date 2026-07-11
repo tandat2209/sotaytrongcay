@@ -158,7 +158,6 @@ primary_objective: "Objective"
 entry_criteria: ["Criteria"]
 exit_criteria: ["Criteria"]
 estimated_duration: "1 week"
-default_reminder_templates: ["Reminder"]
 recommended_knowledge_topics: ["Topic"]
 references: [ref.example]
 ---

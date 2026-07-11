@@ -13,10 +13,6 @@ exit_criteria:
   - Trái đạt kích thước bằng đầu ngón tay
   - Đã tỉa xong chùm
 estimated_duration: 2-3 tuần
-default_reminder_templates:
-  - Tỉa trái non (giảm mật độ)
-  - Bón Canxi-Bo chống rụng trái
-  - Tưới nước mạnh trở lại
 recommended_knowledge_topics:
   - Kỹ thuật tỉa trái nho chuẩn
   - Phòng nấm phấn trắng trên trái non
@@ -24,12 +20,3 @@ references:
   - ref.osu.growing-table-grapes
 ---
 Hoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).
-
-## UX & Behavioral Design
-
-- **Why it exists:** The transition back to active care.
-- **Why separated:** We can finally resume watering and feeding. Specific interventions (thinning berries) are required here.
-- **User Actions to Advance:** Completing the "Tỉa quả non" (thinning) task.
-- **Active Reminders:** Calcium/Boron application, physical labor of cutting out tiny berries so the cluster has room to grow.
-- **Timeline Highlights:** "Tỉa trái đợt 1".
-- **UI Communication:** Small green berry cluster icon.

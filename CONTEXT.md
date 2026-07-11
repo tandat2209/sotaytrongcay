@@ -17,8 +17,12 @@ The next observable growth outcome for the current stage.
 _Avoid_: Lời nhắc, hạn chót
 
 **Mẹo theo giai đoạn** (Stage tip):
-Concise informational guidance relevant to the current stage. It is not a task, reminder, or recorded activity.
+Concise informational guidance relevant to the current stage. It is not a task, reminder, recorded activity, transition trigger, or care instruction.
 _Avoid_: Công việc, hoạt động đã làm
+
+**Nội dung giai đoạn chờ duyệt** (Review-stage content):
+Reviewed-for-structure stage context that may state an objective, observable entry or exit context, duration, knowledge topics, and sources. It does not prescribe care or create product behavior until separately approved.
+_Avoid_: Quy tắc tự động, hướng dẫn can thiệp, tác vụ hệ thống
 
 **Việc cần tránh** (Thing to avoid):
 A stage-specific action or condition that may harm the plant and should be explained to the grower.

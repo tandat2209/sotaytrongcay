@@ -69,7 +69,6 @@ export function normalizeDocument(
         entryCriteria: (fm.entry_criteria ?? []) as readonly string[],
         exitCriteria: (fm.exit_criteria ?? []) as readonly string[],
         estimatedDuration: String(fm.estimated_duration),
-        defaultReminderTemplates: (fm.default_reminder_templates ?? []) as readonly string[],
         recommendedKnowledgeTopics: (fm.recommended_knowledge_topics ?? []) as readonly string[],
       };
     }

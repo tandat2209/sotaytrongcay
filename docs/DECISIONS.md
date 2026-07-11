@@ -7,13 +7,25 @@ This file records confirmed decisions. Unvalidated ideas remain in `PROJECT_CONT
 Each entry includes a date, status, decision, and rationale. Valid statuses are `Proposed`, `Accepted`, and `Superseded`.
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
-## 2026-07-11 — Replace stage graph with sequence and state-machine criteria
+## 2026-07-11 — Use ordered lifecycle metadata for growth stages
 
 **Status:** Accepted
 
-**Decision:** Growth stages are now modeled as a sequential state machine ordered by `sequence`, replacing the previous directed graph (`next_stage_id`). Stages now declare `entry_criteria`, `exit_criteria`, `stage_group` (development vs. production), and `repeatable` to drive the UX. Hardcoded links like `care_recommendation_ids` and `guide_ids` were removed from playbooks.
+**Decision:** Growth stages remain ordered within the existing development and production lifecycles. Playbooks declare review-stage context through `primary_objective`, `entry_criteria`, `exit_criteria`, duration, knowledge topics, and sources; they do not encode transition actions, task state, or executable recommendation links.
 
-**Rationale:** The directed graph approach was brittle and didn't match the reality of plant growth, which features a one-time structural phase (development) followed by repeating seasonal cycles (production). Removing hardcoded arrays for recommendations allows the system to query guidance dynamically based on current conditions.
+**Rationale:** Ordered lifecycle metadata preserves the established grape journey without requiring a rule engine, automatic transition, or task-completion model. It keeps review content concise and prevents unreviewed operational guidance from becoming product behavior.
+
+## 2026-07-11 — Keep review-stage playbooks informational and non-executable
+
+**Status:** Accepted
+
+**Decision:** Remove default reminder templates and UX, behavioral, task, auto-transition, and unsupported-state prescriptions from stage playbooks and their compiled mobile contract. Review-stage content remains informational and does not create reminders, actions, history, or stage changes.
+
+**Rationale:** The pilot is review-stage knowledge, not an automation contract. Removing these fields keeps the product's explicit-save history model intact and prevents unsupported agronomic content from being presented as a directive.
+
+**Consequences:** The compiler validates and bundles concise stage metadata only. Future care suggestions or reminders require separately reviewed product behavior and knowledge contracts.
+
+**Alternatives:** Retaining templates or task metadata would imply scheduling and execution behavior that the MVP does not implement.
 
 
 ## 2026-07-10 — Make gardening history the core value

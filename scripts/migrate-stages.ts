@@ -43,7 +43,6 @@ function processFile(basename: string, machineId: string, sequence: number, outD
     exit_criteria: parsed.data.exit_criteria,
     estimated_duration: parsed.data.estimated_duration,
     recommended_playbook: parsed.data.recommended_playbook,
-    default_reminder_templates: parsed.data.default_reminder_templates,
     recommended_knowledge_topics: parsed.data.recommended_knowledge_topics,
     references: parsed.data.references
   };
