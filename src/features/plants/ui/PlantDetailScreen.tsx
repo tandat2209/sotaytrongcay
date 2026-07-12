@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, View } from "react-native";
 import { CARE_ACTIVITY_ICONS, CARE_ACTIVITY_LABELS, type CareActivity, type CareActivityType } from "@/features/journal";
 import { stageIcon } from "@/features/knowledge/stage-icons";
+import type { StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type { WeatherState } from "@/shared/weather/weather-state";
 import { IconButton } from "@/shared/ui/IconButton";
@@ -33,9 +34,25 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projec
           <Typography color="secondary" variant="label">GIAI ĐOẠN HIỆN TẠI</Typography>
         </View>
         <Typography variant="headlineMedium">{projection.stageTitle}</Typography>
-        <Typography color="textSecondary" variant="bodyMedium">
-          Theo dõi chăm sóc quan trọng và ghi lại khi bạn đã thực hiện.
-        </Typography>
+        {projection.stagePlaybook ? (
+          <>
+            <Typography color="textSecondary" variant="bodyMedium">
+              {projection.stagePlaybook.primaryObjective}
+            </Typography>
+            {projection.stagePlaybook.estimatedDuration ? (
+              <View style={styles.stageEyebrow}>
+                <Ionicons color={colors.textSecondary} name="time-outline" size={14} />
+                <Typography color="textSecondary" variant="bodyMedium">
+                  {projection.stagePlaybook.estimatedDuration}
+                </Typography>
+              </View>
+            ) : null}
+          </>
+        ) : (
+          <Typography color="textSecondary" variant="bodyMedium">
+            Theo dõi chăm sóc quan trọng và ghi lại khi bạn đã thực hiện.
+          </Typography>
+        )}
       </SurfaceCard>
 
       <View style={styles.section}>
@@ -51,12 +68,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projec
         ))}
       </View>
 
-      <View style={styles.section}>
-        <Typography variant="headlineSmall">Mẹo cho giai đoạn này</Typography>
-        <Typography color="textSecondary" variant="bodyMedium">
-          Nội dung hướng dẫn cho giai đoạn này đang chờ duyệt nên chưa được hiển thị như hướng dẫn chăm sóc.
-        </Typography>
-      </View>
+      <StageTips playbook={projection.stagePlaybook} />
 
       <WeatherCard weather={weather} />
 
@@ -73,6 +85,59 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projec
         )}
       </View>
     </Screen>
+  );
+}
+
+function StageTips({ playbook }: { playbook: StagePlaybook | null }) {
+  return (
+    <View style={styles.section}>
+      <View style={styles.sectionHeader}>
+        <Typography variant="headlineSmall">Mẹo cho giai đoạn này</Typography>
+        {playbook ? (
+          <View style={styles.reviewBadge}>
+            <Typography color="secondary" variant="label">NỘI DUNG CHỜ DUYỆT</Typography>
+          </View>
+        ) : null}
+      </View>
+
+      {!playbook ? (
+        <SurfaceCard>
+          <Typography color="textSecondary" variant="bodyMedium">Chưa có mẹo cho giai đoạn này.</Typography>
+        </SurfaceCard>
+      ) : (
+        <>
+          {playbook.recommendedKnowledgeTopics.length > 0 ? (
+            <SurfaceCard style={styles.tipsCard}>
+              <View style={styles.tipRow}>
+                <Ionicons color={colors.primary} name="bulb-outline" size={18} />
+                <Typography variant="bodyLarge">Nên tìm hiểu</Typography>
+              </View>
+              {playbook.recommendedKnowledgeTopics.map((topic) => (
+                <View key={topic} style={styles.bulletRow}>
+                  <Typography color="textSecondary" variant="bodyMedium">·</Typography>
+                  <Typography color="textSecondary" variant="bodyMedium">{topic}</Typography>
+                </View>
+              ))}
+            </SurfaceCard>
+          ) : null}
+
+          {playbook.exitCriteria.length > 0 ? (
+            <SurfaceCard style={styles.tipsCard}>
+              <View style={styles.tipRow}>
+                <Ionicons color={colors.primary} name="flag-outline" size={18} />
+                <Typography variant="bodyLarge">Mốc tiếp theo</Typography>
+              </View>
+              {playbook.exitCriteria.map((criterion) => (
+                <View key={criterion} style={styles.bulletRow}>
+                  <Typography color="textSecondary" variant="bodyMedium">·</Typography>
+                  <Typography color="textSecondary" variant="bodyMedium">{criterion}</Typography>
+                </View>
+              ))}
+            </SurfaceCard>
+          ) : null}
+        </>
+      )}
+    </View>
   );
 }
 
@@ -129,11 +194,19 @@ function formatActivity(activity: CareActivity): string {
 }
 
 const styles = StyleSheet.create({
+  bulletRow: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   careCard: { alignItems: "center", flexDirection: "row", gap: spacing.md, minHeight: 72 },
   careIcon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: 22, height: 44, justifyContent: "center", width: 44 },
   careCopy: { flex: 1, gap: spacing.xs },
   recentCard: { alignItems: "center", flexDirection: "row", gap: spacing.md, minHeight: 64 },
+  reviewBadge: {
+    backgroundColor: colors.secondarySoft ?? colors.surfaceSubtle,
+    borderRadius: 4,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+  },
   section: { gap: spacing.md },
+  sectionHeader: { alignItems: "center", flexDirection: "row", gap: spacing.sm, justifyContent: "space-between" },
   stageCard: {
     backgroundColor: colors.surfaceSubtle,
     borderColor: colors.primary,
@@ -142,4 +215,6 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   stageEyebrow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  tipRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  tipsCard: { gap: spacing.sm },
 });

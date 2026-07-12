@@ -39,6 +39,8 @@ describe("createPlantDetailProjection", () => {
     });
 
     expect(projection.stageTitle).toBe("Phát triển thân");
+    expect(projection.stagePlaybook).not.toBeNull();
+    expect(projection.stagePlaybook?.primaryObjective).toBeTruthy();
     expect(projection.latestCare.watering?.id).toBe("b791e36d-b28e-4542-bf31-7c5ebac16d21");
     expect(projection.latestCare.fertilizing?.id).toBe("a791e36d-b28e-4542-bf31-7c5ebac16d21");
     expect(projection.latestCare.spraying?.id).toBe("c791e36d-b28e-4542-bf31-7c5ebac16d21");
@@ -74,7 +76,25 @@ describe("createPlantDetailProjection", () => {
     });
 
     expect(projection.stageTitle).toBe("Chưa xác định");
+    expect(projection.stagePlaybook).toBeNull();
     expect(projection.latestCare).toEqual({ fertilizing: null, spraying: null, watering: null });
     expect(projection.recentCare).toEqual([]);
+  });
+
+  it("returns stagePlaybook with objective and exit criteria for a known grape stage", () => {
+    const projection = createPlantDetailProjection({ activities: [], plant });
+
+    expect(projection.stagePlaybook).not.toBeNull();
+    expect(typeof projection.stagePlaybook?.primaryObjective).toBe("string");
+    expect(projection.stagePlaybook!.primaryObjective.length).toBeGreaterThan(0);
+    expect(Array.isArray(projection.stagePlaybook?.exitCriteria)).toBe(true);
+    expect(projection.stagePlaybook!.exitCriteria.length).toBeGreaterThan(0);
+  });
+
+  it("returns stagePlaybook as null for an unknown stage ID", () => {
+    const unknownPlant = { ...plant, speciesId: "plant.unknown", stageId: "unknown.stage" };
+    const projection = createPlantDetailProjection({ activities: [], plant: unknownPlant });
+
+    expect(projection.stagePlaybook).toBeNull();
   });
 });

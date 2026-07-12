@@ -1,5 +1,5 @@
 import type { CareActivity, CareActivityType } from "@/features/journal";
-import { getPreviewPlantKnowledge } from "@/features/knowledge/preview-knowledge";
+import { getPreviewPlantKnowledge, getStagePlaybook, type StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import type { Plant } from "./plant";
 
 const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
@@ -9,6 +9,7 @@ export type PlantDetailProjection = Readonly<{
   latestCare: Readonly<Record<CareActivityType, CareActivity | null>>;
   plant: Plant;
   recentCare: readonly CareActivity[];
+  stagePlaybook: StagePlaybook | null;
   stageTitle: string;
 }>;
 
@@ -27,6 +28,7 @@ export function createPlantDetailProjection({ activities, plant }: PlantDetailPr
     latestCare,
     plant,
     recentCare: sortedActivities.slice(0, RECENT_CARE_LIMIT),
+    stagePlaybook: getStagePlaybook(plant.stageId),
     stageTitle: getStageTitle(plant),
   };
 }

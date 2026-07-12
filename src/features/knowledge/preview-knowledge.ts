@@ -10,11 +10,32 @@ export type PreviewPlantKnowledge = Readonly<{
   stages: readonly PlantKnowledgeStage[];
 }>;
 
+export type StagePlaybook = Readonly<{
+  id: string;
+  title: string;
+  primaryObjective: string;
+  estimatedDuration: string | null;
+  entryCriteria: readonly string[];
+  exitCriteria: readonly string[];
+  recommendedKnowledgeTopics: readonly string[];
+  bodyMarkdown: string;
+}>;
+
 type PreviewBundle = {
   species: Array<{
     id: string;
     title: string;
     lifecycles: Record<string, { stages: Array<{ id: string; title: string }> }>;
+  }>;
+  stagePlaybooks: Array<{
+    id: string;
+    title: string;
+    primaryObjective?: string;
+    estimatedDuration?: string;
+    entryCriteria?: string[];
+    exitCriteria?: string[];
+    recommendedKnowledgeTopics?: string[];
+    bodyMarkdown?: string;
   }>;
 };
 
@@ -35,5 +56,26 @@ export function getPreviewPlantKnowledge(speciesId?: string): PreviewPlantKnowle
     stages: Object.values(species.lifecycles).flatMap((lifecycle) =>
       lifecycle.stages.map(({ id, title }) => ({ id, title })),
     ),
+  };
+}
+
+/**
+ * Returns the stage playbook for a given stage ID from the preview bundle,
+ * or null if no playbook is found. Content has status "review" and is
+ * displayed with the "Nội dung chờ duyệt" label per CONTEXT.md vocabulary.
+ */
+export function getStagePlaybook(stageId: string): StagePlaybook | null {
+  const bundle: PreviewBundle = previewBundle;
+  const raw = bundle.stagePlaybooks.find((pb) => pb.id === stageId);
+  if (!raw) return null;
+  return {
+    id: raw.id,
+    title: raw.title,
+    primaryObjective: raw.primaryObjective ?? "",
+    estimatedDuration: raw.estimatedDuration ?? null,
+    entryCriteria: raw.entryCriteria ?? [],
+    exitCriteria: raw.exitCriteria ?? [],
+    recommendedKnowledgeTopics: raw.recommendedKnowledgeTopics ?? [],
+    bodyMarkdown: raw.bodyMarkdown ?? "",
   };
 }

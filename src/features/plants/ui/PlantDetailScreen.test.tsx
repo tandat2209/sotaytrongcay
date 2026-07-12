@@ -19,7 +19,8 @@ describe("PlantDetailScreen", () => {
     expect(onRecordCare).toHaveBeenNthCalledWith(1, "watering");
     expect(onRecordCare).toHaveBeenNthCalledWith(2, "fertilizing");
     expect(onRecordCare).toHaveBeenNthCalledWith(3, "spraying");
-    expect(screen.getByText("Nội dung hướng dẫn cho giai đoạn này đang chờ duyệt nên chưa được hiển thị như hướng dẫn chăm sóc.")).toBeTruthy();
+    // Stage playbook content renders for trunk-development
+    expect(screen.getByText(/Mốc tiếp theo/)).toBeTruthy();
   });
 
   it("opens persisted care activity and provides a return control", () => {
@@ -53,13 +54,37 @@ describe("PlantDetailScreen", () => {
       <PlantDetailScreen onOpenActivity={jest.fn()} onRecordCare={jest.fn()} projection={projection} weather={productionWeather} />,
     );
 
-    // No plant health / sensor metrics
-    expect(screen.queryByText(/Khỏe mạnh/i)).toBeNull();
+    // No sensor metrics (soil moisture %, sunlight hours)
     expect(screen.queryByText(/Độ ẩm đất/i)).toBeNull();
     // No photo or reminder controls
     expect(screen.queryByText(/Nhật ký ảnh/i)).toBeNull();
     expect(screen.queryByText(/Lời nhắc/i)).toBeNull();
     // No stage progress or countdown
     expect(screen.queryByText(/ngày còn lại/i)).toBeNull();
+  });
+
+  it("renders stage playbook objective and exit criteria for a known grape stage", () => {
+    const screen = render(
+      <PlantDetailScreen onOpenActivity={jest.fn()} onRecordCare={jest.fn()} projection={projection} weather={productionWeather} />,
+    );
+
+    // Stage card shows the objective from the playbook
+    expect(screen.getByText(/Tạo ra một thân chính khỏe mạnh/)).toBeTruthy();
+    // Tips section shows 'Mốc tiếp theo' and 'Nần tìm hiểu' from the playbook
+    expect(screen.getByText("Mốc tiếp theo")).toBeTruthy();
+    expect(screen.getByText("Nên tìm hiểu")).toBeTruthy();
+    // Review label is present
+    expect(screen.getByText("NỘI DUNG CHỜ DUYỆT")).toBeTruthy();
+  });
+
+  it("renders empty state for tips when stagePlaybook is null", () => {
+    const unknownPlant = { ...plant, speciesId: "plant.unknown", stageId: "unknown.stage" };
+    const projectionWithoutPlaybook = createPlantDetailProjection({ activities: [], plant: unknownPlant });
+    const screen = render(
+      <PlantDetailScreen onOpenActivity={jest.fn()} onRecordCare={jest.fn()} projection={projectionWithoutPlaybook} weather={productionWeather} />,
+    );
+
+    expect(screen.getByText("Chưa có mẹo cho giai đoạn này.")).toBeTruthy();
+    expect(screen.queryByText("NỘI DUNG CHỜ DUYỆT")).toBeNull();
   });
 });
