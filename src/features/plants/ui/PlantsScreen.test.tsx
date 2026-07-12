@@ -6,6 +6,7 @@ const plant = {
   name: "Nho sân thượng",
   speciesId: "plant.grape",
   stageId: "grape.stage.trunk-development",
+  location: null,
   plantedAt: null,
   createdAt: "2026-07-11T08:00:00.000Z",
 };

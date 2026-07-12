@@ -1,7 +1,7 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { TodayOverview, WeatherCard } from "./TodayOverview";
 
-const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thượng", speciesId: "plant.grape", stageId: "grape.stage.trunk-development", plantedAt: null, createdAt: "2026-07-11T08:00:00.000Z" };
+const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thượng", speciesId: "plant.grape", stageId: "grape.stage.trunk-development", location: null, plantedAt: null, createdAt: "2026-07-11T08:00:00.000Z" };
 const callbacks = { onAddPlant: jest.fn(), onOpenActivity: jest.fn(), onOpenPlant: jest.fn() };
 
 const observation = { freshnessLabel: "Cập nhật 10 phút trước", locationLabel: "Quận 7", observedAt: "2026-07-12T08:00:00.000Z", source: "Nhà cung cấp thời tiết", summary: "Có mây", metrics: { humidityPercent: 72, rainChancePercent: 30, temperatureCelsius: 29 } };

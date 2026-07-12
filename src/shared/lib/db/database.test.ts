@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(2);
+    expect(DATABASE_VERSION).toBe(3);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -25,6 +25,13 @@ describe("database migrations", () => {
 
     expect(sql).toContain("DROP TABLE IF EXISTS activities");
     expect(sql).toContain("CREATE TABLE plants");
+  });
+
+  it("adds the location column when upgrading from version 2", () => {
+    const sql = getMigrationStatements(2).join("\n");
+
+    expect(sql).toContain("ALTER TABLE plants ADD COLUMN location TEXT");
+    expect(sql).not.toContain("DROP TABLE");
   });
 
   it("does not return applied migrations", () => {

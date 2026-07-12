@@ -18,7 +18,7 @@ const config: ExpoConfig = {
   web: {
     output: "static",
   },
-  plugins: ["expo-router", "expo-secure-store", "expo-sqlite"],
+  plugins: ["expo-router", "expo-secure-store", "expo-sqlite", "@react-native-community/datetimepicker"],
   experiments: {
     typedRoutes: true,
     reactCompiler: true,

@@ -3,7 +3,7 @@ import { productionWeather } from "@/shared/weather/weather-state";
 import { createPlantDetailProjection } from "../models/plant-detail-projection";
 import { PlantDetailScreen } from "./PlantDetailScreen";
 
-const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thượng", speciesId: "plant.grape", stageId: "grape.stage.trunk-development", plantedAt: null, createdAt: "2026-07-11T08:00:00.000Z" };
+const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thượng", speciesId: "plant.grape", stageId: "grape.stage.trunk-development", location: null, plantedAt: null, createdAt: "2026-07-11T08:00:00.000Z" };
 const projection = createPlantDetailProjection({ activities: [], plant });
 
 describe("PlantDetailScreen", () => {

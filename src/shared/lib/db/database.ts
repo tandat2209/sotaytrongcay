@@ -1,9 +1,11 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 2;
+export const DATABASE_VERSION = 3;
 
-const INITIAL_MIGRATION = `
+// Version 2 — initial schema (no location column).
+// Drops prototype tables and creates the current baseline.
+const V2_INITIAL_MIGRATION = `
 DROP TABLE IF EXISTS care_activities;
 	DROP TABLE IF EXISTS activities;
 	DROP TABLE IF EXISTS observations;
@@ -36,8 +38,17 @@ CREATE INDEX IF NOT EXISTS idx_care_activities_plant_time
   ON care_activities(plant_id, occurred_at DESC);
 `;
 
+// Version 3 — adds the location column to plants.
+// Devices upgrading from v2 run only this ALTER TABLE.
+// Fresh installs (v0 → v2 → v3) run both, which is safe because
+// ALTER TABLE adds a nullable column to an existing table.
+const V3_ADD_LOCATION = `ALTER TABLE plants ADD COLUMN location TEXT;`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
-  return currentVersion < DATABASE_VERSION ? [INITIAL_MIGRATION] : [];
+  const migrations: string[] = [];
+  if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
+  if (currentVersion < 3) migrations.push(V3_ADD_LOCATION);
+  return migrations;
 }
 
 export async function getDb() {
