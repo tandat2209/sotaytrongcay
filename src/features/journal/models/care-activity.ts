@@ -15,6 +15,10 @@ export const CareActivitySchema = z.object({
   amount: WaterAmountSchema.nullable(),
   notes: z.string().nullable(),
   createdAt: z.string().datetime(),
+}).superRefine((activity, context) => {
+  if (activity.type !== "watering" && activity.amount !== null) {
+    context.addIssue({ code: "custom", message: "A liter amount is valid only for watering.", path: ["amount"] });
+  }
 });
 
 export type CareActivity = z.infer<typeof CareActivitySchema>;

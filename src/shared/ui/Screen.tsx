@@ -17,10 +17,10 @@ export function Screen({ children, introduction, title }: ScreenProps) {
         contentContainerStyle={styles.content}
         contentInsetAdjustmentBehavior="automatic"
       >
-        <View style={styles.heading}>
+        {!!(title || introduction) && <View style={styles.heading}>
           {title ? <Typography style={styles.title} variant="headlineLarge">{title}</Typography> : null}
           {introduction ? <Typography color="textSecondary" variant="bodyLarge">{introduction}</Typography> : null}
-        </View>
+        </View>}
         {children}
       </ScrollView>
     </SafeAreaView>

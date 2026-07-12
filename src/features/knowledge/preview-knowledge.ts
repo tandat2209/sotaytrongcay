@@ -18,11 +18,16 @@ type PreviewBundle = {
   }>;
 };
 
-export function getPreviewPlantKnowledge(): PreviewPlantKnowledge {
+export function getPreviewPlantKnowledge(): PreviewPlantKnowledge;
+export function getPreviewPlantKnowledge(speciesId: string): PreviewPlantKnowledge | null;
+export function getPreviewPlantKnowledge(speciesId?: string): PreviewPlantKnowledge | null {
   const bundle: PreviewBundle = previewBundle;
-  const species = bundle.species[0];
+  const species = speciesId
+    ? bundle.species.find((candidate) => candidate.id === speciesId)
+    : bundle.species[0];
   if (!species) {
-    throw new Error("Preview knowledge does not contain a species");
+    if (!speciesId) throw new Error("Preview knowledge does not contain a species");
+    return null;
   }
 
   return {

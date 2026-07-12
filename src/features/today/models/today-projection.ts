@@ -1,33 +1,9 @@
 import type { CareActivity } from "@/features/journal";
 import type { Plant } from "@/features/plants";
+import { productionWeather, type WeatherState } from "@/shared/weather/weather-state";
 
-type WeatherMetrics = {
-  humidityPercent?: number;
-  rainChancePercent?: number;
-  temperatureCelsius?: number;
-};
-
-type WeatherObservation = {
-  freshnessLabel: string;
-  locationLabel: string;
-  metrics?: WeatherMetrics;
-  observedAt: string;
-  source: string;
-  summary: string;
-};
-
-export type TodayWeather =
-  | ({ status: "available" | "stale" } & WeatherObservation)
-  | { status: "loading" }
-  | { status: "offline" }
-  | { status: "unavailable"; reason: "not-configured" | "permission-denied" }
-  | { status: "error" };
-
-export const productionWeather: TodayWeather = {
-  status: "unavailable",
-  reason: "not-configured",
-};
-
+export type TodayWeather = WeatherState;
+export { productionWeather };
 export type TodayActivity = CareActivity & { plantName: string };
 
 export type TodayProjection = {

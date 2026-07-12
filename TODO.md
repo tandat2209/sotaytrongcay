@@ -23,7 +23,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## MVP UX
 
-- [ ] Prototype Plant Detail with last care, next reminder, tips, warnings, and milestone.
+- [x] Prototype Plant Detail with last care, three care summaries, stage identity, review-guidance availability state, and weather context.
 - [ ] Prototype fast watering and fertilizing entry flows.
 - [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.
@@ -41,9 +41,16 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.
 - [x] Build first-slice Plant Detail recent-watering summary and global Journal/Activity Detail views.
-- [ ] Extend the first slice with fertilizing, spraying, Journal updates, stage transitions, and full Plant Dashboard summaries.
+- [x] Deliver current-data Plant Detail slice: three care types summarised and recordable, stage identity, review-guidance text, weather context, recent care history, and activity detail navigation.
+- [x] Extend the first slice with fertilizing, spraying, and full Plant Dashboard care summaries.
+- [ ] Add plant editing and archive flows.
+- [ ] Add photo-and-note journal entries with user-confirmed stage history and plant photos.
+- [ ] Add reminders and a complete mixed-event Timeline.
+- [ ] Add type-specific fertilizer and spraying details after reviewed field contracts exist.
+- [ ] Add approved stage guidance and a guide reader after qualified review completes.
+- [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
 - [ ] Build deterministic care suggestions without persistent task instances.
-- [ ] Add reminders, weather context, photos, and offline synchronization.
+- [ ] Add offline synchronization.
 - [ ] Verify backup, restore, export, deletion, and content-version migration.
 
 ## Future
