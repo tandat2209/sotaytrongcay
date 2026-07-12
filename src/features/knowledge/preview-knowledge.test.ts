@@ -77,7 +77,7 @@ describe("preview knowledge", () => {
     });
 
     it("returns an empty array for a stage with no recommendations", () => {
-      expect(getCareRecommendationsForStage("grape.stage.harvest")).toHaveLength(0);
+      expect(getCareRecommendationsForStage("grape.stage.nonexistent")).toHaveLength(0);
     });
   });
 });

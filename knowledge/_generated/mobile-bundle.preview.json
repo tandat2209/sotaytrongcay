@@ -567,6 +567,40 @@
       ]
     },
     {
+      "id": "grape.recommendation.bud-break.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn bật mầm",
+      "goal": "Chồi non đang phát triển rất nhanh và cần nước đều đặn. Nhu cầu nước tăng mạnh so với giai đoạn cắt cành — nhưng đất vẫn cần thoát nước tốt để rễ không bị úng.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.bud-break"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 3
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 3–4 ngày hoặc khi thấy lớp đất mặt khô",
+        "container": "Mỗi 2–3 ngày — chồi non cần ẩm đều"
+      },
+      "notes": [
+        "Tưới đều và đủ ngay từ đầu giai đoạn — thiếu nước trong lúc bật mầm làm chồi bật không đều.",
+        "Không để đất khô hẳn: chồi non mất nước rất nhanh trong thời tiết nóng.",
+        "Tưới vào gốc, tránh tưới lên chồi non đang bung — dễ gây bệnh nấm ở điểm tăng trưởng."
+      ]
+    },
+    {
       "id": "grape.recommendation.canopy-formation.fertilizing",
       "type": "care_recommendation_definition",
       "title": "Bón phân giai đoạn hình thành tán",
@@ -608,6 +642,75 @@
         "Tiếp tục bón đạm cao ở giai đoạn này là lỗi phổ biến — cây ra nhiều lá nhưng cành yếu, không có khả năng mang trái tốt.",
         "Cành chuyển nâu từ gốc lên là dấu hiệu hóa gỗ tốt, không phải bệnh.",
         "Ở Việt Nam (không có mùa đông tự nhiên), người trồng cần chủ động giảm nước và dinh dưỡng để cây nghỉ ngắn trước khi cắt cành."
+      ]
+    },
+    {
+      "id": "grape.recommendation.canopy-formation.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn hình thành tán",
+      "goal": "Tán lá lớn tăng thoát hơi nước đáng kể. Cần tưới đều và đủ, nhưng bắt đầu giảm dần ở cuối giai đoạn để chuẩn bị cho cây hóa gỗ và nghỉ ngắn.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.canopy-formation"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 3
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 3–4 ngày, giảm dần ở 2–3 tuần cuối giai đoạn",
+        "container": "Mỗi 2–3 ngày, giảm tần suất khi cành bắt đầu hóa gỗ"
+      },
+      "notes": [
+        "Tán lá rộng che mặt đất — kiểm tra độ ẩm đất dưới tán, không chỉ nhìn mặt đất bên ngoài.",
+        "Giảm tưới ở cuối giai đoạn kích thích hóa gỗ tự nhiên của cành.",
+        "Đất không bao giờ để khô hẳn trong giai đoạn này — cây đang tích lũy năng lượng."
+      ]
+    },
+    {
+      "id": "grape.recommendation.flowering.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn ra hoa",
+      "goal": "Giai đoạn ra hoa rất nhạy cảm với nước. Cần duy trì độ ẩm đất ổn định nhưng tuyệt đối không để nước chạm vào hoa — tưới overhead làm rửa trôi phấn hoa và gây thối bông.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.flowering"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 3
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 3–4 ngày, chỉ tưới vào vùng rễ (tưới gốc hoặc nhỏ giọt)",
+        "container": "Mỗi 2–3 ngày, đổ nước vào đĩa lót hoặc tưới gốc nhẹ nhàng"
+      },
+      "notes": [
+        "Tuyệt đối không tưới phun từ trên xuống khi cây đang nở hoa — rửa trôi phấn hoa là nguyên nhân hàng đầu gây thất thu.",
+        "Hạn chế tưới quá nhiều — stress khô nhẹ trong giai đoạn ra hoa giúp thụ phấn tốt hơn.",
+        "Mưa lớn khi ra hoa gây hại lớn và không kiểm soát được — không bù đắp bằng tưới thêm.",
+        "Sau khi hoa rụng và trái bắt đầu hình thành, có thể trở lại tưới bình thường."
       ]
     },
     {
@@ -661,6 +764,42 @@
       ]
     },
     {
+      "id": "grape.recommendation.fruit-development.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn nuôi quả",
+      "goal": "Trái đang tăng kích thước nhanh và tích lũy nước. Đây là giai đoạn tiêu thụ nước nhiều nhất trong chu kỳ — thiếu nước trực tiếp làm giảm kích thước trái và tăng nguy cơ nứt trái khi tưới trở lại.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.fruit-development"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 2
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 2–3 ngày trong thời tiết nóng, 3–4 ngày khi mát hơn",
+        "container": "Mỗi 1–2 ngày — chậu thoát nước nhanh và trái cần nhiều nước"
+      },
+      "notes": [
+        "Tưới không đều là nguyên nhân chính gây nứt trái — tưới ít lâu rồi tưới nhiều đột ngột làm trái căng và nứt.",
+        "Mưa lớn sau khô hạn kéo dài = nguy cơ nứt trái cao. Nếu có thể, phủ mặt đất (mulch) để giảm dao động ẩm.",
+        "Trái teo nhỏ hoặc nhăn mà đất không khô = vấn đề rễ, không phải thiếu nước mặt.",
+        "Giai đoạn này không giảm tưới trừ khi sắp thu hoạch."
+      ]
+    },
+    {
       "id": "grape.recommendation.fruit-set.fertilizing",
       "type": "care_recommendation_definition",
       "title": "Bón phân giai đoạn đậu quả",
@@ -710,6 +849,74 @@
       ]
     },
     {
+      "id": "grape.recommendation.fruit-set.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn đậu quả",
+      "goal": "Sau khi hoa rụng và trái nhỏ hình thành, cây cần nước đều đặn và ổn định. Thiếu nước đột ngột ngay sau đậu quả là nguyên nhân phổ biến gây rụng trái non.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.fruit-set"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 3
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 3–4 ngày — duy trì ẩm đều, không để khô đột ngột",
+        "container": "Mỗi 2–3 ngày — theo dõi sát vì trái non rất nhạy cảm với stress nước"
+      },
+      "notes": [
+        "Tưới không đều (lúc nhiều lúc ít) ngay sau đậu quả là nguyên nhân hàng đầu gây rụng trái non và nứt trái về sau.",
+        "Tưới đủ và đều để trái phân chia tế bào đồng đều — ảnh hưởng trực tiếp đến kích thước trái cuối cùng.",
+        "Trở lại tưới bình thường sau giai đoạn ra hoa — không còn hạn chế overhead watering nữa."
+      ]
+    },
+    {
+      "id": "grape.recommendation.harvest.watering",
+      "type": "care_recommendation_definition",
+      "title": "Kiểm tra nước giai đoạn thu hoạch",
+      "goal": "Trong khi thu hoạch, cây vẫn cần ẩm nhất định để trái không héo trước khi hái. Không tưới nhiều trong ngày thu hoạch — trái ướt dễ bị dập và nhanh thối hơn.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.harvest"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 5
+      },
+      "onMissingHistory": "withhold",
+      "frequency": {
+        "ground": "Không tưới trong ngày thu hoạch. Sau khi thu hoạch xong, tưới bình thường để phục hồi cây",
+        "container": "Tương tự — tránh tưới trong 1–2 ngày quanh thời điểm thu hoạch"
+      },
+      "notes": [
+        "Thu hoạch vào buổi sáng sớm khi trời mát — trái giữ chất lượng tốt hơn.",
+        "Không tưới ngay trước thu hoạch — trái ướt dập nhanh hơn và làm giảm thời gian bảo quản.",
+        "Sau khi thu hoạch xong toàn bộ, tưới lại bình thường ngay để hỗ trợ giai đoạn phục hồi."
+      ]
+    },
+    {
       "id": "grape.recommendation.pruning.fertilizing",
       "type": "care_recommendation_definition",
       "title": "Bón phân sau cắt cành",
@@ -751,6 +958,40 @@
         "Cây chưa có lá, không thể quang hợp — bón quá nhiều phân sẽ nằm thừa trong đất, gây nguy cơ mặn đất hoặc rửa trôi.",
         "Nếu đã bón phân hữu cơ nặng trong giai đoạn phục hồi, bỏ qua phân hóa học ở đây.",
         "Tưới nước trở lại từ từ — rễ cần ẩm để hấp thụ dinh dưỡng đã bón."
+      ]
+    },
+    {
+      "id": "grape.recommendation.pruning.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước sau cắt cành",
+      "goal": "Cây vừa bị cắt cành lớn và đang ở trạng thái nghỉ ngắn. Cần tưới đủ ẩm để rễ hoạt động trở lại và hỗ trợ hấp thụ dinh dưỡng sau cắt, nhưng tránh tưới quá nhiều khi cây chưa có lá.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.pruning"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 5
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 5–7 ngày — cây không có lá nên mất nước rất ít",
+        "container": "Mỗi 4–5 ngày — kiểm tra đất trước mỗi lần tưới"
+      },
+      "notes": [
+        "Cây không có lá nên nhu cầu nước thấp hơn nhiều so với các giai đoạn sinh trưởng. Tưới quá nhiều gây úng rễ.",
+        "Tưới một lần sau cắt cành để giúp rễ hồi phục và hỗ trợ hấp thụ phân bón.",
+        "Vết cắt tươi — tránh phun nước lên thân và vết cắt, chỉ tưới vào vùng rễ."
       ]
     },
     {
@@ -807,6 +1048,41 @@
       ]
     },
     {
+      "id": "grape.recommendation.recovery.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn phục hồi sau thu hoạch",
+      "goal": "Sau thu hoạch, cây cần tiếp tục quang hợp để tích lũy năng lượng cho vụ sau. Duy trì tưới đủ để lá hoạt động, sau đó giảm dần để chuẩn bị cho giai đoạn nghỉ ngắn trước khi cắt cành.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.recovery"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 4
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 4–5 ngày ngay sau thu hoạch, giảm dần xuống 7–10 ngày khi lá bắt đầu già",
+        "container": "Mỗi 3–4 ngày ban đầu, giảm dần để kích thích lá rụng"
+      },
+      "notes": [
+        "Không ngừng tưới đột ngột ngay sau thu hoạch — cây cần nước để tiếp tục quang hợp và tích lũy năng lượng dự trữ.",
+        "Giảm tưới từ từ trong 3–4 tuần cuối để kích thích lá già và rụng tự nhiên trước khi cắt cành.",
+        "Lá vàng đều và rụng là dấu hiệu tốt cuối giai đoạn phục hồi — cây đang chuyển về trạng thái nghỉ ngắn.",
+        "Ở Việt Nam không có mùa đông tự nhiên — giảm nước chủ động là cách duy nhất để cây nghỉ ngắn trước vụ mới."
+      ]
+    },
+    {
       "id": "grape.recommendation.ripening.fertilizing",
       "type": "care_recommendation_definition",
       "title": "Bón phân giai đoạn quả chín",
@@ -846,6 +1122,77 @@
         "Giảm tưới nhẹ (không phải để héo) giúp cô đặc đường và cải thiện hương vị.",
         "Nho không lên màu? Kiểm tra kali trước — đây là nguyên nhân dinh dưỡng phổ biến nhất gây lên màu kém.",
         "Nhiệt độ đêm liên tục trên 30°C cản trở phát triển màu (anthocyanin) ở giống nho đỏ/đen, bất kể dinh dưỡng có tốt đến đâu."
+      ]
+    },
+    {
+      "id": "grape.recommendation.ripening.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn quả chín",
+      "goal": "Bắt đầu giảm tưới có kiểm soát khi trái chuyển màu (véraison). Stress nước nhẹ trong giai đoạn này tập trung đường, cải thiện hương vị và màu sắc. Nhưng không để khô hẳn — trái sẽ teo và nứt khi tưới lại.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.ripening"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 4
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 4–5 ngày, giảm dần so với giai đoạn nuôi quả. Ngừng tưới 5–7 ngày trước thu hoạch",
+        "container": "Mỗi 3–4 ngày ở liều giảm. Ngừng tưới 3–5 ngày trước thu hoạch"
+      },
+      "notes": [
+        "Giảm tưới đột ngột khi trái đã bắt đầu chín sẽ gây nứt trái — giảm từ từ là cách đúng.",
+        "Trái nho tăng độ ngọt khi stress nước nhẹ — nhưng quá khô sẽ làm trái teo và mất chất lượng.",
+        "Ngừng tưới 5–7 ngày trước thu hoạch để trái cô đặc hương vị và dễ bảo quản hơn.",
+        "Nhiệt độ đêm cao liên tục cản trở phát triển màu ở nho đỏ — không phải do thiếu tưới."
+      ]
+    },
+    {
+      "id": "grape.recommendation.seedling.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới cây con",
+      "goal": "Cây con chưa có bộ rễ phát triển để tích trữ nước. Ưu tiên duy trì ẩm đều và thoát nước tốt — không để đất khô hẳn cũng không để úng ngập.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.seedling"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 2
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 2–3 ngày trong mùa khô, giảm xuống khi mưa nhiều",
+        "container": "Mỗi 1–2 ngày — chậu thoát nước nhanh hơn đất trồng"
+      },
+      "notes": [
+        "Tưới nhẹ và đều quanh gốc, không tưới mạnh gây bật gốc cây con.",
+        "Lá héo buổi sáng sớm = thiếu nước. Lá vàng + đất ẩm liên tục = tưới thừa.",
+        "Không phun nước lên lá non — dễ gây nấm và cháy lá dưới nắng.",
+        "Giai đoạn này cây dễ chết do úng rễ hơn do khô hạn."
       ]
     },
     {
@@ -889,6 +1236,40 @@
       "notes": [
         "Ngừng dùng phân giàu đạm thuần. Quá nhiều đạm mà thiếu kali tạo cành mềm, dễ bệnh và khó hóa gỗ.",
         "Bắt đầu chú ý đến kali — rất quan trọng cho quá trình hóa gỗ cần thiết trước khi cây có thể ra trái."
+      ]
+    },
+    {
+      "id": "grape.recommendation.trellis-training.watering",
+      "type": "care_recommendation_definition",
+      "title": "Tưới nước giai đoạn leo giàn",
+      "goal": "Cây đang sinh trưởng mạnh với nhiều lá và chồi mới. Nhu cầu nước tăng đáng kể so với giai đoạn cây con, nhưng vẫn cần kiểm tra đất trước khi tưới để tránh úng.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.trellis-training"
+      ],
+      "activityType": "watering",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 3
+      },
+      "onMissingHistory": "suggest",
+      "frequency": {
+        "ground": "Mỗi 3–4 ngày, tăng lên nếu thời tiết nóng và khô",
+        "container": "Mỗi 2–3 ngày — kiểm tra độ ẩm đất trước mỗi lần tưới"
+      },
+      "notes": [
+        "Tưới sâu và đều để khuyến khích rễ ăn sâu — rễ sâu giúp cây chịu hạn tốt hơn về sau.",
+        "Không tưới nhỏ giọt liên tục trên mặt đất — rễ sẽ chỉ phát triển gần mặt và dễ tổn thương.",
+        "Tưới vào buổi sáng sớm hoặc chiều mát, tránh tưới giữa trưa nắng gắt."
       ]
     },
     {
