@@ -7,11 +7,12 @@ const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thư
 const projection = createPlantDetailProjection({ activities: [], plant });
 
 describe("PlantDetailScreen", () => {
-  it("shows three empty care summaries and opens each explicit entry action", () => {
+  it("shows three empty care summaries and opens each care record icon button", () => {
     const onRecordCare = jest.fn();
     const screen = render(<PlantDetailScreen onOpenActivity={jest.fn()} onRecordCare={onRecordCare} projection={projection} weather={productionWeather} />);
 
     expect(screen.getAllByText("Chưa có dữ liệu")).toHaveLength(3);
+    // Record actions are icon buttons identified by their accessibility label
     fireEvent.press(screen.getByRole("button", { name: "Ghi tưới nước" }));
     fireEvent.press(screen.getByRole("button", { name: "Ghi bón phân" }));
     fireEvent.press(screen.getByRole("button", { name: "Ghi phun thuốc" }));

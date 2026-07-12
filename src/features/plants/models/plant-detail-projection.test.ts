@@ -45,7 +45,25 @@ describe("createPlantDetailProjection", () => {
       "b791e36d-b28e-4542-bf31-7c5ebac16d21",
       "a791e36d-b28e-4542-bf31-7c5ebac16d21",
       "c791e36d-b28e-4542-bf31-7c5ebac16d21",
+      "86ee7489-6147-42b9-b73f-5650ea7fd214",
     ]);
+  });
+
+  it("caps recentCare at 5 entries regardless of total activity count", () => {
+    const activities = [
+      activity("watering", "2026-07-15T08:00:00.000Z", "aa000001-0000-0000-0000-000000000001"),
+      activity("fertilizing", "2026-07-14T08:00:00.000Z", "aa000002-0000-0000-0000-000000000002"),
+      activity("spraying", "2026-07-13T08:00:00.000Z", "aa000003-0000-0000-0000-000000000003"),
+      activity("watering", "2026-07-12T08:00:00.000Z", "aa000004-0000-0000-0000-000000000004"),
+      activity("fertilizing", "2026-07-11T08:00:00.000Z", "aa000005-0000-0000-0000-000000000005"),
+      activity("watering", "2026-07-10T08:00:00.000Z", "aa000006-0000-0000-0000-000000000006"),
+    ];
+    const projection = createPlantDetailProjection({ activities, plant });
+
+    expect(projection.recentCare).toHaveLength(5);
+    const ids = projection.recentCare.map((a) => a.id);
+    expect(ids[0]).toBe("aa000001-0000-0000-0000-000000000001");
+    expect(ids[4]).toBe("aa000005-0000-0000-0000-000000000005");
   });
 
   it("falls back to an unknown stage without inferring care or health", () => {

@@ -3,7 +3,7 @@ import { getPreviewPlantKnowledge } from "@/features/knowledge/preview-knowledge
 import type { Plant } from "./plant";
 
 const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
-const RECENT_CARE_LIMIT = 3;
+const RECENT_CARE_LIMIT = 5;
 
 export type PlantDetailProjection = Readonly<{
   latestCare: Readonly<Record<CareActivityType, CareActivity | null>>;
