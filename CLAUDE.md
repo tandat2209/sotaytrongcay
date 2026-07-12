@@ -26,4 +26,4 @@ Sổ Tay Trồng Cây is a mobile-first MVP for Vietnamese home growers to track
 - Treat accepted decisions as behavior authority and schemas as data-shape authority; report conflicts instead of guessing.
 - Run relevant verification and report exact results. Never claim an unrun check passed.
 - Update and align project skills (in `.agents/skills/`) and documentation (in `docs/`) to keep them synchronized with codebase changes.
-- Maintain backlog items and future tasks under [TODO.md](file:///Users/datnguyen/Documents/sotaytrongcay/TODO.md).
+- Maintain backlog items and future tasks under [TODO.md](./TODO.md).
