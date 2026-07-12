@@ -7,7 +7,6 @@ import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
-import type { Plant } from "../models/plant";
 
 type Props = Readonly<{
   careGuide: CareGuide | null;
@@ -15,7 +14,6 @@ type Props = Readonly<{
   nextStage: StagePlaybook | null;
   onBack: () => void;
   onOpenNextStage?: () => void;
-  plant: Plant;
   playbook: StagePlaybook;
 }>;
 
@@ -25,7 +23,6 @@ export function StagePlaybookScreen({
   nextStage,
   onBack,
   onOpenNextStage,
-  plant,
   playbook,
 }: Props) {
   return (
@@ -34,23 +31,22 @@ export function StagePlaybookScreen({
 
       {/* Hero */}
       <View style={styles.hero}>
-        <View style={styles.heroEyebrow}>
-          <Ionicons color={colors.primarySoft} name="leaf-outline" size={16} />
-          <Typography style={styles.heroEyebrowText} variant="label">
-            CÂY TRỒNG CỦA TÔI
+        <View style={styles.heroStageRow}>
+          <Ionicons color="#FFFFFF" name={stageIcon(playbook.id)} size={20} />
+          <Typography style={styles.heroTitle} variant="headlineMedium">
+            {playbook.title}
           </Typography>
         </View>
-        <Typography style={styles.heroPlantName} variant="headlineLarge">
-          {plant.name}
-        </Typography>
-        <View style={styles.heroBadge}>
-          <Ionicons color="#FFFFFF" name={stageIcon(plant.stageId)} size={14} />
-          <Typography style={styles.heroBadgeText} variant="label">
-            Giai đoạn: {playbook.title}
-          </Typography>
-        </View>
+        {playbook.estimatedDuration ? (
+          <View style={styles.heroDuration}>
+            <Ionicons color={colors.secondarySoft} name="time-outline" size={14} />
+            <Typography style={styles.heroDurationText} variant="bodyMedium">
+              {playbook.estimatedDuration}
+            </Typography>
+          </View>
+        ) : null}
         <View style={styles.heroReviewBadge}>
-          <Typography color="secondary" variant="label">
+          <Typography style={styles.heroReviewText} variant="label">
             NỘI DUNG CHỜ DUYỆT
           </Typography>
         </View>
@@ -63,14 +59,6 @@ export function StagePlaybookScreen({
             MỤC TIÊU GIAI ĐOẠN
           </Typography>
           <Typography variant="bodyLarge">{playbook.primaryObjective}</Typography>
-          {playbook.estimatedDuration ? (
-            <View style={styles.durationRow}>
-              <Ionicons color={colors.textSecondary} name="time-outline" size={14} />
-              <Typography color="textSecondary" variant="bodyMedium">
-                {playbook.estimatedDuration}
-              </Typography>
-            </View>
-          ) : null}
         </SurfaceCard>
       </View>
 
@@ -206,28 +194,18 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     padding: spacing.lg,
   },
-  heroBadge: {
-    alignItems: "center",
-    alignSelf: "flex-start",
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 20,
-    flexDirection: "row",
-    gap: spacing.xs,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-  },
-  heroBadgeText: { color: "#FFFFFF" },
-  heroEyebrow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  heroEyebrowText: { color: colors.secondarySoft },
-  heroPlantName: { color: "#FFFFFF" },
+  heroDuration: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
+  heroDurationText: { color: colors.secondarySoft },
   heroReviewBadge: {
     alignSelf: "flex-start",
     backgroundColor: "rgba(255,255,255,0.15)",
     borderRadius: 4,
-    marginTop: spacing.xs,
     paddingHorizontal: spacing.sm,
     paddingVertical: 2,
   },
+  heroReviewText: { color: "#FFFFFF" },
+  heroStageRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  heroTitle: { color: "#FFFFFF", flex: 1 },
   listCard: { gap: spacing.sm },
   nextStageCard: {
     alignItems: "center",

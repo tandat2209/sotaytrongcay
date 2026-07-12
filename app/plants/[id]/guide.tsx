@@ -11,8 +11,14 @@ import { getPlant } from "@/features/plants";
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import { useQuery } from "@tanstack/react-query";
 
+const paramsSchema = z.object({
+  id: z.string().uuid(),
+  // stageId is optional — falls back to the plant's current stage
+  stageId: z.string().optional(),
+});
+
 export default function StagePlaybookRoute() {
-  const { id } = z.object({ id: z.string().uuid() }).parse(useLocalSearchParams());
+  const { id, stageId: stageIdParam } = paramsSchema.parse(useLocalSearchParams());
 
   const query = useQuery({
     queryKey: ["plant", id],
@@ -23,15 +29,18 @@ export default function StagePlaybookRoute() {
   if (query.isError || !query.data) return <Text>Không tìm thấy cây trồng.</Text>;
 
   const plant = query.data;
-  const playbook = getStagePlaybook(plant.stageId);
+  // Use the explicit stageId param when browsing to a different stage,
+  // otherwise default to the plant's current stage.
+  const stageId = stageIdParam ?? plant.stageId;
+  const playbook = getStagePlaybook(stageId);
 
   if (!playbook) {
     return <Text>Chưa có hướng dẫn cho giai đoạn này.</Text>;
   }
 
-  const careGuide = getCareGuideForStage(plant.stageId);
-  const careRecommendations = getCareRecommendationsForStage(plant.stageId);
-  const nextStage = getNextStagePlaybook(plant.stageId);
+  const careGuide = getCareGuideForStage(stageId);
+  const careRecommendations = getCareRecommendationsForStage(stageId);
+  const nextStage = getNextStagePlaybook(stageId);
 
   return (
     <StagePlaybookScreen
@@ -39,8 +48,12 @@ export default function StagePlaybookRoute() {
       careRecommendations={careRecommendations}
       nextStage={nextStage}
       onBack={() => router.back()}
-      {...(nextStage ? { onOpenNextStage: () => router.replace({ pathname: "/plants/[id]/guide", params: { id } }) } : {})}
-      plant={plant}
+      {...(nextStage
+        ? {
+            onOpenNextStage: () =>
+              router.push({ pathname: "/plants/[id]/guide", params: { id, stageId: nextStage.id } }),
+          }
+        : {})}
       playbook={playbook}
     />
   );

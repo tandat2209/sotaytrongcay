@@ -5,42 +5,33 @@ import {
   getNextStagePlaybook,
   getStagePlaybook,
   type CareGuide,
-  type CareRecommendation,
   type StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
 import { StagePlaybookScreen } from "./StagePlaybookScreen";
 
-const plant = {
-  id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1",
-  name: "Nho sân thượng",
-  speciesId: "plant.grape",
-  stageId: "grape.stage.trunk-development",
-  location: null,
-  plantedAt: null,
-  createdAt: "2026-07-11T08:00:00.000Z",
-};
-
-const playbook = getStagePlaybook(plant.stageId) as StagePlaybook;
-const careGuide = getCareGuideForStage(plant.stageId) as CareGuide;
-const careRecommendations = getCareRecommendationsForStage(plant.stageId);
-const nextStage = getNextStagePlaybook(plant.stageId) as StagePlaybook;
+const STAGE_ID = "grape.stage.trunk-development";
+const playbook = getStagePlaybook(STAGE_ID) as StagePlaybook;
+const careGuide = getCareGuideForStage(STAGE_ID) as CareGuide;
+const careRecommendations = getCareRecommendationsForStage(STAGE_ID);
+const nextStage = getNextStagePlaybook(STAGE_ID) as StagePlaybook;
 
 describe("StagePlaybookScreen", () => {
-  it("renders the screen title, plant name, and stage badge", () => {
+  it("renders the screen title and stage title in hero", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={careGuide}
-        careRecommendations={careRecommendations}
-        nextStage={nextStage}
+        careGuide={null}
+        careRecommendations={[]}
+        nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
 
     expect(screen.getByText("Hướng dẫn chi tiết")).toBeTruthy();
-    expect(screen.getByText("Nho sân thượng")).toBeTruthy();
-    expect(screen.getByText(/Giai đoạn: Phát triển thân/)).toBeTruthy();
+    expect(screen.getByText("Phát triển thân")).toBeTruthy();
+    // Does NOT show any plant-specific data
+    expect(screen.queryByText("CÂY TRỒNG CỦA TÔI")).toBeNull();
+    expect(screen.queryByText("Nho sân thượng")).toBeNull();
   });
 
   it("renders the playbook objective and review badge", () => {
@@ -50,7 +41,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -67,7 +57,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -84,7 +73,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -99,7 +87,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={careRecommendations}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -115,7 +102,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -131,7 +117,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -149,7 +134,6 @@ describe("StagePlaybookScreen", () => {
         nextStage={nextStage}
         onBack={jest.fn()}
         onOpenNextStage={onOpenNextStage}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -167,7 +151,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={jest.fn()}
-        plant={plant}
         playbook={playbook}
       />,
     );
@@ -183,7 +166,6 @@ describe("StagePlaybookScreen", () => {
         careRecommendations={[]}
         nextStage={null}
         onBack={onBack}
-        plant={plant}
         playbook={playbook}
       />,
     );
