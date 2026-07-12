@@ -1,65 +1,27 @@
-# AI contributor instructions
+# Project Overview
 
-## Read before working
+Sổ Tay Trồng Cây is a mobile-first MVP for Vietnamese home growers to track plant care quickly and receive safe, stage-aware guidance.
 
-1. `README.md`
-2. `docs/PROJECT_CONTEXT.md`
-3. `docs/MOBILE_UX_DESIGN.md`
-4. `docs/design/DESIGN.md`
-5. `docs/TECHNICAL_ARCHITECTURE.md`
-6. `docs/KNOWLEDGE_BASE_ARCHITECTURE.md`
-7. `docs/ENGINEERING_STANDARDS.md`
-8. `CONTEXT.md`
-9. `docs/DECISIONS.md`
-10. `TODO.md`
+# Technology Stack
 
-## Language policy
+- **App:** Expo, React Native, Expo Router, strict TypeScript
+- **Local data:** Expo SQLite, TanStack Query
+- **Backend and sync:** Supabase
+- **Validation and tests:** Zod, Jest, ESLint
 
-- Write documentation, code, comments, tests, commits, and technical communication in English.
-- Use Vietnamese for in-app copy and canonical business vocabulary where the product requires it.
-- Keep literal Vietnamese UI strings in UX specifications, with English explanations around them.
-- Use the canonical terms in `CONTEXT.md`; clarify ambiguous terms before changing the model.
+# Core Rules & Conventions
 
-## Mandatory engineering rules
+- Write technical artifacts in English and in-app copy in Vietnamese.
+- Use strict TypeScript; never use `any`.
+- Keep components under 200 lines and prefer simple composition.
+- Use camelCase for variables/functions and PascalCase for React components.
+- Keep changes small, focused, and testable. Preserve unrelated user work.
+- This is an MVP: try fast, fail fast, learn, and avoid speculative abstractions or over-engineering.
+- Never present unsupported plant-care advice as fact.
 
-Follow `docs/ENGINEERING_STANDARDS.md` in full. In particular:
+# Workflow & Prohibitions
 
-- never use `any`; keep TypeScript strict;
-- do not modify unrelated files;
-- keep components under 200 lines;
-- prefer composition and deliberate reuse;
-- build one complete feature slice at a time;
-- do not add placeholders or TODO comments;
-- do not create mock or fake implementations unless explicitly requested;
-- explain every architectural decision;
-- report changes, rationale, possible improvements, and verified compile status after every task.
-
-## Product constraints
-
-- Do not treat assumptions as confirmed requirements.
-- Preserve fast tracking for watering, fertilizing, and spraying as the primary utility.
-- Keep stage tips informational inside Plant Detail; do not turn them into tasks or history.
-- A Today care button may prefill entry, but activity is recorded only after the user saves it.
-- Keep care entry fast and contextual; do not add a global FAB or Quick Action menu.
-- Treat pruning and observations as journal notes/photos, not dedicated tracked activity types.
-- Keep stage changes inside journal entry; future AI may suggest a stage from a photo, but only the user can confirm it.
-- Do not present unsupported plant-care advice as fact.
-- Prefer small, testable changes traceable to a product outcome.
-
-## Documentation maintenance
-
-- Update `CONTEXT.md` when domain language changes.
-- Update `docs/PROJECT_CONTEXT.md` when users, scope, or risks change.
-- Update `docs/DECISIONS.md` when a choice is confirmed.
-- Create an ADR only for a hard-to-reverse decision with a real trade-off.
-- Update `TODO.md` when work is completed or discovered.
-- Stop and report conflicts between documentation and implementation.
-
-## Definition of done
-
-- Relevant behavior is tested.
-- Empty, loading, error, offline, and invalid-data states are considered.
-- Mobile usability and accessibility are checked for UI changes.
-- Sensitive data is absent from logs and errors.
-- Related documentation is current.
-- Required verification commands have actually passed.
+- Build one complete feature slice at a time using existing patterns.
+- Do not add placeholders, TODO comments, fake implementations, or unnecessary dependencies.
+- Treat accepted decisions as behavior authority and schemas as data-shape authority; report conflicts instead of guessing.
+- Run relevant verification and report exact results. Never claim an unrun check passed.
