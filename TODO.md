@@ -25,7 +25,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 - [ ] Prototype Plant Detail with last care, next reminder, tips, warnings, and milestone.
 - [ ] Prototype fast watering and fertilizing entry flows.
-- [ ] Prototype Today care buttons that open prefilled care entry.
+- [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.
 - [ ] Add “Thêm nhật ký” with optional stage change to Today and Plant Detail.
 - [ ] Remove the global FAB and Quick Action menu.
