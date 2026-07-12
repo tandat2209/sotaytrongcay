@@ -254,6 +254,7 @@
           "id",
           "type",
           "title",
+          "reason",
           "locale",
           "version",
           "status",
@@ -261,6 +262,8 @@
           "speciesIds",
           "stageIds",
           "activityType",
+          "eligibility",
+          "onMissingHistory",
           "bodyMarkdown"
         ],
         "properties": {
@@ -272,6 +275,10 @@
             "const": "care_recommendation_definition"
           },
           "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
             "type": "string",
             "minLength": 1
           },
@@ -312,6 +319,29 @@
               "watering",
               "fertilizing",
               "spraying"
+            ]
+          },
+          "eligibility": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "dueAfterDays"
+            ],
+            "properties": {
+              "kind": {
+                "const": "elapsed_days_since_activity"
+              },
+              "dueAfterDays": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "onMissingHistory": {
+            "enum": [
+              "suggest",
+              "withhold"
             ]
           },
           "bodyMarkdown": {

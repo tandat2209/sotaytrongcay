@@ -188,6 +188,16 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Rationale:** Image interpretation can be uncertain. Showing a candidate with confidence helps the user, while confirmation keeps the plant timeline and guidance context trustworthy.
 
+## 2026-07-12 — Start deterministic care guidance with one general history rule
+
+**Status:** Accepted
+
+**Decision:** Implement the first Today guidance slice with one reviewed general watering definition for grape trunk development. The evaluator returns only `recommended`, `not_recommended`, or `unavailable`, retains negative explanations in “Đã xem xét”, and writes no task state. It considers stage and saved care history only.
+
+**Rationale:** A small explainable slice validates the daily-coach experience without modeling unreviewed climate, growing-method, weather, observation, profile, or generalized-rule behavior.
+
+**Consequences:** Today can explain why care is or is not suggested, while future context dimensions require a separate reviewed vertical slice rather than empty extension abstractions.
+
 ## 2026-07-12 — Stage Playbook screen is not plant-specific
 
 **Status:** Accepted

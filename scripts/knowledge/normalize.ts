@@ -84,9 +84,15 @@ export function normalizeDocument(
         locale: String(fm.locale),
         status: fm.status as any,
         references: (fm.references ?? []) as readonly string[],
+        reason: String(fm.reason),
         speciesIds: (fm.species_ids ?? []) as readonly string[],
         stageIds: (fm.stage_ids ?? []) as readonly string[],
-        activityType: fm.activity_type as any,
+        activityType: fm.activity_type as "watering" | "fertilizing" | "spraying",
+        eligibility: {
+          kind: "elapsed_days_since_activity",
+          dueAfterDays: Number((fm.eligibility as { due_after_days: number }).due_after_days),
+        },
+        onMissingHistory: fm.on_missing_history as "suggest" | "withhold",
       };
     }
 

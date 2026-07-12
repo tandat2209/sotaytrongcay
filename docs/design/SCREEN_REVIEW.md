@@ -15,7 +15,7 @@ Plant Detail and all three care-entry references require product correction befo
 | Ref | Screen | Product fit | Knowledge dependency | Required correction |
 | --- | --- | --- | --- | --- |
 | 01 | Welcome | Partial | None | Replace “Tự động lưu lại hành trình” with copy that does not imply unsaved activity becomes history. Reduce guidance-first positioning. |
-| 02 | Today | Partial | Care recommendation, weather context | Replace placeholder images, generic “Thực hiện”, and incomplete navigation. Show weather freshness. Each prompt must cite a reviewed reason and open Care Entry without saving. |
+| 02 | Today | Partial | Care recommendation, weather context | Replace placeholder images, generic “Thực hiện”, fabricated weather metrics, unsupported care examples, and incomplete navigation. Priorities are compact by default: show a short “Vì sao”, expand reviewed explanation/guidance only on request, and open Care Entry without saving. Do not show “Đã xem xét” on Today. |
 | 03 | Add Plant: species | Partial | Plant Species | MVP supports grape first. Do not imply tomato, strawberry, or pepper knowledge is available until their species packages exist. |
 | 04 | Add Plant: details | Partial | Plant Species, Growth Stage | Stage choices must come from the selected species package. The mockup list is incomplete and does not match the canonical grape journey. |
 | 05 | Add Plant: success | Outdated | Stage Playbook, Care Recommendation | Remove confetti and the blocking success screen. “Kiểm tra độ ẩm đất” may be a suggestion, not an automatically completed task. |

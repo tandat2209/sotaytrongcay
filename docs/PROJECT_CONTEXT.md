@@ -67,7 +67,8 @@ Users can:
 - Optional structured details for products, NPK, amounts, dosage, methods, notes, and photos.
 - Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
 - Stage tips, things to avoid, warning signs, and upcoming milestone inside Plant Detail.
-- Contextual care prompts under “Việc cần làm hôm nay”, based on stage, weather, reminders, and recent history.
+- Contextual care prompts under “Ưu tiên hôm nay”, based on stage and recent history.
+- Today evaluates applicable care definitions as recommended, not recommended, or unavailable; it preserves negative explanations so users can see why care is not suggested.
 - Today care prompts deep-link into a prefilled care form; they are not persistent tasks.
 - Plant Timeline and global Journal.
 - One-time reminders and local notifications.
@@ -88,7 +89,7 @@ Users can:
 
 - A **Plant** references one **Plant Species** and one current **Growth Stage**.
 - A **Stage Guide** supplies review-stage context: objective, observations, duration, knowledge topics, and sources. It never creates reminders, tasks, automatic transitions, or executable rules.
-- A **Care Recommendation Definition** may later describe when a trackable activity is worth considering and why, but it requires a separate reviewed product and knowledge contract.
+- A **Care Recommendation Definition** describes when one trackable activity is worth considering, why, and its reviewed elapsed-time history policy. It is scoped to a species, stage, and activity type; MVP permits one applicable definition per scope.
 - Review-stage content remains informational and creates no history.
 - A **Care Activity** records performed watering, fertilizing, or spraying.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.

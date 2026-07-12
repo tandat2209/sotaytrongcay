@@ -22,6 +22,7 @@ export type KnowledgeDiagnosticCode =
   | "KNOWLEDGE_RELATIONSHIP_WRONG_TYPE"
   | "KNOWLEDGE_STAGE_CHAIN_INVALID"
   | "KNOWLEDGE_ACTIVITY_TYPE_UNSUPPORTED"
+  | "KNOWLEDGE_RECOMMENDATION_SCOPE_DUPLICATE"
   | "KNOWLEDGE_REASON_MISSING"
   | "KNOWLEDGE_REFERENCE_REQUIRED"
   | "KNOWLEDGE_DEPENDENCY_INELIGIBLE"
@@ -147,9 +148,15 @@ export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseD
 
 export interface NormalizedCareRecommendationDefinition extends NormalizedUserFacingBaseDocument {
   readonly type: "care_recommendation_definition";
+  readonly reason: string;
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
   readonly activityType: "watering" | "fertilizing" | "spraying";
+  readonly eligibility: Readonly<{
+    readonly kind: "elapsed_days_since_activity";
+    readonly dueAfterDays: number;
+  }>;
+  readonly onMissingHistory: "suggest" | "withhold";
 }
 
 export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {

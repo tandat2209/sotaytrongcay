@@ -125,5 +125,29 @@ export function validateRelationships(
     }
   }
 
+  const recommendationScopes = new Set<string>();
+  for (const doc of documents) {
+    if (doc.type !== "care_recommendation_definition") {
+      continue;
+    }
+
+    for (const speciesId of doc.speciesIds) {
+      for (const stageId of doc.stageIds) {
+        const scope = `${speciesId}:${stageId}:${doc.activityType}`;
+        if (recommendationScopes.has(scope)) {
+          diagnostics.push({
+            code: "KNOWLEDGE_RECOMMENDATION_SCOPE_DUPLICATE",
+            path: doc.path,
+            documentId: doc.id,
+            field: "speciesIds",
+            message: `Care recommendation scope ${scope} must have only one definition.`,
+          });
+        } else {
+          recommendationScopes.add(scope);
+        }
+      }
+    }
+  }
+
   return diagnostics;
 }

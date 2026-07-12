@@ -18,4 +18,19 @@ describe("createTodayProjection", () => {
   it("uses the production unavailable-weather default", () => {
     expect(createTodayProjection({ activities: [], plants: [] }).weather).toEqual(productionWeather);
   });
+
+  it("keeps recommended care as a priority and negative care as an evaluation", () => {
+    const evaluations = [
+      { id: "watering", plantId: plant.id, activityType: "watering" as const, title: "Kiểm tra đất trước khi tưới", status: "recommended" as const, explanation: "Lần ghi gần nhất cách đây 3 ngày.", daysSinceLastActivity: 3, definitionId: "grape.recommendation.check-soil-before-watering", definitionVersion: "1.0.0" },
+      { id: "fertilizing", plantId: plant.id, activityType: "fertilizing" as const, title: "Bón phân", status: "not_recommended" as const, explanation: "Đã bón phân hôm qua.", daysSinceLastActivity: 1, definitionId: "grape.recommendation.fertilizing", definitionVersion: "1.0.0" },
+    ];
+
+    const projection = createTodayProjection({ activities: [], evaluations, plants: [plant] });
+
+    expect(projection.priorities).toHaveLength(1);
+    expect(projection.priorities[0]?.activityType).toBe("watering");
+    expect(projection.priorities[0]?.stageId).toBe(plant.stageId);
+    expect(projection.priorities[0]?.stageTitle).toBe("Phát triển thân");
+    expect(projection.evaluations).toHaveLength(2);
+  });
 });

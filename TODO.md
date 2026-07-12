@@ -16,7 +16,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 - [x] Define the canonical grape stage sequence in the review-ready pilot.
 - [ ] Write concise tips, avoid text, warning signs, and milestones for each supported stage.
-- [ ] Define reviewed care recommendation rules only for trackable activities.
+- [ ] Define additional reviewed care recommendation rules only for trackable activities.
 - [ ] Add source, reviewer, version, locale, and review-date metadata.
 - [ ] Review every product, dosage, and weather claim for unsafe certainty.
 - [ ] Obtain qualified Vietnamese grape-growing review for the “Nuôi thân” pilot.
@@ -31,6 +31,8 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Remove the global FAB and Quick Action menu.
 - [ ] Add Journal source labels and filters.
 - [ ] Verify loading, empty, error, stale-weather, and offline states.
+- [ ] Add plant photo (`photoUri`) to Today priority cards when the Plant model supports user-captured images.
+- [ ] Thread care recommendation `bodyMarkdown` as a separate "Hướng dẫn" section in Today priority cards.
 
 ## Engineering
 
@@ -49,7 +51,8 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Add type-specific fertilizer and spraying details after reviewed field contracts exist.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
-- [ ] Build deterministic care suggestions without persistent task instances.
+- [x] Build the first deterministic watering suggestion without persistent task instances, including transparent positive and negative Today evaluations.
+- [ ] Extend reviewed deterministic care suggestions to additional stages and care types.
 - [ ] Add offline synchronization.
 - [ ] Verify backup, restore, export, deletion, and content-version migration.
 

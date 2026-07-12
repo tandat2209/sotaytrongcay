@@ -136,12 +136,12 @@ Show information in this order:
 
 1. Weather that affects care.
 2. Due reminders.
-3. “Việc cần làm hôm nay” with relevant “Tưới nước”, “Bón phân”, and “Phun thuốc” buttons.
+3. “Việc cần làm hôm nay” with relevant “Tưới nước”, “Bón phân”, and “Phun thuốc” actions.
 4. Recently completed activities.
 5. Current plant and growth-stage context.
 6. Progress toward the next milestone.
 
-Each care prompt shows a trackable activity and a short “Vì sao”. Selecting it opens a prefilled care form; nothing is recorded until the user selects “Lưu hoạt động”.
+Each care priority shows a trackable activity and a short “Vì sao” in its compact default state. Its reviewed explanation and safe guidance expand only when requested; Today does not show “Đã xem xét” or task-review state. A direct care action opens a prefilled care form; nothing is recorded until the user selects “Lưu hoạt động”.
 
 Show “Thêm nhật ký” as a secondary action, visually distinct from care due today. Stage changes live inside this journal flow.
 

@@ -26,8 +26,10 @@ Stage guidance supports care tracking through concise tips. It does not create a
 
 - Stage tips live inside Plant Detail.
 - Tips have no checkbox, completion state, reminder, or journal entry.
-- “Việc cần làm hôm nay” contains buttons only for trackable activities.
-- Selecting a care button opens a prefilled care-entry form.
+- “Việc cần làm hôm nay” ranks relevant trackable care prompts rather than permanently listing every activity type.
+- Each priority keeps its “Vì sao” and safe guidance collapsed by default; users expand them only when needed, without adding task state.
+- “Đã xem xét” is not shown on Today; it remains contextual information in Plant Detail.
+- Selecting a recommended care action opens a prefilled care-entry form.
 - Nothing is recorded until the user saves the activity.
 
 ### Keep actions in context
@@ -165,13 +167,11 @@ There is no standalone Task Guidance or guided-task completion screen in MVP.
 
 - Date and greeting.
 - “Thời tiết hôm nay”.
-- Plant selector.
-- “Việc cần làm hôm nay” with contextual “Tưới nước”, “Bón phân”, and “Phun thuốc” buttons when applicable.
-- “Thao tác nhanh” with “Thêm nhật ký”.
-- “Việc đến hạn” from reminders.
+- “Việc cần làm hôm nay” with contextual “Tưới nước”, “Bón phân”, and “Phun thuốc” actions when applicable.
 - “Vừa ghi gần đây”.
+- Plant selector/context.
 
-Care prompts may explain “Kiểm tra nhu cầu tưới” or “Xem lại lần bón phân gần nhất”. They do not appear as completed/unchecked tasks.
+Each priority is compact by default: its “Vì sao”, reviewed explanation, and safe guidance expand only on request. Care prompts do not appear as completed/unchecked tasks or in a “Đã xem xét” section.
 
 Each button opens a care form with the plant and activity type prefilled. Nothing is recorded until the user selects “Lưu hoạt động”.
 

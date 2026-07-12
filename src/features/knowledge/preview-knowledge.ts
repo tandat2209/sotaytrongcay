@@ -34,7 +34,14 @@ export type CareGuide = Readonly<{
 export type CareRecommendation = Readonly<{
   id: string;
   title: string;
-  activityType: string;
+  reason: string;
+  activityType: "watering" | "fertilizing" | "spraying";
+  eligibility: Readonly<{
+    kind: "elapsed_days_since_activity";
+    dueAfterDays: number;
+  }>;
+  onMissingHistory: "suggest" | "withhold";
+  version: string;
   bodyMarkdown: string;
 }>;
 
@@ -72,8 +79,16 @@ type RawGuide = {
 type RawCareRecommendation = {
   id: string;
   title: string;
-  stageIds?: string[];
-  activityType?: string;
+  reason: string;
+  speciesIds: string[];
+  stageIds: string[];
+  activityType: "watering" | "fertilizing" | "spraying";
+  eligibility: {
+    kind: "elapsed_days_since_activity";
+    dueAfterDays: number;
+  };
+  onMissingHistory: "suggest" | "withhold";
+  version: string;
   bodyMarkdown?: string;
 };
 
@@ -166,18 +181,36 @@ export function getCareGuideForStage(stageId: string): CareGuide | null {
 /** Returns all care recommendations that apply to the given stage. */
 export function getCareRecommendationsForStage(stageId: string): readonly CareRecommendation[] {
   return bundle.careRecommendations
-    .filter((cr) => (cr.stageIds ?? []).includes(stageId))
-    .map((cr) => ({
-      id: cr.id,
-      title: cr.title,
-      activityType: cr.activityType ?? "",
-      bodyMarkdown: cr.bodyMarkdown ?? "",
-    }));
+    .filter((recommendation) => recommendation.stageIds.includes(stageId))
+    .map(toCareRecommendation);
+}
+
+export function listCareRecommendationDefinitions(input: Readonly<{
+  speciesId: string;
+  stageId: string;
+}>): readonly CareRecommendation[] {
+  return bundle.careRecommendations
+    .filter((recommendation) => recommendation.speciesIds.includes(input.speciesId))
+    .filter((recommendation) => recommendation.stageIds.includes(input.stageId))
+    .map(toCareRecommendation);
 }
 
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
+
+function toCareRecommendation(raw: RawCareRecommendation): CareRecommendation {
+  return {
+    id: raw.id,
+    title: raw.title,
+    reason: raw.reason,
+    activityType: raw.activityType,
+    eligibility: raw.eligibility,
+    onMissingHistory: raw.onMissingHistory,
+    version: raw.version,
+    bodyMarkdown: raw.bodyMarkdown ?? "",
+  };
+}
 
 function toPlaybook(raw: RawPlaybook): StagePlaybook {
   return {

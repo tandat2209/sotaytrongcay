@@ -128,9 +128,15 @@ export function serializeBundle(
     version: r.version,
     status: r.status,
     references: sortArray(r.references),
+    reason: r.reason,
     speciesIds: sortArray(r.speciesIds),
     stageIds: sortArray(r.stageIds),
     activityType: r.activityType,
+    eligibility: {
+      kind: r.eligibility.kind,
+      dueAfterDays: r.eligibility.dueAfterDays,
+    },
+    onMissingHistory: r.onMissingHistory,
     bodyMarkdown: r.bodyMarkdown,
   }));
 
