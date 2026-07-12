@@ -159,10 +159,24 @@ export interface NormalizedCareRecommendationDefinition extends NormalizedUserFa
   readonly onMissingHistory: "suggest" | "withhold";
 }
 
+export interface RecommendedInput {
+  readonly group: string;
+  readonly examples: string;
+}
+
+export interface CareFrequency {
+  readonly ground: string;
+  readonly container: string;
+}
+
 export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {
   readonly type: "care_guide";
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
+  readonly goal?: string;
+  readonly recommendedInputs?: readonly RecommendedInput[];
+  readonly frequency?: CareFrequency;
+  readonly notes?: readonly string[];
 }
 
 export interface NormalizedReferenceSource extends NormalizedBaseDocument {

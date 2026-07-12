@@ -151,6 +151,10 @@ export function serializeBundle(
     speciesIds: sortArray(g.speciesIds),
     stageIds: sortArray(g.stageIds),
     bodyMarkdown: g.bodyMarkdown,
+    ...(g.goal !== undefined && { goal: g.goal }),
+    ...(g.recommendedInputs !== undefined && { recommendedInputs: g.recommendedInputs }),
+    ...(g.frequency !== undefined && { frequency: g.frequency }),
+    ...(g.notes !== undefined && { notes: g.notes }),
   }));
 
   const compiledReferences = refDocs.map((r) => ({

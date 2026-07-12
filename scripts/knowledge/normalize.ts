@@ -97,6 +97,27 @@ export function normalizeDocument(
     }
 
     case "care_guide": {
+      const goal = typeof fm.goal === "string" ? fm.goal : undefined;
+
+      const rawInputs = fm.recommended_inputs;
+      const recommendedInputs = Array.isArray(rawInputs)
+        ? (rawInputs as readonly { group: string; examples: string }[]).map((item) => ({
+            group: String(item.group),
+            examples: String(item.examples),
+          }))
+        : undefined;
+
+      const rawFrequency = fm.frequency as { ground?: string; container?: string } | undefined;
+      const frequency =
+        rawFrequency && typeof rawFrequency.ground === "string" && typeof rawFrequency.container === "string"
+          ? { ground: rawFrequency.ground, container: rawFrequency.container }
+          : undefined;
+
+      const rawNotes = fm.notes;
+      const notes = Array.isArray(rawNotes)
+        ? (rawNotes as readonly string[]).map(String)
+        : undefined;
+
       return {
         id: doc.id,
         type: "care_guide",
@@ -109,6 +130,10 @@ export function normalizeDocument(
         references: (fm.references ?? []) as readonly string[],
         speciesIds: (fm.species_ids ?? []) as readonly string[],
         stageIds: (fm.stage_ids ?? []) as readonly string[],
+        ...(goal !== undefined && { goal }),
+        ...(recommendedInputs !== undefined && { recommendedInputs }),
+        ...(frequency !== undefined && { frequency }),
+        ...(notes !== undefined && { notes }),
       };
     }
 

@@ -15,6 +15,7 @@ estimated_duration: 2-3 tuần
 recommended_knowledge_topics:
   - Nhận biết bọ trĩ
   - Phân biệt chồi hoa và chồi điếc
+  - Bón phân giai đoạn bật mầm
 references:
   - ref.osu.growing-table-grapes
 ---

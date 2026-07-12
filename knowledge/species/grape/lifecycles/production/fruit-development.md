@@ -16,6 +16,7 @@ estimated_duration: 4-6 tuần
 recommended_knowledge_topics:
   - Vì sao nho bị nứt trái?
   - Sử dụng túi bọc loại nào?
+  - Bón phân giai đoạn nuôi quả
 references:
   - ref.osu.growing-table-grapes
 ---

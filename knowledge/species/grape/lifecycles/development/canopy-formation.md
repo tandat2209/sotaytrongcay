@@ -15,7 +15,7 @@ exit_criteria:
 estimated_duration: 2-3 tháng
 recommended_knowledge_topics:
   - Quá trình hóa gỗ của cành nho
-  - Tỉ lệ N-P-K giai đoạn tạo tán
+  - Bón phân giai đoạn hình thành tán
 references:
   - ref.osu.growing-table-grapes
 ---

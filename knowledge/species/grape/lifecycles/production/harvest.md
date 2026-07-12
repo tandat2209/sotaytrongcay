@@ -15,6 +15,7 @@ estimated_duration: 1-2 tuần
 recommended_knowledge_topics:
   - Cách bảo quản nho tươi lâu
   - Bí quyết pha nước ép nho
+  - Chuẩn bị bón phân sau thu hoạch
 references:
   - ref.osu.growing-table-grapes
 ---

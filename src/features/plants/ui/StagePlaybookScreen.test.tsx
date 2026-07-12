@@ -63,7 +63,7 @@ describe("StagePlaybookScreen", () => {
 
     expect(screen.getByText("Thao tác quan trọng")).toBeTruthy();
     expect(screen.getByText("Nên làm")).toBeTruthy();
-    expect(screen.getByText("Định hướng thân chính")).toBeTruthy();
+    expect(screen.getAllByText("Bón phân giai đoạn phát triển thân").length).toBeGreaterThan(0);
   });
 
   it("omits Thao tác quan trọng section when careGuide is null", () => {

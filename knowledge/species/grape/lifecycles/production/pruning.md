@@ -16,6 +16,7 @@ estimated_duration: 1-2 tuần
 recommended_knowledge_topics:
   - Cách xác định mắt ngủ khỏe
   - Vệ sinh vườn sau cắt cành
+  - Bón phân sau cắt cành
 references:
   - ref.osu.growing-table-grapes
 ---

@@ -191,6 +191,7 @@
       ],
       "estimatedDuration": "2-3 tuần",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn bật mầm",
         "Nhận biết bọ trĩ",
         "Phân biệt chồi hoa và chồi điếc"
       ],
@@ -220,8 +221,8 @@
       ],
       "estimatedDuration": "2-3 tháng",
       "recommendedKnowledgeTopics": [
-        "Quá trình hóa gỗ của cành nho",
-        "Tỉ lệ N-P-K giai đoạn tạo tán"
+        "Bón phân giai đoạn hình thành tán",
+        "Quá trình hóa gỗ của cành nho"
       ],
       "bodyMarkdown": "Nuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.\n"
     },
@@ -248,6 +249,7 @@
       ],
       "estimatedDuration": "1-2 tuần",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn ra hoa",
         "Tại sao nho rụng bông?",
         "Ảnh hưởng của sương mù đến thụ phấn"
       ],
@@ -277,6 +279,7 @@
       ],
       "estimatedDuration": "4-6 tuần",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn nuôi quả",
         "Sử dụng túi bọc loại nào?",
         "Vì sao nho bị nứt trái?"
       ],
@@ -306,6 +309,7 @@
       ],
       "estimatedDuration": "2-3 tuần",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn đậu quả",
         "Kỹ thuật tỉa trái nho chuẩn",
         "Phòng nấm phấn trắng trên trái non"
       ],
@@ -335,6 +339,7 @@
       "estimatedDuration": "1-2 tuần",
       "recommendedKnowledgeTopics": [
         "Bí quyết pha nước ép nho",
+        "Chuẩn bị bón phân sau thu hoạch",
         "Cách bảo quản nho tươi lâu"
       ],
       "bodyMarkdown": "Khoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.\n"
@@ -363,6 +368,7 @@
       ],
       "estimatedDuration": "1-2 tuần",
       "recommendedKnowledgeTopics": [
+        "Bón phân sau cắt cành",
         "Cách xác định mắt ngủ khỏe",
         "Vệ sinh vườn sau cắt cành"
       ],
@@ -391,7 +397,7 @@
       ],
       "estimatedDuration": "1-2 tháng",
       "recommendedKnowledgeTopics": [
-        "Cách ủ phân vi sinh bón gốc",
+        "Bón phân giai đoạn sau thu hoạch",
         "Vì sao nho cần ngủ đông?"
       ],
       "bodyMarkdown": "Cây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.\n"
@@ -421,6 +427,7 @@
       "estimatedDuration": "2-4 tuần",
       "recommendedKnowledgeTopics": [
         "Bí quyết tăng độ ngọt cho nho",
+        "Bón phân giai đoạn quả chín",
         "Cách xác định nho đã chín hoàn toàn"
       ],
       "bodyMarkdown": "Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.\n"
@@ -448,6 +455,7 @@
       ],
       "estimatedDuration": "2-4 tuần",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn cây con",
         "Cách chọn đất trồng",
         "Nhận biết sâu hại mầm non"
       ],
@@ -476,6 +484,7 @@
       ],
       "estimatedDuration": "2-4 tháng",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn leo giàn",
         "Cách tạo cành cấp 1",
         "Nhận biết bệnh sương mai"
       ],
@@ -504,6 +513,7 @@
       ],
       "estimatedDuration": "1-3 tháng",
       "recommendedKnowledgeTopics": [
+        "Bón phân giai đoạn phát triển thân",
         "Cách cột dây không làm nghẹt thân",
         "Kỹ thuật lẩy chồi nách"
       ],
@@ -515,7 +525,6 @@
       "id": "grape.recommendation.check-soil-before-watering",
       "type": "care_recommendation_definition",
       "title": "Kiểm tra đất trước khi tưới",
-      "reason": "Kiểm tra trực tiếp giúp tránh tưới thừa gây úng rễ.",
       "locale": "vi-VN",
       "version": "1.0.0",
       "status": "review",
@@ -523,6 +532,7 @@
         "ref.osu.growing-table-grapes",
         "ref.umn.growing-grapes-home-garden"
       ],
+      "reason": "Kiểm tra trực tiếp giúp tránh tưới thừa gây úng rễ.",
       "speciesIds": [
         "plant.grape"
       ],
@@ -539,6 +549,447 @@
     }
   ],
   "guides": [
+    {
+      "id": "grape.guide.fertilization-bud-break",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn bật mầm",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.bud-break"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh, bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.",
+      "recommendedInputs": [
+        {
+          "group": "Phân giàu đạm (high-N)",
+          "examples": "Urê (hòa nước, tưới ngấm), phân cá (fish emulsion), NPK 20-10-10"
+        },
+        {
+          "group": "Vi lượng bổ sung (Zn, B, Fe)",
+          "examples": "Phun qua lá nếu nghi ngờ thiếu — chỉ dùng khi xác nhận thiếu"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 1–2 tuần trong giai đoạn chồi đang phát triển mạnh",
+        "container": "Hàng tuần ở liều pha loãng (50–75% liều trồng đất)"
+      },
+      "notes": [
+        "Giai đoạn này rất ngắn (2–3 tuần) — bón trễ sẽ lỡ thời điểm quan trọng cho năng suất vụ.",
+        "Trong thời tiết nóng, luôn tưới nước ngay sau khi rải urê lên đất, nếu không urê sẽ bốc hơi mất tác dụng.",
+        "Không bón bo \"phòng ngừa.\" Bo giúp thụ phấn nhưng ngưỡng ngộ độc rất hẹp — chỉ dùng khi có bằng chứng thiếu bo."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-canopy-formation",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn hình thành tán",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.canopy-formation"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu kỳ mang trái đầu tiên.",
+      "recommendedInputs": [
+        {
+          "group": "Phân giàu kali (high-K)",
+          "examples": "Kali sunfat (SOP / 0-0-50), chiết xuất rong biển, tro gỗ (cẩn thận — tro gỗ làm tăng pH đất)"
+        },
+        {
+          "group": "Phân NPK thiên kali",
+          "examples": "NPK 12-12-17 hoặc tương tự, phân compost phủ mặt"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 3–4 tuần, giảm dần khi cành bắt đầu chuyển nâu. Ngừng bón 2–3 tuần trước khi cắt cành",
+        "container": "Mỗi 2–3 tuần ở liều vừa phải. Ngừng bón 2–3 tuần trước khi cắt cành"
+      },
+      "notes": [
+        "Tiếp tục bón đạm cao ở giai đoạn này là lỗi phổ biến — cây ra nhiều lá nhưng cành yếu, không có khả năng mang trái tốt.",
+        "Cành chuyển nâu từ gốc lên là dấu hiệu hóa gỗ tốt, không phải bệnh.",
+        "Ở Việt Nam (không có mùa đông tự nhiên), người trồng cần chủ động giảm nước và dinh dưỡng để cây nghỉ ngắn trước khi cắt cành."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-flowering",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn ra hoa",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.flowering"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Giảm hoặc ngừng bón phân. Tránh xáo trộn đất. Ra hoa là giai đoạn nhạy cảm nhất — năng lượng của cây cần tập trung cho thụ phấn, không phải sinh trưởng thân lá.",
+      "recommendedInputs": [
+        {
+          "group": "Phun canxi qua lá (tùy chọn)",
+          "examples": "Canxi clorua (CaCl₂) pha loãng — hỗ trợ ống phấn và giảm rụng hoa"
+        }
+      ],
+      "frequency": {
+        "ground": "Một lần phun qua lá ở đầu giai đoạn nở hoa, hoặc không bón gì",
+        "container": "Tương tự trồng đất — một lần hoặc không bón gì"
+      },
+      "notes": [
+        "Bón phân đạm trong lúc ra hoa là sai lầm phổ biến nhất của người trồng tại nhà — đây là nguyên nhân hàng đầu gây rụng bông.",
+        "Không bón phân hạt vào đất — xáo trộn đất và thay đổi độ ẩm gây stress cho cây.",
+        "Chỉ tưới ở vùng rễ. Tưới phun từ trên xuống rửa trôi phấn hoa và gây thối.",
+        "Mưa trong lúc ra hoa gây hại lớn và không kiểm soát được — đừng làm tình hình tệ hơn bằng việc bón phân không đúng lúc."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-fruit-development",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn nuôi quả",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.fruit-development"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng nhiều nhất trong toàn bộ chu kỳ.",
+      "recommendedInputs": [
+        {
+          "group": "Phân giàu kali (high-K)",
+          "examples": "Kali sunfat (SOP), chiết xuất rong biển, NPK thiên kali"
+        },
+        {
+          "group": "Phun canxi qua lá",
+          "examples": "Canxi clorua (CaCl₂) phun mỗi 7–14 ngày để phòng nứt trái"
+        },
+        {
+          "group": "Bổ sung magiê (nếu thiếu)",
+          "examples": "Muối Epsom (magiê sunfat) — dùng khi lá già vàng giữa gân lá"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 1–2 tuần",
+        "container": "Hàng tuần — đây là giai đoạn nho trồng chậu dễ thiếu dinh dưỡng nhất"
+      },
+      "notes": [
+        "Nứt trái là vấn đề chất lượng #1 — do tưới không đều kết hợp thiếu canxi và kali. Tưới đều + phun canxi giảm rủi ro.",
+        "Bắt đầu giảm đạm so với kali khi trái gần chuyển màu (véraison). Dư đạm lúc này làm chậm chín và giảm độ ngọt.",
+        "Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa mùa.",
+        "Nếu dùng túi bọc trái, phun canxi trước khi bọc."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-fruit-set",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn đậu quả",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.fruit-set"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.",
+      "recommendedInputs": [
+        {
+          "group": "Phân NPK cân đối, hơi thiên kali",
+          "examples": "NPK 16-16-16 hoặc tương tự"
+        },
+        {
+          "group": "Bổ sung canxi",
+          "examples": "Canxi clorua (CaCl₂) phun qua lá — quan trọng cho thành tế bào trái"
+        },
+        {
+          "group": "Phương án hữu cơ",
+          "examples": "Trà phân compost, phân cá kết hợp rong biển"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 1–2 tuần — đây là giai đoạn bón nặng",
+        "container": "Hàng tuần ở liều vừa phải — nho trồng chậu mất dinh dưỡng rất nhanh do tưới thường xuyên"
+      },
+      "notes": [
+        "Bón trễ sau đậu quả là nguyên nhân phổ biến gây rụng trái non. Tiếp tục bón phân ngay khi thấy trái hình thành.",
+        "Phun canxi qua lá rất hiệu quả — canxi di chuyển kém trong cây nên phun trực tiếp đưa canxi đến trái đang phát triển.",
+        "Nếu đã tỉa bớt chùm, các trái còn lại được chia phần dinh dưỡng lớn hơn — có thể không cần tăng liều."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-pruning",
+      "type": "care_guide",
+      "title": "Bón phân sau cắt cành",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.pruning"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Cung cấp dinh dưỡng nhẹ nhàng để \"đánh thức\" cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.",
+      "recommendedInputs": [
+        {
+          "group": "Phân NPK cân đối",
+          "examples": "NPK 16-16-16 liều vừa"
+        },
+        {
+          "group": "Phân lót hữu cơ",
+          "examples": "Phân bò ủ hoai (\"phân lót\"), phân trùn quế rải quanh vùng rễ"
+        }
+      ],
+      "frequency": {
+        "ground": "Một lần duy nhất trong tuần đầu sau cắt cành",
+        "container": "Một lần duy nhất trong tuần đầu sau cắt cành"
+      },
+      "notes": [
+        "Cây chưa có lá, không thể quang hợp — bón quá nhiều phân sẽ nằm thừa trong đất, gây nguy cơ mặn đất hoặc rửa trôi.",
+        "Nếu đã bón phân hữu cơ nặng trong giai đoạn phục hồi, bỏ qua phân hóa học ở đây.",
+        "Tưới nước trở lại từ từ — rễ cần ẩm để hấp thụ dinh dưỡng đã bón."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-recovery",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn sau thu hoạch",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.recovery"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ, cung cấp năng lượng cho vụ sau.",
+      "recommendedInputs": [
+        {
+          "group": "Phân NPK cân đối",
+          "examples": "NPK 16-16-16 — tiếp tục đạm vì cây cần giữ bộ lá quang hợp để tích trữ năng lượng"
+        },
+        {
+          "group": "Phân hữu cơ bón nặng",
+          "examples": "Phân bò ủ hoai, phân trùn quế, phân vỏ trấu compost"
+        },
+        {
+          "group": "Bón lót lân và kali",
+          "examples": "Bột xương, lân tự nhiên, kali sunfat"
+        },
+        {
+          "group": "Vôi điều chỉnh pH (nếu cần)",
+          "examples": "Vôi dolomite — chỉ dùng khi pH đất giảm dưới 5.5 do bón phân hóa học nhiều"
+        }
+      ],
+      "frequency": {
+        "ground": "1–2 lần bón nặng (lần đầu trong vòng một tuần sau thu hoạch, lần hai sau 2–4 tuần)",
+        "container": "1–2 lần bón nặng. Cân nhắc thay 20–30% giá thể phía trên bằng phân compost mới"
+      },
+      "notes": [
+        "Không bỏ qua bón phân sau thu hoạch. Nhiều người trồng ăn mừng xong quên chăm cây. Cây kiệt sức bước vào vụ mới sẽ cho năng suất kém.",
+        "Đây là thời điểm tốt nhất để cải tạo đất bằng phân hữu cơ — phân có nhiều tuần để phân hủy và hòa nhập trước vụ sau.",
+        "Sau khi bón phân phục hồi xong, giảm dần tưới nước để khuyến khích lá rụng và cây nghỉ ngắn trước khi cắt cành vụ mới."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-ripening",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn quả chín",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.fao.grape-production",
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.ripening"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân lá không mong muốn và làm chậm chín.",
+      "recommendedInputs": [
+        {
+          "group": "Phân giàu kali (high-K)",
+          "examples": "Kali sunfat phun qua lá, chiết xuất rong biển, KH₂PO₄ (mono kali photphat) pha loãng phun lá"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch",
+        "container": "Mỗi 1–2 tuần ở liều nhẹ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch"
+      },
+      "notes": [
+        "Đạm trong giai đoạn chín = nho kém chất lượng. Trái sẽ to nhưng nhiều nước, ít đường, màu sắc kém và dễ thối.",
+        "Giảm tưới nhẹ (không phải để héo) giúp cô đặc đường và cải thiện hương vị. Trồng chậu cần cẩn thận hơn — không để cây héo.",
+        "Nho không lên màu? Kiểm tra kali trước — đây là nguyên nhân dinh dưỡng phổ biến nhất gây lên màu kém.",
+        "Nhiệt độ đêm liên tục trên 30°C cản trở phát triển màu (anthocyanin) ở giống nho đỏ/đen, bất kể dinh dưỡng có tốt đến đâu."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-seedling",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn cây con",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.seedling"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Không bón phân khi vừa trồng. Bộ rễ non chưa đủ khả năng hấp thụ dinh dưỡng đậm đặc. Ưu tiên duy nhất là giữ ẩm, thoát nước tốt và giảm sốc cho cây.",
+      "recommendedInputs": [
+        {
+          "group": "Phân hữu cơ hoai mục (bón lót)",
+          "examples": "Phân bò ủ hoai, phân trùn quế, phân compost vỏ trấu — trộn vào hố trồng 1–2 tuần trước khi trồng"
+        }
+      ],
+      "frequency": {
+        "ground": "Một lần duy nhất khi chuẩn bị đất, không bón thêm trong giai đoạn này",
+        "container": "Một lần duy nhất khi chuẩn bị giá thể, không bón thêm trong giai đoạn này"
+      },
+      "notes": [
+        "Bỏ phân hạt NPK vào hố trồng là nguyên nhân hàng đầu gây chết cây con — phân đậm đặc đốt cháy rễ non.",
+        "Nếu lá vàng trong 2 tuần đầu, nguyên nhân hầu như luôn là tưới quá nhiều hoặc thoát nước kém — không phải thiếu dinh dưỡng.",
+        "Chờ đến khi thấy chồi mới vươn ra rõ ràng mới xem xét bón phân lần đầu."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-trellis-training",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn leo giàn",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.umn.growing-grapes-home-garden"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.trellis-training"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.",
+      "recommendedInputs": [
+        {
+          "group": "Phân NPK cân đối",
+          "examples": "NPK 16-16-16, phân compost bón quanh gốc"
+        },
+        {
+          "group": "Phân hữu cơ bón phụ",
+          "examples": "Phân cá pha loãng kết hợp rong biển, phân compost"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 2–4 tuần",
+        "container": "Mỗi 1–2 tuần ở liều giảm"
+      },
+      "notes": [
+        "Ngừng dùng phân giàu đạm thuần. Quá nhiều đạm mà thiếu kali tạo cành mềm, dễ bệnh và khó hóa gỗ.",
+        "Bắt đầu chú ý đến kali — rất quan trọng cho quá trình hóa gỗ cần thiết trước khi cây có thể ra trái."
+      ]
+    },
+    {
+      "id": "grape.guide.fertilization-trunk-development",
+      "type": "care_guide",
+      "title": "Bón phân giai đoạn phát triển thân",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.ucdavis.vineyard-nutrition"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.trunk-development"
+      ],
+      "bodyMarkdown": "",
+      "goal": "Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai đoạn nhu cầu đạm (N) bắt đầu tăng.",
+      "recommendedInputs": [
+        {
+          "group": "Phân giàu đạm (high-N)",
+          "examples": "Urê (hòa nước tưới lượng nhỏ), phân cá (fish emulsion)"
+        },
+        {
+          "group": "Phân NPK cân đối",
+          "examples": "NPK 16-16-16, phân compost bón quanh gốc"
+        }
+      ],
+      "frequency": {
+        "ground": "Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh",
+        "container": "Mỗi 1–2 tuần ở nửa liều so với trồng đất (bù lượng dinh dưỡng bị rửa trôi khi tưới)"
+      },
+      "notes": [
+        "Thừa đạm tạo ra thân mềm, dễ bệnh và chậm hóa gỗ. Nếu cây đã tự mọc khỏe, giảm hoặc ngừng bón.",
+        "Giữ phân cách gốc thân ít nhất 5 cm để tránh thối gốc.",
+        "Lá xanh đậm bất thường kèm lóng dài = dư đạm, cần giảm liều."
+      ]
+    },
     {
       "id": "grape.guide.train-main-shoot",
       "type": "care_guide",
@@ -560,6 +1011,18 @@
     }
   ],
   "references": [
+    {
+      "id": "ref.fao.grape-production",
+      "type": "reference_source",
+      "title": "Grape Production — Tropical and Subtropical Viticulture",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "Food and Agriculture Organization of the United Nations (FAO)",
+      "sourceType": "extension_guide",
+      "url": "https://www.fao.org/3/x6897e/x6897e00.htm",
+      "accessed": "2026-07-12",
+      "bodyMarkdown": "\n# Review notes\n\nUsed for calcium and boron roles in grape pollination and fruit set, potassium and sugar accumulation during ripening, and tropical viticulture adaptations including forced dormancy and multiple production cycles per year.\n\nFAO production volumes and regional spray schedules are not transferred as universal home-grower guidance.\n"
+    },
     {
       "id": "ref.osu.growing-table-grapes",
       "type": "reference_source",
@@ -583,6 +1046,18 @@
       "url": "https://ipm.ucanr.edu/home-and-landscape/first-and-second-year-pruning-for-grapes/",
       "accessed": "2026-07-11",
       "bodyMarkdown": "\n# Review notes\n\nUsed for the young-vine goal of developing a main trunk, supporting new growth with loose ties, and avoiding automatic pruning decisions that ignore vine vigor and the chosen training system.\n\nThe source's training details are not converted into universal completion thresholds for the app.\n"
+    },
+    {
+      "id": "ref.ucdavis.vineyard-nutrition",
+      "type": "reference_source",
+      "title": "Vineyard Nutrient Management",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "University of California, Davis — Viticulture & Enology",
+      "sourceType": "extension_guide",
+      "url": "https://wineserver.ucdavis.edu/industry-info/enology/methods-and-techniques/vineyard-nutrient-management",
+      "accessed": "2026-07-12",
+      "bodyMarkdown": "\n# Review notes\n\nUsed for stage-specific nitrogen and potassium guidance, the N-to-K transition across the production cycle, nitrogen cessation before véraison, foliar nutrition timing, and the relationship between nutrient balance and berry quality.\n\nRegional fertilizer rates and soil-test thresholds are not transferred as universal guidance because local soil, climate, and cultivar conditions vary.\n"
     },
     {
       "id": "ref.umn.growing-grapes-home-garden",

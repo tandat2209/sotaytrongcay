@@ -15,6 +15,7 @@ estimated_duration: 2-4 tuần
 recommended_knowledge_topics:
   - Cách chọn đất trồng
   - Nhận biết sâu hại mầm non
+  - Bón phân giai đoạn cây con
 references:
   - ref.osu.growing-table-grapes
 ---

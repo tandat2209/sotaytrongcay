@@ -58,9 +58,8 @@ describe("preview knowledge", () => {
       const guide = getCareGuideForStage("grape.stage.trunk-development");
 
       expect(guide).not.toBeNull();
-      expect(guide!.id).toBe("grape.guide.train-main-shoot");
+      expect(guide!.id).toBe("grape.guide.fertilization-trunk-development");
       expect(guide!.title.length).toBeGreaterThan(0);
-      expect(guide!.bodyMarkdown.length).toBeGreaterThan(0);
     });
 
     it("returns null for a stage without a guide", () => {

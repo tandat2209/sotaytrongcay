@@ -15,6 +15,7 @@ estimated_duration: 1-3 tháng
 recommended_knowledge_topics:
   - Kỹ thuật lẩy chồi nách
   - Cách cột dây không làm nghẹt thân
+  - Bón phân giai đoạn phát triển thân
 references:
   - ref.osu.growing-table-grapes
 ---

@@ -14,7 +14,7 @@ exit_criteria:
 estimated_duration: 1-2 tháng
 recommended_knowledge_topics:
   - Vì sao nho cần ngủ đông?
-  - Cách ủ phân vi sinh bón gốc
+  - Bón phân giai đoạn sau thu hoạch
 references:
   - ref.osu.growing-table-grapes
 ---
