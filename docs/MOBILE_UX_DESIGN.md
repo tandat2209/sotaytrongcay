@@ -61,7 +61,8 @@ Stage guidance supports care tracking through concise tips. It does not create a
 - Add photo-and-note journal entries for pruning, observations, growth, and other updates.
 - Attach optional structured details, notes, and photos.
 - View last care and next reminder for each plant.
-- View stage tips, things to avoid, warning signs, and milestone.
+- View stage tips, entry criteria overview, knowledge topics, and exit criteria.
+- Browse to a full-stage playbook guide ("Hướng dẫn chi tiết") with care guide and forward browsing to the next stage.
 - Show contextual care buttons inside “Việc cần làm hôm nay”.
 - Add “Thêm nhật ký” on Today and Plant Detail, with an optional stage change inside the journal form.
 - View one plant's Timeline and a global Journal.
@@ -103,7 +104,9 @@ Pruning, observations, growth, and general updates may be described here without
 
 ### Review one plant
 
-`Cây trồng → Chọn cây → Chăm sóc gần đây → Mẹo theo giai đoạn → Dòng thời gian`
+`Cây trồng → Chọn cây → Chăm sóc gần đây → Mẹo theo giai đoạn → Hướng dẫn chi tiết (optional) → Dòng thời gian`
+
+Tapping "Hướng dẫn chi tiết" opens the Stage Playbook screen for the current stage. From there the user can browse forward through stages with "Sắp tới".
 
 ### Browse global history
 
@@ -124,16 +127,17 @@ A completed reminder may open a prefilled care-entry form. It does not create hi
 3. Journal — “Nhật ký”
 4. Me — “Tôi”
 
-### Core and secondary screens
+Core and secondary screens:
 
 5. Welcome
 6. Create/Edit Plant
 7. Plant Detail
-8. Care Entry
-9. New Journal Entry — “Thêm nhật ký”
-10. Activity or Journal Detail
-11. Reminder Management — “Tất cả lời nhắc”
-12. Create/Edit Reminder
+8. **Stage Playbook — "Hướng dẫn chi tiết"**
+9. Care Entry
+10. New Journal Entry — "Thêm nhật ký"
+11. Activity or Journal Detail
+12. Reminder Management — "Tất cả lời nhắc"
+13. Create/Edit Reminder
 
 There is no standalone Task Guidance or guided-task completion screen in MVP.
 
@@ -241,7 +245,34 @@ Show weather context and “Hoạt động gần đây” after care and tips. T
 
 **Error state:** Keep manual tracking available if tips or weather fail. Label stale weather. Return to Plants if the plant no longer exists.
 
-**User actions:** Record core care, add a journal entry with an optional stage change, open last activity, manage reminder, read tips, edit the plant, or review Timeline.
+**User actions:** Record core care, add a journal entry with an optional stage change, open last activity, manage reminder, read tips, open Stage Playbook for the full guide, edit the plant, or review Timeline.
+
+### 7.5.1 Stage Playbook — "Hướng dẫn chi tiết"
+
+**Purpose:** Show a full, stage-focused guidance document. Content is general to the growth stage; it is not personalized to the specific plant.
+
+**Entry point:** "Hướng dẫn chi tiết" link card at the bottom of the tips section in Plant Detail (visible only when a playbook exists for the stage).
+
+**Components:**
+
+- Header: back button + title "Hướng dẫn chi tiết".
+- Hero card: stage icon + stage name + estimated duration + "NỘI DUNG CHỜ DUYỆT" badge (dark primary background).
+- "Mục tiêu giai đoạn" card: `primaryObjective`.
+- "Thao tác quan trọng" section: care guide "Nên làm" card when a guide exists for the stage.
+- "Lưu ý chăm sóc" section: care recommendations relevant to the stage.
+- "Nên tìm hiểu" section: `recommendedKnowledgeTopics` bullet list.
+- "Tiêu chí hoàn thành giai đoạn" card: `exitCriteria` bullet list with flag icon.
+- "Sắp tới" card: next stage (derived by sequence + 1 within lifecycle); tapping navigates to Stage Playbook for the next stage.
+
+All content is sourced from the preview bundle. No fabricated care frequencies or fertilizer formulas are shown.
+
+**Empty state:** Sections with no data are omitted. "Sắp tới" card is hidden for the last stage in a lifecycle.
+
+**Loading state:** Not applicable; all knowledge lookups are synchronous from the compiled bundle. The plant record is loaded via TanStack Query; show "Đang tải..." until resolved.
+
+**Error state:** Plant not found shows "Không tìm thấy cây trồng." Stage without playbook shows "Chưa có hướng dẫn cho giai đoạn này."
+
+**User actions:** Read guidance, tap "Sắp tới" to browse the next stage, or tap back to return to Plant Detail.
 
 ### 7.6 Journal — “Nhật ký”
 

@@ -41,13 +41,13 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.
 - [x] Build first-slice Plant Detail recent-watering summary and global Journal/Activity Detail views.
-- [x] Deliver current-data Plant Detail slice: three care types summarised and recordable, stage identity, review-guidance text, weather context, recent care history, and activity detail navigation.
+- [x] Deliver current-data Plant Detail slice: three care types summarised and recordable, stage identity, review-guidance text, weather context, recent care history, activity detail navigation, and 'Hướng dẫn chi tiết' link to stage playbook.
 - [x] Extend the first slice with fertilizing, spraying, and full Plant Dashboard care summaries.
 - [ ] Add plant editing and archive flows.
 - [ ] Add photo-and-note journal entries with user-confirmed stage history and plant photos.
 - [ ] Add reminders and a complete mixed-event Timeline.
 - [ ] Add type-specific fertilizer and spraying details after reviewed field contracts exist.
-- [ ] Add approved stage guidance and a guide reader after qualified review completes.
+- [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
 - [ ] Build deterministic care suggestions without persistent task instances.
 - [ ] Add offline synchronization.
@@ -68,9 +68,13 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Separate user data from curated knowledge.
 - [x] Distinguish trackable care from informational stage tips.
 - [x] Review mockups 01–14 against the current product and Knowledge Base contract.
-- [x] Author a sourced “Nuôi thân” grape Knowledge Base pilot with stable IDs and schemas.
+- [x] Author a sourced "Nuôi thân" grape Knowledge Base pilot with stable IDs and schemas.
 - [x] Remove reminder-template and task/transition behavior from the review-stage grape playbook contract.
 - [x] Align Knowledge Base documentation ownership and precedence with schemas and accepted product decisions.
+- [x] Surface stage playbook content inline on Plant Detail (objective, knowledge topics, exit criteria) with 'NỘI DUNG CHỜ DUYỆT' label.
+- [x] Implement StagePlaybookScreen as a general-purpose, stage-focused guide reader (not plant-specific); reachable from Plant Detail via 'Hướng dẫn chi tiết' CTA; supports forward browsing through stages via stageId query param.
+- [x] Add stage-specific icons (12 stages mapped to Ionicons) consistently across Plant Detail, Plant List, and Stage Playbook.
+- [x] Add location field and DateTimePicker for plantedAt to plant setup.
 
 ## Deferred pending reviewed contracts
 

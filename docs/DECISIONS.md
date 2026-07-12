@@ -188,6 +188,24 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Rationale:** Image interpretation can be uncertain. Showing a candidate with confidence helps the user, while confirmation keeps the plant timeline and guidance context trustworthy.
 
+## 2026-07-12 — Stage Playbook screen is not plant-specific
+
+**Status:** Accepted
+
+**Decision:** `StagePlaybookScreen` shows general stage guidance only (objective, care guide, knowledge topics, exit criteria, next stage). It does not display the plant's name, photo, or any plant-specific identity. The `plant` prop was removed from the component contract.
+
+**Rationale:** Stage playbooks are curated content about a growth stage, not about a particular plant. Embedding plant identity in the screen would imply personalization that does not exist; the same guidance applies to all plants in the same stage.
+
+## 2026-07-12 — Stage Playbook uses stageId query param for forward browsing
+
+**Status:** Accepted
+
+**Decision:** The route `app/plants/[id]/guide.tsx` accepts an optional `stageId` query parameter. When absent, it falls back to `plant.stageId`. The "Sắp tới" card pushes the same route with `{ id, stageId: nextStage.id }`, enabling forward browsing through stages.
+
+**Rationale:** A dedicated `/knowledge/stages/[stageId]` route would lose plant context needed for the back-navigation fallback and for future plant-specific prefills. Keeping the route under `/plants/[id]/guide` and passing `stageId` as an override param keeps the URL legible, preserves plant context, and avoids a second route hierarchy.
+
+**Consequences:** The route reads the plant record from SQLite on every navigation (one query). All knowledge lookups are synchronous from the compiled preview bundle.
+
 ## Decision template
 
 ```md

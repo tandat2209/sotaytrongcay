@@ -79,6 +79,11 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   ├── journal.tsx
 │   │   └── me.tsx
 │   ├── plants/
+│   │   └── [id]/
+│   │       ├── index.tsx    # Plant Detail
+│   │       ├── care.tsx     # Care Entry
+│   │       ├── water.tsx
+│   │       └── guide.tsx    # Stage Playbook — accepts optional stageId query param
 │   ├── entries/
 │   ├── reminders/
 │   ├── settings/
