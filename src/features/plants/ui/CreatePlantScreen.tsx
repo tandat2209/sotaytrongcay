@@ -2,6 +2,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { stageIcon } from "@/features/knowledge/stage-icons";
 import { getPreviewPlantKnowledge } from "@/features/knowledge/preview-knowledge";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -146,6 +147,11 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
                 onPress={() => setStageId(stage.id)}
                 style={({ pressed }) => [styles.chip, selected && styles.chipSelected, pressed && styles.chipPressed]}
               >
+                <Ionicons
+                  color={selected ? colors.surface : colors.primary}
+                  name={stageIcon(stage.id)}
+                  size={18}
+                />
                 <Typography color={selected ? "surface" : "text"} variant="bodyMedium">
                   {stage.title}
                 </Typography>
@@ -168,11 +174,13 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
 
 const styles = StyleSheet.create({
   chip: {
+    alignItems: "center",
     borderColor: colors.border,
     borderRadius: radius.chip,
     borderWidth: 1,
     flexBasis: "48%",
-    justifyContent: "center",
+    flexDirection: "row",
+    gap: spacing.sm,
     minHeight: 44,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,

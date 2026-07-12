@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, View } from "react-native";
 import { CARE_ACTIVITY_ICONS, CARE_ACTIVITY_LABELS, type CareActivity, type CareActivityType } from "@/features/journal";
+import { stageIcon } from "@/features/knowledge/stage-icons";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type { WeatherState } from "@/shared/weather/weather-state";
 import { IconButton } from "@/shared/ui/IconButton";
@@ -28,7 +29,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projec
 
       <SurfaceCard style={styles.stageCard}>
         <View style={styles.stageEyebrow}>
-          <Ionicons color={colors.secondary} name="leaf-outline" size={16} />
+          <Ionicons color={colors.secondary} name={stageIcon(projection.plant.stageId)} size={16} />
           <Typography color="secondary" variant="label">GIAI ĐOẠN HIỆN TẠI</Typography>
         </View>
         <Typography variant="headlineMedium">{projection.stageTitle}</Typography>
