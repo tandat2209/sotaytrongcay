@@ -148,15 +148,18 @@ export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseD
 
 export interface NormalizedCareRecommendationDefinition extends NormalizedUserFacingBaseDocument {
   readonly type: "care_recommendation_definition";
-  readonly reason: string;
+  readonly goal: string;
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
   readonly activityType: "watering" | "fertilizing" | "spraying";
   readonly eligibility: Readonly<{
     readonly kind: "elapsed_days_since_activity";
-    readonly dueAfterDays: number;
+    readonly suggestAfterDays: number;
   }>;
   readonly onMissingHistory: "suggest" | "withhold";
+  readonly recommendedInputs?: readonly RecommendedInput[];
+  readonly frequency?: CareFrequency;
+  readonly notes?: readonly string[];
 }
 
 export interface RecommendedInput {
@@ -173,10 +176,6 @@ export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {
   readonly type: "care_guide";
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
-  readonly goal?: string;
-  readonly recommendedInputs?: readonly RecommendedInput[];
-  readonly frequency?: CareFrequency;
-  readonly notes?: readonly string[];
 }
 
 export interface NormalizedReferenceSource extends NormalizedBaseDocument {

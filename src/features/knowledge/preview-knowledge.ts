@@ -34,15 +34,17 @@ export type CareGuide = Readonly<{
 export type CareRecommendation = Readonly<{
   id: string;
   title: string;
-  reason: string;
+  goal: string;
   activityType: "watering" | "fertilizing" | "spraying";
   eligibility: Readonly<{
     kind: "elapsed_days_since_activity";
-    dueAfterDays: number;
+    suggestAfterDays: number;
   }>;
   onMissingHistory: "suggest" | "withhold";
   version: string;
-  bodyMarkdown: string;
+  recommendedInputs?: readonly { group: string; examples: string }[];
+  frequency?: { ground: string; container: string };
+  notes?: readonly string[];
 }>;
 
 // ---------------------------------------------------------------------------
@@ -79,17 +81,19 @@ type RawGuide = {
 type RawCareRecommendation = {
   id: string;
   title: string;
-  reason: string;
+  goal: string;
   speciesIds: string[];
   stageIds: string[];
   activityType: "watering" | "fertilizing" | "spraying";
   eligibility: {
     kind: "elapsed_days_since_activity";
-    dueAfterDays: number;
+    suggestAfterDays: number;
   };
   onMissingHistory: "suggest" | "withhold";
   version: string;
-  bodyMarkdown?: string;
+  recommendedInputs?: { group: string; examples: string }[];
+  frequency?: { ground: string; container: string };
+  notes?: string[];
 };
 
 type PreviewBundle = {
@@ -203,12 +207,14 @@ function toCareRecommendation(raw: RawCareRecommendation): CareRecommendation {
   return {
     id: raw.id,
     title: raw.title,
-    reason: raw.reason,
+    goal: raw.goal,
     activityType: raw.activityType,
     eligibility: raw.eligibility,
     onMissingHistory: raw.onMissingHistory,
     version: raw.version,
-    bodyMarkdown: raw.bodyMarkdown ?? "",
+    ...(raw.recommendedInputs !== undefined && { recommendedInputs: raw.recommendedInputs }),
+    ...(raw.frequency !== undefined && { frequency: raw.frequency }),
+    ...(raw.notes !== undefined && { notes: raw.notes }),
   };
 }
 

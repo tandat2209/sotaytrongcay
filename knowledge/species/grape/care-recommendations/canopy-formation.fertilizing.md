@@ -1,12 +1,17 @@
 ---
-id: grape.guide.fertilization-canopy-formation
-type: care_guide
+id: grape.recommendation.canopy-formation.fertilizing
+type: care_recommendation_definition
 title: "Bón phân giai đoạn hình thành tán"
 locale: vi-VN
 species_ids:
   - plant.grape
 stage_ids:
   - grape.stage.canopy-formation
+activity_type: fertilizing
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 21
+on_missing_history: suggest
 goal: "Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu kỳ mang trái đầu tiên."
 recommended_inputs:
   - group: "Phân giàu kali (high-K)"

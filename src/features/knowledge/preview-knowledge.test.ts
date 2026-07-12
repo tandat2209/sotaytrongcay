@@ -58,7 +58,7 @@ describe("preview knowledge", () => {
       const guide = getCareGuideForStage("grape.stage.trunk-development");
 
       expect(guide).not.toBeNull();
-      expect(guide!.id).toBe("grape.guide.fertilization-trunk-development");
+      expect(guide!.id).toBe("grape.guide.train-main-shoot");
       expect(guide!.title.length).toBeGreaterThan(0);
     });
 
@@ -72,8 +72,8 @@ describe("preview knowledge", () => {
       const recs = getCareRecommendationsForStage("grape.stage.trunk-development");
 
       expect(recs.length).toBeGreaterThan(0);
-      expect(recs[0]!.id).toBe("grape.recommendation.check-soil-before-watering");
-      expect(recs[0]!.activityType).toBe("watering");
+      expect(recs[0]!.id).toBe("grape.recommendation.trunk-development.fertilizing");
+      expect(recs[0]!.activityType).toBe("fertilizing");
     });
 
     it("returns an empty array for a stage with no recommendations", () => {

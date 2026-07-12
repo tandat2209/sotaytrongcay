@@ -124,20 +124,22 @@ export function serializeBundle(
     id: r.id,
     type: r.type,
     title: r.title,
+    goal: r.goal,
     locale: r.locale,
     version: r.version,
     status: r.status,
     references: sortArray(r.references),
-    reason: r.reason,
     speciesIds: sortArray(r.speciesIds),
     stageIds: sortArray(r.stageIds),
     activityType: r.activityType,
     eligibility: {
       kind: r.eligibility.kind,
-      dueAfterDays: r.eligibility.dueAfterDays,
+      suggestAfterDays: r.eligibility.suggestAfterDays,
     },
     onMissingHistory: r.onMissingHistory,
-    bodyMarkdown: r.bodyMarkdown,
+    ...(r.recommendedInputs !== undefined && { recommendedInputs: r.recommendedInputs }),
+    ...(r.frequency !== undefined && { frequency: r.frequency }),
+    ...(r.notes !== undefined && { notes: r.notes }),
   }));
 
   const compiledGuides = guideDocs.map((g) => ({
@@ -151,10 +153,6 @@ export function serializeBundle(
     speciesIds: sortArray(g.speciesIds),
     stageIds: sortArray(g.stageIds),
     bodyMarkdown: g.bodyMarkdown,
-    ...(g.goal !== undefined && { goal: g.goal }),
-    ...(g.recommendedInputs !== undefined && { recommendedInputs: g.recommendedInputs }),
-    ...(g.frequency !== undefined && { frequency: g.frequency }),
-    ...(g.notes !== undefined && { notes: g.notes }),
   }));
 
   const compiledReferences = refDocs.map((r) => ({

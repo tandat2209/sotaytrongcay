@@ -254,7 +254,7 @@
           "id",
           "type",
           "title",
-          "reason",
+          "goal",
           "locale",
           "version",
           "status",
@@ -263,8 +263,7 @@
           "stageIds",
           "activityType",
           "eligibility",
-          "onMissingHistory",
-          "bodyMarkdown"
+          "onMissingHistory"
         ],
         "properties": {
           "id": {
@@ -278,10 +277,7 @@
             "type": "string",
             "minLength": 1
           },
-          "reason": {
-            "type": "string",
-            "minLength": 1
-          },
+
           "locale": {
             "type": "string",
             "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
@@ -326,13 +322,13 @@
             "additionalProperties": false,
             "required": [
               "kind",
-              "dueAfterDays"
+              "suggestAfterDays"
             ],
             "properties": {
               "kind": {
                 "const": "elapsed_days_since_activity"
               },
-              "dueAfterDays": {
+              "suggestAfterDays": {
                 "type": "integer",
                 "minimum": 1
               }
@@ -344,8 +340,52 @@
               "withhold"
             ]
           },
-          "bodyMarkdown": {
-            "type": "string"
+
+          "goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recommendedInputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["group", "examples"],
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "examples": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "frequency": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ground", "container"],
+            "properties": {
+              "ground": {
+                "type": "string",
+                "minLength": 1
+              },
+              "container": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "notes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }
@@ -414,52 +454,6 @@
           },
           "bodyMarkdown": {
             "type": "string"
-          },
-          "goal": {
-            "type": "string",
-            "minLength": 1
-          },
-          "recommendedInputs": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["group", "examples"],
-              "properties": {
-                "group": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "examples": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          },
-          "frequency": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["ground", "container"],
-            "properties": {
-              "ground": {
-                "type": "string",
-                "minLength": 1
-              },
-              "container": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "notes": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
           }
         }
       }

@@ -74,30 +74,6 @@ export function normalizeDocument(
     }
 
     case "care_recommendation_definition": {
-      return {
-        id: doc.id,
-        type: "care_recommendation_definition",
-        path: doc.path,
-        title: String(fm.title),
-        version: String(fm.version),
-        bodyMarkdown: doc.body,
-        locale: String(fm.locale),
-        status: fm.status as any,
-        references: (fm.references ?? []) as readonly string[],
-        reason: String(fm.reason),
-        speciesIds: (fm.species_ids ?? []) as readonly string[],
-        stageIds: (fm.stage_ids ?? []) as readonly string[],
-        activityType: fm.activity_type as "watering" | "fertilizing" | "spraying",
-        eligibility: {
-          kind: "elapsed_days_since_activity",
-          dueAfterDays: Number((fm.eligibility as { due_after_days: number }).due_after_days),
-        },
-        onMissingHistory: fm.on_missing_history as "suggest" | "withhold",
-      };
-    }
-
-    case "care_guide": {
-      const goal = typeof fm.goal === "string" ? fm.goal : undefined;
 
       const rawInputs = fm.recommended_inputs;
       const recommendedInputs = Array.isArray(rawInputs)
@@ -120,6 +96,32 @@ export function normalizeDocument(
 
       return {
         id: doc.id,
+        type: "care_recommendation_definition",
+        path: doc.path,
+        title: String(fm.title),
+        version: String(fm.version),
+        bodyMarkdown: "",
+        locale: String(fm.locale),
+        status: fm.status as any,
+        references: (fm.references ?? []) as readonly string[],
+        goal: String(fm.goal),
+        speciesIds: (fm.species_ids ?? []) as readonly string[],
+        stageIds: (fm.stage_ids ?? []) as readonly string[],
+        activityType: fm.activity_type as "watering" | "fertilizing" | "spraying",
+        eligibility: {
+          kind: "elapsed_days_since_activity",
+          suggestAfterDays: Number((fm.eligibility as { suggest_after_days: number }).suggest_after_days),
+        },
+        onMissingHistory: fm.on_missing_history as "suggest" | "withhold",
+        ...(recommendedInputs !== undefined && { recommendedInputs }),
+        ...(frequency !== undefined && { frequency }),
+        ...(notes !== undefined && { notes }),
+      };
+    }
+
+    case "care_guide": {
+      return {
+        id: doc.id,
         type: "care_guide",
         path: doc.path,
         title: String(fm.title),
@@ -130,10 +132,6 @@ export function normalizeDocument(
         references: (fm.references ?? []) as readonly string[],
         speciesIds: (fm.species_ids ?? []) as readonly string[],
         stageIds: (fm.stage_ids ?? []) as readonly string[],
-        ...(goal !== undefined && { goal }),
-        ...(recommendedInputs !== undefined && { recommendedInputs }),
-        ...(frequency !== undefined && { frequency }),
-        ...(notes !== undefined && { notes }),
       };
     }
 

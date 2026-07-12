@@ -1,12 +1,17 @@
 ---
-id: grape.guide.fertilization-fruit-development
-type: care_guide
+id: grape.recommendation.fruit-development.fertilizing
+type: care_recommendation_definition
 title: "Bón phân giai đoạn nuôi quả"
 locale: vi-VN
 species_ids:
   - plant.grape
 stage_ids:
   - grape.stage.fruit-development
+activity_type: fertilizing
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 7
+on_missing_history: suggest
 goal: "Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng nhiều nhất trong toàn bộ chu kỳ."
 recommended_inputs:
   - group: "Phân giàu kali (high-K)"

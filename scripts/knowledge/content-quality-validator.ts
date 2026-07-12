@@ -2,6 +2,7 @@ import type {
   NormalizedKnowledgeDocument,
   KnowledgeDiagnostic,
   NormalizedUserFacingBaseDocument,
+  NormalizedCareRecommendationDefinition,
 } from "./types";
 
 // Explicit Vietnamese diacritics Unicode character regex (case-insensitive)
@@ -36,8 +37,6 @@ export function validateContentQuality(
   for (const doc of documents) {
     // 1. Language validation: User-facing documents must contain Vietnamese copy
     if (doc.type !== "reference_source") {
-      const userFacing = doc as NormalizedUserFacingBaseDocument;
-      
       // Combine title and body to check for Vietnamese diacritics
       const fullText = `${doc.title}\n${doc.bodyMarkdown}`;
       if (!VIETNAMESE_REGEX.test(fullText)) {
@@ -53,32 +52,19 @@ export function validateContentQuality(
 
     // 2. Specific validations by type
     if (doc.type === "care_recommendation_definition") {
-      // Must contain a non-empty "## Vì sao nên làm" section
-      const reasonSection = extractMarkdownSection(doc.bodyMarkdown, "## Vì sao nên làm");
-      if (reasonSection.length === 0) {
+      // Must have a non-empty goal field (replaces '## Vì sao nên làm' section)
+      const rec = doc as NormalizedCareRecommendationDefinition;
+      if (!rec.goal || rec.goal.trim().length === 0) {
         diagnostics.push({
           code: "KNOWLEDGE_REASON_MISSING",
           path: doc.path,
           documentId: doc.id,
-          field: "bodyMarkdown",
-          message: `Care recommendation definition ${doc.id} is missing a non-empty '## Vì sao nên làm' section.`,
-        });
-      }
-
-      // Check if it has avoid guidance in body (e.g. "## Điều cần tránh" exists and is not empty)
-      const avoidSection = extractMarkdownSection(doc.bodyMarkdown, "## Điều cần tránh");
-      const userFacing = doc as NormalizedUserFacingBaseDocument;
-      if (avoidSection.length > 0 && userFacing.references.length === 0) {
-        diagnostics.push({
-          code: "KNOWLEDGE_REFERENCE_REQUIRED",
-          path: doc.path,
-          documentId: doc.id,
-          field: "references",
-          message: `Safety or avoid guidance in care recommendation ${doc.id} requires at least one reference.`,
+          field: "goal",
+          message: `Care recommendation definition ${doc.id} is missing a non-empty 'goal' field.`,
         });
       }
     } else if (doc.type === "growth_stage_playbook") {
-      // Check if it has avoid guidance and references
+      // Playbooks with safety/avoid guidance must cite a reference
       const avoidSection = extractMarkdownSection(doc.bodyMarkdown, "## Điều cần tránh");
       const userFacing = doc as NormalizedUserFacingBaseDocument;
       if (avoidSection.length > 0 && userFacing.references.length === 0) {

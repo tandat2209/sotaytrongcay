@@ -1,12 +1,17 @@
 ---
-id: grape.guide.fertilization-trellis-training
-type: care_guide
+id: grape.recommendation.trellis-training.fertilizing
+type: care_recommendation_definition
 title: "Bón phân giai đoạn leo giàn"
 locale: vi-VN
 species_ids:
   - plant.grape
 stage_ids:
   - grape.stage.trellis-training
+activity_type: fertilizing
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 14
+on_missing_history: suggest
 goal: "Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành."
 recommended_inputs:
   - group: "Phân NPK cân đối"

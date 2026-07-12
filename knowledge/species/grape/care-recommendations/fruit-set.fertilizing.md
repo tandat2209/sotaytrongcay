@@ -1,12 +1,17 @@
 ---
-id: grape.guide.fertilization-fruit-set
-type: care_guide
+id: grape.recommendation.fruit-set.fertilizing
+type: care_recommendation_definition
 title: "Bón phân giai đoạn đậu quả"
 locale: vi-VN
 species_ids:
   - plant.grape
 stage_ids:
   - grape.stage.fruit-set
+activity_type: fertilizing
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 7
+on_missing_history: suggest
 goal: "Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng."
 recommended_inputs:
   - group: "Phân NPK cân đối, hơi thiên kali"

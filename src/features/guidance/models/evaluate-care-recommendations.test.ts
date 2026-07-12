@@ -16,12 +16,11 @@ const plant: Plant = {
 const recommendation: CareRecommendation = {
   id: "grape.recommendation.check-soil-before-watering",
   title: "Kiểm tra đất trước khi tưới",
-  reason: "Kiểm tra đất trước khi tưới giúp tránh tưới thừa.",
+  goal: "Kiểm tra đất trước khi tưới giúp tránh tưới thừa.",
   activityType: "watering",
-  eligibility: { kind: "elapsed_days_since_activity", dueAfterDays: 3 },
+  eligibility: { kind: "elapsed_days_since_activity", suggestAfterDays: 3 },
   onMissingHistory: "suggest",
   version: "1.0.0",
-  bodyMarkdown: "",
 };
 
 function activity(occurredAt: string): CareActivity {

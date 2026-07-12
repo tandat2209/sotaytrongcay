@@ -1,13 +1,18 @@
 ---
-id: grape.guide.fertilization-pruning
-type: care_guide
+id: grape.recommendation.pruning.fertilizing
+type: care_recommendation_definition
 title: "Bón phân sau cắt cành"
 locale: vi-VN
 species_ids:
   - plant.grape
 stage_ids:
   - grape.stage.pruning
-goal: "Cung cấp dinh dưỡng nhẹ nhàng để \"đánh thức\" cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn."
+activity_type: fertilizing
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 14
+on_missing_history: suggest
+goal: "Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn."
 recommended_inputs:
   - group: "Phân NPK cân đối"
     examples: "NPK 16-16-16 liều vừa"

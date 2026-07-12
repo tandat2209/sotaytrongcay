@@ -1,12 +1,17 @@
 ---
-id: grape.guide.fertilization-bud-break
-type: care_guide
+id: grape.recommendation.bud-break.fertilizing
+type: care_recommendation_definition
 title: "Bón phân giai đoạn bật mầm"
 locale: vi-VN
 species_ids:
   - plant.grape
 stage_ids:
   - grape.stage.bud-break
+activity_type: fertilizing
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 7
+on_missing_history: suggest
 goal: "Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh, bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái."
 recommended_inputs:
   - group: "Phân giàu đạm (high-N)"

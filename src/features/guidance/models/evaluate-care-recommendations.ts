@@ -38,7 +38,7 @@ function evaluateCareRecommendation(input: Readonly<{
         daysSinceLastActivity: null,
         definitionId: recommendation.id,
         definitionVersion: recommendation.version,
-        explanation: recommendation.reason,
+        explanation: recommendation.goal,
         id: identity,
         plantId: plant.id,
         status: "recommended",
@@ -55,13 +55,13 @@ function evaluateCareRecommendation(input: Readonly<{
   }
 
   const daysSinceLastActivity = localCalendarDayDifference(occurredAt, evaluatedAt);
-  if (daysSinceLastActivity >= recommendation.eligibility.dueAfterDays) {
+  if (daysSinceLastActivity >= recommendation.eligibility.suggestAfterDays) {
     return {
       activityType: recommendation.activityType,
       daysSinceLastActivity,
       definitionId: recommendation.id,
       definitionVersion: recommendation.version,
-      explanation: `${recommendation.reason} Lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
+      explanation: `${recommendation.goal} Lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
       id: identity,
       plantId: plant.id,
       status: "recommended",

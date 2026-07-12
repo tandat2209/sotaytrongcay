@@ -167,20 +167,19 @@ references: [ref.example]
 id: grape.recommendation.check-soil
 type: care_recommendation_definition
 title: "Kiểm tra đất"
-reason: "Kiểm tra trực tiếp giúp tránh tưới thừa."
+goal: "Kiểm tra trực tiếp giúp tránh tưới thừa gây úng rễ."
 locale: vi-VN
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
 activity_type: watering
 eligibility:
   kind: elapsed_days_since_activity
-  due_after_days: 3
+  suggest_after_days: 3
 on_missing_history: suggest
 version: 1.0.0
 status: approved
 references: [ref.example]
 ---
-# Kiểm tra đất
 `,
   guide: `---
 id: grape.guide.train-main-shoot
