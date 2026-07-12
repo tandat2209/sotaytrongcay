@@ -87,4 +87,23 @@ describe("PlantDetailScreen", () => {
     expect(screen.getByText("Chưa có mẹo cho giai đoạn này.")).toBeTruthy();
     expect(screen.queryByText("NỘI DUNG CHỜ DUYỆT")).toBeNull();
   });
+
+  it("shows the Hướng dẫn chi tiết link and invokes onOpenPlaybook when tapped", () => {
+    const onOpenPlaybook = jest.fn();
+    const screen = render(
+      <PlantDetailScreen onOpenActivity={jest.fn()} onOpenPlaybook={onOpenPlaybook} onRecordCare={jest.fn()} projection={projection} weather={productionWeather} />,
+    );
+
+    expect(screen.getByText("Hướng dẫn chi tiết")).toBeTruthy();
+    fireEvent.press(screen.getByRole("button", { name: "Xem hướng dẫn chi tiết giai đoạn" }));
+    expect(onOpenPlaybook).toHaveBeenCalledTimes(1);
+  });
+
+  it("omits the Hướng dẫn chi tiết link when onOpenPlaybook is not provided", () => {
+    const screen = render(
+      <PlantDetailScreen onOpenActivity={jest.fn()} onRecordCare={jest.fn()} projection={projection} weather={productionWeather} />,
+    );
+
+    expect(screen.queryByText("Hướng dẫn chi tiết")).toBeNull();
+  });
 });

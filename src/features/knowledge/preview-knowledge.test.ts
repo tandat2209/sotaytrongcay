@@ -1,4 +1,10 @@
-import { getPreviewPlantKnowledge, getStagePlaybook } from "./preview-knowledge";
+import {
+  getCareGuideForStage,
+  getCareRecommendationsForStage,
+  getNextStagePlaybook,
+  getPreviewPlantKnowledge,
+  getStagePlaybook,
+} from "./preview-knowledge";
 
 describe("preview knowledge", () => {
   it("exposes grape stages through a typed module", () => {
@@ -25,5 +31,54 @@ describe("preview knowledge", () => {
 
   it("returns null for an unknown stage ID", () => {
     expect(getStagePlaybook("unknown.stage.id")).toBeNull();
+  });
+
+  describe("getNextStagePlaybook", () => {
+    it("returns the next stage in the same lifecycle by sequence", () => {
+      const next = getNextStagePlaybook("grape.stage.trunk-development");
+
+      expect(next).not.toBeNull();
+      expect(next!.id).toBe("grape.stage.trellis-training");
+    });
+
+    it("returns null for the last stage in a lifecycle", () => {
+      // recovery is sequence 8, the last in the production lifecycle
+      const next = getNextStagePlaybook("grape.stage.recovery");
+
+      expect(next).toBeNull();
+    });
+
+    it("returns null for an unknown stage ID", () => {
+      expect(getNextStagePlaybook("unknown.stage")).toBeNull();
+    });
+  });
+
+  describe("getCareGuideForStage", () => {
+    it("returns a care guide for a stage that has one", () => {
+      const guide = getCareGuideForStage("grape.stage.trunk-development");
+
+      expect(guide).not.toBeNull();
+      expect(guide!.id).toBe("grape.guide.train-main-shoot");
+      expect(guide!.title.length).toBeGreaterThan(0);
+      expect(guide!.bodyMarkdown.length).toBeGreaterThan(0);
+    });
+
+    it("returns null for a stage without a guide", () => {
+      expect(getCareGuideForStage("grape.stage.harvest")).toBeNull();
+    });
+  });
+
+  describe("getCareRecommendationsForStage", () => {
+    it("returns care recommendations for a stage that has them", () => {
+      const recs = getCareRecommendationsForStage("grape.stage.trunk-development");
+
+      expect(recs.length).toBeGreaterThan(0);
+      expect(recs[0]!.id).toBe("grape.recommendation.check-soil-before-watering");
+      expect(recs[0]!.activityType).toBe("watering");
+    });
+
+    it("returns an empty array for a stage with no recommendations", () => {
+      expect(getCareRecommendationsForStage("grape.stage.harvest")).toHaveLength(0);
+    });
   });
 });

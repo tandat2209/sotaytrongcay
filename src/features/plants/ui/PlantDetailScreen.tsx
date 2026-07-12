@@ -16,6 +16,7 @@ import type { PlantDetailProjection } from "../models/plant-detail-projection";
 type Props = Readonly<{
   onBack?: () => void;
   onOpenActivity: (id: string) => void;
+  onOpenPlaybook?: () => void;
   onRecordCare: (type: CareActivityType) => void;
   projection: PlantDetailProjection;
   weather: WeatherState;
@@ -23,7 +24,7 @@ type Props = Readonly<{
 
 const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
 
-export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projection, weather }: Props) {
+export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRecordCare, projection, weather }: Props) {
   return (
     <Screen introduction={null} title="">
       {onBack ? <TopBar backAccessibilityLabel="Quay lại Cây trồng" onBack={onBack} title={projection.plant.name} /> : null}
@@ -68,7 +69,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projec
         ))}
       </View>
 
-      <StageTips playbook={projection.stagePlaybook} />
+      <StageTips {...(onOpenPlaybook ? { onOpenPlaybook } : {})} playbook={projection.stagePlaybook} />
 
       <WeatherCard weather={weather} />
 
@@ -88,7 +89,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onRecordCare, projec
   );
 }
 
-function StageTips({ playbook }: { playbook: StagePlaybook | null }) {
+function StageTips({ onOpenPlaybook, playbook }: { onOpenPlaybook?: () => void; playbook: StagePlaybook | null }) {
   return (
     <View style={styles.section}>
       <View style={styles.sectionHeader}>
@@ -134,6 +135,22 @@ function StageTips({ playbook }: { playbook: StagePlaybook | null }) {
                 </View>
               ))}
             </SurfaceCard>
+          ) : null}
+          {onOpenPlaybook ? (
+            <Pressable
+              accessibilityLabel="Xem hướng dẫn chi tiết giai đoạn"
+              accessibilityRole="button"
+              onPress={onOpenPlaybook}
+            >
+              <SurfaceCard style={styles.playbookLink}>
+                <Ionicons color={colors.secondary} name="book-outline" size={20} />
+                <View style={styles.playbookLinkCopy}>
+                  <Typography color="secondary" variant="bodyLarge">Hướng dẫn chi tiết</Typography>
+                  <Typography color="textSecondary" variant="bodyMedium">Kỹ thuật chăm sóc {playbook.title.toLowerCase()}</Typography>
+                </View>
+                <Ionicons color={colors.secondary} name="chevron-forward" size={18} />
+              </SurfaceCard>
+            </Pressable>
           ) : null}
         </>
       )}
@@ -205,6 +222,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
     paddingVertical: 2,
   },
+  playbookLink: { alignItems: "center", flexDirection: "row", gap: spacing.md },
+  playbookLinkCopy: { flex: 1, gap: spacing.xs },
   section: { gap: spacing.md },
   sectionHeader: { alignItems: "center", flexDirection: "row", gap: spacing.sm, justifyContent: "space-between" },
   stageCard: {
