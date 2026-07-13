@@ -8,7 +8,7 @@ This review checks references 01–14 against the current MVP specification. Moc
 
 The strongest implementation references are plant selection, plant setup layout, the revised Today hierarchy, New Journal Entry, and Journal chronology.
 
-Plant Detail and all three care-entry references require product correction before implementation. They contain outdated tasks, FABs, fabricated measurements, or unsupported agricultural recommendations.
+Plant Detail visual hierarchy is approved only through current-data implementation rules: care-first composition, stage journey, rounded cards, and one plant-scoped Quick Care FAB. Care-entry references still require product correction for fabricated measurements or unsupported agricultural recommendations.
 
 ## Screen-by-screen review
 
@@ -19,7 +19,7 @@ Plant Detail and all three care-entry references require product correction befo
 | 03 | Add Plant: species | Partial | Plant Species | MVP supports grape first. Do not imply tomato, strawberry, or pepper knowledge is available until their species packages exist. |
 | 04 | Add Plant: details | Partial | Plant Species, Growth Stage | Stage choices must come from the selected species package. The mockup list is incomplete and does not match the canonical grape journey. |
 | 05 | Add Plant: success | Outdated | Stage Playbook, Care Recommendation | Remove confetti and the blocking success screen. “Kiểm tra độ ẩm đất” may be a suggestion, not an automatically completed task. |
-| 06 | Plant Detail | Outdated | Stage Playbook, Stage Tips | Remove checkboxes, completion history, FAB, duplicated tasks, fabricated 45% progress, soil moisture, light hours, and health status. Keep last core care, journal, stage tips, and timeline. |
+| 06 | Plant Detail | Partial | Stage Playbook, Care Recommendation | Keep care-first hierarchy, ordered stage journey, large care cards, and one plant-scoped Quick Care FAB. Remove checkboxes, completion history, duplicated tasks, fabricated photo/health/days-in-stage/progress, soil moisture, and light hours. FAB opens Care Entry and never saves directly. |
 | 07 | Stage Playbook | Layout only | Stage Playbook, guides, threats | Remove fixed “2 ngày/lần”, “60–70%”, NPK 30-10-10, universal height, and unsourced pest/disease claims. Use reviewed, conditional content. |
 | 08 | Watering | Layout only | Watering recommendation, weather rule | Remove fabricated soil moisture, “Lý tưởng”, fixed 200 ml, and certainty based on rain alone. Ask the user to assess soil and preserve optional manual amount. |
 | 09 | Fertilizing recommendation | Not approved | Fertilizer Profile, weather rule | Do not recommend MKP or NPK formulas from the mockup. Remove unrelated images and product selection until evidence, plant context, and expert review exist. |

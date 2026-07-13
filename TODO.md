@@ -23,7 +23,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## MVP UX
 
-- [x] Prototype Plant Detail with last care, three care summaries, stage identity, review-guidance availability state, and weather context.
+- [x] Prototype Plant Detail with an informational lifecycle journey, current-stage objective, deterministic watering/fertilizing care cards, plant-scoped Quick Care, recent saved care, and weather context.
 - [ ] Prototype fast watering and fertilizing entry flows.
 - [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.
@@ -31,7 +31,9 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Remove the global FAB and Quick Action menu.
 - [ ] Add Journal source labels and filters.
 - [ ] Verify loading, empty, error, stale-weather, and offline states.
-- [ ] Add plant photo (`photoUri`) to Today priority cards when the Plant model supports user-captured images.
+- [ ] Add plant photo (`photoUri`) to Today and Plant Detail only after the Plant model and user-captured image persistence exist.
+- [ ] Define explicit user-observation or sourced-measurement contract before showing plant health status.
+- [ ] Persist stage-entry history before showing days in current stage; never infer it from `createdAt` or `plantedAt`.
 - [ ] Show linked Care Guide Markdown instructions in Today priority cards after reviewed UX and content scope.
 
 ## Engineering

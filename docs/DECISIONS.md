@@ -226,6 +226,14 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Consequences:** Compiler validation rejects missing, wrong-type, out-of-scope, or ineligible guide relationships. Recommendation definitions no longer carry user-facing instructions. Existing review-stage grape content remains excluded from production until approved.
 
+## 2026-07-13 — Allow plant-scoped Quick Care on Plant Detail
+
+**Status:** Accepted
+
+**Decision:** Plant Detail may show one local Quick Care FAB. It opens plant-scoped watering, fertilizing, or spraying Care Entry and never saves activity directly. The app still has no global FAB, and Today remains FAB-free. This narrowly supersedes the Plant Detail portion of the 2026-07-11 contextual-actions-without-FAB decision.
+
+**Rationale:** Plant Detail already provides unambiguous plant context. One local entry point keeps all three core care actions reachable while the main care cards prioritize watering and fertilizing. Explicit Save remains the only history-write boundary.
+
 ## Decision template
 
 ```md

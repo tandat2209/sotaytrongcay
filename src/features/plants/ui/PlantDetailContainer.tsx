@@ -19,7 +19,7 @@ type Props = Readonly<{
 export function PlantDetailContainer({ onBack, onOpenActivity, onOpenPlaybook, onRecordCare, plantId }: Props) {
   const query = useQuery({ queryKey: ["plant-detail", plantId], queryFn: async () => {
     const [plant, activities] = await Promise.all([getPlant(plantId), listCareActivities(plantId)]);
-    return plant ? createPlantDetailProjection({ activities, plant }) : null;
+    return plant ? createPlantDetailProjection({ activities, evaluatedAt: new Date(), plant }) : null;
   } });
   if (query.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
   if (query.isError) return <><Text>{query.error instanceof z.ZodError ? "Dữ liệu trên thiết bị chưa hợp lệ." : "Chưa thể tải cây."}</Text><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></>;

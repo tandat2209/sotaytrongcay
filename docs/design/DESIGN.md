@@ -124,7 +124,7 @@ Bottom navigation contains four destinations:
 
 The active destination uses primary green for icon and label. Inactive destinations use a neutral color with sufficient contrast.
 
-Do not add a global FAB. Today and Plant Detail contain the relevant care, journal, and stage actions.
+Do not add a global FAB. Plant Detail may use one local Quick Care FAB for plant-scoped core care; Today remains FAB-free. The FAB opens Care Entry and never saves directly.
 
 Plant Detail keeps “Cây trồng” active. A focused form should not show a misleading destination state.
 
@@ -149,16 +149,17 @@ Show “Thêm nhật ký” as a secondary action, visually distinct from care d
 
 Prioritize:
 
-1. Current stage.
-2. Last watering, fertilizing, and spraying.
-3. Quick care actions.
-4. Next reminder.
-5. Stage tips, things to avoid, and warning signs.
-6. Upcoming milestone and criteria.
-7. Weather context.
-8. Timeline.
+1. Plant identity and confirmed current stage.
+2. Compact, horizontally scrollable 12-stage lifecycle journey with current position only.
+3. Compact current-stage objective.
+4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Use Plant Detail Quick Care as the single record action.
+5. Stage topics and upcoming milestone.
+6. Weather context.
+7. Three most recent saved care activities.
 
-Do not display fabricated health or sensor measurements. Every measurement needs a user, device, or provider source and freshness label.
+Use the 8/16/24-point spacing scale consistently, 24-point care-card padding, 20-point care-card corners, and large type. Keep journey compact and horizontal; all 12 stages remain reachable by scrolling. Do not replace it with percentage progress.
+
+Do not display fabricated photo, health, days-in-stage, progress, or sensor measurements. Every value needs a persisted user, device, knowledge, or provider source and freshness where relevant.
 
 ### Stage playbook
 

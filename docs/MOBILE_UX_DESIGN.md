@@ -217,35 +217,31 @@ Optional fields include variety, location, planted date, and notes.
 
 ### 7.5 Plant Detail
 
-**Purpose:** Answer when important care happened and provide concise stage context.
+**Purpose:** Answer where the plant is now, what care to consider today, and what was saved recently.
 
-**Components:** Plant identity; current stage; edit; “Thêm nhật ký”.
+Show content in this order:
 
-Show “Chăm sóc gần đây” first:
+1. Plant identity and confirmed current-stage badge.
+2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. Show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
+3. Compact current-stage objective and Stage Playbook action.
+4. “Chăm sóc hôm nay” with large watering and fertilizing cards.
+5. Informational stage topics and milestones.
+6. Weather context.
+7. Three most recent saved core-care activities.
 
-- “Tưới nước” — last date/time and “Ghi tưới nước”.
-- “Bón phân” — last date/time/product and “Ghi bón phân”.
-- “Phun thuốc” — last date/time/product and “Ghi phun thuốc”.
-- “Lời nhắc tiếp theo”.
+Each care card shows reviewed recommendation title, growing-method frequency when defined, last saved activity, and deterministic status (`Nên xem xét`, `Chưa cần`, or `Chưa có gợi ý`). Missing reviewed frequency shows “Chưa có tần suất đã duyệt”. Status remains derived context, never persisted task state.
 
-Then show “Mẹo cho giai đoạn này”:
+A plant-scoped Quick Care FAB is the single care-entry action on Plant Detail and opens watering, fertilizing, and spraying choices. Care cards do not duplicate record buttons. Opening a choice does not record history until the user selects “Lưu hoạt động”. The FAB is local to Plant Detail, not global.
 
-- Concise things to do.
-- Things to avoid.
-- Warning signs.
-- Upcoming milestone.
+Plant photo, health status, and days in stage remain absent until persisted source contracts exist. Do not infer them from planting date, creation date, stage, or care history.
 
-Tips are plain informational rows. They have no checkbox, completion state, reminder, or automatic journal behavior.
+**Empty state:** Missing care shows “Chưa có dữ liệu” with the relevant record action. Missing reviewed recommendation shows “Chưa có gợi ý”. Unknown lifecycle or stage remains explicit.
 
-Show weather context and “Hoạt động gần đây” after care and tips. Timeline remains available as a secondary section.
+**Loading state:** Plant identity and local care summaries render first. Weather remains independent.
 
-**Empty state:** Missing care shows “Chưa có dữ liệu” with the relevant record action. Missing tips show “Chưa có mẹo cho giai đoạn này”.
+**Error state:** Keep manual tracking available if guidance or weather fails. Label stale weather. Return to Plants if the plant no longer exists.
 
-**Loading state:** Plant identity and local care summaries render first. Tips, weather, and history load independently.
-
-**Error state:** Keep manual tracking available if tips or weather fail. Label stale weather. Return to Plants if the plant no longer exists.
-
-**User actions:** Record core care, add a journal entry with an optional stage change, open last activity, manage reminder, read tips, open Stage Playbook for the full guide, edit the plant, or review Timeline.
+**User actions:** Review journey and current guidance, open Stage Playbook, open last activity, record core care through Care Entry, or review recent activity.
 
 ### 7.5.1 Stage Playbook — "Hướng dẫn chi tiết"
 
@@ -444,7 +440,7 @@ Do not show unavailable future capabilities as disabled placeholders.
 
 Today, Plants, Journal, and Me remain persistent destinations. Actions live on Today and Plant Detail, where the plant and care context are visible.
 
-Removing the FAB avoids duplicating the buttons already shown under “Việc cần làm hôm nay” and prevents unimportant subactivities from appearing equal to core care.
+No global FAB avoids duplicating Today actions. Plant Detail alone may use one plant-scoped Quick Care FAB because plant context is already fixed; it opens Care Entry and never writes history directly.
 
 Journal is justified by cross-plant activity history, but prototype research should confirm it remains frequent enough for a tab.
 
