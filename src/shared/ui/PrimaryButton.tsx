@@ -7,9 +7,10 @@ type PrimaryButtonProps = {
   label: string;
   onPress: () => void;
   loading?: boolean;
+  textColor?: string;
 };
 
-export function PrimaryButton({ backgroundColor = colors.primary, disabled = false, label, loading = false, onPress }: PrimaryButtonProps) {
+export function PrimaryButton({ backgroundColor = colors.primary, disabled = false, label, loading = false, onPress, textColor = colors.surface }: PrimaryButtonProps) {
   const unavailable = disabled || loading;
 
   return (
@@ -20,7 +21,7 @@ export function PrimaryButton({ backgroundColor = colors.primary, disabled = fal
       onPress={onPress}
       style={({ pressed }) => [styles.button, { backgroundColor }, unavailable && styles.disabled, pressed && !unavailable && styles.pressed]}
     >
-      {loading ? <ActivityIndicator color={colors.surface} /> : <Text style={styles.label}>{label}</Text>}
+      {loading ? <ActivityIndicator color={textColor} /> : <Text style={[styles.label, { color: textColor }]}>{label}</Text>}
     </Pressable>
   );
 }
