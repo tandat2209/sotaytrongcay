@@ -244,6 +244,16 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Rationale:** Plant Detail already provides unambiguous plant context. One local entry point keeps all three core care actions reachable while the main care cards prioritize watering and fertilizing. Explicit Save remains the only history-write boundary.
 
+## 2026-07-13 — Browse Stage Playbooks by authored transitions
+
+**Status:** Accepted
+
+**Decision:** The Stage Playbook "Sắp tới" action resolves the current stage's authored transition instead of deriving the next stage from sequence within one lifecycle. It may therefore move from the final development stage into the first production stage, and follow repeatable production-cycle transitions. It only browses guidance and never changes the plant's confirmed stage.
+
+**Rationale:** Lifecycle boundaries do not necessarily mark the end of a plant's authored stage journey. The species knowledge already declares explicit transitions, including development into production, which are more precise than an implementation-only sequence rule.
+
+**Consequences:** A stage without an authored transition still has no "Sắp tới" card. Transition targets without a stage playbook are treated as unavailable rather than inferred.
+
 ## Decision template
 
 ```md

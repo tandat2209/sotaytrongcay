@@ -60,7 +60,13 @@ export type CarePlan = Readonly<{
 type RawSpecies = {
   id: string;
   title: string;
-  lifecycles: Record<string, { stages: Array<{ id: string; title: string }> }>;
+  lifecycles: Record<string, {
+    stages: {
+      id: string;
+      title: string;
+      transitions: { to: string }[];
+    }[];
+  }>;
 };
 
 type RawPlaybook = {
@@ -165,14 +171,17 @@ export function getStagePlaybook(stageId: string): StagePlaybook | null {
 
 /**
  * Returns the playbook for the stage that comes after `currentStageId`
- * within the same lifecycle (by sequence), or null if already at the end.
+ * according to its authored lifecycle transition, or null when no transition exists.
  */
 export function getNextStagePlaybook(currentStageId: string): StagePlaybook | null {
-  const current = bundle.stagePlaybooks.find((pb) => pb.id === currentStageId);
-  if (!current) return null;
-  const next = bundle.stagePlaybooks.find(
-    (pb) => pb.lifecycleId === current.lifecycleId && pb.sequence === current.sequence + 1,
-  );
+  const currentStage = bundle.species
+    .flatMap((species) => Object.values(species.lifecycles))
+    .flatMap((lifecycle) => lifecycle.stages)
+    .find((stage) => stage.id === currentStageId);
+  const nextStageId = currentStage?.transitions[0]?.to;
+  if (!nextStageId) return null;
+
+  const next = bundle.stagePlaybooks.find((playbook) => playbook.id === nextStageId);
   return next ? toPlaybook(next) : null;
 }
 

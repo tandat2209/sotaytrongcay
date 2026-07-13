@@ -41,11 +41,11 @@ describe("preview knowledge", () => {
       expect(next!.id).toBe("grape.stage.trellis-training");
     });
 
-    it("returns null for the last stage in a lifecycle", () => {
-      // recovery is sequence 8, the last in the production lifecycle
-      const next = getNextStagePlaybook("grape.stage.recovery");
+    it("returns the authored transition from development into production", () => {
+      const next = getNextStagePlaybook("grape.stage.canopy-formation");
 
-      expect(next).toBeNull();
+      expect(next).not.toBeNull();
+      expect(next!.id).toBe("grape.stage.pruning");
     });
 
     it("returns null for an unknown stage ID", () => {

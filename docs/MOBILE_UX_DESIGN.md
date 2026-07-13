@@ -259,11 +259,11 @@ Plant photo, health status, and days in stage remain absent until persisted sour
 - "Hướng dẫn tham khảo" section: generic informational Care Guides relevant to the stage, including their authored goal and Markdown instructions; these do not represent tracked activities.
 - "Nên tìm hiểu" section: `recommendedKnowledgeTopics` bullet list.
 - "Tiêu chí hoàn thành giai đoạn" card: `exitCriteria` bullet list with flag icon.
-- "Sắp tới" card: next stage (derived by sequence + 1 within lifecycle); tapping navigates to Stage Playbook for the next stage.
+- "Sắp tới" card: next stage from the current stage's authored transition; tapping navigates to Stage Playbook for that stage. This may cross from the final development stage into the production lifecycle.
 
 All content is sourced from authored fields in the preview bundle and remains visibly labeled as review-stage. The screen does not invent frequencies, products, amounts, or plant-specific conclusions.
 
-**Empty state:** Sections with no data are omitted. "Sắp tới" card is hidden for the last stage in a lifecycle.
+**Empty state:** Sections with no data are omitted. "Sắp tới" card is hidden only when the current stage has no authored transition or its target has no playbook.
 
 **Loading state:** Not applicable; all knowledge lookups are synchronous from the compiled bundle. The plant record is loaded via TanStack Query; show "Đang tải..." until resolved.
 
