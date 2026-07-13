@@ -20,8 +20,10 @@ export type CareEntryDetails = Readonly<{
 type Props = Readonly<{
   onDismiss: () => void;
   onSave: (details: CareEntryDetails) => Promise<void>;
+  reason?: string;
   plantName: string;
   speciesTitle: string;
+  suggestion?: string;
   stageId: string;
   stageTitle: string;
   type: CareActivityType;
@@ -34,7 +36,7 @@ const ENTRY_TITLES: Record<CareActivityType, string> = {
   watering: "Tưới nước",
 };
 
-export function CareEntryScreen({ onDismiss, onSave, plantName, speciesTitle, stageId, stageTitle, type, visible }: Props) {
+export function CareEntryScreen({ onDismiss, onSave, plantName, reason, speciesTitle, stageId, stageTitle, suggestion, type, visible }: Props) {
   const [amount, setAmount] = useState("");
   const [notes, setNotes] = useState("");
   const [occurredAt, setOccurredAt] = useState(() => new Date());
@@ -64,8 +66,10 @@ export function CareEntryScreen({ onDismiss, onSave, plantName, speciesTitle, st
     }
   }
 
-  return <BottomSheet footer={<PrimaryButton label="Lưu hoạt động" loading={saving} onPress={submit} />} onDismiss={onDismiss} title={<View style={styles.title}><Ionicons color={visual.color} name={visual.icon} size={22} /><Typography variant="headlineSmall">{ENTRY_TITLES[type]}</Typography></View>} visible={visible}>
+  return <BottomSheet footer={<PrimaryButton backgroundColor={visual.color} label="Lưu hoạt động" loading={saving} onPress={submit} />} onDismiss={onDismiss} title={<View style={styles.title}><Ionicons color={visual.color} name={visual.icon} size={22} /><Typography variant="headlineSmall">{ENTRY_TITLES[type]}</Typography></View>} visible={visible}>
     <PlantIdentity name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
+    {suggestion ? <ContextRow icon="bulb-outline" label="Gợi ý:" text={suggestion} /> : null}
+    {reason ? <ContextRow icon="help-circle-outline" label="Lý do:" text={reason} /> : null}
     <FormField error={error?.startsWith("Thời gian") ? error : undefined} label="Thời gian thực hiện">
       <Pressable accessibilityLabel="Chọn thời gian thực hiện" accessibilityRole="button" onPress={() => setShowPicker(true)} style={styles.timeButton}>
         <Typography variant="bodyLarge">{occurredAt.toLocaleString("vi-VN")}</Typography>
@@ -82,9 +86,15 @@ export function CareEntryScreen({ onDismiss, onSave, plantName, speciesTitle, st
   </BottomSheet>;
 }
 
+function ContextRow({ icon, label, text }: Readonly<{ icon: "bulb-outline" | "help-circle-outline"; label: string; text: string }>) {
+  return <View style={styles.context}><View style={styles.contextTitle}><Ionicons accessibilityElementsHidden color={colors.textSecondary} name={icon} size={18} /><Typography variant="bodyLarge">{label}</Typography></View><Typography color="textSecondary" variant="bodyMedium">{text}</Typography></View>;
+}
+
 const styles = StyleSheet.create({
   title: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   amountRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  context: { backgroundColor: colors.surfaceSubtle, borderRadius: radius.control, gap: spacing.xs, padding: spacing.md },
+  contextTitle: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   done: { alignSelf: "flex-end", padding: spacing.sm },
   input: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.control, borderWidth: 1, color: colors.text, flex: 1, fontSize: 16, lineHeight: 24, minHeight: 48, paddingHorizontal: spacing.md },
   notes: { minHeight: 112, paddingTop: spacing.md, textAlignVertical: "top" },

@@ -6,7 +6,7 @@ import { z } from "zod";
 import { evaluateCarePlans } from "@/features/guidance";
 import { CareEntryScreen, listCareActivities, saveCareActivity, type CareActivityType } from "@/features/journal";
 import { createId } from "@/shared/lib/identifiers";
-import { listCarePlans } from "@/features/knowledge";
+import { getStagePlaybook, listCarePlans } from "@/features/knowledge";
 import { listPlants, resolvePlantIdentity } from "@/features/plants";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -37,6 +37,9 @@ export function TodayScreen() {
 
   const plant = entry ? query.data?.plants.find((item) => item.id === entry.plantId) : null;
   const identity = plant ? resolvePlantIdentity(plant) : null;
+  const plan = plant && entry ? listCarePlans({ speciesId: plant.speciesId, stageId: plant.stageId }).find((item) => item.activityType === entry.type) : null;
+  const evaluation = query.data?.evaluations.find((item) => item.plantId === entry?.plantId && item.activityType === entry.type);
+  const stageObjective = plant ? getStagePlaybook(plant.stageId)?.primaryObjective : undefined;
   return <>
     <Screen introduction="Theo dõi việc chăm sóc cần chú ý trong ngày." title="Hôm nay">
       {query.isPending ? <Typography color="textSecondary" variant="bodyLarge">Đang tải dữ liệu trên thiết bị…</Typography> : null}
@@ -48,6 +51,6 @@ export function TodayScreen() {
       await saveCareActivity({ id: createId(), mutationId: createId(), plantId: entry.plantId, type: entry.type, occurredAt: details.occurredAt, origin: "today", amount: details.amount, notes: details.notes, createdAt });
       await Promise.all([queryClient.invalidateQueries({ queryKey: ["plant-detail", entry.plantId] }), queryClient.invalidateQueries({ queryKey: ["today"] }), queryClient.invalidateQueries({ queryKey: ["journal"] })]);
       setEntry(null);
-    }} plantName={plant.name} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} type={entry.type} visible /> : null}
+    }} plantName={plant.name} reason={evaluation?.explanation || stageObjective} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} suggestion={plan?.recommendedInputs?.map((input) => input.examples).join(" · ")} type={entry.type} visible /> : null}
   </>;
 }

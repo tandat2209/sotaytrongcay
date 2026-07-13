@@ -33,6 +33,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRe
   const [quickCareOpen, setQuickCareOpen] = useState(false);
   const [careEntryType, setCareEntryType] = useState<CareActivityType | null>(null);
   const [selectedCareCard, setSelectedCareCard] = useState<CareCardModel | null>(null);
+  const entryCard = careEntryType ? projection.careCards.find((card) => card.activityType === careEntryType) : null;
   const recordQuickCare = (type: CareActivityType) => {
     setQuickCareOpen(false);
     setCareEntryType(type);
@@ -79,7 +80,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRe
       {careEntryType ? <CareEntryScreen onDismiss={() => setCareEntryType(null)} onSave={async (details) => {
         await onRecordCare(careEntryType, details);
         setCareEntryType(null);
-      }} plantName={projection.plant.name} speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} type={careEntryType} visible /> : null}
+      }} plantName={projection.plant.name} reason={entryCard?.evaluation?.explanation || projection.stagePlaybook?.primaryObjective} speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} suggestion={entryCard?.details?.recommendedInputs.map((input) => input.examples).join(" · ")} type={careEntryType} visible /> : null}
     </>
   );
 }
