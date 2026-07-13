@@ -13,6 +13,7 @@ export default function PlantDetailRoute() {
     onBack={() => router.replace("/plants")}
     onOpenActivity={(activityId) => router.push(`/entries/${activityId}`)}
     onOpenPlaybook={() => router.push({ pathname: "/plants/[id]/guide", params: { id } })}
+    onOpenUpdate={(updateId) => router.push(`/updates/${updateId}`)}
     onRecordCare={async (type, details) => {
       const createdAt = new Date().toISOString();
       await saveCareActivity({ id: createId(), mutationId: createId(), plantId: id, type, occurredAt: details.occurredAt, origin: "manual", amount: details.amount, notes: details.notes, createdAt });

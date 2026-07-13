@@ -221,19 +221,21 @@ Optional fields include variety, location, planted date, and notes.
 
 Show content in this order:
 
-1. Plant identity, latest saved journal photo when available, and confirmed current-stage badge.
-2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. Show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
-3. Compact current-stage objective and Stage Playbook action.
+1. Plant identity using the latest saved journal photo as a rounded hero when available. Overlay the plant name and species on a bottom contrast gradient; otherwise use a compact leaf identity fallback.
+2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. This is the single visible current-stage identifier: show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
+3. Compact current-stage objective without repeating the stage title, followed by a labelled Stage Playbook action.
 4. “Chăm sóc hôm nay” with large watering and fertilizing cards.
 5. Informational stage topics and milestones.
 6. Weather context.
-7. Three most recent saved core-care activities.
+7. “Nhật ký gần đây” with the three most recent saved journal entries across core care and plant updates.
 
 Each care card shows reviewed recommendation title, growing-method frequency when defined, last saved activity, and deterministic status (`Nên xem xét`, `Chưa cần`, or `Chưa có gợi ý`). Keep the hierarchy compact: place a small activity icon beside the title, render frequency as supporting text without a filled chip, present the info action with secondary emphasis, and group the last activity with its status without a divider. Show the relative last-activity value directly without a redundant “Lần gần nhất” caption; keep the full meaning in the activity link's accessibility label. Missing reviewed frequency shows “Chưa có tần suất đã duyệt”. Status remains derived context, never persisted task state. When reviewed recommendation details exist, the card info action opens a read-only bottom sheet with the approved goal, growing-method frequency, recommended inputs, and notes. Empty optional sections stay absent; the sheet never records care.
 
 A plant-scoped floating action menu is the single record entry point on Plant Detail and opens watering, fertilizing, spraying, and “Thêm nhật ký”. Care cards do not duplicate record buttons. While closed, each action icon changes about every three seconds, sliding from left to right as the button changes to the matching activity color with a brief bounce; it pauses while open and uses a static green create icon when reduced motion is enabled. The control expands with labeled activity icons and changes to a close state while open. Opening a choice does not record history until the user selects “Lưu hoạt động” or “Lưu nhật ký”. The FAB is local to Plant Detail, not global.
 
-Plant Detail displays the first photo from the newest photo-bearing saved Plant Update by occurrence time. Note-only updates leave the displayed photo unchanged. Health status and days in stage remain absent until persisted source contracts exist; do not infer them from planting date, creation date, stage, photos, or care history.
+Plant Detail displays the first photo from the newest photo-bearing saved Plant Update by occurrence time. When present, the photo uses a 16:9 rounded hero with the plant name and species over a bottom gradient; tapping it opens the uncropped image in a full-screen viewer. The hero scrolls with the page. A missing photo does not create a large placeholder: use the compact leaf identity fallback instead. Note-only updates leave the displayed photo unchanged. Health status and days in stage remain absent until persisted source contracts exist; do not infer them from planting date, creation date, stage, photos, or care history.
+
+“Nhật ký gần đây” interleaves saved Care Activities and Plant Updates by occurrence time and shows at most three entries. Care rows show the activity icon, title, and time. Plant Update rows show the first saved photo thumbnail when available or a note icon otherwise, plus a note/photo summary and time. Selecting a row opens the matching care or update detail screen. Plant Updates remain journal records rather than dedicated care activities.
 
 **Empty state:** Missing care shows “Chưa có dữ liệu” with the relevant record action. Missing reviewed recommendation shows “Chưa có gợi ý”. Unknown lifecycle or stage remains explicit.
 
@@ -241,7 +243,7 @@ Plant Detail displays the first photo from the newest photo-bearing saved Plant 
 
 **Error state:** Keep manual tracking available if guidance or weather fails. Label stale weather. Return to Plants if the plant no longer exists.
 
-**User actions:** Review journey and current guidance, open Stage Playbook, open last activity, record core care through Care Entry, or review recent activity.
+**User actions:** Review journey and current guidance, open Stage Playbook, open a recent care or plant-update record, record core care through Care Entry, or review recent journal history.
 
 ### 7.5.1 Stage Playbook — "Hướng dẫn chi tiết"
 

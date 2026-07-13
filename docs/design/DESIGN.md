@@ -149,17 +149,21 @@ Show “Thêm nhật ký” as a secondary action, visually distinct from care d
 
 Prioritize:
 
-1. Plant identity and confirmed current stage.
-2. Compact, horizontally scrollable 12-stage lifecycle journey with current position only.
-3. Compact current-stage objective.
+1. Plant identity presented over the latest persisted photo hero when available, with a compact leaf fallback when absent.
+2. Compact, horizontally scrollable 12-stage lifecycle journey as the single current-stage identifier.
+3. Compact current-stage objective without repeating the stage title.
 4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Use the Plant Detail floating action menu as the single record entry point.
 5. Stage topics and upcoming milestone.
 6. Weather context.
-7. Three most recent saved care activities.
+7. Three most recent saved journal entries, interleaving care activities and plant updates.
 
 Use the 8/16/24-point spacing scale consistently, 24-point care-card padding, 20-point care-card corners, and large type. Keep journey compact and horizontal; all 12 stages remain reachable by scrolling. Do not replace it with percentage progress.
 
+When a latest persisted photo exists, use a 16:9 rounded hero and place the plant name and species at the bottom over a dark contrast gradient. The whole hero opens the uncropped image in a full-screen viewer. Do not place the stage in the hero because the journey immediately below owns that context. Without a saved photo, keep identity compact rather than enlarging the leaf placeholder.
+
 Within each care card, keep the activity icon compact and align it with the title. Frequency is supporting text rather than a filled chip, the info action has secondary emphasis while retaining its touch target, and last activity and status share one section without a divider.
+
+Label the compact mixed-history section “Nhật ký gần đây”. Care rows use their activity visual; Plant Update rows use the first photo thumbnail when present or a note icon otherwise. Keep both row types visually equivalent and route each to its own detail screen.
 
 Do not display fabricated photo, health, days-in-stage, progress, or sensor measurements. Every value needs a persisted user, device, knowledge, or provider source and freshness where relevant.
 
@@ -254,7 +258,7 @@ Prefer safe actions such as checking soil moisture, reviewing recent care, obser
 
 ### Plant identity
 
-Use shared `PlantIdentity` whenever a screen has plant identity data. Layout: photo or leaf placeholder at left; name; then species title, stage icon, and stage title. Existing plants have no persisted photo URI, so use the leaf placeholder. A real photo may render only after a persisted URI contract exists. Keep placeholder and stage icon decorative when visible text already identifies the plant.
+Use shared `PlantIdentity` for compact identity surfaces such as plant lists, rails, journal, and entry flows. Its layout is photo or leaf placeholder at left; name; then species title, stage icon, and stage title. Plant Detail is the deliberate exception: `PlantDetailHero` uses the latest derived persisted journal photo, overlays name and species, and leaves stage context to the lifecycle journey. A real photo may render only through a persisted URI contract. Keep placeholder and stage icons decorative when visible text already identifies the plant.
 
 ### Icons and images
 

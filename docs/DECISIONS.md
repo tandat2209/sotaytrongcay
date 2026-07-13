@@ -266,6 +266,26 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** A stage without an authored transition still has no "Sắp tới" card. Transition targets without a stage playbook are treated as unavailable rather than inferred.
 
+## 2026-07-14 — Make the latest persisted photo the Plant Detail hero
+
+**Status:** Accepted
+
+**Decision:** When a plant has a persisted journal photo, Plant Detail presents the latest derived photo as a rounded 16:9 hero. The plant name and species appear at the bottom over a dark contrast gradient, and tapping the hero opens the uncropped image in a full-screen viewer. The lifecycle journey is the screen's single visible current-stage identifier; the hero and objective card do not repeat the stage title. Without a persisted photo, Plant Detail uses a compact leaf identity fallback rather than a large placeholder.
+
+**Rationale:** A prominent real photo makes journal updates visibly valuable and helps the grower recognize the plant. Consolidating stage identity in the journey removes three competing repetitions while preserving the confirmed stage and ordered lifecycle context.
+
+**Consequences:** The photo continues to derive from the newest photo-bearing saved Plant Update; no Plant-owned photo pointer or inferred image is introduced. The hero scrolls with content, the plant-scoped action menu remains floating, and the objective card uses a labelled “Xem hướng dẫn chi tiết” action. Plant lists and entry flows keep the shared compact `PlantIdentity` treatment because they do not show the lifecycle journey.
+
+## 2026-07-14 — Show mixed recent journal history on Plant Detail
+
+**Status:** Accepted
+
+**Decision:** Plant Detail labels its recent-history section “Nhật ký gần đây” and shows the three newest saved journal entries by occurrence time, interleaving Care Activities and Plant Updates. Each record keeps its domain type and opens its corresponding detail screen.
+
+**Rationale:** A photo, note, pruning observation, or confirmed stage update is part of the plant's recent history even though it is not a dedicated watering, fertilizing, or spraying activity. Showing only core care made the Plant Detail history incomplete immediately after saving a plant update.
+
+**Consequences:** The Plant Detail projection reuses the Journal's mixed `JournalItem` ordering and applies the three-entry display limit after interleaving. This does not reclassify Plant Updates as Care Activities, add task state, or complete the broader reminder-aware Timeline backlog.
+
 ## Decision template
 
 ```md

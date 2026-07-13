@@ -28,6 +28,19 @@ function activity(type: CareActivity["type"], occurredAt: string, id: string): C
   };
 }
 
+function plantUpdate(occurredAt: string, id: string): PlantUpdate {
+  return {
+    id,
+    mutationId: "e5ba0d31-9de3-433b-b475-4d8bec3b6a48",
+    plantId: plant.id,
+    occurredAt,
+    notes: "Cây có chồi mới.",
+    stageId: plant.stageId,
+    photos: [],
+    createdAt: occurredAt,
+  };
+}
+
 function project(activities: readonly CareActivity[] = [], selectedPlant = plant, updates: readonly PlantUpdate[] = []) {
   return createPlantDetailProjection({ activities, evaluatedAt, plant: selectedPlant, updates });
 }
@@ -88,18 +101,20 @@ describe("createPlantDetailProjection", () => {
     expect(activities.map((item) => item.id)).toEqual(originalOrder);
   });
 
-  it("keeps only three recent activities", () => {
+  it("interleaves care and plant updates in three recent journal entries", () => {
     const projection = project([
       activity("watering", "2026-07-15T08:00:00.000Z", "aa000001-0000-0000-0000-000000000001"),
-      activity("fertilizing", "2026-07-14T08:00:00.000Z", "aa000002-0000-0000-0000-000000000002"),
       activity("spraying", "2026-07-13T08:00:00.000Z", "aa000003-0000-0000-0000-000000000003"),
       activity("watering", "2026-07-12T08:00:00.000Z", "aa000004-0000-0000-0000-000000000004"),
+    ], plant, [
+      plantUpdate("2026-07-16T08:00:00.000Z", "bb000001-0000-0000-0000-000000000001"),
+      plantUpdate("2026-07-14T08:00:00.000Z", "bb000002-0000-0000-0000-000000000002"),
     ]);
 
-    expect(projection.recentCare.map((item) => item.id)).toEqual([
-      "aa000001-0000-0000-0000-000000000001",
-      "aa000002-0000-0000-0000-000000000002",
-      "aa000003-0000-0000-0000-000000000003",
+    expect(projection.recentJournalItems.map((item) => `${item.kind}:${item.id}`)).toEqual([
+      "update:bb000001-0000-0000-0000-000000000001",
+      "care:aa000001-0000-0000-0000-000000000001",
+      "update:bb000002-0000-0000-0000-000000000002",
     ]);
   });
 

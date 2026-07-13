@@ -6,6 +6,8 @@ export { CARE_ACTIVITY_ICONS, CARE_ACTIVITY_VISUALS } from "./models/care-activi
 export type { CareActivityVisual } from "./models/care-activity-icon";
 export { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_ORIGIN_LABELS } from "./models/care-activity";
 export type { CareActivity, CareActivityOrigin, CareActivityType } from "./models/care-activity";
+export { createJournalItems } from "./models/journal-item";
+export type { JournalItem } from "./models/journal-item";
 export { getLatestPlantPhoto } from "./models/plant-update";
 export type { PlantUpdate, PlantUpdatePhoto } from "./models/plant-update";
 export { CareEntryScreen } from "./ui/CareEntryScreen";

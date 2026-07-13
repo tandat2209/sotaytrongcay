@@ -1,4 +1,4 @@
-import { getLatestPlantPhoto, type CareActivity, type CareActivityType, type PlantUpdate } from "@/features/journal";
+import { createJournalItems, getLatestPlantPhoto, type CareActivity, type CareActivityType, type JournalItem, type PlantUpdate } from "@/features/journal";
 import type { CareEvaluation } from "@/features/guidance/models/care-evaluation";
 import { evaluateCarePlans } from "@/features/guidance/models/evaluate-care-recommendations";
 import {
@@ -12,7 +12,7 @@ import { resolvePlantIdentity } from "./plant-identity";
 
 const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
 const HERO_CARE_TYPES = ["watering", "fertilizing"] as const;
-const RECENT_CARE_LIMIT = 3;
+const RECENT_JOURNAL_LIMIT = 3;
 
 export type PlantDetailCareDetails = Readonly<{
   frequencyDisplay: string | null;
@@ -42,7 +42,7 @@ export type PlantDetailProjection = Readonly<{
   lifecycleStages: readonly PlantDetailLifecycleStage[];
   latestPhotoUri: string | null;
   plant: Plant;
-  recentCare: readonly CareActivity[];
+  recentJournalItems: readonly JournalItem[];
   speciesTitle: string;
   stagePlaybook: StagePlaybook | null;
   stageTitle: string;
@@ -87,7 +87,7 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant, up
     latestPhotoUri: getLatestPlantPhoto(updates)?.localUri ?? null,
     lifecycleStages: knowledge?.stages.map((stage) => ({ ...stage, isCurrent: stage.id === plant.stageId })) ?? [],
     plant,
-    recentCare: sortedActivities.slice(0, RECENT_CARE_LIMIT),
+    recentJournalItems: createJournalItems(activities, updates).slice(0, RECENT_JOURNAL_LIMIT),
     speciesTitle: identity.speciesTitle,
     stagePlaybook: getStagePlaybook(plant.stageId),
     stageTitle: identity.stageTitle,

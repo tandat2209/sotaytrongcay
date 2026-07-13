@@ -14,11 +14,12 @@ type Props = Readonly<{
   onBack: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook: () => void;
+  onOpenUpdate: (id: string) => void;
   onRecordCare: (type: CareActivityType, details: CareEntryDetails) => Promise<void>;
   plantId: string;
 }>;
 
-export function PlantDetailContainer({ onAddJournal, onBack, onOpenActivity, onOpenPlaybook, onRecordCare, plantId }: Props) {
+export function PlantDetailContainer({ onAddJournal, onBack, onOpenActivity, onOpenPlaybook, onOpenUpdate, onRecordCare, plantId }: Props) {
   const query = useQuery({ queryKey: ["plant-detail", plantId], queryFn: async () => {
     const [plant, activities, updates] = await Promise.all([getPlant(plantId), listCareActivities(plantId), listPlantUpdates(plantId)]);
     return plant ? createPlantDetailProjection({ activities, evaluatedAt: new Date(), plant, updates }) : null;
@@ -26,5 +27,5 @@ export function PlantDetailContainer({ onAddJournal, onBack, onOpenActivity, onO
   if (query.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
   if (query.isError) return <><Text>{query.error instanceof z.ZodError ? "Dữ liệu trên thiết bị chưa hợp lệ." : "Chưa thể tải cây."}</Text><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></>;
   if (!query.data) return <><Text>Không tìm thấy cây trồng.</Text><PrimaryButton label="Quay lại Cây trồng" onPress={onBack} /></>;
-  return <PlantDetailScreen onAddJournal={onAddJournal} onBack={onBack} onOpenActivity={onOpenActivity} onOpenPlaybook={onOpenPlaybook} onRecordCare={onRecordCare} projection={query.data} weather={productionWeather} />;
+  return <PlantDetailScreen onAddJournal={onAddJournal} onBack={onBack} onOpenActivity={onOpenActivity} onOpenPlaybook={onOpenPlaybook} onOpenUpdate={onOpenUpdate} onRecordCare={onRecordCare} projection={query.data} weather={productionWeather} />;
 }

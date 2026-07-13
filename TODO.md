@@ -33,6 +33,8 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Add Journal source labels and filters.
 - [ ] Verify loading, empty, error, stale-weather, and offline states.
 - [x] Derive the Plant Detail photo from persisted user-captured Plant Update photos.
+- [x] Present the latest persisted Plant Detail photo as a tappable identity hero with a compact no-photo fallback.
+- [x] Interleave saved care and Plant Updates in Plant Detail’s three-entry recent journal.
 - [ ] Show the latest persisted Plant Update photo on Today.
 - [ ] Define explicit user-observation or sourced-measurement contract before showing plant health status.
 - [ ] Persist stage-entry history before showing days in current stage; never infer it from `createdAt` or `plantedAt`.
