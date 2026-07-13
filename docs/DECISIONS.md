@@ -248,7 +248,7 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Status:** Accepted
 
-**Decision:** Plant Detail keeps one plant-scoped floating action menu with four explicit choices: watering, fertilizing, spraying, and “Thêm nhật ký”. The control may animate its expansion and action icons, but it must respect reduced-motion preferences and expose stable Vietnamese accessibility labels. Selecting an action only opens its entry flow; history changes only after the user saves.
+**Decision:** Plant Detail keeps one plant-scoped floating action menu with four explicit choices: watering, fertilizing, spraying, and “Thêm nhật ký”. While closed, the control may cycle through those four icons about every three seconds with a left-to-right slide, a brief button bounce, and the matching activity background color, then show a close icon while expanded. It must pause idle animation while open, respect reduced-motion preferences, and expose a stable Vietnamese accessibility label independent of the decorative icon. Selecting an action only opens its entry flow; history changes only after the user saves.
 
 Journal photos remain owned by Plant Updates. Plant Detail derives its displayed plant image from the first photo of the newest photo-bearing saved update by occurrence time. A note-only update does not replace the image, and no duplicate photo pointer is stored on the Plant.
 

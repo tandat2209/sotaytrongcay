@@ -231,7 +231,7 @@ Show content in this order:
 
 Each care card shows reviewed recommendation title, growing-method frequency when defined, last saved activity, and deterministic status (`Nên xem xét`, `Chưa cần`, or `Chưa có gợi ý`). Keep the hierarchy compact: place a small activity icon beside the title, render frequency as supporting text without a filled chip, present the info action with secondary emphasis, and group the last activity with its status without a divider. Show the relative last-activity value directly without a redundant “Lần gần nhất” caption; keep the full meaning in the activity link's accessibility label. Missing reviewed frequency shows “Chưa có tần suất đã duyệt”. Status remains derived context, never persisted task state. When reviewed recommendation details exist, the card info action opens a read-only bottom sheet with the approved goal, growing-method frequency, recommended inputs, and notes. Empty optional sections stay absent; the sheet never records care.
 
-A plant-scoped floating action menu is the single record entry point on Plant Detail and opens watering, fertilizing, spraying, and “Thêm nhật ký”. Care cards do not duplicate record buttons. The control expands with labeled activity icons, changes to a close state while open, and respects reduced-motion preferences. Opening a choice does not record history until the user selects “Lưu hoạt động” or “Lưu nhật ký”. The FAB is local to Plant Detail, not global.
+A plant-scoped floating action menu is the single record entry point on Plant Detail and opens watering, fertilizing, spraying, and “Thêm nhật ký”. Care cards do not duplicate record buttons. While closed, each action icon changes about every three seconds, sliding from left to right as the button changes to the matching activity color with a brief bounce; it pauses while open and uses a static green create icon when reduced motion is enabled. The control expands with labeled activity icons and changes to a close state while open. Opening a choice does not record history until the user selects “Lưu hoạt động” or “Lưu nhật ký”. The FAB is local to Plant Detail, not global.
 
 Plant Detail displays the first photo from the newest photo-bearing saved Plant Update by occurrence time. Note-only updates leave the displayed photo unchanged. Health status and days in stage remain absent until persisted source contracts exist; do not infer them from planting date, creation date, stage, photos, or care history.
 
@@ -441,7 +441,7 @@ Do not show unavailable future capabilities as disabled placeholders.
 
 Today, Plants, Journal, and Me remain persistent destinations. Actions live on Today and Plant Detail, where the plant and care context are visible.
 
-No global FAB avoids duplicating Today actions. Plant Detail alone may use one plant-scoped Quick Care FAB because plant context is already fixed; it opens Care Entry and never writes history directly.
+No global FAB avoids duplicating Today actions. Plant Detail alone may use one plant-scoped floating action menu because plant context is already fixed; it opens Care Entry or “Thêm nhật ký” and never writes history directly.
 
 Journal is justified by cross-plant activity history, but prototype research should confirm it remains frequent enough for a tab.
 

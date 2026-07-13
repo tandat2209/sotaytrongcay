@@ -241,6 +241,7 @@ Prefer safe actions such as checking soil moisture, reviewing recent care, obser
 
 - Keep the control local to Plant Detail and expand it into four labeled actions: watering, fertilizing, spraying, and “Thêm nhật ký”.
 - Use the matching activity or camera icon for each action and a close icon while expanded.
+- While closed, change the icon about every three seconds, slide the four action icons from left to right, pair each one with its activity color, and use one short bounce per change; do not run a continuous pulse.
 - Animate expansion with restrained opacity, scale, and position changes; when reduced motion is enabled, reveal the actions without spatial movement.
 - Dismiss on backdrop press and preserve a minimum 44 × 44 point target for every action.
 
