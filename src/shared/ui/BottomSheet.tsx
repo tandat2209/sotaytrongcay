@@ -45,7 +45,7 @@ export function BottomSheet({ children, footer, onDismiss, title, visible }: Bot
               {typeof title === "string" ? <Typography variant="headlineSmall">{title}</Typography> : title}
               <IconButton accessibilityLabel="Đóng" icon="close" onPress={onDismiss} />
             </View>
-            <ScrollView contentContainerStyle={styles.content}>{children}</ScrollView>
+            <ScrollView contentContainerStyle={styles.content} style={styles.scrollableContent}>{children}</ScrollView>
             {footer ? <View style={styles.footer}>{footer}</View> : null}
           </SafeAreaView>
         </Animated.View>
@@ -68,11 +68,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: radius.sheet,
     borderTopWidth: StyleSheet.hairlineWidth,
     elevation: 16,
+    maxHeight: "100%",
     overflow: "hidden",
     shadowColor: colors.text,
     shadowOffset: { height: -4, width: 0 },
     shadowOpacity: 0.16,
     shadowRadius: 14,
   },
+  scrollableContent: { flexShrink: 1 },
   sheetContainer: { maxHeight: "85%", width: "100%" },
 });
