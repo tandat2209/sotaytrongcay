@@ -17,10 +17,14 @@ eligibility:
 on_missing_history: suggest
 notes:
   - >-
-    Không tự động điền sẵn lượng nước hoặc độ ẩm đất khi người dùng chưa xác
-    nhận.
-  - Không suy đoán điều kiện trồng khi chưa có đủ bối cảnh.
-  - Không chuyển thời gian từ lần tưới trước thành lượng nước tưới tự động.
+    Kiểm tra đất quanh vùng rễ trước khi tưới; chỉ tưới khi đất bắt đầu khô,
+    không tưới theo lịch cố định.
+  - >-
+    Tưới chậm vào vùng gốc để đất ẩm đều; không để nước đọng quanh gốc hoặc
+    trong chậu.
+  - >-
+    Điều chỉnh lần tưới theo nắng, mưa, loại chậu và khả năng thoát nước của
+    đất.
 version: 1.0.0
 status: review
 references:
