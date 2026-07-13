@@ -159,6 +159,8 @@ Prioritize:
 
 Use the 8/16/24-point spacing scale consistently, 24-point care-card padding, 20-point care-card corners, and large type. Keep journey compact and horizontal; all 12 stages remain reachable by scrolling. Do not replace it with percentage progress.
 
+Within each care card, keep the activity icon compact and align it with the title. Frequency is supporting text rather than a filled chip, the info action has secondary emphasis while retaining its touch target, and last activity and status share one section without a divider.
+
 Do not display fabricated photo, health, days-in-stage, progress, or sensor measurements. Every value needs a persisted user, device, knowledge, or provider source and freshness where relevant.
 
 ### Stage playbook
