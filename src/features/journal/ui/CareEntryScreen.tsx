@@ -70,7 +70,7 @@ export function CareEntryScreen({ onDismiss, onSave, plantName, reason, speciesT
     <PlantIdentity name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
     {suggestion ? <ContextRow icon="bulb-outline" label="Gợi ý:" text={suggestion} /> : null}
     {reason ? <ContextRow icon="help-circle-outline" label="Lý do:" text={reason} /> : null}
-    <FormField error={error?.startsWith("Thời gian") ? error : undefined} label="Thời gian thực hiện">
+    <FormField error={error?.startsWith("Thời gian") ? error : null} label="Thời gian thực hiện">
       <Pressable accessibilityLabel="Chọn thời gian thực hiện" accessibilityRole="button" onPress={() => setShowPicker(true)} style={styles.timeButton}>
         <Typography variant="bodyLarge">{occurredAt.toLocaleString("vi-VN")}</Typography>
         <Ionicons color={colors.textSecondary} name="calendar-outline" size={20} />
@@ -81,8 +81,8 @@ export function CareEntryScreen({ onDismiss, onSave, plantName, reason, speciesT
       }} value={occurredAt} /> : null}
       {showPicker && Platform.OS === "ios" ? <Pressable accessibilityLabel="Xong" accessibilityRole="button" onPress={() => setShowPicker(false)} style={styles.done}><Typography color="primary" variant="bodyLarge">Xong</Typography></Pressable> : null}
     </FormField>
-    {type === "watering" ? <FormField error={error?.startsWith("Lượng") ? error : undefined} label="Lượng nước (không bắt buộc)"><View style={styles.amountRow}><TextInput accessibilityLabel="Lượng nước" inputMode="decimal" onChangeText={setAmount} placeholder="0" placeholderTextColor={colors.textSecondary} style={styles.input} value={amount} /><Typography style={styles.unit} variant="bodyLarge">lít</Typography></View></FormField> : null}
-    <FormField error={error?.startsWith("Chưa thể") ? error : undefined} label="Ghi chú (không bắt buộc)"><TextInput accessibilityLabel="Ghi chú" multiline onChangeText={setNotes} placeholder="Thêm điều bạn muốn nhớ" placeholderTextColor={colors.textSecondary} style={[styles.input, styles.notes]} value={notes} /></FormField>
+    {type === "watering" ? <FormField error={error?.startsWith("Lượng") ? error : null} label="Lượng nước (không bắt buộc)"><View style={styles.amountRow}><TextInput accessibilityLabel="Lượng nước" inputMode="decimal" onChangeText={setAmount} placeholder="0" placeholderTextColor={colors.textSecondary} style={styles.input} value={amount} /><Typography style={styles.unit} variant="bodyLarge">lít</Typography></View></FormField> : null}
+    <FormField error={error?.startsWith("Chưa thể") ? error : null} label="Ghi chú (không bắt buộc)"><TextInput accessibilityLabel="Ghi chú" multiline onChangeText={setNotes} placeholder="Thêm điều bạn muốn nhớ" placeholderTextColor={colors.textSecondary} style={[styles.input, styles.notes]} value={notes} /></FormField>
   </BottomSheet>;
 }
 

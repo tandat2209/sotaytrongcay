@@ -40,17 +40,19 @@ export function TodayScreen() {
   const plan = plant && entry ? listCarePlans({ speciesId: plant.speciesId, stageId: plant.stageId }).find((item) => item.activityType === entry.type) : null;
   const evaluation = query.data?.evaluations.find((item) => item.plantId === entry?.plantId && item.activityType === entry.type);
   const stageObjective = plant ? getStagePlaybook(plant.stageId)?.primaryObjective : undefined;
+  const entryReason = evaluation?.explanation || stageObjective;
+  const entrySuggestion = plan?.recommendedInputs?.map((input) => input.examples).join(" · ");
   return <>
     <Screen introduction="Theo dõi việc chăm sóc cần chú ý trong ngày." title="Hôm nay">
       {query.isPending ? <Typography color="textSecondary" variant="bodyLarge">Đang tải dữ liệu trên thiết bị…</Typography> : null}
       {query.isError ? <><Typography color="textSecondary" variant="bodyLarge">{errorMessage}</Typography><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></> : null}
       {query.data ? <TodayOverview onAddPlant={() => router.push("/plants/new")} onOpenActivity={(id) => router.push(`/entries/${id}`)} onOpenJournal={() => router.push("/journal")} onOpenPlant={(id) => router.push(`/plants/${id}`)} onRecordCare={(plantId, type) => setEntry({ plantId, type })} projection={query.data} /> : null}
     </Screen>
-    {entry && plant && identity ? <CareEntryScreen onDismiss={() => setEntry(null)} onSave={async (details) => {
+    {entry && plant && identity ? <CareEntryScreen {...(entryReason ? { reason: entryReason } : {})} {...(entrySuggestion ? { suggestion: entrySuggestion } : {})} onDismiss={() => setEntry(null)} onSave={async (details) => {
       const createdAt = new Date().toISOString();
       await saveCareActivity({ id: createId(), mutationId: createId(), plantId: entry.plantId, type: entry.type, occurredAt: details.occurredAt, origin: "today", amount: details.amount, notes: details.notes, createdAt });
       await Promise.all([queryClient.invalidateQueries({ queryKey: ["plant-detail", entry.plantId] }), queryClient.invalidateQueries({ queryKey: ["today"] }), queryClient.invalidateQueries({ queryKey: ["journal"] })]);
       setEntry(null);
-    }} plantName={plant.name} reason={evaluation?.explanation || stageObjective} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} suggestion={plan?.recommendedInputs?.map((input) => input.examples).join(" · ")} type={entry.type} visible /> : null}
+    }} plantName={plant.name} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} type={entry.type} visible /> : null}
   </>;
 }

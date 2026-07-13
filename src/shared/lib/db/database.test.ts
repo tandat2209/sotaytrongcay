@@ -4,12 +4,23 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(3);
+    expect(DATABASE_VERSION).toBe(5);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
     expect(sql).toContain("amount_unit TEXT CHECK (amount_unit IN ('liter'))");
     expect(sql).toContain("mutation_id TEXT NOT NULL UNIQUE");
+  });
+
+  it("adds journal updates, ordered photos, and stage history in version 5", () => {
+    const sql = getMigrationStatements(4).join("\n");
+
+    expect(sql).toContain("CREATE TABLE plant_updates");
+    expect(sql).toContain("CREATE TABLE plant_update_photos");
+    expect(sql).toContain("position INTEGER NOT NULL");
+    expect(sql).toContain("CREATE TABLE plant_stage_history");
+    expect(sql).toContain("journal_entry_id TEXT NOT NULL UNIQUE");
+    expect(sql).not.toContain("DROP TABLE");
   });
 
   it("resets the prototype tables before establishing the clean baseline", () => {

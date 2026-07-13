@@ -244,6 +244,18 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Rationale:** Plant Detail already provides unambiguous plant context. One local entry point keeps all three core care actions reachable while the main care cards prioritize watering and fertilizing. Explicit Save remains the only history-write boundary.
 
+## 2026-07-13 — Add journal updates to the Plant Detail action menu
+
+**Status:** Accepted
+
+**Decision:** Plant Detail keeps one plant-scoped floating action menu with four explicit choices: watering, fertilizing, spraying, and “Thêm nhật ký”. The control may animate its expansion and action icons, but it must respect reduced-motion preferences and expose stable Vietnamese accessibility labels. Selecting an action only opens its entry flow; history changes only after the user saves.
+
+Journal photos remain owned by Plant Updates. Plant Detail derives its displayed plant image from the first photo of the newest photo-bearing saved update by occurrence time. A note-only update does not replace the image, and no duplicate photo pointer is stored on the Plant.
+
+**Rationale:** The plant context is already fixed, and a photo journal update is the next common plant-scoped record alongside the three core care activities. Deriving the image from journal history keeps one source of truth and allows future entry edits or deletion to fall back naturally to the next newest photo.
+
+**Consequences:** This supersedes the three-choice limit in the 2026-07-13 Plant Detail Quick Care decision while preserving its local-only scope and explicit-save boundary. The app must persist Plant Updates and photo metadata before rendering a plant photo. Today remains FAB-free.
+
 ## 2026-07-13 — Browse Stage Playbooks by authored transitions
 
 **Status:** Accepted

@@ -1,4 +1,4 @@
-import type { CareActivity } from "@/features/journal";
+import type { CareActivity, PlantUpdate } from "@/features/journal";
 import type { Plant } from "./plant";
 import { createPlantDetailProjection } from "./plant-detail-projection";
 
@@ -28,8 +28,8 @@ function activity(type: CareActivity["type"], occurredAt: string, id: string): C
   };
 }
 
-function project(activities: readonly CareActivity[] = [], selectedPlant = plant) {
-  return createPlantDetailProjection({ activities, evaluatedAt, plant: selectedPlant });
+function project(activities: readonly CareActivity[] = [], selectedPlant = plant, updates: readonly PlantUpdate[] = []) {
+  return createPlantDetailProjection({ activities, evaluatedAt, plant: selectedPlant, updates });
 }
 
 describe("createPlantDetailProjection", () => {
@@ -101,6 +101,21 @@ describe("createPlantDetailProjection", () => {
       "aa000002-0000-0000-0000-000000000002",
       "aa000003-0000-0000-0000-000000000003",
     ]);
+  });
+
+  it("projects the latest saved journal photo", () => {
+    const update: PlantUpdate = {
+      id: "86ee7489-6147-42b9-b73f-5650ea7fd214",
+      mutationId: "c353342e-9fe0-43a3-9d84-1b0ed436011d",
+      plantId: plant.id,
+      occurredAt: "2026-07-13T15:00:00.000Z",
+      notes: null,
+      stageId: plant.stageId,
+      photos: [{ id: "7174d8e3-df23-4f13-9e06-245ebfc9877b", localUri: "file:///journal/latest.jpg", position: 0, createdAt: "2026-07-13T15:00:00.000Z" }],
+      createdAt: "2026-07-13T15:00:00.000Z",
+    };
+
+    expect(project([], plant, [update]).latestPhotoUri).toBe("file:///journal/latest.jpg");
   });
 
   it("uses truthful empty guidance for unknown knowledge", () => {

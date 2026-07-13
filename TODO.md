@@ -27,11 +27,13 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Prototype fast watering and fertilizing entry flows.
 - [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.
-- [ ] Add “Thêm nhật ký” with optional stage change to Today and Plant Detail.
+- [x] Add “Thêm nhật ký” with photos, notes, and optional stage change to Plant Detail.
+- [ ] Add “Thêm nhật ký” to Today.
 - [ ] Remove the global FAB and Quick Action menu.
 - [ ] Add Journal source labels and filters.
 - [ ] Verify loading, empty, error, stale-weather, and offline states.
-- [ ] Add plant photo (`photoUri`) to Today and Plant Detail only after the Plant model and user-captured image persistence exist.
+- [x] Derive the Plant Detail photo from persisted user-captured Plant Update photos.
+- [ ] Show the latest persisted Plant Update photo on Today.
 - [ ] Define explicit user-observation or sourced-measurement contract before showing plant health status.
 - [ ] Persist stage-entry history before showing days in current stage; never infer it from `createdAt` or `plantedAt`.
 - [ ] Show Care Plan details in Today priority cards after reviewed UX and content scope.
@@ -48,7 +50,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Deliver current-data Plant Detail slice: three care types summarised and recordable, stage identity, review-guidance text, weather context, recent care history, activity detail navigation, and 'Hướng dẫn chi tiết' link to stage playbook.
 - [x] Extend the first slice with fertilizing, spraying, and full Plant Dashboard care summaries.
 - [ ] Add plant editing and archive flows.
-- [ ] Add photo-and-note journal entries with user-confirmed stage history and plant photos.
+- [x] Add local photo-and-note Plant Updates with user-confirmed stage history, Journal display, and derived Plant Detail photos.
 - [ ] Add reminders and a complete mixed-event Timeline.
 - [ ] Add type-specific fertilizer and spraying details after reviewed field contracts exist.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.

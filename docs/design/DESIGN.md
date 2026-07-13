@@ -124,7 +124,7 @@ Bottom navigation contains four destinations:
 
 The active destination uses primary green for icon and label. Inactive destinations use a neutral color with sufficient contrast.
 
-Do not add a global FAB. Plant Detail may use one local Quick Care FAB for plant-scoped core care; Today remains FAB-free. The FAB opens Care Entry and never saves directly.
+Do not add a global FAB. Plant Detail may use one local floating action menu for plant-scoped watering, fertilizing, spraying, and journal entry; Today remains FAB-free. It opens the selected entry flow and never saves directly.
 
 Plant Detail keeps “Cây trồng” active. A focused form should not show a misleading destination state.
 
@@ -152,7 +152,7 @@ Prioritize:
 1. Plant identity and confirmed current stage.
 2. Compact, horizontally scrollable 12-stage lifecycle journey with current position only.
 3. Compact current-stage objective.
-4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Use Plant Detail Quick Care as the single record action.
+4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Use the Plant Detail floating action menu as the single record entry point.
 5. Stage topics and upcoming milestone.
 6. Weather context.
 7. Three most recent saved care activities.
@@ -236,6 +236,13 @@ Prefer safe actions such as checking soil moisture, reviewing recent care, obser
 - Include a visible grab handle only when drag dismissal is supported.
 - Keep the primary action above the safe area and keyboard.
 - Avoid sheets that require excessive scrolling for a routine action.
+
+### Floating action menu
+
+- Keep the control local to Plant Detail and expand it into four labeled actions: watering, fertilizing, spraying, and “Thêm nhật ký”.
+- Use the matching activity or camera icon for each action and a close icon while expanded.
+- Animate expansion with restrained opacity, scale, and position changes; when reduced motion is enabled, reveal the actions without spatial movement.
+- Dismiss on backdrop press and preserve a minimum 44 × 44 point target for every action.
 
 ### Inputs and selection
 

@@ -50,6 +50,8 @@ _Avoid_: Hướng dẫn chung, hoạt động đã làm, lời nhắc
 A journal note and optional photo about growth, pruning, condition, or other work. It may confirm a stage change but is not a dedicated care activity.
 _Avoid_: Hoạt động quan sát, nhiệm vụ
 
+The latest displayed plant photo is derived from the first photo of the newest photo-bearing saved Plant Update by occurrence time. It is not a separate Plant-owned photo pointer.
+
 **Tình trạng cây** (Plant health condition):
 A structured condition selected for an observation, such as yellow leaves, pests, or wilting. It is not a diagnosis.
 _Avoid_: Chẩn đoán bệnh, trạng thái cây

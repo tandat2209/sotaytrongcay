@@ -3,7 +3,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 import { z } from "zod";
 import { CareEntryScreen, saveCareActivity, type CareActivityType } from "@/features/journal";
-import { getPlant } from "@/features/plants";
+import { getStagePlaybook, listCarePlans } from "@/features/knowledge";
+import { getPlant, resolvePlantIdentity, type Plant } from "@/features/plants";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 
@@ -15,15 +16,19 @@ export default function CareEntryRoute() {
   if (plantQuery.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
   if (plantQuery.isError) return <><Text>Chưa thể tải cây.</Text><PrimaryButton label="Thử lại" onPress={() => void plantQuery.refetch()} /></>;
   if (!plantQuery.data) return <><Text>Không tìm thấy cây trồng.</Text><PrimaryButton label="Quay lại Cây trồng" onPress={() => router.replace("/plants")} /></>;
-  return <CareEntry origin={origin} plantId={id} plantName={plantQuery.data.name} type={type} />;
+  return <CareEntry origin={origin} plant={plantQuery.data} type={type} />;
 }
 
-function CareEntry({ origin, plantId, plantName, type }: Readonly<{ origin: "today" | "manual"; plantId: string; plantName: string; type: CareActivityType }>) {
+function CareEntry({ origin, plant, type }: Readonly<{ origin: "today" | "manual"; plant: Plant; type: CareActivityType }>) {
   const queryClient = useQueryClient();
-  return <CareEntryScreen onBack={() => router.back()} onSave={async (details) => {
+  const identity = resolvePlantIdentity(plant);
+  const plan = listCarePlans({ speciesId: plant.speciesId, stageId: plant.stageId }).find((candidate) => candidate.activityType === type);
+  const reason = getStagePlaybook(plant.stageId)?.primaryObjective;
+  const suggestion = plan?.recommendedInputs?.map((input) => input.examples).join(" · ");
+  return <CareEntryScreen {...(reason ? { reason } : {})} {...(suggestion ? { suggestion } : {})} onDismiss={() => router.back()} onSave={async (details) => {
     const now = new Date().toISOString();
-    await saveCareActivity({ id: createId(), mutationId: createId(), plantId, type, occurredAt: now, origin, amount: details.amount, notes: details.notes, createdAt: now });
-    await Promise.all([queryClient.invalidateQueries({ queryKey: ["plant-detail", plantId] }), queryClient.invalidateQueries({ queryKey: ["today"] }), queryClient.invalidateQueries({ queryKey: ["journal"] })]);
+    await saveCareActivity({ id: createId(), mutationId: createId(), plantId: plant.id, type, occurredAt: details.occurredAt, origin, amount: details.amount, notes: details.notes, createdAt: now });
+    await Promise.all([queryClient.invalidateQueries({ queryKey: ["plant-detail", plant.id] }), queryClient.invalidateQueries({ queryKey: ["today"] }), queryClient.invalidateQueries({ queryKey: ["journal"] })]);
     router.back();
-  }} plantName={plantName} type={type} />;
+  }} plantName={plant.name} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} type={type} visible />;
 }

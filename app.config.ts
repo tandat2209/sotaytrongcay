@@ -18,7 +18,17 @@ const config: ExpoConfig = {
   web: {
     output: "static",
   },
-  plugins: ["expo-router", "expo-secure-store", "expo-sqlite", "@react-native-community/datetimepicker"],
+  plugins: [
+    "expo-router",
+    "expo-secure-store",
+    "expo-sqlite",
+    "@react-native-community/datetimepicker",
+    ["expo-image-picker", {
+      cameraPermission: "Cho phép Sổ tay trồng cây dùng camera để chụp ảnh cây.",
+      microphonePermission: false,
+      photosPermission: "Cho phép Sổ tay trồng cây truy cập ảnh để lưu vào nhật ký.",
+    }],
+  ],
   experiments: {
     typedRoutes: true,
     reactCompiler: true,

@@ -221,7 +221,7 @@ Optional fields include variety, location, planted date, and notes.
 
 Show content in this order:
 
-1. Plant identity and confirmed current-stage badge.
+1. Plant identity, latest saved journal photo when available, and confirmed current-stage badge.
 2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. Show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
 3. Compact current-stage objective and Stage Playbook action.
 4. “Chăm sóc hôm nay” with large watering and fertilizing cards.
@@ -231,9 +231,9 @@ Show content in this order:
 
 Each care card shows reviewed recommendation title, growing-method frequency when defined, last saved activity, and deterministic status (`Nên xem xét`, `Chưa cần`, or `Chưa có gợi ý`). Keep the hierarchy compact: place a small activity icon beside the title, render frequency as supporting text without a filled chip, present the info action with secondary emphasis, and group the last activity with its status without a divider. Show the relative last-activity value directly without a redundant “Lần gần nhất” caption; keep the full meaning in the activity link's accessibility label. Missing reviewed frequency shows “Chưa có tần suất đã duyệt”. Status remains derived context, never persisted task state. When reviewed recommendation details exist, the card info action opens a read-only bottom sheet with the approved goal, growing-method frequency, recommended inputs, and notes. Empty optional sections stay absent; the sheet never records care.
 
-A plant-scoped Quick Care FAB is the single care-entry action on Plant Detail and opens watering, fertilizing, and spraying choices. Care cards do not duplicate record buttons. Opening a choice does not record history until the user selects “Lưu hoạt động”. The FAB is local to Plant Detail, not global.
+A plant-scoped floating action menu is the single record entry point on Plant Detail and opens watering, fertilizing, spraying, and “Thêm nhật ký”. Care cards do not duplicate record buttons. The control expands with labeled activity icons, changes to a close state while open, and respects reduced-motion preferences. Opening a choice does not record history until the user selects “Lưu hoạt động” or “Lưu nhật ký”. The FAB is local to Plant Detail, not global.
 
-Plant photo, health status, and days in stage remain absent until persisted source contracts exist. Do not infer them from planting date, creation date, stage, or care history.
+Plant Detail displays the first photo from the newest photo-bearing saved Plant Update by occurrence time. Note-only updates leave the displayed photo unchanged. Health status and days in stage remain absent until persisted source contracts exist; do not infer them from planting date, creation date, stage, photos, or care history.
 
 **Empty state:** Missing care shows “Chưa có dữ liệu” with the relevant record action. Missing reviewed recommendation shows “Chưa có gợi ý”. Unknown lifecycle or stage remains explicit.
 

@@ -15,11 +15,13 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import type { PlantDetailCareCard as CareCardModel, PlantDetailProjection } from "../models/plant-detail-projection";
 import { CareRecommendationDetails } from "./CareRecommendationDetails";
+import { PlantActionMenu } from "./PlantActionMenu";
 import { PlantIdentity } from "./PlantIdentity";
 import { PlantDetailCareCard } from "./PlantDetailCareCard";
 
 type Props = Readonly<{
   onBack?: () => void;
+  onAddJournal: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook?: () => void;
   onRecordCare: (type: CareActivityType, details: CareEntryDetails) => Promise<void>;
@@ -27,27 +29,25 @@ type Props = Readonly<{
   weather: WeatherState;
 }>;
 
-const QUICK_CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
-
-export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRecordCare, projection, weather }: Props) {
-  const [quickCareOpen, setQuickCareOpen] = useState(false);
+export function PlantDetailScreen({ onAddJournal, onBack, onOpenActivity, onOpenPlaybook, onRecordCare, projection, weather }: Props) {
   const [careEntryType, setCareEntryType] = useState<CareActivityType | null>(null);
   const [selectedCareCard, setSelectedCareCard] = useState<CareCardModel | null>(null);
   const entryCard = careEntryType ? projection.careCards.find((card) => card.activityType === careEntryType) : null;
+  const entryReason = entryCard?.evaluation?.explanation || projection.stagePlaybook?.primaryObjective;
+  const entrySuggestion = entryCard?.details?.recommendedInputs.map((input) => input.examples).join(" · ");
   const recordQuickCare = (type: CareActivityType) => {
-    setQuickCareOpen(false);
     setCareEntryType(type);
   };
 
   return (
     <>
       <Screen
-        floatingAction={<QuickCareButton onPress={() => setQuickCareOpen(true)} />}
+        floatingAction={<PlantActionMenu onAddJournal={onAddJournal} onRecordCare={recordQuickCare} />}
         introduction={null}
         title=""
       >
         {onBack ? <TopBar backAccessibilityLabel="Quay lại Cây trồng" onBack={onBack} title="Chi tiết cây" /> : null}
-        <PlantIdentity name={projection.plant.name} size="detail" speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} />
+        <PlantIdentity {...(projection.latestPhotoUri ? { imageUri: projection.latestPhotoUri } : {})} name={projection.plant.name} size="detail" speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} />
         <GrowthJourney projection={projection} />
         <CurrentStage {...(onOpenPlaybook ? { onOpenPlaybook } : {})} projection={projection} />
         <View style={styles.section}>
@@ -68,19 +68,10 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRe
       <BottomSheet onDismiss={() => setSelectedCareCard(null)} title={selectedCareCard?.title ?? "Khuyến nghị chăm sóc"} visible={selectedCareCard !== null}>
         {selectedCareCard?.details ? <CareRecommendationDetails details={selectedCareCard.details} /> : null}
       </BottomSheet>
-      <BottomSheet onDismiss={() => setQuickCareOpen(false)} title="Chăm sóc nhanh" visible={quickCareOpen}>
-        <Typography color="textSecondary" variant="bodyMedium">Chọn hoạt động muốn ghi</Typography>
-        {QUICK_CARE_TYPES.map((type) => (
-          <Pressable accessibilityLabel={`Ghi ${CARE_ACTIVITY_LABELS[type].toLowerCase()}`} accessibilityRole="button" key={type} onPress={() => recordQuickCare(type)} style={[styles.sheetAction, { backgroundColor: CARE_ACTIVITY_VISUALS[type].backgroundColor }]}>
-            <Ionicons color={CARE_ACTIVITY_VISUALS[type].color} name={CARE_ACTIVITY_VISUALS[type].icon} size={22} />
-            <Typography variant="bodyLarge">Ghi {CARE_ACTIVITY_LABELS[type].toLowerCase()}</Typography>
-          </Pressable>
-        ))}
-      </BottomSheet>
-      {careEntryType ? <CareEntryScreen onDismiss={() => setCareEntryType(null)} onSave={async (details) => {
+      {careEntryType ? <CareEntryScreen {...(entryReason ? { reason: entryReason } : {})} {...(entrySuggestion ? { suggestion: entrySuggestion } : {})} onDismiss={() => setCareEntryType(null)} onSave={async (details) => {
         await onRecordCare(careEntryType, details);
         setCareEntryType(null);
-      }} plantName={projection.plant.name} reason={entryCard?.evaluation?.explanation || projection.stagePlaybook?.primaryObjective} speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} suggestion={entryCard?.details?.recommendedInputs.map((input) => input.examples).join(" · ")} type={careEntryType} visible /> : null}
+      }} plantName={projection.plant.name} speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} type={careEntryType} visible /> : null}
     </>
   );
 }
@@ -130,15 +121,13 @@ function RecentActivity({ activities, onOpenActivity }: { activities: readonly C
   })}</SurfaceCard> : <Typography color="textSecondary" variant="bodyMedium">Chưa có hoạt động chăm sóc nào được lưu.</Typography>}</View>;
 }
 
-function QuickCareButton({ onPress }: { onPress: () => void }) { return <Pressable accessibilityLabel="Chăm sóc nhanh" accessibilityRole="button" onPress={onPress} style={styles.fab}><Ionicons color={colors.surface} name="add" size={30} /></Pressable>; }
-
 const styles = StyleSheet.create({
   activityList: { paddingVertical: 0 }, activityRow: { alignItems: "center", flexDirection: "row", gap: spacing.md, minHeight: 64, paddingVertical: spacing.sm },
   bullet: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm }, compactSection: { gap: spacing.sm }, connector: { backgroundColor: colors.border, height: 1, left: -14, position: "absolute", top: 16, width: 20 },
-  currentNode: { backgroundColor: colors.primary, borderColor: colors.primary }, fab: { alignItems: "center", backgroundColor: colors.primary, borderRadius: radius.round, elevation: 5, height: 56, justifyContent: "center", shadowColor: colors.text, shadowOffset: { height: 3, width: 0 }, shadowOpacity: 0.22, shadowRadius: 6, width: 56 },
+  currentNode: { backgroundColor: colors.primary, borderColor: colors.primary },
   flex: { flex: 1 }, journey: { flexDirection: "row", gap: spacing.sm }, journeyHeading: { alignItems: "center", flexDirection: "row", justifyContent: "space-between" }, journeyLabel: { textAlign: "center" }, journeyStep: { alignItems: "center", gap: spacing.xs, width: 68 },
   plantIcon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: radius.card, height: 72, justifyContent: "center", width: 72 }, reviewBadge: { alignSelf: "flex-start", backgroundColor: colors.secondarySoft, borderRadius: radius.chip, paddingHorizontal: spacing.sm, paddingVertical: spacing.xs },
-  row: { alignItems: "center", flexDirection: "row", gap: spacing.md }, section: { gap: spacing.md }, sheetAction: { alignItems: "center", backgroundColor: colors.surfaceSubtle, borderRadius: radius.control, flexDirection: "row", gap: spacing.md, minHeight: 52, paddingHorizontal: spacing.md },
+  row: { alignItems: "center", flexDirection: "row", gap: spacing.md }, section: { gap: spacing.md },
   stageBadge: { alignItems: "center", alignSelf: "flex-start", backgroundColor: colors.primarySoft, borderRadius: radius.chip, flexDirection: "row", gap: spacing.xs, paddingHorizontal: spacing.sm, paddingVertical: spacing.xs }, stageCard: { backgroundColor: colors.surfaceSubtle, borderLeftColor: colors.primary, borderLeftWidth: 3, gap: spacing.sm, padding: spacing.md },
   stageNode: { alignItems: "center", backgroundColor: colors.surfaceSubtle, borderColor: colors.border, borderRadius: radius.round, borderWidth: 1, height: 32, justifyContent: "center", width: 32 }, tipsCard: { gap: spacing.sm },
 });

@@ -9,6 +9,7 @@ export default function PlantDetailRoute() {
   const queryClient = useQueryClient();
   const { id } = z.object({ id: z.string().uuid() }).parse(useLocalSearchParams());
   return <PlantDetailContainer
+    onAddJournal={() => router.push({ pathname: "/journal/new", params: { plantId: id } })}
     onBack={() => router.replace("/plants")}
     onOpenActivity={(activityId) => router.push(`/entries/${activityId}`)}
     onOpenPlaybook={() => router.push({ pathname: "/plants/[id]/guide", params: { id } })}

@@ -1,4 +1,4 @@
-import type { CareActivity, CareActivityType } from "@/features/journal";
+import { getLatestPlantPhoto, type CareActivity, type CareActivityType, type PlantUpdate } from "@/features/journal";
 import type { CareEvaluation } from "@/features/guidance/models/care-evaluation";
 import { evaluateCarePlans } from "@/features/guidance/models/evaluate-care-recommendations";
 import {
@@ -40,6 +40,7 @@ export type PlantDetailProjection = Readonly<{
   careCards: readonly PlantDetailCareCard[];
   latestCare: Readonly<Record<CareActivityType, CareActivity | null>>;
   lifecycleStages: readonly PlantDetailLifecycleStage[];
+  latestPhotoUri: string | null;
   plant: Plant;
   recentCare: readonly CareActivity[];
   speciesTitle: string;
@@ -51,9 +52,10 @@ type PlantDetailProjectionInput = Readonly<{
   activities: readonly CareActivity[];
   evaluatedAt: Date;
   plant: Plant;
+  updates?: readonly PlantUpdate[];
 }>;
 
-export function createPlantDetailProjection({ activities, evaluatedAt, plant }: PlantDetailProjectionInput): PlantDetailProjection {
+export function createPlantDetailProjection({ activities, evaluatedAt, plant, updates = [] }: PlantDetailProjectionInput): PlantDetailProjection {
   const sortedActivities = activities.slice().sort((left, right) => right.occurredAt.localeCompare(left.occurredAt));
   const latestCare = Object.fromEntries(
     CARE_TYPES.map((type) => [type, sortedActivities.find((activity) => activity.type === type) ?? null]),
@@ -82,6 +84,7 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant }: 
       };
     }),
     latestCare,
+    latestPhotoUri: getLatestPlantPhoto(updates)?.localUri ?? null,
     lifecycleStages: knowledge?.stages.map((stage) => ({ ...stage, isCurrent: stage.id === plant.stageId })) ?? [],
     plant,
     recentCare: sortedActivities.slice(0, RECENT_CARE_LIMIT),

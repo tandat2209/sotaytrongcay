@@ -12,7 +12,7 @@ description: Design or implement mobile interfaces and mockups in this project. 
 5. Design mobile-first for thumb reach, readable hierarchy, adequate touch targets, screen-reader semantics, dynamic text, and clear loading/error/disabled feedback.
 6. Keep Vietnamese UI copy aligned with the UX specification and canonical domain vocabulary.
 7. Do not infer automation, tracked state, sensor data, care recommendations, plant photo, health, lifecycle progress, stage age, or product capabilities from a visual artifact.
-8. No global FAB. Plant Detail may use one local plant-scoped Quick Care FAB only; it opens Care Entry and never saves directly. Care-card info actions may open the existing native, scrollable read-only bottom sheet with activity-specific Vietnamese accessibility labels.
+8. No global FAB. Plant Detail may use one local plant-scoped floating action menu for watering, fertilizing, spraying, and “Thêm nhật ký”. It opens the selected entry flow, never saves directly, and respects reduced-motion preferences. Care-card info actions may open the existing native, scrollable read-only bottom sheet with activity-specific Vietnamese accessibility labels.
 9. If `docs/design/DESIGN.md` and `docs/MOBILE_UX_DESIGN.md` disagree on order or behavior, stop and report the conflict rather than silently following the mockup.
 
 Load `verification-and-handoff` before completion.
