@@ -19,7 +19,7 @@ const imageSize: Record<Size, number> = { detail: 72, list: 44, rail: 64 };
 
 export function PlantIdentity({ imageUri, name, size, speciesTitle, stageId, stageTitle }: Props) {
   const dimension = imageSize[size];
-  return <View style={[styles.container, size === "rail" && styles.rail]}>
+  return <View style={[styles.container, size === "list" && styles.list, size === "rail" && styles.rail]}>
     <View accessibilityElementsHidden style={[styles.image, { height: dimension, width: dimension }, size === "rail" && styles.railImage]}>
       {imageUri ? <Image source={{ uri: imageUri }} style={styles.photo} /> : <Ionicons color={colors.primary} name="leaf-outline" size={size === "detail" ? 34 : size === "rail" ? 28 : 22} />}
     </View>
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   container: { alignItems: "center", flexDirection: "row", gap: spacing.md, minWidth: 0 },
   copy: { flex: 1, gap: spacing.xs, minWidth: 0 },
   image: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: radius.card, justifyContent: "center", overflow: "hidden" },
+  list: { flex: 1 },
   metadata: { alignItems: "center", flexDirection: "row", flexWrap: "wrap", gap: spacing.xs, minWidth: 0 },
   name: { fontWeight: "600" },
   photo: { height: "100%", width: "100%" },
