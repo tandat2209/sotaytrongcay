@@ -36,7 +36,6 @@ function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { i
   return <SurfaceCard style={styles.card}>
     <View style={styles.plantHeader}>
       <PlantIdentity name={priority.plantName} size="list" speciesTitle={priority.speciesTitle} stageId={priority.stageId} stageTitle={priority.stageTitle} />
-      <View style={styles.badge}><Typography style={styles.badgeLabel} variant="label">HÔM NAY</Typography></View>
     </View>
 
     {/* Action row with expandable chevron */}
@@ -57,8 +56,9 @@ function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { i
     </View> : null}
 
     {/* Care action button */}
-    <Pressable accessibilityLabel={`${CARE_ACTIVITY_LABELS[priority.activityType]} cho ${priority.plantName}`} accessibilityRole="button" onPress={() => onRecordCare(priority.plantId, priority.activityType)} style={styles.careAction}>
-      <Typography style={styles.careActionLabel} variant="bodyMedium">{CARE_ACTIVITY_LABELS[priority.activityType]}</Typography>
+    <Pressable accessibilityLabel={`${CARE_ACTIVITY_LABELS[priority.activityType]} cho ${priority.plantName}`} accessibilityRole="button" onPress={() => onRecordCare(priority.plantId, priority.activityType)} style={[styles.careAction, { backgroundColor: visual.backgroundColor }]}>
+      <Ionicons accessibilityElementsHidden color={visual.color} name={visual.icon} size={20} />
+      <Typography style={[styles.careActionLabel, { color: visual.color }]} variant="bodyMedium">{CARE_ACTIVITY_LABELS[priority.activityType]}</Typography>
     </Pressable>
   </SurfaceCard>;
 }
@@ -69,12 +69,10 @@ function PlantIconPlaceholder() {
 
 const styles = StyleSheet.create({
   actionRow: { alignItems: "center", borderTopColor: colors.border, borderTopWidth: StyleSheet.hairlineWidth, flexDirection: "row", gap: spacing.sm, minHeight: control.iconTarget, paddingTop: spacing.sm },
-  badge: { backgroundColor: colors.primarySoft, borderRadius: radius.chip, paddingHorizontal: spacing.sm, paddingVertical: 2 },
-  badgeLabel: { color: colors.primary },
   bold: { fontWeight: "600" },
   card: { gap: spacing.sm },
-  careAction: { alignItems: "center", backgroundColor: colors.primary, borderRadius: radius.control, justifyContent: "center", minHeight: control.primaryHeight, paddingHorizontal: spacing.md },
-  careActionLabel: { color: colors.surface, fontWeight: "600" },
+  careAction: { alignItems: "center", borderRadius: radius.control, flexDirection: "row", gap: spacing.sm, justifyContent: "center", minHeight: control.primaryHeight, paddingHorizontal: spacing.md },
+  careActionLabel: { fontWeight: "600" },
   emptyCard: { alignItems: "center", flexDirection: "row", gap: spacing.md, minHeight: 72 },
   expandedContent: { backgroundColor: colors.surfaceSubtle, borderRadius: radius.chip, gap: spacing.sm, padding: spacing.sm },
   explanationRow: { flexDirection: "row", gap: spacing.sm },
