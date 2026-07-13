@@ -7,7 +7,7 @@ import { validateRelationships } from "./relationship-validator";
 import { validateStageGraphs } from "./stage-graph-validator";
 import { validateContentQuality } from "./content-quality-validator";
 import { sortKnowledgeDiagnostics } from "./diagnostics";
-import type { KnowledgeDiagnostic, NormalizedKnowledgeDocument } from "./types";
+import type { CompilationMode, KnowledgeDiagnostic, NormalizedKnowledgeDocument } from "./types";
 
 const REPOSITORY_ROOT = resolve(__dirname, "../..");
 const KNOWLEDGE_ROOT = join(REPOSITORY_ROOT, "knowledge");
@@ -108,7 +108,7 @@ async function run() {
     const compileResult = await compileKnowledge({
       repositoryRoot: REPOSITORY_ROOT,
       knowledgeRoot: KNOWLEDGE_ROOT,
-      mode: mode as any,
+      mode: mode as CompilationMode,
       write: true,
       destinationPath: resolvedOutput,
     });

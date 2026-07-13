@@ -3,6 +3,7 @@ import type {
   KnowledgeDiagnostic,
   NormalizedPlantSpecies,
   NormalizedGrowthStagePlaybook,
+  StageJourneyItem,
 } from "./types";
 
 export function validateStageGraphs(
@@ -23,14 +24,13 @@ export function validateStageGraphs(
   }
 
   for (const species of speciesDocs) {
-    const allStages = new Map<string, any>();
-    
-    // Collect all stages
-    for (const st of species.lifecycles?.development?.stages ?? []) {
-      allStages.set(st.id, { ...st, lifecycleId: "development" });
+    const allStages = new Map<string, StageJourneyItem & Readonly<{ lifecycleId: "development" | "production" }>>();
+
+    for (const stage of species.lifecycles.development.stages) {
+      allStages.set(stage.id, { ...stage, lifecycleId: "development" });
     }
-    for (const st of species.lifecycles?.production?.stages ?? []) {
-      allStages.set(st.id, { ...st, lifecycleId: "production" });
+    for (const stage of species.lifecycles.production.stages) {
+      allStages.set(stage.id, { ...stage, lifecycleId: "production" });
     }
 
     for (const [stageId, item] of allStages.entries()) {

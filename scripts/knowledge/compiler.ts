@@ -20,7 +20,7 @@ import type {
 } from "./types";
 
 async function validateBundle(
-  bundle: any,
+  bundle: unknown,
   knowledgeRoot: string,
   repositoryRoot: string,
 ): Promise<string | null> {

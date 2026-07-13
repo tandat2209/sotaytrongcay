@@ -84,7 +84,7 @@ export type CompilationResult =
   | {
       readonly ok: true;
       readonly mode: CompilationMode;
-      readonly bundle: any;
+      readonly bundle: unknown;
       readonly serialized: string;
       readonly destinationPath?: string;
     }

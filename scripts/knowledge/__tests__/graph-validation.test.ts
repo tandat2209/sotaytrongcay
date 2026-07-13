@@ -76,7 +76,7 @@ describe("graph validation and normalization", () => {
 
   describe("relationship validation", () => {
     it("detects duplicate global IDs", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "duplicate.id",
           type: "plant_species",
@@ -116,7 +116,7 @@ describe("graph validation and normalization", () => {
 
 
     it("detects missing or wrong-type references", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "grape.stage.trunk-development",
           type: "growth_stage_playbook",
@@ -164,7 +164,7 @@ describe("graph validation and normalization", () => {
 
   describe("stage graph validation", () => {
     it("flags missing cross-lifecycle transition", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "plant.grape",
           type: "plant_species",
@@ -199,7 +199,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("verifies nextStageId successor matching and status alignment", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "plant.grape",
           type: "plant_species",
@@ -288,7 +288,7 @@ describe("graph validation and normalization", () => {
 
   describe("content quality validation", () => {
     it("reports missing goal in care guides", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "guide.test",
           type: "care_guide",
@@ -315,7 +315,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("requires references when avoid or safety advice is present", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "stage.test",
           type: "growth_stage_playbook",
@@ -345,7 +345,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("detects lack of Vietnamese content in user-facing documents", () => {
-      const docs: any[] = [
+      const docs = [
         {
           id: "plant.grape",
           type: "plant_species",

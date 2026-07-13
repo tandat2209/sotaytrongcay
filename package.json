@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=22.13.0"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -13,6 +16,7 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit && tsc -p scripts/knowledge/tsconfig.json --noEmit",
     "lint": "eslint .",
+    "precommit": "npx lint-staged",
     "test": "jest --runInBand",
     "export": "expo export --platform all",
     "knowledge:validate": "tsx scripts/knowledge/cli.ts validate",
@@ -49,6 +53,7 @@
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.20.1",
+    "lint-staged": "^16.3.4",
     "@types/react": "~19.2.2",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "ajv": "^8.20.0",

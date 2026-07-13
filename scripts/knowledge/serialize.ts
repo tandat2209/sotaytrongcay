@@ -6,6 +6,7 @@ import type {
   NormalizedCarePlan,
   NormalizedCareGuide,
   NormalizedReferenceSource,
+  StageJourneyItem,
 } from "./types";
 
 export const BUNDLE_SCHEMA_VERSION = "1.0.0";
@@ -37,7 +38,7 @@ export function serializeBundle(
 
   // 2. Build objects in contract key order
   const compiledSpecies = speciesDocs.map((s) => {
-    const parseStages = (stages: readonly any[]) =>
+    const parseStages = (stages: readonly StageJourneyItem[]) =>
       [...stages]
         .sort((a, b) => a.sequence - b.sequence)
         .map((item) => ({

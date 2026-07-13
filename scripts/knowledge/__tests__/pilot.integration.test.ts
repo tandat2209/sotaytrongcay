@@ -23,7 +23,13 @@ describe("grape knowledge pilot integration test", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
 
-    const bundle = result.bundle;
+    const bundle = result.bundle as Readonly<{
+      species: readonly Readonly<{ id: string }>[];
+      stagePlaybooks: readonly Readonly<{ id: string }>[];
+      carePlans: readonly Readonly<{ id: string }>[];
+      guides: readonly Readonly<{ id: string }>[];
+      references: readonly Readonly<{ id: string }>[];
+    }>;
 
     // Check sizes
     expect(bundle.species).toHaveLength(1);
@@ -34,16 +40,16 @@ describe("grape knowledge pilot integration test", () => {
 
     // Verify IDs
     expect(bundle.species[0].id).toBe("plant.grape");
-    expect(bundle.stagePlaybooks.map((s: any) => s.id)).toContain("grape.stage.trunk-development");
-    const recIds = bundle.carePlans.map((r: any) => r.id);
+    expect(bundle.stagePlaybooks.map((stage) => stage.id)).toContain("grape.stage.trunk-development");
+    const recIds = bundle.carePlans.map((plan) => plan.id);
     expect(recIds).toContain("grape.recommendation.trunk-development.watering");
     expect(recIds).toContain("grape.recommendation.trunk-development.fertilizing");
 
-    const guideIds = bundle.guides.map((g: any) => g.id).sort();
+    const guideIds = bundle.guides.map((guide) => guide.id).sort();
     expect(guideIds).toContain("grape.guide.train-main-shoot");
     expect(guideIds).toContain("grape.guide.fertilization-seedling");
 
-    const refIds = bundle.references.map((r: any) => r.id).sort();
+    const refIds = bundle.references.map((reference) => reference.id).sort();
     expect(refIds).toEqual([
       "ref.fao.grape-production",
       "ref.osu.growing-table-grapes",
@@ -73,7 +79,13 @@ describe("grape knowledge pilot integration test", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
 
-    const bundle = result.bundle;
+    const bundle = result.bundle as Readonly<{
+      species: readonly Readonly<{ id: string }>[];
+      stagePlaybooks: readonly Readonly<{ id: string }>[];
+      carePlans: readonly Readonly<{ id: string }>[];
+      guides: readonly Readonly<{ id: string }>[];
+      references: readonly Readonly<{ id: string }>[];
+    }>;
 
     // Everything must be empty since no content has status: approved
     expect(bundle.species).toEqual([]);
