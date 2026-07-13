@@ -7,6 +7,8 @@ import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
+import { StageCarePlanSection } from "./StageCarePlanSection";
+import { StageInformationalGuideSection } from "./StageInformationalGuideSection";
 
 type Props = Readonly<{
   carePlans: readonly CarePlan[];
@@ -29,80 +31,33 @@ export function StagePlaybookScreen({
     <Screen introduction={null} title="">
       <TopBar backAccessibilityLabel="Quay lại chi tiết cây" onBack={onBack} title="Hướng dẫn chi tiết" />
 
-      {/* Hero */}
       <View style={styles.hero}>
         <View style={styles.heroStageRow}>
           <Ionicons color="#FFFFFF" name={stageIcon(playbook.id)} size={20} />
-          <Typography style={styles.heroTitle} variant="headlineMedium">
-            {playbook.title}
-          </Typography>
+          <Typography style={styles.heroTitle} variant="headlineMedium">{playbook.title}</Typography>
         </View>
         {playbook.estimatedDuration ? (
           <View style={styles.heroDuration}>
             <Ionicons color={colors.secondarySoft} name="time-outline" size={14} />
-            <Typography style={styles.heroDurationText} variant="bodyMedium">
-              {playbook.estimatedDuration}
-            </Typography>
+            <Typography style={styles.heroDurationText} variant="bodyMedium">{playbook.estimatedDuration}</Typography>
           </View>
         ) : null}
         <View style={styles.heroReviewBadge}>
-          <Typography style={styles.heroReviewText} variant="label">
-            NỘI DUNG CHỜ DUYỆT
-          </Typography>
+          <Typography style={styles.heroReviewText} variant="label">NỘI DUNG CHỜ DUYỆT</Typography>
         </View>
       </View>
 
-      {/* Mục tiêu */}
       <View style={styles.section}>
         <SurfaceCard style={styles.objectiveCard}>
-          <Typography color="textSecondary" variant="label">
-            MỤC TIÊU GIAI ĐOẠN
-          </Typography>
+          <Typography color="textSecondary" variant="label">MỤC TIÊU GIAI ĐOẠN</Typography>
           <Typography variant="bodyLarge">{playbook.primaryObjective}</Typography>
         </SurfaceCard>
       </View>
 
-      {/* Hướng dẫn tham khảo */}
-      {informationalGuides.length > 0 ? (
-        <View style={styles.section}>
-          <View style={styles.sectionHeading}>
-            <Ionicons color={colors.primary} name="book-outline" size={20} />
-            <Typography variant="headlineSmall">Hướng dẫn tham khảo</Typography>
-          </View>
-          {informationalGuides.map((guide) => (
-            <SurfaceCard key={guide.id} style={styles.doCard}>
-              <View style={styles.actionIcon}>
-                <Ionicons color={colors.primary} name="book-outline" size={20} />
-              </View>
-              <View style={styles.actionCopy}>
-                <Typography color="textSecondary" variant="bodyMedium">
-                  {guide.title}
-                </Typography>
-              </View>
-            </SurfaceCard>
-          ))}
-        </View>
-      ) : null}
+      <StageCarePlanSection carePlans={carePlans} />
 
-      {/* Lưu ý chăm sóc */}
-      {carePlans.length > 0 ? (
-        <View style={styles.section}>
-          <View style={styles.sectionHeading}>
-            <Ionicons color={colors.primary} name="information-circle-outline" size={20} />
-            <Typography variant="headlineSmall">Lưu ý chăm sóc</Typography>
-          </View>
-          {carePlans.map((rec) => (
-            <SurfaceCard key={rec.id} style={styles.recCard}>
-              <Ionicons color={colors.primary} name="bulb-outline" size={18} />
-              <View style={styles.actionCopy}>
-                <Typography variant="bodyLarge">{rec.title}</Typography>
-              </View>
-            </SurfaceCard>
-          ))}
-        </View>
-      ) : null}
+      <StageInformationalGuideSection guides={informationalGuides} />
 
-      {/* Nên tìm hiểu */}
       {playbook.recommendedKnowledgeTopics.length > 0 ? (
         <View style={styles.section}>
           <View style={styles.sectionHeading}>
@@ -120,15 +75,12 @@ export function StagePlaybookScreen({
         </View>
       ) : null}
 
-      {/* Tiêu chí hoàn thành */}
       {playbook.exitCriteria.length > 0 ? (
         <View style={styles.section}>
           <SurfaceCard style={styles.exitCard}>
             <View style={styles.exitHeading}>
               <Ionicons color={colors.primary} name="flag-outline" size={18} />
-              <Typography color="secondary" variant="label">
-                TIÊU CHÍ HOÀN THÀNH GIAI ĐOẠN
-              </Typography>
+              <Typography color="secondary" variant="label">TIÊU CHÍ HOÀN THÀNH GIAI ĐOẠN</Typography>
             </View>
             {playbook.exitCriteria.map((criterion) => (
               <View key={criterion} style={styles.bulletRow}>
@@ -140,7 +92,6 @@ export function StagePlaybookScreen({
         </View>
       ) : null}
 
-      {/* Sắp tới */}
       {nextStage && onOpenNextStage ? (
         <Pressable
           accessibilityLabel={`Xem giai đoạn tiếp theo: ${nextStage.title}`}
@@ -152,9 +103,7 @@ export function StagePlaybookScreen({
               <Ionicons color={colors.secondary} name={stageIcon(nextStage.id)} size={22} />
             </View>
             <View style={styles.actionCopy}>
-              <Typography color="textSecondary" variant="label">
-                SẮP TỚI
-              </Typography>
+              <Typography color="textSecondary" variant="label">SẮP TỚI</Typography>
               <Typography variant="headlineSmall">Giai đoạn: {nextStage.title}</Typography>
             </View>
             <Ionicons color={colors.textSecondary} name="chevron-forward" size={20} />
@@ -167,23 +116,7 @@ export function StagePlaybookScreen({
 
 const styles = StyleSheet.create({
   actionCopy: { flex: 1, gap: spacing.xs },
-  actionIcon: {
-    alignItems: "center",
-    backgroundColor: colors.primarySoft,
-    borderRadius: 20,
-    height: 40,
-    justifyContent: "center",
-    width: 40,
-  },
   bulletRow: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
-  doCard: {
-    alignItems: "flex-start",
-    borderLeftColor: colors.primary,
-    borderLeftWidth: 3,
-    flexDirection: "row",
-    gap: spacing.md,
-  },
-  doLabel: { color: colors.primary },
   durationRow: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
   exitCard: { borderColor: colors.primary, borderLeftColor: colors.primary, gap: spacing.sm },
   exitHeading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
@@ -221,7 +154,6 @@ const styles = StyleSheet.create({
     width: 48,
   },
   objectiveCard: { gap: spacing.sm },
-  recCard: { alignItems: "center", flexDirection: "row", gap: spacing.md },
   section: { gap: spacing.md },
   sectionHeading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });

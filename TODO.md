@@ -34,7 +34,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Add plant photo (`photoUri`) to Today and Plant Detail only after the Plant model and user-captured image persistence exist.
 - [ ] Define explicit user-observation or sourced-measurement contract before showing plant health status.
 - [ ] Persist stage-entry history before showing days in current stage; never infer it from `createdAt` or `plantedAt`.
-- [ ] Show linked Care Guide Markdown instructions in Today priority cards after reviewed UX and content scope.
+- [ ] Show Care Plan details in Today priority cards after reviewed UX and content scope.
 
 ## Engineering
 
@@ -80,6 +80,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Align Knowledge Base documentation ownership and precedence with schemas and accepted product decisions.
 - [x] Surface stage playbook content inline on Plant Detail (objective, knowledge topics, exit criteria) with 'NỘI DUNG CHỜ DUYỆT' label.
 - [x] Implement StagePlaybookScreen as a general-purpose, stage-focused guide reader (not plant-specific); reachable from Plant Detail via 'Hướng dẫn chi tiết' CTA; supports forward browsing through stages via stageId query param.
+- [x] Show complete stage Care Plan details in Stage Playbook, including activity, goal, ground/container guidance, input categories, and important notes.
 - [x] Add stage-specific icons (12 stages mapped to Ionicons) consistently across Plant Detail, Plant List, and Stage Playbook.
 - [x] Add location field and DateTimePicker for plantedAt to plant setup.
 

@@ -165,7 +165,7 @@ Do not display fabricated photo, health, days-in-stage, progress, or sensor meas
 
 ### Stage playbook
 
-Use progressive sections for goal, watering, fertilizers, stage tips, avoid list, common problems, completion criteria, and next stage.
+Use progressive sections for the stage goal, detailed tracked Care Plans, generic informational guides with authored instructions, stage topics, completion criteria, and next stage. A Care Plan card identifies the activity and keeps its goal, ground/container guidance, input categories, and cautions together.
 
 Keep guidance scannable. Do not turn the screen into an unstructured article or a product catalog.
 

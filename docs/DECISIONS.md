@@ -218,13 +218,23 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 ## 2026-07-13 — Make Care Guide the single source for care knowledge
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-13 consolidated Care Plan decision
 
 **Decision:** `care_guide` owns reusable user-facing care content: title, goal, Markdown instructions, frequency, recommended inputs, and notes. Every `care_plan` references exactly one guide and owns only species/stage scope, activity type, eligibility, missing-history policy, and priority. The derived recommendation resolves both records without persisting task state. Stage Playbooks remain informational and do not own this relationship. Dedicated activity types remain watering, fertilizing, and spraying; pruning guides stay informational and pruning remains a Plant Update.
 
 **Rationale:** Care instructions previously appeared in both guide and recommendation records, letting revisions drift and allowing UI to choose an unrelated first guide for a stage. A required guide relationship keeps one editable authority while retaining deterministic suggestion rules.
 
 **Consequences:** Compiler validation rejects missing, wrong-type, out-of-scope, or ineligible guide relationships. Recommendation definitions no longer carry user-facing instructions. Existing review-stage grape content remains excluded from production until approved.
+
+## 2026-07-13 — Consolidate tracked care guidance into Care Plans
+
+**Status:** Accepted
+
+**Decision:** A `care_plan` is the single authored source for stage-scoped watering, fertilizing, and spraying guidance. It owns its user-facing title, goal, optional growing-method frequency, recommended inputs, notes, activity scope, eligibility, missing-history policy, and priority. A `care_guide` remains generic informational knowledge, such as training or pruning technique, and is not linked to a tracked care recommendation.
+
+**Rationale:** Farmers need one complete stage-aware record for care they track. Splitting presentation content from recommendation logic created duplicate authoring and an unnecessary relationship for the MVP, while generic techniques have a different informational purpose.
+
+**Consequences:** Stage Playbook and recommendation detail surfaces resolve tracked care content directly from Care Plans. Generic Care Guides remain read-only and never create activities, reminders, recommendations, or history. Review-stage content remains excluded from production until approved.
 
 ## 2026-07-13 — Allow plant-scoped Quick Care on Plant Detail
 

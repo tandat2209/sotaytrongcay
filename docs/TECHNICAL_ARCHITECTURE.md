@@ -265,7 +265,7 @@ Each growth-stage file includes name, goal, description, watering, fertilizers, 
 
 Recommended fertilizers, watering, diseases, pests, and guides are referenced by stable knowledge IDs rather than copied into every playbook.
 
-Care-recommendation definitions include one allowed core activity type, reason, optional instruction and preparation, applicability, a deliberately small repeat policy, and a safe Care Entry prefill policy.
+Care Plans combine one allowed core activity type with stage-scoped presentation content, applicability, a deliberately small eligibility policy, and a safe Care Entry prefill policy. Generic Care Guides remain informational and are not required by Care Plans.
 
 MVP recommendation activity types are limited to `watering`, `fertilizing`, and `spraying`. Pruning or observation knowledge may become a stage tip or guide, never a generated care-entry type.
 
@@ -356,7 +356,7 @@ It returns a small ordered list containing suggestion ID, activity type, reason,
 
 MVP uses typed evaluators rather than a general rules language. Rules are reviewed in Git and limited to known cases such as rain, heavy rain, heat, watering, spraying, and soil-moisture checks.
 
-Suggestion identity is deterministic for plant + local date + recommendation definition + playbook version. Reopening Today does not duplicate visible suggestions or write user data.
+Suggestion identity is deterministic for plant + local date + Care Plan + playbook version. Reopening Today does not duplicate visible suggestions or write user data.
 
 If weather is missing or stale, the engine returns safe base guidance and marks it unadjusted. A weather failure never invents a recommendation.
 

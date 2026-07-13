@@ -40,9 +40,9 @@ A review-stage playbook provides concise objective, observations, duration, know
 
 ## Care-content ownership
 
-- A `care_guide` is the only authored source for a recommendation's title, goal, Markdown instructions, frequency, recommended inputs, and notes.
-- Every `care_plan` has one ; it only defines when a guide is shown: scope, activity type, eligibility, missing-history policy, and priority.
-- The compiler validates the guide relationship and emits it without copying guide content into recommendations.
+- A `care_plan` is the authored source for tracked watering, fertilizing, and spraying guidance: title, goal, optional growing-method frequency, recommended inputs, notes, scope, eligibility, missing-history policy, and priority.
+- A `care_guide` contains generic informational techniques such as training or pruning and is not required by a Care Plan.
+- The compiler validates Care Plan scope and emits its presentation and decision fields together.
 - Informational guides, including pruning or training techniques, do not create activities, recommendations, reminders, or history.
 
 ## Documentation ownership

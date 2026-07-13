@@ -35,12 +35,16 @@ A core care action the user performed and wants to track: watering, fertilizing,
 _Avoid_: Mẹo, lời nhắc
 
 **Gợi ý chăm sóc** (Care recommendation):
-A derived contextual suggestion combining a Recommendation Definition with its linked Care Guide. It does not become history until the user saves the activity.
+A contextual suggestion derived from one Care Plan. It does not become history until the user saves the activity.
 _Avoid_: Hoạt động đã làm, lời nhắc
 
 **Hướng dẫn chăm sóc** (Care guide):
-Reusable curated knowledge that owns the user-facing title, goal, instructions, frequency, recommended inputs, and important notes. It may be informational or linked by a Recommendation Definition.
-_Avoid_: Quy tắc gợi ý, hoạt động đã làm
+Generic curated knowledge for informational techniques such as training or pruning. It does not create a tracked activity or recommendation.
+_Avoid_: Kế hoạch chăm sóc, quy tắc gợi ý, hoạt động đã làm
+
+**Kế hoạch chăm sóc** (Care plan):
+Stage-scoped guidance for one tracked watering, fertilizing, or spraying activity. It owns the goal, optional growing-method frequency, recommended inputs, important notes, and deterministic eligibility fields.
+_Avoid_: Hướng dẫn chung, hoạt động đã làm, lời nhắc
 
 **Cập nhật cây** (Plant update):
 A journal note and optional photo about growth, pruning, condition, or other work. It may confirm a stage change but is not a dedicated care activity.
@@ -69,7 +73,7 @@ A scheduled prompt for future care. It is distinct from a recommendation and fro
 _Avoid_: Gợi ý chăm sóc, thông báo chung
 
 **Quy tắc gợi ý** (Recommendation rule):
-A reviewed rule that decides when its one linked Care Guide is shown, using species, stage, activity history, missing-history policy, and priority. MVP supports elapsed-days history only.
+A reviewed part of a Care Plan that decides when its tracked care guidance is shown, using species, stage, activity history, missing-history policy, and priority. MVP supports elapsed-days history only.
 _Avoid_: Lời khuyên AI, mã tùy ý
 
 **Thời tiết hôm nay** (Today's weather):

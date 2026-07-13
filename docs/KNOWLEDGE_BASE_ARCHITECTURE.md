@@ -38,8 +38,8 @@ flowchart TD
     Species["Plant Species"] --> Stage["Growth Stage Playbook"]
     Stage --> Goal["Goal + Completion Criteria"]
     Stage --> Tip["Stage Tip"]
-    Recommendation["Care Plan"] --> Care["Care Guide"]
     Stage --> Recommendation
+    Stage --> Care["Generic Care Guide"]
     Stage --> Fert["Fertilizer Profile"]
     Fert --> Nutrient["Nutrient"]
     Stage --> Disease["Common Disease"]
@@ -117,13 +117,13 @@ flowchart LR
 
 ### 5.4 Care Plan
 
-**Purpose:** Defines when the Guidance Engine may show one linked reusable Care Guide for a trackable activity.
+**Purpose:** Owns stage-scoped guidance and deterministic eligibility for one trackable watering, fertilizing, or spraying activity.
 
-**Required fields:** ID, , activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
+**Required fields:** ID, Vietnamese title and goal, activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
 
-**Optional fields:** None in MVP. User-facing title, reason, instructions, inputs, frequency, and notes belong to the linked Care Guide.
+**Optional fields:** Growing-method frequency, recommended inputs, notes, and Markdown instructions.
 
-**Relationships:** References exactly one scope-compatible Care Guide. A derived recommendation is informational until a user explicitly saves a related care activity.
+**Relationships:** A Care Plan may be evaluated directly into an informational recommendation. It does not require a Care Guide and remains informational until a user explicitly saves a related care activity.
 
 For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and observation content belongs in Stage Tips or Care Guides.
 
@@ -131,13 +131,13 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 
 ### 5.5 Care Guide
 
-**Purpose:** Owns reusable user-facing care knowledge shared by one or more recommendation definitions or displayed as informational guidance.
+**Purpose:** Owns generic informational techniques, such as training or pruning, that do not map to one tracked care activity.
 
 **Required fields:** ID, Vietnamese title, goal, Markdown instructions, applicable species/stages, status, version, and references.
 
-**Optional fields:** Recommended inputs, frequency, notes, tools, materials, images, and climate variants.
+**Optional fields:** Notes, tools, materials, images, and climate variants.
 
-**Relationships:** A care recommendation references exactly one Care Guide. Informational pruning/training guides never create a care recommendation or dedicated activity.
+**Relationships:** Informational pruning/training guides never create a care recommendation or dedicated activity.
 
 **Example:** `guide.tie-vine-to-support` with steps for selecting soft ties and avoiding stem constriction.
 
@@ -323,7 +323,7 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 ### Pipeline
 
 1. Load the approved species and current Stage Playbook.
-2. Resolve referenced care-recommendation definitions and care content.
+2. Resolve applicable Care Plans and their authored care content.
 3. Evaluate suggestion eligibility and repeat policy against recent history.
 4. Apply seasonal constraints.
 5. Apply weather rules.
@@ -600,42 +600,41 @@ Review-stage playbooks are intentionally non-executable. Do not infer a rule eng
 id: grape.recommendation.check-soil-moisture
 type: care_plan
 locale: vi-VN
-guide_id: grape.guide.check-soil-moisture
 priority: 50
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
 activity_type: watering
+title: "Kiểm tra độ ẩm đất"
+goal: "Giúp quyết định có cần tưới hay không trước khi ghi nhận hoạt động."
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 3
 on_missing_history: suggest
 version: 1.0.0
 status: approved
-references: [ref.extension.grape-watering]
+references: [ref.osu.growing-table-grapes, ref.umn.growing-grapes-home-garden]
 ---
 ```
 
-The linked Care Guide owns Vietnamese title, goal, Markdown instructions, inputs, frequency, and notes. This definition only decides whether that guide appears; it never contains a Markdown body or a `repeat_policy`.
+The Care Plan owns both its user-facing tracked-care guidance and the deterministic fields that decide whether it appears. It never creates task or history state.
 
 ### Care guide template
 
 ```md
 ---
-id: grape.guide.check-soil-moisture
+id: grape.guide.train-main-shoot
 type: care_guide
-title: "Kiểm tra độ ẩm đất"
-goal: "Giúp quyết định có cần tưới hay không trước khi ghi nhận hoạt động."
+title: "Định hướng thân chính"
+goal: "Giúp một chồi khỏe phát triển thành thân chính theo hệ đỡ đã chọn."
 locale: vi-VN
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
-notes:
-  - "Không tự động điền lượng nước khi chưa có đủ bối cảnh."
 version: 1.0.0
 status: approved
-references: [ref.extension.grape-watering]
+references: [ref.osu.growing-table-grapes, ref.uc-ipm.young-grape-pruning]
 ---
 
-Kiểm tra lớp đất mặt và khả năng thoát nước trước khi quyết định tưới.
+Buộc chồi chính vào hệ đỡ bằng vật liệu mềm và kiểm tra để dây không siết vào thân.
 ```
 
 ### Threat template
@@ -685,7 +684,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 
 ### Knowledge-quality validation
 
-- Every Care Guide has a non-empty goal.
+- Every Care Plan and Care Guide has a non-empty goal.
 - Every avoid/safety statement has a source.
 - Amounts include units and assumptions.
 - Disease and pest content avoids unsupported diagnosis.
@@ -710,7 +709,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 2. Create Plant Species identity and scope.
 3. Define the ordered growth-stage journey.
 4. Write one complete Stage Playbook at a time.
-5. Reuse or create Care Guides, then link one Guide from each care-recommendation definition.
+5. Write complete Care Plans for tracked watering, fertilizing, and spraying guidance.
 6. Link nutrients and fertilizer profiles.
 7. Link common diseases, pests, signs, and troubleshooting.
 8. Add seasonal and weather rules.
