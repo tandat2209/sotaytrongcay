@@ -100,13 +100,14 @@ export function validateRelationships(
         break;
       }
 
-      case "care_recommendation_definition": {
+      case "care_plan": {
         for (const spId of doc.speciesIds) {
           validateIdRef(doc, spId, "speciesIds", "plant_species");
         }
         for (const stId of doc.stageIds) {
           validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
         }
+
         break;
       }
 
@@ -127,7 +128,7 @@ export function validateRelationships(
 
   const recommendationScopes = new Set<string>();
   for (const doc of documents) {
-    if (doc.type !== "care_recommendation_definition") {
+    if (doc.type !== "care_plan") {
       continue;
     }
 

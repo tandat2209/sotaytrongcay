@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 3;
+export const DATABASE_VERSION = 4;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -44,10 +44,14 @@ CREATE INDEX IF NOT EXISTS idx_care_activities_plant_time
 // ALTER TABLE adds a nullable column to an existing table.
 const V3_ADD_LOCATION = `ALTER TABLE plants ADD COLUMN location TEXT;`;
 
+// Version 4 — records whether each plant grows in ground or a container.
+const V4_ADD_GROWING_METHOD = `ALTER TABLE plants ADD COLUMN growing_method TEXT NOT NULL DEFAULT 'container' CHECK (growing_method IN ('ground', 'container'));`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
   if (currentVersion < 3) migrations.push(V3_ADD_LOCATION);
+  if (currentVersion < 4) migrations.push(V4_ADD_GROWING_METHOD);
   return migrations;
 }
 

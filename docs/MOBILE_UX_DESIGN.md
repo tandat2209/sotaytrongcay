@@ -64,7 +64,7 @@ Stage guidance supports care tracking through concise tips. It does not create a
 - Attach optional structured details, notes, and photos.
 - View last care and next reminder for each plant.
 - View stage tips, entry criteria overview, knowledge topics, and exit criteria.
-- Browse to a full-stage playbook guide ("Hướng dẫn chi tiết") with care guide and forward browsing to the next stage.
+- Browse to a full-stage playbook guide ("Hướng dẫn chi tiết") with linked Care Guide and forward browsing to the next stage.
 - Show contextual care buttons inside “Việc cần làm hôm nay”.
 - Add “Thêm nhật ký” on Today and Plant Detail, with an optional stage change inside the journal form.
 - View one plant's Timeline and a global Journal.
@@ -258,7 +258,7 @@ Show weather context and “Hoạt động gần đây” after care and tips. T
 - Header: back button + title "Hướng dẫn chi tiết".
 - Hero card: stage icon + stage name + estimated duration + "NỘI DUNG CHỜ DUYỆT" badge (dark primary background).
 - "Mục tiêu giai đoạn" card: `primaryObjective`.
-- "Thao tác quan trọng" section: care guide "Nên làm" card when a guide exists for the stage.
+- "Thao tác quan trọng" section: linked Care Guide "Nên làm" card when a guide exists for the stage.
 - "Lưu ý chăm sóc" section: care recommendations relevant to the stage.
 - "Nên tìm hiểu" section: `recommendedKnowledgeTopics` bullet list.
 - "Tiêu chí hoàn thành giai đoạn" card: `exitCriteria` bullet list with flag icon.

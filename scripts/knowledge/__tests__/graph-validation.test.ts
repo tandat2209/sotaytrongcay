@@ -6,7 +6,7 @@ import { normalizeDocument } from "../normalize";
 import { validateRelationships } from "../relationship-validator";
 import { validateStageGraphs } from "../stage-graph-validator";
 import { validateContentQuality } from "../content-quality-validator";
-import type { ValidatedSourceDocument } from "../types";
+import type { NormalizedKnowledgeDocument, ValidatedSourceDocument } from "../types";
 
 describe("graph validation and normalization", () => {
   describe("normalization", () => {
@@ -113,6 +113,7 @@ describe("graph validation and normalization", () => {
         }),
       );
     });
+
 
     it("detects missing or wrong-type references", () => {
       const docs: any[] = [
@@ -286,20 +287,20 @@ describe("graph validation and normalization", () => {
   });
 
   describe("content quality validation", () => {
-    it("reports missing reason in care recommendations", () => {
+    it("reports missing goal in care guides", () => {
       const docs: any[] = [
         {
-          id: "recommendation.test",
-          type: "care_recommendation_definition",
-          path: "rec.md",
+          id: "guide.test",
+          type: "care_guide",
+          path: "guide.md",
           title: "Tưới nước",
+          goal: "",
           version: "1.0.0",
-          bodyMarkdown: "## Hướng dẫn\nTưới nước hàng ngày.\n", // Missing "## Vì sao nên làm"
+          bodyMarkdown: "## Hướng dẫn\nTưới nước hàng ngày.\n",
           locale: "vi-VN",
           status: "approved",
           speciesIds: [],
           stageIds: [],
-          activityType: "watering",
           references: [],
         },
       ];
@@ -308,7 +309,7 @@ describe("graph validation and normalization", () => {
       expect(diagnostics).toContainEqual(
         expect.objectContaining({
           code: "KNOWLEDGE_REASON_MISSING",
-          documentId: "recommendation.test",
+          documentId: "guide.test",
         }),
       );
     });

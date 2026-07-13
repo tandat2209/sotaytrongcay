@@ -2,7 +2,7 @@ import type {
   NormalizedKnowledgeDocument,
   KnowledgeDiagnostic,
   NormalizedUserFacingBaseDocument,
-  NormalizedCareRecommendationDefinition,
+  NormalizedCareGuide,
 } from "./types";
 
 // Explicit Vietnamese diacritics Unicode character regex (case-insensitive)
@@ -36,8 +36,8 @@ export function validateContentQuality(
 
   for (const doc of documents) {
     // 1. Language validation: User-facing documents must contain Vietnamese copy
-    if (doc.type !== "reference_source") {
-      // Combine title and body to check for Vietnamese diacritics
+    if (doc.type !== "reference_source" && doc.type !== "care_plan") {
+      // Definitions are decision-only; linked guides own Vietnamese user-facing copy.
       const fullText = `${doc.title}\n${doc.bodyMarkdown}`;
       if (!VIETNAMESE_REGEX.test(fullText)) {
         diagnostics.push({
@@ -51,16 +51,15 @@ export function validateContentQuality(
     }
 
     // 2. Specific validations by type
-    if (doc.type === "care_recommendation_definition") {
-      // Must have a non-empty goal field (replaces '## Vì sao nên làm' section)
-      const rec = doc as NormalizedCareRecommendationDefinition;
-      if (!rec.goal || rec.goal.trim().length === 0) {
+    if (doc.type === "care_guide") {
+      const guide = doc as NormalizedCareGuide;
+      if (!guide.goal.trim()) {
         diagnostics.push({
           code: "KNOWLEDGE_REASON_MISSING",
           path: doc.path,
           documentId: doc.id,
           field: "goal",
-          message: `Care recommendation definition ${doc.id} is missing a non-empty 'goal' field.`,
+          message: `Care guide ${doc.id} is missing a non-empty 'goal' field.`,
         });
       }
     } else if (doc.type === "growth_stage_playbook") {

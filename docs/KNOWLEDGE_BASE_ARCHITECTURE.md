@@ -38,8 +38,8 @@ flowchart TD
     Species["Plant Species"] --> Stage["Growth Stage Playbook"]
     Stage --> Goal["Goal + Completion Criteria"]
     Stage --> Tip["Stage Tip"]
-    Stage --> Recommendation["Care Recommendation Definition"]
-    Stage --> Water["Watering Guide"]
+    Recommendation["Care Plan"] --> Care["Care Guide"]
+    Stage --> Recommendation
     Stage --> Fert["Fertilizer Profile"]
     Fert --> Nutrient["Nutrient"]
     Stage --> Disease["Common Disease"]
@@ -47,7 +47,6 @@ flowchart TD
     Disease --> Sign["Warning Sign"]
     Pest --> Sign
     Sign --> Troubleshoot["Troubleshooting Guide"]
-    Recommendation --> Care["Care / Pruning Guide"]
     Weather["Weather Rule"] --> Recommendation
     Seasonal["Seasonal Guidance"] --> Stage
     Harvest["Harvest / Post-harvest Guide"] --> Stage
@@ -116,15 +115,15 @@ flowchart LR
 
 **Relationships:** Referenced by a Stage Playbook. It is never instantiated as user data.
 
-### 5.4 Care Recommendation Definition
+### 5.4 Care Plan
 
-**Purpose:** Defines a reusable, trackable care action the Guidance Engine may suggest to a user.
+**Purpose:** Defines when the Guidance Engine may show one linked reusable Care Guide for a trackable activity.
 
-**Required fields:** ID, Vietnamese title, activity type, reason, applicable species/stages, eligibility, repeat policy, Care Entry prefill policy, status, version, references.
+**Required fields:** ID, , activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
 
-**Optional fields:** Instruction, preparation, avoid text, care-guide IDs, fertilizer/watering references, estimated effort, photo suggestion, priority, and weather-rule IDs.
+**Optional fields:** None in MVP. User-facing title, reason, instructions, inputs, frequency, and notes belong to the linked Care Guide.
 
-**Relationships:** May be referenced by separately reviewed product behavior. A recommendation is informational until a user explicitly saves a related care activity.
+**Relationships:** References exactly one scope-compatible Care Guide. A derived recommendation is informational until a user explicitly saves a related care activity.
 
 For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and observation content belongs in Stage Tips or Care Guides.
 
@@ -132,13 +131,13 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 
 ### 5.5 Care Guide
 
-**Purpose:** Explains a reusable care technique shared across care recommendations or stages.
+**Purpose:** Owns reusable user-facing care knowledge shared by one or more recommendation definitions or displayed as informational guidance.
 
-**Required fields:** ID, guide type, Vietnamese title, purpose, steps, safety/avoid notes, applicable species/stages, status, version, references.
+**Required fields:** ID, Vietnamese title, goal, Markdown instructions, applicable species/stages, status, version, and references.
 
-**Optional fields:** Tools, materials, images, duration, difficulty, climate variants, related recommendations, troubleshooting links.
+**Optional fields:** Recommended inputs, frequency, notes, tools, materials, images, and climate variants.
 
-**Relationships:** Referenced by care recommendations, stages, troubleshooting, harvest, and seasonal content.
+**Relationships:** A care recommendation references exactly one Care Guide. Informational pruning/training guides never create a care recommendation or dedicated activity.
 
 **Example:** `guide.tie-vine-to-support` with steps for selecting soft ties and avoiding stem constriction.
 
@@ -162,7 +161,7 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 
 **Optional fields:** Diagrams, season constraints, recovery guidance, linked diseases, warning signs.
 
-**Relationships:** Referenced by pruning recommendations and stage playbooks.
+**Relationships:** May be displayed as informational stage guidance. It is not referenced by a pruning recommendation because pruning is not a dedicated care activity.
 
 **Example:** A “Nuôi thân” guide that removes competing side shoots while explicitly avoiding cutting the main trunk.
 
@@ -246,7 +245,7 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 
 **Optional fields:** Stage/species scope, valid forecast window, conflict group, safety severity, related guide.
 
-**Relationships:** Targets Care Recommendation Definitions and may reference stages, diseases, fertilizers, or care guides.
+**Relationships:** Targets Care Plans and may reference stages, diseases, fertilizers, or care guides.
 
 **Example:** Flowering + rain probability above 70% delays a spraying suggestion and explains “Mưa có thể làm giảm hiệu quả phun.”
 
@@ -599,33 +598,44 @@ Review-stage playbooks are intentionally non-executable. Do not infer a rule eng
 ```md
 ---
 id: grape.recommendation.check-soil-moisture
-type: care_recommendation_definition
-title: "Kiểm tra độ ẩm đất"
+type: care_plan
 locale: vi-VN
+guide_id: grape.guide.check-soil-moisture
+priority: 50
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
 activity_type: watering
-repeat_policy: history_based
+eligibility:
+  kind: elapsed_days_since_activity
+  suggest_after_days: 3
+on_missing_history: suggest
+version: 1.0.0
+status: approved
+references: [ref.extension.grape-watering]
+---
+```
+
+The linked Care Guide owns Vietnamese title, goal, Markdown instructions, inputs, frequency, and notes. This definition only decides whether that guide appears; it never contains a Markdown body or a `repeat_policy`.
+
+### Care guide template
+
+```md
+---
+id: grape.guide.check-soil-moisture
+type: care_guide
+title: "Kiểm tra độ ẩm đất"
+goal: "Giúp quyết định có cần tưới hay không trước khi ghi nhận hoạt động."
+locale: vi-VN
+species_ids: [plant.grape]
+stage_ids: [grape.stage.trunk-development]
+notes:
+  - "Không tự động điền lượng nước khi chưa có đủ bối cảnh."
 version: 1.0.0
 status: approved
 references: [ref.extension.grape-watering]
 ---
 
-## Hướng dẫn
-
 Kiểm tra lớp đất mặt và khả năng thoát nước trước khi quyết định tưới.
-
-## Vì sao nên làm
-
-Giúp tránh tưới theo lịch cứng khi đất vẫn còn đủ ẩm.
-
-## Điều cần tránh
-
-Không tự động điền lượng nước khi chưa có đủ bối cảnh.
-
-## Chuẩn bị tiếp theo
-
-Nếu cần tưới, mở biểu mẫu đã điền sẵn cây và loại hoạt động; người dùng vẫn phải chọn “Lưu”.
 ```
 
 ### Threat template
@@ -675,7 +685,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 
 ### Knowledge-quality validation
 
-- Every recommendation has a reason.
+- Every Care Guide has a non-empty goal.
 - Every avoid/safety statement has a source.
 - Amounts include units and assumptions.
 - Disease and pest content avoids unsupported diagnosis.
@@ -700,7 +710,7 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 2. Create Plant Species identity and scope.
 3. Define the ordered growth-stage journey.
 4. Write one complete Stage Playbook at a time.
-5. Reuse or create stage tips, care-recommendation definitions, and care guides.
+5. Reuse or create Care Guides, then link one Guide from each care-recommendation definition.
 6. Link nutrients and fertilizer profiles.
 7. Link common diseases, pests, signs, and troubleshooting.
 8. Add seasonal and weather rules.

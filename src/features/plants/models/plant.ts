@@ -5,6 +5,7 @@ export const PlantSchema = z.object({
   name: z.string().trim().min(1),
   speciesId: z.string().min(1),
   stageId: z.string().min(1),
+  growingMethod: z.enum(["ground", "container"]),
   location: z.string().trim().nullable(),
   plantedAt: z.string().date().nullable(),
   createdAt: z.string().datetime(),

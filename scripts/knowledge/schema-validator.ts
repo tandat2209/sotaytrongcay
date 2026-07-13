@@ -22,7 +22,7 @@ import { KNOWLEDGE_DOCUMENT_TYPES } from "./types";
 const TYPE_TO_SCHEMA_FILENAME = new Map<KnowledgeDocumentType, string>([
   ["plant_species", "species.schema.json"],
   ["growth_stage_playbook", "stage-playbook.schema.json"],
-  ["care_recommendation_definition", "care-recommendation.schema.json"],
+  ["care_plan", "care-plan.schema.json"],
   ["care_guide", "guide.schema.json"],
   ["reference_source", "reference.schema.json"],
 ]);
@@ -125,8 +125,8 @@ function matchesPlacement(document: ParsedSourceDocument, type: KnowledgeDocumen
       return /^knowledge\/species\/[^/]+\/species\.md$/.test(path);
     case "growth_stage_playbook":
       return /^knowledge\/species\/[^/]+\/lifecycles\/[^/]+\/[^/]+\.md$/.test(path);
-    case "care_recommendation_definition":
-      return /^knowledge\/species\/[^/]+\/care-recommendations\/[^/]+\.md$/.test(path);
+    case "care_plan":
+      return /^knowledge\/species\/[^/]+\/care-plans\/[^/]+\.md$/.test(path);
     case "care_guide":
       return /^knowledge\/species\/[^/]+\/guides\/.+\.md$/.test(path);
     case "reference_source":

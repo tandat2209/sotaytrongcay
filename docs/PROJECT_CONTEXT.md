@@ -89,7 +89,8 @@ Users can:
 
 - A **Plant** references one **Plant Species** and one current **Growth Stage**.
 - A **Stage Guide** supplies review-stage context: objective, observations, duration, knowledge topics, and sources. It never creates reminders, tasks, automatic transitions, or executable rules.
-- A **Care Recommendation Definition** describes when one trackable activity is worth considering, why, and its reviewed elapsed-time history policy. It is scoped to a species, stage, and activity type; MVP permits one applicable definition per scope.
+- A **Care Guide** owns reusable user-facing care content: title, goal, instructions, frequency, recommended inputs, and notes.
+- A **Care Plan** references exactly one Care Guide and decides when one trackable activity is worth considering: species/stage scope, eligibility, missing-history policy, and priority. MVP permits one applicable definition per scope.
 - Review-stage content remains informational and creates no history.
 - A **Care Activity** records performed watering, fertilizing, or spraying.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
@@ -111,7 +112,7 @@ Each growth-stage guide contains:
 - milestone and next stage;
 - references and review metadata.
 
-Care recommendation definitions exist only for trackable activities. General techniques and cautions remain stage tips or guides.
+Care Plans exist only for trackable activities and never duplicate guide content. General techniques and pruning guidance remain informational tips or guides.
 
 ## Assumptions to validate
 

@@ -38,6 +38,13 @@ The grape species registry defines the canonical development and production life
 
 A review-stage playbook provides concise objective, observations, duration, knowledge topics, and sources. It does not create reminders, tasks, transitions, or care instructions. The product must not imply that a selectable stage has approved tips or recommendations until the relevant content is approved.
 
+## Care-content ownership
+
+- A `care_guide` is the only authored source for a recommendation's title, goal, Markdown instructions, frequency, recommended inputs, and notes.
+- Every `care_plan` has one ; it only defines when a guide is shown: scope, activity type, eligibility, missing-history policy, and priority.
+- The compiler validates the guide relationship and emits it without copying guide content into recommendations.
+- Informational guides, including pruning or training techniques, do not create activities, recommendations, reminders, or history.
+
 ## Documentation ownership
 
 - The schemas in `_schemas/` define the authored and mobile-bundle field contracts.

@@ -1,7 +1,7 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import {
-  getCareGuideForStage,
-  getCareRecommendationsForStage,
+  getCarePlansForStage,
+  listInformationalGuidesForStage,
   getNextStagePlaybook,
   getStagePlaybook,
   type CareGuide,
@@ -11,16 +11,16 @@ import { StagePlaybookScreen } from "./StagePlaybookScreen";
 
 const STAGE_ID = "grape.stage.trunk-development";
 const playbook = getStagePlaybook(STAGE_ID) as StagePlaybook;
-const careGuide = getCareGuideForStage(STAGE_ID) as CareGuide;
-const careRecommendations = getCareRecommendationsForStage(STAGE_ID);
+const informationalGuides: readonly CareGuide[] = [];
+const carePlans = getCarePlansForStage(STAGE_ID);
 const nextStage = getNextStagePlaybook(STAGE_ID) as StagePlaybook;
 
 describe("StagePlaybookScreen", () => {
   it("renders the screen title and stage title in hero", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
@@ -37,8 +37,8 @@ describe("StagePlaybookScreen", () => {
   it("renders the playbook objective and review badge", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
@@ -50,41 +50,40 @@ describe("StagePlaybookScreen", () => {
     expect(screen.getByText("NỘI DUNG CHỜ DUYỆT")).toBeTruthy();
   });
 
-  it("renders care guide in the Thao tác quan trọng section when present", () => {
+  it("renders informational guides when present", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={careGuide}
-        careRecommendations={[]}
+        informationalGuides={listInformationalGuidesForStage(STAGE_ID)}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
       />,
     );
 
-    expect(screen.getByText("Thao tác quan trọng")).toBeTruthy();
-    expect(screen.getByText("Nên làm")).toBeTruthy();
-    expect(screen.getAllByText("Bón phân giai đoạn phát triển thân").length).toBeGreaterThan(0);
+    expect(screen.getByText("Hướng dẫn tham khảo")).toBeTruthy();
+    expect(screen.getByText("Định hướng thân chính")).toBeTruthy();
   });
 
-  it("omits Thao tác quan trọng section when careGuide is null", () => {
+  it("omits informational guide section when absent", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
       />,
     );
 
-    expect(screen.queryByText("Thao tác quan trọng")).toBeNull();
+    expect(screen.queryByText("Hướng dẫn tham khảo")).toBeNull();
   });
 
-  it("renders care recommendations when present", () => {
+  it("renders care plans when present", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={careRecommendations}
+        informationalGuides={informationalGuides}
+        carePlans={carePlans}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
@@ -98,8 +97,8 @@ describe("StagePlaybookScreen", () => {
   it("renders recommended knowledge topics", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
@@ -113,8 +112,8 @@ describe("StagePlaybookScreen", () => {
   it("renders exit criteria in the Tiêu chí hoàn thành section", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
@@ -129,8 +128,8 @@ describe("StagePlaybookScreen", () => {
     const onOpenNextStage = jest.fn();
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={nextStage}
         onBack={jest.fn()}
         onOpenNextStage={onOpenNextStage}
@@ -147,8 +146,8 @@ describe("StagePlaybookScreen", () => {
   it("omits the Sắp tới card when nextStage is null", () => {
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={jest.fn()}
         playbook={playbook}
@@ -162,8 +161,8 @@ describe("StagePlaybookScreen", () => {
     const onBack = jest.fn();
     const screen = render(
       <StagePlaybookScreen
-        careGuide={null}
-        careRecommendations={[]}
+        informationalGuides={informationalGuides}
+        carePlans={[]}
         nextStage={null}
         onBack={onBack}
         playbook={playbook}

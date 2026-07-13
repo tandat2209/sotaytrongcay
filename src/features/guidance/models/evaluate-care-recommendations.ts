@@ -1,5 +1,5 @@
 import type { CareActivity, CareActivityType } from "@/features/journal";
-import type { CareRecommendation } from "@/features/knowledge";
+import type { CarePlan } from "@/features/knowledge";
 import type { Plant } from "@/features/plants";
 import type { CareEvaluation } from "./care-evaluation";
 
@@ -7,78 +7,79 @@ type EvaluationInput = Readonly<{
   activities: readonly CareActivity[];
   evaluatedAt: Date;
   plant: Plant;
-  recommendations: readonly CareRecommendation[];
+  plans: readonly CarePlan[];
 }>;
 
-export function evaluateCareRecommendations({
+export function evaluateCarePlans({
   activities,
   evaluatedAt,
   plant,
-  recommendations,
+  plans,
 }: EvaluationInput): readonly CareEvaluation[] {
-  return recommendations.map((recommendation) =>
-    evaluateCareRecommendation({ activities, evaluatedAt, plant, recommendation }),
+  return plans.map((plan) =>
+    evaluateCarePlan({ activities, evaluatedAt, plant, plan }),
   );
 }
 
-function evaluateCareRecommendation(input: Readonly<{
+function evaluateCarePlan(input: Readonly<{
   activities: readonly CareActivity[];
   evaluatedAt: Date;
   plant: Plant;
-  recommendation: CareRecommendation;
+  plan: CarePlan;
 }>): CareEvaluation {
-  const { activities, evaluatedAt, plant, recommendation } = input;
-  const latestActivity = latestActivityForType(activities, plant.id, recommendation.activityType);
-  const identity = `${plant.id}:${localDateKey(evaluatedAt)}:${recommendation.id}:${recommendation.version}`;
+  const { activities, evaluatedAt, plant, plan } = input;
+  const latestActivity = latestActivityForType(activities, plant.id, plan.activityType);
+  const identity = `${plant.id}:${localDateKey(evaluatedAt)}:${plan.id}:${plan.version}`;
 
   if (latestActivity === null) {
-    if (recommendation.onMissingHistory === "suggest") {
+    if (plan.onMissingHistory === "suggest") {
       return {
-        activityType: recommendation.activityType,
+        activityType: plan.activityType,
         daysSinceLastActivity: null,
-        definitionId: recommendation.id,
-        definitionVersion: recommendation.version,
-        explanation: recommendation.goal,
+        definitionId: plan.id,
+        definitionVersion: plan.version,
+        explanation: plan.goal,
         id: identity,
         plantId: plant.id,
         status: "recommended",
-        title: recommendation.title,
+        title: plan.title,
       };
     }
 
-    return unavailableEvaluation(plant.id, recommendation.activityType, identity, recommendation.title, "Chưa có đủ lịch sử chăm sóc để đưa ra gợi ý.");
+    return unavailableEvaluation(plant.id, plan.activityType, identity, plan.title, "Chưa có đủ lịch sử chăm sóc để đưa ra gợi ý.");
   }
 
   const occurredAt = new Date(latestActivity.occurredAt);
   if (Number.isNaN(occurredAt.getTime()) || occurredAt > evaluatedAt) {
-    return unavailableEvaluation(plant.id, recommendation.activityType, identity, recommendation.title, "Dữ liệu lịch sử chăm sóc chưa hợp lệ.");
+    return unavailableEvaluation(plant.id, plan.activityType, identity, plan.title, "Dữ liệu lịch sử chăm sóc chưa hợp lệ.");
   }
 
   const daysSinceLastActivity = localCalendarDayDifference(occurredAt, evaluatedAt);
-  if (daysSinceLastActivity >= recommendation.eligibility.suggestAfterDays) {
+  const thresholdDays = plan.frequency?.[plant.growingMethod]?.intervalDays ?? plan.eligibility.suggestAfterDays;
+  if (daysSinceLastActivity >= thresholdDays) {
     return {
-      activityType: recommendation.activityType,
+      activityType: plan.activityType,
       daysSinceLastActivity,
-      definitionId: recommendation.id,
-      definitionVersion: recommendation.version,
-      explanation: `${recommendation.goal} Lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
+      definitionId: plan.id,
+      definitionVersion: plan.version,
+      explanation: `${plan.goal} Lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
       id: identity,
       plantId: plant.id,
       status: "recommended",
-      title: recommendation.title,
+      title: plan.title,
     };
   }
 
   return {
-    activityType: recommendation.activityType,
+    activityType: plan.activityType,
     daysSinceLastActivity,
-    definitionId: recommendation.id,
-    definitionVersion: recommendation.version,
-    explanation: `Chưa cần ${activityLabel(recommendation.activityType).toLowerCase()} — lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
+    definitionId: plan.id,
+    definitionVersion: plan.version,
+    explanation: `Chưa cần ${activityLabel(plan.activityType).toLowerCase()} — lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
     id: identity,
     plantId: plant.id,
     status: "not_recommended",
-    title: recommendation.title,
+    title: plan.title,
   };
 }
 

@@ -165,10 +165,11 @@ references: [ref.example]
 `,
   recommendation: `---
 id: grape.recommendation.check-soil
-type: care_recommendation_definition
+type: care_plan
 title: "Kiểm tra đất"
 goal: "Kiểm tra trực tiếp giúp tránh tưới thừa gây úng rễ."
 locale: vi-VN
+priority: 50
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
 activity_type: watering
@@ -185,6 +186,7 @@ references: [ref.example]
 id: grape.guide.train-main-shoot
 type: care_guide
 title: "Cố định thân chính"
+goal: "Giúp thân chính phát triển ổn định."
 locale: vi-VN
 species_ids: [plant.grape]
 stage_ids: [grape.stage.trunk-development]
@@ -223,7 +225,7 @@ describe("knowledge source schema validation", () => {
   it("validates one correctly placed document for every supported type", async () => {
     await workspace.writeKnowledgeFile("species/grape/species.md", validDocuments.species);
     await workspace.writeKnowledgeFile("species/grape/lifecycles/development/trunk-development.md", validDocuments.stage);
-    await workspace.writeKnowledgeFile("species/grape/care-recommendations/check-soil.md", validDocuments.recommendation);
+    await workspace.writeKnowledgeFile("species/grape/care-plans/check-soil.md", validDocuments.recommendation);
     await workspace.writeKnowledgeFile("species/grape/guides/training/train-main-shoot.md", validDocuments.guide);
     await workspace.writeKnowledgeFile("references/ref-example.md", validDocuments.reference);
 
@@ -235,7 +237,7 @@ describe("knowledge source schema validation", () => {
     expect(result.diagnostics).toEqual([]);
     expect(result.documents.map((document) => document.type)).toEqual([
       "reference_source",
-      "care_recommendation_definition",
+      "care_plan",
       "care_guide",
       "growth_stage_playbook",
       "plant_species",

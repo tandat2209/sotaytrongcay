@@ -1,15 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://sotaytrongcay.local/schemas/care-recommendation.schema.json",
-  "title": "Care Recommendation Definition",
+  "$id": "https://sotaytrongcay.local/schemas/care-plan.schema.json",
+  "title": "Care Plan",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "id",
     "type",
-    "title",
-    "goal",
     "locale",
+    "priority",
     "species_ids",
     "stage_ids",
     "activity_type",
@@ -17,7 +16,9 @@
     "on_missing_history",
     "version",
     "status",
-    "references"
+    "references",
+    "title",
+    "goal"
   ],
   "properties": {
     "id": {
@@ -25,13 +26,8 @@
       "pattern": "^[a-z0-9.-]+$"
     },
     "type": {
-      "const": "care_recommendation_definition"
+      "const": "care_plan"
     },
-    "title": {
-      "type": "string",
-      "minLength": 1
-    },
-
     "locale": {
       "type": "string",
       "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
@@ -106,9 +102,63 @@
         "pattern": "^ref\\.[a-z0-9.-]+$"
       }
     },
+    "priority": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
     "goal": {
       "type": "string",
       "minLength": 1
+    },
+    "frequency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ground",
+        "container"
+      ],
+      "properties": {
+        "ground": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "display",
+            "interval_days"
+          ],
+          "properties": {
+            "display": {
+              "type": "string",
+              "minLength": 1
+            },
+            "interval_days": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "container": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "display",
+            "interval_days"
+          ],
+          "properties": {
+            "display": {
+              "type": "string",
+              "minLength": 1
+            },
+            "interval_days": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
     },
     "recommended_inputs": {
       "type": "array",
@@ -116,7 +166,10 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["group", "examples"],
+        "required": [
+          "group",
+          "examples"
+        ],
         "properties": {
           "group": {
             "type": "string",
@@ -126,21 +179,6 @@
             "type": "string",
             "minLength": 1
           }
-        }
-      }
-    },
-    "frequency": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["ground", "container"],
-      "properties": {
-        "ground": {
-          "type": "string",
-          "minLength": 1
-        },
-        "container": {
-          "type": "string",
-          "minLength": 1
         }
       }
     },

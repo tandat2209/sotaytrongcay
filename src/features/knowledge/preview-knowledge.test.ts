@@ -1,9 +1,9 @@
 import {
-  getCareGuideForStage,
-  getCareRecommendationsForStage,
+  getCarePlansForStage,
   getNextStagePlaybook,
   getPreviewPlantKnowledge,
   getStagePlaybook,
+  listInformationalGuidesForStage,
 } from "./preview-knowledge";
 
 describe("preview knowledge", () => {
@@ -53,31 +53,33 @@ describe("preview knowledge", () => {
     });
   });
 
-  describe("getCareGuideForStage", () => {
-    it("returns a care guide for a stage that has one", () => {
-      const guide = getCareGuideForStage("grape.stage.trunk-development");
+  describe("listInformationalGuidesForStage", () => {
+    it("returns non-plan guides for a stage", () => {
+      const guides = listInformationalGuidesForStage("grape.stage.trunk-development");
 
-      expect(guide).not.toBeNull();
-      expect(guide!.id).toBe("grape.guide.train-main-shoot");
-      expect(guide!.title.length).toBeGreaterThan(0);
+      expect(guides).toEqual(expect.arrayContaining([
+        expect.objectContaining({ id: "grape.guide.train-main-shoot" }),
+      ]));
     });
 
-    it("returns null for a stage without a guide", () => {
-      expect(getCareGuideForStage("grape.stage.harvest")).toBeNull();
+    it("returns an empty array for a stage without informational guides", () => {
+      expect(listInformationalGuidesForStage("grape.stage.harvest")).toHaveLength(0);
     });
   });
 
-  describe("getCareRecommendationsForStage", () => {
-    it("returns care recommendations for a stage that has them", () => {
-      const recs = getCareRecommendationsForStage("grape.stage.trunk-development");
+  describe("getCarePlansForStage", () => {
+    it("returns care plans for a stage that has them", () => {
+      const recs = getCarePlansForStage("grape.stage.trunk-development");
 
       expect(recs.length).toBeGreaterThan(0);
       expect(recs[0]!.id).toBe("grape.recommendation.trunk-development.fertilizing");
       expect(recs[0]!.activityType).toBe("fertilizing");
+      expect(recs[0]!.title.length).toBeGreaterThan(0);
+      expect(recs[0]!.goal.length).toBeGreaterThan(0);
     });
 
-    it("returns an empty array for a stage with no recommendations", () => {
-      expect(getCareRecommendationsForStage("grape.stage.nonexistent")).toHaveLength(0);
+    it("returns an empty array for a stage with no plans", () => {
+      expect(getCarePlansForStage("grape.stage.nonexistent")).toHaveLength(0);
     });
   });
 });

@@ -32,7 +32,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Add Journal source labels and filters.
 - [ ] Verify loading, empty, error, stale-weather, and offline states.
 - [ ] Add plant photo (`photoUri`) to Today priority cards when the Plant model supports user-captured images.
-- [ ] Thread care recommendation `bodyMarkdown` as a separate "Hướng dẫn" section in Today priority cards.
+- [ ] Show linked Care Guide Markdown instructions in Today priority cards after reviewed UX and content scope.
 
 ## Engineering
 
@@ -52,6 +52,8 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
 - [x] Build the first deterministic watering suggestion without persistent task instances, including transparent positive and negative Today evaluations.
+- [ ] Obtain reviewed guide instructions before promoting migrated grape recommendation guides beyond `review`.
+- [ ] Define differentiated recommendation priorities only after reviewed product ordering policy exists.
 - [ ] Extend reviewed deterministic care suggestions to additional stages and care types.
 - [ ] Add offline synchronization.
 - [ ] Verify backup, restore, export, deletion, and content-version migration.

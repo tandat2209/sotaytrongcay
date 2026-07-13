@@ -73,45 +73,32 @@ export function normalizeDocument(
       };
     }
 
-    case "care_recommendation_definition": {
-
+    case "care_plan": {
       const rawInputs = fm.recommended_inputs;
       const recommendedInputs = Array.isArray(rawInputs)
-        ? (rawInputs as readonly { group: string; examples: string }[]).map((item) => ({
-            group: String(item.group),
-            examples: String(item.examples),
-          }))
+        ? (rawInputs as readonly { group: string; examples: string }[]).map((item) => ({ group: String(item.group), examples: String(item.examples) }))
         : undefined;
-
-      const rawFrequency = fm.frequency as { ground?: string; container?: string } | undefined;
-      const frequency =
-        rawFrequency && typeof rawFrequency.ground === "string" && typeof rawFrequency.container === "string"
-          ? { ground: rawFrequency.ground, container: rawFrequency.container }
-          : undefined;
-
-      const rawNotes = fm.notes;
-      const notes = Array.isArray(rawNotes)
-        ? (rawNotes as readonly string[]).map(String)
+      const rawFrequency = fm.frequency as { ground?: { display?: string; interval_days?: number }; container?: { display?: string; interval_days?: number } } | undefined;
+      const frequency = rawFrequency?.ground && rawFrequency.container
+        ? { ground: { display: String(rawFrequency.ground.display), intervalDays: Number(rawFrequency.ground.interval_days) }, container: { display: String(rawFrequency.container.display), intervalDays: Number(rawFrequency.container.interval_days) } }
         : undefined;
-
+      const notes = Array.isArray(fm.notes) ? (fm.notes as readonly string[]).map(String) : undefined;
       return {
         id: doc.id,
-        type: "care_recommendation_definition",
+        type: "care_plan",
         path: doc.path,
         title: String(fm.title),
         version: String(fm.version),
-        bodyMarkdown: "",
+        bodyMarkdown: doc.body,
         locale: String(fm.locale),
         status: fm.status as any,
         references: (fm.references ?? []) as readonly string[],
         goal: String(fm.goal),
+        priority: Number(fm.priority),
         speciesIds: (fm.species_ids ?? []) as readonly string[],
         stageIds: (fm.stage_ids ?? []) as readonly string[],
         activityType: fm.activity_type as "watering" | "fertilizing" | "spraying",
-        eligibility: {
-          kind: "elapsed_days_since_activity",
-          suggestAfterDays: Number((fm.eligibility as { suggest_after_days: number }).suggest_after_days),
-        },
+        eligibility: { kind: "elapsed_days_since_activity", suggestAfterDays: Number((fm.eligibility as { suggest_after_days: number }).suggest_after_days) },
         onMissingHistory: fm.on_missing_history as "suggest" | "withhold",
         ...(recommendedInputs !== undefined && { recommendedInputs }),
         ...(frequency !== undefined && { frequency }),
@@ -120,6 +107,20 @@ export function normalizeDocument(
     }
 
     case "care_guide": {
+      const rawInputs = fm.recommended_inputs;
+      const recommendedInputs = Array.isArray(rawInputs)
+        ? (rawInputs as readonly { group: string; examples: string }[]).map((item) => ({
+            group: String(item.group),
+            examples: String(item.examples),
+          }))
+        : undefined;
+      const rawFrequency = fm.frequency as { ground?: { display?: string; interval_days?: number }; container?: { display?: string; interval_days?: number } } | undefined;
+      const frequency = rawFrequency?.ground && rawFrequency.container
+        ? { ground: { display: String(rawFrequency.ground.display), intervalDays: Number(rawFrequency.ground.interval_days) }, container: { display: String(rawFrequency.container.display), intervalDays: Number(rawFrequency.container.interval_days) } }
+        : undefined;
+      const rawNotes = fm.notes;
+      const notes = Array.isArray(rawNotes) ? (rawNotes as readonly string[]).map(String) : undefined;
+
       return {
         id: doc.id,
         type: "care_guide",
@@ -130,8 +131,12 @@ export function normalizeDocument(
         locale: String(fm.locale),
         status: fm.status as any,
         references: (fm.references ?? []) as readonly string[],
+        goal: String(fm.goal),
         speciesIds: (fm.species_ids ?? []) as readonly string[],
         stageIds: (fm.stage_ids ?? []) as readonly string[],
+        ...(recommendedInputs !== undefined && { recommendedInputs }),
+        ...(frequency !== undefined && { frequency }),
+        ...(notes !== undefined && { notes }),
       };
     }
 

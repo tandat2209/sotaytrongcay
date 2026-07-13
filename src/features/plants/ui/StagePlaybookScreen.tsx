@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, View } from "react-native";
 import { stageIcon } from "@/features/knowledge/stage-icons";
-import type { CareGuide, CareRecommendation, StagePlaybook } from "@/features/knowledge/preview-knowledge";
+import type { CareGuide, CarePlan, StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
@@ -9,8 +9,8 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
-  careGuide: CareGuide | null;
-  careRecommendations: readonly CareRecommendation[];
+  carePlans: readonly CarePlan[];
+  informationalGuides: readonly CareGuide[];
   nextStage: StagePlaybook | null;
   onBack: () => void;
   onOpenNextStage?: () => void;
@@ -18,8 +18,8 @@ type Props = Readonly<{
 }>;
 
 export function StagePlaybookScreen({
-  careGuide,
-  careRecommendations,
+  carePlans,
+  informationalGuides,
   nextStage,
   onBack,
   onOpenNextStage,
@@ -62,37 +62,36 @@ export function StagePlaybookScreen({
         </SurfaceCard>
       </View>
 
-      {/* Thao tác quan trọng */}
-      {careGuide ? (
+      {/* Hướng dẫn tham khảo */}
+      {informationalGuides.length > 0 ? (
         <View style={styles.section}>
           <View style={styles.sectionHeading}>
-            <Ionicons color={colors.primary} name="checkmark-circle-outline" size={20} />
-            <Typography variant="headlineSmall">Thao tác quan trọng</Typography>
+            <Ionicons color={colors.primary} name="book-outline" size={20} />
+            <Typography variant="headlineSmall">Hướng dẫn tham khảo</Typography>
           </View>
-          <SurfaceCard style={styles.doCard}>
-            <View style={styles.actionIcon}>
-              <Ionicons color={colors.primary} name="checkmark-done-outline" size={20} />
-            </View>
-            <View style={styles.actionCopy}>
-              <Typography style={styles.doLabel} variant="bodyLarge">
-                Nên làm
-              </Typography>
-              <Typography color="textSecondary" variant="bodyMedium">
-                {careGuide.title}
-              </Typography>
-            </View>
-          </SurfaceCard>
+          {informationalGuides.map((guide) => (
+            <SurfaceCard key={guide.id} style={styles.doCard}>
+              <View style={styles.actionIcon}>
+                <Ionicons color={colors.primary} name="book-outline" size={20} />
+              </View>
+              <View style={styles.actionCopy}>
+                <Typography color="textSecondary" variant="bodyMedium">
+                  {guide.title}
+                </Typography>
+              </View>
+            </SurfaceCard>
+          ))}
         </View>
       ) : null}
 
       {/* Lưu ý chăm sóc */}
-      {careRecommendations.length > 0 ? (
+      {carePlans.length > 0 ? (
         <View style={styles.section}>
           <View style={styles.sectionHeading}>
             <Ionicons color={colors.primary} name="information-circle-outline" size={20} />
             <Typography variant="headlineSmall">Lưu ý chăm sóc</Typography>
           </View>
-          {careRecommendations.map((rec) => (
+          {carePlans.map((rec) => (
             <SurfaceCard key={rec.id} style={styles.recCard}>
               <Ionicons color={colors.primary} name="bulb-outline" size={18} />
               <View style={styles.actionCopy}>

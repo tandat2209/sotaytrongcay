@@ -10,7 +10,7 @@
     "mode",
     "species",
     "stagePlaybooks",
-    "careRecommendations",
+    "carePlans",
     "guides",
     "references"
   ],
@@ -244,152 +244,6 @@
         }
       }
     },
-    "careRecommendations": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "type",
-          "title",
-          "goal",
-          "locale",
-          "version",
-          "status",
-          "references",
-          "speciesIds",
-          "stageIds",
-          "activityType",
-          "eligibility",
-          "onMissingHistory"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^[a-z0-9.-]+$"
-          },
-          "type": {
-            "const": "care_recommendation_definition"
-          },
-          "title": {
-            "type": "string",
-            "minLength": 1
-          },
-
-          "locale": {
-            "type": "string",
-            "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
-          },
-          "version": {
-            "type": "string",
-            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
-          },
-          "status": {
-            "$ref": "#/$defs/status"
-          },
-          "references": {
-            "$ref": "#/$defs/references"
-          },
-          "speciesIds": {
-            "type": "array",
-            "uniqueItems": true,
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "pattern": "^plant\\.[a-z0-9-]+$"
-            }
-          },
-          "stageIds": {
-            "type": "array",
-            "uniqueItems": true,
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "pattern": "^[a-z0-9.-]+$"
-            }
-          },
-          "activityType": {
-            "enum": [
-              "watering",
-              "fertilizing",
-              "spraying"
-            ]
-          },
-          "eligibility": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "kind",
-              "suggestAfterDays"
-            ],
-            "properties": {
-              "kind": {
-                "const": "elapsed_days_since_activity"
-              },
-              "suggestAfterDays": {
-                "type": "integer",
-                "minimum": 1
-              }
-            }
-          },
-          "onMissingHistory": {
-            "enum": [
-              "suggest",
-              "withhold"
-            ]
-          },
-
-          "goal": {
-            "type": "string",
-            "minLength": 1
-          },
-          "recommendedInputs": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["group", "examples"],
-              "properties": {
-                "group": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "examples": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          },
-          "frequency": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["ground", "container"],
-            "properties": {
-              "ground": {
-                "type": "string",
-                "minLength": 1
-              },
-              "container": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "notes": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        }
-      }
-    },
     "guides": {
       "type": "array",
       "uniqueItems": true,
@@ -400,6 +254,7 @@
           "id",
           "type",
           "title",
+          "goal",
           "locale",
           "version",
           "status",
@@ -454,6 +309,58 @@
           },
           "bodyMarkdown": {
             "type": "string"
+          },
+          "goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recommendedInputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "group",
+                "examples"
+              ],
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "examples": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "frequency": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ground",
+              "container"
+            ],
+            "properties": {
+              "ground": {
+                "type": "string",
+                "minLength": 1
+              },
+              "container": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "notes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }
@@ -521,6 +428,193 @@
           },
           "bodyMarkdown": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "carePlans": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "locale",
+          "priority",
+          "version",
+          "status",
+          "references",
+          "speciesIds",
+          "stageIds",
+          "activityType",
+          "eligibility",
+          "onMissingHistory",
+          "title",
+          "goal",
+          "bodyMarkdown"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9.-]+$"
+          },
+          "type": {
+            "const": "care_plan"
+          },
+          "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "references": {
+            "$ref": "#/$defs/references"
+          },
+          "speciesIds": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^plant\\.[a-z0-9-]+$"
+            }
+          },
+          "stageIds": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9.-]+$"
+            }
+          },
+          "activityType": {
+            "enum": [
+              "watering",
+              "fertilizing",
+              "spraying"
+            ]
+          },
+          "eligibility": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "suggestAfterDays"
+            ],
+            "properties": {
+              "kind": {
+                "const": "elapsed_days_since_activity"
+              },
+              "suggestAfterDays": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "onMissingHistory": {
+            "enum": [
+              "suggest",
+              "withhold"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bodyMarkdown": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ground",
+              "container"
+            ],
+            "properties": {
+              "ground": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "display",
+                  "intervalDays"
+                ],
+                "properties": {
+                  "display": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "intervalDays": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              },
+              "container": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "display",
+                  "intervalDays"
+                ],
+                "properties": {
+                  "display": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "intervalDays": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          },
+          "recommendedInputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "group",
+                "examples"
+              ],
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "examples": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "notes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }

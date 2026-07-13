@@ -216,6 +216,16 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Consequences:** The route reads the plant record from SQLite on every navigation (one query). All knowledge lookups are synchronous from the compiled preview bundle.
 
+## 2026-07-13 — Make Care Guide the single source for care knowledge
+
+**Status:** Accepted
+
+**Decision:** `care_guide` owns reusable user-facing care content: title, goal, Markdown instructions, frequency, recommended inputs, and notes. Every `care_plan` references exactly one guide and owns only species/stage scope, activity type, eligibility, missing-history policy, and priority. The derived recommendation resolves both records without persisting task state. Stage Playbooks remain informational and do not own this relationship. Dedicated activity types remain watering, fertilizing, and spraying; pruning guides stay informational and pruning remains a Plant Update.
+
+**Rationale:** Care instructions previously appeared in both guide and recommendation records, letting revisions drift and allowing UI to choose an unrelated first guide for a stage. A required guide relationship keeps one editable authority while retaining deterministic suggestion rules.
+
+**Consequences:** Compiler validation rejects missing, wrong-type, out-of-scope, or ineligible guide relationships. Recommendation definitions no longer carry user-facing instructions. Existing review-stage grape content remains excluded from production until approved.
+
 ## Decision template
 
 ```md

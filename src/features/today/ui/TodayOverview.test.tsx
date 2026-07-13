@@ -1,7 +1,7 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { TodayOverview, WeatherCard } from "./TodayOverview";
 
-const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thượng", speciesId: "plant.grape", stageId: "grape.stage.trunk-development", location: null, plantedAt: null, createdAt: "2026-07-11T08:00:00.000Z" };
+const plant = { id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1", name: "Nho sân thượng", speciesId: "plant.grape", stageId: "grape.stage.trunk-development", growingMethod: "container" as const, location: null, plantedAt: null, createdAt: "2026-07-11T08:00:00.000Z" };
 const callbacks = { onAddPlant: jest.fn(), onOpenActivity: jest.fn(), onOpenJournal: jest.fn(), onOpenPlant: jest.fn(), onRecordCare: jest.fn() };
 
 const observation = { freshnessLabel: "Cập nhật 10 phút trước", locationLabel: "Quận 7", observedAt: "2026-07-12T08:00:00.000Z", source: "Nhà cung cấp thời tiết", summary: "Có mây", metrics: { humidityPercent: 72, rainChancePercent: 30, temperatureCelsius: 29 } };
@@ -36,7 +36,7 @@ describe("TodayOverview", () => {
   });
 
   it("expands a priority only when requested and opens Care Entry from its direct action", () => {
-    const priority = { id: "watering", plantId: plant.id, plantName: plant.name, stageId: plant.stageId, stageTitle: "Phát triển thân", activityType: "watering" as const, title: "Kiểm tra đất trước khi tưới", status: "recommended" as const, explanation: "Lần ghi gần nhất cách đây 3 ngày. Kiểm tra độ ẩm đất trước khi tưới.", daysSinceLastActivity: 3, definitionId: "grape.recommendation.check-soil-before-watering", definitionVersion: "1.0.0" };
+    const priority = { id: "watering", plantId: plant.id, plantName: plant.name, stageId: plant.stageId, stageTitle: "Phát triển thân", activityType: "watering" as const, title: "Kiểm tra đất trước khi tưới", status: "recommended" as const, explanation: "Lần ghi gần nhất cách đây 3 ngày. Kiểm tra độ ẩm đất trước khi tưới.", daysSinceLastActivity: 3, definitionId: "grape.plan.check-soil-before-watering", definitionVersion: "1.0.0" };
     const screen = render(<TodayOverview {...callbacks} projection={{ evaluations: [priority], plants: [plant], priorities: [priority], recentActivities: [], weather: { status: "unavailable", reason: "not-configured" } }} />);
     const detailsButton = screen.getByRole("button", { name: "Xem lý do và hướng dẫn cho Kiểm tra đất trước khi tưới của Nho sân thượng" });
 

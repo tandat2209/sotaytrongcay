@@ -1,7 +1,7 @@
 ---
 id: grape.guide.fertilization-seedling
 type: care_guide
-title: "Bón phân giai đoạn cây con"
+title: Bón phân giai đoạn cây con
 locale: vi-VN
 species_ids:
   - plant.grape
@@ -12,6 +12,7 @@ status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.umn.growing-grapes-home-garden
+goal: Bón phân giai đoạn cây con
 ---
 
 ## Lưu ý quan trọng

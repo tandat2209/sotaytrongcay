@@ -1,7 +1,7 @@
 ---
 id: grape.guide.fertilization-flowering
 type: care_guide
-title: "Dinh dưỡng giai đoạn ra hoa"
+title: Dinh dưỡng giai đoạn ra hoa
 locale: vi-VN
 species_ids:
   - plant.grape
@@ -13,6 +13,7 @@ references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
   - ref.fao.grape-production
+goal: Dinh dưỡng giai đoạn ra hoa
 ---
 
 ## Lưu ý quan trọng

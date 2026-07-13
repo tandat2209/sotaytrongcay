@@ -1,14 +1,14 @@
 export {
-  getCareGuideForStage,
-  getCareRecommendationsForStage,
+  getCarePlansForStage,
+  listInformationalGuidesForStage,
   getNextStagePlaybook,
   getPreviewPlantKnowledge,
   getStagePlaybook,
-  listCareRecommendationDefinitions,
+  listCarePlans,
 } from "./preview-knowledge";
 export type {
   CareGuide,
-  CareRecommendation,
+  CarePlan,
   PlantKnowledgeStage,
   PreviewPlantKnowledge,
   StagePlaybook,

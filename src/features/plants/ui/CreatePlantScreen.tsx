@@ -31,6 +31,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [growingMethod, setGrowingMethod] = useState<Plant["growingMethod"]>("container");
   const [plantedAt, setPlantedAt] = useState<string | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [stageId, setStageId] = useState(defaultStage.id);
@@ -49,6 +50,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         name: name.trim(),
         speciesId: knowledge.species.id,
         stageId,
+        growingMethod,
         location: location.trim() || null,
         plantedAt,
       });
@@ -96,6 +98,31 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
           style={styles.input}
           value={location}
         />
+      </FormField>
+
+      <FormField label="Cách trồng">
+        <View accessibilityRole="radiogroup" style={styles.chips}>
+          {[
+            { value: "container", label: "Chậu" },
+            { value: "ground", label: "Đất" },
+          ].map((method) => {
+            const selected = method.value === growingMethod;
+            return (
+              <Pressable
+                accessibilityLabel={`Chọn cách trồng ${method.label}`}
+                accessibilityRole="radio"
+                accessibilityState={{ checked: selected }}
+                key={method.value}
+                onPress={() => setGrowingMethod(method.value as Plant["growingMethod"])}
+                style={({ pressed }) => [styles.chip, selected && styles.chipSelected, pressed && styles.chipPressed]}
+              >
+                <Typography color={selected ? "surface" : "text"} variant="bodyMedium">
+                  {method.label}
+                </Typography>
+              </Pressable>
+            );
+          })}
+        </View>
       </FormField>
 
       <FormField label="Ngày bắt đầu trồng">

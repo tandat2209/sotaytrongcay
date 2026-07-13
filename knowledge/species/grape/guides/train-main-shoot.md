@@ -1,7 +1,7 @@
 ---
 id: grape.guide.train-main-shoot
 type: care_guide
-title: "Định hướng thân chính"
+title: Định hướng thân chính
 locale: vi-VN
 species_ids:
   - plant.grape
@@ -12,6 +12,7 @@ status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.uc-ipm.young-grape-pruning
+goal: Định hướng thân chính
 ---
 
 # Định hướng thân chính

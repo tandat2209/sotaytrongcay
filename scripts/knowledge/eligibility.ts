@@ -6,7 +6,7 @@ import type {
   NormalizedReferenceSource,
   NormalizedPlantSpecies,
   NormalizedGrowthStagePlaybook,
-  NormalizedCareRecommendationDefinition,
+  NormalizedCarePlan,
   NormalizedCareGuide,
 } from "./types";
 
@@ -102,8 +102,8 @@ export function selectEligibleContent(
         break;
       }
 
-      case "care_recommendation_definition": {
-        const rec = doc as NormalizedCareRecommendationDefinition;
+      case "care_plan": {
+        const rec = doc as NormalizedCarePlan;
         for (const spId of rec.speciesIds) {
           checkUfDependency(rec, spId, "speciesIds");
         }

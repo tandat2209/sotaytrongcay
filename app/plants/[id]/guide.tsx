@@ -2,10 +2,10 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 import { z } from "zod";
 import {
-  getCareGuideForStage,
-  getCareRecommendationsForStage,
   getNextStagePlaybook,
   getStagePlaybook,
+  listCarePlans,
+  listInformationalGuidesForStage,
 } from "@/features/knowledge/preview-knowledge";
 import { getPlant } from "@/features/plants";
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
@@ -38,14 +38,14 @@ export default function StagePlaybookRoute() {
     return <Text>Chưa có hướng dẫn cho giai đoạn này.</Text>;
   }
 
-  const careGuide = getCareGuideForStage(stageId);
-  const careRecommendations = getCareRecommendationsForStage(stageId);
+  const carePlans = listCarePlans({ speciesId: plant.speciesId, stageId });
+  const informationalGuides = listInformationalGuidesForStage(stageId);
   const nextStage = getNextStagePlaybook(stageId);
 
   return (
     <StagePlaybookScreen
-      careGuide={careGuide}
-      careRecommendations={careRecommendations}
+      carePlans={carePlans}
+      informationalGuides={informationalGuides}
       nextStage={nextStage}
       onBack={() => router.back()}
       {...(nextStage

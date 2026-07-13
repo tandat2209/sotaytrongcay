@@ -28,23 +28,29 @@ export type StagePlaybook = Readonly<{
 export type CareGuide = Readonly<{
   id: string;
   title: string;
+  goal: string;
   bodyMarkdown: string;
+  recommendedInputs?: readonly { group: string; examples: string }[];
+  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
+  notes?: readonly string[];
 }>;
 
-export type CareRecommendation = Readonly<{
+export type CarePlan = Readonly<{
   id: string;
   title: string;
   goal: string;
+  bodyMarkdown: string;
+  priority: number;
   activityType: "watering" | "fertilizing" | "spraying";
   eligibility: Readonly<{
     kind: "elapsed_days_since_activity";
     suggestAfterDays: number;
   }>;
   onMissingHistory: "suggest" | "withhold";
-  version: string;
+  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
   recommendedInputs?: readonly { group: string; examples: string }[];
-  frequency?: { ground: string; container: string };
   notes?: readonly string[];
+  version: string;
 }>;
 
 // ---------------------------------------------------------------------------
@@ -74,14 +80,21 @@ type RawPlaybook = {
 type RawGuide = {
   id: string;
   title: string;
+  goal: string;
+  speciesIds?: string[];
   stageIds?: string[];
   bodyMarkdown?: string;
+  recommendedInputs?: { group: string; examples: string }[];
+  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
+  notes?: string[];
 };
 
-type RawCareRecommendation = {
+type RawCarePlan = {
   id: string;
   title: string;
   goal: string;
+  bodyMarkdown: string;
+  priority: number;
   speciesIds: string[];
   stageIds: string[];
   activityType: "watering" | "fertilizing" | "spraying";
@@ -90,17 +103,17 @@ type RawCareRecommendation = {
     suggestAfterDays: number;
   };
   onMissingHistory: "suggest" | "withhold";
-  version: string;
+  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
   recommendedInputs?: { group: string; examples: string }[];
-  frequency?: { ground: string; container: string };
   notes?: string[];
+  version: string;
 };
 
 type PreviewBundle = {
   species: RawSpecies[];
   stagePlaybooks: RawPlaybook[];
   guides: RawGuide[];
-  careRecommendations: RawCareRecommendation[];
+  carePlans: RawCarePlan[];
 };
 
 // ---------------------------------------------------------------------------
@@ -163,59 +176,66 @@ export function getNextStagePlaybook(currentStageId: string): StagePlaybook | nu
   return next ? toPlaybook(next) : null;
 }
 
-// ---------------------------------------------------------------------------
-// getCareGuideForStage
-// ---------------------------------------------------------------------------
-
-/** Returns the first care guide that applies to the given stage, or null. */
-export function getCareGuideForStage(stageId: string): CareGuide | null {
-  const raw = bundle.guides.find((g) => (g.stageIds ?? []).includes(stageId));
-  if (!raw) return null;
-  return {
-    id: raw.id,
-    title: raw.title,
-    bodyMarkdown: raw.bodyMarkdown ?? "",
-  };
+export function listInformationalGuidesForStage(stageId: string): readonly CareGuide[] {
+  return bundle.guides
+    .filter((guide) => (guide.stageIds ?? []).includes(stageId))
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map(toCareGuide);
 }
 
-// ---------------------------------------------------------------------------
-// getCareRecommendationsForStage
-// ---------------------------------------------------------------------------
-
-/** Returns all care recommendations that apply to the given stage. */
-export function getCareRecommendationsForStage(stageId: string): readonly CareRecommendation[] {
-  return bundle.careRecommendations
-    .filter((recommendation) => recommendation.stageIds.includes(stageId))
-    .map(toCareRecommendation);
+export function getCarePlansForStage(stageId: string): readonly CarePlan[] {
+  return bundle.carePlans
+    .filter((plan) => plan.stageIds.includes(stageId))
+    .sort(sortPlans)
+    .map(toCarePlan);
 }
 
-export function listCareRecommendationDefinitions(input: Readonly<{
+export function listCarePlans(input: Readonly<{
   speciesId: string;
   stageId: string;
-}>): readonly CareRecommendation[] {
-  return bundle.careRecommendations
-    .filter((recommendation) => recommendation.speciesIds.includes(input.speciesId))
-    .filter((recommendation) => recommendation.stageIds.includes(input.stageId))
-    .map(toCareRecommendation);
+}>): readonly CarePlan[] {
+  return bundle.carePlans
+    .filter((plan) => plan.speciesIds.includes(input.speciesId))
+    .filter((plan) => plan.stageIds.includes(input.stageId))
+    .sort(sortPlans)
+    .map(toCarePlan);
 }
 
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
 
-function toCareRecommendation(raw: RawCareRecommendation): CareRecommendation {
+function toCarePlan(raw: RawCarePlan): CarePlan {
   return {
     id: raw.id,
     title: raw.title,
     goal: raw.goal,
+    bodyMarkdown: raw.bodyMarkdown,
+    priority: raw.priority,
     activityType: raw.activityType,
     eligibility: raw.eligibility,
     onMissingHistory: raw.onMissingHistory,
+    ...(raw.frequency !== undefined && { frequency: raw.frequency }),
+    ...(raw.recommendedInputs !== undefined && { recommendedInputs: raw.recommendedInputs }),
+    ...(raw.notes !== undefined && { notes: raw.notes }),
     version: raw.version,
+  };
+}
+
+function toCareGuide(raw: RawGuide): CareGuide {
+  return {
+    id: raw.id,
+    title: raw.title,
+    goal: raw.goal,
+    bodyMarkdown: raw.bodyMarkdown ?? "",
     ...(raw.recommendedInputs !== undefined && { recommendedInputs: raw.recommendedInputs }),
     ...(raw.frequency !== undefined && { frequency: raw.frequency }),
     ...(raw.notes !== undefined && { notes: raw.notes }),
   };
+}
+
+function sortPlans(left: RawCarePlan, right: RawCarePlan): number {
+  return right.priority - left.priority || left.id.localeCompare(right.id);
 }
 
 function toPlaybook(raw: RawPlaybook): StagePlaybook {

@@ -4,7 +4,7 @@ const plant = {
   id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1",
   name: "Nho sân thượng",
   speciesId: "plant.grape",
-  stageId: "grape.stage.trunk-development",
+  stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
   location: null,
   plantedAt: null,
   createdAt: "2026-07-11T08:00:00.000Z",
@@ -17,6 +17,7 @@ describe("plant repository mapping", () => {
       plant.name,
       plant.speciesId,
       plant.stageId,
+      plant.growingMethod,
       null, // location
       null, // plantedAt
       plant.createdAt,
@@ -25,7 +26,7 @@ describe("plant repository mapping", () => {
 
   it("maps a plant with location to insert parameters", () => {
     const withLocation = { ...plant, location: "Ban công hướng Đông" };
-    expect(plantToInsertParams(withLocation)[4]).toBe("Ban công hướng Đông");
+    expect(plantToInsertParams(withLocation)[5]).toBe("Ban công hướng Đông");
   });
 
   it("parses a SQLite row into a plant", () => {
@@ -35,6 +36,7 @@ describe("plant repository mapping", () => {
         name: plant.name,
         species_id: plant.speciesId,
         stage_id: plant.stageId,
+        growing_method: plant.growingMethod,
         location: null,
         planted_at: null,
         created_at: plant.createdAt,
@@ -48,6 +50,7 @@ describe("plant repository mapping", () => {
       name: plant.name,
       species_id: plant.speciesId,
       stage_id: plant.stageId,
+      growing_method: plant.growingMethod,
       location: "Ban công hướng Đông",
       planted_at: null,
       created_at: plant.createdAt,

@@ -3,7 +3,7 @@ import type {
   CompilationMode,
   NormalizedPlantSpecies,
   NormalizedGrowthStagePlaybook,
-  NormalizedCareRecommendationDefinition,
+  NormalizedCarePlan,
   NormalizedCareGuide,
   NormalizedReferenceSource,
 } from "./types";
@@ -26,8 +26,8 @@ export function serializeBundle(
   const stageDocs = (documents.filter((d) => d.type === "growth_stage_playbook") as NormalizedGrowthStagePlaybook[])
     .sort((a, b) => a.id.localeCompare(b.id));
 
-  const recDocs = (documents.filter((d) => d.type === "care_recommendation_definition") as NormalizedCareRecommendationDefinition[])
-    .sort((a, b) => a.id.localeCompare(b.id));
+  const planDocs = (documents.filter((d) => d.type === "care_plan") as NormalizedCarePlan[])
+    .sort((a, b) => b.priority - a.priority || a.id.localeCompare(b.id));
 
   const guideDocs = (documents.filter((d) => d.type === "care_guide") as NormalizedCareGuide[])
     .sort((a, b) => a.id.localeCompare(b.id));
@@ -120,7 +120,7 @@ export function serializeBundle(
     };
   });
 
-  const compiledCareRecommendations = recDocs.map((r) => ({
+  const compiledCarePlans = planDocs.map((r) => ({
     id: r.id,
     type: r.type,
     title: r.title,
@@ -129,6 +129,7 @@ export function serializeBundle(
     version: r.version,
     status: r.status,
     references: sortArray(r.references),
+    priority: r.priority,
     speciesIds: sortArray(r.speciesIds),
     stageIds: sortArray(r.stageIds),
     activityType: r.activityType,
@@ -140,18 +141,23 @@ export function serializeBundle(
     ...(r.recommendedInputs !== undefined && { recommendedInputs: r.recommendedInputs }),
     ...(r.frequency !== undefined && { frequency: r.frequency }),
     ...(r.notes !== undefined && { notes: r.notes }),
+    bodyMarkdown: r.bodyMarkdown,
   }));
 
   const compiledGuides = guideDocs.map((g) => ({
     id: g.id,
     type: g.type,
     title: g.title,
+    goal: g.goal,
     locale: g.locale,
     version: g.version,
     status: g.status,
     references: sortArray(g.references),
     speciesIds: sortArray(g.speciesIds),
     stageIds: sortArray(g.stageIds),
+    ...(g.recommendedInputs !== undefined && { recommendedInputs: g.recommendedInputs }),
+    ...(g.frequency !== undefined && { frequency: g.frequency }),
+    ...(g.notes !== undefined && { notes: g.notes }),
     bodyMarkdown: g.bodyMarkdown,
   }));
 
@@ -175,7 +181,7 @@ export function serializeBundle(
     mode,
     species: compiledSpecies,
     stagePlaybooks: compiledStagePlaybooks,
-    careRecommendations: compiledCareRecommendations,
+    carePlans: compiledCarePlans,
     guides: compiledGuides,
     references: compiledReferences,
   };

@@ -202,7 +202,7 @@ references: ["ref.osu"]
           },
         ],
         stagePlaybooks: [],
-        careRecommendations: [],
+        carePlans: [],
         guides: [],
         references: [
           {

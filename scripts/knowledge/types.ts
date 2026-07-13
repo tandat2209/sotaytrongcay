@@ -1,7 +1,7 @@
 export const KNOWLEDGE_DOCUMENT_TYPES = [
   "plant_species",
   "growth_stage_playbook",
-  "care_recommendation_definition",
+  "care_plan",
   "care_guide",
   "reference_source",
 ] as const;
@@ -146,9 +146,13 @@ export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseD
   readonly recommendedKnowledgeTopics: readonly string[];
 }
 
-export interface NormalizedCareRecommendationDefinition extends NormalizedUserFacingBaseDocument {
-  readonly type: "care_recommendation_definition";
+export interface NormalizedCarePlan extends NormalizedUserFacingBaseDocument {
+  readonly type: "care_plan";
+  readonly priority: number;
   readonly goal: string;
+  readonly recommendedInputs?: readonly RecommendedInput[];
+  readonly frequency?: CareFrequency;
+  readonly notes?: readonly string[];
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
   readonly activityType: "watering" | "fertilizing" | "spraying";
@@ -157,9 +161,6 @@ export interface NormalizedCareRecommendationDefinition extends NormalizedUserFa
     readonly suggestAfterDays: number;
   }>;
   readonly onMissingHistory: "suggest" | "withhold";
-  readonly recommendedInputs?: readonly RecommendedInput[];
-  readonly frequency?: CareFrequency;
-  readonly notes?: readonly string[];
 }
 
 export interface RecommendedInput {
@@ -168,14 +169,18 @@ export interface RecommendedInput {
 }
 
 export interface CareFrequency {
-  readonly ground: string;
-  readonly container: string;
+  readonly ground: Readonly<{ display: string; intervalDays: number }>;
+  readonly container: Readonly<{ display: string; intervalDays: number }>;
 }
 
 export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {
   readonly type: "care_guide";
+  readonly goal: string;
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
+  readonly recommendedInputs?: readonly RecommendedInput[];
+  readonly frequency?: CareFrequency;
+  readonly notes?: readonly string[];
 }
 
 export interface NormalizedReferenceSource extends NormalizedBaseDocument {
@@ -190,7 +195,7 @@ export interface NormalizedReferenceSource extends NormalizedBaseDocument {
 export type NormalizedKnowledgeDocument =
   | NormalizedPlantSpecies
   | NormalizedGrowthStagePlaybook
-  | NormalizedCareRecommendationDefinition
+  | NormalizedCarePlan
   | NormalizedCareGuide
   | NormalizedReferenceSource;
 

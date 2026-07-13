@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { z } from "zod";
 
-import { evaluateCareRecommendations } from "@/features/guidance";
+import { evaluateCarePlans } from "@/features/guidance";
 import { listCareActivities } from "@/features/journal";
-import { listCareRecommendationDefinitions } from "@/features/knowledge";
+import { listCarePlans } from "@/features/knowledge";
 import { listPlants } from "@/features/plants";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -17,11 +17,11 @@ export function TodayScreen() {
     queryKey: ["today"],
     queryFn: async () => {
       const [activities, plants] = await Promise.all([listCareActivities(), listPlants()]);
-      const evaluations = plants.flatMap((plant) => evaluateCareRecommendations({
+      const evaluations = plants.flatMap((plant) => evaluateCarePlans({
         activities,
         evaluatedAt: new Date(),
         plant,
-        recommendations: listCareRecommendationDefinitions({
+        plans: listCarePlans({
           speciesId: plant.speciesId,
           stageId: plant.stageId,
         }),
