@@ -124,21 +124,18 @@ If a dependency is missing, report the blocker. Use pure functions, isolated SQL
 
 ## 11. Testing and quality gates
 
-- Model: invariants, schemas, transitions, dates, and units.
-- Feature: public-interface tests with isolated SQLite.
-- UI: React Native Testing Library for interaction, states, and accessibility.
-- Supabase: migrations, RPCs, Storage policies, and RLS in local/test environments.
-- Integration: offline queues, restarts, retries, idempotency, auth expiry, and conflicts.
-- E2E: Maestro for P0 flows on iOS and Android.
+- Test only core logic: model invariants, schemas, transitions, dates, units, and business rules.
+- Do not add or maintain component, UI, feature, integration, or E2E tests during MVP.
+- Supabase migrations, RPCs, Storage policies, and RLS remain core logic and require local/test verification when changed.
+- Verify UI manually through running app; preserve accessibility labels and roles.
 
 Minimum code-task gates:
 
 1. Typecheck.
 2. Lint.
-3. Relevant tests.
-4. Full suite for shared, auth, sync, database, or public-interface changes.
-5. Appropriate Expo preview/production compile for config or native changes.
-6. `git diff --check`.
+3. Relevant core-logic tests when core logic changes.
+4. Appropriate Expo preview/production compile for config or native changes.
+5. `git diff --check`.
 
 Never claim compilation succeeded without running the command. Report blocked verification and residual risk honestly.
 

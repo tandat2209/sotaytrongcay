@@ -11,7 +11,7 @@ description: Apply product scope and mobile interaction rules for So Tay Trong C
 4. Keep assumptions separate from requirements. Ask or stop when an unresolved assumption would change the model or interaction.
 5. Preserve fast contextual tracking for watering, fertilizing, and spraying. Prefill is not persistence; activity enters history only after explicit Save.
 6. No global FAB. Plant Detail alone may use one plant-scoped Quick Care FAB that opens Care Entry and never saves directly.
-7. Keep pruning, observations, and stage changes in the journal model. Stage tips/playbooks remain informational.
+7. Keep pruning, observations, and stage changes in the journal model. Stage tips/playbooks and care-recommendation detail sheets remain read-only and use approved knowledge only.
 8. Never infer plant photo, health, lifecycle completion, progress, or days in stage. Require persisted source contracts.
 9. Consider loading, empty, error, offline, and invalid-data behavior without inventing unsupported data or advice.
 10. Update `docs/PROJECT_CONTEXT.md` only when users, scope, or risks actually change; update `docs/MOBILE_UX_DESIGN.md` when confirmed interaction behavior changes.

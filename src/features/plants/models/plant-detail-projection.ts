@@ -13,11 +13,18 @@ const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spr
 const HERO_CARE_TYPES = ["watering", "fertilizing"] as const;
 const RECENT_CARE_LIMIT = 3;
 
+export type PlantDetailCareDetails = Readonly<{
+  frequencyDisplay: string | null;
+  goal: string;
+  notes: readonly string[];
+  recommendedInputs: readonly Readonly<{ examples: string; group: string }>[];
+}>;
+
 export type PlantDetailCareCard = Readonly<{
   activityType: (typeof HERO_CARE_TYPES)[number];
+  details: PlantDetailCareDetails | null;
   evaluation: CareEvaluation | null;
   frequencyDisplay: string | null;
-  goal: string | null;
   lastActivity: CareActivity | null;
   title: string;
 }>;
@@ -56,11 +63,17 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant }: 
   return {
     careCards: HERO_CARE_TYPES.map((activityType) => {
       const plan = plans.find((candidate) => candidate.activityType === activityType);
+      const frequencyDisplay = plan?.frequency?.[plant.growingMethod].display ?? null;
       return {
         activityType,
+        details: plan ? {
+          frequencyDisplay,
+          goal: plan.goal,
+          notes: plan.notes ?? [],
+          recommendedInputs: plan.recommendedInputs ?? [],
+        } : null,
         evaluation: evaluations.find((candidate) => candidate.activityType === activityType) ?? null,
-        frequencyDisplay: plan?.frequency?.[plant.growingMethod].display ?? null,
-        goal: plan?.goal ?? null,
+        frequencyDisplay,
         lastActivity: latestCare[activityType],
         title: plan?.title ?? (activityType === "watering" ? "Tưới nước" : "Bón phân"),
       };

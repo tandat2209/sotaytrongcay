@@ -60,8 +60,15 @@ describe("createPlantDetailProjection", () => {
     const container = project().careCards.find((card) => card.activityType === "fertilizing");
     const ground = project([], { ...plant, growingMethod: "ground" }).careCards.find((card) => card.activityType === "fertilizing");
 
-    expect(container?.frequencyDisplay).toEqual(expect.any(String));
-    expect(ground?.frequencyDisplay).toEqual(expect.any(String));
+    expect(container?.details).toEqual(expect.objectContaining({
+      frequencyDisplay: "Mỗi 1–2 tuần ở nửa liều so với trồng đất",
+      goal: expect.stringContaining("Thúc đẩy sinh trưởng mạnh"),
+      notes: expect.arrayContaining([expect.stringContaining("Thừa đạm")]),
+      recommendedInputs: expect.arrayContaining([
+        expect.objectContaining({ group: "Phân giàu đạm (high-N)", examples: expect.stringContaining("Urê") }),
+      ]),
+    }));
+    expect(ground?.details?.frequencyDisplay).toBe("Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh");
     expect(container?.frequencyDisplay).not.toBe(ground?.frequencyDisplay);
   });
 
@@ -103,8 +110,8 @@ describe("createPlantDetailProjection", () => {
     expect(projection.stagePlaybook).toBeNull();
     expect(projection.lifecycleStages).toEqual([]);
     expect(projection.careCards).toEqual([
-      expect.objectContaining({ activityType: "watering", evaluation: null, frequencyDisplay: null }),
-      expect.objectContaining({ activityType: "fertilizing", evaluation: null, frequencyDisplay: null }),
+      expect.objectContaining({ activityType: "watering", details: null, evaluation: null, frequencyDisplay: null }),
+      expect.objectContaining({ activityType: "fertilizing", details: null, evaluation: null, frequencyDisplay: null }),
     ]);
   });
 });

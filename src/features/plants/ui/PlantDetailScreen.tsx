@@ -13,7 +13,8 @@ import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
-import type { PlantDetailProjection } from "../models/plant-detail-projection";
+import type { PlantDetailCareCard as CareCardModel, PlantDetailProjection } from "../models/plant-detail-projection";
+import { CareRecommendationDetails } from "./CareRecommendationDetails";
 import { PlantDetailCareCard } from "./PlantDetailCareCard";
 
 type Props = Readonly<{
@@ -29,6 +30,7 @@ const QUICK_CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing"
 
 export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRecordCare, projection, weather }: Props) {
   const [quickCareOpen, setQuickCareOpen] = useState(false);
+  const [selectedCareCard, setSelectedCareCard] = useState<CareCardModel | null>(null);
   const recordQuickCare = (type: CareActivityType) => {
     setQuickCareOpen(false);
     onRecordCare(type);
@@ -61,7 +63,7 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRe
               card={card}
               key={card.activityType}
               onOpenActivity={onOpenActivity}
-              {...(onOpenPlaybook ? { onOpenPlaybook } : {})}
+              onOpenDetails={setSelectedCareCard}
             />
           ))}
         </View>
@@ -69,6 +71,9 @@ export function PlantDetailScreen({ onBack, onOpenActivity, onOpenPlaybook, onRe
         <WeatherCard weather={weather} />
         <RecentActivity activities={projection.recentCare} onOpenActivity={onOpenActivity} />
       </Screen>
+      <BottomSheet onDismiss={() => setSelectedCareCard(null)} title={selectedCareCard?.title ?? "Khuyến nghị chăm sóc"} visible={selectedCareCard !== null}>
+        {selectedCareCard?.details ? <CareRecommendationDetails details={selectedCareCard.details} /> : null}
+      </BottomSheet>
       <BottomSheet onDismiss={() => setQuickCareOpen(false)} title="Chăm sóc nhanh" visible={quickCareOpen}>
         <Typography color="textSecondary" variant="bodyMedium">Chọn hoạt động muốn ghi</Typography>
         {QUICK_CARE_TYPES.map((type) => (

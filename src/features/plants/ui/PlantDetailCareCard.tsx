@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, View } from "react-native";
 import { CARE_ACTIVITY_ICONS, CARE_ACTIVITY_LABELS } from "@/features/journal";
+import type { CareEvaluationStatus } from "@/features/guidance/models/care-evaluation";
 import { IconButton } from "@/shared/ui/IconButton";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
@@ -10,10 +11,10 @@ import type { PlantDetailCareCard as CareCardModel } from "../models/plant-detai
 type Props = Readonly<{
   card: CareCardModel;
   onOpenActivity: (id: string) => void;
-  onOpenPlaybook?: () => void;
+  onOpenDetails: (card: CareCardModel) => void;
 }>;
 
-export function PlantDetailCareCard({ card, onOpenActivity, onOpenPlaybook }: Props) {
+export function PlantDetailCareCard({ card, onOpenActivity, onOpenDetails }: Props) {
   const label = CARE_ACTIVITY_LABELS[card.activityType];
   const status = statusContent(card.evaluation?.status);
 
@@ -21,11 +22,10 @@ export function PlantDetailCareCard({ card, onOpenActivity, onOpenPlaybook }: Pr
     <SurfaceCard style={styles.card}>
       <View style={styles.header}>
         <View style={styles.icon}><Ionicons color={colors.primary} name={CARE_ACTIVITY_ICONS[card.activityType]} size={30} /></View>
-        {onOpenPlaybook ? <IconButton accessibilityLabel="Mở hướng dẫn giai đoạn" icon="book-outline" onPress={onOpenPlaybook} /> : null}
+        {card.details ? <IconButton accessibilityLabel={`Xem khuyến nghị ${label.toLowerCase()}`} icon="information-circle-outline" onPress={() => onOpenDetails(card)} /> : null}
       </View>
       <View style={styles.copy}>
         <Typography variant="headlineMedium">{label}</Typography>
-        <Typography color="textSecondary" variant="bodyLarge">{card.title}</Typography>
         <View style={styles.chip}>
           <Ionicons color={colors.primary} name="calendar-outline" size={15} />
           <Typography color="primary" variant="label">{card.frequencyDisplay ?? "Chưa có tần suất đã duyệt"}</Typography>
@@ -38,33 +38,30 @@ export function PlantDetailCareCard({ card, onOpenActivity, onOpenPlaybook }: Pr
           accessibilityRole={card.lastActivity ? "button" : undefined}
           disabled={!card.lastActivity}
           onPress={() => card.lastActivity && onOpenActivity(card.lastActivity.id)}
-          style={styles.fact}
+          style={styles.latest}
         >
-          <Typography color="textSecondary" variant="label">LẦN GẦN NHẤT</Typography>
-          <Typography variant="bodyLarge">{card.lastActivity ? formatActivity(card.lastActivity) : "Chưa có dữ liệu"}</Typography>
+          <Typography color="textSecondary" variant="bodyMedium">Lần gần nhất</Typography>
+          <Typography variant="bodyLarge">{card.lastActivity ? formatRelativeActivity(card.lastActivity.occurredAt) : "Chưa có dữ liệu"}</Typography>
         </Pressable>
-        <View style={styles.fact}>
-          <Typography color="textSecondary" variant="label">TRẠNG THÁI</Typography>
-          <View style={styles.status}>
-            <Ionicons color={status.color} name={status.icon} size={17} />
-            <Typography color={status.textColor} variant="bodyLarge">{status.label}</Typography>
-          </View>
+        <View style={[styles.status, { backgroundColor: status.backgroundColor }]}>
+          <Ionicons color={status.color} name={status.icon} size={16} />
+          <Typography color={status.textColor} variant="label">{status.label}</Typography>
         </View>
       </View>
-      {card.evaluation ? <Typography color="textSecondary" variant="bodyMedium">{card.evaluation.explanation}</Typography> : null}
     </SurfaceCard>
   );
 }
 
-function statusContent(status: CareCardModel["evaluation"] extends infer _ ? "recommended" | "not_recommended" | "unavailable" | undefined : never) {
-  if (status === "recommended") return { color: colors.error, icon: "alert-circle" as const, label: "Nên xem xét", textColor: "error" as const };
-  if (status === "not_recommended") return { color: colors.primary, icon: "checkmark-circle" as const, label: "Chưa cần", textColor: "primary" as const };
-  return { color: colors.textSecondary, icon: "help-circle" as const, label: "Chưa có gợi ý", textColor: "textSecondary" as const };
+function statusContent(status: CareEvaluationStatus | undefined) {
+  if (status === "recommended") return { backgroundColor: "#FCE8E6", color: colors.error, icon: "alert-circle" as const, label: "Nên xem xét", textColor: "error" as const };
+  if (status === "not_recommended") return { backgroundColor: colors.primarySoft, color: colors.primary, icon: "checkmark-circle" as const, label: "Chưa cần", textColor: "primary" as const };
+  return { backgroundColor: colors.surfaceSubtle, color: colors.textSecondary, icon: "help-circle" as const, label: "Chưa có gợi ý", textColor: "textSecondary" as const };
 }
 
-function formatActivity(activity: NonNullable<CareCardModel["lastActivity"]>): string {
-  const date = new Date(activity.occurredAt).toLocaleString("vi-VN");
-  return activity.type === "watering" && activity.amount ? `${date} · ${activity.amount.value.toLocaleString("vi-VN")} lít` : date;
+function formatRelativeActivity(occurredAt: string): string {
+  const elapsedDays = Math.max(0, Math.floor((Date.now() - new Date(occurredAt).getTime()) / 86_400_000));
+  if (elapsedDays === 0) return "Hôm nay";
+  return `${elapsedDays} ngày trước`;
 }
 
 const styles = StyleSheet.create({
@@ -72,9 +69,9 @@ const styles = StyleSheet.create({
   chip: { alignItems: "center", alignSelf: "flex-start", backgroundColor: colors.primarySoft, borderRadius: radius.chip, flexDirection: "row", gap: spacing.xs, paddingHorizontal: spacing.sm, paddingVertical: spacing.xs },
   copy: { gap: spacing.sm },
   divider: { backgroundColor: colors.border, height: StyleSheet.hairlineWidth },
-  fact: { flex: 1, gap: spacing.xs },
   header: { alignItems: "center", flexDirection: "row", justifyContent: "space-between" },
   icon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: radius.round, height: 60, justifyContent: "center", width: 60 },
-  information: { flexDirection: "row", gap: spacing.md },
-  status: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
+  information: { alignItems: "center", flexDirection: "row", gap: spacing.md, justifyContent: "space-between" },
+  latest: { flex: 1, gap: spacing.xs },
+  status: { alignItems: "center", borderRadius: radius.round, flexDirection: "row", gap: spacing.xs, paddingHorizontal: spacing.sm, paddingVertical: spacing.xs },
 });

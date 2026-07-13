@@ -1,5 +1,13 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconButton } from "./IconButton";
 import { Typography } from "./Typography";
@@ -14,15 +22,16 @@ type BottomSheetProps = PropsWithChildren<{
 
 export function BottomSheet({ children, footer, onDismiss, title, visible }: BottomSheetProps) {
   return (
-    <Modal animationType="slide" onRequestClose={onDismiss} presentationStyle="overFullScreen" transparent visible={visible}>
+    <Modal animationType="fade" onRequestClose={onDismiss} presentationStyle="overFullScreen" transparent visible={visible}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={styles.flex}>
         <Pressable accessibilityLabel="Đóng bảng chọn" onPress={onDismiss} style={styles.backdrop} />
         <SafeAreaView edges={["bottom"]} style={styles.sheet}>
+          <View style={styles.handle} />
           <View style={styles.header}>
             <Typography variant="headlineSmall">{title}</Typography>
             <IconButton accessibilityLabel="Đóng" icon="close" onPress={onDismiss} />
           </View>
-          <View style={styles.content}>{children}</View>
+          <ScrollView contentContainerStyle={styles.content}>{children}</ScrollView>
           {footer ? <View style={styles.footer}>{footer}</View> : null}
         </SafeAreaView>
       </KeyboardAvoidingView>
@@ -35,6 +44,18 @@ const styles = StyleSheet.create({
   content: { gap: spacing.md, padding: spacing.md },
   flex: { flex: 1, justifyContent: "flex-end" },
   footer: { borderTopColor: colors.border, borderTopWidth: StyleSheet.hairlineWidth, padding: spacing.md },
-  header: { alignItems: "center", flexDirection: "row", justifyContent: "space-between", paddingHorizontal: spacing.md, paddingTop: spacing.sm },
-  sheet: { backgroundColor: colors.surface, borderTopLeftRadius: radius.sheet, borderTopRightRadius: radius.sheet },
+  handle: { alignSelf: "center", backgroundColor: colors.border, borderRadius: radius.round, height: 5, marginTop: spacing.sm, width: 36 },
+  header: { alignItems: "center", flexDirection: "row", justifyContent: "space-between", paddingHorizontal: spacing.md, paddingTop: spacing.xs },
+  sheet: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radius.sheet,
+    borderTopRightRadius: radius.sheet,
+    elevation: 16,
+    maxHeight: "85%",
+    overflow: "hidden",
+    shadowColor: colors.text,
+    shadowOffset: { height: -4, width: 0 },
+    shadowOpacity: 0.16,
+    shadowRadius: 14,
+  },
 });
