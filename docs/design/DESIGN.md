@@ -242,6 +242,10 @@ Prefer safe actions such as checking soil moisture, reviewing recent care, obser
 - Preserve typed values on validation or network failure.
 - Use controls that remain understandable without color.
 
+### Plant identity
+
+Use shared `PlantIdentity` whenever a screen has plant identity data. Layout: photo or leaf placeholder at left; name; then species title, stage icon, and stage title. Existing plants have no persisted photo URI, so use the leaf placeholder. A real photo may render only after a persisted URI contract exists. Keep placeholder and stage icon decorative when visible text already identifies the plant.
+
 ### Icons and images
 
 - Use one coherent icon family.

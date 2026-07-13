@@ -19,7 +19,7 @@ import { colors, radius, spacing } from "./theme";
 type BottomSheetProps = PropsWithChildren<{
   footer?: ReactNode;
   onDismiss: () => void;
-  title: string;
+  title: ReactNode;
   visible: boolean;
 }>;
 
@@ -42,7 +42,7 @@ export function BottomSheet({ children, footer, onDismiss, title, visible }: Bot
           <SafeAreaView edges={["bottom"]} style={styles.sheet}>
             <View style={styles.handle} />
             <View style={styles.header}>
-              <Typography variant="headlineSmall">{title}</Typography>
+              {typeof title === "string" ? <Typography variant="headlineSmall">{title}</Typography> : title}
               <IconButton accessibilityLabel="Đóng" icon="close" onPress={onDismiss} />
             </View>
             <ScrollView contentContainerStyle={styles.content}>{children}</ScrollView>

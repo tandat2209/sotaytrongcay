@@ -8,10 +8,10 @@ type TypographyProps = PropsWithChildren<{
   color?: keyof typeof colors;
   style?: StyleProp<TextStyle>;
   variant: TypographyVariant;
-}> & Pick<TextProps, "accessibilityRole">;
+}> & Pick<TextProps, "accessibilityRole" | "numberOfLines">;
 
-export function Typography({ accessibilityRole, children, color = "text", style, variant }: TypographyProps) {
-  return <Text accessibilityRole={accessibilityRole} style={[styles.base, typography[variant], { color: colors[color] }, style]}>{children}</Text>;
+export function Typography({ accessibilityRole, children, color = "text", numberOfLines, style, variant }: TypographyProps) {
+  return <Text accessibilityRole={accessibilityRole} numberOfLines={numberOfLines} style={[styles.base, typography[variant], { color: colors[color] }, style]}>{children}</Text>;
 }
 
 const styles = StyleSheet.create({

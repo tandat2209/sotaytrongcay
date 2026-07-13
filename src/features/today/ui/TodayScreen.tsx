@@ -1,11 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { z } from "zod";
 
 import { evaluateCarePlans } from "@/features/guidance";
-import { listCareActivities } from "@/features/journal";
+import { CareEntryScreen, listCareActivities, saveCareActivity, type CareActivityType } from "@/features/journal";
+import { createId } from "@/shared/lib/identifiers";
 import { listCarePlans } from "@/features/knowledge";
-import { listPlants } from "@/features/plants";
+import { listPlants, resolvePlantIdentity } from "@/features/plants";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
 import { Typography } from "@/shared/ui/Typography";
@@ -13,6 +15,8 @@ import { createTodayProjection } from "../models/today-projection";
 import { TodayOverview } from "./TodayOverview";
 
 export function TodayScreen() {
+  const queryClient = useQueryClient();
+  const [entry, setEntry] = useState<Readonly<{ plantId: string; type: CareActivityType }> | null>(null);
   const query = useQuery({
     queryKey: ["today"],
     queryFn: async () => {
@@ -31,9 +35,19 @@ export function TodayScreen() {
   });
   const errorMessage = query.error instanceof z.ZodError ? "Dữ liệu trên thiết bị chưa hợp lệ." : "Chưa thể tải trang Hôm nay.";
 
-  return <Screen introduction="Theo dõi việc chăm sóc cần chú ý trong ngày." title="Hôm nay">
-    {query.isPending ? <Typography color="textSecondary" variant="bodyLarge">Đang tải dữ liệu trên thiết bị…</Typography> : null}
-    {query.isError ? <><Typography color="textSecondary" variant="bodyLarge">{errorMessage}</Typography><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></> : null}
-    {query.data ? <TodayOverview onAddPlant={() => router.push("/plants/new")} onOpenActivity={(id) => router.push(`/entries/${id}`)} onOpenJournal={() => router.push("/journal")} onOpenPlant={(id) => router.push(`/plants/${id}`)} onRecordCare={(plantId, type) => router.push({ pathname: "/plants/[id]/care", params: { id: plantId, type, origin: "today" } })} projection={query.data} /> : null}
-  </Screen>;
+  const plant = entry ? query.data?.plants.find((item) => item.id === entry.plantId) : null;
+  const identity = plant ? resolvePlantIdentity(plant) : null;
+  return <>
+    <Screen introduction="Theo dõi việc chăm sóc cần chú ý trong ngày." title="Hôm nay">
+      {query.isPending ? <Typography color="textSecondary" variant="bodyLarge">Đang tải dữ liệu trên thiết bị…</Typography> : null}
+      {query.isError ? <><Typography color="textSecondary" variant="bodyLarge">{errorMessage}</Typography><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></> : null}
+      {query.data ? <TodayOverview onAddPlant={() => router.push("/plants/new")} onOpenActivity={(id) => router.push(`/entries/${id}`)} onOpenJournal={() => router.push("/journal")} onOpenPlant={(id) => router.push(`/plants/${id}`)} onRecordCare={(plantId, type) => setEntry({ plantId, type })} projection={query.data} /> : null}
+    </Screen>
+    {entry && plant && identity ? <CareEntryScreen onDismiss={() => setEntry(null)} onSave={async (details) => {
+      const createdAt = new Date().toISOString();
+      await saveCareActivity({ id: createId(), mutationId: createId(), plantId: entry.plantId, type: entry.type, occurredAt: details.occurredAt, origin: "today", amount: details.amount, notes: details.notes, createdAt });
+      await Promise.all([queryClient.invalidateQueries({ queryKey: ["plant-detail", entry.plantId] }), queryClient.invalidateQueries({ queryKey: ["today"] }), queryClient.invalidateQueries({ queryKey: ["journal"] })]);
+      setEntry(null);
+    }} plantName={plant.name} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} type={entry.type} visible /> : null}
+  </>;
 }

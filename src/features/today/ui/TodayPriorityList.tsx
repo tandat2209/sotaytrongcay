@@ -2,7 +2,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
-import { CARE_ACTIVITY_ICONS, CARE_ACTIVITY_LABELS } from "@/features/journal";
+import { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_VISUALS } from "@/features/journal";
+import { PlantIdentity } from "@/features/plants";
 import { stageIcon } from "@/features/knowledge/stage-icons";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
@@ -30,26 +31,17 @@ export function TodayPriorityList({ onRecordCare, priorities }: Props) {
 
 function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { isExpanded: boolean; onRecordCare: Props["onRecordCare"]; onToggle: () => void; priority: TodayPriority }) {
   const detailLabel = `${isExpanded ? "Thu gọn" : "Xem"} lý do và hướng dẫn cho ${priority.title} của ${priority.plantName}`;
+  const visual = CARE_ACTIVITY_VISUALS[priority.activityType];
 
   return <SurfaceCard style={styles.card}>
-    {/* Plant header: icon, name, badge, stage */}
     <View style={styles.plantHeader}>
-      <PlantIconPlaceholder />
-      <View style={styles.fill}>
-        <View style={styles.nameRow}>
-          <Typography style={styles.fill} variant="bodyLarge">{priority.plantName}</Typography>
-          <View style={styles.badge}><Typography style={styles.badgeLabel} variant="label">HÔM NAY</Typography></View>
-        </View>
-        <View style={styles.stageRow}>
-          <Ionicons accessibilityElementsHidden color={colors.textSecondary} name={stageIcon(priority.stageId)} size={14} />
-          <Typography color="textSecondary" variant="bodyMedium">Giai đoạn: {priority.stageTitle}</Typography>
-        </View>
-      </View>
+      <PlantIdentity name={priority.plantName} size="list" speciesTitle={priority.speciesTitle} stageId={priority.stageId} stageTitle={priority.stageTitle} />
+      <View style={styles.badge}><Typography style={styles.badgeLabel} variant="label">HÔM NAY</Typography></View>
     </View>
 
     {/* Action row with expandable chevron */}
     <Pressable accessibilityLabel={detailLabel} accessibilityRole="button" accessibilityState={{ expanded: isExpanded }} onPress={onToggle} style={styles.actionRow}>
-      <Ionicons accessibilityElementsHidden color={colors.primary} name={CARE_ACTIVITY_ICONS[priority.activityType]} size={18} />
+      <Ionicons accessibilityElementsHidden color={visual.color} name={visual.icon} size={18} />
       <Typography style={styles.fill} variant="bodyMedium">{priority.title}</Typography>
       <Ionicons color={colors.textSecondary} name={isExpanded ? "chevron-up" : "chevron-down"} size={20} />
     </Pressable>
@@ -87,8 +79,6 @@ const styles = StyleSheet.create({
   expandedContent: { backgroundColor: colors.surfaceSubtle, borderRadius: radius.chip, gap: spacing.sm, padding: spacing.sm },
   explanationRow: { flexDirection: "row", gap: spacing.sm },
   fill: { flex: 1 },
-  nameRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   plantHeader: { alignItems: "center", flexDirection: "row", gap: spacing.md },
   plantIcon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: radius.control, height: 48, justifyContent: "center", width: 48 },
-  stageRow: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
 });

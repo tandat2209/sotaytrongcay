@@ -1,6 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet, View } from "react-native";
-import { CARE_ACTIVITY_ICONS, CARE_ACTIVITY_LABELS } from "@/features/journal";
+import { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_VISUALS } from "@/features/journal";
 import type { CareEvaluationStatus } from "@/features/guidance/models/care-evaluation";
 import { IconButton } from "@/shared/ui/IconButton";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -16,12 +16,13 @@ type Props = Readonly<{
 
 export function PlantDetailCareCard({ card, onOpenActivity, onOpenDetails }: Props) {
   const label = CARE_ACTIVITY_LABELS[card.activityType];
+  const visual = CARE_ACTIVITY_VISUALS[card.activityType];
   const status = statusContent(card.evaluation?.status);
 
   return (
     <SurfaceCard style={styles.card}>
       <View style={styles.header}>
-        <View style={styles.icon}><Ionicons color={colors.primary} name={CARE_ACTIVITY_ICONS[card.activityType]} size={30} /></View>
+        <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={30} /></View>
         {card.details ? <IconButton accessibilityLabel={`Xem khuyến nghị ${label.toLowerCase()}`} icon="information-circle-outline" onPress={() => onOpenDetails(card)} /> : null}
       </View>
       <View style={styles.copy}>

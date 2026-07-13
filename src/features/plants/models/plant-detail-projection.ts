@@ -8,6 +8,7 @@ import {
   type StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
 import type { Plant } from "./plant";
+import { resolvePlantIdentity } from "./plant-identity";
 
 const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
 const HERO_CARE_TYPES = ["watering", "fertilizing"] as const;
@@ -41,6 +42,7 @@ export type PlantDetailProjection = Readonly<{
   lifecycleStages: readonly PlantDetailLifecycleStage[];
   plant: Plant;
   recentCare: readonly CareActivity[];
+  speciesTitle: string;
   stagePlaybook: StagePlaybook | null;
   stageTitle: string;
 }>;
@@ -57,6 +59,7 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant }: 
     CARE_TYPES.map((type) => [type, sortedActivities.find((activity) => activity.type === type) ?? null]),
   ) as Record<CareActivityType, CareActivity | null>;
   const knowledge = getPreviewPlantKnowledge(plant.speciesId);
+  const identity = resolvePlantIdentity(plant);
   const plans = listCarePlans({ speciesId: plant.speciesId, stageId: plant.stageId });
   const evaluations = evaluateCarePlans({ activities, evaluatedAt, plant, plans });
 
@@ -82,7 +85,8 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant }: 
     lifecycleStages: knowledge?.stages.map((stage) => ({ ...stage, isCurrent: stage.id === plant.stageId })) ?? [],
     plant,
     recentCare: sortedActivities.slice(0, RECENT_CARE_LIMIT),
+    speciesTitle: identity.speciesTitle,
     stagePlaybook: getStagePlaybook(plant.stageId),
-    stageTitle: knowledge?.stages.find((stage) => stage.id === plant.stageId)?.title ?? "Chưa xác định",
+    stageTitle: identity.stageTitle,
   };
 }

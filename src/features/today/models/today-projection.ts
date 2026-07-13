@@ -1,14 +1,14 @@
 import type { CareEvaluation } from "@/features/guidance";
 import type { CareActivity } from "@/features/journal";
-import { getPreviewPlantKnowledge } from "@/features/knowledge";
-import type { Plant } from "@/features/plants";
+import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
+import type { Plant } from "@/features/plants/models/plant";
 import { productionWeather, type WeatherState } from "@/shared/weather/weather-state";
 
 export type TodayWeather = WeatherState;
 export { productionWeather };
 export type TodayActivity = CareActivity & { plantName: string };
 
-export type TodayPriority = CareEvaluation & { plantName: string; stageId: string; stageTitle: string };
+export type TodayPriority = CareEvaluation & { plantName: string; speciesTitle: string; stageId: string; stageTitle: string };
 export type TodayEvaluation = CareEvaluation & { plantName: string };
 
 export type TodayProjection = {
@@ -42,18 +42,14 @@ export function createTodayProjection({ activities, evaluations = [], plants, we
     .slice(0, 3)
     .map((evaluation) => {
       const plant = plantMap.get(evaluation.plantId);
+      const identity = plant ? resolvePlantIdentity(plant) : { speciesTitle: "Chưa xác định", stageTitle: "Chưa xác định" };
       return {
         ...evaluation,
+        speciesTitle: identity.speciesTitle,
         stageId: plant?.stageId ?? "",
-        stageTitle: plant ? resolveStageTitle(plant) : "Chưa xác định",
+        stageTitle: identity.stageTitle,
       };
     });
 
   return { evaluations: namedEvaluations, plants, priorities, recentActivities, weather };
-}
-
-function resolveStageTitle(plant: Plant): string {
-  const knowledge = getPreviewPlantKnowledge(plant.speciesId);
-  if (!knowledge) return "Chưa xác định";
-  return knowledge.stages.find((stage) => stage.id === plant.stageId)?.title ?? "Chưa xác định";
 }

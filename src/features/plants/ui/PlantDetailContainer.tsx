@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Text } from "react-native";
 import { z } from "zod";
+import type { CareActivityType, CareEntryDetails } from "@/features/journal";
 import { listCareActivities } from "@/features/journal";
 import { productionWeather } from "@/shared/weather/weather-state";
 import { getPlant } from "../data/plant-repository";
@@ -12,7 +13,7 @@ type Props = Readonly<{
   onBack: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook: () => void;
-  onRecordCare: (type: "watering" | "fertilizing" | "spraying") => void;
+  onRecordCare: (type: CareActivityType, details: CareEntryDetails) => Promise<void>;
   plantId: string;
 }>;
 
