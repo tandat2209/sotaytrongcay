@@ -1,0 +1,75 @@
+import { Check, ListFilter } from "lucide-react-native";
+import { useState, type ReactNode } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
+import { BottomSheet } from "@/shared/ui/BottomSheet";
+import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { Typography } from "@/shared/ui/Typography";
+import { colors, radius, spacing } from "@/shared/ui/theme";
+
+export type JournalRecordFilter = "all" | "care" | "fertilizing" | "spraying" | "update" | "watering";
+export type JournalDateRange = "all" | "today" | "week";
+
+export type JournalFilters = Readonly<{
+  dateRange: JournalDateRange;
+  plantId: string | null;
+  recordFilter: JournalRecordFilter;
+}>;
+
+type PlantOption = Readonly<{ id: string; name: string }>;
+type Props = Readonly<{
+  filters: JournalFilters;
+  onApply: (filters: JournalFilters) => void;
+  onDismiss: () => void;
+  plants: readonly PlantOption[];
+  visible: boolean;
+}>;
+
+const recordOptions: readonly Readonly<{ label: string; value: JournalRecordFilter }>[] = [
+  { label: "Tất cả", value: "all" },
+  { label: "Cập nhật cây", value: "update" },
+  { label: "Tưới nước", value: "watering" },
+  { label: "Bón phân", value: "fertilizing" },
+  { label: "Phun thuốc", value: "spraying" },
+];
+
+const dateOptions: readonly Readonly<{ label: string; value: JournalDateRange }>[] = [
+  { label: "Tất cả thời gian", value: "all" },
+  { label: "Hôm nay", value: "today" },
+  { label: "7 ngày qua", value: "week" },
+];
+
+export function JournalFilterSheet({ filters, onApply, onDismiss, plants, visible }: Props) {
+  const [draft, setDraft] = useState(filters);
+  const close = () => { setDraft(filters); onDismiss(); };
+  const apply = () => { onApply(draft); onDismiss(); };
+  return <BottomSheet footer={<PrimaryButton label="Áp dụng" onPress={apply} />} onDismiss={close} title={<View style={styles.title}><ListFilter color={colors.primary} size={20} /><Typography variant="headlineSmall">Lọc nhật ký</Typography></View>} visible={visible}>
+    <FilterGroup label="Loại bản ghi">
+      {recordOptions.map((option) => <FilterOption key={option.value} label={option.label} onPress={() => setDraft((value) => ({ ...value, recordFilter: option.value }))} selected={draft.recordFilter === option.value} />)}
+    </FilterGroup>
+    <FilterGroup label="Cây trồng">
+      <FilterOption label="Tất cả cây" onPress={() => setDraft((value) => ({ ...value, plantId: null }))} selected={draft.plantId === null} />
+      {plants.map((plant) => <FilterOption key={plant.id} label={plant.name} onPress={() => setDraft((value) => ({ ...value, plantId: plant.id }))} selected={draft.plantId === plant.id} />)}
+    </FilterGroup>
+    <FilterGroup label="Thời gian">
+      {dateOptions.map((option) => <FilterOption key={option.value} label={option.label} onPress={() => setDraft((value) => ({ ...value, dateRange: option.value }))} selected={draft.dateRange === option.value} />)}
+    </FilterGroup>
+    <Pressable accessibilityLabel="Xóa bộ lọc" accessibilityRole="button" onPress={() => setDraft({ dateRange: "all", plantId: null, recordFilter: "all" })} style={styles.clear}><Typography color="primary" variant="bodyLarge">Xóa bộ lọc</Typography></Pressable>
+  </BottomSheet>;
+}
+
+function FilterGroup({ children, label }: Readonly<{ children: ReactNode; label: string }>) {
+  return <View style={styles.group}><Typography variant="headlineSmall">{label}</Typography><View style={styles.options}>{children}</View></View>;
+}
+
+function FilterOption({ label, onPress, selected }: Readonly<{ label: string; onPress: () => void; selected: boolean }>) {
+  return <Pressable accessibilityLabel={label} accessibilityRole="radio" accessibilityState={{ checked: selected }} onPress={onPress} style={[styles.option, selected && styles.selected]}><Typography color={selected ? "surface" : "text"} variant="bodyLarge">{label}</Typography>{selected ? <Check color={colors.surface} size={20} /> : null}</Pressable>;
+}
+
+const styles = StyleSheet.create({
+  clear: { alignSelf: "flex-start", minHeight: 44, justifyContent: "center", paddingHorizontal: spacing.sm },
+  group: { gap: spacing.sm },
+  option: { alignItems: "center", borderColor: colors.border, borderRadius: radius.control, borderWidth: 1, flexDirection: "row", justifyContent: "space-between", minHeight: 48, paddingHorizontal: spacing.md },
+  options: { gap: spacing.sm },
+  selected: { backgroundColor: colors.primary, borderColor: colors.primary },
+  title: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+});

@@ -9,29 +9,36 @@ import { colors, spacing } from "./theme";
 type ScreenProps = PropsWithChildren<{
   floatingAction?: ReactNode;
   footer?: ReactNode;
+  headerAction?: ReactNode;
+  contentGap?: number;
   title: string;
   introduction?: ReactNode;
   titleIcon?: LucideIcon;
+  scrollable?: boolean;
 }>;
 
-export function Screen({ children, floatingAction, footer, introduction, title, titleIcon: TitleIcon }: ScreenProps) {
+export function Screen({ children, contentGap, floatingAction, footer, headerAction, introduction, scrollable = true, title, titleIcon: TitleIcon }: ScreenProps) {
+  const content = <>
+    {!!(title || introduction) && <View style={styles.heading}>
+      {title ? <View style={styles.titleRow}>
+        {TitleIcon ? <TitleIcon color={colors.primary} size={28} /> : null}
+        <Typography style={styles.title} variant="headlineLarge">{title}</Typography>
+        {headerAction}
+      </View> : null}
+      {typeof introduction === "string" ? <Typography color="textSecondary" variant="bodyLarge">{introduction}</Typography> : introduction}
+    </View>}
+    {children}
+  </>;
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={styles.frame}>
         <View style={styles.frame}>
-          <ScrollView
+          {scrollable ? <ScrollView
             contentContainerStyle={[styles.content, floatingAction ? styles.contentWithFloatingAction : null, footer ? styles.contentWithFooter : null]}
             contentInsetAdjustmentBehavior="automatic"
           >
-            {!!(title || introduction) && <View style={styles.heading}>
-              {title ? <View style={styles.titleRow}>
-                {TitleIcon ? <TitleIcon color={colors.primary} size={28} /> : null}
-                <Typography style={styles.title} variant="headlineLarge">{title}</Typography>
-              </View> : null}
-              {typeof introduction === "string" ? <Typography color="textSecondary" variant="bodyLarge">{introduction}</Typography> : introduction}
-            </View>}
-            {children}
-          </ScrollView>
+            {content}
+          </ScrollView> : <View style={[styles.content, styles.unscrollableContent, contentGap === undefined ? null : { gap: contentGap }]}>{content}</View>}
           {footer ? <SafeAreaView edges={["bottom"]} style={styles.footerSafeArea}><View style={styles.footer}>{footer}</View></SafeAreaView> : null}
           {floatingAction ? <View style={styles.floatingAction}>{floatingAction}</View> : null}
         </View>
@@ -51,6 +58,7 @@ const styles = StyleSheet.create({
   },
   contentWithFloatingAction: { paddingBottom: 104 },
   contentWithFooter: { paddingBottom: spacing.lg },
+  unscrollableContent: { flex: 1, paddingBottom: 0 },
   footer: { borderTopColor: colors.border, borderTopWidth: StyleSheet.hairlineWidth, padding: spacing.md },
   footerSafeArea: { backgroundColor: colors.surface },
   floatingAction: { bottom: spacing.lg, position: "absolute", right: spacing.md },
