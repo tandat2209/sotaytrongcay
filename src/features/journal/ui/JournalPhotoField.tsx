@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Camera, Images, X, type LucideIcon } from "lucide-react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, View } from "react-native";
@@ -50,22 +50,22 @@ export function JournalPhotoField({ onChange, photos }: Props) {
       {photos.map((photo, index) => <View key={photo.uri} style={styles.previewWrap}>
         <Image accessibilityLabel={`Ảnh cây ${index + 1}`} source={{ uri: photo.uri }} style={styles.preview} />
         <Pressable accessibilityLabel={`Xóa ảnh ${index + 1}`} accessibilityRole="button" onPress={() => onChange(photos.filter((candidate) => candidate.uri !== photo.uri))} style={styles.remove}>
-          <Ionicons color={colors.surface} name="close" size={18} />
+          <X color={colors.surface} size={18} />
         </Pressable>
       </View>)}
     </ScrollView> : null}
     <View style={styles.actions}>
-      <PhotoAction disabled={full} icon="camera-outline" label="Chụp ảnh" onPress={() => void takePhoto()} />
-      <PhotoAction disabled={full} icon="images-outline" label="Chọn ảnh" onPress={() => void choosePhotos()} />
+      <PhotoAction disabled={full} icon={Camera} label="Chụp ảnh" onPress={() => void takePhoto()} />
+      <PhotoAction disabled={full} icon={Images} label="Chọn ảnh" onPress={() => void choosePhotos()} />
     </View>
     <Typography color="textSecondary" variant="bodyMedium">Tối đa {MAX_PHOTOS} ảnh. Ảnh đầu tiên sẽ đại diện cho cập nhật này.</Typography>
     {error ? <Typography accessibilityRole="alert" color="error" variant="bodyMedium">{error}</Typography> : null}
   </View>;
 }
 
-function PhotoAction({ disabled, icon, label, onPress }: Readonly<{ disabled: boolean; icon: "camera-outline" | "images-outline"; label: string; onPress: () => void }>) {
+function PhotoAction({ disabled, icon: Icon, label, onPress }: Readonly<{ disabled: boolean; icon: LucideIcon; label: string; onPress: () => void }>) {
   return <Pressable accessibilityLabel={label} accessibilityRole="button" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress} style={({ pressed }) => [styles.action, disabled && styles.disabled, pressed && styles.pressed]}>
-    <Ionicons color={colors.primary} name={icon} size={22} /><Typography color="primary" variant="bodyLarge">{label}</Typography>
+    <Icon color={colors.primary} size={22} /><Typography color="primary" variant="bodyLarge">{label}</Typography>
   </Pressable>;
 }
 

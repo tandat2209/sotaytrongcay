@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Camera, ChevronRight, FileText, NotebookPen } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import type { PlantIdentityData } from "@/features/plants";
 import { PlantIdentity } from "@/features/plants";
@@ -24,8 +24,8 @@ type Props = Readonly<{
 
 export function JournalScreen({ activities = [], onOpenActivity = () => undefined, onOpenUpdate = () => undefined, plants = {}, updates = [] }: Props) {
   const items = createJournalItems(activities, updates);
-  return <Screen introduction="Lịch sử hoạt động và cập nhật cây do bạn đã lưu." title="Nhật ký">
-    {items.length === 0 ? <EmptyState description="Hoạt động chăm sóc, ảnh và ghi chú đã lưu sẽ xuất hiện ở đây." title="Nhật ký của bạn chưa có nội dung" /> : <View style={styles.list}>
+  return <Screen introduction="Lịch sử hoạt động và cập nhật cây do bạn đã lưu." title="Nhật ký" titleIcon={NotebookPen}>
+    {items.length === 0 ? <EmptyState description="Hoạt động chăm sóc, ảnh và ghi chú đã lưu sẽ xuất hiện ở đây." icon={NotebookPen} title="Nhật ký của bạn chưa có nội dung" /> : <View style={styles.list}>
       {items.map((item) => {
         const plant = plants[item.record.plantId];
         return item.kind === "care"
@@ -40,14 +40,15 @@ function CareCard({ activity, onPress, plant }: Readonly<{ activity: CareActivit
   const plantName = plant?.name ?? "Cây trồng";
   const label = CARE_ACTIVITY_LABELS[activity.type];
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
+  const ActivityIcon = visual.icon;
   return <Pressable accessibilityLabel={`${label} · ${plantName}`} accessibilityRole="button" onPress={onPress}>
     <SurfaceCard style={styles.card}>
-      <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={20} /></View>
+      <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><ActivityIcon color={visual.color} size={20} /></View>
       <View style={styles.copy}>
         {plant ? <PlantIdentity imageUri={plant.imageUri} name={plant.name} size="list" speciesTitle={plant.speciesTitle} stageId={plant.stageId} stageTitle={plant.stageTitle} /> : <Typography variant="bodyLarge">{plantName}</Typography>}
         <Typography variant="bodyMedium">{label}</Typography>
         <Typography color="textSecondary" variant="label">{CARE_ACTIVITY_ORIGIN_LABELS[activity.origin]} · {new Date(activity.occurredAt).toLocaleString("vi-VN")}</Typography>
-      </View><Ionicons color={colors.textSecondary} name="chevron-forward" size={20} />
+      </View><ChevronRight color={colors.textSecondary} size={20} />
     </SurfaceCard>
   </Pressable>;
 }
@@ -62,7 +63,7 @@ function UpdateCard({ onPress, plant, update }: Readonly<{ onPress: () => void; 
       {plant ? <PlantIdentity imageUri={photoUri ?? plant.imageUri} name={plant.name} size="list" speciesTitle={plant.speciesTitle} stageId={update.stageId} stageTitle={stageTitle} /> : <Typography variant="bodyLarge">{plantName}</Typography>}
       <Typography variant="bodyMedium">Cập nhật cây</Typography>
       {update.notes ? <Typography color="textSecondary" numberOfLines={2} variant="bodyMedium">{update.notes}</Typography> : null}
-      <View style={styles.meta}><Ionicons color={colors.textSecondary} name={update.photos.length ? "camera-outline" : "document-text-outline"} size={16} /><Typography color="textSecondary" style={styles.flex} variant="label">{metaLabel} · {new Date(update.occurredAt).toLocaleString("vi-VN")}</Typography><Ionicons color={colors.textSecondary} name="chevron-forward" size={18} /></View>
+      <View style={styles.meta}>{update.photos.length ? <Camera color={colors.textSecondary} size={16} /> : <FileText color={colors.textSecondary} size={16} />}<Typography color="textSecondary" style={styles.flex} variant="label">{metaLabel} · {new Date(update.occurredAt).toLocaleString("vi-VN")}</Typography><ChevronRight color={colors.textSecondary} size={18} /></View>
     </SurfaceCard>
   </Pressable>;
 }

@@ -1,5 +1,5 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { CalendarDays, CircleHelp, Lightbulb, type LucideIcon } from "lucide-react-native";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
 import type { CareActivityType } from "@/features/journal/models/care-activity";
@@ -45,6 +45,7 @@ export function CareEntryScreen({ imageUri, onDismiss, onSave, plantName, reason
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const visual = CARE_ACTIVITY_VISUALS[type];
+  const ActivityIcon = visual.icon;
 
   async function submit() {
     const parsedAmount = type === "watering" && amount.trim() ? Number(amount.replace(",", ".")) : null;
@@ -67,14 +68,14 @@ export function CareEntryScreen({ imageUri, onDismiss, onSave, plantName, reason
     }
   }
 
-  return <BottomSheet footer={<PrimaryButton backgroundColor={visual.backgroundColor} label="Lưu hoạt động" loading={saving} onPress={submit} textColor={visual.color} />} onDismiss={onDismiss} title={<View style={styles.title}><Ionicons color={visual.color} name={visual.icon} size={22} /><Typography variant="headlineSmall">{ENTRY_TITLES[type]}</Typography></View>} visible={visible}>
+  return <BottomSheet footer={<PrimaryButton backgroundColor={visual.backgroundColor} label="Lưu hoạt động" loading={saving} onPress={submit} textColor={visual.color} />} onDismiss={onDismiss} title={<View style={styles.title}><ActivityIcon color={visual.color} size={22} /><Typography variant="headlineSmall">{ENTRY_TITLES[type]}</Typography></View>} visible={visible}>
     <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
-    {suggestion ? <ContextRow icon="bulb-outline" label="Gợi ý:" text={suggestion} /> : null}
-    {reason ? <ContextRow icon="help-circle-outline" label="Lý do:" text={reason} /> : null}
+    {suggestion ? <ContextRow icon={Lightbulb} label="Gợi ý:" text={suggestion} /> : null}
+    {reason ? <ContextRow icon={CircleHelp} label="Lý do:" text={reason} /> : null}
     <FormField error={error?.startsWith("Thời gian") ? error : null} label="Thời gian thực hiện">
       <Pressable accessibilityLabel="Chọn thời gian thực hiện" accessibilityRole="button" onPress={() => setShowPicker(true)} style={styles.timeButton}>
         <Typography variant="bodyLarge">{occurredAt.toLocaleString("vi-VN")}</Typography>
-        <Ionicons color={colors.textSecondary} name="calendar-outline" size={20} />
+        <CalendarDays color={colors.textSecondary} size={20} />
       </Pressable>
       {showPicker ? <DateTimePicker locale="vi-VN" maximumDate={new Date()} mode="datetime" onChange={(_, date) => {
         if (Platform.OS !== "ios") setShowPicker(false);
@@ -87,8 +88,8 @@ export function CareEntryScreen({ imageUri, onDismiss, onSave, plantName, reason
   </BottomSheet>;
 }
 
-function ContextRow({ icon, label, text }: Readonly<{ icon: "bulb-outline" | "help-circle-outline"; label: string; text: string }>) {
-  return <View style={styles.context}><View style={styles.contextTitle}><Ionicons accessibilityElementsHidden color={colors.textSecondary} name={icon} size={18} /><Typography variant="bodyLarge">{label}</Typography></View><Typography color="textSecondary" variant="bodyMedium">{text}</Typography></View>;
+function ContextRow({ icon: Icon, label, text }: Readonly<{ icon: LucideIcon; label: string; text: string }>) {
+  return <View style={styles.context}><View style={styles.contextTitle}><Icon color={colors.textSecondary} size={18} /><Typography variant="bodyLarge">{label}</Typography></View><Typography color="textSecondary" variant="bodyMedium">{text}</Typography></View>;
 }
 
 const styles = StyleSheet.create({

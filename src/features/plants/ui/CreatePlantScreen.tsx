@@ -1,13 +1,12 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { CalendarDays, Sprout } from "lucide-react-native";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
-import { stageIcon } from "@/features/knowledge/stage-icons";
+import { StageIcon } from "@/features/knowledge/stage-icons";
 import { getPreviewPlantKnowledge } from "@/features/knowledge/preview-knowledge";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
@@ -69,6 +68,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
           backAccessibilityLabel="Quay lại Cây trồng"
           onBack={onBack}
           title={`Thiết lập: ${knowledge.species.title}`}
+          titleIcon={Sprout}
         />
       ) : (
         <Typography variant="headlineLarge">{`Thiết lập: ${knowledge.species.title}`}</Typography>
@@ -136,7 +136,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
           <Typography color={plantedAt ? "text" : "textSecondary"} variant="bodyLarge">
             {plantedAt ? formatDate(plantedAt) : "Chưa chọn (tùy chọn)"}
           </Typography>
-          <Ionicons color={colors.textSecondary} name="calendar-outline" size={20} />
+          <CalendarDays color={colors.textSecondary} size={20} />
         </Pressable>
         {showDatePicker && (
           <DateTimePicker
@@ -175,10 +175,10 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
                 onPress={() => setStageId(stage.id)}
                 style={({ pressed }) => [styles.chip, selected && styles.chipSelected, pressed && styles.chipPressed]}
               >
-                <Ionicons
+                <StageIcon
                   color={selected ? colors.surface : colors.primary}
-                  name={stageIcon(stage.id)}
                   size={18}
+                  stageId={stage.id}
                 />
                 <Typography color={selected ? "surface" : "text"} variant="bodyMedium">
                   {stage.title}

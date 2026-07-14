@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { CalendarDays, CheckCircle, CircleAlert, CircleHelp, Info } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_VISUALS } from "@/features/journal";
 import type { CareEvaluationStatus } from "@/features/guidance/models/care-evaluation";
@@ -17,12 +17,14 @@ export function PlantDetailCareCard({ card, onOpenActivity, onOpenDetails }: Pro
   const label = CARE_ACTIVITY_LABELS[card.activityType];
   const visual = CARE_ACTIVITY_VISUALS[card.activityType];
   const status = statusContent(card.evaluation?.status);
+  const ActivityIcon = visual.icon;
+  const StatusIcon = status.icon;
 
   return (
     <SurfaceCard style={styles.card}>
       <View style={styles.header}>
         <View style={styles.title}>
-          <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={20} /></View>
+          <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><ActivityIcon color={visual.color} size={20} /></View>
           <Typography variant="headlineMedium">{label}</Typography>
         </View>
         {card.details ? <Pressable
@@ -31,10 +33,10 @@ export function PlantDetailCareCard({ card, onOpenActivity, onOpenDetails }: Pro
           hitSlop={6}
           onPress={() => onOpenDetails(card)}
           style={({ pressed }) => [styles.infoAction, pressed && styles.infoActionPressed]}
-        ><Ionicons color={colors.textSecondary} name="information-circle-outline" size={20} /></Pressable> : null}
+        ><Info color={colors.textSecondary} size={20} /></Pressable> : null}
       </View>
       <View style={styles.frequency}>
-        <Ionicons color={colors.textSecondary} name="calendar-outline" size={15} />
+        <CalendarDays color={colors.textSecondary} size={15} />
         <Typography color="textSecondary" variant="bodyMedium">{card.frequencyDisplay ?? "Chưa có tần suất đã duyệt"}</Typography>
       </View>
       <View style={styles.information}>
@@ -48,7 +50,7 @@ export function PlantDetailCareCard({ card, onOpenActivity, onOpenDetails }: Pro
           <Typography variant="bodyLarge">{card.lastActivity ? formatRelativeActivity(card.lastActivity.occurredAt) : "Chưa có dữ liệu"}</Typography>
         </Pressable>
         <View style={[styles.status, { backgroundColor: status.backgroundColor }]}>
-          <Ionicons color={status.color} name={status.icon} size={16} />
+          <StatusIcon color={status.color} size={16} />
           <Typography color={status.textColor} variant="label">{status.label}</Typography>
         </View>
       </View>
@@ -57,9 +59,9 @@ export function PlantDetailCareCard({ card, onOpenActivity, onOpenDetails }: Pro
 }
 
 function statusContent(status: CareEvaluationStatus | undefined) {
-  if (status === "recommended") return { backgroundColor: "#FCE8E6", color: colors.error, icon: "alert-circle" as const, label: "Nên xem xét", textColor: "error" as const };
-  if (status === "not_recommended") return { backgroundColor: colors.primarySoft, color: colors.primary, icon: "checkmark-circle" as const, label: "Chưa cần", textColor: "primary" as const };
-  return { backgroundColor: colors.surfaceSubtle, color: colors.textSecondary, icon: "help-circle" as const, label: "Chưa có gợi ý", textColor: "textSecondary" as const };
+  if (status === "recommended") return { backgroundColor: "#FCE8E6", color: colors.error, icon: CircleAlert, label: "Nên xem xét", textColor: "error" as const };
+  if (status === "not_recommended") return { backgroundColor: colors.primarySoft, color: colors.primary, icon: CheckCircle, label: "Chưa cần", textColor: "primary" as const };
+  return { backgroundColor: colors.surfaceSubtle, color: colors.textSecondary, icon: CircleHelp, label: "Chưa có gợi ý", textColor: "textSecondary" as const };
 }
 
 function formatRelativeActivity(occurredAt: string): string {

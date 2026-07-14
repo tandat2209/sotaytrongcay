@@ -1,3 +1,4 @@
+import { X } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import type { PropsWithChildren, ReactNode } from "react";
 import {
@@ -43,7 +44,7 @@ export function BottomSheet({ children, footer, onDismiss, title, visible }: Bot
             <View style={styles.handle} />
             <View style={styles.header}>
               {typeof title === "string" ? <Typography variant="headlineSmall">{title}</Typography> : title}
-              <IconButton accessibilityLabel="Đóng" icon="close" onPress={onDismiss} />
+              <IconButton accessibilityLabel="Đóng" icon={X} onPress={onDismiss} />
             </View>
             <ScrollView contentContainerStyle={styles.content} style={styles.scrollableContent}>{children}</ScrollView>
             {footer ? <View style={styles.footer}>{footer}</View> : null}

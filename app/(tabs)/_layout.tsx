@@ -1,4 +1,3 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 
 import { tabDestinations } from "@/bootstrap/navigation";
@@ -27,9 +26,10 @@ export default function TabLayout() {
           name={destination.name}
           options={{
             tabBarAccessibilityLabel: destination.label,
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons color={color} name={destination.icon} size={size} />
-            ),
+            tabBarIcon: ({ color, size }) => {
+              const Icon = destination.icon;
+              return <Icon color={color} size={size} />;
+            },
             tabBarLabel: destination.label,
             title: destination.label,
           }}

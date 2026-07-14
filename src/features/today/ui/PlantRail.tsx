@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Plus } from "lucide-react-native";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { PlantIdentity, resolvePlantIdentity, type Plant } from "@/features/plants";
 import { Typography } from "@/shared/ui/Typography";
@@ -10,7 +10,7 @@ export function PlantRail({ onAddPlant, onOpenPlant, photoUris, plants }: Props)
   return <View style={styles.section}>
     <View style={styles.heading}>
       <View style={styles.title}><Typography variant="headlineSmall">Khu Vườn Của Tôi</Typography><View style={styles.count}><Typography color="primary" variant="label">{plants.length}</Typography></View></View>
-      <Pressable accessibilityLabel="Thêm cây" accessibilityRole="button" onPress={onAddPlant} style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}><Ionicons color={colors.primary} name="add" size={18} /><Typography color="primary" variant="label">Thêm cây</Typography></Pressable>
+      <Pressable accessibilityLabel="Thêm cây" accessibilityRole="button" onPress={onAddPlant} style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}><Plus color={colors.primary} size={18} /><Typography color="primary" variant="label">Thêm cây</Typography></Pressable>
     </View>
     <ScrollView contentContainerStyle={styles.content} horizontal showsHorizontalScrollIndicator={false}>
       {plants.map((plant) => {

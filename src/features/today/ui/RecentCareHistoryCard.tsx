@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
@@ -23,8 +23,9 @@ export function RecentCareHistoryCard({ activities, onOpenActivity, onOpenJourna
 
 function HistoryRow({ activity, onPress }: { activity: TodayActivity; onPress: () => void }) {
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
+  const ActivityIcon = visual.icon;
   return <Pressable accessibilityLabel={`Mở ${activityLabel(activity)} lúc ${formatOccurredAt(activity.occurredAt)}`} accessibilityRole="button" onPress={onPress} style={styles.row}>
-    <Ionicons accessibilityElementsHidden color={visual.color} name={visual.icon} size={22} />
+    <ActivityIcon color={visual.color} size={22} />
     <View style={styles.copy}><Typography variant="bodyLarge">{activityLabel(activity)}</Typography><Typography color="textSecondary" variant="bodyMedium">{formatOccurredAt(activity.occurredAt)}</Typography></View>
   </Pressable>;
 }

@@ -1,6 +1,7 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Box, Earth, Info, Leaf, type LucideIcon } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
+import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
 import type { CarePlan } from "@/features/knowledge/preview-knowledge";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
@@ -9,25 +10,25 @@ import { colors, spacing } from "@/shared/ui/theme";
 const activityPresentation = {
   fertilizing: {
     color: colors.activityFertilizing,
-    icon: "nutrition-outline" as const,
+    icon: CARE_ACTIVITY_VISUALS.fertilizing.icon,
     label: "Bón phân",
     softColor: colors.activityFertilizingSoft,
   },
   spraying: {
     color: colors.primary,
-    icon: "shield-checkmark-outline" as const,
+    icon: CARE_ACTIVITY_VISUALS.spraying.icon,
     label: "Phun thuốc",
     softColor: colors.primarySoft,
   },
   watering: {
     color: colors.activityWater,
-    icon: "water-outline" as const,
+    icon: CARE_ACTIVITY_VISUALS.watering.icon,
     label: "Tưới nước",
     softColor: colors.activityWaterSoft,
   },
 } satisfies Record<CarePlan["activityType"], Readonly<{
   color: string;
-  icon: keyof typeof Ionicons.glyphMap;
+  icon: LucideIcon;
   label: string;
   softColor: string;
 }>>;
@@ -44,7 +45,7 @@ export function StageCarePlanSection({ carePlans }: { carePlans: readonly CarePl
   return (
     <View style={styles.section}>
       <View style={styles.heading}>
-        <Ionicons color={colors.primary} name="leaf-outline" size={20} />
+        <Leaf color={colors.primary} size={20} />
         <Typography variant="headlineSmall">Chăm sóc cần theo dõi</Typography>
       </View>
       <Typography color="textSecondary" variant="bodyMedium">
@@ -59,12 +60,13 @@ export function StageCarePlanSection({ carePlans }: { carePlans: readonly CarePl
 
 function CarePlanCard({ plan }: { plan: CarePlan }) {
   const presentation = activityPresentation[plan.activityType];
+  const ActivityIcon = presentation.icon;
 
   return (
     <SurfaceCard style={styles.card}>
       <View style={styles.planHeading}>
         <View style={[styles.activityIcon, { backgroundColor: presentation.softColor }]}>
-          <Ionicons color={presentation.color} name={presentation.icon} size={20} />
+          <ActivityIcon color={presentation.color} size={20} />
         </View>
         <View style={styles.headingCopy}>
           <Typography color="textSecondary" variant="label">{presentation.label.toUpperCase()}</Typography>
@@ -78,8 +80,8 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
 
       {plan.frequency ? (
         <PlanDetail label="TẦN SUẤT THAM KHẢO">
-          <FrequencyRow icon="earth-outline" label="Trồng đất" value={plan.frequency.ground.display} />
-          <FrequencyRow icon="cube-outline" label="Trồng chậu" value={plan.frequency.container.display} />
+          <FrequencyRow icon={Earth} label="Trồng đất" value={plan.frequency.ground.display} />
+          <FrequencyRow icon={Box} label="Trồng chậu" value={plan.frequency.container.display} />
         </PlanDetail>
       ) : null}
 
@@ -98,7 +100,7 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
         <PlanDetail label="LƯU Ý QUAN TRỌNG">
           {plan.notes.map((note) => (
             <View key={note} style={styles.noteRow}>
-              <Ionicons color={presentation.color} name="information-circle-outline" size={18} />
+              <Info color={presentation.color} size={18} />
               <Typography color="textSecondary" style={styles.noteCopy} variant="bodyMedium">{note}</Typography>
             </View>
           ))}
@@ -112,14 +114,14 @@ function PlanDetail({ children, label }: PropsWithChildren<{ label: string }>) {
   return <View style={styles.detail}><Typography color="primary" variant="label">{label}</Typography>{children}</View>;
 }
 
-function FrequencyRow({ icon, label, value }: Readonly<{
-  icon: keyof typeof Ionicons.glyphMap;
+function FrequencyRow({ icon: Icon, label, value }: Readonly<{
+  icon: LucideIcon;
   label: string;
   value: string;
 }>) {
   return (
     <View style={styles.frequencyRow}>
-      <Ionicons color={colors.textSecondary} name={icon} size={18} />
+      <Icon color={colors.textSecondary} size={18} />
       <View style={styles.headingCopy}>
         <Typography variant="bodyLarge">{label}</Typography>
         <Typography color="textSecondary" variant="bodyMedium">{value}</Typography>

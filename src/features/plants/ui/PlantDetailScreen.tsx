@@ -1,8 +1,8 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { BookOpen, CheckCircle, ChevronRight, Info, Leaf } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { CareEntryScreen, type CareActivityType, type CareEntryDetails } from "@/features/journal";
-import { stageIcon } from "@/features/knowledge/stage-icons";
+import { StageIcon } from "@/features/knowledge/stage-icons";
 import type { StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type { WeatherState } from "@/shared/weather/weather-state";
@@ -47,7 +47,7 @@ export function PlantDetailScreen({ onAddJournal, onBack, onOpenActivity, onOpen
         introduction={null}
         title=""
       >
-        {onBack ? <TopBar backAccessibilityLabel="Quay lại Cây trồng" onBack={onBack} title="Chi tiết cây" /> : null}
+        {onBack ? <TopBar backAccessibilityLabel="Quay lại Cây trồng" onBack={onBack} title="Chi tiết cây" titleIcon={Leaf} /> : null}
         <PlantDetailHero ageLabels={projection.ageLabels} imageUri={projection.latestPhotoUri} name={projection.plant.name} speciesTitle={projection.speciesTitle} />
         <GrowthJourney projection={projection} />
         <CurrentStage {...(onOpenPlaybook ? { onOpenPlaybook } : {})} projection={projection} />
@@ -66,7 +66,7 @@ export function PlantDetailScreen({ onAddJournal, onBack, onOpenActivity, onOpen
         <WeatherCard weather={weather} />
         <PlantDetailRecentJournal items={projection.recentJournalItems} onOpenActivity={onOpenActivity} onOpenUpdate={onOpenUpdate} />
       </Screen>
-      <BottomSheet onDismiss={() => setSelectedCareCard(null)} title={selectedCareCard?.title ?? "Khuyến nghị chăm sóc"} visible={selectedCareCard !== null}>
+      <BottomSheet onDismiss={() => setSelectedCareCard(null)} title={<View style={styles.sheetTitle}><Info color={colors.primary} size={20} /><Typography variant="headlineSmall">{selectedCareCard?.title ?? "Khuyến nghị chăm sóc"}</Typography></View>} visible={selectedCareCard !== null}>
         {selectedCareCard?.details ? <CareRecommendationDetails details={selectedCareCard.details} /> : null}
       </BottomSheet>
       {careEntryType ? <CareEntryScreen {...(entryReason ? { reason: entryReason } : {})} {...(entrySuggestion ? { suggestion: entrySuggestion } : {})} onDismiss={() => setCareEntryType(null)} onSave={async (details) => {
@@ -87,11 +87,13 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
     </View>
     {projection.lifecycleStages.length ? <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View style={styles.journey}>
-        {projection.lifecycleStages.map((stage, index) => <View accessibilityLabel={stage.isCurrent ? `${stage.title}, hiện tại` : stage.title} key={stage.id} style={styles.journeyStep}>
-          {index ? <View style={styles.connector} /> : null}
-          <View style={[styles.stageNode, stage.isCurrent && styles.currentNode]}><Ionicons color={stage.isCurrent ? colors.surface : colors.textSecondary} name={stageIcon(stage.id)} size={16} /></View>
-          <Typography color={stage.isCurrent ? "primary" : "textSecondary"} style={styles.journeyLabel} variant="label">{stage.title}</Typography>
-        </View>)}
+        {projection.lifecycleStages.map((stage, index) => {
+          return <View accessibilityLabel={stage.isCurrent ? `${stage.title}, hiện tại` : stage.title} key={stage.id} style={styles.journeyStep}>
+            {index ? <View style={styles.connector} /> : null}
+            <View style={[styles.stageNode, stage.isCurrent && styles.currentNode]}><StageIcon color={stage.isCurrent ? colors.surface : colors.textSecondary} size={16} stageId={stage.id} /></View>
+            <Typography color={stage.isCurrent ? "primary" : "textSecondary"} style={styles.journeyLabel} variant="label">{stage.title}</Typography>
+          </View>;
+        })}
       </View>
     </ScrollView> : <Typography color="textSecondary" variant="bodyMedium">Chưa có hành trình cho cây này.</Typography>}
   </View>;
@@ -103,9 +105,9 @@ function CurrentStage({ onOpenPlaybook, projection }: { onOpenPlaybook?: () => v
     <Typography color="textSecondary" variant="bodyLarge">{projection.stagePlaybook?.primaryObjective || "Chưa có hướng dẫn cho giai đoạn này."}</Typography>
     {projection.stagePlaybook ? <View style={styles.reviewBadge}><Typography color="secondary" variant="label">NỘI DUNG CHỜ DUYỆT</Typography></View> : null}
     {onOpenPlaybook && projection.stagePlaybook ? <Pressable accessibilityLabel={`Mở hướng dẫn chi tiết cho giai đoạn ${projection.stageTitle}`} accessibilityRole="button" onPress={onOpenPlaybook} style={({ pressed }) => [styles.playbookAction, pressed && styles.playbookActionPressed]}>
-      <Ionicons color={colors.primary} name="book-outline" size={20} />
+      <BookOpen color={colors.primary} size={20} />
       <Typography color="primary" style={styles.flex} variant="bodyLarge">Xem hướng dẫn chi tiết</Typography>
-      <Ionicons color={colors.primary} name="chevron-forward" size={18} />
+      <ChevronRight color={colors.primary} size={18} />
     </Pressable> : null}
   </SurfaceCard>;
 }
@@ -113,7 +115,7 @@ function CurrentStage({ onOpenPlaybook, projection }: { onOpenPlaybook?: () => v
 function StageTips({ playbook }: { playbook: StagePlaybook | null }) {
   if (!playbook?.recommendedKnowledgeTopics.length && !playbook?.exitCriteria.length) return null;
   return <View style={styles.section}><Typography variant="headlineSmall">Chuẩn bị cho bước tiếp theo</Typography><SurfaceCard style={styles.tipsCard}>
-    {[...playbook.recommendedKnowledgeTopics, ...playbook.exitCriteria].map((item) => <View key={item} style={styles.bullet}><Ionicons color={colors.primary} name="checkmark-circle-outline" size={18} /><Typography color="textSecondary" variant="bodyMedium">{item}</Typography></View>)}
+    {[...playbook.recommendedKnowledgeTopics, ...playbook.exitCriteria].map((item) => <View key={item} style={styles.bullet}><CheckCircle color={colors.primary} size={18} /><Typography color="textSecondary" variant="bodyMedium">{item}</Typography></View>)}
   </SurfaceCard></View>;
 }
 
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
   reviewBadge: { alignSelf: "flex-start", backgroundColor: colors.secondarySoft, borderRadius: radius.chip, paddingHorizontal: spacing.sm, paddingVertical: spacing.xs },
   playbookAction: { alignItems: "center", borderRadius: radius.control, flexDirection: "row", gap: spacing.sm, minHeight: 44, paddingHorizontal: spacing.sm }, playbookActionPressed: { backgroundColor: colors.primarySoft },
   section: { gap: spacing.md },
+  sheetTitle: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   stageCard: { backgroundColor: colors.surfaceSubtle, borderLeftColor: colors.primary, borderLeftWidth: 3, gap: spacing.sm, padding: spacing.md },
   stageNode: { alignItems: "center", backgroundColor: colors.surfaceSubtle, borderColor: colors.border, borderRadius: radius.round, borderWidth: 1, height: 32, justifyContent: "center", width: 32 }, tipsCard: { gap: spacing.sm },
 });

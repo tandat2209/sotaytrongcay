@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+
 import { StyleSheet, View } from "react-native";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -27,12 +27,13 @@ type Props = {
 export function ActivityDetailScreen({ activity, imageUri, onBack, plantName, speciesTitle, stageId, stageTitle }: Props) {
   const title = `Chi tiết ${CARE_ACTIVITY_LABELS[activity.type].toLowerCase()}`;
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
+  const ActivityIcon = visual.icon;
   return (
     <Screen title="">
-      {onBack ? <TopBar backAccessibilityLabel="Quay lại Nhật ký" onBack={onBack} title={title} /> : <Typography variant="headlineLarge">{title}</Typography>}
+      {onBack ? <TopBar backAccessibilityLabel="Quay lại Nhật ký" onBack={onBack} title={title} titleIcon={visual.icon} /> : <Typography variant="headlineLarge">{title}</Typography>}
       <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
       <SurfaceCard style={styles.summary}>
-        <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={22} /></View>
+        <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><ActivityIcon color={visual.color} size={22} /></View>
         <View style={styles.copy}>
           <Typography variant="headlineSmall">{CARE_ACTIVITY_LABELS[activity.type]}</Typography>
           <Typography color="textSecondary" variant="bodyMedium">{new Date(activity.occurredAt).toLocaleString("vi-VN")}</Typography>

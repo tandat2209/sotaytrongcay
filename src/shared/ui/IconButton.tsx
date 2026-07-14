@@ -1,18 +1,16 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import type { ComponentProps } from "react";
+import type { LucideIcon } from "lucide-react-native";
 import { Pressable, StyleSheet } from "react-native";
 import { colors, control, radius } from "./theme";
 
-type IconName = ComponentProps<typeof Ionicons>["name"];
 
 type IconButtonProps = {
   accessibilityLabel: string;
   disabled?: boolean;
-  icon: IconName;
+  icon: LucideIcon;
   onPress: () => void;
 };
 
-export function IconButton({ accessibilityLabel, disabled = false, icon, onPress }: IconButtonProps) {
+export function IconButton({ accessibilityLabel, disabled = false, icon: Icon, onPress }: IconButtonProps) {
   return (
     <Pressable
       accessibilityLabel={accessibilityLabel}
@@ -23,7 +21,7 @@ export function IconButton({ accessibilityLabel, disabled = false, icon, onPress
       onPress={onPress}
       style={({ pressed }) => [styles.button, pressed && !disabled && styles.pressed, disabled && styles.disabled]}
     >
-      <Ionicons color={colors.text} name={icon} size={22} />
+      <Icon color={colors.text} size={22} />
     </Pressable>
   );
 }

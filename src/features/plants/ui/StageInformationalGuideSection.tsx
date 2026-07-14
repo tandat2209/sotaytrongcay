@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { BookOpen } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 import type { CareGuide } from "@/features/knowledge/preview-knowledge";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -11,14 +11,14 @@ export function StageInformationalGuideSection({ guides }: { guides: readonly Ca
   return (
     <View style={styles.section}>
       <View style={styles.heading}>
-        <Ionicons color={colors.primary} name="book-outline" size={20} />
+        <BookOpen color={colors.primary} size={20} />
         <Typography variant="headlineSmall">Hướng dẫn tham khảo</Typography>
       </View>
       {guides.map((guide) => (
         <SurfaceCard key={guide.id} style={styles.card}>
           <View style={styles.guideHeading}>
             <View style={styles.icon}>
-              <Ionicons color={colors.primary} name="book-outline" size={20} />
+              <BookOpen color={colors.primary} size={20} />
             </View>
             <Typography style={styles.title} variant="headlineSmall">{guide.title}</Typography>
           </View>

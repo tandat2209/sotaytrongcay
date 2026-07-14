@@ -1,7 +1,7 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Leaf } from "lucide-react-native";
 import { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { stageIcon } from "@/features/knowledge/stage-icons";
+import { StageIcon } from "@/features/knowledge/stage-icons";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -28,13 +28,13 @@ export function PlantIdentity({ imageUri, name, size, speciesTitle, stageId, sta
   const resolvedImageUri = imageUri && failedImageUri !== imageUri ? imageUri : null;
   return <View style={[styles.container, size === "list" && styles.list, size === "rail" && styles.rail]}>
     <View accessibilityElementsHidden style={[styles.image, dimensions, size === "rail" && styles.railImage]}>
-      {resolvedImageUri ? <Image accessibilityIgnoresInvertColors onError={() => setFailedImageUri(resolvedImageUri)} resizeMode="cover" source={{ uri: resolvedImageUri }} style={styles.photo} /> : <Ionicons color={colors.primary} name="leaf-outline" size={size === "detail" ? 34 : size === "rail" ? 32 : 22} />}
+      {resolvedImageUri ? <Image accessibilityIgnoresInvertColors onError={() => setFailedImageUri(resolvedImageUri)} resizeMode="cover" source={{ uri: resolvedImageUri }} style={styles.photo} /> : <Leaf color={colors.primary} size={size === "detail" ? 34 : size === "rail" ? 32 : 22} />}
     </View>
     <View style={[styles.copy, size === "rail" && styles.railCopy]}>
       <Typography numberOfLines={1} style={[styles.name, size === "rail" && styles.railName]} variant={size === "detail" ? "headlineLarge" : "bodyLarge"}>{name}</Typography>
       <View style={[styles.metadata, size === "rail" && styles.railMetadata]}>
         <View style={styles.speciesChip}><Typography color="primary" numberOfLines={1} style={styles.speciesLabel} variant="label">{speciesTitle}</Typography></View>
-        <View style={styles.stage}><Ionicons accessibilityElementsHidden color={colors.textSecondary} name={stageIcon(stageId)} size={16} /><Typography color="textSecondary" numberOfLines={1} style={styles.stageTitle} variant="bodyMedium">{stageTitle}</Typography></View>
+        <View style={styles.stage}><StageIcon color={colors.textSecondary} size={16} stageId={stageId} /><Typography color="textSecondary" numberOfLines={1} style={styles.stageTitle} variant="bodyMedium">{stageTitle}</Typography></View>
       </View>
     </View>
   </View>;

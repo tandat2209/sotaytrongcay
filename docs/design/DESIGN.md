@@ -81,7 +81,7 @@ Use semantic roles rather than copying raw colors into components.
 | Border | `#C2C9BB` | Structural separation |
 | Error | `#BA1A1A` | Validated warning/error states |
 
-Hydration may use soft blue, sunlight amber, and urgent plant-health states muted red. Color must always be paired with text or an icon.
+Hydration may use soft blue, sunlight amber, and urgent plant-health states muted red. Color must always be paired with text or a Lucide icon.
 
 ### Typography
 
@@ -266,7 +266,8 @@ Use shared `PlantIdentity` for compact identity surfaces such as plant lists, To
 
 ### Icons and images
 
-- Use one coherent icon family.
+- Use Lucide React Native as the coherent icon family.
+- Give each rendered screen one semantic title or identity icon.
 - Pair unfamiliar icons with Vietnamese labels.
 - Provide accessibility labels.
 - Plant photos should be realistic and relevant to the displayed species/stage.

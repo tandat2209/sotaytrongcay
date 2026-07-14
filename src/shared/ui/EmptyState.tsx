@@ -1,19 +1,20 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import type { LucideIcon } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 import { SurfaceCard } from "./SurfaceCard";
 import { Typography } from "./Typography";
-import { colors, radius, spacing } from "./theme";
+import { colors, spacing } from "./theme";
 
 type EmptyStateProps = {
   description: string;
+  icon: LucideIcon;
   title: string;
 };
 
-export function EmptyState({ description, title }: EmptyStateProps) {
+export function EmptyState({ description, icon: Icon, title }: EmptyStateProps) {
   return (
     <SurfaceCard style={styles.container}>
-      <View accessibilityElementsHidden style={styles.leaf}>
-        <Ionicons color={colors.primary} name="leaf-outline" size={24} />
+      <View accessibilityElementsHidden style={styles.icon}>
+        <Icon color={colors.primary} size={24} />
       </View>
       <Typography style={styles.title} variant="headlineSmall">{title}</Typography>
       <Typography color="textSecondary" style={styles.description} variant="bodyMedium">{description}</Typography>
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.xl,
   },
-  leaf: {
+  icon: {
     alignItems: "center",
     backgroundColor: "#E7F0E4",
     borderRadius: 24,

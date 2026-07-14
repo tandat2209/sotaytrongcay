@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { ChevronDown, ChevronUp, CircleHelp, Leaf } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
@@ -31,6 +31,7 @@ export function TodayPriorityList({ onRecordCare, priorities }: Props) {
 function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { isExpanded: boolean; onRecordCare: Props["onRecordCare"]; onToggle: () => void; priority: TodayPriority }) {
   const detailLabel = `${isExpanded ? "Thu gọn" : "Xem"} lý do và hướng dẫn cho ${priority.title} của ${priority.plantName}`;
   const visual = CARE_ACTIVITY_VISUALS[priority.activityType];
+  const ActivityIcon = visual.icon;
 
   return <SurfaceCard style={styles.card}>
     <View style={styles.plantHeader}>
@@ -39,15 +40,15 @@ function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { i
 
     {/* Action row with expandable chevron */}
     <Pressable accessibilityLabel={detailLabel} accessibilityRole="button" accessibilityState={{ expanded: isExpanded }} onPress={onToggle} style={styles.actionRow}>
-      <Ionicons accessibilityElementsHidden color={visual.color} name={visual.icon} size={18} />
+      <ActivityIcon color={visual.color} size={18} />
       <Typography style={styles.fill} variant="bodyMedium">{priority.title}</Typography>
-      <Ionicons color={colors.textSecondary} name={isExpanded ? "chevron-up" : "chevron-down"} size={20} />
+      {isExpanded ? <ChevronUp color={colors.textSecondary} size={20} /> : <ChevronDown color={colors.textSecondary} size={20} />}
     </Pressable>
 
     {/* Expanded: explanation */}
     {isExpanded ? <View style={styles.expandedContent}>
       <View style={styles.explanationRow}>
-        <Ionicons accessibilityElementsHidden color={colors.textSecondary} name="help-circle-outline" size={16} />
+        <CircleHelp color={colors.textSecondary} size={16} />
         <View style={styles.fill}>
           <Typography variant="bodyMedium"><Typography style={styles.bold} variant="bodyMedium">Tại sao: </Typography>{priority.explanation}</Typography>
         </View>
@@ -56,14 +57,14 @@ function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { i
 
     {/* Care action button */}
     <Pressable accessibilityLabel={`${CARE_ACTIVITY_LABELS[priority.activityType]} cho ${priority.plantName}`} accessibilityRole="button" onPress={() => onRecordCare(priority.plantId, priority.activityType)} style={[styles.careAction, { backgroundColor: visual.backgroundColor }]}>
-      <Ionicons accessibilityElementsHidden color={visual.color} name={visual.icon} size={20} />
+      <ActivityIcon color={visual.color} size={20} />
       <Typography style={[styles.careActionLabel, { color: visual.color }]} variant="bodyMedium">{CARE_ACTIVITY_LABELS[priority.activityType]}</Typography>
     </Pressable>
   </SurfaceCard>;
 }
 
 function PlantIconPlaceholder() {
-  return <View accessibilityElementsHidden style={styles.plantIcon}><Ionicons color={colors.primary} name="leaf" size={22} /></View>;
+  return <View accessibilityElementsHidden style={styles.plantIcon}><Leaf color={colors.primary} size={22} /></View>;
 }
 
 const styles = StyleSheet.create({

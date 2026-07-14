@@ -1,9 +1,9 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { CalendarDays, NotebookPen } from "lucide-react-native";
 import { useState } from "react";
 import { Alert, Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
 import type { PlantKnowledgeStage } from "@/features/knowledge";
-import { stageIcon } from "@/features/knowledge/stage-icons";
+import { StageIcon } from "@/features/knowledge/stage-icons";
 import { PlantIdentity } from "@/features/plants";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -76,7 +76,7 @@ export function PlantUpdateScreen({ imageUri, initialStageId, onBack, onSave, pl
 
   return <>
     <Screen footer={<PrimaryButton label="Lưu nhật ký" loading={saving} onPress={() => void submit()} />} title="">
-      <TopBar backAccessibilityLabel="Quay lại Chi tiết cây" onBack={requestBack} title="Thêm nhật ký" />
+      <TopBar backAccessibilityLabel="Quay lại Chi tiết cây" onBack={requestBack} title="Thêm nhật ký" titleIcon={NotebookPen} />
       <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stage?.title ?? "Chưa xác định"} />
       <FormField label="Ảnh">
         <JournalPhotoField onChange={(value) => { setPhotos(value); setError(null); }} photos={photos} />
@@ -84,7 +84,7 @@ export function PlantUpdateScreen({ imageUri, initialStageId, onBack, onSave, pl
       <FormField label="Thời gian cập nhật">
         <Pressable accessibilityLabel="Chọn thời gian cập nhật" accessibilityRole="button" onPress={() => setShowDatePicker(true)} style={styles.control}>
           <Typography variant="bodyLarge">{occurredAt.toLocaleString("vi-VN")}</Typography>
-          <Ionicons color={colors.textSecondary} name="calendar-outline" size={20} />
+          <CalendarDays color={colors.textSecondary} size={20} />
         </Pressable>
         {showDatePicker ? <DateTimePicker locale="vi-VN" maximumDate={new Date()} mode="datetime" onChange={(_, date) => {
           if (Platform.OS !== "ios") setShowDatePicker(false);
@@ -97,7 +97,7 @@ export function PlantUpdateScreen({ imageUri, initialStageId, onBack, onSave, pl
       </FormField>
       <FormField label="Giai đoạn hiện tại">
         <Pressable accessibilityLabel="Thay đổi giai đoạn hiện tại" accessibilityRole="button" onPress={() => setShowStagePicker(true)} style={styles.control}>
-          <View style={styles.stage}><Ionicons color={colors.primary} name={stageIcon(stageId)} size={20} /><Typography variant="bodyLarge">{stage?.title ?? "Chưa xác định"}</Typography></View>
+          <View style={styles.stage}><StageIcon color={colors.primary} size={20} stageId={stageId} /><Typography variant="bodyLarge">{stage?.title ?? "Chưa xác định"}</Typography></View>
           <Typography color="primary" variant="label">Thay đổi</Typography>
         </Pressable>
       </FormField>

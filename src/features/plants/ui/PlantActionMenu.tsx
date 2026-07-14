@@ -1,5 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import type { ComponentProps } from "react";
+import { Camera, NotebookPen, X, type LucideIcon } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { AccessibilityInfo, Animated, Modal, Pressable, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,13 +12,12 @@ type Props = Readonly<{
 }>;
 
 const CARE_TYPES: readonly CareActivityType[] = ["spraying", "fertilizing", "watering"];
-type IconName = ComponentProps<typeof Ionicons>["name"];
-type IdleAction = Readonly<{ backgroundColor: string; icon: IconName }>;
+type IdleAction = Readonly<{ backgroundColor: string; icon: LucideIcon }>;
 const IDLE_ACTIONS: readonly IdleAction[] = [
   { backgroundColor: CARE_ACTIVITY_VISUALS.watering.color, icon: CARE_ACTIVITY_VISUALS.watering.icon },
   { backgroundColor: CARE_ACTIVITY_VISUALS.fertilizing.color, icon: CARE_ACTIVITY_VISUALS.fertilizing.icon },
   { backgroundColor: CARE_ACTIVITY_VISUALS.spraying.color, icon: CARE_ACTIVITY_VISUALS.spraying.icon },
-  { backgroundColor: colors.primary, icon: "camera-outline" },
+  { backgroundColor: colors.primary, icon: Camera },
 ];
 
 export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
@@ -84,25 +82,25 @@ export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
     action();
   }
 
-  const idleAction = IDLE_ACTIONS[iconIndex] ?? { backgroundColor: colors.primary, icon: "create-outline" };
+  const idleAction = IDLE_ACTIONS[iconIndex] ?? { backgroundColor: colors.primary, icon: NotebookPen };
 
   return <>
-    <CyclingFab backgroundColor={reduceMotion ? colors.primary : idleAction.backgroundColor} fabScale={fabScale} icon={reduceMotion ? "create-outline" : idleAction.icon} onPress={show} slideX={slideX} />
+    <CyclingFab backgroundColor={reduceMotion ? colors.primary : idleAction.backgroundColor} fabScale={fabScale} icon={reduceMotion ? NotebookPen : idleAction.icon} onPress={show} slideX={slideX} />
     <Modal animationType="none" onRequestClose={dismiss} transparent visible={open}>
       <SafeAreaView edges={["bottom"]} style={styles.overlay}>
         <Pressable accessibilityLabel="Đóng menu thao tác" accessibilityRole="button" onPress={dismiss} style={styles.backdrop} />
         <View style={styles.menu}>
-          <AnimatedAction backgroundColor={colors.primarySoft} color={colors.primary} icon="camera-outline" index={3} label="Thêm nhật ký" onPress={() => select(onAddJournal)} progress={progress} reduceMotion={reduceMotion} />
+          <AnimatedAction backgroundColor={colors.primarySoft} color={colors.primary} icon={Camera} index={3} label="Thêm nhật ký" onPress={() => select(onAddJournal)} progress={progress} reduceMotion={reduceMotion} />
           {CARE_TYPES.map((type, index) => <AnimatedAction backgroundColor={CARE_ACTIVITY_VISUALS[type].backgroundColor} color={CARE_ACTIVITY_VISUALS[type].color} icon={CARE_ACTIVITY_VISUALS[type].icon} index={2 - index} key={type} label={CARE_ACTIVITY_LABELS[type]} onPress={() => select(() => onRecordCare(type))} progress={progress} reduceMotion={reduceMotion} />)}
-          <Fab accessibilityLabel="Đóng thao tác cho cây" expanded icon="close" onPress={dismiss} />
+          <Fab accessibilityLabel="Đóng thao tác cho cây" expanded icon={X} onPress={dismiss} />
         </View>
       </SafeAreaView>
     </Modal>
   </>;
 }
 
-function AnimatedAction({ backgroundColor, color, icon, index, label, onPress, progress, reduceMotion }: Readonly<{
-  backgroundColor: string; color: string; icon: IconName; index: number; label: string; onPress: () => void; progress: Animated.Value; reduceMotion: boolean;
+function AnimatedAction({ backgroundColor, color, icon: Icon, index, label, onPress, progress, reduceMotion }: Readonly<{
+  backgroundColor: string; color: string; icon: LucideIcon; index: number; label: string; onPress: () => void; progress: Animated.Value; reduceMotion: boolean;
 }>) {
   const animatedStyle = reduceMotion ? undefined : {
     opacity: progress,
@@ -111,26 +109,26 @@ function AnimatedAction({ backgroundColor, color, icon, index, label, onPress, p
   return <Animated.View style={[styles.actionWrap, animatedStyle]}>
     <Pressable accessibilityLabel={label} accessibilityRole="button" onPress={onPress} style={({ pressed }) => [styles.action, pressed && styles.pressed]}>
       <View style={styles.label}><Typography variant="bodyLarge">{label}</Typography></View>
-      <View style={[styles.actionIcon, { backgroundColor }]}><Ionicons color={color} name={icon} size={23} /></View>
+      <View style={[styles.actionIcon, { backgroundColor }]}><Icon color={color} size={23} /></View>
     </Pressable>
   </Animated.View>;
 }
 
-function CyclingFab({ backgroundColor, fabScale, icon, onPress, slideX }: Readonly<{ backgroundColor: string; fabScale: Animated.Value; icon: IconName; onPress: () => void; slideX: Animated.Value }>) {
+function CyclingFab({ backgroundColor, fabScale, icon: Icon, onPress, slideX }: Readonly<{ backgroundColor: string; fabScale: Animated.Value; icon: LucideIcon; onPress: () => void; slideX: Animated.Value }>) {
   const iconStyle = {
     opacity: slideX.interpolate({ inputRange: [-28, 0, 28], outputRange: [0, 1, 0] }),
     transform: [{ translateX: slideX }],
   };
   return <Animated.View style={{ transform: [{ scale: fabScale }] }}>
     <Pressable accessibilityLabel="Mở thao tác cho cây" accessibilityRole="button" accessibilityState={{ expanded: false }} onPress={onPress} style={({ pressed }) => [styles.fab, { backgroundColor }, pressed && styles.fabPressed]}>
-      <Animated.View style={iconStyle}><Ionicons color={colors.surface} name={icon} size={27} /></Animated.View>
+      <Animated.View style={iconStyle}><Icon color={colors.surface} size={27} /></Animated.View>
     </Pressable>
   </Animated.View>;
 }
 
-function Fab({ accessibilityLabel, expanded, icon, onPress }: Readonly<{ accessibilityLabel: string; expanded: boolean; icon: "close" | "create-outline"; onPress: () => void }>) {
+function Fab({ accessibilityLabel, expanded, icon: Icon, onPress }: Readonly<{ accessibilityLabel: string; expanded: boolean; icon: LucideIcon; onPress: () => void }>) {
   return <Pressable accessibilityLabel={accessibilityLabel} accessibilityRole="button" accessibilityState={{ expanded }} onPress={onPress} style={({ pressed }) => [styles.fab, pressed && styles.fabPressed]}>
-    <Ionicons color={colors.surface} name={icon} size={28} />
+    <Icon color={colors.surface} size={28} />
   </Pressable>;
 }
 

@@ -40,7 +40,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Persist nullable current-stage start time, backfill only from matching stage history, and show age conditionally without inferring from `createdAt` or `plantedAt`.
 - [ ] Let growers optionally enter when the initial selected stage began when adding or editing an existing plant.
 - [ ] Show Care Plan details in Today priority cards after reviewed UX and content scope.
-- [ ] Replace the current icon set with Lucide to ultilize more of nature / weather icons
+- [x] Replace the current icon set with Lucide to use more nature and weather icons
 
 ## Engineering
 
@@ -87,7 +87,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Surface stage playbook content inline on Plant Detail (objective, knowledge topics, exit criteria) with 'NỘI DUNG CHỜ DUYỆT' label.
 - [x] Implement StagePlaybookScreen as a general-purpose, stage-focused guide reader (not plant-specific); reachable from Plant Detail via 'Hướng dẫn chi tiết' CTA; supports forward browsing through stages via stageId query param.
 - [x] Show complete stage Care Plan details in Stage Playbook, including activity, goal, ground/container guidance, input categories, and important notes.
-- [x] Add stage-specific icons (12 stages mapped to Ionicons) consistently across Plant Detail, Plant List, and Stage Playbook.
+- [x] Add stage-specific icons (12 stages mapped to Lucide) consistently across Plant Detail, Plant List, and Stage Playbook.
 - [x] Add location field and DateTimePicker for plantedAt to plant setup.
 
 ## Deferred pending reviewed contracts

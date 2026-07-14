@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Info } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
 import { Typography } from "@/shared/ui/Typography";
@@ -20,7 +20,7 @@ export function CareRecommendationDetails({ details }: { details: PlantDetailCar
       </DetailSection> : null}
       {details.notes.length ? <DetailSection label="LƯU Ý">
         {details.notes.map((note) => <View key={note} style={styles.note}>
-          <Ionicons color={colors.primary} name="information-circle-outline" size={18} />
+          <Info color={colors.primary} size={18} />
           <Typography color="textSecondary" style={styles.noteCopy} variant="bodyMedium">{note}</Typography>
         </View>)}
       </DetailSection> : null}

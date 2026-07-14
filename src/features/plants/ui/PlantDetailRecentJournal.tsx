@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { ChevronRight, FileText } from "lucide-react-native";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_VISUALS, type JournalItem, type PlantUpdate } from "@/features/journal";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -24,11 +24,12 @@ export function PlantDetailRecentJournal({ items, onOpenActivity, onOpenUpdate }
 function CareRow({ activity, onPress }: Readonly<{ activity: Extract<JournalItem, { kind: "care" }>["record"]; onPress: () => void }>) {
   const label = CARE_ACTIVITY_LABELS[activity.type];
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
+  const ActivityIcon = visual.icon;
   const occurredAt = new Date(activity.occurredAt).toLocaleString("vi-VN");
   return <Pressable accessibilityLabel={`Mở ${label.toLowerCase()}, ${occurredAt}`} accessibilityRole="button" onPress={onPress} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
-    <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={20} /></View>
+    <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><ActivityIcon color={visual.color} size={20} /></View>
     <View style={styles.copy}><Typography variant="bodyLarge">{label}</Typography><Typography color="textSecondary" variant="bodyMedium">{occurredAt}</Typography></View>
-    <Ionicons color={colors.textSecondary} name="chevron-forward" size={18} />
+    <ChevronRight color={colors.textSecondary} size={18} />
   </Pressable>;
 }
 
@@ -37,9 +38,9 @@ function UpdateRow({ onPress, update }: Readonly<{ onPress: () => void; update: 
   const occurredAt = new Date(update.occurredAt).toLocaleString("vi-VN");
   const summary = update.notes ?? `${update.photos.length} ảnh`;
   return <Pressable accessibilityLabel={`Mở cập nhật cây, ${occurredAt}`} accessibilityRole="button" onPress={onPress} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
-    {photoUri ? <Image accessibilityIgnoresInvertColors source={{ uri: photoUri }} style={styles.thumbnail} /> : <View style={[styles.icon, styles.updateIcon]}><Ionicons color={colors.primary} name="document-text-outline" size={20} /></View>}
+    {photoUri ? <Image accessibilityIgnoresInvertColors source={{ uri: photoUri }} style={styles.thumbnail} /> : <View style={[styles.icon, styles.updateIcon]}><FileText color={colors.primary} size={20} /></View>}
     <View style={styles.copy}><Typography variant="bodyLarge">Cập nhật cây</Typography><Typography color="textSecondary" numberOfLines={1} variant="bodyMedium">{summary}</Typography><Typography color="textSecondary" variant="label">{occurredAt}</Typography></View>
-    <Ionicons color={colors.textSecondary} name="chevron-forward" size={18} />
+    <ChevronRight color={colors.textSecondary} size={18} />
   </Pressable>;
 }
 

@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Leaf, X } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { Image, Modal, Pressable, StyleSheet, View } from "react-native";
@@ -46,7 +46,7 @@ export function PlantDetailHero({ ageLabels, imageUri, name, speciesTitle }: Pro
     <Modal animationType="fade" onRequestClose={() => setViewerOpen(false)} presentationStyle="overFullScreen" transparent visible={viewerOpen}>
       <SafeAreaView accessibilityViewIsModal edges={["top", "bottom"]} style={styles.viewer}>
         <Pressable accessibilityLabel="Đóng ảnh" accessibilityRole="button" hitSlop={6} onPress={() => setViewerOpen(false)} style={({ pressed }) => [styles.closeButton, pressed && styles.viewerPressed]}>
-          <Ionicons color={colors.surface} name="close" size={28} />
+          <X color={colors.surface} size={28} />
         </Pressable>
         <Image accessibilityLabel={`Ảnh mới nhất của ${name}`} accessible accessibilityIgnoresInvertColors onError={handleImageError} resizeMode="contain" source={{ uri: imageUri }} style={styles.fullImage} />
       </SafeAreaView>
@@ -56,7 +56,7 @@ export function PlantDetailHero({ ageLabels, imageUri, name, speciesTitle }: Pro
 
 function PlantIdentityFallback({ ageLabels, name, speciesTitle }: Omit<Props, "imageUri">) {
   return <View style={styles.fallback}>
-    <View accessibilityElementsHidden style={styles.fallbackImage}><Ionicons color={colors.primary} name="leaf-outline" size={34} /></View>
+    <View accessibilityElementsHidden style={styles.fallbackImage}><Leaf color={colors.primary} size={34} /></View>
     <View style={styles.fallbackCopy}>
       <Typography numberOfLines={2} variant="headlineLarge">{name}</Typography>
       <View style={styles.metadataRow}>
