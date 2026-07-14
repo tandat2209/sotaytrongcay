@@ -20,6 +20,7 @@ const config: ExpoConfig = {
   },
   plugins: [
     "expo-router",
+    "expo-notifications",
     "expo-secure-store",
     "expo-sqlite",
     "@react-native-community/datetimepicker",

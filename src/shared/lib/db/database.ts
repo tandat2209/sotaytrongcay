@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 6;
+export const DATABASE_VERSION = 7;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -105,6 +105,32 @@ SET stage_started_at = (
 );
 `;
 
+const V7_ADD_CARE_PLAN_REMINDER_PREFERENCES = `
+CREATE TABLE care_plan_reminder_preferences (
+  id TEXT PRIMARY KEY NOT NULL,
+  mutation_id TEXT NOT NULL UNIQUE,
+  plant_id TEXT NOT NULL,
+  care_plan_id TEXT NOT NULL,
+  care_plan_version TEXT NOT NULL,
+  activity_type TEXT NOT NULL CHECK (activity_type IN ('watering', 'fertilizing', 'spraying')),
+  recommended_interval_days INTEGER NOT NULL CHECK (recommended_interval_days > 0),
+  custom_interval_days INTEGER CHECK (custom_interval_days IS NULL OR custom_interval_days > 0),
+  notification_time TEXT,
+  notification_enabled INTEGER NOT NULL DEFAULT 0 CHECK (notification_enabled IN (0, 1)),
+  paused_at TEXT,
+  is_applicable INTEGER NOT NULL DEFAULT 1 CHECK (is_applicable IN (0, 1)),
+  main_notification_id TEXT,
+  follow_up_notification_id TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE (plant_id, care_plan_id),
+  FOREIGN KEY (plant_id) REFERENCES plants(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_care_plan_reminder_preferences_plant
+  ON care_plan_reminder_preferences(plant_id, is_applicable);
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
@@ -112,6 +138,8 @@ export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion < 4) migrations.push(V4_ADD_GROWING_METHOD);
   if (currentVersion < 5) migrations.push(V5_ADD_PLANT_UPDATES);
   if (currentVersion < 6) migrations.push(V6_ADD_STAGE_STARTED_AT);
+  if (currentVersion < 7)
+    migrations.push(V7_ADD_CARE_PLAN_REMINDER_PREFERENCES);
   return migrations;
 }
 
@@ -138,6 +166,7 @@ export async function initializeDatabase(): Promise<void> {
 export async function resetDatabase(): Promise<void> {
   const db = await getDb();
   await db.execAsync(`
+    DROP TABLE IF EXISTS care_plan_reminder_preferences;
     DROP TABLE IF EXISTS plant_stage_history;
     DROP TABLE IF EXISTS plant_update_photos;
     DROP TABLE IF EXISTS plant_updates;

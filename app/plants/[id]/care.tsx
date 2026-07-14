@@ -11,13 +11,14 @@ import {
 } from "@/features/journal";
 import { getStagePlaybook, listCarePlans } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity, type Plant } from "@/features/plants";
+import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 
 const CareRouteSchema = z.object({
   id: z.string().uuid(),
   type: z.enum(["watering", "fertilizing", "spraying"]),
-  origin: z.enum(["today", "manual"]).optional(),
+  origin: z.enum(["today", "reminder", "manual"]).optional(),
 });
 
 export default function CareEntryRoute() {
@@ -72,7 +73,7 @@ function CareEntry({
   type,
 }: Readonly<{
   imageUri: string | null;
-  origin: "today" | "manual";
+  origin: "today" | "reminder" | "manual";
   plant: Plant;
   type: CareActivityType;
 }>) {
@@ -104,11 +105,13 @@ function CareEntry({
           notes: details.notes,
           createdAt: now,
         });
+        await reconcilePlantCarePlanReminders(plant);
         await Promise.all([
           queryClient.invalidateQueries({
             queryKey: ["plant-detail", plant.id],
           }),
           queryClient.invalidateQueries({ queryKey: ["today"] }),
+          queryClient.invalidateQueries({ queryKey: ["reminders"] }),
           queryClient.invalidateQueries({ queryKey: ["journal"] }),
         ]);
         router.back();

@@ -6,7 +6,7 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type {
-  TodayPriority,
+  TodayCareCard,
   TodayProjection,
 } from "../models/today-projection";
 import { PlantRail } from "./PlantRail";
@@ -15,14 +15,14 @@ import { TodayPriorityList } from "./TodayPriorityList";
 
 export { WeatherCard } from "@/shared/weather/WeatherCard";
 
-type Props = {
+type Props = Readonly<{
   onAddPlant: () => void;
   onOpenActivity: (id: string) => void;
-  onOpenPlant: (id: string) => void;
   onOpenJournal: () => void;
-  onRecordCare: (plantId: string, type: TodayPriority["activityType"]) => void;
+  onOpenPlant: (id: string) => void;
+  onRecordCare: (card: TodayCareCard) => void;
   projection: TodayProjection;
-};
+}>;
 
 export function TodayOverview({
   onAddPlant,
@@ -32,7 +32,7 @@ export function TodayOverview({
   onRecordCare,
   projection,
 }: Props) {
-  if (projection.plants.length === 0) {
+  if (projection.plants.length === 0)
     return (
       <View style={styles.emptyState}>
         <EmptyState
@@ -52,16 +52,18 @@ export function TodayOverview({
         </Pressable>
       </View>
     );
-  }
 
   return (
     <View style={styles.content}>
       <WeatherCard weather={projection.weather} />
       <View style={styles.section}>
-        <SectionHeading title="Việc cần làm hôm nay" />
+        <View style={styles.sectionHeading}>
+          <CalendarDays color={colors.primary} size={20} />
+          <Typography variant="headlineSmall">Việc cần làm hôm nay</Typography>
+        </View>
         <TodayPriorityList
+          cards={projection.careCards}
           onRecordCare={onRecordCare}
-          priorities={projection.priorities}
         />
       </View>
       <RecentCareHistoryCard
@@ -75,15 +77,6 @@ export function TodayOverview({
         photoUris={projection.plantPhotoUris}
         plants={projection.plants}
       />
-    </View>
-  );
-}
-
-function SectionHeading({ title }: { title: string }) {
-  return (
-    <View style={styles.sectionHeading}>
-      <CalendarDays color={colors.primary} size={20} />
-      <Typography variant="headlineSmall">{title}</Typography>
     </View>
   );
 }

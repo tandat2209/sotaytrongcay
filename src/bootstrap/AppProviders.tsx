@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { DatabaseProvider } from "@/shared/providers/DatabaseProvider";
+import { ReminderBootstrap } from "./ReminderBootstrap";
 
 export function AppProviders({ children }: PropsWithChildren) {
   const [queryClient] = useState(
@@ -21,7 +22,9 @@ export function AppProviders({ children }: PropsWithChildren) {
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
-        <DatabaseProvider>{children}</DatabaseProvider>
+        <DatabaseProvider>
+          <ReminderBootstrap>{children}</ReminderBootstrap>
+        </DatabaseProvider>
       </QueryClientProvider>
     </SafeAreaProvider>
   );

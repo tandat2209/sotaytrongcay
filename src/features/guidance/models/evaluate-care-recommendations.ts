@@ -1,4 +1,8 @@
-import type { CareActivity, CareActivityType } from "@/features/journal";
+import {
+  findLatestCareActivity,
+  type CareActivity,
+  type CareActivityType,
+} from "@/features/journal";
 import type { CarePlan } from "@/features/knowledge";
 import type { Plant } from "@/features/plants";
 import type { CareEvaluation } from "./care-evaluation";
@@ -30,7 +34,7 @@ function evaluateCarePlan(
   }>,
 ): CareEvaluation {
   const { activities, evaluatedAt, plant, plan } = input;
-  const latestActivity = latestActivityForType(
+  const latestActivity = findLatestCareActivity(
     activities,
     plant.id,
     plan.activityType,
@@ -124,23 +128,6 @@ function unavailableEvaluation(
     status: "unavailable",
     title,
   };
-}
-
-function latestActivityForType(
-  activities: readonly CareActivity[],
-  plantId: string,
-  activityType: CareActivityType,
-): CareActivity | null {
-  return (
-    activities
-      .filter(
-        (activity) =>
-          activity.plantId === plantId && activity.type === activityType,
-      )
-      .sort((left, right) =>
-        right.occurredAt.localeCompare(left.occurredAt),
-      )[0] ?? null
-  );
 }
 
 function localCalendarDayDifference(start: Date, end: Date): number {

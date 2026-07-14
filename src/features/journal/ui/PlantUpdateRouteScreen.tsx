@@ -1,10 +1,17 @@
+import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Text } from "react-native";
 import { z } from "zod";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity } from "@/features/plants";
+import {
+  reconcilePlantCarePlanReminders,
+  type ReminderReconciliation,
+} from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
+import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { Typography } from "@/shared/ui/Typography";
 import { listPlantUpdates } from "../data/plant-update-repository";
 import { getLatestPlantPhoto } from "../models/plant-update";
 import { savePlantUpdateWithPhotos } from "../application/save-plant-update";
@@ -12,12 +19,20 @@ import { PlantUpdateScreen, type PlantUpdateDraft } from "./PlantUpdateScreen";
 
 type Props = Readonly<{
   onBack: () => void;
+  onReviewReminders: () => void;
   onSaved: () => void;
   plantId: string;
 }>;
 
-export function PlantUpdateRouteScreen({ onBack, onSaved, plantId }: Props) {
+export function PlantUpdateRouteScreen({
+  onBack,
+  onReviewReminders,
+  onSaved,
+  plantId,
+}: Props) {
   const queryClient = useQueryClient();
+  const [reconciliation, setReconciliation] =
+    useState<ReminderReconciliation | null>(null);
   const query = useQuery({
     queryKey: ["plant", plantId],
     queryFn: () => getPlant(plantId),
@@ -72,6 +87,13 @@ export function PlantUpdateRouteScreen({ onBack, onSaved, plantId }: Props) {
         createdAt,
       })),
     });
+    const stageChanged = draft.stageId !== plant.stageId;
+    const updatedPlant = stageChanged
+      ? { ...plant, stageId: draft.stageId, stageStartedAt: draft.occurredAt }
+      : plant;
+    const reminderUpdate = stageChanged
+      ? await reconcilePlantCarePlanReminders(updatedPlant)
+      : null;
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: ["plant", plantId] }),
       queryClient.invalidateQueries({ queryKey: ["plant-detail", plantId] }),
@@ -79,19 +101,52 @@ export function PlantUpdateRouteScreen({ onBack, onSaved, plantId }: Props) {
       queryClient.invalidateQueries({ queryKey: ["plant-photos"] }),
       queryClient.invalidateQueries({ queryKey: ["today"] }),
       queryClient.invalidateQueries({ queryKey: ["journal"] }),
+      queryClient.invalidateQueries({ queryKey: ["reminders"] }),
     ]);
-    onSaved();
+    if (
+      reminderUpdate &&
+      (reminderUpdate.activated.length > 0 || reminderUpdate.deactivated.length > 0)
+    ) {
+      setReconciliation(reminderUpdate);
+    } else {
+      onSaved();
+    }
   }
 
   return (
-    <PlantUpdateScreen
-      imageUri={getLatestPlantPhoto(photosQuery.data ?? [])?.localUri ?? null}
-      initialStageId={plant.stageId}
-      onBack={onBack}
-      onSave={save}
-      plantName={plant.name}
-      speciesTitle={identity.speciesTitle}
-      stages={stages}
-    />
+    <>
+      <PlantUpdateScreen
+        imageUri={getLatestPlantPhoto(photosQuery.data ?? [])?.localUri ?? null}
+        initialStageId={plant.stageId}
+        onBack={onBack}
+        onSave={save}
+        plantName={plant.name}
+        speciesTitle={identity.speciesTitle}
+        stages={stages}
+      />
+      <BottomSheet
+        footer={
+          <PrimaryButton
+            label="Xem lời nhắc"
+            onPress={() => {
+              setReconciliation(null);
+              onReviewReminders();
+            }}
+          />
+        }
+        onDismiss={() => {
+          setReconciliation(null);
+          onSaved();
+        }}
+        title="Lời nhắc đã được cập nhật"
+        visible={reconciliation !== null}
+      >
+        <Typography color="textSecondary" variant="bodyMedium">
+          {reconciliation
+            ? `${reconciliation.activated.length} lời nhắc mới · ${reconciliation.deactivated.length} lời nhắc đã ẩn`
+            : ""}
+        </Typography>
+      </BottomSheet>
+    </>
   );
 }

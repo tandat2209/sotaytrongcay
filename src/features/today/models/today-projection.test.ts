@@ -1,3 +1,5 @@
+import type { CarePlan } from "@/features/knowledge";
+import type { CarePlanReminderPreference } from "@/features/reminders";
 import { createTodayProjection, productionWeather } from "./today-projection";
 
 const plant = {
@@ -11,132 +13,162 @@ const plant = {
   stageStartedAt: null,
   createdAt: "2026-07-11T08:00:00.000Z",
 };
-const activities = [
-  {
-    id: "b775a7ec-fb44-4660-88ed-0f3b1933e7f1",
-    mutationId: "c775a7ec-fb44-4660-88ed-0f3b1933e7f1",
-    plantId: plant.id,
-    type: "watering" as const,
-    occurredAt: "2026-07-12T10:00:00.000Z",
-    origin: "manual" as const,
-    amount: null,
-    notes: null,
-    createdAt: "2026-07-12T10:00:00.000Z",
+const activity = {
+  id: "b775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+  mutationId: "c775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+  plantId: plant.id,
+  type: "watering" as const,
+  occurredAt: "2026-07-12T10:00:00.000Z",
+  origin: "manual" as const,
+  amount: null,
+  notes: null,
+  createdAt: "2026-07-12T10:00:00.000Z",
+};
+const plan: CarePlan = {
+  id: "grape.plan.watering",
+  title: "Kiểm tra đất trước khi tưới",
+  goal: "Kiểm tra độ ẩm trước khi tưới.",
+  bodyMarkdown: "",
+  priority: 10,
+  activityType: "watering",
+  eligibility: { kind: "elapsed_days_since_activity", suggestAfterDays: 2 },
+  onMissingHistory: "suggest",
+  frequency: {
+    ground: { display: "Mỗi 3 ngày", intervalDays: 3 },
+    container: { display: "Mỗi 3 ngày", intervalDays: 3 },
   },
-  {
-    id: "d775a7ec-fb44-4660-88ed-0f3b1933e7f1",
-    mutationId: "e775a7ec-fb44-4660-88ed-0f3b1933e7f1",
-    plantId: "f775a7ec-fb44-4660-88ed-0f3b1933e7f1",
-    type: "spraying" as const,
-    occurredAt: "2026-07-12T11:00:00.000Z",
-    origin: "manual" as const,
-    amount: null,
-    notes: null,
-    createdAt: "2026-07-12T11:00:00.000Z",
-  },
-];
+  recommendedInputs: [{ group: "Nước", examples: "Nước sạch" }],
+  version: "1.0.0",
+};
+const preference: CarePlanReminderPreference = {
+  id: "11111111-1111-4111-8111-111111111111",
+  mutationId: "22222222-2222-4222-8222-222222222222",
+  plantId: plant.id,
+  carePlanId: plan.id,
+  carePlanVersion: plan.version,
+  activityType: "watering",
+  recommendedIntervalDays: 3,
+  customIntervalDays: null,
+  notificationTime: null,
+  notificationEnabled: false,
+  pausedAt: null,
+  isApplicable: true,
+  mainNotificationId: null,
+  followUpNotificationId: null,
+  createdAt: "2026-07-11T00:00:00.000Z",
+  updatedAt: "2026-07-11T00:00:00.000Z",
+};
+const plansByPlant = new Map([[plant.id, [plan]]]);
 
 describe("createTodayProjection", () => {
-  it("labels known and deleted-plant activities without dropping history", () => {
-    const projection = createTodayProjection({ activities, plants: [plant] });
-    expect(projection.recentActivities).toEqual([
+  it("preserves recent history and unavailable weather", () => {
+    const deletedPlantActivity = {
+      ...activity,
+      id: "d775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+      mutationId: "e775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+      plantId: "f775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+      occurredAt: "2026-07-12T11:00:00.000Z",
+    };
+    const projection = createTodayProjection({
+      activities: [activity, deletedPlantActivity],
+      plants: [plant],
+    });
+
+    expect(projection.recentActivities[0]?.plantName).toBe("Cây trồng");
+    expect(projection.weather).toEqual(productionWeather);
+  });
+
+  it("uses custom reminder frequency as the only due rule", () => {
+    const projection = createTodayProjection({
+      activities: [activity],
+      evaluatedAt: new Date("2026-07-16T12:00:00.000Z"),
+      plansByPlant,
+      plants: [plant],
+      preferences: [{ ...preference, customIntervalDays: 5 }],
+    });
+
+    expect(projection.careCards).toEqual([]);
+  });
+
+  it("emits one exact reminder-backed card when due", () => {
+    const projection = createTodayProjection({
+      activities: [activity],
+      evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
+      plansByPlant,
+      plants: [plant],
+      preferences: [{ ...preference, customIntervalDays: 5 }],
+    });
+
+    expect(projection.careCards).toEqual([
       expect.objectContaining({
-        id: activities[1]?.id,
-        plantName: "Cây trồng",
+        carePlanId: plan.id,
+        dueStatus: "due",
+        reminderId: preference.id,
+        suggestion: "Nước sạch",
       }),
-      expect.objectContaining({ id: activities[0]?.id, plantName: plant.name }),
     ]);
   });
 
-  it("uses the production unavailable-weather default", () => {
-    expect(
-      createTodayProjection({ activities: [], plants: [] }).weather,
-    ).toEqual(productionWeather);
+  it("does not resurface paused reminders as recommendations", () => {
+    const projection = createTodayProjection({
+      activities: [activity],
+      evaluatedAt: new Date("2026-07-20T12:00:00.000Z"),
+      plansByPlant,
+      plants: [plant],
+      preferences: [{ ...preference, pausedAt: "2026-07-15T00:00:00.000Z" }],
+    });
+
+    expect(projection.careCards).toEqual([]);
   });
 
-  it("keeps recommended care as a priority and negative care as an evaluation", () => {
-    const evaluations = [
-      {
-        id: "watering",
-        plantId: plant.id,
-        activityType: "watering" as const,
-        title: "Kiểm tra đất trước khi tưới",
-        status: "recommended" as const,
-        explanation: "Lần ghi gần nhất cách đây 3 ngày.",
-        daysSinceLastActivity: 3,
-        definitionId: "grape.plan.check-soil-before-watering",
-        definitionVersion: "1.0.0",
-      },
-      {
-        id: "fertilizing",
-        plantId: plant.id,
-        activityType: "fertilizing" as const,
-        title: "Bón phân",
-        status: "not_recommended" as const,
-        explanation: "Đã bón phân hôm qua.",
-        daysSinceLastActivity: 1,
-        definitionId: "grape.plan.fertilizing",
-        definitionVersion: "1.0.0",
-      },
-    ];
-
+  it("keeps recommendation behavior for a plan without authored frequency", () => {
+    const { frequency: _frequency, ...planWithoutFrequency } = plan;
+    const frequencylessPlan: CarePlan = {
+      ...planWithoutFrequency,
+      id: "grape.plan.observation",
+    };
     const projection = createTodayProjection({
       activities: [],
-      evaluations,
+      evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
+      plansByPlant: new Map([[plant.id, [frequencylessPlan]]]),
       plants: [plant],
     });
 
-    expect(projection.priorities).toHaveLength(1);
-    expect(projection.priorities[0]?.activityType).toBe("watering");
-    expect(projection.priorities[0]?.stageId).toBe(plant.stageId);
-    expect(projection.priorities[0]?.stageTitle).toBe("Phát triển thân");
-    expect(projection.evaluations).toHaveLength(2);
+    expect(projection.careCards[0]).toMatchObject({
+      carePlanId: frequencylessPlan.id,
+      dueStatus: null,
+      reminderId: null,
+    });
   });
 
-  it("attaches the latest persisted plant photo to Today identity surfaces", () => {
-    const evaluations = [
-      {
-        id: "watering",
-        plantId: plant.id,
-        activityType: "watering" as const,
-        title: "Kiểm tra đất trước khi tưới",
-        status: "recommended" as const,
-        explanation: "Lần ghi gần nhất cách đây 3 ngày.",
-        daysSinceLastActivity: 3,
-        definitionId: "grape.plan.check-soil-before-watering",
-        definitionVersion: "1.0.0",
-      },
-    ];
-    const updates = [
-      {
-        id: "86ee7489-6147-42b9-b73f-5650ea7fd214",
-        mutationId: "c353342e-9fe0-43a3-9d84-1b0ed436011d",
-        plantId: plant.id,
-        occurredAt: "2026-07-13T15:00:00.000Z",
-        notes: null,
-        stageId: plant.stageId,
-        photos: [
-          {
-            id: "7174d8e3-df23-4f13-9e06-245ebfc9877b",
-            localUri: "file:///latest-plant.jpg",
-            position: 0,
-            createdAt: "2026-07-13T15:00:00.000Z",
-          },
-        ],
-        createdAt: "2026-07-13T15:00:00.000Z",
-      },
-    ];
-
+  it("attaches the latest persisted photo to canonical cards", () => {
     const projection = createTodayProjection({
-      activities: [],
-      evaluations,
+      activities: [activity],
+      evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
+      plansByPlant,
       plants: [plant],
-      updates,
+      preferences: [preference],
+      updates: [
+        {
+          id: "86ee7489-6147-42b9-b73f-5650ea7fd214",
+          mutationId: "c353342e-9fe0-43a3-9d84-1b0ed436011d",
+          plantId: plant.id,
+          occurredAt: "2026-07-13T15:00:00.000Z",
+          notes: null,
+          stageId: plant.stageId,
+          photos: [
+            {
+              id: "7174d8e3-df23-4f13-9e06-245ebfc9877b",
+              localUri: "file:///latest-plant.jpg",
+              position: 0,
+              createdAt: "2026-07-13T15:00:00.000Z",
+            },
+          ],
+          createdAt: "2026-07-13T15:00:00.000Z",
+        },
+      ],
     });
 
-    expect(projection.plantPhotoUris).toEqual({
-      [plant.id]: "file:///latest-plant.jpg",
-    });
-    expect(projection.priorities[0]?.imageUri).toBe("file:///latest-plant.jpg");
+    expect(projection.careCards[0]?.imageUri).toBe("file:///latest-plant.jpg");
   });
 });

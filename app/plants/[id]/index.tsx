@@ -2,7 +2,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { z } from "zod";
 import { saveCareActivity } from "@/features/journal";
-import { PlantDetailContainer } from "@/features/plants";
+import { PlantDetailContainer, getPlant } from "@/features/plants";
+import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
 
 export default function PlantDetailRoute() {
@@ -34,9 +35,12 @@ export default function PlantDetailRoute() {
           notes: details.notes,
           createdAt,
         });
+        const plant = await getPlant(id);
+        if (plant) await reconcilePlantCarePlanReminders(plant);
         await Promise.all([
           queryClient.invalidateQueries({ queryKey: ["plant-detail", id] }),
           queryClient.invalidateQueries({ queryKey: ["today"] }),
+          queryClient.invalidateQueries({ queryKey: ["reminders"] }),
           queryClient.invalidateQueries({ queryKey: ["journal"] }),
         ]);
       }}

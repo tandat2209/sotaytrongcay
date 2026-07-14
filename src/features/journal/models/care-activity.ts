@@ -46,3 +46,16 @@ export const CARE_ACTIVITY_ORIGIN_LABELS: Record<CareActivityOrigin, string> = {
 export const CARE_ACTIVITY_UNIT_LABELS = {
   liter: "lít",
 } as const;
+
+export function findLatestCareActivity(
+  activities: readonly CareActivity[],
+  plantId: string,
+  type: CareActivityType,
+): CareActivity | null {
+  return activities.reduce<CareActivity | null>((latest, activity) => {
+    if (activity.plantId !== plantId || activity.type !== type) return latest;
+    return latest === null || activity.occurredAt > latest.occurredAt
+      ? activity
+      : latest;
+  }, null);
+}

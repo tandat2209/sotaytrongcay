@@ -10,24 +10,21 @@ import { PlantIdentity } from "@/features/plants";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
-import type { TodayPriority } from "../models/today-projection";
+import type { TodayCareCard } from "../models/today-projection";
 
-type Props = {
-  onRecordCare: (plantId: string, type: TodayPriority["activityType"]) => void;
-  priorities: readonly TodayPriority[];
-};
+type Props = Readonly<{
+  cards: readonly TodayCareCard[];
+  onRecordCare: (card: TodayCareCard) => void;
+}>;
 
-export function TodayPriorityList({ onRecordCare, priorities }: Props) {
+export function TodayPriorityList({ cards, onRecordCare }: Props) {
   const [expandedIds, setExpandedIds] = useState<readonly string[]>([]);
-  const toggle = (id: string) =>
-    setExpandedIds((ids) =>
-      ids.includes(id) ? ids.filter((i) => i !== id) : [...ids, id],
-    );
-
-  if (priorities.length === 0) {
+  if (cards.length === 0)
     return (
       <SurfaceCard style={styles.emptyCard}>
-        <PlantIconPlaceholder />
+        <View accessibilityElementsHidden style={styles.plantIcon}>
+          <Leaf color={colors.primary} size={22} />
+        </View>
         <Typography
           color="textSecondary"
           style={styles.fill}
@@ -37,115 +34,81 @@ export function TodayPriorityList({ onRecordCare, priorities }: Props) {
         </Typography>
       </SurfaceCard>
     );
-  }
 
-  return (
-    <>
-      {priorities.map((priority) => {
-        const isExpanded = expandedIds.includes(priority.id);
-        return (
-          <TodayPriorityCard
-            isExpanded={isExpanded}
-            key={priority.id}
-            onRecordCare={onRecordCare}
-            onToggle={() => toggle(priority.id)}
-            priority={priority}
-          />
-        );
-      })}
-    </>
-  );
-}
-
-function TodayPriorityCard({
-  isExpanded,
-  onRecordCare,
-  onToggle,
-  priority,
-}: {
-  isExpanded: boolean;
-  onRecordCare: Props["onRecordCare"];
-  onToggle: () => void;
-  priority: TodayPriority;
-}) {
-  const detailLabel = `${isExpanded ? "Thu gọn" : "Xem"} lý do và hướng dẫn cho ${priority.title} của ${priority.plantName}`;
-  const visual = CARE_ACTIVITY_VISUALS[priority.activityType];
-  const ActivityIcon = visual.icon;
-
-  return (
-    <SurfaceCard style={styles.card}>
-      <View style={styles.plantHeader}>
+  return cards.map((card) => {
+    const expanded = expandedIds.includes(card.id);
+    const visual = CARE_ACTIVITY_VISUALS[card.activityType];
+    const ActivityIcon = visual.icon;
+    return (
+      <SurfaceCard key={card.id} style={styles.card}>
         <PlantIdentity
-          imageUri={priority.imageUri}
-          name={priority.plantName}
+          imageUri={card.imageUri}
+          name={card.plantName}
           size="list"
-          speciesTitle={priority.speciesTitle}
-          stageId={priority.stageId}
-          stageTitle={priority.stageTitle}
+          speciesTitle={card.speciesTitle}
+          stageId={card.stageId}
+          stageTitle={card.stageTitle}
         />
-      </View>
-
-      {/* Action row with expandable chevron */}
-      <Pressable
-        accessibilityLabel={detailLabel}
-        accessibilityRole="button"
-        accessibilityState={{ expanded: isExpanded }}
-        onPress={onToggle}
-        style={styles.actionRow}
-      >
-        <ActivityIcon color={visual.color} size={18} />
-        <Typography style={styles.fill} variant="bodyMedium">
-          {priority.title}
-        </Typography>
-        {isExpanded ? (
-          <ChevronUp color={colors.textSecondary} size={20} />
-        ) : (
-          <ChevronDown color={colors.textSecondary} size={20} />
-        )}
-      </Pressable>
-
-      {/* Expanded: explanation */}
-      {isExpanded ? (
-        <View style={styles.expandedContent}>
-          <View style={styles.explanationRow}>
-            <CircleHelp color={colors.textSecondary} size={16} />
-            <View style={styles.fill}>
-              <Typography variant="bodyMedium">
-                <Typography style={styles.bold} variant="bodyMedium">
-                  Tại sao:{" "}
-                </Typography>
-                {priority.explanation}
-              </Typography>
-            </View>
-          </View>
-        </View>
-      ) : null}
-
-      {/* Care action button */}
-      <Pressable
-        accessibilityLabel={`${CARE_ACTIVITY_LABELS[priority.activityType]} cho ${priority.plantName}`}
-        accessibilityRole="button"
-        onPress={() => onRecordCare(priority.plantId, priority.activityType)}
-        style={[styles.careAction, { backgroundColor: visual.backgroundColor }]}
-      >
-        <ActivityIcon color={visual.color} size={20} />
-        <Typography
-          style={[styles.careActionLabel, { color: visual.color }]}
-          variant="bodyMedium"
+        {card.dueStatus ? (
+          <Typography color="textSecondary" variant="bodyMedium">
+            {card.dueStatus === "overdue" ? "Quá hạn" : "Đến hạn hôm nay"} · Kế
+            hoạch chăm sóc
+          </Typography>
+        ) : null}
+        <Pressable
+          accessibilityLabel={`${expanded ? "Thu gọn" : "Xem"} lý do và hướng dẫn cho ${card.title} của ${card.plantName}`}
+          accessibilityRole="button"
+          accessibilityState={{ expanded }}
+          onPress={() =>
+            setExpandedIds((ids) =>
+              ids.includes(card.id)
+                ? ids.filter((id) => id !== card.id)
+                : [...ids, card.id],
+            )
+          }
+          style={styles.actionRow}
         >
-          {CARE_ACTIVITY_LABELS[priority.activityType]}
-        </Typography>
-      </Pressable>
-    </SurfaceCard>
-  );
-}
-
-function PlantIconPlaceholder() {
-  return (
-    <View accessibilityElementsHidden style={styles.plantIcon}>
-      <Leaf color={colors.primary} size={22} />
-    </View>
-  );
+          <ActivityIcon color={visual.color} size={18} />
+          <Typography style={styles.fill} variant="bodyMedium">
+            {card.title}
+          </Typography>
+          {expanded ? (
+            <ChevronUp color={colors.textSecondary} size={20} />
+          ) : (
+            <ChevronDown color={colors.textSecondary} size={20} />
+          )}
+        </Pressable>
+        {expanded ? (
+          <View style={styles.expandedContent}>
+            <CircleHelp color={colors.textSecondary} size={16} />
+            <Typography style={styles.fill} variant="bodyMedium">
+              <Typography style={styles.bold} variant="bodyMedium">
+                Tại sao:{" "}
+              </Typography>
+              {card.explanation}
+            </Typography>
+          </View>
+        ) : null}
+        <Pressable
+          accessibilityLabel={`${CARE_ACTIVITY_LABELS[card.activityType]} cho ${card.plantName}`}
+          accessibilityRole="button"
+          onPress={() => onRecordCare(card)}
+          style={[
+            styles.careAction,
+            { backgroundColor: visual.backgroundColor },
+          ]}
+        >
+          <ActivityIcon color={visual.color} size={20} />
+          <Typography
+            style={[styles.careActionLabel, { color: visual.color }]}
+            variant="bodyMedium"
+          >
+            {CARE_ACTIVITY_LABELS[card.activityType]}
+          </Typography>
+        </Pressable>
+      </SurfaceCard>
+    );
+  });
 }
 
 const styles = StyleSheet.create({
@@ -179,12 +142,11 @@ const styles = StyleSheet.create({
   expandedContent: {
     backgroundColor: colors.surfaceSubtle,
     borderRadius: radius.chip,
+    flexDirection: "row",
     gap: spacing.sm,
     padding: spacing.sm,
   },
-  explanationRow: { flexDirection: "row", gap: spacing.sm },
   fill: { flex: 1 },
-  plantHeader: { alignItems: "center", flexDirection: "row", gap: spacing.md },
   plantIcon: {
     alignItems: "center",
     backgroundColor: colors.primarySoft,

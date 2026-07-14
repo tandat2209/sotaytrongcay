@@ -17,6 +17,7 @@ export type { CareActivityVisual } from "./models/care-activity-icon";
 export {
   CARE_ACTIVITY_LABELS,
   CARE_ACTIVITY_ORIGIN_LABELS,
+  findLatestCareActivity,
 } from "./models/care-activity";
 export type {
   CareActivity,

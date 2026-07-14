@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(6);
+    expect(DATABASE_VERSION).toBe(7);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -24,7 +24,7 @@ describe("database migrations", () => {
   });
 
   it("adds and truthfully backfills the current stage start in version 6", () => {
-    const sql = getMigrationStatements(5).join("\n");
+    const [sql] = getMigrationStatements(5);
 
     expect(sql).toContain(
       "ALTER TABLE plants ADD COLUMN stage_started_at TEXT",
@@ -34,6 +34,17 @@ describe("database migrations", () => {
     expect(sql).toContain("history.to_stage_id = plants.stage_id");
     expect(sql).not.toContain("planted_at");
     expect(sql).not.toContain("created_at");
+  });
+
+  it("adds Care Plan reminder preferences without dropping user data in version 7", () => {
+    const sql = getMigrationStatements(6).join("\n");
+
+    expect(DATABASE_VERSION).toBe(7);
+    expect(sql).toContain("CREATE TABLE care_plan_reminder_preferences");
+    expect(sql).toContain("UNIQUE (plant_id, care_plan_id)");
+    expect(sql).toContain("main_notification_id TEXT");
+    expect(sql).toContain("follow_up_notification_id TEXT");
+    expect(sql).not.toContain("DROP TABLE");
   });
 
   it("resets the prototype tables before establishing the clean baseline", () => {

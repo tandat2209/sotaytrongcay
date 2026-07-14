@@ -115,4 +115,55 @@ describe("evaluateCarePlans", () => {
 
     expect(result[0]).toMatchObject({ status: "unavailable" });
   });
+
+  it("uses latest matching activity regardless of input order", () => {
+    const older = activity("2026-07-08T08:00:00.000Z");
+    const newer = {
+      ...activity("2026-07-11T08:00:00.000Z"),
+      id: "d775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+      mutationId: "e775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+    };
+
+    for (const activities of [
+      [older, newer],
+      [newer, older],
+    ]) {
+      expect(
+        evaluateCarePlans({ activities, evaluatedAt, plant, plans: [plan] })[0],
+      ).toMatchObject({
+        daysSinceLastActivity: 1,
+        status: "not_recommended",
+      });
+    }
+  });
+
+  it("ignores care for another plant or activity type", () => {
+    const unrelated = [
+      { ...activity("2026-07-11T08:00:00.000Z"), type: "fertilizing" as const },
+      {
+        ...activity("2026-07-11T08:00:00.000Z"),
+        plantId: "f775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+      },
+    ];
+
+    expect(
+      evaluateCarePlans({
+        activities: unrelated,
+        evaluatedAt,
+        plant,
+        plans: [plan],
+      })[0],
+    ).toMatchObject({ daysSinceLastActivity: null, status: "recommended" });
+  });
+
+  it("withholds recommendation when reviewed missing-history policy requires it", () => {
+    expect(
+      evaluateCarePlans({
+        activities: [],
+        evaluatedAt,
+        plant,
+        plans: [{ ...plan, onMissingHistory: "withhold" }],
+      })[0],
+    ).toMatchObject({ status: "unavailable" });
+  });
 });

@@ -9,6 +9,7 @@ export default function NewJournalEntryRoute() {
   return (
     <PlantUpdateRouteScreen
       onBack={() => router.back()}
+      onReviewReminders={() => router.replace("/reminders")}
       onSaved={() => router.back()}
       plantId={plantId}
     />
