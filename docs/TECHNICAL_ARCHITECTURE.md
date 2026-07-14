@@ -207,7 +207,7 @@ Stage playbooks are review-stage guidance contracts, not user data. Each playboo
 
 ### Structured user-data model
 
-A plant stores `speciesId`, `currentGrowthStageId`, and the time the stage became current. A confirmed change inside New Journal Entry creates stage history linked to that journal entry. Entry and exit observations guide user review only; they are not persisted progress or automatic transition criteria.
+A plant stores `speciesId`, `currentGrowthStageId`, and a nullable `stageStartedAt` time. A confirmed change inside New Journal Entry creates stage history linked to that journal entry and atomically updates both the current stage and `stageStartedAt` from the update occurrence time. Migration may backfill the value from the newest history row whose target is still current; plants without that evidence remain null. Entry and exit observations guide user review only; they are not persisted progress or automatic transition criteria.
 
 Every species definition contains at least one stage. The generic `other` species provides a stable `unspecified` stage, displayed as “Chưa xác định”.
 

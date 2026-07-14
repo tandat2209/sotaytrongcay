@@ -159,13 +159,15 @@ Prioritize:
 
 Use the 8/16/24-point spacing scale consistently, 24-point care-card padding, 20-point care-card corners, and large type. Keep journey compact and horizontal; all 12 stages remain reachable by scrolling. Do not replace it with percentage progress.
 
-When a latest persisted photo exists, use a 16:9 rounded hero and place the plant name and species at the bottom over a dark contrast gradient. The whole hero opens the uncropped image in a full-screen viewer. Do not place the stage in the hero because the journey immediately below owns that context. Without a saved photo, keep identity compact rather than enlarging the leaf placeholder.
+When a latest persisted photo exists, use a 16:9 rounded hero and place the plant name and a wrapping metadata row at the bottom over a dark contrast gradient. The row contains the species pill and, when sourced dates exist, a matching translucent-white age pill. The whole hero opens the uncropped image in a full-screen viewer. Do not place the stage title in the hero because the journey immediately below owns that context. Without a saved photo, keep identity compact and use solid pale-green pills rather than enlarging the leaf placeholder.
+
+The age pill keeps a stable width. When both current-stage and planted ages exist, switch the text every ten seconds using a restrained vertical slide and crossfade. Show current-stage age first. Respect reduced motion by presenting both values statically, and let the metadata row wrap for narrow screens or larger text.
 
 Within each care card, keep the activity icon compact and align it with the title. Frequency is supporting text rather than a filled chip, the info action has secondary emphasis while retaining its touch target, and last activity and status share one section without a divider.
 
 Label the compact mixed-history section “Nhật ký gần đây”. Care rows use their activity visual; Plant Update rows use the first photo thumbnail when present or a note icon otherwise. Keep both row types visually equivalent and route each to its own detail screen.
 
-Do not display fabricated photo, health, days-in-stage, progress, or sensor measurements. Every value needs a persisted user, device, knowledge, or provider source and freshness where relevant.
+Do not display fabricated photo, health, days-in-stage, progress, or sensor measurements. Current-stage age requires the persisted stage-start timestamp; planted age requires the user-provided planting date. Every value needs a persisted user, device, knowledge, or provider source and freshness where relevant.
 
 ### Stage playbook
 

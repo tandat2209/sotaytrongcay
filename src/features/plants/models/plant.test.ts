@@ -9,11 +9,13 @@ describe("PlantSchema", () => {
       stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
       location: null,
       plantedAt: null,
+      stageStartedAt: "2026-07-10T08:00:00.000Z",
       createdAt: "2026-07-11T08:00:00.000Z",
     });
 
     expect(plant.name).toBe("Nho sân thượng");
     expect(plant.location).toBeNull();
+    expect(plant.stageStartedAt).toBe("2026-07-10T08:00:00.000Z");
   });
 
   it("rejects a blank name", () => {
@@ -25,6 +27,7 @@ describe("PlantSchema", () => {
         stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
         location: null,
         plantedAt: null,
+        stageStartedAt: null,
         createdAt: "2026-07-11T08:00:00.000Z",
       }),
     ).toThrow();
@@ -38,6 +41,7 @@ describe("PlantSchema", () => {
       stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
       location: "Ban công hướng Đông",
       plantedAt: null,
+      stageStartedAt: null,
       createdAt: "2026-07-11T08:00:00.000Z",
     });
 

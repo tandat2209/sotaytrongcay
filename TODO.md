@@ -37,8 +37,10 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Interleave saved care and Plant Updates in Plant Detail’s three-entry recent journal.
 - [ ] Show the latest persisted Plant Update photo on Today.
 - [ ] Define explicit user-observation or sourced-measurement contract before showing plant health status.
-- [ ] Persist stage-entry history before showing days in current stage; never infer it from `createdAt` or `plantedAt`.
+- [x] Persist nullable current-stage start time, backfill only from matching stage history, and show age conditionally without inferring from `createdAt` or `plantedAt`.
+- [ ] Let growers optionally enter when the initial selected stage began when adding or editing an existing plant.
 - [ ] Show Care Plan details in Today priority cards after reviewed UX and content scope.
+- [ ] Replace the current icon set with Lucide to ultilize more of nature / weather icons
 
 ## Engineering
 

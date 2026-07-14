@@ -7,6 +7,7 @@ const plant = {
   stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
   location: null,
   plantedAt: null,
+  stageStartedAt: "2026-07-10T08:00:00.000Z",
   createdAt: "2026-07-11T08:00:00.000Z",
 } as const;
 
@@ -20,6 +21,7 @@ describe("plant repository mapping", () => {
       plant.growingMethod,
       null, // location
       null, // plantedAt
+      plant.stageStartedAt,
       plant.createdAt,
     ]);
   });
@@ -39,6 +41,7 @@ describe("plant repository mapping", () => {
         growing_method: plant.growingMethod,
         location: null,
         planted_at: null,
+        stage_started_at: plant.stageStartedAt,
         created_at: plant.createdAt,
       }),
     ).toEqual(plant);
@@ -53,6 +56,7 @@ describe("plant repository mapping", () => {
       growing_method: plant.growingMethod,
       location: "Ban công hướng Đông",
       planted_at: null,
+      stage_started_at: plant.stageStartedAt,
       created_at: plant.createdAt,
     });
     expect(result.location).toBe("Ban công hướng Đông");

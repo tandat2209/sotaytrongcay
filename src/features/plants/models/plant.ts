@@ -8,6 +8,7 @@ export const PlantSchema = z.object({
   growingMethod: z.enum(["ground", "container"]),
   location: z.string().trim().nullable(),
   plantedAt: z.string().date().nullable(),
+  stageStartedAt: z.string().datetime().nullable(),
   createdAt: z.string().datetime(),
 });
 

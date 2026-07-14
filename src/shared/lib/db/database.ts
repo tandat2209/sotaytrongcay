@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 5;
+export const DATABASE_VERSION = 6;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -91,12 +91,27 @@ CREATE INDEX idx_plant_stage_history_plant_time
   ON plant_stage_history(plant_id, changed_at DESC);
 `;
 
+const V6_ADD_STAGE_STARTED_AT = `
+ALTER TABLE plants ADD COLUMN stage_started_at TEXT;
+
+UPDATE plants
+SET stage_started_at = (
+  SELECT history.changed_at
+  FROM plant_stage_history AS history
+  WHERE history.plant_id = plants.id
+    AND history.to_stage_id = plants.stage_id
+  ORDER BY history.changed_at DESC
+  LIMIT 1
+);
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
   if (currentVersion < 3) migrations.push(V3_ADD_LOCATION);
   if (currentVersion < 4) migrations.push(V4_ADD_GROWING_METHOD);
   if (currentVersion < 5) migrations.push(V5_ADD_PLANT_UPDATES);
+  if (currentVersion < 6) migrations.push(V6_ADD_STAGE_STARTED_AT);
   return migrations;
 }
 

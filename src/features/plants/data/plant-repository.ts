@@ -9,6 +9,7 @@ export type PlantRow = {
   growing_method: "ground" | "container";
   location: string | null;
   planted_at: string | null;
+  stage_started_at: string | null;
   created_at: string;
 };
 
@@ -21,6 +22,7 @@ export function plantToInsertParams(plant: Plant): (string | null)[] {
     plant.growingMethod,
     plant.location,
     plant.plantedAt,
+    plant.stageStartedAt,
     plant.createdAt,
   ];
 }
@@ -34,6 +36,7 @@ export function plantFromRow(row: PlantRow): Plant {
     growingMethod: row.growing_method,
     location: row.location,
     plantedAt: row.planted_at,
+    stageStartedAt: row.stage_started_at,
     createdAt: row.created_at,
   });
 }
@@ -42,8 +45,8 @@ export async function savePlant(plantInput: Plant): Promise<void> {
   const plant = PlantSchema.parse(plantInput);
   const db = await getDb();
   await db.runAsync(
-    `INSERT INTO plants (id, name, species_id, stage_id, growing_method, location, planted_at, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO plants (id, name, species_id, stage_id, growing_method, location, planted_at, stage_started_at, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     plantToInsertParams(plant),
   );
 }

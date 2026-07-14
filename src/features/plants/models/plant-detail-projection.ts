@@ -37,6 +37,7 @@ export type PlantDetailLifecycleStage = Readonly<{
 }>;
 
 export type PlantDetailProjection = Readonly<{
+  ageLabels: readonly string[];
   careCards: readonly PlantDetailCareCard[];
   latestCare: Readonly<Record<CareActivityType, CareActivity | null>>;
   lifecycleStages: readonly PlantDetailLifecycleStage[];
@@ -64,8 +65,11 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant, up
   const identity = resolvePlantIdentity(plant);
   const plans = listCarePlans({ speciesId: plant.speciesId, stageId: plant.stageId });
   const evaluations = evaluateCarePlans({ activities, evaluatedAt, plant, plans });
+  const plantedAgeDays = elapsedCalendarDays(plant.plantedAt, evaluatedAt);
+  const stageAgeDays = elapsedCalendarDays(plant.stageStartedAt, evaluatedAt);
 
   return {
+    ageLabels: createAgeLabels(stageAgeDays, plantedAgeDays),
     careCards: HERO_CARE_TYPES.map((activityType) => {
       const plan = plans.find((candidate) => candidate.activityType === activityType);
       const frequencyDisplay = plan?.frequency?.[plant.growingMethod].display ?? null;
@@ -92,4 +96,26 @@ export function createPlantDetailProjection({ activities, evaluatedAt, plant, up
     stagePlaybook: getStagePlaybook(plant.stageId),
     stageTitle: identity.stageTitle,
   };
+}
+
+function createAgeLabels(stageAgeDays: number | null, plantedAgeDays: number | null): string[] {
+  const labels: string[] = [];
+  if (stageAgeDays !== null) labels.push(stageAgeDays === 0 ? "Bắt đầu giai đoạn hôm nay" : `${stageAgeDays} ngày ở giai đoạn này`);
+  if (plantedAgeDays !== null) labels.push(plantedAgeDays === 0 ? "Trồng hôm nay" : `Đã trồng ${plantedAgeDays} ngày`);
+  return labels;
+}
+
+function elapsedCalendarDays(startedAt: string | null, evaluatedAt: Date): number | null {
+  if (!startedAt) return null;
+  const start = startedAt.includes("T") ? new Date(startedAt) : dateFromLocalIsoDate(startedAt);
+  if (Number.isNaN(start.getTime())) return null;
+  const startDay = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const evaluatedDay = Date.UTC(evaluatedAt.getFullYear(), evaluatedAt.getMonth(), evaluatedAt.getDate());
+  const elapsedDays = Math.floor((evaluatedDay - startDay) / 86_400_000);
+  return elapsedDays >= 0 ? elapsedDays : null;
+}
+
+function dateFromLocalIsoDate(value: string): Date {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year ?? Number.NaN, (month ?? Number.NaN) - 1, day ?? Number.NaN);
 }

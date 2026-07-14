@@ -10,7 +10,8 @@ const plant: Plant = {
   stageId: "grape.stage.trunk-development",
   growingMethod: "container",
   location: null,
-  plantedAt: null,
+  plantedAt: "2026-07-01",
+  stageStartedAt: "2026-07-10T08:00:00.000Z",
   createdAt: "2026-07-11T08:00:00.000Z",
 };
 
@@ -46,6 +47,19 @@ function project(activities: readonly CareActivity[] = [], selectedPlant = plant
 }
 
 describe("createPlantDetailProjection", () => {
+  it("projects elapsed days only from persisted plant and stage dates", () => {
+    expect(project().ageLabels).toEqual(["3 ngày ở giai đoạn này", "Đã trồng 12 ngày"]);
+    expect(project([], { ...plant, plantedAt: null, stageStartedAt: null }).ageLabels).toEqual([]);
+    expect(project([], { ...plant, plantedAt: "2026-07-14", stageStartedAt: "2026-07-14T08:00:00.000Z" }).ageLabels).toEqual([]);
+  });
+
+  it("uses clear same-day age labels", () => {
+    expect(project([], { ...plant, plantedAt: "2026-07-13", stageStartedAt: "2026-07-13T08:00:00.000Z" }).ageLabels).toEqual([
+      "Bắt đầu giai đoạn hôm nay",
+      "Trồng hôm nay",
+    ]);
+  });
+
   it("projects the ordered lifecycle and marks only the current stage", () => {
     const projection = project();
 

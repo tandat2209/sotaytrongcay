@@ -71,7 +71,7 @@ export async function savePlantUpdate(input: PlantUpdate, stageHistoryIdInput: s
 
     const stageHistory = createPlantStageHistory({ id: stageHistoryId, plantId: update.plantId, fromStageId: plant.stage_id, toStageId: update.stageId, journalEntryId: update.id, changedAt: update.occurredAt, createdAt: update.createdAt });
     if (stageHistory) {
-      await db.runAsync("UPDATE plants SET stage_id = ? WHERE id = ?", [stageHistory.toStageId, stageHistory.plantId]);
+      await db.runAsync("UPDATE plants SET stage_id = ?, stage_started_at = ? WHERE id = ?", [stageHistory.toStageId, stageHistory.changedAt, stageHistory.plantId]);
       await db.runAsync(
         `INSERT INTO plant_stage_history
           (id, plant_id, from_stage_id, to_stage_id, journal_entry_id, changed_at, created_at)

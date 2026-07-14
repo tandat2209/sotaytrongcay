@@ -53,6 +53,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         growingMethod,
         location: location.trim() || null,
         plantedAt,
+        stageStartedAt: null,
       });
     } catch {
       setSaveError("Chưa thể lưu cây. Dữ liệu đã nhập vẫn được giữ lại.");

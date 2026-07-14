@@ -10,6 +10,7 @@ const plant: Plant = {
   stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
   location: null,
   plantedAt: null,
+  stageStartedAt: null,
   createdAt: "2026-07-11T08:00:00.000Z",
 };
 

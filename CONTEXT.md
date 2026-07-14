@@ -12,6 +12,14 @@ _Avoid_: Cây nho, hồ sơ cây, gốc nho as generic entity names
 A species-defined stage in a plant's current development. It provides relevant tips, risks, and milestones.
 _Avoid_: Trạng thái cây, vòng đời
 
+**Thời gian ở giai đoạn hiện tại** (Current-stage age):
+The elapsed local calendar days since the current stage's persisted start time. It remains unknown when the user has not confirmed when the stage began.
+_Avoid_: Inferring from planting date, plant creation date, lifecycle position, or authored stage duration
+
+**Thời gian từ khi trồng** (Planted age):
+The elapsed local calendar days since the optional user-provided planting date.
+_Avoid_: Treating it as days in the current stage
+
 **Mốc tiếp theo** (Upcoming milestone):
 The next observable growth outcome for the current stage.
 _Avoid_: Lời nhắc, hạn chót

@@ -286,6 +286,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** The Plant Detail projection reuses the Journal's mixed `JournalItem` ordering and applies the three-entry display limit after interleaving. This does not reclassify Plant Updates as Care Activities, add task state, or complete the broader reminder-aware Timeline backlog.
 
+## 2026-07-14 — Rotate source-backed plant age metadata
+
+**Status:** Accepted
+
+**Decision:** Plant Detail places an age pill beside the species pill. Current-stage age is derived only from nullable persisted `stageStartedAt`; planted age is derived only from optional user-provided `plantedAt`. When both exist, the pill starts with current-stage age and switches to planted age every ten seconds using a short vertical slide and crossfade. One value remains static, no values omit the pill, and reduced motion shows both available labels statically. Accessibility exposes one stable label containing all available values.
+
+**Rationale:** Stage age is useful context for stage-aware care, while planted age gives broader plant context. A compact rotating pill uses existing hero space without adding another section, but the two concepts must remain visibly and structurally distinct to avoid false biological precision.
+
+**Consequences:** SQLite adds nullable `plants.stage_started_at`. Confirmed journal stage changes update it atomically with the current stage. Migration backfills only from the newest matching persisted stage-history row and never from `createdAt` or `plantedAt`; initial stage age therefore remains absent when its start is unknown. The Plant Detail projection calculates non-future elapsed local calendar days and provides truthful same-day labels.
+
 ## Decision template
 
 ```md

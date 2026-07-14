@@ -21,6 +21,7 @@ describe("CreatePlantScreen", () => {
           speciesId: "plant.grape",
           location: null,
           plantedAt: null,
+          stageStartedAt: null,
         }),
       ),
     );

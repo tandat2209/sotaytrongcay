@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(5);
+    expect(DATABASE_VERSION).toBe(6);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -21,6 +21,17 @@ describe("database migrations", () => {
     expect(sql).toContain("CREATE TABLE plant_stage_history");
     expect(sql).toContain("journal_entry_id TEXT NOT NULL UNIQUE");
     expect(sql).not.toContain("DROP TABLE");
+  });
+
+  it("adds and truthfully backfills the current stage start in version 6", () => {
+    const sql = getMigrationStatements(5).join("\n");
+
+    expect(sql).toContain("ALTER TABLE plants ADD COLUMN stage_started_at TEXT");
+    expect(sql).toContain("UPDATE plants");
+    expect(sql).toContain("FROM plant_stage_history");
+    expect(sql).toContain("history.to_stage_id = plants.stage_id");
+    expect(sql).not.toContain("planted_at");
+    expect(sql).not.toContain("created_at");
   });
 
   it("resets the prototype tables before establishing the clean baseline", () => {

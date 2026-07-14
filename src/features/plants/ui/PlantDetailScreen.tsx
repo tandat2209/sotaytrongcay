@@ -48,7 +48,7 @@ export function PlantDetailScreen({ onAddJournal, onBack, onOpenActivity, onOpen
         title=""
       >
         {onBack ? <TopBar backAccessibilityLabel="Quay lại Cây trồng" onBack={onBack} title="Chi tiết cây" /> : null}
-        <PlantDetailHero imageUri={projection.latestPhotoUri} name={projection.plant.name} speciesTitle={projection.speciesTitle} />
+        <PlantDetailHero ageLabels={projection.ageLabels} imageUri={projection.latestPhotoUri} name={projection.plant.name} speciesTitle={projection.speciesTitle} />
         <GrowthJourney projection={projection} />
         <CurrentStage {...(onOpenPlaybook ? { onOpenPlaybook } : {})} projection={projection} />
         <View style={styles.section}>

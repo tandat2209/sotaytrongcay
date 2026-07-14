@@ -66,6 +66,7 @@ Users can:
 - “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
 - Optional structured details for products, NPK, amounts, dosage, methods, notes, and photos.
 - Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
+- Conditional planted age and current-stage age from their separate persisted dates; unknown dates remain absent.
 - Stage tips, things to avoid, warning signs, and upcoming milestone inside Plant Detail.
 - Contextual care prompts under “Ưu tiên hôm nay”, based on stage and recent history.
 - Today evaluates applicable care definitions as recommended, not recommended, or unavailable; it preserves negative explanations so users can see why care is not suggested.
@@ -87,7 +88,7 @@ Users can:
 
 ## Conceptual data model
 
-- A **Plant** references one **Plant Species** and one current **Growth Stage**.
+- A **Plant** references one **Plant Species** and one current **Growth Stage**, with an optional persisted time when that stage became current.
 - A **Stage Guide** supplies review-stage context: objective, observations, duration, knowledge topics, and sources. It never creates reminders, tasks, automatic transitions, or executable rules.
 - A **Care Plan** owns stage-scoped watering, fertilizing, or spraying guidance and its deterministic suggestion fields: title, goal, optional growing-method frequency, recommended inputs, notes, species/stage scope, eligibility, missing-history policy, and priority. MVP permits one applicable plan per scope.
 - A **Care Guide** contains generic informational techniques such as training or pruning and does not create tracked care recommendations.
@@ -128,6 +129,7 @@ Care Plans exist only for trackable watering, fertilizing, and spraying. General
 - Product and dosage guidance may harm plants without expert review and complete context.
 - A suggestion must not imply that an activity was performed.
 - Stage tips can overwhelm Plant Detail if not concise.
+- Plant or stage age can damage trust if inferred from creation time, lifecycle position, or an unrelated planting date.
 - Fabricated sensor or soil-moisture values would damage trust.
 - Weather may be stale or location-inaccurate.
 - Rich activity forms may slow routine logging.
