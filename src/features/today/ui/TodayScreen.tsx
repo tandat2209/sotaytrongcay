@@ -1,4 +1,3 @@
-import { CalendarDays } from "lucide-react-native";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
@@ -13,6 +12,7 @@ import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
 import { Typography } from "@/shared/ui/Typography";
 import { createTodayProjection } from "../models/today-projection";
+import { TodayHeader } from "./TodayHeader";
 import { TodayOverview } from "./TodayOverview";
 
 export function TodayScreen() {
@@ -44,7 +44,7 @@ export function TodayScreen() {
   const entryReason = evaluation?.explanation || stageObjective;
   const entrySuggestion = plan?.recommendedInputs?.map((input) => input.examples).join(" · ");
   return <>
-    <Screen introduction="Theo dõi việc chăm sóc cần chú ý trong ngày." title="Hôm nay" titleIcon={CalendarDays}>
+    <Screen introduction={<TodayHeader />} title="Hôm nay">
       {query.isPending ? <Typography color="textSecondary" variant="bodyLarge">Đang tải dữ liệu trên thiết bị…</Typography> : null}
       {query.isError ? <><Typography color="textSecondary" variant="bodyLarge">{errorMessage}</Typography><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></> : null}
       {query.data ? <TodayOverview onAddPlant={() => router.push("/plants/new")} onOpenActivity={(id) => router.push(`/entries/${id}`)} onOpenJournal={() => router.push("/journal")} onOpenPlant={(id) => router.push(`/plants/${id}`)} onRecordCare={(plantId, type) => setEntry({ plantId, type })} projection={query.data} /> : null}

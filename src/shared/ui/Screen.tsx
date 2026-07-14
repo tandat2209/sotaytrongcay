@@ -28,7 +28,7 @@ export function Screen({ children, floatingAction, footer, introduction, title, 
                 {TitleIcon ? <TitleIcon color={colors.primary} size={28} /> : null}
                 <Typography style={styles.title} variant="headlineLarge">{title}</Typography>
               </View> : null}
-              {introduction ? <Typography color="textSecondary" variant="bodyLarge">{introduction}</Typography> : null}
+              {typeof introduction === "string" ? <Typography color="textSecondary" variant="bodyLarge">{introduction}</Typography> : introduction}
             </View>}
             {children}
           </ScrollView>

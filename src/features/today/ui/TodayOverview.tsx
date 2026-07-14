@@ -8,13 +8,11 @@ import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type { TodayPriority, TodayProjection } from "../models/today-projection";
 import { PlantRail } from "./PlantRail";
 import { RecentCareHistoryCard } from "./RecentCareHistoryCard";
-import { TodayHeader } from "./TodayHeader";
 import { TodayPriorityList } from "./TodayPriorityList";
 
 export { WeatherCard } from "@/shared/weather/WeatherCard";
 
 type Props = {
-  date?: Date;
   onAddPlant: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlant: (id: string) => void;
@@ -23,13 +21,12 @@ type Props = {
   projection: TodayProjection;
 };
 
-export function TodayOverview({ date, onAddPlant, onOpenActivity, onOpenJournal, onOpenPlant, onRecordCare, projection }: Props) {
+export function TodayOverview({ onAddPlant, onOpenActivity, onOpenJournal, onOpenPlant, onRecordCare, projection }: Props) {
   if (projection.plants.length === 0) {
     return <View style={styles.emptyState}><EmptyState description="Thêm cây đầu tiên để theo dõi lịch sử chăm sóc và xem việc cần chú ý." icon={Sprout} title="Bắt đầu với cây đầu tiên của bạn" /><Pressable accessibilityLabel="Thêm cây" accessibilityRole="button" onPress={onAddPlant} style={styles.addPlantButton}><Typography style={styles.addPlantLabel} variant="bodyLarge">Thêm cây</Typography></Pressable></View>;
   }
 
   return <View style={styles.content}>
-    {date ? <TodayHeader date={date} /> : <TodayHeader />}
     <WeatherCard weather={projection.weather} />
     <View style={styles.section}>
       <SectionHeading title="Việc cần làm hôm nay" />
