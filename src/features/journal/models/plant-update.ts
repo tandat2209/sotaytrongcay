@@ -41,3 +41,18 @@ export function getLatestPlantPhoto(updates: readonly PlantUpdate[]): PlantUpdat
 
   return latestUpdate?.photos.slice().sort((left, right) => left.position - right.position)[0] ?? null;
 }
+
+export function getLatestPlantPhotoUrisByPlant(updates: readonly PlantUpdate[]): Readonly<Record<string, string>> {
+  const updatesByPlant = new Map<string, PlantUpdate[]>();
+
+  for (const update of updates) {
+    const plantUpdates = updatesByPlant.get(update.plantId) ?? [];
+    plantUpdates.push(update);
+    updatesByPlant.set(update.plantId, plantUpdates);
+  }
+
+  return Object.fromEntries(
+    Array.from(updatesByPlant, ([plantId, plantUpdates]) => [plantId, getLatestPlantPhoto(plantUpdates)?.localUri] as const)
+      .filter((entry): entry is readonly [string, string] => entry[1] !== undefined),
+  );
+}

@@ -9,6 +9,7 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
+  imageUri?: string | null;
   onBack: () => void;
   plantName: string;
   speciesTitle: string;
@@ -16,10 +17,10 @@ type Props = Readonly<{
   update: PlantUpdate;
 }>;
 
-export function PlantUpdateDetailScreen({ onBack, plantName, speciesTitle, stageTitle, update }: Props) {
+export function PlantUpdateDetailScreen({ imageUri, onBack, plantName, speciesTitle, stageTitle, update }: Props) {
   return <Screen title="">
     <TopBar backAccessibilityLabel="Quay lại Nhật ký" onBack={onBack} title="Chi tiết cập nhật" />
-    <PlantIdentity name={plantName} size="list" speciesTitle={speciesTitle} stageId={update.stageId} stageTitle={stageTitle} />
+    <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={update.stageId} stageTitle={stageTitle} />
     {update.photos.length ? <ScrollView contentContainerStyle={styles.photos} horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
       {update.photos.slice().sort((left, right) => left.position - right.position).map((photo, index) => <Image accessibilityLabel={`Ảnh cây ${index + 1}`} key={photo.id} source={{ uri: photo.localUri }} style={styles.photo} />)}
     </ScrollView> : null}

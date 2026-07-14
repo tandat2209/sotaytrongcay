@@ -169,7 +169,7 @@ There is no standalone Task Guidance or guided-task completion screen in MVP.
 - “Thời tiết hôm nay”.
 - “Việc cần làm hôm nay” with contextual “Tưới nước”, “Bón phân”, and “Phun thuốc” actions when applicable.
 - “Vừa ghi gần đây”.
-- Plant selector/context.
+- “Khu Vườn Của Tôi” as horizontally scrollable photo cards with name, species, and current stage; “Thêm cây” stays in the section heading.
 
 Each priority is compact by default: its “Vì sao”, reviewed explanation, and safe guidance expand only on request. Care prompts do not appear as completed/unchecked tasks or in a “Đã xem xét” section.
 
@@ -189,7 +189,7 @@ Hide care buttons that are not relevant rather than filling the page with generi
 
 **Purpose:** Find a plant and understand its current care status.
 
-**Components:** Search; “Thêm cây”; plant cards with photo, name, species, stage, last important care, and next reminder.
+**Components:** Search; “Thêm cây”; plant cards with the latest persisted journal photo when available, name, species, stage, last important care, and next reminder. Missing or unreadable photos use the leaf fallback.
 
 **Empty state:** “Mỗi hành trình bắt đầu từ một cây” + “Thêm cây đầu tiên”.
 
@@ -300,6 +300,8 @@ No result shows “Không tìm thấy hoạt động phù hợp” + “Xóa b�
 **Purpose:** Save performed watering, fertilizing, or spraying with minimal input.
 
 **Components:** Read-only or preselected activity type; plant; time; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”.
+
+Plant identity uses the latest persisted journal photo when available and falls back to the leaf treatment without blocking the form if photo loading fails.
 
 Watering optional fields include method, amount/unit, notes, and photos.
 

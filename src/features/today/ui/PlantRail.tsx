@@ -4,22 +4,25 @@ import { PlantIdentity, resolvePlantIdentity, type Plant } from "@/features/plan
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
-type Props = { onAddPlant: () => void; onOpenPlant: (id: string) => void; plants: readonly Plant[] };
+type Props = { onAddPlant: () => void; onOpenPlant: (id: string) => void; photoUris: Readonly<Record<string, string>>; plants: readonly Plant[] };
 
-export function PlantRail({ onAddPlant, onOpenPlant, plants }: Props) {
+export function PlantRail({ onAddPlant, onOpenPlant, photoUris, plants }: Props) {
   return <View style={styles.section}>
-    <Typography variant="headlineSmall">Cây của bạn</Typography>
+    <View style={styles.heading}>
+      <View style={styles.title}><Typography variant="headlineSmall">Khu Vườn Của Tôi</Typography><View style={styles.count}><Typography color="primary" variant="label">{plants.length}</Typography></View></View>
+      <Pressable accessibilityLabel="Thêm cây" accessibilityRole="button" onPress={onAddPlant} style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}><Ionicons color={colors.primary} name="add" size={18} /><Typography color="primary" variant="label">Thêm cây</Typography></Pressable>
+    </View>
     <ScrollView contentContainerStyle={styles.content} horizontal showsHorizontalScrollIndicator={false}>
       {plants.map((plant) => {
         const identity = resolvePlantIdentity(plant);
-        return <Pressable accessibilityLabel={`Mở cây ${plant.name}`} accessibilityRole="button" key={plant.id} onPress={() => onOpenPlant(plant.id)} style={({ pressed }) => [styles.item, pressed && styles.pressed]}><PlantIdentity name={plant.name} size="rail" speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} /></Pressable>;
+        return <Pressable accessibilityLabel={`Mở cây ${plant.name}`} accessibilityRole="button" key={plant.id} onPress={() => onOpenPlant(plant.id)} style={({ pressed }) => pressed && styles.pressed}><PlantIdentity imageUri={photoUris[plant.id] ?? null} name={plant.name} size="rail" speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} /></Pressable>;
       })}
-      <Pressable accessibilityLabel="Thêm cây" accessibilityRole="button" onPress={onAddPlant} style={({ pressed }) => [styles.addItem, pressed && styles.pressed]}><View style={styles.addCircle}><Ionicons color={colors.primary} name="add" size={30} /></View><Typography color="primary" style={styles.label} variant="label">Thêm cây</Typography></Pressable>
     </ScrollView>
   </View>;
 }
 
 const styles = StyleSheet.create({
-  addCircle: { alignItems: "center", borderColor: colors.primary, borderRadius: radius.round, borderStyle: "dashed", borderWidth: 1.5, height: 64, justifyContent: "center", width: 64 },
-  addItem: { alignItems: "center", gap: spacing.sm, width: 116 }, content: { gap: spacing.md, paddingRight: spacing.md }, item: { width: 116 }, label: { textAlign: "center" }, pressed: { opacity: 0.7 }, section: { gap: spacing.md },
+  addButton: { alignItems: "center", borderRadius: radius.control, flexDirection: "row", gap: spacing.xs, minHeight: 44, paddingHorizontal: spacing.sm },
+  content: { gap: spacing.md, paddingBottom: 1, paddingRight: spacing.md }, count: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: radius.round, justifyContent: "center", minHeight: 24, minWidth: 24, paddingHorizontal: spacing.xs },
+  heading: { alignItems: "center", flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, justifyContent: "space-between" }, pressed: { opacity: 0.7 }, section: { gap: spacing.md }, title: { alignItems: "center", flexDirection: "row", flexShrink: 1, gap: spacing.sm },
 });

@@ -13,7 +13,7 @@ import { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_ORIGIN_LABELS, type CareActivity } 
 import { createJournalItems } from "../models/journal-item";
 import type { PlantUpdate } from "../models/plant-update";
 
-type PlantSummary = PlantIdentityData & Readonly<{ name: string; speciesId: string; stageId: string }>;
+type PlantSummary = PlantIdentityData & Readonly<{ imageUri: string | null; name: string; speciesId: string; stageId: string }>;
 type Props = Readonly<{
   activities?: readonly CareActivity[];
   onOpenActivity?: (id: string) => void;
@@ -44,7 +44,7 @@ function CareCard({ activity, onPress, plant }: Readonly<{ activity: CareActivit
     <SurfaceCard style={styles.card}>
       <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={20} /></View>
       <View style={styles.copy}>
-        {plant ? <PlantIdentity name={plant.name} size="list" speciesTitle={plant.speciesTitle} stageId={plant.stageId} stageTitle={plant.stageTitle} /> : <Typography variant="bodyLarge">{plantName}</Typography>}
+        {plant ? <PlantIdentity imageUri={plant.imageUri} name={plant.name} size="list" speciesTitle={plant.speciesTitle} stageId={plant.stageId} stageTitle={plant.stageTitle} /> : <Typography variant="bodyLarge">{plantName}</Typography>}
         <Typography variant="bodyMedium">{label}</Typography>
         <Typography color="textSecondary" variant="label">{CARE_ACTIVITY_ORIGIN_LABELS[activity.origin]} · {new Date(activity.occurredAt).toLocaleString("vi-VN")}</Typography>
       </View><Ionicons color={colors.textSecondary} name="chevron-forward" size={20} />
@@ -59,7 +59,7 @@ function UpdateCard({ onPress, plant, update }: Readonly<{ onPress: () => void; 
   const metaLabel = update.photos.length ? `${update.photos.length} ảnh` : "Ghi chú";
   return <Pressable accessibilityLabel={`Cập nhật cây · ${plantName}`} accessibilityRole="button" onPress={onPress}>
     <SurfaceCard style={styles.updateCard}>
-      {plant ? <PlantIdentity {...(photoUri ? { imageUri: photoUri } : {})} name={plant.name} size="list" speciesTitle={plant.speciesTitle} stageId={update.stageId} stageTitle={stageTitle} /> : <Typography variant="bodyLarge">{plantName}</Typography>}
+      {plant ? <PlantIdentity imageUri={photoUri ?? plant.imageUri} name={plant.name} size="list" speciesTitle={plant.speciesTitle} stageId={update.stageId} stageTitle={stageTitle} /> : <Typography variant="bodyLarge">{plantName}</Typography>}
       <Typography variant="bodyMedium">Cập nhật cây</Typography>
       {update.notes ? <Typography color="textSecondary" numberOfLines={2} variant="bodyMedium">{update.notes}</Typography> : null}
       <View style={styles.meta}><Ionicons color={colors.textSecondary} name={update.photos.length ? "camera-outline" : "document-text-outline"} size={16} /><Typography color="textSecondary" style={styles.flex} variant="label">{metaLabel} · {new Date(update.occurredAt).toLocaleString("vi-VN")}</Typography><Ionicons color={colors.textSecondary} name="chevron-forward" size={18} /></View>

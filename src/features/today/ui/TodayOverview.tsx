@@ -36,7 +36,7 @@ export function TodayOverview({ date, onAddPlant, onOpenActivity, onOpenJournal,
       <TodayPriorityList onRecordCare={onRecordCare} priorities={projection.priorities} />
     </View>
     <RecentCareHistoryCard activities={projection.recentActivities} onOpenActivity={onOpenActivity} onOpenJournal={onOpenJournal} />
-    <PlantRail onAddPlant={onAddPlant} onOpenPlant={onOpenPlant} plants={projection.plants} />
+    <PlantRail onAddPlant={onAddPlant} onOpenPlant={onOpenPlant} photoUris={projection.plantPhotoUris} plants={projection.plants} />
   </View>;
 }
 
@@ -52,4 +52,3 @@ const styles = StyleSheet.create({
   section: { gap: spacing.md },
   sectionHeading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });
-

@@ -33,4 +33,25 @@ describe("createTodayProjection", () => {
     expect(projection.priorities[0]?.stageTitle).toBe("Phát triển thân");
     expect(projection.evaluations).toHaveLength(2);
   });
+
+  it("attaches the latest persisted plant photo to Today identity surfaces", () => {
+    const evaluations = [
+      { id: "watering", plantId: plant.id, activityType: "watering" as const, title: "Kiểm tra đất trước khi tưới", status: "recommended" as const, explanation: "Lần ghi gần nhất cách đây 3 ngày.", daysSinceLastActivity: 3, definitionId: "grape.plan.check-soil-before-watering", definitionVersion: "1.0.0" },
+    ];
+    const updates = [{
+      id: "86ee7489-6147-42b9-b73f-5650ea7fd214",
+      mutationId: "c353342e-9fe0-43a3-9d84-1b0ed436011d",
+      plantId: plant.id,
+      occurredAt: "2026-07-13T15:00:00.000Z",
+      notes: null,
+      stageId: plant.stageId,
+      photos: [{ id: "7174d8e3-df23-4f13-9e06-245ebfc9877b", localUri: "file:///latest-plant.jpg", position: 0, createdAt: "2026-07-13T15:00:00.000Z" }],
+      createdAt: "2026-07-13T15:00:00.000Z",
+    }];
+
+    const projection = createTodayProjection({ activities: [], evaluations, plants: [plant], updates });
+
+    expect(projection.plantPhotoUris).toEqual({ [plant.id]: "file:///latest-plant.jpg" });
+    expect(projection.priorities[0]?.imageUri).toBe("file:///latest-plant.jpg");
+  });
 });

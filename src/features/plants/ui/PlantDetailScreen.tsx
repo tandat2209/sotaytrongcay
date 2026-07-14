@@ -72,7 +72,7 @@ export function PlantDetailScreen({ onAddJournal, onBack, onOpenActivity, onOpen
       {careEntryType ? <CareEntryScreen {...(entryReason ? { reason: entryReason } : {})} {...(entrySuggestion ? { suggestion: entrySuggestion } : {})} onDismiss={() => setCareEntryType(null)} onSave={async (details) => {
         await onRecordCare(careEntryType, details);
         setCareEntryType(null);
-      }} plantName={projection.plant.name} speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} type={careEntryType} visible /> : null}
+      }} imageUri={projection.latestPhotoUri} plantName={projection.plant.name} speciesTitle={projection.speciesTitle} stageId={projection.plant.stageId} stageTitle={projection.stageTitle} type={careEntryType} visible /> : null}
     </>
   );
 }

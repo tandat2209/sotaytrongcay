@@ -22,6 +22,7 @@ export type PlantUpdateDraft = Readonly<{
 }>;
 
 type Props = Readonly<{
+  imageUri?: string | null;
   initialStageId: string;
   onBack: () => void;
   onSave: (draft: PlantUpdateDraft) => Promise<void>;
@@ -30,7 +31,7 @@ type Props = Readonly<{
   stages: readonly PlantKnowledgeStage[];
 }>;
 
-export function PlantUpdateScreen({ initialStageId, onBack, onSave, plantName, speciesTitle, stages }: Props) {
+export function PlantUpdateScreen({ imageUri, initialStageId, onBack, onSave, plantName, speciesTitle, stages }: Props) {
   const [notes, setNotes] = useState("");
   const [occurredAt, setOccurredAt] = useState(() => new Date());
   const [photos, setPhotos] = useState<readonly SelectedJournalPhoto[]>([]);
@@ -76,7 +77,7 @@ export function PlantUpdateScreen({ initialStageId, onBack, onSave, plantName, s
   return <>
     <Screen footer={<PrimaryButton label="Lưu nhật ký" loading={saving} onPress={() => void submit()} />} title="">
       <TopBar backAccessibilityLabel="Quay lại Chi tiết cây" onBack={requestBack} title="Thêm nhật ký" />
-      <PlantIdentity name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stage?.title ?? "Chưa xác định"} />
+      <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stage?.title ?? "Chưa xác định"} />
       <FormField label="Ảnh">
         <JournalPhotoField onChange={(value) => { setPhotos(value); setError(null); }} photos={photos} />
       </FormField>

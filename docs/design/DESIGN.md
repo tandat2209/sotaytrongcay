@@ -145,6 +145,8 @@ Each care priority shows a trackable activity and a short “Vì sao” in its c
 
 Show “Thêm nhật ký” as a secondary action, visually distinct from care due today. Stage changes live inside this journal flow.
 
+End Today with “Khu Vườn Của Tôi”: a horizontal rail of 160-point photo-first cards showing the latest persisted photo, plant name, species, and stage. Keep “Thêm cây” as a labelled 44-point action in the section heading instead of another placeholder card in the rail. Use the leaf fallback when a plant has no readable saved photo.
+
 ### Plant Detail
 
 Prioritize:
@@ -260,7 +262,7 @@ Prefer safe actions such as checking soil moisture, reviewing recent care, obser
 
 ### Plant identity
 
-Use shared `PlantIdentity` for compact identity surfaces such as plant lists, rails, journal, and entry flows. Its layout is photo or leaf placeholder at left; name; then species title, stage icon, and stage title. Plant Detail is the deliberate exception: `PlantDetailHero` uses the latest derived persisted journal photo, overlays name and species, and leaves stage context to the lifecycle journey. A real photo may render only through a persisted URI contract. Keep placeholder and stage icons decorative when visible text already identifies the plant.
+Use shared `PlantIdentity` for compact identity surfaces such as plant lists, Today priorities, journal, detail headers, and entry flows. It derives the latest persisted photo from Plant Updates and otherwise shows the leaf fallback; compact rows place that image at left, followed by name, species title, stage icon, and stage title. The Today plant rail uses the same identity content as a photo-first vertical card. Plant Detail is the deliberate exception: `PlantDetailHero` enlarges the latest derived persisted journal photo, overlays name and species, and leaves stage context to the lifecycle journey. A real photo may render only through a persisted URI contract, and an unreadable URI falls back without hiding text. Keep placeholder and stage icons decorative when visible text already identifies the plant.
 
 ### Icons and images
 

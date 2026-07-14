@@ -5,6 +5,8 @@ import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity } from "@/features/plants";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { listPlantUpdates } from "../data/plant-update-repository";
+import { getLatestPlantPhoto } from "../models/plant-update";
 import { savePlantUpdateWithPhotos } from "../application/save-plant-update";
 import { PlantUpdateScreen, type PlantUpdateDraft } from "./PlantUpdateScreen";
 
@@ -13,6 +15,7 @@ type Props = Readonly<{ onBack: () => void; onSaved: () => void; plantId: string
 export function PlantUpdateRouteScreen({ onBack, onSaved, plantId }: Props) {
   const queryClient = useQueryClient();
   const query = useQuery({ queryKey: ["plant", plantId], queryFn: () => getPlant(plantId) });
+  const photosQuery = useQuery({ queryKey: ["plant-photos", plantId], queryFn: () => listPlantUpdates(plantId) });
   if (query.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
   if (query.isError) return <><Text>{query.error instanceof z.ZodError ? "Dữ liệu trên thiết bị chưa hợp lệ." : "Chưa thể tải cây."}</Text><PrimaryButton label="Thử lại" onPress={() => void query.refetch()} /></>;
   if (!query.data) return <><Text>Không tìm thấy cây trồng.</Text><PrimaryButton label="Quay lại Cây trồng" onPress={onBack} /></>;
@@ -33,11 +36,12 @@ export function PlantUpdateRouteScreen({ onBack, onSaved, plantId }: Props) {
       queryClient.invalidateQueries({ queryKey: ["plant", plantId] }),
       queryClient.invalidateQueries({ queryKey: ["plant-detail", plantId] }),
       queryClient.invalidateQueries({ queryKey: ["plants"] }),
+      queryClient.invalidateQueries({ queryKey: ["plant-photos"] }),
       queryClient.invalidateQueries({ queryKey: ["today"] }),
       queryClient.invalidateQueries({ queryKey: ["journal"] }),
     ]);
     onSaved();
   }
 
-  return <PlantUpdateScreen initialStageId={plant.stageId} onBack={onBack} onSave={save} plantName={plant.name} speciesTitle={identity.speciesTitle} stages={stages} />;
+  return <PlantUpdateScreen imageUri={getLatestPlantPhoto(photosQuery.data ?? [])?.localUri ?? null} initialStageId={plant.stageId} onBack={onBack} onSave={save} plantName={plant.name} speciesTitle={identity.speciesTitle} stages={stages} />;
 }

@@ -217,6 +217,8 @@ A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, o
 
 A plant update stores plant, occurrence time, optional note, photos, confirmed stage ID, and sync metadata. Pruning and observations may be described in the note but do not introduce dedicated activity types.
 
+Compact plant-identity read models derive each plant's image from the first photo of its newest photo-bearing Plant Update. Screens receive this derived URI through their query projection; `Plant` stores no duplicate current-photo pointer. A historical Plant Update row may instead use its own first photo as event content. A missing or unreadable local URI is a presentation fallback, not a data mutation.
+
 If the selected stage differs from the plant's current stage, one transaction saves the journal entry, updates the plant, creates stage history, and adds the required outbox items.
 
 If the stage is unchanged, the save creates no redundant stage-history row. Retry uses one mutation ID so the journal entry and optional stage transition remain idempotent.

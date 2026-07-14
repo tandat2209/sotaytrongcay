@@ -18,6 +18,7 @@ export type CareEntryDetails = Readonly<{
 }>;
 
 type Props = Readonly<{
+  imageUri?: string | null;
   onDismiss: () => void;
   onSave: (details: CareEntryDetails) => Promise<void>;
   reason?: string;
@@ -36,7 +37,7 @@ const ENTRY_TITLES: Record<CareActivityType, string> = {
   watering: "Tưới nước",
 };
 
-export function CareEntryScreen({ onDismiss, onSave, plantName, reason, speciesTitle, stageId, stageTitle, suggestion, type, visible }: Props) {
+export function CareEntryScreen({ imageUri, onDismiss, onSave, plantName, reason, speciesTitle, stageId, stageTitle, suggestion, type, visible }: Props) {
   const [amount, setAmount] = useState("");
   const [notes, setNotes] = useState("");
   const [occurredAt, setOccurredAt] = useState(() => new Date());
@@ -67,7 +68,7 @@ export function CareEntryScreen({ onDismiss, onSave, plantName, reason, speciesT
   }
 
   return <BottomSheet footer={<PrimaryButton backgroundColor={visual.backgroundColor} label="Lưu hoạt động" loading={saving} onPress={submit} textColor={visual.color} />} onDismiss={onDismiss} title={<View style={styles.title}><Ionicons color={visual.color} name={visual.icon} size={22} /><Typography variant="headlineSmall">{ENTRY_TITLES[type]}</Typography></View>} visible={visible}>
-    <PlantIdentity name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
+    <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
     {suggestion ? <ContextRow icon="bulb-outline" label="Gợi ý:" text={suggestion} /> : null}
     {reason ? <ContextRow icon="help-circle-outline" label="Lý do:" text={reason} /> : null}
     <FormField error={error?.startsWith("Thời gian") ? error : null} label="Thời gian thực hiện">

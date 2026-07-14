@@ -16,6 +16,7 @@ import {
 
 type Props = {
   activity: CareActivity;
+  imageUri?: string | null;
   onBack?: () => void;
   plantName: string;
   speciesTitle: string;
@@ -23,13 +24,13 @@ type Props = {
   stageTitle: string;
 };
 
-export function ActivityDetailScreen({ activity, onBack, plantName, speciesTitle, stageId, stageTitle }: Props) {
+export function ActivityDetailScreen({ activity, imageUri, onBack, plantName, speciesTitle, stageId, stageTitle }: Props) {
   const title = `Chi tiết ${CARE_ACTIVITY_LABELS[activity.type].toLowerCase()}`;
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
   return (
     <Screen title="">
       {onBack ? <TopBar backAccessibilityLabel="Quay lại Nhật ký" onBack={onBack} title={title} /> : <Typography variant="headlineLarge">{title}</Typography>}
-      <PlantIdentity name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
+      <PlantIdentity imageUri={imageUri ?? null} name={plantName} size="list" speciesTitle={speciesTitle} stageId={stageId} stageTitle={stageTitle} />
       <SurfaceCard style={styles.summary}>
         <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}><Ionicons color={visual.color} name={visual.icon} size={22} /></View>
         <View style={styles.copy}>

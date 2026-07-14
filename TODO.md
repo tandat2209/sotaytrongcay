@@ -35,7 +35,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Derive the Plant Detail photo from persisted user-captured Plant Update photos.
 - [x] Present the latest persisted Plant Detail photo as a tappable identity hero with a compact no-photo fallback.
 - [x] Interleave saved care and Plant Updates in Plant Detail’s three-entry recent journal.
-- [ ] Show the latest persisted Plant Update photo on Today.
+- [x] Show latest persisted Plant Update photos across compact plant identity surfaces and as photo-first cards on Today.
 - [ ] Define explicit user-observation or sourced-measurement contract before showing plant health status.
 - [x] Persist nullable current-stage start time, backfill only from matching stage history, and show age conditionally without inferring from `createdAt` or `plantedAt`.
 - [ ] Let growers optionally enter when the initial selected stage began when adding or editing an existing plant.

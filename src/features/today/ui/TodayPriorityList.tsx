@@ -4,7 +4,6 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_VISUALS } from "@/features/journal";
 import { PlantIdentity } from "@/features/plants";
-import { stageIcon } from "@/features/knowledge/stage-icons";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
@@ -35,7 +34,7 @@ function TodayPriorityCard({ isExpanded, onRecordCare, onToggle, priority }: { i
 
   return <SurfaceCard style={styles.card}>
     <View style={styles.plantHeader}>
-      <PlantIdentity name={priority.plantName} size="list" speciesTitle={priority.speciesTitle} stageId={priority.stageId} stageTitle={priority.stageTitle} />
+      <PlantIdentity imageUri={priority.imageUri} name={priority.plantName} size="list" speciesTitle={priority.speciesTitle} stageId={priority.stageId} stageTitle={priority.stageTitle} />
     </View>
 
     {/* Action row with expandable chevron */}

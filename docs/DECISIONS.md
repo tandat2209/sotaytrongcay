@@ -276,6 +276,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** The photo continues to derive from the newest photo-bearing saved Plant Update; no Plant-owned photo pointer or inferred image is introduced. The hero scrolls with content, the plant-scoped action menu remains floating, and the objective card uses a labelled “Xem hướng dẫn chi tiết” action. Plant lists and entry flows keep the shared compact `PlantIdentity` treatment because they do not show the lifecycle journey.
 
+## 2026-07-14 — Use persisted photos across compact plant identity
+
+**Status:** Accepted
+
+**Decision:** Compact plant identity surfaces use the first photo from the newest photo-bearing saved Plant Update. This includes Plant List, Today priorities and care entry, care/activity details, Journal care rows, and new-journal entry context. Missing or unreadable photos retain the leaf fallback. Historical Plant Update rows may prefer the photo attached to that specific update because it represents the event being reviewed. Today presents “Khu Vườn Của Tôi” as horizontal photo-first cards and places the labelled “Thêm cây” action in the section heading.
+
+**Rationale:** A real photo lets growers distinguish plants faster and makes taking journal photos useful throughout the app. Deriving identity from Plant Updates preserves one source of truth, while a dedicated Today card treatment gives the bottom section enough visual structure without introducing placeholder images.
+
+**Consequences:** `Plant` gains no image field or duplicated pointer. Query projections that render compact identity load Plant Updates and derive a per-plant URI map; photo failures affect only presentation. Today remains FAB-free, plant-card text remains available without the image, and saving a Plant Update invalidates the shared plant-photo query.
+
 ## 2026-07-14 — Show mixed recent journal history on Plant Detail
 
 **Status:** Accepted

@@ -8,7 +8,7 @@ export { CARE_ACTIVITY_LABELS, CARE_ACTIVITY_ORIGIN_LABELS } from "./models/care
 export type { CareActivity, CareActivityOrigin, CareActivityType } from "./models/care-activity";
 export { createJournalItems } from "./models/journal-item";
 export type { JournalItem } from "./models/journal-item";
-export { getLatestPlantPhoto } from "./models/plant-update";
+export { getLatestPlantPhoto, getLatestPlantPhotoUrisByPlant } from "./models/plant-update";
 export type { PlantUpdate, PlantUpdatePhoto } from "./models/plant-update";
 export { CareEntryScreen } from "./ui/CareEntryScreen";
 export type { CareEntryDetails } from "./ui/CareEntryScreen";

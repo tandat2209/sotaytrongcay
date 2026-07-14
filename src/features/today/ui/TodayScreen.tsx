@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { z } from "zod";
 
 import { evaluateCarePlans } from "@/features/guidance";
-import { CareEntryScreen, listCareActivities, saveCareActivity, type CareActivityType } from "@/features/journal";
+import { CareEntryScreen, listCareActivities, listPlantUpdates, saveCareActivity, type CareActivityType } from "@/features/journal";
 import { createId } from "@/shared/lib/identifiers";
 import { getStagePlaybook, listCarePlans } from "@/features/knowledge";
 import { listPlants, resolvePlantIdentity } from "@/features/plants";
@@ -20,7 +20,7 @@ export function TodayScreen() {
   const query = useQuery({
     queryKey: ["today"],
     queryFn: async () => {
-      const [activities, plants] = await Promise.all([listCareActivities(), listPlants()]);
+      const [activities, plants, updates] = await Promise.all([listCareActivities(), listPlants(), listPlantUpdates()]);
       const evaluations = plants.flatMap((plant) => evaluateCarePlans({
         activities,
         evaluatedAt: new Date(),
@@ -30,7 +30,7 @@ export function TodayScreen() {
           stageId: plant.stageId,
         }),
       }));
-      return createTodayProjection({ activities, evaluations, plants });
+      return createTodayProjection({ activities, evaluations, plants, updates });
     },
   });
   const errorMessage = query.error instanceof z.ZodError ? "Dữ liệu trên thiết bị chưa hợp lệ." : "Chưa thể tải trang Hôm nay.";
@@ -53,6 +53,6 @@ export function TodayScreen() {
       await saveCareActivity({ id: createId(), mutationId: createId(), plantId: entry.plantId, type: entry.type, occurredAt: details.occurredAt, origin: "today", amount: details.amount, notes: details.notes, createdAt });
       await Promise.all([queryClient.invalidateQueries({ queryKey: ["plant-detail", entry.plantId] }), queryClient.invalidateQueries({ queryKey: ["today"] }), queryClient.invalidateQueries({ queryKey: ["journal"] })]);
       setEntry(null);
-    }} plantName={plant.name} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} type={entry.type} visible /> : null}
+    }} imageUri={query.data?.plantPhotoUris[plant.id] ?? null} plantName={plant.name} speciesTitle={identity.speciesTitle} stageId={plant.stageId} stageTitle={identity.stageTitle} type={entry.type} visible /> : null}
   </>;
 }
