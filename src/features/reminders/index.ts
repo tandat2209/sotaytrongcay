@@ -1,27 +1,34 @@
 export {
-  getCarePlanReminderPreference,
-  listCarePlanReminderPreferences,
-} from "./data/care-plan-reminder-repository";
+  deletePlantScheduleSnapshot,
+  deleteStageScheduleSnapshot,
+  getNotificationState,
+  listPlantScheduleSnapshots,
+  listStageScheduleSnapshots,
+  saveNotificationState,
+  savePlantScheduleSnapshot,
+  saveStageScheduleSnapshot,
+} from "./data/schedule-snapshot-repository";
 export {
+  createPlantScheduleSnapshot,
+  findStageSnapshot,
   reconcileAllCarePlanReminders,
+  reconcilePlantsForStage,
   reconcilePlantCarePlanReminders,
-  updateCarePlanReminderPreference,
 } from "./application/reconcile-reminders";
+export type { ScheduleReconciliation as ReminderReconciliation } from "./application/reconcile-reminders";
 export {
-  CarePlanReminderPreferenceSchema,
-  deriveDueReminder,
-  getEffectiveIntervalDays,
-} from "./models/care-plan-reminder-preference";
+  resolveCarePlanSchedule,
+  PlantCarePlanScheduleSnapshotSchema,
+  StageCarePlanScheduleSnapshotSchema,
+} from "./models/schedule-snapshot";
 export type {
-  CarePlanReminderPreference,
-  DueReminder,
-} from "./models/care-plan-reminder-preference";
-export type { ReminderReconciliation } from "./models/reconcile-care-plan-reminders";
-export { createReminderItems } from "./models/reminder-projection";
-export type { CarePlanReminderItem } from "./models/reminder-projection";
+  PlantCarePlanScheduleSnapshot,
+  ResolvedCarePlanSchedule,
+  StageCarePlanScheduleSnapshot,
+} from "./models/schedule-snapshot";
 export {
   configureReminderNotificationChannel,
-  ReminderNotificationPayloadSchema,
+  ensureReminderNotificationPermission,
 } from "./notifications/reminder-notification";
-export { ReminderDetailRouteScreen } from "./ui/ReminderDetailRouteScreen";
-export { ReminderListRouteScreen } from "./ui/ReminderListRouteScreen";
+export { ScheduleSnapshotEditor } from "./ui/ScheduleSnapshotEditor";
+export { StageScheduleSnapshotEditor } from "./ui/StageScheduleSnapshotEditor";

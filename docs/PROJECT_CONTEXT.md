@@ -72,7 +72,7 @@ Users can:
 - Today evaluates applicable care definitions as recommended, not recommended, or unavailable; it preserves negative explanations so users can see why care is not suggested.
 - Today care prompts deep-link into a prefilled care form; they are not persistent tasks.
 - Plant Timeline and global Journal.
-- One-time reminders and local notifications.
+- Care Plan-derived recurring schedules and local notifications, with stage defaults and optional plant snapshots.
 
 ## Capability rationale
 
@@ -83,7 +83,7 @@ Users can:
 | Stage tips          | Adds relevant learning            | Informational and non-trackable          |
 | Today care prompts  | Surfaces likely next care         | User must confirm by saving activity     |
 | Weather context     | Avoids obvious timing mistakes    | Reviewed rules and freshness labels      |
-| Reminders           | Supports planned future care      | One-time scheduling first                |
+| Care Plan schedules | Supports planned future care      | User snapshots never alter curated plans |
 | Journal             | Makes activity history searchable | No knowledge articles mixed into history |
 
 ## Conceptual data model
@@ -97,7 +97,8 @@ Users can:
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
 - Saving either record adds it to the plant Timeline and global Journal.
 - A care record may store its origin as Today, reminder, or manual entry.
-- A **Reminder** schedules future care and is distinct from suggestions and history.
+- A **Care Plan Schedule** derives future care timing from one Care Plan and saved activity history. It is distinct from suggestions and history; saving care remains required.
+- A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. A plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
 - Weather Rules may prioritize, delay, suppress, or annotate a suggestion.
 - User data references stable Knowledge Base IDs but never owns curated content.
 
@@ -121,7 +122,7 @@ Care Plans exist only for trackable watering, fertilizing, and spraying. General
 - Users want stage tips but do not want to manage them as tasks.
 - Today care prompts are useful when they open a prefilled form rather than auto-recording activity.
 - Optional details do not slow the minimum logging path.
-- One-time reminders are sufficient for MVP.
+- Care Plan schedule snapshots are understandable without turning care into completed tasks.
 - Weather can improve timing with a small rule set.
 
 ## Constraints and risks

@@ -171,7 +171,7 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 - `plants`: plant identity, species, metadata, active/archive state, current growth stage, and stage history.
 - `guidance`: reviewed stage tips and deterministic, ephemeral care suggestions with explanations and optional Care Entry prefills.
 - `journal`: core care records, photo-and-note plant updates, photos, and timeline.
-- `reminders`: due, completed, and snoozed care reminders.
+- `reminders`: Care Plan schedule snapshots, resolved due timing, and local notification delivery. It never creates care history.
 - `weather`: current conditions, freshness, location precision, and care-context summary.
 - `knowledge`: read-only species, stage playbooks, tips, care recommendations, health, fertilizer, seasonal, and weather-rule content.
 - `today`: derived guidance/weather/reminder/journal read model; owns no source data.
@@ -191,7 +191,7 @@ The `(tabs)` layout owns four destination tabs. Route files remain thin and impo
 
 Today and Plant Detail open public care-entry and new-journal-entry routes with validated plant and activity parameters.
 
-Reminder Management is a secondary route reachable from Today, Plant Detail, and Me. These entry points share one screen and preserve a single reminder behavior.
+Schedule customization is secondary Settings behavior. It has separate notification, stage-Care-Plan, and plant-first routes; Plant Detail may open its current plant's customization directly. Today remains action-only.
 
 There is no global action overlay. Today derives relevant core-care prompts; Plant Detail supplies the current plant context directly.
 
@@ -223,7 +223,7 @@ If the selected stage differs from the plant's current stage, one transaction sa
 
 If the stage is unchanged, the save creates no redundant stage-history row. Retry uses one mutation ID so the journal entry and optional stage transition remain idempotent.
 
-Care suggestions are derived read models, not stored task instances. A suggestion contains its knowledge definition ID and version, plant, proposed activity, reason, priority, optional weather adjustment, and validated Care Entry prefill.
+Care suggestions are derived read models, not stored task instances. A suggestion contains its knowledge definition ID and version, plant, proposed activity, reason, priority, optional weather adjustment, and validated Care Entry prefill. A Care Plan schedule is separate mutable user data: each stage snapshot overlays one exact Care Plan with separate ground/container frequency fields and one shared notification policy; plant snapshots copy a complete effective schedule. Resolution follows plant snapshot → matching stage frequency field plus shared stage notifications → authored Care Plan frequency.
 
 Opening, dismissing, or ignoring a suggestion creates no user record. Saving its Care Entry creates one care record and outbox item in a local transaction.
 

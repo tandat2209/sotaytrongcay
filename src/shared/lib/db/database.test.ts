@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(7);
+    expect(DATABASE_VERSION).toBe(9);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -13,7 +13,7 @@ describe("database migrations", () => {
   });
 
   it("adds journal updates, ordered photos, and stage history in version 5", () => {
-    const sql = getMigrationStatements(4).join("\n");
+    const [sql] = getMigrationStatements(4);
 
     expect(sql).toContain("CREATE TABLE plant_updates");
     expect(sql).toContain("CREATE TABLE plant_update_photos");
@@ -36,15 +36,32 @@ describe("database migrations", () => {
     expect(sql).not.toContain("created_at");
   });
 
-  it("adds Care Plan reminder preferences without dropping user data in version 7", () => {
-    const sql = getMigrationStatements(6).join("\n");
+  it("replaces V7 reminder preferences with schedule snapshots in version 8", () => {
+    const [sql] = getMigrationStatements(7);
 
-    expect(DATABASE_VERSION).toBe(7);
-    expect(sql).toContain("CREATE TABLE care_plan_reminder_preferences");
-    expect(sql).toContain("UNIQUE (plant_id, care_plan_id)");
-    expect(sql).toContain("main_notification_id TEXT");
-    expect(sql).toContain("follow_up_notification_id TEXT");
-    expect(sql).not.toContain("DROP TABLE");
+    expect(DATABASE_VERSION).toBe(9);
+    expect(sql).toContain(
+      "DROP TABLE IF EXISTS care_plan_reminder_preferences",
+    );
+    expect(sql).toContain("CREATE TABLE stage_care_plan_schedule_snapshots");
+    expect(sql).toContain("UNIQUE (stage_id, care_plan_id)");
+    expect(sql).toContain("CREATE TABLE plant_care_plan_schedule_snapshots");
+    expect(sql).toContain("CREATE TABLE plant_care_plan_notification_states");
+    expect(sql).not.toContain("paused_at");
+  });
+
+  it("splits V8 stage frequency while keeping notifications shared in version 9", () => {
+    const [sql] = getMigrationStatements(8);
+
+    expect(sql).toContain(
+      "ALTER TABLE stage_care_plan_schedule_snapshots RENAME TO",
+    );
+    expect(sql).toContain("ground_frequency_override_days INTEGER");
+    expect(sql).toContain("container_frequency_override_days INTEGER");
+    expect(sql).toContain("UNIQUE (stage_id, care_plan_id)");
+    expect(sql).toContain("notification_enabled INTEGER");
+    expect(sql).toContain("frequency_override_days, frequency_override_days");
+    expect(sql).not.toContain("growing_method");
   });
 
   it("resets the prototype tables before establishing the clean baseline", () => {
@@ -63,7 +80,7 @@ describe("database migrations", () => {
   });
 
   it("adds the location column when upgrading from version 2", () => {
-    const sql = getMigrationStatements(2).join("\n");
+    const [sql] = getMigrationStatements(2);
 
     expect(sql).toContain("ALTER TABLE plants ADD COLUMN location TEXT");
     expect(sql).not.toContain("DROP TABLE");

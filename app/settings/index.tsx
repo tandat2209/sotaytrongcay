@@ -1,4 +1,10 @@
-import { Bell, ChevronRight, Settings } from "lucide-react-native";
+import {
+  Bell,
+  ChevronRight,
+  ListTree,
+  Settings,
+  Sprout,
+} from "lucide-react-native";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, View } from "react-native";
 
@@ -8,36 +14,57 @@ import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
+const settings = [
+  { icon: Bell, label: "Thông báo", path: "/settings/notifications" as const },
+  {
+    icon: ListTree,
+    label: "Kế hoạch chăm sóc theo giai đoạn",
+    path: "/settings/care-plans" as const,
+  },
+  {
+    icon: Sprout,
+    label: "Tùy chỉnh theo cây",
+    path: "/settings/plants" as const,
+  },
+];
+
 export default function SettingsRoute() {
   return (
     <Screen title="">
-      <TopBar onBack={() => router.back()} title="Cài đặt" titleIcon={Settings} />
+      <TopBar
+        onBack={() => router.back()}
+        title="Cài đặt"
+        titleIcon={Settings}
+      />
       <View style={styles.list}>
-        <SettingRow label="Thông báo" onPress={() => router.push("/reminders")} />
-        <SettingRow label="Lời nhắc" onPress={() => router.push("/reminders")} />
-        <SettingRow
-          label="Tùy chọn kế hoạch chăm sóc"
-          onPress={() => router.push("/reminders")}
-        />
+        {settings.map(({ icon: Icon, label, path }) => (
+          <Pressable
+            accessibilityLabel={label}
+            accessibilityRole="button"
+            key={path}
+            onPress={() => router.push(path)}
+          >
+            <SurfaceCard style={styles.row}>
+              <Icon color={colors.primary} size={20} />
+              <Typography style={styles.fill} variant="bodyLarge">
+                {label}
+              </Typography>
+              <ChevronRight color={colors.textSecondary} size={20} />
+            </SurfaceCard>
+          </Pressable>
+        ))}
       </View>
     </Screen>
-  );
-}
-
-function SettingRow({ label, onPress }: Readonly<{ label: string; onPress: () => void }>) {
-  return (
-    <Pressable accessibilityRole="button" onPress={onPress}>
-      <SurfaceCard style={styles.row}>
-        <Bell color={colors.primary} size={20} />
-        <Typography style={styles.fill} variant="bodyLarge">{label}</Typography>
-        <ChevronRight color={colors.textSecondary} size={20} />
-      </SurfaceCard>
-    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   fill: { flex: 1 },
   list: { gap: spacing.sm },
-  row: { alignItems: "center", flexDirection: "row", gap: spacing.sm, minHeight: 56 },
+  row: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: spacing.sm,
+    minHeight: 56,
+  },
 });

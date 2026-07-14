@@ -1,12 +1,5 @@
-import { router } from "expo-router";
-
-import { ReminderListRouteScreen } from "@/features/reminders";
+import { Redirect } from "expo-router";
 
 export default function RemindersRoute() {
-  return (
-    <ReminderListRouteScreen
-      onBack={() => router.back()}
-      onOpen={(id) => router.push(`/reminders/${id}`)}
-    />
-  );
+  return <Redirect href="/settings" />;
 }

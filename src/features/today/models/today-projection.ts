@@ -10,8 +10,9 @@ import type { CarePlan } from "@/features/knowledge";
 import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
 import type { Plant } from "@/features/plants/models/plant";
 import {
-  deriveDueReminder,
-  type CarePlanReminderPreference,
+  resolveCarePlanSchedule,
+  type PlantCarePlanScheduleSnapshot,
+  type StageCarePlanScheduleSnapshot,
 } from "@/features/reminders";
 import {
   productionWeather,
@@ -32,7 +33,6 @@ export type TodayCareCard = Readonly<{
   plantId: string;
   plantName: string;
   priority: number;
-  reminderId: string | null;
   speciesTitle: string;
   stageId: string;
   stageTitle: string;
@@ -52,8 +52,9 @@ type TodayProjectionInput = Readonly<{
   activities: readonly CareActivity[];
   evaluatedAt?: Date;
   plansByPlant?: ReadonlyMap<string, readonly CarePlan[]>;
+  plantSnapshots?: readonly PlantCarePlanScheduleSnapshot[];
   plants: readonly Plant[];
-  preferences?: readonly CarePlanReminderPreference[];
+  stageSnapshots?: readonly StageCarePlanScheduleSnapshot[];
   updates?: readonly PlantUpdate[];
   weather?: TodayWeather;
 }>;
@@ -62,8 +63,9 @@ export function createTodayProjection({
   activities,
   evaluatedAt = new Date(),
   plansByPlant = new Map(),
+  plantSnapshots = [],
   plants,
-  preferences = [],
+  stageSnapshots = [],
   updates = [],
   weather = productionWeather,
 }: TodayProjectionInput): TodayProjection {
@@ -77,12 +79,6 @@ export function createTodayProjection({
       ...activity,
       plantName: plantMap.get(activity.plantId)?.name ?? "Cây trồng",
     }));
-  const preferenceMap = new Map(
-    preferences.map((preference) => [
-      `${preference.plantId}:${preference.carePlanId}`,
-      preference,
-    ]),
-  );
   const careCards = plants
     .flatMap<TodayCareCard>((plant) =>
       (plansByPlant.get(plant.id) ?? []).flatMap<TodayCareCard>((plan) => {
@@ -104,29 +100,39 @@ export function createTodayProjection({
               .join(" · ") ?? null,
           title: plan.title,
         };
-        const hasFrequency =
-          plan.frequency?.[plant.growingMethod] !== undefined;
-        if (hasFrequency) {
-          const preference = preferenceMap.get(`${plant.id}:${plan.id}`);
-          if (!preference) return [];
-          const latestActivity = findLatestCareActivity(
-            activities,
-            plant.id,
-            plan.activityType,
-          );
-          const due = deriveDueReminder({
-            evaluatedAt,
-            latestActivityAt: latestActivity?.occurredAt ?? null,
-            onMissingHistory: plan.onMissingHistory,
-            preference,
-          });
-          if (!due || due.status === "upcoming") return [];
+        const plantSnapshot =
+          plantSnapshots.find(
+            (snapshot) =>
+              snapshot.plantId === plant.id &&
+              snapshot.carePlanId === plan.id &&
+              snapshot.isActive,
+          ) ?? null;
+        const stageSnapshot =
+          stageSnapshots.find(
+            (snapshot) =>
+              snapshot.stageId === plant.stageId &&
+              snapshot.carePlanId === plan.id,
+          ) ?? null;
+        const latestActivity = findLatestCareActivity(
+          activities,
+          plant.id,
+          plan.activityType,
+        );
+        const schedule = resolveCarePlanSchedule({
+          evaluatedAt,
+          latestActivityAt: latestActivity?.occurredAt ?? null,
+          plan,
+          plant,
+          plantSnapshot,
+          stageSnapshot,
+        });
+        if (schedule) {
+          if (schedule.status === "upcoming") return [];
           return [
             {
               ...base,
-              dueStatus: due.status,
+              dueStatus: schedule.status,
               explanation: plan.goal,
-              reminderId: preference.id,
             },
           ];
         }
@@ -138,12 +144,7 @@ export function createTodayProjection({
         })[0];
         if (!evaluation || evaluation.status !== "recommended") return [];
         return [
-          {
-            ...base,
-            dueStatus: null,
-            explanation: evaluation.explanation,
-            reminderId: null,
-          },
+          { ...base, dueStatus: null, explanation: evaluation.explanation },
         ];
       }),
     )
@@ -156,13 +157,7 @@ export function createTodayProjection({
     )
     .slice(0, 3);
 
-  return {
-    careCards,
-    plantPhotoUris,
-    plants,
-    recentActivities,
-    weather,
-  };
+  return { careCards, plantPhotoUris, plants, recentActivities, weather };
 }
 
 function dueRank(status: TodayCareCard["dueStatus"]): number {

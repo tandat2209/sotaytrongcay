@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { createId } from "@/shared/lib/identifiers";
+import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { savePlant } from "@/features/plants/data/plant-repository";
 import { CreatePlantScreen } from "@/features/plants/ui/CreatePlantScreen";
 
@@ -12,7 +13,9 @@ export default function NewPlantRoute() {
       onBack={() => router.back()}
       onSave={async (draft) => {
         const id = createId();
-        await savePlant({ ...draft, id, createdAt: new Date().toISOString() });
+        const plant = { ...draft, id, createdAt: new Date().toISOString() };
+        await savePlant(plant);
+        await reconcilePlantCarePlanReminders(plant);
         await queryClient.invalidateQueries({ queryKey: ["plants"] });
         router.replace({ pathname: "/plants/[id]", params: { id } });
       }}

@@ -105,7 +105,8 @@ export function PlantUpdateRouteScreen({
     ]);
     if (
       reminderUpdate &&
-      (reminderUpdate.activated.length > 0 || reminderUpdate.deactivated.length > 0)
+      (reminderUpdate.activated.length > 0 ||
+        reminderUpdate.deactivated.length > 0)
     ) {
       setReconciliation(reminderUpdate);
     } else {
@@ -127,7 +128,7 @@ export function PlantUpdateRouteScreen({
       <BottomSheet
         footer={
           <PrimaryButton
-            label="Xem lời nhắc"
+            label="Xem kế hoạch chăm sóc"
             onPress={() => {
               setReconciliation(null);
               onReviewReminders();
@@ -138,15 +139,24 @@ export function PlantUpdateRouteScreen({
           setReconciliation(null);
           onSaved();
         }}
-        title="Lời nhắc đã được cập nhật"
+        title="Kế hoạch chăm sóc đã được cập nhật"
         visible={reconciliation !== null}
       >
         <Typography color="textSecondary" variant="bodyMedium">
-          {reconciliation
-            ? `${reconciliation.activated.length} lời nhắc mới · ${reconciliation.deactivated.length} lời nhắc đã ẩn`
-            : ""}
+          {reconciliation ? formatScheduleChanges(reconciliation) : ""}
         </Typography>
       </BottomSheet>
     </>
   );
+}
+
+function formatScheduleChanges(reconciliation: ReminderReconciliation): string {
+  const activated = reconciliation.activated.slice(0, 3).join(" · ");
+  const deactivated = reconciliation.deactivated.slice(0, 3).join(" · ");
+  return [
+    activated && `Đã áp dụng: ${activated}`,
+    deactivated && `Đã tắt: ${deactivated}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
 }

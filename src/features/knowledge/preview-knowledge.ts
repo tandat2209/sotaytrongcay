@@ -225,6 +225,14 @@ export function getCarePlansForStage(stageId: string): readonly CarePlan[] {
     .map(toCarePlan);
 }
 
+export function listAllCarePlanStages(): readonly PlantKnowledgeStage[] {
+  return bundle.species.flatMap((species) =>
+    Object.values(species.lifecycles).flatMap((lifecycle) =>
+      lifecycle.stages.map((stage) => ({ id: stage.id, title: stage.title })),
+    ),
+  );
+}
+
 export function listCarePlans(
   input: Readonly<{
     speciesId: string;

@@ -353,37 +353,23 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **User actions:** Edit, view photos, delete after confirmation, or open the plant.
 
-### 7.10 Reminder Management — “Tất cả lời nhắc”
+### 7.10 Care Plan schedule settings
 
-**Purpose:** Manage future care without using a primary navigation slot.
+**Purpose:** Customize schedule snapshots without editing curated Care Plan knowledge or creating manual care tasks.
 
-**Components:** “Quá hạn”, “Sắp tới”, “Đã hoàn thành”; plant; core care type; time; “Tạo lời nhắc”.
+**Navigation:** `Tôi → Cài đặt` exposes three destinations: “Thông báo”, “Kế hoạch chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
 
-Completing a core-care reminder offers “Ghi hoạt động” and opens prefilled Care Entry. It does not write history automatically.
+**Stage settings:** List every authored stage and its Care Plans. A stage snapshot belongs to one exact Care Plan. Ground and container each show their authored frequency and may set an independent interval; notification delivery and time are shared by both growing methods. Reset restores both authored frequencies.
 
-**Empty state:** “Chưa có lời nhắc nào” + “Tạo lời nhắc”.
+**Plant settings:** Select a plant first. Active current-stage Care Plans show their effective source. Saving copies a complete effective schedule into a plant snapshot. “Dùng tất cả cài đặt theo giai đoạn” deletes that snapshot. Inactive retained snapshots appear under “Giai đoạn khác”.
 
-**Loading state:** Row skeletons while create remains available.
+**Notification behavior:** Delivery defaults off. Enabling delivery requests OS permission and uses 08:00 when no time exists. Disabled delivery never hides due care from Today. A main notification and at most one next-day follow-up may be delivered; neither writes care history.
 
-**Error state:** Preserve local reminders and show inline retry or sync status.
+**Empty state:** A stage without Care Plans shows “Chưa có kế hoạch chăm sóc đã duyệt cho giai đoạn này.” A user with no plants sees the existing add-plant path.
 
-**User actions:** Create, edit, snooze, mark reminder complete, or record the related activity.
+**Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Dữ liệu đã nhập vẫn được giữ lại.” Permission denial still preserves in-app schedule behavior.
 
-### 7.11 Create or Edit Reminder
-
-**Purpose:** Schedule a future care prompt.
-
-**Components:** Core care type; required plant; required date/time; optional note; notification toggle; “Lưu lời nhắc”.
-
-**Empty state:** Default to the next sensible future time; do not guess the core care type.
-
-**Loading state:** Show progress inside Save and explain notification permission before the system prompt.
-
-**Error state:** Past time suggests “Đặt vào ngày mai”. Denied permission still allows in-app saving.
-
-**User actions:** Select activity, plant, and time; toggle notification; save, edit, or delete.
-
-### 7.12 Me — “Tôi”
+### 7.11 Me — “Tôi”
 
 **Purpose:** Own preferences, reminder management, data tools, and support.
 

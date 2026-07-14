@@ -306,6 +306,28 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** SQLite adds nullable `plants.stage_started_at`. Confirmed journal stage changes update it atomically with the current stage. Migration backfills only from the newest matching persisted stage-history row and never from `createdAt` or `plantedAt`; initial stage age therefore remains absent when its start is unknown. The Plant Detail projection calculates non-future elapsed local calendar days and provides truthful same-day labels.
 
+## 2026-07-14 — Customize Care Plan schedules through user snapshots
+
+**Status:** Accepted
+
+**Decision:** Care Plans remain curated read-only knowledge. Users may customize only schedule snapshots: interval, notification delivery, and notification time. A stage snapshot belongs to one exact Care Plan ID and may optionally replace authored frequency for both growing methods. A plant snapshot copies the complete current effective schedule and takes precedence over a stage snapshot, which takes precedence over authored Care Plan defaults. Resetting a plant snapshot restores stage/default inheritance. Pause is not supported.
+
+**Notification behavior:** Delivery defaults off. Enabling it without saved time uses 08:00 local time. A due schedule may send one notification at its due time and one follow-up the next local day; neither notification creates history or a second Today card. Saving matching care cancels pending delivery and recalculates from saved activity history.
+
+**Lifecycle:** Plant snapshots persist when their Care Plan stops applying and reactivate unchanged if that exact Care Plan applies again. A confirmed stage change surfaces affected Care Plan names without blocking the saved journal entry. Existing V7 reminder data may be discarded because no production user data exists.
+
+**Rationale:** Separate user scheduling choices from reviewed care knowledge, make stage defaults reusable, and keep plant-specific behavior predictable rather than silently changing after a stage edit.
+
+## 2026-07-15 — Split stage frequency by growing method
+
+**Status:** Accepted
+
+**Decision:** A stage schedule snapshot belongs to one exact Care Plan and stage. It stores independent ground and container frequency overrides plus one shared notification delivery/time setting. This supersedes only the shared-frequency clause in the 2026-07-14 schedule-snapshot decision; plant snapshot precedence and all other behavior remain unchanged.
+
+**Rationale:** Authored Care Plan frequency already differs by growing method, but notification intent applies to the Care Plan rather than duplicating two notification controls. Separate frequency fields preserve timing differences without creating conflicting notification policies.
+
+**Consequences:** SQLite keeps uniqueness on `(stage_id, care_plan_id)` and adds two frequency columns. Resolution selects the plant's matching frequency field and the shared notification policy. Existing V8 shared frequency copies into both fields during migration.
+
 ## Decision template
 
 ```md

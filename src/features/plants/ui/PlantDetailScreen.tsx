@@ -37,6 +37,7 @@ type Props = Readonly<{
   onAddJournal: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook?: () => void;
+  onOpenSchedule: () => void;
   onOpenUpdate: (id: string) => void;
   onRecordCare: (
     type: CareActivityType,
@@ -51,6 +52,7 @@ export function PlantDetailScreen({
   onBack,
   onOpenActivity,
   onOpenPlaybook,
+  onOpenSchedule,
   onOpenUpdate,
   onRecordCare,
   projection,
@@ -103,6 +105,7 @@ export function PlantDetailScreen({
         <GrowthJourney projection={projection} />
         <CurrentStage
           {...(onOpenPlaybook ? { onOpenPlaybook } : {})}
+          onOpenSchedule={onOpenSchedule}
           projection={projection}
         />
         <View style={styles.section}>
@@ -227,9 +230,11 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
 
 function CurrentStage({
   onOpenPlaybook,
+  onOpenSchedule,
   projection,
 }: {
   onOpenPlaybook?: () => void;
+  onOpenSchedule: () => void;
   projection: PlantDetailProjection;
 }) {
   return (
@@ -248,6 +253,21 @@ function CurrentStage({
           </Typography>
         </View>
       ) : null}
+      <Pressable
+        accessibilityLabel="Tùy chỉnh kế hoạch chăm sóc cho cây này"
+        accessibilityRole="button"
+        onPress={onOpenSchedule}
+        style={({ pressed }) => [
+          styles.playbookAction,
+          pressed && styles.playbookActionPressed,
+        ]}
+      >
+        <Leaf color={colors.primary} size={20} />
+        <Typography color="primary" style={styles.flex} variant="bodyLarge">
+          Tùy chỉnh theo cây
+        </Typography>
+        <ChevronRight color={colors.primary} size={18} />
+      </Pressable>
       {onOpenPlaybook && projection.stagePlaybook ? (
         <Pressable
           accessibilityLabel={`Mở hướng dẫn chi tiết cho giai đoạn ${projection.stageTitle}`}

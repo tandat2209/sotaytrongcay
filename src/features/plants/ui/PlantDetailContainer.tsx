@@ -14,6 +14,7 @@ type Props = Readonly<{
   onBack: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook: () => void;
+  onOpenSchedule: () => void;
   onOpenUpdate: (id: string) => void;
   onRecordCare: (
     type: CareActivityType,
@@ -27,6 +28,7 @@ export function PlantDetailContainer({
   onBack,
   onOpenActivity,
   onOpenPlaybook,
+  onOpenSchedule,
   onOpenUpdate,
   onRecordCare,
   plantId,
@@ -74,6 +76,7 @@ export function PlantDetailContainer({
       onBack={onBack}
       onOpenActivity={onOpenActivity}
       onOpenPlaybook={onOpenPlaybook}
+      onOpenSchedule={onOpenSchedule}
       onOpenUpdate={onOpenUpdate}
       onRecordCare={onRecordCare}
       projection={query.data}

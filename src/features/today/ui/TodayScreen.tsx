@@ -12,7 +12,8 @@ import {
 import { listCarePlans } from "@/features/knowledge";
 import { listPlants, resolvePlantIdentity } from "@/features/plants";
 import {
-  listCarePlanReminderPreferences,
+  listPlantScheduleSnapshots,
+  listStageScheduleSnapshots,
   reconcilePlantCarePlanReminders,
 } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
@@ -34,11 +35,13 @@ export function TodayScreen() {
     queryFn: async () => {
       const plants = await listPlants();
       await Promise.all(plants.map(reconcilePlantCarePlanReminders));
-      const [activities, preferences, updates] = await Promise.all([
-        listCareActivities(),
-        listCarePlanReminderPreferences(true),
-        listPlantUpdates(),
-      ]);
+      const [activities, plantSnapshots, stageSnapshots, updates] =
+        await Promise.all([
+          listCareActivities(),
+          listPlantScheduleSnapshots(),
+          listStageScheduleSnapshots(),
+          listPlantUpdates(),
+        ]);
       const evaluatedAt = new Date();
       return createTodayProjection({
         activities,
@@ -52,8 +55,9 @@ export function TodayScreen() {
             }),
           ]),
         ),
+        plantSnapshots,
         plants,
-        preferences,
+        stageSnapshots,
         updates,
       });
     },

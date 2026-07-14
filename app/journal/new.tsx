@@ -9,7 +9,12 @@ export default function NewJournalEntryRoute() {
   return (
     <PlantUpdateRouteScreen
       onBack={() => router.back()}
-      onReviewReminders={() => router.replace("/reminders")}
+      onReviewReminders={() =>
+        router.replace({
+          pathname: "/settings/plants/[id]",
+          params: { id: plantId },
+        })
+      }
       onSaved={() => router.back()}
       plantId={plantId}
     />

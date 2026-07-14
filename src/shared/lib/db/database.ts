@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 7;
+export const DATABASE_VERSION = 9;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -131,6 +131,82 @@ CREATE INDEX idx_care_plan_reminder_preferences_plant
   ON care_plan_reminder_preferences(plant_id, is_applicable);
 `;
 
+const V8_REPLACE_REMINDER_PREFERENCES = `
+DROP TABLE IF EXISTS care_plan_reminder_preferences;
+
+CREATE TABLE stage_care_plan_schedule_snapshots (
+  id TEXT PRIMARY KEY NOT NULL,
+  mutation_id TEXT NOT NULL UNIQUE,
+  stage_id TEXT NOT NULL,
+  care_plan_id TEXT NOT NULL,
+  frequency_override_days INTEGER CHECK (frequency_override_days IS NULL OR frequency_override_days > 0),
+  notification_enabled INTEGER NOT NULL DEFAULT 0 CHECK (notification_enabled IN (0, 1)),
+  notification_time TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE (stage_id, care_plan_id)
+);
+
+CREATE TABLE plant_care_plan_schedule_snapshots (
+  id TEXT PRIMARY KEY NOT NULL,
+  mutation_id TEXT NOT NULL UNIQUE,
+  plant_id TEXT NOT NULL,
+  care_plan_id TEXT NOT NULL,
+  interval_days INTEGER NOT NULL CHECK (interval_days > 0),
+  notification_enabled INTEGER NOT NULL DEFAULT 0 CHECK (notification_enabled IN (0, 1)),
+  notification_time TEXT,
+  is_active INTEGER NOT NULL DEFAULT 1 CHECK (is_active IN (0, 1)),
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE (plant_id, care_plan_id),
+  FOREIGN KEY (plant_id) REFERENCES plants(id) ON DELETE CASCADE
+);
+
+CREATE TABLE plant_care_plan_notification_states (
+  plant_id TEXT NOT NULL,
+  care_plan_id TEXT NOT NULL,
+  main_notification_id TEXT,
+  follow_up_notification_id TEXT,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (plant_id, care_plan_id),
+  FOREIGN KEY (plant_id) REFERENCES plants(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_plant_schedule_snapshots_plant_active
+  ON plant_care_plan_schedule_snapshots(plant_id, is_active);
+`;
+
+const V9_SPLIT_STAGE_FREQUENCY_BY_GROWING_METHOD = `
+ALTER TABLE stage_care_plan_schedule_snapshots RENAME TO stage_care_plan_schedule_snapshots_v8;
+
+CREATE TABLE stage_care_plan_schedule_snapshots (
+  id TEXT PRIMARY KEY NOT NULL,
+  mutation_id TEXT NOT NULL UNIQUE,
+  stage_id TEXT NOT NULL,
+  care_plan_id TEXT NOT NULL,
+  ground_frequency_override_days INTEGER CHECK (ground_frequency_override_days IS NULL OR ground_frequency_override_days > 0),
+  container_frequency_override_days INTEGER CHECK (container_frequency_override_days IS NULL OR container_frequency_override_days > 0),
+  notification_enabled INTEGER NOT NULL DEFAULT 0 CHECK (notification_enabled IN (0, 1)),
+  notification_time TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE (stage_id, care_plan_id)
+);
+
+INSERT INTO stage_care_plan_schedule_snapshots (
+  id, mutation_id, stage_id, care_plan_id,
+  ground_frequency_override_days, container_frequency_override_days,
+  notification_enabled, notification_time, created_at, updated_at
+)
+SELECT
+  id, mutation_id, stage_id, care_plan_id,
+  frequency_override_days, frequency_override_days,
+  notification_enabled, notification_time, created_at, updated_at
+FROM stage_care_plan_schedule_snapshots_v8;
+
+DROP TABLE stage_care_plan_schedule_snapshots_v8;
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
@@ -140,6 +216,9 @@ export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion < 6) migrations.push(V6_ADD_STAGE_STARTED_AT);
   if (currentVersion < 7)
     migrations.push(V7_ADD_CARE_PLAN_REMINDER_PREFERENCES);
+  if (currentVersion < 8) migrations.push(V8_REPLACE_REMINDER_PREFERENCES);
+  if (currentVersion < 9)
+    migrations.push(V9_SPLIT_STAGE_FREQUENCY_BY_GROWING_METHOD);
   return migrations;
 }
 
@@ -166,6 +245,9 @@ export async function initializeDatabase(): Promise<void> {
 export async function resetDatabase(): Promise<void> {
   const db = await getDb();
   await db.execAsync(`
+    DROP TABLE IF EXISTS plant_care_plan_notification_states;
+    DROP TABLE IF EXISTS plant_care_plan_schedule_snapshots;
+    DROP TABLE IF EXISTS stage_care_plan_schedule_snapshots;
     DROP TABLE IF EXISTS care_plan_reminder_preferences;
     DROP TABLE IF EXISTS plant_stage_history;
     DROP TABLE IF EXISTS plant_update_photos;

@@ -78,9 +78,17 @@ _Avoid_: Gợi ý chăm sóc, bài viết
 
 ## Planning and context
 
-**Lời nhắc** (Reminder):
-A scheduled prompt for future care. It is distinct from a recommendation and from completed history.
-_Avoid_: Gợi ý chăm sóc, thông báo chung
+**Lịch chăm sóc** (Care Plan Schedule):
+A user-owned schedule derived from one curated Care Plan and saved care history. It is distinct from a recommendation and from completed history. Stage and plant snapshots may customize timing and OS delivery without editing curated Care Plan knowledge.
+_Avoid_: Gợi ý chăm sóc, lịch sử đã hoàn thành
+
+**Tùy chỉnh theo giai đoạn** (Stage schedule snapshot):
+A user-owned schedule overlay for one exact Care Plan in one stage. Ground and container timing may be customized independently, while notification delivery and time remain shared.
+_Avoid_: Chỉnh sửa Care Plan, thiết lập theo cây
+
+**Tùy chỉnh theo cây** (Plant schedule snapshot):
+A complete copied effective schedule for one plant and exact Care Plan. It overrides stage/default behavior until reset.
+_Avoid_: Gợi ý chăm sóc, lịch sử chăm sóc.
 
 **Quy tắc gợi ý** (Recommendation rule):
 A reviewed part of a Care Plan that decides when its tracked care guidance is shown, using species, stage, activity history, missing-history policy, and priority. MVP supports elapsed-days history only.

@@ -55,7 +55,8 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Extend the first slice with fertilizing, spraying, and full Plant Dashboard care summaries.
 - [ ] Add plant editing and archive flows.
 - [x] Add local photo-and-note Plant Updates with user-confirmed stage history, Journal display, and derived Plant Detail photos.
-- [ ] Add reminders and a complete mixed-event Timeline.
+- [x] Add Care Plan schedule snapshots and local notification delivery.
+- [ ] Add a complete mixed-event Timeline.
 - [ ] Add type-specific fertilizer and spraying details after reviewed field contracts exist.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
@@ -68,7 +69,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## Future
 
-- [ ] Evaluate recurring care schedules.
+- [ ] Evaluate additional Care Plan schedule policies after user feedback.
 - [ ] Evaluate guidance for additional plant species.
 - [ ] Evaluate AI personalization only after deterministic suggestions prove useful.
 - [ ] Evaluate diagnostics, collaboration, analytics, and connected devices.

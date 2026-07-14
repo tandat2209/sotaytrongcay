@@ -1,5 +1,5 @@
 import type { CarePlan } from "@/features/knowledge";
-import type { CarePlanReminderPreference } from "@/features/reminders";
+import type { PlantCarePlanScheduleSnapshot } from "@/features/reminders";
 import { createTodayProjection, productionWeather } from "./today-projection";
 
 const plant = {
@@ -40,21 +40,15 @@ const plan: CarePlan = {
   recommendedInputs: [{ group: "Nước", examples: "Nước sạch" }],
   version: "1.0.0",
 };
-const preference: CarePlanReminderPreference = {
+const plantSnapshot: PlantCarePlanScheduleSnapshot = {
   id: "11111111-1111-4111-8111-111111111111",
   mutationId: "22222222-2222-4222-8222-222222222222",
   plantId: plant.id,
   carePlanId: plan.id,
-  carePlanVersion: plan.version,
-  activityType: "watering",
-  recommendedIntervalDays: 3,
-  customIntervalDays: null,
+  intervalDays: 5,
   notificationTime: null,
   notificationEnabled: false,
-  pausedAt: null,
-  isApplicable: true,
-  mainNotificationId: null,
-  followUpNotificationId: null,
+  isActive: true,
   createdAt: "2026-07-11T00:00:00.000Z",
   updatedAt: "2026-07-11T00:00:00.000Z",
 };
@@ -84,7 +78,7 @@ describe("createTodayProjection", () => {
       evaluatedAt: new Date("2026-07-16T12:00:00.000Z"),
       plansByPlant,
       plants: [plant],
-      preferences: [{ ...preference, customIntervalDays: 5 }],
+      plantSnapshots: [plantSnapshot],
     });
 
     expect(projection.careCards).toEqual([]);
@@ -96,29 +90,28 @@ describe("createTodayProjection", () => {
       evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
       plansByPlant,
       plants: [plant],
-      preferences: [{ ...preference, customIntervalDays: 5 }],
+      plantSnapshots: [plantSnapshot],
     });
 
     expect(projection.careCards).toEqual([
       expect.objectContaining({
         carePlanId: plan.id,
         dueStatus: "due",
-        reminderId: preference.id,
         suggestion: "Nước sạch",
       }),
     ]);
   });
 
-  it("does not resurface paused reminders as recommendations", () => {
+  it("falls back to the current stage schedule when a plant snapshot is inactive", () => {
     const projection = createTodayProjection({
       activities: [activity],
       evaluatedAt: new Date("2026-07-20T12:00:00.000Z"),
       plansByPlant,
       plants: [plant],
-      preferences: [{ ...preference, pausedAt: "2026-07-15T00:00:00.000Z" }],
+      plantSnapshots: [{ ...plantSnapshot, isActive: false }],
     });
 
-    expect(projection.careCards).toEqual([]);
+    expect(projection.careCards[0]).toMatchObject({ dueStatus: "overdue" });
   });
 
   it("keeps recommendation behavior for a plan without authored frequency", () => {
@@ -137,7 +130,6 @@ describe("createTodayProjection", () => {
     expect(projection.careCards[0]).toMatchObject({
       carePlanId: frequencylessPlan.id,
       dueStatus: null,
-      reminderId: null,
     });
   });
 
@@ -147,7 +139,7 @@ describe("createTodayProjection", () => {
       evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
       plansByPlant,
       plants: [plant],
-      preferences: [preference],
+      plantSnapshots: [plantSnapshot],
       updates: [
         {
           id: "86ee7489-6147-42b9-b73f-5650ea7fd214",
