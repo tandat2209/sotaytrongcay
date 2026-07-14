@@ -18,23 +18,23 @@ See [SCREEN_REVIEW.md](./SCREEN_REVIEW.md) for the current screen-by-screen prod
 
 ## 2. Reference index
 
-| Order | Reference | Intended use | Status notes |
-| --- | --- | --- | --- |
-| 00 | `00-design-system-source` | Original generated token reference | Supporting source only |
-| 01 | `01-welcome` | Onboarding direction | Revise copy toward care tracking |
-| 02 | `02-today-overview` | Today hierarchy, care prompts, and “Thêm nhật ký” | Current direction; replace placeholders and complete four-tab navigation |
-| 03 | `03-add-plant-select-species` | Species search and selection | Strong layout reference |
-| 04 | `04-add-plant-details` | Plant setup and stage selection | Validate fields and stage list |
-| 05 | `05-add-plant-success` | First next step after plant creation | Reduce celebration and blocking UI |
-| 06 | `06-plant-detail` | Plant summary, tips, and care history | Tracking controls must be prominent |
-| 07 | `07-stage-playbook` | Stage guide hierarchy | Strong reference; content needs review |
-| 08 | `08-manual-watering` | Manual watering bottom sheet | Do not prefill unsupported amounts |
-| 09 | `09-manual-fertilizing-recommendation` | Fertilizing context and warning | Products are not approved content |
-| 10 | `10-manual-fertilizing-details` | Optional fertilizer detail fields | Keep optional and collapsed |
-| 11 | `11-manual-spraying` | Manual spraying detail treatment | Product/dosage content is exploratory |
-| 12 | `12-new-journal-entry` | Photo, notes, plant selection, and optional stage change | Strong current-flow reference |
-| 13 | `13-journal` | Global chronological history | Add source labels and full filters |
-| 14 | `14-me-settings` | Me information architecture | Use the shared sans-serif typography |
+| Order | Reference                              | Intended use                                             | Status notes                                                             |
+| ----- | -------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| 00    | `00-design-system-source`              | Original generated token reference                       | Supporting source only                                                   |
+| 01    | `01-welcome`                           | Onboarding direction                                     | Revise copy toward care tracking                                         |
+| 02    | `02-today-overview`                    | Today hierarchy, care prompts, and “Thêm nhật ký”        | Current direction; replace placeholders and complete four-tab navigation |
+| 03    | `03-add-plant-select-species`          | Species search and selection                             | Strong layout reference                                                  |
+| 04    | `04-add-plant-details`                 | Plant setup and stage selection                          | Validate fields and stage list                                           |
+| 05    | `05-add-plant-success`                 | First next step after plant creation                     | Reduce celebration and blocking UI                                       |
+| 06    | `06-plant-detail`                      | Plant summary, tips, and care history                    | Tracking controls must be prominent                                      |
+| 07    | `07-stage-playbook`                    | Stage guide hierarchy                                    | Strong reference; content needs review                                   |
+| 08    | `08-manual-watering`                   | Manual watering bottom sheet                             | Do not prefill unsupported amounts                                       |
+| 09    | `09-manual-fertilizing-recommendation` | Fertilizing context and warning                          | Products are not approved content                                        |
+| 10    | `10-manual-fertilizing-details`        | Optional fertilizer detail fields                        | Keep optional and collapsed                                              |
+| 11    | `11-manual-spraying`                   | Manual spraying detail treatment                         | Product/dosage content is exploratory                                    |
+| 12    | `12-new-journal-entry`                 | Photo, notes, plant selection, and optional stage change | Strong current-flow reference                                            |
+| 13    | `13-journal`                           | Global chronological history                             | Add source labels and full filters                                       |
+| 14    | `14-me-settings`                       | Me information architecture                              | Use the shared sans-serif typography                                     |
 
 Each numbered screen directory keeps its `screen.png` and `code.html` together. Future references should follow `NN-short-purpose` naming.
 
@@ -69,17 +69,17 @@ Last core care, contextual entry, reminders, and trustworthy history are primary
 
 Use semantic roles rather than copying raw colors into components.
 
-| Role | Reference value | Use |
-| --- | --- | --- |
-| Background | `#FCF9F8` | Warm application background |
-| Surface | `#FFFFFF` | Cards, sheets, inputs |
-| Primary | `#154212` | Primary actions, active navigation |
-| Primary container | `#2D5A27` | Strong branded surfaces |
-| Secondary | `#65558F` | Stage or milestone emphasis only |
-| Text | `#1C1B1B` | Primary content |
-| Text secondary | `#42493E` | Supporting information |
-| Border | `#C2C9BB` | Structural separation |
-| Error | `#BA1A1A` | Validated warning/error states |
+| Role              | Reference value | Use                                |
+| ----------------- | --------------- | ---------------------------------- |
+| Background        | `#FCF9F8`       | Warm application background        |
+| Surface           | `#FFFFFF`       | Cards, sheets, inputs              |
+| Primary           | `#154212`       | Primary actions, active navigation |
+| Primary container | `#2D5A27`       | Strong branded surfaces            |
+| Secondary         | `#65558F`       | Stage or milestone emphasis only   |
+| Text              | `#1C1B1B`       | Primary content                    |
+| Text secondary    | `#42493E`       | Supporting information             |
+| Border            | `#C2C9BB`       | Structural separation              |
+| Error             | `#BA1A1A`       | Validated warning/error states     |
 
 Hydration may use soft blue, sunlight amber, and urgent plant-health states muted red. Color must always be paired with text or a Lucide icon.
 

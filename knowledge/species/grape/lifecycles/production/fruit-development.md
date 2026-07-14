@@ -20,4 +20,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Trái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ.

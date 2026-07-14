@@ -20,4 +20,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.

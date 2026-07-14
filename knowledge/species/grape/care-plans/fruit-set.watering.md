@@ -18,7 +18,7 @@ eligibility:
 on_missing_history: suggest
 frequency:
   ground:
-    display: 'Mỗi 3–4 ngày — duy trì ẩm đều, không để khô đột ngột'
+    display: "Mỗi 3–4 ngày — duy trì ẩm đều, không để khô đột ngột"
     interval_days: 3
   container:
     display: Mỗi 2–3 ngày — theo dõi sát vì trái non rất nhạy cảm với stress nước

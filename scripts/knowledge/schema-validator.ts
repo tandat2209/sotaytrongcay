@@ -88,16 +88,19 @@ async function buildValidators(
 }
 
 function schemaFieldPath(error: ErrorObject): string {
-  const missingProperty = isRecord(error.params) && typeof error.params.missingProperty === "string"
-    ? error.params.missingProperty
-    : undefined;
+  const missingProperty =
+    isRecord(error.params) && typeof error.params.missingProperty === "string"
+      ? error.params.missingProperty
+      : undefined;
 
   if (missingProperty !== undefined) {
     const parentPath = error.instancePath
       .split("/")
       .filter((segment) => segment.length > 0)
       .join(".");
-    return parentPath.length > 0 ? `${parentPath}.${missingProperty}` : missingProperty;
+    return parentPath.length > 0
+      ? `${parentPath}.${missingProperty}`
+      : missingProperty;
   }
 
   return error.instancePath
@@ -106,7 +109,10 @@ function schemaFieldPath(error: ErrorObject): string {
     .join(".");
 }
 
-function schemaDiagnostic(document: ParsedSourceDocument, error: ErrorObject): KnowledgeDiagnostic {
+function schemaDiagnostic(
+  document: ParsedSourceDocument,
+  error: ErrorObject,
+): KnowledgeDiagnostic {
   const field = schemaFieldPath(error);
   return {
     code: "KNOWLEDGE_SCHEMA_INVALID",
@@ -117,14 +123,19 @@ function schemaDiagnostic(document: ParsedSourceDocument, error: ErrorObject): K
   };
 }
 
-function matchesPlacement(document: ParsedSourceDocument, type: KnowledgeDocumentType): boolean {
+function matchesPlacement(
+  document: ParsedSourceDocument,
+  type: KnowledgeDocumentType,
+): boolean {
   const path = document.path;
 
   switch (type) {
     case "plant_species":
       return /^knowledge\/species\/[^/]+\/species\.md$/.test(path);
     case "growth_stage_playbook":
-      return /^knowledge\/species\/[^/]+\/lifecycles\/[^/]+\/[^/]+\.md$/.test(path);
+      return /^knowledge\/species\/[^/]+\/lifecycles\/[^/]+\/[^/]+\.md$/.test(
+        path,
+      );
     case "care_plan":
       return /^knowledge\/species\/[^/]+\/care-plans\/[^/]+\.md$/.test(path);
     case "care_guide":
@@ -134,7 +145,9 @@ function matchesPlacement(document: ParsedSourceDocument, type: KnowledgeDocumen
   }
 }
 
-function directoryMismatchDiagnostic(document: ParsedSourceDocument): KnowledgeDiagnostic {
+function directoryMismatchDiagnostic(
+  document: ParsedSourceDocument,
+): KnowledgeDiagnostic {
   return {
     code: "KNOWLEDGE_DIRECTORY_MISMATCH",
     path: document.path,
@@ -144,7 +157,9 @@ function directoryMismatchDiagnostic(document: ParsedSourceDocument): KnowledgeD
   };
 }
 
-function unsupportedTypeDiagnostic(document: ParsedSourceDocument): KnowledgeDiagnostic {
+function unsupportedTypeDiagnostic(
+  document: ParsedSourceDocument,
+): KnowledgeDiagnostic {
   return {
     code: "KNOWLEDGE_TYPE_UNSUPPORTED",
     path: document.path,

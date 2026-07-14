@@ -1,374 +1,644 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sổ tay trồng cây - Biết nên làm gì để cây phát triển tốt</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-tertiary-fixed-variant": "#41474e",
-                      "secondary-fixed": "#e9ddff",
-                      "on-secondary-fixed-variant": "#4d3d75",
-                      "secondary": "#65558f",
-                      "on-tertiary-container": "#bdc3cb",
-                      "surface-bright": "#fcf9f8",
-                      "surface-container-low": "#f6f3f2",
-                      "outline": "#72796e",
-                      "background": "#fcf9f8",
-                      "on-secondary": "#ffffff",
-                      "on-primary": "#ffffff",
-                      "tertiary-fixed": "#dde3eb",
-                      "on-tertiary": "#ffffff",
-                      "primary": "#154212",
-                      "inverse-surface": "#313030",
-                      "secondary-fixed-dim": "#cfbdfe",
-                      "on-primary-fixed-variant": "#23501e",
-                      "on-surface-variant": "#42493e",
-                      "surface-container-high": "#eae7e7",
-                      "tertiary": "#343a40",
-                      "on-secondary-fixed": "#201047",
-                      "on-primary-container": "#9dd090",
-                      "on-error": "#ffffff",
-                      "on-primary-fixed": "#002201",
-                      "on-error-container": "#93000a",
-                      "surface-dim": "#dcd9d9",
-                      "surface-tint": "#3b6934",
-                      "primary-fixed-dim": "#a1d494",
-                      "error": "#ba1a1a",
-                      "surface-container-lowest": "#ffffff",
-                      "inverse-primary": "#a1d494",
-                      "primary-fixed": "#bcf0ae",
-                      "surface-variant": "#e5e2e1",
-                      "on-secondary-container": "#594982",
-                      "tertiary-container": "#4a5157",
-                      "error-container": "#ffdad6",
-                      "secondary-container": "#cfbdfe",
-                      "surface-container": "#f0eded",
-                      "inverse-on-surface": "#f3f0ef",
-                      "tertiary-fixed-dim": "#c1c7cf",
-                      "on-tertiary-fixed": "#161c22",
-                      "surface-container-highest": "#e5e2e1",
-                      "outline-variant": "#c2c9bb",
-                      "surface": "#fcf9f8",
-                      "on-background": "#1c1b1b",
-                      "primary-container": "#2d5a27",
-                      "on-surface": "#1c1b1b"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "xs": "4px",
-                      "container-margin": "16px",
-                      "gutter": "16px",
-                      "base": "4px",
-                      "md": "16px",
-                      "sm": "8px",
-                      "lg": "24px",
-                      "xl": "32px"
-              },
-              "fontFamily": {
-                      "body-lg": [
-                              "Inter"
-                      ],
-                      "headline-md": [
-                              "Inter"
-                      ],
-                      "body-md": [
-                              "Inter"
-                      ],
-                      "headline-lg": [
-                              "Inter"
-                      ],
-                      "headline-sm": [
-                              "Inter"
-                      ],
-                      "label-md": [
-                              "Inter"
-                      ],
-                      "label-sm": [
-                              "Inter"
-                      ]
-              },
-              "fontSize": {
-                      "body-lg": [
-                              "16px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-md": [
-                              "22px",
-                              {
-                                      "lineHeight": "28px",
-                                      "letterSpacing": "-0.01em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body-md": [
-                              "14px",
-                              {
-                                      "lineHeight": "20px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-lg": [
-                              "28px",
-                              {
-                                      "lineHeight": "34px",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-sm": [
-                              "18px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "label-md": [
-                              "12px",
-                              {
-                                      "lineHeight": "16px",
-                                      "letterSpacing": "0.02em",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "label-sm": [
-                              "10px",
-                              {
-                                      "lineHeight": "12px",
-                                      "fontWeight": "600"
-                              }
-                      ]
-              }
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sổ tay trồng cây - Biết nên làm gì để cây phát triển tốt</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#41474e",
+              "secondary-fixed": "#e9ddff",
+              "on-secondary-fixed-variant": "#4d3d75",
+              secondary: "#65558f",
+              "on-tertiary-container": "#bdc3cb",
+              "surface-bright": "#fcf9f8",
+              "surface-container-low": "#f6f3f2",
+              outline: "#72796e",
+              background: "#fcf9f8",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#dde3eb",
+              "on-tertiary": "#ffffff",
+              primary: "#154212",
+              "inverse-surface": "#313030",
+              "secondary-fixed-dim": "#cfbdfe",
+              "on-primary-fixed-variant": "#23501e",
+              "on-surface-variant": "#42493e",
+              "surface-container-high": "#eae7e7",
+              tertiary: "#343a40",
+              "on-secondary-fixed": "#201047",
+              "on-primary-container": "#9dd090",
+              "on-error": "#ffffff",
+              "on-primary-fixed": "#002201",
+              "on-error-container": "#93000a",
+              "surface-dim": "#dcd9d9",
+              "surface-tint": "#3b6934",
+              "primary-fixed-dim": "#a1d494",
+              error: "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "inverse-primary": "#a1d494",
+              "primary-fixed": "#bcf0ae",
+              "surface-variant": "#e5e2e1",
+              "on-secondary-container": "#594982",
+              "tertiary-container": "#4a5157",
+              "error-container": "#ffdad6",
+              "secondary-container": "#cfbdfe",
+              "surface-container": "#f0eded",
+              "inverse-on-surface": "#f3f0ef",
+              "tertiary-fixed-dim": "#c1c7cf",
+              "on-tertiary-fixed": "#161c22",
+              "surface-container-highest": "#e5e2e1",
+              "outline-variant": "#c2c9bb",
+              surface: "#fcf9f8",
+              "on-background": "#1c1b1b",
+              "primary-container": "#2d5a27",
+              "on-surface": "#1c1b1b",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              "container-margin": "16px",
+              gutter: "16px",
+              base: "4px",
+              md: "16px",
+              sm: "8px",
+              lg: "24px",
+              xl: "32px",
+            },
+            fontFamily: {
+              "body-lg": ["Inter"],
+              "headline-md": ["Inter"],
+              "body-md": ["Inter"],
+              "headline-lg": ["Inter"],
+              "headline-sm": ["Inter"],
+              "label-md": ["Inter"],
+              "label-sm": ["Inter"],
+            },
+            fontSize: {
+              "body-lg": [
+                "16px",
+                {
+                  lineHeight: "24px",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-md": [
+                "22px",
+                {
+                  lineHeight: "28px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-lg": [
+                "28px",
+                {
+                  lineHeight: "34px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-sm": [
+                "18px",
+                {
+                  lineHeight: "24px",
+                  fontWeight: "600",
+                },
+              ],
+              "label-md": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.02em",
+                  fontWeight: "500",
+                },
+              ],
+              "label-sm": [
+                "10px",
+                {
+                  lineHeight: "12px",
+                  fontWeight: "600",
+                },
+              ],
             },
           },
-        }
+        },
+      };
     </script>
-<style>
-        /* Safe Area Padding for mobile browsers */
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-        .pt-safe { padding-top: env(safe-area-inset-top); }
+    <style>
+      /* Safe Area Padding for mobile browsers */
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top);
+      }
 
-        /* Hide scrollbar for clean look */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+      /* Hide scrollbar for clean look */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
 
-        /* Smooth transitions */
-        .transition-all-custom {
-            transition-property: all;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 300ms;
-        }
+      /* Smooth transitions */
+      .transition-all-custom {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
+      }
     </style>
-<style>
-        body {
-          min-height: max(884px, 100dvh);
-        }
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
     </style>
-</head>
-<body class="bg-background text-on-background font-body-lg antialiased flex justify-center w-full min-h-screen">
-<!-- Mobile Viewport Container for Demo Purposes -->
-<div class="w-full max-w-md bg-surface min-h-screen relative shadow-2xl overflow-hidden flex flex-col" id="app-container">
-<section class="flex-1 flex flex-col h-full bg-surface transition-all-custom transform brightness-50" id="main-app">
-<!-- TopAppBar -->
-<header class="docked full-width top-0 bg-surface flex items-center justify-between px-lg h-16 w-full pt-safe z-40 sticky">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary hover:opacity-80 Transition-all ease-in-out" style="font-variation-settings: 'FILL' 1;">eco</span>
-<span class="font-headline-md text-headline-md font-bold text-primary">Sổ tay trồng cây</span>
-</div>
-<!-- Profile Avatar Placeholder -->
-<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
-<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5BFhW0nkylgZ8mxyvGDu2Pr91-WO0IAtAbnj_JAqBOvnh_ajwY4k0crtQFsrm_IV8ju0KOcIZJLh15p4TV4ZVJ8hreM4G-1gEqcGpAtCwRCQjFwdSHRx2TeCpfOG-NuzruMoLuE21L94ubKRf6OXv-R-jqNahcuiqARzY-ktzMV3hFsXJylKGAIthh3oNt1ep3iGc3EE-sLMlA_T9Q1voFtx3ycq2pIsVKhTAtanausHkv7a-Rvpfn-k8un-fCJcT0_jT8VWAgJEh"/>
-</div>
-</header>
-<!-- Scrollable Content Canvas -->
-<main class="flex-1 overflow-y-auto no-scrollbar pb-[100px] px-container-margin pt-4">
-<!-- Greeting & Plant Selector -->
-<div class="flex justify-between items-end mb-6">
-<div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-1">Thứ Hai, 24 Tháng 10</p>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Chào bạn!</h1>
-</div>
-<!-- Small Plant Selector Card -->
-<button class="flex items-center gap-2 bg-white border border-outline-variant rounded-full py-1.5 px-3 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:bg-surface-container-low transition-colors">
-<div class="w-6 h-6 rounded-full overflow-hidden bg-secondary-fixed-dim">
-<img alt="Grape leaves" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzvTjV-vrjHkv8NO-N-GBrFFBJoy10wQp9sXxcFbhIJxmarefPY9rx-RvKVR7MWc943D13rCPjb972_Do6yFnnUGqVrB5KpIhvTqPOXmIloEdYn2mYpfQPXP03t0GgUS0b6EDVjIA03Q34ZLSBSbkqPT17uk9mrvqle2t8o3EWRjcA4D5mQqsN-krF8UQsoFBkQga7tfTaSqxo72sWECtz7xJsQ6Utblx9S0oJs3X_uaLvdsRyvYqxmewU1WBCzdwHerkWABQVjwXu"/>
-</div>
-<span class="font-label-md text-label-md text-on-surface">Nho sân thượng</span>
-<span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
-</button>
-</div>
-<!-- Weather Bento Widget -->
-<div class="bg-white rounded-xl border border-outline-variant p-4 mb-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex justify-between items-center">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[#F59E0B] text-3xl" style="font-variation-settings: 'FILL' 1;">light_mode</span>
-<div>
-<span class="font-headline-md text-headline-md block text-on-surface">31°C</span>
-<span class="font-body-md text-body-md text-on-surface-variant">Trời nắng</span>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="flex flex-col items-center">
-<span class="material-symbols-outlined text-blue-500 text-sm mb-1">water_drop</span>
-<span class="font-label-md text-label-md text-on-surface">20%</span>
-</div>
-<div class="w-[1px] h-8 bg-outline-variant"></div>
-<div class="flex flex-col items-center">
-<span class="material-symbols-outlined text-teal-600 text-sm mb-1">air</span>
-<span class="font-label-md text-label-md text-on-surface">68%</span>
-</div>
-</div>
-</div>
-<!-- Current Stage & Goal Highlight -->
-<div class="relative overflow-hidden rounded-xl border border-[#9dd090] bg-[#fcf9f8] p-5 mb-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed/30 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-<div class="flex items-center gap-2 mb-2 relative z-10">
-<span class="material-symbols-outlined text-[#65558f] text-sm" style="font-variation-settings: 'FILL' 1;">psychiatry</span>
-<span class="font-label-md text-label-md text-[#65558f] uppercase tracking-wider">Giai đoạn: Cây con</span>
-</div>
-<h2 class="font-headline-sm text-headline-sm text-on-surface mb-4 relative z-10">Mục tiêu: Sẵn sàng leo giàn</h2>
-<div class="relative z-10">
-<div class="flex justify-between items-end mb-2">
-<span class="font-label-md text-label-md text-on-surface-variant">Tiến độ giai đoạn</span>
-<span class="font-label-md text-label-md text-primary font-bold">45%</span>
-</div>
-<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
-<div class="h-full bg-[#65558f] rounded-full w-[45%]"></div>
-</div>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Mục tiêu: Thân chính đạt tới giàn (Khoảng 2 tuần nữa)</p>
-</div>
-</div>
-<!-- Section 1: Trackable Tasks -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Việc cần làm hôm nay</h3>
-<div class="flex flex-col gap-3 mb-8">
-<label class="flex items-start gap-3 p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.04)] group"><div class="relative flex items-center justify-center mt-1"><input class="w-5 h-5 rounded-full border-2 border-outline text-primary focus:ring-primary focus:ring-offset-0 transition-colors bg-white appearance-none checked:bg-primary checked:border-primary peer" type="checkbox"/><span class="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100">check</span></div><div class="flex-1"><div class="flex justify-between items-start"><span class="font-body-lg text-body-lg text-on-surface block peer-checked:line-through peer-checked:text-on-surface-variant transition-all">Tưới nước cho cây</span><span class="text-label-sm bg-primary-container/20 text-primary px-2 py-0.5 rounded-full">Cơ bản</span></div><span class="font-body-md text-body-md text-on-surface-variant block mt-1"><span class="font-medium">Vì sao:</span> Duy trì độ ẩm cần thiết cho rễ phát triển</span></div></label>
-<label class="flex items-start gap-3 p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.04)] group"><div class="relative flex items-center justify-center mt-1"><input class="w-5 h-5 rounded-full border-2 border-outline text-primary focus:ring-primary focus:ring-offset-0 transition-colors bg-white appearance-none checked:bg-primary checked:border-primary peer" type="checkbox"/><span class="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100">check</span></div><div class="flex-1"><span class="font-body-lg text-body-lg text-on-surface block">Bón phân định kỳ</span><span class="font-body-md text-body-md text-on-surface-variant block mt-1"><span class="font-medium">Vì sao:</span> Cung cấp dinh dưỡng cho cành leo mới</span></div></label>
-</div>
-<!-- Section 2: Observational Notes -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Lưu ý hôm nay</h3>
-<div class="flex flex-col gap-3 mb-8">
-<div class="flex items-start gap-3 p-4 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
-<div class="mt-1 flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-[20px]">visibility</span>
-</div>
-<div class="flex-1">
-<span class="font-body-lg text-body-lg text-on-surface block">Kiểm tra độ ẩm đất</span>
-<span class="font-body-md text-body-md text-on-surface-variant block mt-1"><span class="font-medium">Vì sao:</span> Đảm bảo giá thể không quá sũng nước hoặc quá khô</span>
-</div>
-</div>
-<div class="flex items-start gap-3 p-4 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
-<div class="mt-1 flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-[20px]">info</span>
-</div>
-<div class="flex-1">
-<span class="font-body-lg text-body-lg text-on-surface block">Che nắng buổi trưa</span>
-<span class="font-body-md text-body-md text-on-surface-variant block mt-1"><span class="font-medium">Vì sao:</span> Tránh làm cháy lá non dưới nắng gắt</span>
-</div>
-</div>
-<div class="flex items-start gap-3 p-4 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
-<div class="mt-1 flex items-center justify-center">
-<span class="material-symbols-outlined text-primary text-[20px]">visibility</span>
-</div>
-<div class="flex-1">
-<span class="font-body-lg text-body-lg text-on-surface block">Quan sát sâu bệnh</span>
-<span class="font-body-md text-body-md text-on-surface-variant block mt-1"><span class="font-medium">Vì sao:</span> Phát hiện sớm rệp sáp hoặc nhện đỏ trên lá</span>
-</div>
-</div>
-</div>
-<!-- Recently Completed -->
-<div class="mb-8">
-<h4 class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider">Đã hoàn thành</h4>
-<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl border border-surface-variant opacity-70"><span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span><div class="flex-1 flex justify-between items-center"><div class="flex flex-col"><span class="font-body-md text-body-md text-on-surface line-through">Đã bón phân: Humic + Lân</span><span class="text-[10px] text-primary font-medium">Kết hợp dinh dưỡng</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">07:30</span></div></div>
-</div>
-</main>
-<!-- Floating Action Button (FAB) -->
-<button class="absolute bottom-20 right-4 w-14 h-14 bg-primary text-on-primary rounded-full shadow-[0_4px_12px_rgba(21,66,18,0.3)] flex items-center justify-center hover:bg-on-primary-fixed-variant transition-transform hover:scale-105 active:scale-95 z-50">
-<span class="material-symbols-outlined text-[28px]">add</span>
-</button>
-<!-- BottomNavBar -->
-<nav class="bg-surface border-t border-outline-variant fixed bottom-0 w-full max-w-md h-[64px] pb-safe z-50 flex justify-around items-center px-container-margin">
-<!-- Hôm nay (ACTIVE) -->
-<button class="flex flex-col items-center justify-center text-primary w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 group">
-<div class="px-4 py-1 rounded-full bg-primary-container/20 group-hover:bg-primary-container/30 transition-colors mb-1">
-<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
-</div>
-<span class="font-label-sm text-label-sm font-bold">Hôm nay</span>
-</button>
-<!-- Cây trồng (INACTIVE) -->
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
-<div class="px-4 py-1 rounded-full mb-1">
-<span class="material-symbols-outlined text-[24px]">potted_plant</span>
-</div>
-<span class="font-label-sm text-label-sm">Cây trồng</span>
-</button>
-<!-- Nhật ký (INACTIVE) -->
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
-<div class="px-4 py-1 rounded-full mb-1">
-<span class="material-symbols-outlined text-[24px]">menu_book</span>
-</div>
-<span class="font-label-sm text-label-sm">Nhật ký</span>
-</button>
-<!-- Tôi (INACTIVE) -->
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
-<div class="px-4 py-1 rounded-full mb-1">
-<span class="material-symbols-outlined text-[24px]">person</span>
-</div>
-<span class="font-label-sm text-label-sm">Tôi</span>
-</button>
-</nav>
-</section>
-<div class="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"><div class="w-full max-w-md bg-white rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.15)] p-6 pointer-events-auto transform transition-transform duration-300"><div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-6"></div><h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Bón phân định kỳ</h3><p class="font-body-md text-body-md text-on-surface-variant mb-6">Cây đang ở giai đoạn: <span class="font-bold text-primary">Cây con</span>. Nên bón: <span class="font-bold">Humic + Lân</span> để kích rễ phát triển.</p><div class="space-y-4 mb-8"><div class="space-y-4">
-<p class="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Chọn loại phân bón:</p>
-<div class="flex flex-wrap gap-2">
-<button class="flex items-center gap-1.5 text-body-md border-2 border-primary bg-primary-container/20 text-primary px-3 py-1.5 rounded-full transition-all">
-<span class="material-symbols-outlined text-[18px]">check</span>
-<span>Humic</span>
-</button>
-<button class="flex items-center gap-1.5 text-body-md border border-outline-variant text-on-surface-variant px-3 py-1.5 rounded-full hover:bg-surface-container-low transition-all">
-<span class="material-symbols-outlined text-[18px]">add</span>
-<span>Lân (P)</span>
-</button>
-<button class="flex items-center gap-1.5 text-body-md border-2 border-primary bg-primary-container/20 text-primary px-3 py-1.5 rounded-full transition-all">
-<span class="material-symbols-outlined text-[18px]">check</span>
-<span>NPK</span>
-</button>
-</div>
-</div>
-<div class="space-y-2 mt-6">
-<p class="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Liều lượng:</p>
-<div class="flex gap-2">
-<div class="flex-1 relative">
-<input class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 text-body-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="0.0" type="number"/>
-</div>
-<div class="relative">
-<select class="appearance-none bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 pr-10 text-body-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
-<option>gam</option>
-<option>muỗng</option>
-<option>ml</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
-</div>
-</div>
-</div></div><button class="w-full py-4 bg-primary text-white rounded-xl font-headline-sm shadow-[0_4px_12px_rgba(21,66,18,0.3)] hover:opacity-90 active:scale-[0.98] transition-all">Xác nhận kết hợp (2 loại)</button></div></div></div>
-</body></html>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-lg antialiased flex justify-center w-full min-h-screen"
+  >
+    <!-- Mobile Viewport Container for Demo Purposes -->
+    <div
+      class="w-full max-w-md bg-surface min-h-screen relative shadow-2xl overflow-hidden flex flex-col"
+      id="app-container"
+    >
+      <section
+        class="flex-1 flex flex-col h-full bg-surface transition-all-custom transform brightness-50"
+        id="main-app"
+      >
+        <!-- TopAppBar -->
+        <header
+          class="docked full-width top-0 bg-surface flex items-center justify-between px-lg h-16 w-full pt-safe z-40 sticky"
+        >
+          <div class="flex items-center gap-2">
+            <span
+              class="material-symbols-outlined text-primary hover:opacity-80 Transition-all ease-in-out"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >eco</span
+            >
+            <span
+              class="font-headline-md text-headline-md font-bold text-primary"
+              >Sổ tay trồng cây</span
+            >
+          </div>
+          <!-- Profile Avatar Placeholder -->
+          <div
+            class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant"
+          >
+            <img
+              alt="User avatar"
+              class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5BFhW0nkylgZ8mxyvGDu2Pr91-WO0IAtAbnj_JAqBOvnh_ajwY4k0crtQFsrm_IV8ju0KOcIZJLh15p4TV4ZVJ8hreM4G-1gEqcGpAtCwRCQjFwdSHRx2TeCpfOG-NuzruMoLuE21L94ubKRf6OXv-R-jqNahcuiqARzY-ktzMV3hFsXJylKGAIthh3oNt1ep3iGc3EE-sLMlA_T9Q1voFtx3ycq2pIsVKhTAtanausHkv7a-Rvpfn-k8un-fCJcT0_jT8VWAgJEh"
+            />
+          </div>
+        </header>
+        <!-- Scrollable Content Canvas -->
+        <main
+          class="flex-1 overflow-y-auto no-scrollbar pb-[100px] px-container-margin pt-4"
+        >
+          <!-- Greeting & Plant Selector -->
+          <div class="flex justify-between items-end mb-6">
+            <div>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-1">
+                Thứ Hai, 24 Tháng 10
+              </p>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface">
+                Chào bạn!
+              </h1>
+            </div>
+            <!-- Small Plant Selector Card -->
+            <button
+              class="flex items-center gap-2 bg-white border border-outline-variant rounded-full py-1.5 px-3 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:bg-surface-container-low transition-colors"
+            >
+              <div
+                class="w-6 h-6 rounded-full overflow-hidden bg-secondary-fixed-dim"
+              >
+                <img
+                  alt="Grape leaves"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzvTjV-vrjHkv8NO-N-GBrFFBJoy10wQp9sXxcFbhIJxmarefPY9rx-RvKVR7MWc943D13rCPjb972_Do6yFnnUGqVrB5KpIhvTqPOXmIloEdYn2mYpfQPXP03t0GgUS0b6EDVjIA03Q34ZLSBSbkqPT17uk9mrvqle2t8o3EWRjcA4D5mQqsN-krF8UQsoFBkQga7tfTaSqxo72sWECtz7xJsQ6Utblx9S0oJs3X_uaLvdsRyvYqxmewU1WBCzdwHerkWABQVjwXu"
+                />
+              </div>
+              <span class="font-label-md text-label-md text-on-surface"
+                >Nho sân thượng</span
+              >
+              <span
+                class="material-symbols-outlined text-on-surface-variant text-[18px]"
+                >expand_more</span
+              >
+            </button>
+          </div>
+          <!-- Weather Bento Widget -->
+          <div
+            class="bg-white rounded-xl border border-outline-variant p-4 mb-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex justify-between items-center"
+          >
+            <div class="flex items-center gap-3">
+              <span
+                class="material-symbols-outlined text-[#F59E0B] text-3xl"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >light_mode</span
+              >
+              <div>
+                <span
+                  class="font-headline-md text-headline-md block text-on-surface"
+                  >31°C</span
+                >
+                <span class="font-body-md text-body-md text-on-surface-variant"
+                  >Trời nắng</span
+                >
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <span
+                  class="material-symbols-outlined text-blue-500 text-sm mb-1"
+                  >water_drop</span
+                >
+                <span class="font-label-md text-label-md text-on-surface"
+                  >20%</span
+                >
+              </div>
+              <div class="w-[1px] h-8 bg-outline-variant"></div>
+              <div class="flex flex-col items-center">
+                <span
+                  class="material-symbols-outlined text-teal-600 text-sm mb-1"
+                  >air</span
+                >
+                <span class="font-label-md text-label-md text-on-surface"
+                  >68%</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Current Stage & Goal Highlight -->
+          <div
+            class="relative overflow-hidden rounded-xl border border-[#9dd090] bg-[#fcf9f8] p-5 mb-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-secondary-fixed/30 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"
+            ></div>
+            <div class="flex items-center gap-2 mb-2 relative z-10">
+              <span
+                class="material-symbols-outlined text-[#65558f] text-sm"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >psychiatry</span
+              >
+              <span
+                class="font-label-md text-label-md text-[#65558f] uppercase tracking-wider"
+                >Giai đoạn: Cây con</span
+              >
+            </div>
+            <h2
+              class="font-headline-sm text-headline-sm text-on-surface mb-4 relative z-10"
+            >
+              Mục tiêu: Sẵn sàng leo giàn
+            </h2>
+            <div class="relative z-10">
+              <div class="flex justify-between items-end mb-2">
+                <span
+                  class="font-label-md text-label-md text-on-surface-variant"
+                  >Tiến độ giai đoạn</span
+                >
+                <span class="font-label-md text-label-md text-primary font-bold"
+                  >45%</span
+                >
+              </div>
+              <div
+                class="h-2 w-full bg-surface-variant rounded-full overflow-hidden"
+              >
+                <div class="h-full bg-[#65558f] rounded-full w-[45%]"></div>
+              </div>
+              <p
+                class="font-label-sm text-label-sm text-on-surface-variant mt-2"
+              >
+                Mục tiêu: Thân chính đạt tới giàn (Khoảng 2 tuần nữa)
+              </p>
+            </div>
+          </div>
+          <!-- Section 1: Trackable Tasks -->
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">
+            Việc cần làm hôm nay
+          </h3>
+          <div class="flex flex-col gap-3 mb-8">
+            <label
+              class="flex items-start gap-3 p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.04)] group"
+              ><div class="relative flex items-center justify-center mt-1">
+                <input
+                  class="w-5 h-5 rounded-full border-2 border-outline text-primary focus:ring-primary focus:ring-offset-0 transition-colors bg-white appearance-none checked:bg-primary checked:border-primary peer"
+                  type="checkbox"
+                /><span
+                  class="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100"
+                  >check</span
+                >
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <span
+                    class="font-body-lg text-body-lg text-on-surface block peer-checked:line-through peer-checked:text-on-surface-variant transition-all"
+                    >Tưới nước cho cây</span
+                  ><span
+                    class="text-label-sm bg-primary-container/20 text-primary px-2 py-0.5 rounded-full"
+                    >Cơ bản</span
+                  >
+                </div>
+                <span
+                  class="font-body-md text-body-md text-on-surface-variant block mt-1"
+                  ><span class="font-medium">Vì sao:</span> Duy trì độ ẩm cần
+                  thiết cho rễ phát triển</span
+                >
+              </div></label
+            >
+            <label
+              class="flex items-start gap-3 p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.04)] group"
+              ><div class="relative flex items-center justify-center mt-1">
+                <input
+                  class="w-5 h-5 rounded-full border-2 border-outline text-primary focus:ring-primary focus:ring-offset-0 transition-colors bg-white appearance-none checked:bg-primary checked:border-primary peer"
+                  type="checkbox"
+                /><span
+                  class="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100"
+                  >check</span
+                >
+              </div>
+              <div class="flex-1">
+                <span class="font-body-lg text-body-lg text-on-surface block"
+                  >Bón phân định kỳ</span
+                ><span
+                  class="font-body-md text-body-md text-on-surface-variant block mt-1"
+                  ><span class="font-medium">Vì sao:</span> Cung cấp dinh dưỡng
+                  cho cành leo mới</span
+                >
+              </div></label
+            >
+          </div>
+          <!-- Section 2: Observational Notes -->
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">
+            Lưu ý hôm nay
+          </h3>
+          <div class="flex flex-col gap-3 mb-8">
+            <div
+              class="flex items-start gap-3 p-4 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
+            >
+              <div class="mt-1 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-[20px]"
+                  >visibility</span
+                >
+              </div>
+              <div class="flex-1">
+                <span class="font-body-lg text-body-lg text-on-surface block"
+                  >Kiểm tra độ ẩm đất</span
+                >
+                <span
+                  class="font-body-md text-body-md text-on-surface-variant block mt-1"
+                  ><span class="font-medium">Vì sao:</span> Đảm bảo giá thể
+                  không quá sũng nước hoặc quá khô</span
+                >
+              </div>
+            </div>
+            <div
+              class="flex items-start gap-3 p-4 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
+            >
+              <div class="mt-1 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-[20px]"
+                  >info</span
+                >
+              </div>
+              <div class="flex-1">
+                <span class="font-body-lg text-body-lg text-on-surface block"
+                  >Che nắng buổi trưa</span
+                >
+                <span
+                  class="font-body-md text-body-md text-on-surface-variant block mt-1"
+                  ><span class="font-medium">Vì sao:</span> Tránh làm cháy lá
+                  non dưới nắng gắt</span
+                >
+              </div>
+            </div>
+            <div
+              class="flex items-start gap-3 p-4 bg-surface-container-low border border-outline-variant rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
+            >
+              <div class="mt-1 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-[20px]"
+                  >visibility</span
+                >
+              </div>
+              <div class="flex-1">
+                <span class="font-body-lg text-body-lg text-on-surface block"
+                  >Quan sát sâu bệnh</span
+                >
+                <span
+                  class="font-body-md text-body-md text-on-surface-variant block mt-1"
+                  ><span class="font-medium">Vì sao:</span> Phát hiện sớm rệp
+                  sáp hoặc nhện đỏ trên lá</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Recently Completed -->
+          <div class="mb-8">
+            <h4
+              class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider"
+            >
+              Đã hoàn thành
+            </h4>
+            <div
+              class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl border border-surface-variant opacity-70"
+            >
+              <span
+                class="material-symbols-outlined text-primary"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >check_circle</span
+              >
+              <div class="flex-1 flex justify-between items-center">
+                <div class="flex flex-col">
+                  <span
+                    class="font-body-md text-body-md text-on-surface line-through"
+                    >Đã bón phân: Humic + Lân</span
+                  ><span class="text-[10px] text-primary font-medium"
+                    >Kết hợp dinh dưỡng</span
+                  >
+                </div>
+                <span
+                  class="font-label-sm text-label-sm text-on-surface-variant"
+                  >07:30</span
+                >
+              </div>
+            </div>
+          </div>
+        </main>
+        <!-- Floating Action Button (FAB) -->
+        <button
+          class="absolute bottom-20 right-4 w-14 h-14 bg-primary text-on-primary rounded-full shadow-[0_4px_12px_rgba(21,66,18,0.3)] flex items-center justify-center hover:bg-on-primary-fixed-variant transition-transform hover:scale-105 active:scale-95 z-50"
+        >
+          <span class="material-symbols-outlined text-[28px]">add</span>
+        </button>
+        <!-- BottomNavBar -->
+        <nav
+          class="bg-surface border-t border-outline-variant fixed bottom-0 w-full max-w-md h-[64px] pb-safe z-50 flex justify-around items-center px-container-margin"
+        >
+          <!-- Hôm nay (ACTIVE) -->
+          <button
+            class="flex flex-col items-center justify-center text-primary w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 group"
+          >
+            <div
+              class="px-4 py-1 rounded-full bg-primary-container/20 group-hover:bg-primary-container/30 transition-colors mb-1"
+            >
+              <span
+                class="material-symbols-outlined text-[24px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >calendar_today</span
+              >
+            </div>
+            <span class="font-label-sm text-label-sm font-bold">Hôm nay</span>
+          </button>
+          <!-- Cây trồng (INACTIVE) -->
+          <button
+            class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100"
+          >
+            <div class="px-4 py-1 rounded-full mb-1">
+              <span class="material-symbols-outlined text-[24px]"
+                >potted_plant</span
+              >
+            </div>
+            <span class="font-label-sm text-label-sm">Cây trồng</span>
+          </button>
+          <!-- Nhật ký (INACTIVE) -->
+          <button
+            class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100"
+          >
+            <div class="px-4 py-1 rounded-full mb-1">
+              <span class="material-symbols-outlined text-[24px]"
+                >menu_book</span
+              >
+            </div>
+            <span class="font-label-sm text-label-sm">Nhật ký</span>
+          </button>
+          <!-- Tôi (INACTIVE) -->
+          <button
+            class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100"
+          >
+            <div class="px-4 py-1 rounded-full mb-1">
+              <span class="material-symbols-outlined text-[24px]">person</span>
+            </div>
+            <span class="font-label-sm text-label-sm">Tôi</span>
+          </button>
+        </nav>
+      </section>
+      <div
+        class="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
+      >
+        <div
+          class="w-full max-w-md bg-white rounded-t-3xl shadow-[0_-8px_32px_rgba(0,0,0,0.15)] p-6 pointer-events-auto transform transition-transform duration-300"
+        >
+          <div
+            class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-6"
+          ></div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">
+            Bón phân định kỳ
+          </h3>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+            Cây đang ở giai đoạn:
+            <span class="font-bold text-primary">Cây con</span>. Nên bón:
+            <span class="font-bold">Humic + Lân</span> để kích rễ phát triển.
+          </p>
+          <div class="space-y-4 mb-8">
+            <div class="space-y-4">
+              <p
+                class="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider"
+              >
+                Chọn loại phân bón:
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  class="flex items-center gap-1.5 text-body-md border-2 border-primary bg-primary-container/20 text-primary px-3 py-1.5 rounded-full transition-all"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >check</span
+                  >
+                  <span>Humic</span>
+                </button>
+                <button
+                  class="flex items-center gap-1.5 text-body-md border border-outline-variant text-on-surface-variant px-3 py-1.5 rounded-full hover:bg-surface-container-low transition-all"
+                >
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                  <span>Lân (P)</span>
+                </button>
+                <button
+                  class="flex items-center gap-1.5 text-body-md border-2 border-primary bg-primary-container/20 text-primary px-3 py-1.5 rounded-full transition-all"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >check</span
+                  >
+                  <span>NPK</span>
+                </button>
+              </div>
+            </div>
+            <div class="space-y-2 mt-6">
+              <p
+                class="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider"
+              >
+                Liều lượng:
+              </p>
+              <div class="flex gap-2">
+                <div class="flex-1 relative">
+                  <input
+                    class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 text-body-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                    placeholder="0.0"
+                    type="number"
+                  />
+                </div>
+                <div class="relative">
+                  <select
+                    class="appearance-none bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 pr-10 text-body-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                  >
+                    <option>gam</option>
+                    <option>muỗng</option>
+                    <option>ml</option>
+                  </select>
+                  <span
+                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
+                    >expand_more</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="w-full py-4 bg-primary text-white rounded-xl font-headline-sm shadow-[0_4px_12px_rgba(21,66,18,0.3)] hover:opacity-90 active:scale-[0.98] transition-all"
+          >
+            Xác nhận kết hợp (2 loại)
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

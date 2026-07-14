@@ -27,7 +27,7 @@ notes:
   - >-
     Tưới đều và đủ ngay từ đầu giai đoạn — thiếu nước trong lúc bật mầm làm chồi
     bật không đều.
-  - 'Không để đất khô hẳn: chồi non mất nước rất nhanh trong thời tiết nóng.'
+  - "Không để đất khô hẳn: chồi non mất nước rất nhanh trong thời tiết nóng."
   - >-
     Tưới vào gốc, tránh tưới lên chồi non đang bung — dễ gây bệnh nấm ở điểm
     tăng trưởng.

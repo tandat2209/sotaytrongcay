@@ -3,7 +3,9 @@ import { join } from "node:path";
 
 const EXCLUDED_DIRECTORIES = new Set(["_schemas", "_generated"]);
 
-export async function discoverMarkdownFiles(knowledgeRoot: string): Promise<string[]> {
+export async function discoverMarkdownFiles(
+  knowledgeRoot: string,
+): Promise<string[]> {
   const discovered: string[] = [];
 
   async function visit(directory: string): Promise<void> {

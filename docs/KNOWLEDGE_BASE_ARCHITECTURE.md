@@ -22,12 +22,12 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 ## 3. Knowledge, context, and output boundaries
 
-| Class | Examples | Ownership |
-| --- | --- | --- |
-| Curated knowledge | Species, stages, tips, care recommendations, nutrients, threats, guides, rules | Knowledge Base |
-| Runtime context | Current plant, stage, weather, recent activities, local date | User/external data |
-| Generated output | Ephemeral care suggestions, reasons, weather adjustments, Care Entry prefills | Guidance module |
-| User history | Explicitly saved activities, notes, photos | User data |
+| Class             | Examples                                                                       | Ownership          |
+| ----------------- | ------------------------------------------------------------------------------ | ------------------ |
+| Curated knowledge | Species, stages, tips, care recommendations, nutrients, threats, guides, rules | Knowledge Base     |
+| Runtime context   | Current plant, stage, weather, recent activities, local date                   | User/external data |
+| Generated output  | Ephemeral care suggestions, reasons, weather adjustments, Care Entry prefills  | Guidance module    |
+| User history      | Explicitly saved activities, notes, photos                                     | User data          |
 
 Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
@@ -732,14 +732,14 @@ Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân 
 
 The application depends on `KnowledgeRepository`, not Markdown paths. Persistence changes replace adapters while preserving domain IDs, relationships, and content types.
 
-| Knowledge concept | Markdown MVP | PostgreSQL | CMS | Vector/RAG |
-| --- | --- | --- | --- | --- |
-| Document | Markdown + frontmatter | Typed content row/document | Content type entry | Source document |
-| Relationship | Stable ID reference | Foreign key/edge table | Reference field | Metadata edge |
-| Version | Git + frontmatter | Immutable version/revision | CMS revision | Version metadata |
-| Locale | Separate locale document | Locale column/translation table | Localization | Locale filter |
-| Rule | Structured frontmatter/YAML | Typed rule record | Restricted rule form | Not executed from vectors |
-| Approval | Pull request/reviewer | Workflow state/audit | Editorial workflow | Inherit approved source status |
+| Knowledge concept | Markdown MVP                | PostgreSQL                      | CMS                  | Vector/RAG                     |
+| ----------------- | --------------------------- | ------------------------------- | -------------------- | ------------------------------ |
+| Document          | Markdown + frontmatter      | Typed content row/document      | Content type entry   | Source document                |
+| Relationship      | Stable ID reference         | Foreign key/edge table          | Reference field      | Metadata edge                  |
+| Version           | Git + frontmatter           | Immutable version/revision      | CMS revision         | Version metadata               |
+| Locale            | Separate locale document    | Locale column/translation table | Localization         | Locale filter                  |
+| Rule              | Structured frontmatter/YAML | Typed rule record               | Restricted rule form | Not executed from vectors      |
+| Approval          | Pull request/reviewer       | Workflow state/audit            | Editorial workflow   | Inherit approved source status |
 
 ### PostgreSQL evolution
 

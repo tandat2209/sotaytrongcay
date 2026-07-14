@@ -40,10 +40,14 @@ describe("grape knowledge pilot integration test", () => {
 
     // Verify IDs
     expect(bundle.species[0].id).toBe("plant.grape");
-    expect(bundle.stagePlaybooks.map((stage) => stage.id)).toContain("grape.stage.trunk-development");
+    expect(bundle.stagePlaybooks.map((stage) => stage.id)).toContain(
+      "grape.stage.trunk-development",
+    );
     const recIds = bundle.carePlans.map((plan) => plan.id);
     expect(recIds).toContain("grape.recommendation.trunk-development.watering");
-    expect(recIds).toContain("grape.recommendation.trunk-development.fertilizing");
+    expect(recIds).toContain(
+      "grape.recommendation.trunk-development.fertilizing",
+    );
 
     const guideIds = bundle.guides.map((guide) => guide.id).sort();
     expect(guideIds).toContain("grape.guide.train-main-shoot");

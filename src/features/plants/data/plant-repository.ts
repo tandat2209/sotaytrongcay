@@ -53,12 +53,17 @@ export async function savePlant(plantInput: Plant): Promise<void> {
 
 export async function getPlant(id: string): Promise<Plant | null> {
   const db = await getDb();
-  const row = await db.getFirstAsync<PlantRow>("SELECT * FROM plants WHERE id = ?", [id]);
+  const row = await db.getFirstAsync<PlantRow>(
+    "SELECT * FROM plants WHERE id = ?",
+    [id],
+  );
   return row ? plantFromRow(row) : null;
 }
 
 export async function listPlants(): Promise<Plant[]> {
   const db = await getDb();
-  const rows = await db.getAllAsync<PlantRow>("SELECT * FROM plants ORDER BY created_at DESC");
+  const rows = await db.getAllAsync<PlantRow>(
+    "SELECT * FROM plants ORDER BY created_at DESC",
+  );
   return rows.map(plantFromRow);
 }

@@ -51,19 +51,12 @@
       }
     },
     "activity_type": {
-      "enum": [
-        "watering",
-        "fertilizing",
-        "spraying"
-      ]
+      "enum": ["watering", "fertilizing", "spraying"]
     },
     "eligibility": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "kind",
-        "suggest_after_days"
-      ],
+      "required": ["kind", "suggest_after_days"],
       "properties": {
         "kind": {
           "const": "elapsed_days_since_activity"
@@ -75,23 +68,14 @@
       }
     },
     "on_missing_history": {
-      "enum": [
-        "suggest",
-        "withhold"
-      ]
+      "enum": ["suggest", "withhold"]
     },
     "version": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     },
     "status": {
-      "enum": [
-        "draft",
-        "review",
-        "approved",
-        "deprecated",
-        "archived"
-      ]
+      "enum": ["draft", "review", "approved", "deprecated", "archived"]
     },
     "references": {
       "type": "array",
@@ -117,18 +101,12 @@
     "frequency": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "ground",
-        "container"
-      ],
+      "required": ["ground", "container"],
       "properties": {
         "ground": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "display",
-            "interval_days"
-          ],
+          "required": ["display", "interval_days"],
           "properties": {
             "display": {
               "type": "string",
@@ -143,10 +121,7 @@
         "container": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "display",
-            "interval_days"
-          ],
+          "required": ["display", "interval_days"],
           "properties": {
             "display": {
               "type": "string",
@@ -166,10 +141,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "group",
-          "examples"
-        ],
+        "required": ["group", "examples"],
         "properties": {
           "group": {
             "type": "string",

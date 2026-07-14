@@ -15,7 +15,8 @@ export function validateStageGraphs(
     (doc): doc is NormalizedPlantSpecies => doc.type === "plant_species",
   );
   const playbookDocs = documents.filter(
-    (doc): doc is NormalizedGrowthStagePlaybook => doc.type === "growth_stage_playbook",
+    (doc): doc is NormalizedGrowthStagePlaybook =>
+      doc.type === "growth_stage_playbook",
   );
 
   const playbookMap = new Map<string, NormalizedGrowthStagePlaybook>();
@@ -24,7 +25,10 @@ export function validateStageGraphs(
   }
 
   for (const species of speciesDocs) {
-    const allStages = new Map<string, StageJourneyItem & Readonly<{ lifecycleId: "development" | "production" }>>();
+    const allStages = new Map<
+      string,
+      StageJourneyItem & Readonly<{ lifecycleId: "development" | "production" }>
+    >();
 
     for (const stage of species.lifecycles.development.stages) {
       allStages.set(stage.id, { ...stage, lifecycleId: "development" });
@@ -33,7 +37,7 @@ export function validateStageGraphs(
       allStages.set(stage.id, { ...stage, lifecycleId: "production" });
     }
 
-    for (const [stageId, item] of allStages.entries()) {
+    for (const item of allStages.values()) {
       const playbook = playbookMap.get(item.id);
 
       if (item.playbookStatus === "unavailable") {

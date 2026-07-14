@@ -11,7 +11,10 @@ describe("CreatePlantScreen", () => {
     expect(screen.getByText("Hãy đặt tên cho cây")).toBeTruthy();
 
     // Fill in the required name field
-    fireEvent.changeText(screen.getByLabelText("Tên gọi riêng"), "Nho sân thượng");
+    fireEvent.changeText(
+      screen.getByLabelText("Tên gọi riêng"),
+      "Nho sân thượng",
+    );
     fireEvent.press(screen.getByRole("button", { name: "Lưu cây" }));
 
     await waitFor(() =>
@@ -31,8 +34,14 @@ describe("CreatePlantScreen", () => {
     const onSave = jest.fn().mockResolvedValue(undefined);
     const screen = render(<CreatePlantScreen onSave={onSave} />);
 
-    fireEvent.changeText(screen.getByLabelText("Tên gọi riêng"), "Nho sân thượng");
-    fireEvent.changeText(screen.getByLabelText("Vị trí"), "Ban công hướng Đông");
+    fireEvent.changeText(
+      screen.getByLabelText("Tên gọi riêng"),
+      "Nho sân thượng",
+    );
+    fireEvent.changeText(
+      screen.getByLabelText("Vị trí"),
+      "Ban công hướng Đông",
+    );
     fireEvent.press(screen.getByRole("button", { name: "Lưu cây" }));
 
     await waitFor(() =>
@@ -60,13 +69,20 @@ describe("CreatePlantScreen", () => {
     const onSave = jest.fn().mockRejectedValue(new Error("DB error"));
     const screen = render(<CreatePlantScreen onSave={onSave} />);
 
-    fireEvent.changeText(screen.getByLabelText("Tên gọi riêng"), "Nho sân thượng");
+    fireEvent.changeText(
+      screen.getByLabelText("Tên gọi riêng"),
+      "Nho sân thượng",
+    );
     fireEvent.press(screen.getByRole("button", { name: "Lưu cây" }));
 
     await waitFor(() =>
-      expect(screen.getByText("Chưa thể lưu cây. Dữ liệu đã nhập vẫn được giữ lại.")).toBeTruthy(),
+      expect(
+        screen.getByText("Chưa thể lưu cây. Dữ liệu đã nhập vẫn được giữ lại."),
+      ).toBeTruthy(),
     );
     // Name field still has the draft value
-    expect(screen.getByLabelText("Tên gọi riêng").props.value).toBe("Nho sân thượng");
+    expect(screen.getByLabelText("Tên gọi riêng").props.value).toBe(
+      "Nho sân thượng",
+    );
   });
 });

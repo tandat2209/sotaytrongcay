@@ -19,12 +19,26 @@ describe("knowledge source discovery and parsing", () => {
   });
 
   it("discovers authored Markdown recursively while excluding schemas and generated files in lexical order", async () => {
-    await workspace.writeKnowledgeFile("species/grape/species.md", "---\nid: plant.grape\ntype: plant_species\n---\n# Nho\n");
-    await workspace.writeKnowledgeFile("references/ref.md", "---\nid: ref.example\ntype: reference_source\n---\n# Source\n");
-    await workspace.writeKnowledgeFile("_schemas/ignored.md", "---\nid: ignored\n---\n");
-    await workspace.writeKnowledgeFile("_generated/ignored.md", "---\nid: ignored\n---\n");
+    await workspace.writeKnowledgeFile(
+      "species/grape/species.md",
+      "---\nid: plant.grape\ntype: plant_species\n---\n# Nho\n",
+    );
+    await workspace.writeKnowledgeFile(
+      "references/ref.md",
+      "---\nid: ref.example\ntype: reference_source\n---\n# Source\n",
+    );
+    await workspace.writeKnowledgeFile(
+      "_schemas/ignored.md",
+      "---\nid: ignored\n---\n",
+    );
+    await workspace.writeKnowledgeFile(
+      "_generated/ignored.md",
+      "---\nid: ignored\n---\n",
+    );
 
-    await expect(discoverMarkdownFiles(workspace.knowledgeRoot)).resolves.toEqual([
+    await expect(
+      discoverMarkdownFiles(workspace.knowledgeRoot),
+    ).resolves.toEqual([
       join(workspace.knowledgeRoot, "references", "ref.md"),
       join(workspace.knowledgeRoot, "species", "grape", "species.md"),
     ]);
@@ -75,28 +89,34 @@ describe("knowledge source discovery and parsing", () => {
     ["scalar", "scalar"],
     ["array", "- first\n- second"],
     ["null", "null"],
-  ])("reports %s YAML frontmatter as a parse failure", async (_label, frontmatter) => {
-    const sourcePath = await workspace.writeKnowledgeFile(
-      "species/grape/species.md",
-      `---\n${frontmatter}\n---\n# Nho\n`,
-    );
+  ])(
+    "reports %s YAML frontmatter as a parse failure",
+    async (_label, frontmatter) => {
+      const sourcePath = await workspace.writeKnowledgeFile(
+        "species/grape/species.md",
+        `---\n${frontmatter}\n---\n# Nho\n`,
+      );
 
-    const result = await parseMarkdownFile({
-      sourcePath,
-      repositoryRoot: workspace.repositoryRoot,
-    });
+      const result = await parseMarkdownFile({
+        sourcePath,
+        repositoryRoot: workspace.repositoryRoot,
+      });
 
-    expect(result.document).toBeNull();
-    expect(result.diagnostics).toEqual([
-      expect.objectContaining({
-        code: "KNOWLEDGE_PARSE_FAILED",
-        path: "knowledge/species/grape/species.md",
-      }),
-    ]);
-  });
+      expect(result.document).toBeNull();
+      expect(result.diagnostics).toEqual([
+        expect.objectContaining({
+          code: "KNOWLEDGE_PARSE_FAILED",
+          path: "knowledge/species/grape/species.md",
+        }),
+      ]);
+    },
+  );
 
   it("reports missing frontmatter with a repository-relative diagnostic path", async () => {
-    const sourcePath = await workspace.writeKnowledgeFile("references/ref.md", "# Source\n");
+    const sourcePath = await workspace.writeKnowledgeFile(
+      "references/ref.md",
+      "# Source\n",
+    );
 
     const result = await parseMarkdownFile({
       sourcePath,
@@ -111,7 +131,6 @@ describe("knowledge source discovery and parsing", () => {
     expect(result.diagnostics[0]?.path).not.toContain(workspace.repositoryRoot);
   });
 });
-
 
 const validDocuments = {
   species: `---
@@ -223,11 +242,26 @@ describe("knowledge source schema validation", () => {
   });
 
   it("validates one correctly placed document for every supported type", async () => {
-    await workspace.writeKnowledgeFile("species/grape/species.md", validDocuments.species);
-    await workspace.writeKnowledgeFile("species/grape/lifecycles/development/trunk-development.md", validDocuments.stage);
-    await workspace.writeKnowledgeFile("species/grape/care-plans/check-soil.md", validDocuments.recommendation);
-    await workspace.writeKnowledgeFile("species/grape/guides/training/train-main-shoot.md", validDocuments.guide);
-    await workspace.writeKnowledgeFile("references/ref-example.md", validDocuments.reference);
+    await workspace.writeKnowledgeFile(
+      "species/grape/species.md",
+      validDocuments.species,
+    );
+    await workspace.writeKnowledgeFile(
+      "species/grape/lifecycles/development/trunk-development.md",
+      validDocuments.stage,
+    );
+    await workspace.writeKnowledgeFile(
+      "species/grape/care-plans/check-soil.md",
+      validDocuments.recommendation,
+    );
+    await workspace.writeKnowledgeFile(
+      "species/grape/guides/training/train-main-shoot.md",
+      validDocuments.guide,
+    );
+    await workspace.writeKnowledgeFile(
+      "references/ref-example.md",
+      validDocuments.reference,
+    );
 
     const result = await validateKnowledgeSources({
       repositoryRoot: workspace.repositoryRoot,
@@ -247,30 +281,44 @@ describe("knowledge source schema validation", () => {
   it.each([
     ["missing", null],
     ["invalid JSON", "{ invalid json"],
-  ])("returns a sorted schema-load diagnostic for a %s schema", async (_label, schemaContent) => {
-    const schemaPath = join(workspace.knowledgeRoot, "_schemas", "species.schema.json");
-    if (schemaContent === null) {
-      await rm(schemaPath);
-    } else {
-      await writeFile(schemaPath, schemaContent, "utf8");
-    }
-    await workspace.writeKnowledgeFile("species/grape/species.md", validDocuments.species);
+  ])(
+    "returns a sorted schema-load diagnostic for a %s schema",
+    async (_label, schemaContent) => {
+      const schemaPath = join(
+        workspace.knowledgeRoot,
+        "_schemas",
+        "species.schema.json",
+      );
+      if (schemaContent === null) {
+        await rm(schemaPath);
+      } else {
+        await writeFile(schemaPath, schemaContent, "utf8");
+      }
+      await workspace.writeKnowledgeFile(
+        "species/grape/species.md",
+        validDocuments.species,
+      );
 
-    const result = await validateKnowledgeSources({
-      repositoryRoot: workspace.repositoryRoot,
-      knowledgeRoot: workspace.knowledgeRoot,
-    });
+      const result = await validateKnowledgeSources({
+        repositoryRoot: workspace.repositoryRoot,
+        knowledgeRoot: workspace.knowledgeRoot,
+      });
 
-    expect(result.documents).toEqual([]);
-    expect(result.diagnostics).toEqual([
-      expect.objectContaining({
-        code: "KNOWLEDGE_SCHEMA_LOAD_FAILED",
-        path: "knowledge/_schemas/species.schema.json",
-      }),
-    ]);
-    expect(result.diagnostics[0]?.path).not.toContain(workspace.repositoryRoot);
-    expect(result.diagnostics[0]?.message).not.toContain(workspace.repositoryRoot);
-  });
+      expect(result.documents).toEqual([]);
+      expect(result.diagnostics).toEqual([
+        expect.objectContaining({
+          code: "KNOWLEDGE_SCHEMA_LOAD_FAILED",
+          path: "knowledge/_schemas/species.schema.json",
+        }),
+      ]);
+      expect(result.diagnostics[0]?.path).not.toContain(
+        workspace.repositoryRoot,
+      );
+      expect(result.diagnostics[0]?.message).not.toContain(
+        workspace.repositoryRoot,
+      );
+    },
+  );
 
   it("reports an unsupported declared type without absolute paths", async () => {
     await workspace.writeKnowledgeFile(
@@ -335,13 +383,30 @@ references: []
 
     expect(result.documents).toEqual([]);
     expect(result.diagnostics).toHaveLength(5);
-    expect(result.diagnostics).toEqual(expect.arrayContaining([
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "lifecycles.development.stages" }),
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "lifecycles.production.stages" }),
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "references" }),
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "scientific_name" }),
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "version" }),
-    ]));
+    expect(result.diagnostics).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: "KNOWLEDGE_SCHEMA_INVALID",
+          field: "lifecycles.development.stages",
+        }),
+        expect.objectContaining({
+          code: "KNOWLEDGE_SCHEMA_INVALID",
+          field: "lifecycles.production.stages",
+        }),
+        expect.objectContaining({
+          code: "KNOWLEDGE_SCHEMA_INVALID",
+          field: "references",
+        }),
+        expect.objectContaining({
+          code: "KNOWLEDGE_SCHEMA_INVALID",
+          field: "scientific_name",
+        }),
+        expect.objectContaining({
+          code: "KNOWLEDGE_SCHEMA_INVALID",
+          field: "version",
+        }),
+      ]),
+    );
     for (const diagnostic of result.diagnostics) {
       expect(diagnostic.path).toBe("knowledge/species/grape/species.md");
       expect(diagnostic.path).not.toContain(workspace.repositoryRoot);
@@ -372,13 +437,22 @@ status: active
     });
 
     expect(result.diagnostics).toEqual([
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "accessed" }),
-      expect.objectContaining({ code: "KNOWLEDGE_SCHEMA_INVALID", field: "url" }),
+      expect.objectContaining({
+        code: "KNOWLEDGE_SCHEMA_INVALID",
+        field: "accessed",
+      }),
+      expect.objectContaining({
+        code: "KNOWLEDGE_SCHEMA_INVALID",
+        field: "url",
+      }),
     ]);
   });
 
   it("reports a separate directory mismatch only after schema-valid content is parsed", async () => {
-    await workspace.writeKnowledgeFile("guides/train-main-shoot.md", validDocuments.guide);
+    await workspace.writeKnowledgeFile(
+      "guides/train-main-shoot.md",
+      validDocuments.guide,
+    );
 
     const result = await validateKnowledgeSources({
       repositoryRoot: workspace.repositoryRoot,

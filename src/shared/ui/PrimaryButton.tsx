@@ -10,7 +10,14 @@ type PrimaryButtonProps = {
   textColor?: string;
 };
 
-export function PrimaryButton({ backgroundColor = colors.primary, disabled = false, label, loading = false, onPress, textColor = colors.surface }: PrimaryButtonProps) {
+export function PrimaryButton({
+  backgroundColor = colors.primary,
+  disabled = false,
+  label,
+  loading = false,
+  onPress,
+  textColor = colors.surface,
+}: PrimaryButtonProps) {
   const unavailable = disabled || loading;
 
   return (
@@ -19,9 +26,18 @@ export function PrimaryButton({ backgroundColor = colors.primary, disabled = fal
       accessibilityState={{ busy: loading, disabled: unavailable }}
       disabled={unavailable}
       onPress={onPress}
-      style={({ pressed }) => [styles.button, { backgroundColor }, unavailable && styles.disabled, pressed && !unavailable && styles.pressed]}
+      style={({ pressed }) => [
+        styles.button,
+        { backgroundColor },
+        unavailable && styles.disabled,
+        pressed && !unavailable && styles.pressed,
+      ]}
     >
-      {loading ? <ActivityIndicator color={textColor} /> : <Text style={[styles.label, { color: textColor }]}>{label}</Text>}
+      {loading ? (
+        <ActivityIndicator color={textColor} />
+      ) : (
+        <Text style={[styles.label, { color: textColor }]}>{label}</Text>
+      )}
     </Pressable>
   );
 }

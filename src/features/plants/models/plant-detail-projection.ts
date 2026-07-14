@@ -1,4 +1,11 @@
-import { createJournalItems, getLatestPlantPhoto, type CareActivity, type CareActivityType, type JournalItem, type PlantUpdate } from "@/features/journal";
+import {
+  createJournalItems,
+  getLatestPlantPhoto,
+  type CareActivity,
+  type CareActivityType,
+  type JournalItem,
+  type PlantUpdate,
+} from "@/features/journal";
 import type { CareEvaluation } from "@/features/guidance/models/care-evaluation";
 import { evaluateCarePlans } from "@/features/guidance/models/evaluate-care-recommendations";
 import {
@@ -10,7 +17,11 @@ import {
 import type { Plant } from "./plant";
 import { resolvePlantIdentity } from "./plant-identity";
 
-const CARE_TYPES: readonly CareActivityType[] = ["watering", "fertilizing", "spraying"];
+const CARE_TYPES: readonly CareActivityType[] = [
+  "watering",
+  "fertilizing",
+  "spraying",
+];
 const HERO_CARE_TYPES = ["watering", "fertilizing"] as const;
 const RECENT_JOURNAL_LIMIT = 3;
 
@@ -56,66 +67,131 @@ type PlantDetailProjectionInput = Readonly<{
   updates?: readonly PlantUpdate[];
 }>;
 
-export function createPlantDetailProjection({ activities, evaluatedAt, plant, updates = [] }: PlantDetailProjectionInput): PlantDetailProjection {
-  const sortedActivities = activities.slice().sort((left, right) => right.occurredAt.localeCompare(left.occurredAt));
+export function createPlantDetailProjection({
+  activities,
+  evaluatedAt,
+  plant,
+  updates = [],
+}: PlantDetailProjectionInput): PlantDetailProjection {
+  const sortedActivities = activities
+    .slice()
+    .sort((left, right) => right.occurredAt.localeCompare(left.occurredAt));
   const latestCare = Object.fromEntries(
-    CARE_TYPES.map((type) => [type, sortedActivities.find((activity) => activity.type === type) ?? null]),
+    CARE_TYPES.map((type) => [
+      type,
+      sortedActivities.find((activity) => activity.type === type) ?? null,
+    ]),
   ) as Record<CareActivityType, CareActivity | null>;
   const knowledge = getPreviewPlantKnowledge(plant.speciesId);
   const identity = resolvePlantIdentity(plant);
-  const plans = listCarePlans({ speciesId: plant.speciesId, stageId: plant.stageId });
-  const evaluations = evaluateCarePlans({ activities, evaluatedAt, plant, plans });
+  const plans = listCarePlans({
+    speciesId: plant.speciesId,
+    stageId: plant.stageId,
+  });
+  const evaluations = evaluateCarePlans({
+    activities,
+    evaluatedAt,
+    plant,
+    plans,
+  });
   const plantedAgeDays = elapsedCalendarDays(plant.plantedAt, evaluatedAt);
   const stageAgeDays = elapsedCalendarDays(plant.stageStartedAt, evaluatedAt);
 
   return {
     ageLabels: createAgeLabels(stageAgeDays, plantedAgeDays),
     careCards: HERO_CARE_TYPES.map((activityType) => {
-      const plan = plans.find((candidate) => candidate.activityType === activityType);
-      const frequencyDisplay = plan?.frequency?.[plant.growingMethod].display ?? null;
+      const plan = plans.find(
+        (candidate) => candidate.activityType === activityType,
+      );
+      const frequencyDisplay =
+        plan?.frequency?.[plant.growingMethod].display ?? null;
       return {
         activityType,
-        details: plan ? {
-          frequencyDisplay,
-          goal: plan.goal,
-          notes: plan.notes ?? [],
-          recommendedInputs: plan.recommendedInputs ?? [],
-        } : null,
-        evaluation: evaluations.find((candidate) => candidate.activityType === activityType) ?? null,
+        details: plan
+          ? {
+              frequencyDisplay,
+              goal: plan.goal,
+              notes: plan.notes ?? [],
+              recommendedInputs: plan.recommendedInputs ?? [],
+            }
+          : null,
+        evaluation:
+          evaluations.find(
+            (candidate) => candidate.activityType === activityType,
+          ) ?? null,
         frequencyDisplay,
         lastActivity: latestCare[activityType],
-        title: plan?.title ?? (activityType === "watering" ? "Tưới nước" : "Bón phân"),
+        title:
+          plan?.title ??
+          (activityType === "watering" ? "Tưới nước" : "Bón phân"),
       };
     }),
     latestCare,
     latestPhotoUri: getLatestPlantPhoto(updates)?.localUri ?? null,
-    lifecycleStages: knowledge?.stages.map((stage) => ({ ...stage, isCurrent: stage.id === plant.stageId })) ?? [],
+    lifecycleStages:
+      knowledge?.stages.map((stage) => ({
+        ...stage,
+        isCurrent: stage.id === plant.stageId,
+      })) ?? [],
     plant,
-    recentJournalItems: createJournalItems(activities, updates).slice(0, RECENT_JOURNAL_LIMIT),
+    recentJournalItems: createJournalItems(activities, updates).slice(
+      0,
+      RECENT_JOURNAL_LIMIT,
+    ),
     speciesTitle: identity.speciesTitle,
     stagePlaybook: getStagePlaybook(plant.stageId),
     stageTitle: identity.stageTitle,
   };
 }
 
-function createAgeLabels(stageAgeDays: number | null, plantedAgeDays: number | null): string[] {
+function createAgeLabels(
+  stageAgeDays: number | null,
+  plantedAgeDays: number | null,
+): string[] {
   const labels: string[] = [];
-  if (stageAgeDays !== null) labels.push(stageAgeDays === 0 ? "Bắt đầu giai đoạn hôm nay" : `${stageAgeDays} ngày ở giai đoạn này`);
-  if (plantedAgeDays !== null) labels.push(plantedAgeDays === 0 ? "Trồng hôm nay" : `Đã trồng ${plantedAgeDays} ngày`);
+  if (stageAgeDays !== null)
+    labels.push(
+      stageAgeDays === 0
+        ? "Bắt đầu giai đoạn hôm nay"
+        : `${stageAgeDays} ngày ở giai đoạn này`,
+    );
+  if (plantedAgeDays !== null)
+    labels.push(
+      plantedAgeDays === 0
+        ? "Trồng hôm nay"
+        : `Đã trồng ${plantedAgeDays} ngày`,
+    );
   return labels;
 }
 
-function elapsedCalendarDays(startedAt: string | null, evaluatedAt: Date): number | null {
+function elapsedCalendarDays(
+  startedAt: string | null,
+  evaluatedAt: Date,
+): number | null {
   if (!startedAt) return null;
-  const start = startedAt.includes("T") ? new Date(startedAt) : dateFromLocalIsoDate(startedAt);
+  const start = startedAt.includes("T")
+    ? new Date(startedAt)
+    : dateFromLocalIsoDate(startedAt);
   if (Number.isNaN(start.getTime())) return null;
-  const startDay = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
-  const evaluatedDay = Date.UTC(evaluatedAt.getFullYear(), evaluatedAt.getMonth(), evaluatedAt.getDate());
+  const startDay = Date.UTC(
+    start.getFullYear(),
+    start.getMonth(),
+    start.getDate(),
+  );
+  const evaluatedDay = Date.UTC(
+    evaluatedAt.getFullYear(),
+    evaluatedAt.getMonth(),
+    evaluatedAt.getDate(),
+  );
   const elapsedDays = Math.floor((evaluatedDay - startDay) / 86_400_000);
   return elapsedDays >= 0 ? elapsedDays : null;
 }
 
 function dateFromLocalIsoDate(value: string): Date {
   const [year, month, day] = value.split("-").map(Number);
-  return new Date(year ?? Number.NaN, (month ?? Number.NaN) - 1, day ?? Number.NaN);
+  return new Date(
+    year ?? Number.NaN,
+    (month ?? Number.NaN) - 1,
+    day ?? Number.NaN,
+  );
 }

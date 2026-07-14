@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { initializeDatabase } from '../lib/db/database';
+import React, { useEffect, useState } from "react";
+import { initializeDatabase } from "../lib/db/database";
 
 export function DatabaseProvider({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false);
@@ -18,7 +18,7 @@ export function DatabaseProvider({ children }: { children: React.ReactNode }) {
 
   if (!isReady) {
     // Render nothing while initializing. We could render a splash screen or spinner here later.
-    return null; 
+    return null;
   }
 
   return <>{children}</>;

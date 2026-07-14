@@ -31,7 +31,11 @@ async function validateBundle(
   });
   addFormats(ajv);
 
-  const bundleSchemaPath = join(knowledgeRoot, "_schemas", "mobile-bundle.schema.json");
+  const bundleSchemaPath = join(
+    knowledgeRoot,
+    "_schemas",
+    "mobile-bundle.schema.json",
+  );
   try {
     const schemaContent = await readFile(bundleSchemaPath, "utf8");
     const schema = JSON.parse(schemaContent);
@@ -39,7 +43,9 @@ async function validateBundle(
     const isValid = validate(bundle);
     if (!isValid) {
       const errors = validate.errors ?? [];
-      return errors.map((e) => `${e.instancePath || "root"}: ${e.message}`).join("; ");
+      return errors
+        .map((e) => `${e.instancePath || "root"}: ${e.message}`)
+        .join("; ");
     }
   } catch (error: unknown) {
     return error instanceof Error ? error.message : "Unknown schema load error";
@@ -50,7 +56,8 @@ async function validateBundle(
 export async function compileKnowledge(
   request: CompileRequest,
 ): Promise<CompilationResult> {
-  const { repositoryRoot, knowledgeRoot, mode, write, destinationPath } = request;
+  const { repositoryRoot, knowledgeRoot, mode, write, destinationPath } =
+    request;
 
   // 1. Discover, parse and schema-validate source documents
   const sourceValidation = await validateKnowledgeSources({
@@ -60,7 +67,14 @@ export async function compileKnowledge(
 
   const diagnostics: KnowledgeDiagnostic[] = [...sourceValidation.diagnostics];
 
-  if (diagnostics.some((d) => d.code === "KNOWLEDGE_PARSE_FAILED" || d.code === "KNOWLEDGE_SCHEMA_INVALID" || d.code === "KNOWLEDGE_SCHEMA_LOAD_FAILED")) {
+  if (
+    diagnostics.some(
+      (d) =>
+        d.code === "KNOWLEDGE_PARSE_FAILED" ||
+        d.code === "KNOWLEDGE_SCHEMA_INVALID" ||
+        d.code === "KNOWLEDGE_SCHEMA_LOAD_FAILED",
+    )
+  ) {
     return { ok: false, diagnostics: sortKnowledgeDiagnostics(diagnostics) };
   }
 
@@ -91,7 +105,10 @@ export async function compileKnowledge(
   if (!selection.ok) {
     return {
       ok: false,
-      diagnostics: sortKnowledgeDiagnostics([...diagnostics, ...selection.diagnostics]),
+      diagnostics: sortKnowledgeDiagnostics([
+        ...diagnostics,
+        ...selection.diagnostics,
+      ]),
     };
   }
 
@@ -100,7 +117,11 @@ export async function compileKnowledge(
   const bundle = JSON.parse(serialized);
 
   // 6. Validate the assembled output bundle against mobile-bundle.schema.json
-  const bundleValidationError = await validateBundle(bundle, knowledgeRoot, repositoryRoot);
+  const bundleValidationError = await validateBundle(
+    bundle,
+    knowledgeRoot,
+    repositoryRoot,
+  );
   if (bundleValidationError !== null) {
     return {
       ok: false,
@@ -119,7 +140,8 @@ export async function compileKnowledge(
     try {
       await writeAtomic(destinationPath, serialized);
     } catch (error: unknown) {
-      const msg = error instanceof Error ? error.message : "Unknown filesystem error";
+      const msg =
+        error instanceof Error ? error.message : "Unknown filesystem error";
       return {
         ok: false,
         diagnostics: [

@@ -1,304 +1,455 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Tôi - Sổ tay trồng cây</title>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Config -->
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-tertiary-fixed-variant": "#41474e",
-                      "secondary-fixed": "#e9ddff",
-                      "on-secondary-fixed-variant": "#4d3d75",
-                      "secondary": "#65558f",
-                      "on-tertiary-container": "#bdc3cb",
-                      "surface-bright": "#fcf9f8",
-                      "surface-container-low": "#f6f3f2",
-                      "outline": "#72796e",
-                      "background": "#fcf9f8",
-                      "on-secondary": "#ffffff",
-                      "on-primary": "#ffffff",
-                      "tertiary-fixed": "#dde3eb",
-                      "on-tertiary": "#ffffff",
-                      "primary": "#154212",
-                      "inverse-surface": "#313030",
-                      "secondary-fixed-dim": "#cfbdfe",
-                      "on-primary-fixed-variant": "#23501e",
-                      "on-surface-variant": "#42493e",
-                      "surface-container-high": "#eae7e7",
-                      "tertiary": "#343a40",
-                      "on-secondary-fixed": "#201047",
-                      "on-primary-container": "#9dd090",
-                      "on-error": "#ffffff",
-                      "on-primary-fixed": "#002201",
-                      "on-error-container": "#93000a",
-                      "surface-dim": "#dcd9d9",
-                      "surface-tint": "#3b6934",
-                      "primary-fixed-dim": "#a1d494",
-                      "error": "#ba1a1a",
-                      "surface-container-lowest": "#ffffff",
-                      "inverse-primary": "#a1d494",
-                      "primary-fixed": "#bcf0ae",
-                      "surface-variant": "#e5e2e1",
-                      "on-secondary-container": "#594982",
-                      "tertiary-container": "#4a5157",
-                      "error-container": "#ffdad6",
-                      "secondary-container": "#cfbdfe",
-                      "surface-container": "#f0eded",
-                      "inverse-on-surface": "#f3f0ef",
-                      "tertiary-fixed-dim": "#c1c7cf",
-                      "on-tertiary-fixed": "#161c22",
-                      "surface-container-highest": "#e5e2e1",
-                      "outline-variant": "#c2c9bb",
-                      "surface": "#fcf9f8",
-                      "on-background": "#1c1b1b",
-                      "primary-container": "#2d5a27",
-                      "on-surface": "#1c1b1b"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "xs": "4px",
-                      "container-margin": "16px",
-                      "gutter": "16px",
-                      "base": "4px",
-                      "md": "16px",
-                      "sm": "8px",
-                      "lg": "24px",
-                      "xl": "32px"
-              },
-              "fontFamily": {
-                      "body-lg": [
-                              "Inter"
-                      ],
-                      "headline-md": [
-                              "Inter"
-                      ],
-                      "body-md": [
-                              "Inter"
-                      ],
-                      "headline-lg": [
-                              "Inter"
-                      ],
-                      "headline-sm": [
-                              "Inter"
-                      ],
-                      "label-md": [
-                              "Inter"
-                      ],
-                      "label-sm": [
-                              "Inter"
-                      ]
-              },
-              "fontSize": {
-                      "body-lg": [
-                              "16px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-md": [
-                              "22px",
-                              {
-                                      "lineHeight": "28px",
-                                      "letterSpacing": "-0.01em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body-md": [
-                              "14px",
-                              {
-                                      "lineHeight": "20px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-lg": [
-                              "28px",
-                              {
-                                      "lineHeight": "34px",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-sm": [
-                              "18px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "label-md": [
-                              "12px",
-                              {
-                                      "lineHeight": "16px",
-                                      "letterSpacing": "0.02em",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "label-sm": [
-                              "10px",
-                              {
-                                      "lineHeight": "12px",
-                                      "fontWeight": "600"
-                              }
-                      ]
-              }
-            }
-          }
-        }
-      </script>
-<style>
-          .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
-          .pt-safe { padding-top: env(safe-area-inset-top, 20px); }
-      </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Tôi - Sổ tay trồng cây</title>
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#41474e",
+              "secondary-fixed": "#e9ddff",
+              "on-secondary-fixed-variant": "#4d3d75",
+              secondary: "#65558f",
+              "on-tertiary-container": "#bdc3cb",
+              "surface-bright": "#fcf9f8",
+              "surface-container-low": "#f6f3f2",
+              outline: "#72796e",
+              background: "#fcf9f8",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#dde3eb",
+              "on-tertiary": "#ffffff",
+              primary: "#154212",
+              "inverse-surface": "#313030",
+              "secondary-fixed-dim": "#cfbdfe",
+              "on-primary-fixed-variant": "#23501e",
+              "on-surface-variant": "#42493e",
+              "surface-container-high": "#eae7e7",
+              tertiary: "#343a40",
+              "on-secondary-fixed": "#201047",
+              "on-primary-container": "#9dd090",
+              "on-error": "#ffffff",
+              "on-primary-fixed": "#002201",
+              "on-error-container": "#93000a",
+              "surface-dim": "#dcd9d9",
+              "surface-tint": "#3b6934",
+              "primary-fixed-dim": "#a1d494",
+              error: "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "inverse-primary": "#a1d494",
+              "primary-fixed": "#bcf0ae",
+              "surface-variant": "#e5e2e1",
+              "on-secondary-container": "#594982",
+              "tertiary-container": "#4a5157",
+              "error-container": "#ffdad6",
+              "secondary-container": "#cfbdfe",
+              "surface-container": "#f0eded",
+              "inverse-on-surface": "#f3f0ef",
+              "tertiary-fixed-dim": "#c1c7cf",
+              "on-tertiary-fixed": "#161c22",
+              "surface-container-highest": "#e5e2e1",
+              "outline-variant": "#c2c9bb",
+              surface: "#fcf9f8",
+              "on-background": "#1c1b1b",
+              "primary-container": "#2d5a27",
+              "on-surface": "#1c1b1b",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xs: "4px",
+              "container-margin": "16px",
+              gutter: "16px",
+              base: "4px",
+              md: "16px",
+              sm: "8px",
+              lg: "24px",
+              xl: "32px",
+            },
+            fontFamily: {
+              "body-lg": ["Inter"],
+              "headline-md": ["Inter"],
+              "body-md": ["Inter"],
+              "headline-lg": ["Inter"],
+              "headline-sm": ["Inter"],
+              "label-md": ["Inter"],
+              "label-sm": ["Inter"],
+            },
+            fontSize: {
+              "body-lg": [
+                "16px",
+                {
+                  lineHeight: "24px",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-md": [
+                "22px",
+                {
+                  lineHeight: "28px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-lg": [
+                "28px",
+                {
+                  lineHeight: "34px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-sm": [
+                "18px",
+                {
+                  lineHeight: "24px",
+                  fontWeight: "600",
+                },
+              ],
+              "label-md": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.02em",
+                  fontWeight: "500",
+                },
+              ],
+              "label-sm": [
+                "10px",
+                {
+                  lineHeight: "12px",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 20px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 20px);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
   </head>
-<body class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-safe">
-<!-- Header (Tôi) -->
-<header class="bg-surface dark:bg-surface-container-low px-container-margin py-md flex items-center justify-between shadow-sm relative z-10 hidden md:flex h-16 max-w-7xl mx-auto w-full">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-primary text-[24px]">eco</span>
-<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Sổ tay trồng cây</h1>
-</div>
-</header>
-<!-- Main Content Canvas -->
-<main class="flex-grow w-full max-w-2xl mx-auto px-container-margin py-lg pb-32">
-<!-- Profile Header -->
-<div class="flex flex-col items-center justify-center mb-xl">
-<div class="w-24 h-24 rounded-full overflow-hidden border-2 border-outline-variant shadow-sm mb-md relative bg-surface-container">
-<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a gardener, bathed in soft, natural morning light. The person is wearing a subtle olive green shirt, smiling gently in a bright, modern greenhouse setting with lush green foliage out of focus in the background. The aesthetic is clean, organic, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdGDdevukjyqCq3f-PawOJolN8zqAgdWfo8S9rUOilr_lLCNZFg9kcegeuYdRfnLypoJ5Qchx_Kkb8-fGuCsJ2O7CYgTn2ZH5WlVxOHcC3Sm-JmW_YXjMZkgP8CupPoQMEQZvVsUISjn8Y0wi37k4K7DIJH3C2ssy0_-p1SjRXYSBWI2cK_AYS4lxEHxwFvrJ31H5wbFcPsicPzQmoEC9wS6u2EYgIY8xC2d77UC7d1DvNwMzTBSGzIz0ey4eBV2dy4HWy5gALfa4Q"/>
-<button class="absolute bottom-0 right-0 bg-primary text-on-primary rounded-full p-sm shadow-md flex items-center justify-center hover:bg-primary-container transition-colors">
-<span class="material-symbols-outlined text-[16px]">edit</span>
-</button>
-</div>
-<h2 class="font-headline-sm text-headline-sm text-on-background mb-xs">Nguyễn Văn A</h2>
-<p class="font-body-md text-body-md text-on-surface-variant">Thợ làm vườn mới nhú</p>
-</div>
-<!-- Settings Groups -->
-<div class="space-y-lg">
-<!-- Group 1: Cài đặt chung -->
-<section class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
-<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider px-md py-sm bg-surface-container-lowest border-b border-outline-variant">Cài đặt chung</h3>
-<div class="divide-y divide-outline-variant">
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">notifications</span>
-<span class="font-body-lg text-body-lg text-on-background">Thông báo</span>
-</div>
-<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
-</button>
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">alarm</span>
-<span class="font-body-lg text-body-lg text-on-background">Lời nhắc</span>
-</div>
-<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
-</button>
-</div>
-</section>
-<!-- Group 2: Dữ liệu -->
-<section class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
-<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider px-md py-sm bg-surface-container-lowest border-b border-outline-variant">Dữ liệu</h3>
-<div class="divide-y divide-outline-variant">
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">cloud_upload</span>
-<span class="font-body-lg text-body-lg text-on-background">Sao lưu đám mây</span>
-</div>
-<span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs">
-                            Đã đồng bộ <span class="material-symbols-outlined text-outline-variant text-[16px]">chevron_right</span>
-</span>
-</button>
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
-<span class="font-body-lg text-body-lg text-on-background">Xuất dữ liệu</span>
-</div>
-<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
-</button>
-</div>
-</section>
-<!-- Group 3: Ứng dụng -->
-<section class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
-<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider px-md py-sm bg-surface-container-lowest border-b border-outline-variant">Ứng dụng</h3>
-<div class="divide-y divide-outline-variant">
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">language</span>
-<span class="font-body-lg text-body-lg text-on-background">Ngôn ngữ</span>
-</div>
-<span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs">
-                            Tiếng Việt <span class="material-symbols-outlined text-outline-variant text-[16px]">chevron_right</span>
-</span>
-</button>
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">dark_mode</span>
-<span class="font-body-lg text-body-lg text-on-background">Giao diện</span>
-</div>
-<span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs">
-                            Hệ thống <span class="material-symbols-outlined text-outline-variant text-[16px]">chevron_right</span>
-</span>
-</button>
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">info</span>
-<span class="font-body-lg text-body-lg text-on-background">Giới thiệu</span>
-</div>
-<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
-</button>
-<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group">
-<div class="flex items-center gap-md">
-<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chat_bubble</span>
-<span class="font-body-lg text-body-lg text-on-background">Phản hồi</span>
-</div>
-<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
-</button>
-</div>
-</section>
-</div>
-</main>
-<!-- BottomNavBar Shell (Semantic Active State: Tôi) -->
-<nav class="bg-surface dark:bg-surface-container-low fixed bottom-0 w-full h-[64px] pb-safe border-t border-outline-variant dark:border-outline md:hidden z-50">
-<div class="flex justify-around items-center w-full px-container-margin h-full">
-<!-- Inactive: Hôm nay -->
-<button aria-label="Hôm nay" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg">
-<span class="material-symbols-outlined mb-xs text-[24px]">calendar_today</span>
-<span class="font-label-md text-label-md">Hôm nay</span>
-</button>
-<!-- Inactive: Cây trồng -->
-<button aria-label="Cây trồng" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg">
-<span class="material-symbols-outlined mb-xs text-[24px]">potted_plant</span>
-<span class="font-label-md text-label-md">Cây trồng</span>
-</button>
-<!-- Inactive: Nhật ký -->
-<button aria-label="Nhật ký" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg">
-<span class="material-symbols-outlined mb-xs text-[24px]">menu_book</span>
-<span class="font-label-md text-label-md">Nhật ký</span>
-</button>
-<!-- ACTIVE: Tôi -->
-<button aria-label="Tôi" class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg Active: scale-95 duration-100">
-<span class="material-symbols-outlined mb-xs text-[24px]" style="font-variation-settings: 'FILL' 1;">person</span>
-<span class="font-label-md text-label-md">Tôi</span>
-</button>
-</div>
-</nav>
-</body></html>
+  <body
+    class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-safe"
+  >
+    <!-- Header (Tôi) -->
+    <header
+      class="bg-surface dark:bg-surface-container-low px-container-margin py-md flex items-center justify-between shadow-sm relative z-10 hidden md:flex h-16 max-w-7xl mx-auto w-full"
+    >
+      <div class="flex items-center gap-xs">
+        <span class="material-symbols-outlined text-primary text-[24px]"
+          >eco</span
+        >
+        <h1
+          class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed"
+        >
+          Sổ tay trồng cây
+        </h1>
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-grow w-full max-w-2xl mx-auto px-container-margin py-lg pb-32"
+    >
+      <!-- Profile Header -->
+      <div class="flex flex-col items-center justify-center mb-xl">
+        <div
+          class="w-24 h-24 rounded-full overflow-hidden border-2 border-outline-variant shadow-sm mb-md relative bg-surface-container"
+        >
+          <img
+            alt="User Avatar"
+            class="w-full h-full object-cover"
+            data-alt="A close-up portrait of a gardener, bathed in soft, natural morning light. The person is wearing a subtle olive green shirt, smiling gently in a bright, modern greenhouse setting with lush green foliage out of focus in the background. The aesthetic is clean, organic, and professional."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdGDdevukjyqCq3f-PawOJolN8zqAgdWfo8S9rUOilr_lLCNZFg9kcegeuYdRfnLypoJ5Qchx_Kkb8-fGuCsJ2O7CYgTn2ZH5WlVxOHcC3Sm-JmW_YXjMZkgP8CupPoQMEQZvVsUISjn8Y0wi37k4K7DIJH3C2ssy0_-p1SjRXYSBWI2cK_AYS4lxEHxwFvrJ31H5wbFcPsicPzQmoEC9wS6u2EYgIY8xC2d77UC7d1DvNwMzTBSGzIz0ey4eBV2dy4HWy5gALfa4Q"
+          />
+          <button
+            class="absolute bottom-0 right-0 bg-primary text-on-primary rounded-full p-sm shadow-md flex items-center justify-center hover:bg-primary-container transition-colors"
+          >
+            <span class="material-symbols-outlined text-[16px]">edit</span>
+          </button>
+        </div>
+        <h2 class="font-headline-sm text-headline-sm text-on-background mb-xs">
+          Nguyễn Văn A
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Thợ làm vườn mới nhú
+        </p>
+      </div>
+      <!-- Settings Groups -->
+      <div class="space-y-lg">
+        <!-- Group 1: Cài đặt chung -->
+        <section
+          class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden"
+        >
+          <h3
+            class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider px-md py-sm bg-surface-container-lowest border-b border-outline-variant"
+          >
+            Cài đặt chung
+          </h3>
+          <div class="divide-y divide-outline-variant">
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >notifications</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Thông báo</span
+                >
+              </div>
+              <span class="material-symbols-outlined text-outline-variant"
+                >chevron_right</span
+              >
+            </button>
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >alarm</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Lời nhắc</span
+                >
+              </div>
+              <span class="material-symbols-outlined text-outline-variant"
+                >chevron_right</span
+              >
+            </button>
+          </div>
+        </section>
+        <!-- Group 2: Dữ liệu -->
+        <section
+          class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden"
+        >
+          <h3
+            class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider px-md py-sm bg-surface-container-lowest border-b border-outline-variant"
+          >
+            Dữ liệu
+          </h3>
+          <div class="divide-y divide-outline-variant">
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >cloud_upload</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Sao lưu đám mây</span
+                >
+              </div>
+              <span
+                class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs"
+              >
+                Đã đồng bộ
+                <span
+                  class="material-symbols-outlined text-outline-variant text-[16px]"
+                  >chevron_right</span
+                >
+              </span>
+            </button>
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >download</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Xuất dữ liệu</span
+                >
+              </div>
+              <span class="material-symbols-outlined text-outline-variant"
+                >chevron_right</span
+              >
+            </button>
+          </div>
+        </section>
+        <!-- Group 3: Ứng dụng -->
+        <section
+          class="bg-surface rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden"
+        >
+          <h3
+            class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider px-md py-sm bg-surface-container-lowest border-b border-outline-variant"
+          >
+            Ứng dụng
+          </h3>
+          <div class="divide-y divide-outline-variant">
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >language</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Ngôn ngữ</span
+                >
+              </div>
+              <span
+                class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs"
+              >
+                Tiếng Việt
+                <span
+                  class="material-symbols-outlined text-outline-variant text-[16px]"
+                  >chevron_right</span
+                >
+              </span>
+            </button>
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >dark_mode</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Giao diện</span
+                >
+              </div>
+              <span
+                class="font-body-md text-body-md text-on-surface-variant flex items-center gap-xs"
+              >
+                Hệ thống
+                <span
+                  class="material-symbols-outlined text-outline-variant text-[16px]"
+                  >chevron_right</span
+                >
+              </span>
+            </button>
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >info</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Giới thiệu</span
+                >
+              </div>
+              <span class="material-symbols-outlined text-outline-variant"
+                >chevron_right</span
+              >
+            </button>
+            <button
+              class="w-full flex items-center justify-between p-md hover:bg-surface-container-lowest transition-colors group"
+            >
+              <div class="flex items-center gap-md">
+                <span
+                  class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors"
+                  >chat_bubble</span
+                >
+                <span class="font-body-lg text-body-lg text-on-background"
+                  >Phản hồi</span
+                >
+              </div>
+              <span class="material-symbols-outlined text-outline-variant"
+                >chevron_right</span
+              >
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- BottomNavBar Shell (Semantic Active State: Tôi) -->
+    <nav
+      class="bg-surface dark:bg-surface-container-low fixed bottom-0 w-full h-[64px] pb-safe border-t border-outline-variant dark:border-outline md:hidden z-50"
+    >
+      <div
+        class="flex justify-around items-center w-full px-container-margin h-full"
+      >
+        <!-- Inactive: Hôm nay -->
+        <button
+          aria-label="Hôm nay"
+          class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg"
+        >
+          <span class="material-symbols-outlined mb-xs text-[24px]"
+            >calendar_today</span
+          >
+          <span class="font-label-md text-label-md">Hôm nay</span>
+        </button>
+        <!-- Inactive: Cây trồng -->
+        <button
+          aria-label="Cây trồng"
+          class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg"
+        >
+          <span class="material-symbols-outlined mb-xs text-[24px]"
+            >potted_plant</span
+          >
+          <span class="font-label-md text-label-md">Cây trồng</span>
+        </button>
+        <!-- Inactive: Nhật ký -->
+        <button
+          aria-label="Nhật ký"
+          class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg"
+        >
+          <span class="material-symbols-outlined mb-xs text-[24px]"
+            >menu_book</span
+          >
+          <span class="font-label-md text-label-md">Nhật ký</span>
+        </button>
+        <!-- ACTIVE: Tôi -->
+        <button
+          aria-label="Tôi"
+          class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed hover:bg-surface-container-high transition-colors flex-1 h-full pt-sm rounded-lg Active: scale-95 duration-100"
+        >
+          <span
+            class="material-symbols-outlined mb-xs text-[24px]"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >person</span
+          >
+          <span class="font-label-md text-label-md">Tôi</span>
+        </button>
+      </div>
+    </nav>
+  </body>
+</html>

@@ -13,6 +13,7 @@
 ### Task 1: Review screen-to-knowledge coverage
 
 **Files:**
+
 - Create: `docs/design/SCREEN_REVIEW.md`
 - Modify: `docs/design/DESIGN.md`
 - Modify: `docs/README.md`
@@ -25,6 +26,7 @@
 ### Task 2: Define the pilot content contract
 
 **Files:**
+
 - Create: `knowledge/README.md`
 - Create: `knowledge/_schemas/species.schema.json`
 - Create: `knowledge/_schemas/stage-playbook.schema.json`
@@ -39,6 +41,7 @@
 ### Task 3: Author the sourced “Nuôi thân” slice
 
 **Files:**
+
 - Create: `knowledge/species/grape/species.md`
 - Create: `knowledge/species/grape/stages/trunk-development.md`
 - Create: `knowledge/species/grape/care-recommendations/check-soil-before-watering.md`
@@ -58,6 +61,7 @@
 ### Task 4: Maintain project context and verify
 
 **Files:**
+
 - Modify: `TODO.md`
 - Modify: `CONTEXT.md` only if a canonical business term changes
 

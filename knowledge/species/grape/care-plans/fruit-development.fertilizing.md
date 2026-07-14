@@ -18,7 +18,7 @@ goal: >-
   nhiều nhất trong toàn bộ chu kỳ.
 recommended_inputs:
   - group: Phân giàu kali (high-K)
-    examples: 'Kali sunfat (SOP), chiết xuất rong biển, NPK thiên kali'
+    examples: "Kali sunfat (SOP), chiết xuất rong biển, NPK thiên kali"
   - group: Phun canxi qua lá
     examples: Canxi clorua (CaCl₂) phun mỗi 7–14 ngày để phòng nứt trái
   - group: Bổ sung magiê (nếu thiếu)
@@ -40,7 +40,7 @@ notes:
   - >-
     Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa
     mùa.
-  - 'Nếu dùng túi bọc trái, phun canxi trước khi bọc.'
+  - "Nếu dùng túi bọc trái, phun canxi trước khi bọc."
 version: 1.0.0
 status: review
 references:

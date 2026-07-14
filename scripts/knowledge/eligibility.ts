@@ -85,7 +85,7 @@ export function selectEligibleContent(
         const species = doc as NormalizedPlantSpecies;
         const allStages = [
           ...(species.lifecycles?.development?.stages ?? []),
-          ...(species.lifecycles?.production?.stages ?? [])
+          ...(species.lifecycles?.production?.stages ?? []),
         ];
         for (const item of allStages) {
           if (item.playbookStatus !== "unavailable") {

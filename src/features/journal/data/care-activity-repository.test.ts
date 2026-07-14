@@ -1,4 +1,7 @@
-import { careActivityFromRow, careActivityToInsertParams } from "./care-activity-repository";
+import {
+  careActivityFromRow,
+  careActivityToInsertParams,
+} from "./care-activity-repository";
 
 const activity = {
   id: "86ee7489-6147-42b9-b73f-5650ea7fd214",

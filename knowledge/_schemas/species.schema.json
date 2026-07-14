@@ -40,31 +40,17 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     },
     "status": {
-      "enum": [
-        "draft",
-        "review",
-        "approved",
-        "deprecated",
-        "archived"
-      ]
+      "enum": ["draft", "review", "approved", "deprecated", "archived"]
     },
     "lifecycles": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "development",
-        "production"
-      ],
+      "required": ["development", "production"],
       "properties": {
         "development": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "title",
-            "repeatable",
-            "initial_stage_id",
-            "stages"
-          ],
+          "required": ["title", "repeatable", "initial_stage_id", "stages"],
           "properties": {
             "title": {
               "type": "string",
@@ -88,12 +74,7 @@
         "production": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "title",
-            "repeatable",
-            "initial_stage_id",
-            "stages"
-          ],
+          "required": ["title", "repeatable", "initial_stage_id", "stages"],
           "properties": {
             "title": {
               "type": "string",
@@ -129,12 +110,7 @@
     "stage_journey_item": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title",
-        "sequence",
-        "playbook_status"
-      ],
+      "required": ["id", "title", "sequence", "playbook_status"],
       "properties": {
         "id": {
           "type": "string",
@@ -153,9 +129,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "to"
-            ],
+            "required": ["to"],
             "properties": {
               "to": {
                 "type": "string"
@@ -167,12 +141,7 @@
           }
         },
         "playbook_status": {
-          "enum": [
-            "unavailable",
-            "draft",
-            "review",
-            "approved"
-          ]
+          "enum": ["unavailable", "draft", "review", "approved"]
         }
       }
     }

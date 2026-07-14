@@ -23,7 +23,7 @@ recommended_inputs:
       pha loãng phun lá
 frequency:
   ground:
-    display: 'Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch'
+    display: "Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch"
     interval_days: 21
   container:
     display: Mỗi 1–2 tuần ở liều nhẹ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch

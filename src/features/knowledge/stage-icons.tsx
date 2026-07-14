@@ -24,19 +24,19 @@ import {
  */
 const STAGE_ICON_MAP: Record<string, LucideIcon> = {
   // Grape — development lifecycle
-  "grape.stage.seedling": Sprout,                  // spa → young leaf
+  "grape.stage.seedling": Sprout, // spa → young leaf
   "grape.stage.trunk-development": TreeDeciduous, // eco → branching trunk
-  "grape.stage.trellis-training": Fence,          // account_tree → trellis grid
-  "grape.stage.canopy-formation": Trees,          // spreading canopy
+  "grape.stage.trellis-training": Fence, // account_tree → trellis grid
+  "grape.stage.canopy-formation": Trees, // spreading canopy
   // Grape — production lifecycle
-  "grape.stage.pruning": Scissors,                // cut back
-  "grape.stage.bud-break": Sparkles,              // new buds emerging
-  "grape.stage.flowering": Flower2,               // filter_vintage → flower
-  "grape.stage.fruit-set": CircleDot,             // nutrition → small fruit
-  "grape.stage.fruit-development": Grape,         // growing fruit
-  "grape.stage.ripening": Sun,                    // sun-exposed ripening
-  "grape.stage.harvest": ShoppingBasket,          // harvest basket
-  "grape.stage.recovery": RefreshCw,              // post-harvest recovery
+  "grape.stage.pruning": Scissors, // cut back
+  "grape.stage.bud-break": Sparkles, // new buds emerging
+  "grape.stage.flowering": Flower2, // filter_vintage → flower
+  "grape.stage.fruit-set": CircleDot, // nutrition → small fruit
+  "grape.stage.fruit-development": Grape, // growing fruit
+  "grape.stage.ripening": Sun, // sun-exposed ripening
+  "grape.stage.harvest": ShoppingBasket, // harvest basket
+  "grape.stage.recovery": RefreshCw, // post-harvest recovery
 };
 
 const FALLBACK_STAGE_ICON: LucideIcon = Leaf;

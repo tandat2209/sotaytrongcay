@@ -20,7 +20,14 @@
     "type": { "const": "reference_source" },
     "title": { "type": "string", "minLength": 1 },
     "publisher": { "type": "string", "minLength": 1 },
-    "source_type": { "enum": ["extension_guide", "research_paper", "expert_review", "regulatory_guidance"] },
+    "source_type": {
+      "enum": [
+        "extension_guide",
+        "research_paper",
+        "expert_review",
+        "regulatory_guidance"
+      ]
+    },
     "url": { "type": "string", "format": "uri" },
     "accessed": { "type": "string", "format": "date" },
     "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },

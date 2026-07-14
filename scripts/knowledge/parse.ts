@@ -26,13 +26,17 @@ function isYamlParserModule(value: unknown): value is YamlParserModule {
 function loadYamlParser(): (source: string) => object {
   const requireFromModule = createRequire(__filename);
   const packagePath = requireFromModule.resolve("yaml/package.json");
-  const yamlModule = requireFromModule(join(dirname(packagePath), "dist", "index.js")) as unknown;
+  const yamlModule = requireFromModule(
+    join(dirname(packagePath), "dist", "index.js"),
+  ) as unknown;
 
   if (isYamlParserModule(yamlModule)) {
     return (source: string): object => {
       const parsed = yamlModule.parse(source);
       if (!isRecord(parsed)) {
-        throw new Error("Knowledge document frontmatter must parse to an object.");
+        throw new Error(
+          "Knowledge document frontmatter must parse to an object.",
+        );
       }
 
       return parsed;
@@ -96,7 +100,8 @@ export async function parseMarkdownFile({
       diagnostics: [],
     };
   } catch (error: unknown) {
-    const detail = error instanceof Error ? error.message : "Unknown parse error";
+    const detail =
+      error instanceof Error ? error.message : "Unknown parse error";
     return {
       document: null,
       diagnostics: [

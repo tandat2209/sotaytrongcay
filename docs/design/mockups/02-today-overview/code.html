@@ -1,338 +1,562 @@
-<!DOCTYPE html><html lang="vi" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{try{
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-tertiary-fixed-variant": "#41474e",
-                      "secondary-fixed": "#e9ddff",
-                      "on-secondary-fixed-variant": "#4d3d75",
-                      "secondary": "#65558f",
-                      "on-tertiary-container": "#bdc3cb",
-                      "surface-bright": "#fcf9f8",
-                      "surface-container-low": "#f6f3f2",
-                      "outline": "#72796e",
-                      "background": "#fcf9f8",
-                      "on-secondary": "#ffffff",
-                      "on-primary": "#ffffff",
-                      "tertiary-fixed": "#dde3eb",
-                      "on-tertiary": "#ffffff",
-                      "primary": "#154212",
-                      "inverse-surface": "#313030",
-                      "secondary-fixed-dim": "#cfbdfe",
-                      "on-primary-fixed-variant": "#23501e",
-                      "on-surface-variant": "#42493e",
-                      "surface-container-high": "#eae7e7",
-                      "tertiary": "#343a40",
-                      "on-secondary-fixed": "#201047",
-                      "on-primary-container": "#9dd090",
-                      "on-error": "#ffffff",
-                      "on-primary-fixed": "#002201",
-                      "on-error-container": "#93000a",
-                      "surface-dim": "#dcd9d9",
-                      "surface-tint": "#3b6934",
-                      "primary-fixed-dim": "#a1d494",
-                      "error": "#ba1a1a",
-                      "surface-container-lowest": "#ffffff",
-                      "inverse-primary": "#a1d494",
-                      "primary-fixed": "#bcf0ae",
-                      "surface-variant": "#e5e2e1",
-                      "on-secondary-container": "#594982",
-                      "tertiary-container": "#4a5157",
-                      "error-container": "#ffdad6",
-                      "secondary-container": "#cfbdfe",
-                      "surface-container": "#f0eded",
-                      "inverse-on-surface": "#f3f0ef",
-                      "tertiary-fixed-dim": "#c1c7cf",
-                      "on-tertiary-fixed": "#161c22",
-                      "surface-container-highest": "#e5e2e1",
-                      "outline-variant": "#c2c9bb",
-                      "surface": "#fcf9f8",
-                      "on-background": "#1c1b1b",
-                      "primary-container": "#2d5a27",
-                      "on-surface": "#1c1b1b"
+<!doctype html>
+<html lang="vi" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      try {
+        try {
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                colors: {
+                  "on-tertiary-fixed-variant": "#41474e",
+                  "secondary-fixed": "#e9ddff",
+                  "on-secondary-fixed-variant": "#4d3d75",
+                  secondary: "#65558f",
+                  "on-tertiary-container": "#bdc3cb",
+                  "surface-bright": "#fcf9f8",
+                  "surface-container-low": "#f6f3f2",
+                  outline: "#72796e",
+                  background: "#fcf9f8",
+                  "on-secondary": "#ffffff",
+                  "on-primary": "#ffffff",
+                  "tertiary-fixed": "#dde3eb",
+                  "on-tertiary": "#ffffff",
+                  primary: "#154212",
+                  "inverse-surface": "#313030",
+                  "secondary-fixed-dim": "#cfbdfe",
+                  "on-primary-fixed-variant": "#23501e",
+                  "on-surface-variant": "#42493e",
+                  "surface-container-high": "#eae7e7",
+                  tertiary: "#343a40",
+                  "on-secondary-fixed": "#201047",
+                  "on-primary-container": "#9dd090",
+                  "on-error": "#ffffff",
+                  "on-primary-fixed": "#002201",
+                  "on-error-container": "#93000a",
+                  "surface-dim": "#dcd9d9",
+                  "surface-tint": "#3b6934",
+                  "primary-fixed-dim": "#a1d494",
+                  error: "#ba1a1a",
+                  "surface-container-lowest": "#ffffff",
+                  "inverse-primary": "#a1d494",
+                  "primary-fixed": "#bcf0ae",
+                  "surface-variant": "#e5e2e1",
+                  "on-secondary-container": "#594982",
+                  "tertiary-container": "#4a5157",
+                  "error-container": "#ffdad6",
+                  "secondary-container": "#cfbdfe",
+                  "surface-container": "#f0eded",
+                  "inverse-on-surface": "#f3f0ef",
+                  "tertiary-fixed-dim": "#c1c7cf",
+                  "on-tertiary-fixed": "#161c22",
+                  "surface-container-highest": "#e5e2e1",
+                  "outline-variant": "#c2c9bb",
+                  surface: "#fcf9f8",
+                  "on-background": "#1c1b1b",
+                  "primary-container": "#2d5a27",
+                  "on-surface": "#1c1b1b",
+                },
+                borderRadius: {
+                  DEFAULT: "0.25rem",
+                  lg: "0.5rem",
+                  xl: "0.75rem",
+                  full: "9999px",
+                },
+                spacing: {
+                  xs: "4px",
+                  "container-margin": "16px",
+                  gutter: "16px",
+                  base: "4px",
+                  md: "16px",
+                  sm: "8px",
+                  lg: "24px",
+                  xl: "32px",
+                },
+                fontFamily: {
+                  "body-lg": ["Inter"],
+                  "headline-md": ["Inter"],
+                  "body-md": ["Inter"],
+                  "headline-lg": ["Inter"],
+                  "headline-sm": ["Inter"],
+                  "label-md": ["Inter"],
+                  "label-sm": ["Inter"],
+                },
+                fontSize: {
+                  "body-lg": [
+                    "16px",
+                    {
+                      lineHeight: "24px",
+                      fontWeight: "400",
+                    },
+                  ],
+                  "headline-md": [
+                    "22px",
+                    {
+                      lineHeight: "28px",
+                      letterSpacing: "-0.01em",
+                      fontWeight: "600",
+                    },
+                  ],
+                  "body-md": [
+                    "14px",
+                    {
+                      lineHeight: "20px",
+                      fontWeight: "400",
+                    },
+                  ],
+                  "headline-lg": [
+                    "28px",
+                    {
+                      lineHeight: "34px",
+                      letterSpacing: "-0.02em",
+                      fontWeight: "600",
+                    },
+                  ],
+                  "headline-sm": [
+                    "18px",
+                    {
+                      lineHeight: "24px",
+                      fontWeight: "600",
+                    },
+                  ],
+                  "label-md": [
+                    "12px",
+                    {
+                      lineHeight: "16px",
+                      letterSpacing: "0.02em",
+                      fontWeight: "500",
+                    },
+                  ],
+                  "label-sm": [
+                    "10px",
+                    {
+                      lineHeight: "12px",
+                      fontWeight: "600",
+                    },
+                  ],
+                },
               },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "xs": "4px",
-                      "container-margin": "16px",
-                      "gutter": "16px",
-                      "base": "4px",
-                      "md": "16px",
-                      "sm": "8px",
-                      "lg": "24px",
-                      "xl": "32px"
-              },
-              "fontFamily": {
-                      "body-lg": [
-                              "Inter"
-                      ],
-                      "headline-md": [
-                              "Inter"
-                      ],
-                      "body-md": [
-                              "Inter"
-                      ],
-                      "headline-lg": [
-                              "Inter"
-                      ],
-                      "headline-sm": [
-                              "Inter"
-                      ],
-                      "label-md": [
-                              "Inter"
-                      ],
-                      "label-sm": [
-                              "Inter"
-                      ]
-              },
-              "fontSize": {
-                      "body-lg": [
-                              "16px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-md": [
-                              "22px",
-                              {
-                                      "lineHeight": "28px",
-                                      "letterSpacing": "-0.01em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body-md": [
-                              "14px",
-                              {
-                                      "lineHeight": "20px",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "headline-lg": [
-                              "28px",
-                              {
-                                      "lineHeight": "34px",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-sm": [
-                              "18px",
-                              {
-                                      "lineHeight": "24px",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "label-md": [
-                              "12px",
-                              {
-                                      "lineHeight": "16px",
-                                      "letterSpacing": "0.02em",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "label-sm": [
-                              "10px",
-                              {
-                                      "lineHeight": "12px",
-                                      "fontWeight": "600"
-                              }
-                      ]
-              }
             },
-          },
-        }
-    }catch(_e){}}catch(_e){}</script></head><body class="bg-background text-on-background font-body-lg antialiased flex justify-center w-full min-h-screen">
-<!-- Mobile Viewport Container for Demo Purposes -->
-<div class="w-full max-w-md bg-surface min-h-screen relative shadow-2xl overflow-hidden flex flex-col" id="app-container">
-<section class="flex-1 flex flex-col h-full bg-surface transition-all-custom transform" id="main-app">
-<!-- TopAppBar -->
-<header class="docked full-width top-0 bg-surface flex items-center justify-between px-lg h-16 w-full pt-safe z-40 sticky">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary hover:opacity-80 Transition-all ease-in-out" style="font-variation-settings: &quot;FILL&quot; 1;">eco</span>
-<span class="font-headline-md text-headline-md font-bold text-primary">Hôm nay</span>
-</div>
-<!-- Profile Avatar Placeholder -->
-<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
-<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5BFhW0nkylgZ8mxyvGDu2Pr91-WO0IAtAbnj_JAqBOvnh_ajwY4k0crtQFsrm_IV8ju0KOcIZJLh15p4TV4ZVJ8hreM4G-1gEqcGpAtCwRCQjFwdSHRx2TeCpfOG-NuzruMoLuE21L94ubKRf6OXv-R-jqNahcuiqARzY-ktzMV3hFsXJylKGAIthh3oNt1ep3iGc3EE-sLMlA_T9Q1voFtx3ycq2pIsVKhTAtanausHkv7a-Rvpfn-k8un-fCJcT0_jT8VWAgJEh">
-</div>
-</header>
-<!-- Scrollable Content Canvas -->
-<main class="flex-1 overflow-y-auto no-scrollbar pb-[100px] px-container-margin pt-4">
-<!-- Greeting -->
-<div class="mb-6">
-<p class="font-body-md text-body-md text-on-surface-variant mb-1">Thứ Hai, 24 Tháng 10</p>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Chào bạn!</h1>
-</div>
-<!-- Garden Overview Stat Cards -->
+          };
+        } catch (_e) {}
+      } catch (_e) {}
+    </script>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-lg antialiased flex justify-center w-full min-h-screen"
+  >
+    <!-- Mobile Viewport Container for Demo Purposes -->
+    <div
+      class="w-full max-w-md bg-surface min-h-screen relative shadow-2xl overflow-hidden flex flex-col"
+      id="app-container"
+    >
+      <section
+        class="flex-1 flex flex-col h-full bg-surface transition-all-custom transform"
+        id="main-app"
+      >
+        <!-- TopAppBar -->
+        <header
+          class="docked full-width top-0 bg-surface flex items-center justify-between px-lg h-16 w-full pt-safe z-40 sticky"
+        >
+          <div class="flex items-center gap-2">
+            <span
+              class="material-symbols-outlined text-primary hover:opacity-80 Transition-all ease-in-out"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >eco</span
+            >
+            <span
+              class="font-headline-md text-headline-md font-bold text-primary"
+              >Hôm nay</span
+            >
+          </div>
+          <!-- Profile Avatar Placeholder -->
+          <div
+            class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant"
+          >
+            <img
+              alt="User avatar"
+              class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5BFhW0nkylgZ8mxyvGDu2Pr91-WO0IAtAbnj_JAqBOvnh_ajwY4k0crtQFsrm_IV8ju0KOcIZJLh15p4TV4ZVJ8hreM4G-1gEqcGpAtCwRCQjFwdSHRx2TeCpfOG-NuzruMoLuE21L94ubKRf6OXv-R-jqNahcuiqARzY-ktzMV3hFsXJylKGAIthh3oNt1ep3iGc3EE-sLMlA_T9Q1voFtx3ycq2pIsVKhTAtanausHkv7a-Rvpfn-k8un-fCJcT0_jT8VWAgJEh"
+            />
+          </div>
+        </header>
+        <!-- Scrollable Content Canvas -->
+        <main
+          class="flex-1 overflow-y-auto no-scrollbar pb-[100px] px-container-margin pt-4"
+        >
+          <!-- Greeting -->
+          <div class="mb-6">
+            <p class="font-body-md text-body-md text-on-surface-variant mb-1">
+              Thứ Hai, 24 Tháng 10
+            </p>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface">
+              Chào bạn!
+            </h1>
+          </div>
+          <!-- Garden Overview Stat Cards -->
 
-<!-- Weather Widget-->
-<div class="bg-white rounded-xl border border-outline-variant p-4 mb-8 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex justify-between items-center">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[#F59E0B] text-3xl" style="font-variation-settings: &quot;FILL&quot; 1;">light_mode</span>
-<div>
-<span class="font-headline-md text-headline-md block text-on-surface">31°C</span>
-<span class="font-body-md text-body-md text-on-surface-variant">Trời nắng</span>
-</div>
-</div>
-<div class="flex gap-4">
-<div class="flex flex-col items-center">
-<span class="material-symbols-outlined text-blue-500 text-sm mb-1">water_drop</span>
-<span class="font-label-md text-label-md text-on-surface">20%</span>
-</div>
-<div class="w-[1px] h-8 bg-outline-variant"></div>
-<div class="flex flex-col items-center">
-<span class="material-symbols-outlined text-teal-600 text-sm mb-1">air</span>
-<span class="font-label-md text-label-md text-on-surface">68%</span>
-</div>
-</div>
-</div>
-<!-- Plant Status Summary -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Cây của bạn</h3>
-<div class="flex overflow-x-auto gap-4 pb-4 mb-4 no-scrollbar -mx-container-margin px-container-margin">
-<!-- Plant 1 -->
-<div class="flex flex-col items-center gap-2 min-w-[80px]">
-<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary relative">
-<img alt="Nho sân thượng" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzvTjV-vrjHkv8NO-N-GBrFFBJoy10wQp9sXxcFbhIJxmarefPY9rx-RvKVR7MWc943D13rCPjb972_Do6yFnnUGqVrB5KpIhvTqPOXmIloEdYn2mYpfQPXP03t0GgUS0b6EDVjIA03Q34ZLSBSbkqPT17uk9mrvqle2t8o3EWRjcA4D5mQqsN-krF8UQsoFBkQga7tfTaSqxo72sWECtz7xJsQ6Utblx9S0oJs3X_uaLvdsRyvYqxmewU1WBCzdwHerkWABQVjwXu">
-<div class="absolute bottom-0 right-0 w-5 h-5 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
-<span class="material-symbols-outlined text-white text-[12px]">water_drop</span>
-</div>
-</div>
-<span class="font-label-sm text-label-sm text-center text-on-surface line-clamp-2">Nho sân thượng</span>
-</div>
-<!-- Plant 2 -->
-<div class="flex flex-col items-center gap-2 min-w-[80px]">
-<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary relative">
-<img alt="Cà chua chậu" class="w-full h-full object-cover" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
-<div class="absolute bottom-0 right-0 w-5 h-5 bg-[#9dd090] rounded-full border-2 border-white flex items-center justify-center">
-<span class="material-symbols-outlined text-white text-[12px]">check</span>
-</div>
-</div>
-<span class="font-label-sm text-label-sm text-center text-on-surface line-clamp-2">Cà chua chậu</span>
-</div>
-<!-- Plant 3 -->
-<div class="flex flex-col items-center gap-2 min-w-[80px]">
-<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-outline-variant relative">
-<img alt="Hoa hồng" class="w-full h-full object-cover" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg">
-<div class="absolute bottom-0 right-0 w-5 h-5 bg-[#F59E0B] rounded-full border-2 border-white flex items-center justify-center">
-<span class="material-symbols-outlined text-white text-[12px]">warning</span>
-</div>
-</div>
-<span class="font-label-sm text-label-sm text-center text-on-surface line-clamp-2">Hoa hồng</span>
-</div>
-<!-- Add new -->
-<div class="flex flex-col items-center gap-2 min-w-[80px]">
-<button class="w-16 h-16 rounded-full border-2 border-dashed border-outline flex items-center justify-center hover:bg-surface-container-low transition-colors bg-surface-container-low">
-<span class="material-symbols-outlined text-outline">add</span>
-</button>
-<span class="font-label-sm text-label-sm text-center text-on-surface-variant">Thêm cây</span>
-</div>
-</div>
+          <!-- Weather Widget-->
+          <div
+            class="bg-white rounded-xl border border-outline-variant p-4 mb-8 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex justify-between items-center"
+          >
+            <div class="flex items-center gap-3">
+              <span
+                class="material-symbols-outlined text-[#F59E0B] text-3xl"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >light_mode</span
+              >
+              <div>
+                <span
+                  class="font-headline-md text-headline-md block text-on-surface"
+                  >31°C</span
+                >
+                <span class="font-body-md text-body-md text-on-surface-variant"
+                  >Trời nắng</span
+                >
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="flex flex-col items-center">
+                <span
+                  class="material-symbols-outlined text-blue-500 text-sm mb-1"
+                  >water_drop</span
+                >
+                <span class="font-label-md text-label-md text-on-surface"
+                  >20%</span
+                >
+              </div>
+              <div class="w-[1px] h-8 bg-outline-variant"></div>
+              <div class="flex flex-col items-center">
+                <span
+                  class="material-symbols-outlined text-teal-600 text-sm mb-1"
+                  >air</span
+                >
+                <span class="font-label-md text-label-md text-on-surface"
+                  >68%</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Plant Status Summary -->
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">
+            Cây của bạn
+          </h3>
+          <div
+            class="flex overflow-x-auto gap-4 pb-4 mb-4 no-scrollbar -mx-container-margin px-container-margin"
+          >
+            <!-- Plant 1 -->
+            <div class="flex flex-col items-center gap-2 min-w-[80px]">
+              <div
+                class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary relative"
+              >
+                <img
+                  alt="Nho sân thượng"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzvTjV-vrjHkv8NO-N-GBrFFBJoy10wQp9sXxcFbhIJxmarefPY9rx-RvKVR7MWc943D13rCPjb972_Do6yFnnUGqVrB5KpIhvTqPOXmIloEdYn2mYpfQPXP03t0GgUS0b6EDVjIA03Q34ZLSBSbkqPT17uk9mrvqle2t8o3EWRjcA4D5mQqsN-krF8UQsoFBkQga7tfTaSqxo72sWECtz7xJsQ6Utblx9S0oJs3X_uaLvdsRyvYqxmewU1WBCzdwHerkWABQVjwXu"
+                />
+                <div
+                  class="absolute bottom-0 right-0 w-5 h-5 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-white text-[12px]"
+                    >water_drop</span
+                  >
+                </div>
+              </div>
+              <span
+                class="font-label-sm text-label-sm text-center text-on-surface line-clamp-2"
+                >Nho sân thượng</span
+              >
+            </div>
+            <!-- Plant 2 -->
+            <div class="flex flex-col items-center gap-2 min-w-[80px]">
+              <div
+                class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary relative"
+              >
+                <img
+                  alt="Cà chua chậu"
+                  class="w-full h-full object-cover"
+                  src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"
+                />
+                <div
+                  class="absolute bottom-0 right-0 w-5 h-5 bg-[#9dd090] rounded-full border-2 border-white flex items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-white text-[12px]"
+                    >check</span
+                  >
+                </div>
+              </div>
+              <span
+                class="font-label-sm text-label-sm text-center text-on-surface line-clamp-2"
+                >Cà chua chậu</span
+              >
+            </div>
+            <!-- Plant 3 -->
+            <div class="flex flex-col items-center gap-2 min-w-[80px]">
+              <div
+                class="w-16 h-16 rounded-full overflow-hidden border-2 border-outline-variant relative"
+              >
+                <img
+                  alt="Hoa hồng"
+                  class="w-full h-full object-cover"
+                  src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"
+                />
+                <div
+                  class="absolute bottom-0 right-0 w-5 h-5 bg-[#F59E0B] rounded-full border-2 border-white flex items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-white text-[12px]"
+                    >warning</span
+                  >
+                </div>
+              </div>
+              <span
+                class="font-label-sm text-label-sm text-center text-on-surface line-clamp-2"
+                >Hoa hồng</span
+              >
+            </div>
+            <!-- Add new -->
+            <div class="flex flex-col items-center gap-2 min-w-[80px]">
+              <button
+                class="w-16 h-16 rounded-full border-2 border-dashed border-outline flex items-center justify-center hover:bg-surface-container-low transition-colors bg-surface-container-low"
+              >
+                <span class="material-symbols-outlined text-outline">add</span>
+              </button>
+              <span
+                class="font-label-sm text-label-sm text-center text-on-surface-variant"
+                >Thêm cây</span
+              >
+            </div>
+          </div>
 
-<!-- Section 1: Thao tác nhanh (Quick Actions) -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 mt-6">Thao tác nhanh</h3>
-<div class="grid gap-4 mb-8">
-  <button class="flex items-center justify-center gap-2 py-3 px-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-md hover:bg-primary/90 transition-colors">
-    <span class="material-symbols-outlined text-[18px]">add</span>
-    Thêm nhật ký
-  </button>
+          <!-- Section 1: Thao tác nhanh (Quick Actions) -->
+          <h3
+            class="font-headline-sm text-headline-sm text-on-surface mb-4 mt-6"
+          >
+            Thao tác nhanh
+          </h3>
+          <div class="grid gap-4 mb-8">
+            <button
+              class="flex items-center justify-center gap-2 py-3 px-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-md hover:bg-primary/90 transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]">add</span>
+              Thêm nhật ký
+            </button>
+          </div>
 
-</div>
+          <!-- Section 2: Việc cần làm hôm nay (Contextual Care) -->
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">
+            Việc cần làm hôm nay
+          </h3>
+          <div class="flex flex-col gap-3 mb-8">
+            <!-- Task 1 -->
+            <div
+              class="flex flex-col p-4 bg-white border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+            >
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <span
+                    class="font-body-lg text-body-lg text-on-surface block font-medium"
+                    >Tưới nước</span
+                  >
+                  <span
+                    class="font-label-md text-label-md text-primary bg-primary/10 px-2 py-0.5 rounded inline-block mt-1"
+                    >Nho sân thượng</span
+                  >
+                </div>
+                <span class="material-symbols-outlined text-blue-500"
+                  >water_drop</span
+                >
+              </div>
+              <span
+                class="font-body-md text-body-md text-on-surface-variant block mb-3"
+                ><span class="font-medium text-on-surface">Vì sao:</span> Đất
+                đang khô, cần duy trì độ ẩm</span
+              >
+              <button
+                class="w-full py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors text-center"
+              >
+                Thực hiện
+              </button>
+            </div>
+            <!-- Task 2 -->
+            <div
+              class="flex flex-col p-4 bg-white border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+            >
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <span
+                    class="font-body-lg text-body-lg text-on-surface block font-medium"
+                    >Bón phân định kỳ</span
+                  >
+                  <span
+                    class="font-label-md text-label-md text-secondary bg-secondary/10 px-2 py-0.5 rounded inline-block mt-1"
+                    >Cà chua chậu</span
+                  >
+                </div>
+                <span class="material-symbols-outlined text-secondary"
+                  >compost</span
+                >
+              </div>
+              <span
+                class="font-body-md text-body-md text-on-surface-variant block mb-3"
+                ><span class="font-medium text-on-surface">Vì sao:</span> Đến kỳ
+                bón phân, cung cấp dinh dưỡng cho giai đoạn ra hoa</span
+              >
+              <button
+                class="w-full py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors text-center"
+              >
+                Thực hiện
+              </button>
+            </div>
+            <!-- Task 3 -->
+            <div
+              class="flex flex-col p-4 bg-white border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+            >
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <span
+                    class="font-body-lg text-body-lg text-on-surface block font-medium"
+                    >Phun thuốc</span
+                  >
+                  <span
+                    class="font-label-md text-label-md text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded inline-block mt-1"
+                    >Hoa hồng</span
+                  >
+                </div>
+                <span class="material-symbols-outlined text-[#F59E0B]"
+                  >bug_report</span
+                >
+              </div>
+              <span
+                class="font-body-md text-body-md text-on-surface-variant block mb-3"
+                ><span class="font-medium text-on-surface">Vì sao:</span> Dấu
+                hiệu lá có đốm đen cần theo dõi, phòng rệp</span
+              >
+              <button
+                class="w-full py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors text-center"
+              >
+                Thực hiện
+              </button>
+            </div>
+          </div>
 
-<!-- Section 2: Việc cần làm hôm nay (Contextual Care) -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Việc cần làm hôm nay</h3>
-<div class="flex flex-col gap-3 mb-8">
-<!-- Task 1 -->
-<div class="flex flex-col p-4 bg-white border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-  <div class="flex justify-between items-start mb-3">
-    <div>
-      <span class="font-body-lg text-body-lg text-on-surface block font-medium">Tưới nước</span>
-      <span class="font-label-md text-label-md text-primary bg-primary/10 px-2 py-0.5 rounded inline-block mt-1">Nho sân thượng</span>
+          <!-- Section 3: Việc đến hạn (Due Tasks) -->
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">
+            Việc đến hạn
+          </h3>
+          <div
+            class="p-4 bg-surface-container-low border border-surface-variant rounded-xl text-center mb-8"
+          >
+            <span class="font-body-md text-body-md text-on-surface-variant"
+              >Hôm nay chưa có việc đến hạn</span
+            >
+          </div>
+
+          <!-- Section 4: Vừa ghi gần đây (Recent Activity) -->
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">
+            Vừa ghi gần đây
+          </h3>
+          <div class="flex flex-col gap-2 mb-8">
+            <div
+              class="flex items-center gap-3 p-3 bg-white rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+            >
+              <span
+                class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-full"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >edit_note</span
+              >
+              <div class="flex-1">
+                <span class="font-body-md text-body-md text-on-surface block"
+                  >Ghi chú: Lá nảy mầm tốt</span
+                >
+                <div class="flex items-center gap-2 mt-1">
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant"
+                    >Hoa hồng</span
+                  >
+                  <span class="w-1 h-1 bg-outline rounded-full"></span>
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant"
+                    >Hôm qua</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex items-center gap-3 p-3 bg-white rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+            >
+              <span
+                class="material-symbols-outlined text-blue-500 bg-blue-500/10 p-2 rounded-full"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >water_drop</span
+              >
+              <div class="flex-1">
+                <span class="font-body-md text-body-md text-on-surface block"
+                  >Đã tưới nước</span
+                >
+                <div class="flex items-center gap-2 mt-1">
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant"
+                    >Nho sân thượng</span
+                  >
+                  <span class="w-1 h-1 bg-outline rounded-full"></span>
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant"
+                    >Hôm qua</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <!-- Floating Action Button (FAB) -->
+
+        <!-- BottomNavBar -->
+        <nav
+          class="border-t border-outline-variant fixed bottom-0 w-full max-w-md h-[64px] pb-safe z-50 flex justify-around items-center px-container-margin bg-white"
+        >
+          <!-- Hôm nay (ACTIVE) -->
+          <button
+            class="flex flex-col items-center justify-center text-primary w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 group"
+          >
+            <div
+              class="px-4 py-1 rounded-full bg-primary-container/20 group-hover:bg-primary-container/30 transition-colors mb-1"
+            >
+              <span
+                class="material-symbols-outlined text-[24px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >calendar_today</span
+              >
+            </div>
+            <span class="font-label-sm text-label-sm font-bold">Hôm nay</span>
+          </button>
+          <!-- Cây trồng -->
+          <button
+            class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 group"
+          >
+            <div
+              class="px-4 py-1 rounded-full mb-1 group-hover:bg-surface-container-high transition-colors"
+            >
+              <span class="material-symbols-outlined text-[24px]"
+                >potted_plant</span
+              >
+            </div>
+          </button>
+        </nav>
+      </section>
     </div>
-    <span class="material-symbols-outlined text-blue-500">water_drop</span>
-  </div>
-  <span class="font-body-md text-body-md text-on-surface-variant block mb-3"><span class="font-medium text-on-surface">Vì sao:</span> Đất đang khô, cần duy trì độ ẩm</span>
-  <button class="w-full py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors text-center">Thực hiện</button>
-</div>
-<!-- Task 2 -->
-<div class="flex flex-col p-4 bg-white border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-  <div class="flex justify-between items-start mb-3">
-    <div>
-      <span class="font-body-lg text-body-lg text-on-surface block font-medium">Bón phân định kỳ</span>
-      <span class="font-label-md text-label-md text-secondary bg-secondary/10 px-2 py-0.5 rounded inline-block mt-1">Cà chua chậu</span>
-    </div>
-    <span class="material-symbols-outlined text-secondary">compost</span>
-  </div>
-  <span class="font-body-md text-body-md text-on-surface-variant block mb-3"><span class="font-medium text-on-surface">Vì sao:</span> Đến kỳ bón phân, cung cấp dinh dưỡng cho giai đoạn ra hoa</span>
-  <button class="w-full py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors text-center">Thực hiện</button>
-</div>
-<!-- Task 3 -->
-<div class="flex flex-col p-4 bg-white border border-outline-variant rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-  <div class="flex justify-between items-start mb-3">
-    <div>
-      <span class="font-body-lg text-body-lg text-on-surface block font-medium">Phun thuốc</span>
-      <span class="font-label-md text-label-md text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded inline-block mt-1">Hoa hồng</span>
-    </div>
-    <span class="material-symbols-outlined text-[#F59E0B]">bug_report</span>
-  </div>
-  <span class="font-body-md text-body-md text-on-surface-variant block mb-3"><span class="font-medium text-on-surface">Vì sao:</span> Dấu hiệu lá có đốm đen cần theo dõi, phòng rệp</span>
-  <button class="w-full py-2 bg-surface-container text-on-surface rounded-lg font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors text-center">Thực hiện</button>
-</div>
-</div>
-
-<!-- Section 3: Việc đến hạn (Due Tasks) -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Việc đến hạn</h3>
-<div class="p-4 bg-surface-container-low border border-surface-variant rounded-xl text-center mb-8">
-  <span class="font-body-md text-body-md text-on-surface-variant">Hôm nay chưa có việc đến hạn</span>
-</div>
-
-<!-- Section 4: Vừa ghi gần đây (Recent Activity) -->
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Vừa ghi gần đây</h3>
-<div class="flex flex-col gap-2 mb-8">
-<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-full" style="font-variation-settings: &quot;FILL&quot; 1;">edit_note</span>
-<div class="flex-1">
-<span class="font-body-md text-body-md text-on-surface block">Ghi chú: Lá nảy mầm tốt</span>
-<div class="flex items-center gap-2 mt-1">
-  <span class="font-label-sm text-label-sm text-on-surface-variant">Hoa hồng</span>
-  <span class="w-1 h-1 bg-outline rounded-full"></span>
-  <span class="font-label-sm text-label-sm text-on-surface-variant">Hôm qua</span>
-</div>
-</div>
-</div>
-<div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-outline-variant shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-<span class="material-symbols-outlined text-blue-500 bg-blue-500/10 p-2 rounded-full" style="font-variation-settings: &quot;FILL&quot; 1;">water_drop</span>
-<div class="flex-1">
-<span class="font-body-md text-body-md text-on-surface block">Đã tưới nước</span>
-<div class="flex items-center gap-2 mt-1">
-  <span class="font-label-sm text-label-sm text-on-surface-variant">Nho sân thượng</span>
-  <span class="w-1 h-1 bg-outline rounded-full"></span>
-  <span class="font-label-sm text-label-sm text-on-surface-variant">Hôm qua</span>
-</div>
-</div>
-</div>
-</div>
-
-</main>
-<!-- Floating Action Button (FAB) -->
-
-<!-- BottomNavBar -->
-<nav class="border-t border-outline-variant fixed bottom-0 w-full max-w-md h-[64px] pb-safe z-50 flex justify-around items-center px-container-margin bg-white"><!-- Hôm nay (ACTIVE) -->
-<button class="flex flex-col items-center justify-center text-primary w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 group">
-  <div class="px-4 py-1 rounded-full bg-primary-container/20 group-hover:bg-primary-container/30 transition-colors mb-1">
-    <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: &quot;FILL&quot; 1;">calendar_today</span>
-  </div>
-  <span class="font-label-sm text-label-sm font-bold">Hôm nay</span>
-</button>
-<!-- Cây trồng -->
-<button class="flex flex-col items-center justify-center text-on-surface-variant w-16 h-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 group">
-  <div class="px-4 py-1 rounded-full mb-1 group-hover:bg-surface-container-high transition-colors">
-    <span class="material-symbols-outlined text-[24px]">potted_plant</span>
-  </div>
-  </button></nav></section></div></body></html>
+  </body>
+</html>

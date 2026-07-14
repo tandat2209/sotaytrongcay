@@ -22,7 +22,7 @@ recommended_inputs:
       Kali sunfat (SOP / 0-0-50), chiết xuất rong biển, tro gỗ (cẩn thận — tro
       gỗ làm tăng pH đất)
   - group: Phân NPK thiên kali
-    examples: 'NPK 12-12-17 hoặc tương tự, phân compost phủ mặt'
+    examples: "NPK 12-12-17 hoặc tương tự, phân compost phủ mặt"
 frequency:
   ground:
     display: >-
@@ -36,7 +36,7 @@ notes:
   - >-
     Tiếp tục bón đạm cao ở giai đoạn này là lỗi phổ biến — cây ra nhiều lá nhưng
     cành yếu, không có khả năng mang trái tốt.
-  - 'Cành chuyển nâu từ gốc lên là dấu hiệu hóa gỗ tốt, không phải bệnh.'
+  - "Cành chuyển nâu từ gốc lên là dấu hiệu hóa gỗ tốt, không phải bệnh."
   - >-
     Ở Việt Nam (không có mùa đông tự nhiên), người trồng cần chủ động giảm nước
     và dinh dưỡng để cây nghỉ ngắn trước khi cắt cành.

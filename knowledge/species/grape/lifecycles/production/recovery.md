@@ -18,4 +18,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Cây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.

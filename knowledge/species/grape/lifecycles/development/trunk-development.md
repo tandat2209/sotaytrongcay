@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Tập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.

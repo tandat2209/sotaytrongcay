@@ -6,10 +6,14 @@ export type PlantIdentity = Readonly<{
   stageTitle: string;
 }>;
 
-export function resolvePlantIdentity(plant: Pick<Plant, "speciesId" | "stageId">): PlantIdentity {
+export function resolvePlantIdentity(
+  plant: Pick<Plant, "speciesId" | "stageId">,
+): PlantIdentity {
   const knowledge = getPreviewPlantKnowledge(plant.speciesId);
   return {
     speciesTitle: knowledge?.species.title ?? "Chưa xác định",
-    stageTitle: knowledge?.stages.find((stage) => stage.id === plant.stageId)?.title ?? "Chưa xác định",
+    stageTitle:
+      knowledge?.stages.find((stage) => stage.id === plant.stageId)?.title ??
+      "Chưa xác định",
   };
 }

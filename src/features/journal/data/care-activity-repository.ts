@@ -14,7 +14,9 @@ export type CareActivityRow = {
   created_at: string;
 };
 
-export function careActivityToInsertParams(activity: CareActivity): (string | number | null)[] {
+export function careActivityToInsertParams(
+  activity: CareActivity,
+): (string | number | null)[] {
   return [
     activity.id,
     activity.mutationId,
@@ -57,7 +59,9 @@ export async function saveCareActivity(input: CareActivity): Promise<void> {
   );
 }
 
-export async function listCareActivities(plantId?: string): Promise<CareActivity[]> {
+export async function listCareActivities(
+  plantId?: string,
+): Promise<CareActivity[]> {
   const db = await getDb();
   const rows = plantId
     ? await db.getAllAsync<CareActivityRow>(
@@ -70,7 +74,9 @@ export async function listCareActivities(plantId?: string): Promise<CareActivity
   return rows.map(careActivityFromRow);
 }
 
-export async function getCareActivity(id: string): Promise<CareActivity | null> {
+export async function getCareActivity(
+  id: string,
+): Promise<CareActivity | null> {
   const db = await getDb();
   const row = await db.getFirstAsync<CareActivityRow>(
     "SELECT * FROM care_activities WHERE id = ?",

@@ -264,6 +264,7 @@ export class BundledKnowledgeRepository implements KnowledgeRepository {
 ### Task 1: Establish compiler tooling and authoring schemas
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `pnpm-lock.yaml`
 - Modify: `knowledge/_schemas/species.schema.json`
@@ -273,6 +274,7 @@ export class BundledKnowledgeRepository implements KnowledgeRepository {
 - Create: `scripts/knowledge/tsconfig.json`
 
 **Interfaces:**
+
 - Consumes: existing Draft 2020-12 schema conventions.
 - Produces: Node compiler environment and five user-facing schemas that structurally accept locale strings.
 
@@ -333,6 +335,7 @@ Expected: both commands exit 0.
 ### Task 2: Discover, parse, and schema-validate source documents
 
 **Files:**
+
 - Create: `scripts/knowledge/types.ts`
 - Create: `scripts/knowledge/diagnostics.ts`
 - Create: `scripts/knowledge/paths.ts`
@@ -343,6 +346,7 @@ Expected: both commands exit 0.
 - Create: `scripts/knowledge/__tests__/source-validation.test.ts`
 
 **Interfaces:**
+
 - Consumes: `KnowledgeDocumentType`, checked-in schemas, a repository root, and real Markdown files.
 - Produces: `ValidatedSourceDocument` records or sorted `KnowledgeDiagnostic[]`.
 
@@ -417,6 +421,7 @@ Expected: PASS.
 ### Task 3: Normalize documents and validate the authored graph
 
 **Files:**
+
 - Create: `scripts/knowledge/normalize.ts`
 - Create: `scripts/knowledge/relationship-validator.ts`
 - Create: `scripts/knowledge/stage-graph-validator.ts`
@@ -424,6 +429,7 @@ Expected: PASS.
 - Create: `scripts/knowledge/__tests__/graph-validation.test.ts`
 
 **Interfaces:**
+
 - Consumes: schema-valid source records.
 - Produces: camelCase `NormalizedKnowledgeDocument[]` and complete-graph diagnostics.
 
@@ -483,12 +489,14 @@ Expected: PASS.
 ### Task 4: Select eligible content and compile deterministic bundles
 
 **Files:**
+
 - Create: `scripts/knowledge/eligibility.ts`
 - Create: `scripts/knowledge/serialize.ts`
 - Create: `knowledge/_schemas/mobile-bundle.schema.json`
 - Create: `scripts/knowledge/__tests__/compiler.integration.test.ts`
 
 **Interfaces:**
+
 - Consumes: a valid complete authored graph and `CompilationMode`.
 - Produces: selected closed graph, `CompiledKnowledgeBundle`, and canonical JSON bytes.
 
@@ -545,6 +553,7 @@ Expected: PASS for in-memory selection and serialization cases.
 ### Task 5: Orchestrate compilation, atomic writes, CLI, and freshness
 
 **Files:**
+
 - Create: `scripts/knowledge/atomic-write.ts`
 - Create: `scripts/knowledge/compiler.ts`
 - Create: `scripts/knowledge/freshness.ts`
@@ -554,6 +563,7 @@ Expected: PASS for in-memory selection and serialization cases.
 - Modify: `package.json`
 
 **Interfaces:**
+
 - Consumes: all compiler units from Tasks 2–4.
 - Produces: `validateKnowledgeSources`, `compileKnowledge`, `checkKnowledgeFreshness`, and four package commands.
 
@@ -615,11 +625,13 @@ Expected: PASS.
 ### Task 6: Compile and verify the real grape pilot
 
 **Files:**
+
 - Create: `scripts/knowledge/__tests__/pilot.integration.test.ts`
 - Create: `knowledge/_generated/.gitignore`
 - Create: `knowledge/_generated/mobile-bundle.json`
 
 **Interfaces:**
+
 - Consumes: real checked-in Markdown and compiler entry points.
 - Produces: proven preview output and committed empty production artifact.
 
@@ -665,6 +677,7 @@ Expected: valid authored graph, production JSON written, then freshness PASS. Th
 ### Task 7: Define the complete runtime Zod contract
 
 **Files:**
+
 - Create: `src/features/knowledge/model/knowledge-ids.ts`
 - Create: `src/features/knowledge/model/knowledge-documents.ts`
 - Create: `src/features/knowledge/model/knowledge-bundle.ts`
@@ -672,6 +685,7 @@ Expected: valid authored graph, production JSON written, then freshness PASS. Th
 - Create: `src/features/knowledge/model/knowledge-bundle.test.ts`
 
 **Interfaces:**
+
 - Consumes: `unknown` compiler-shaped JSON.
 - Produces: branded IDs, strict runtime documents, `KnowledgeBundleSchema`, `KnowledgeBundle`, and normalized errors.
 
@@ -713,12 +727,14 @@ Expected: PASS.
 ### Task 8: Implement the immutable bundled repository
 
 **Files:**
+
 - Create: `src/features/knowledge/model/knowledge-repository.ts`
 - Create: `src/features/knowledge/data/deep-freeze.ts`
 - Create: `src/features/knowledge/data/BundledKnowledgeRepository.ts`
 - Create: `src/features/knowledge/data/BundledKnowledgeRepository.test.ts`
 
 **Interfaces:**
+
 - Consumes: `unknown` bundle input and runtime schemas from Task 7.
 - Produces: the exact `KnowledgeRepository` API and immutable synchronous reads.
 
@@ -756,12 +772,14 @@ Expected: PASS.
 ### Task 9: Expose and verify the compiler-to-repository seam
 
 **Files:**
+
 - Create: `src/features/knowledge/index.ts`
 - Create: `src/features/knowledge/data/compiled-bundle.integration.test.ts`
 - Create: `src/features/knowledge/README.md`
 - Modify: `scripts/knowledge/__tests__/pilot.integration.test.ts`
 
 **Interfaces:**
+
 - Consumes: compiler production/preview output and runtime repository.
 - Produces: supported public feature imports and end-to-end proof.
 
@@ -810,12 +828,14 @@ Expected: production and preview seams PASS.
 ### Task 10: Align architecture documentation and backlog
 
 **Files:**
+
 - Modify: `docs/TECHNICAL_ARCHITECTURE.md`
 - Modify: `docs/KNOWLEDGE_BASE_ARCHITECTURE.md`
 - Modify: `knowledge/README.md`
 - Modify: `TODO.md`
 
 **Interfaces:**
+
 - Consumes: implemented command names, paths, and behavior.
 - Produces: documentation matching the shipped slice.
 
@@ -857,9 +877,11 @@ Expected: no matches.
 ### Task 11: Run full verification and inspect the final diff
 
 **Files:**
+
 - Verify all files from Tasks 1–10.
 
 **Interfaces:**
+
 - Consumes: complete implementation.
 - Produces: evidence for the project definition of done.
 

@@ -55,15 +55,21 @@ describe("preview knowledge", () => {
 
   describe("listInformationalGuidesForStage", () => {
     it("returns non-plan guides for a stage", () => {
-      const guides = listInformationalGuidesForStage("grape.stage.trunk-development");
+      const guides = listInformationalGuidesForStage(
+        "grape.stage.trunk-development",
+      );
 
-      expect(guides).toEqual(expect.arrayContaining([
-        expect.objectContaining({ id: "grape.guide.train-main-shoot" }),
-      ]));
+      expect(guides).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ id: "grape.guide.train-main-shoot" }),
+        ]),
+      );
     });
 
     it("returns an empty array for a stage without informational guides", () => {
-      expect(listInformationalGuidesForStage("grape.stage.harvest")).toHaveLength(0);
+      expect(
+        listInformationalGuidesForStage("grape.stage.harvest"),
+      ).toHaveLength(0);
     });
   });
 
@@ -72,7 +78,9 @@ describe("preview knowledge", () => {
       const recs = getCarePlansForStage("grape.stage.trunk-development");
 
       expect(recs.length).toBeGreaterThan(0);
-      expect(recs[0]!.id).toBe("grape.recommendation.trunk-development.fertilizing");
+      expect(recs[0]!.id).toBe(
+        "grape.recommendation.trunk-development.fertilizing",
+      );
       expect(recs[0]!.activityType).toBe("fertilizing");
       expect(recs[0]!.title.length).toBeGreaterThan(0);
       expect(recs[0]!.goal.length).toBeGreaterThan(0);

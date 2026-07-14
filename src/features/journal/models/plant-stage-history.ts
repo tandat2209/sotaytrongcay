@@ -12,7 +12,9 @@ export const PlantStageHistorySchema = z.object({
 
 export type PlantStageHistory = z.infer<typeof PlantStageHistorySchema>;
 
-export function createPlantStageHistory(input: PlantStageHistory): PlantStageHistory | null {
+export function createPlantStageHistory(
+  input: PlantStageHistory,
+): PlantStageHistory | null {
   const history = PlantStageHistorySchema.parse(input);
   return history.fromStageId === history.toStageId ? null : history;
 }

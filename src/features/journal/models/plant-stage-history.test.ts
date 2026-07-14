@@ -16,6 +16,8 @@ describe("createPlantStageHistory", () => {
   });
 
   it("returns null when the confirmed stage is unchanged", () => {
-    expect(createPlantStageHistory({ ...input, toStageId: input.fromStageId })).toBeNull();
+    expect(
+      createPlantStageHistory({ ...input, toStageId: input.fromStageId }),
+    ).toBeNull();
   });
 });

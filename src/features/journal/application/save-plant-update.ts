@@ -1,29 +1,49 @@
 import { z } from "zod";
 import { savePlantUpdate } from "../data/plant-update-repository";
-import { PlantUpdateFieldsSchema, PlantUpdateSchema, type PlantUpdate } from "../models/plant-update";
-import { deletePersistedJournalPhotos, persistJournalPhotos } from "./journal-photo-storage";
+import {
+  PlantUpdateFieldsSchema,
+  PlantUpdateSchema,
+  type PlantUpdate,
+} from "../models/plant-update";
+import {
+  deletePersistedJournalPhotos,
+  persistJournalPhotos,
+} from "./journal-photo-storage";
 
 const SavePlantUpdateCommandSchema = PlantUpdateFieldsSchema.extend({
-  photos: z.array(z.object({
-    id: z.string().uuid(),
-    sourceUri: z.string().min(1),
-    fileName: z.string().nullable(),
-    position: z.number().int().nonnegative(),
-    createdAt: z.string().datetime(),
-  })),
+  photos: z.array(
+    z.object({
+      id: z.string().uuid(),
+      sourceUri: z.string().min(1),
+      fileName: z.string().nullable(),
+      position: z.number().int().nonnegative(),
+      createdAt: z.string().datetime(),
+    }),
+  ),
   stageHistoryId: z.string().uuid(),
 }).superRefine((command, context) => {
   if (command.notes === null && command.photos.length === 0) {
-    context.addIssue({ code: "custom", message: "Thêm ảnh hoặc ghi chú trước khi lưu." });
+    context.addIssue({
+      code: "custom",
+      message: "Thêm ảnh hoặc ghi chú trước khi lưu.",
+    });
   }
 });
 
-export type SavePlantUpdateCommand = z.infer<typeof SavePlantUpdateCommandSchema>;
+export type SavePlantUpdateCommand = z.infer<
+  typeof SavePlantUpdateCommandSchema
+>;
 
-export async function savePlantUpdateWithPhotos(input: SavePlantUpdateCommand): Promise<PlantUpdate> {
+export async function savePlantUpdateWithPhotos(
+  input: SavePlantUpdateCommand,
+): Promise<PlantUpdate> {
   const command = SavePlantUpdateCommandSchema.parse(input);
   try {
-    const photos = await persistJournalPhotos(command.plantId, command.id, command.photos);
+    const photos = await persistJournalPhotos(
+      command.plantId,
+      command.id,
+      command.photos,
+    );
     const update = PlantUpdateSchema.parse({
       id: command.id,
       mutationId: command.mutationId,

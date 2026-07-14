@@ -5,7 +5,6 @@
 import { selectEligibleContent } from "../eligibility";
 import { serializeBundle } from "../serialize";
 import type {
-  NormalizedKnowledgeDocument,
   NormalizedPlantSpecies,
   NormalizedGrowthStagePlaybook,
   NormalizedReferenceSource,
@@ -23,8 +22,34 @@ describe("compiler selection and serialization integration", () => {
     references: ["ref.osu"],
     scientificName: "Vitis vinifera",
     lifecycles: {
-      development: { title: "Dev", repeatable: false, initialStageId: "stage.trunk", stages: [{ id: "stage.trunk", title: "Nuôi thân", sequence: 1, playbookStatus: "approved", transitions: [{ to: "stage.prod" }] }] },
-      production: { title: "Prod", repeatable: true, initialStageId: "stage.prod", stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
+      development: {
+        title: "Dev",
+        repeatable: false,
+        initialStageId: "stage.trunk",
+        stages: [
+          {
+            id: "stage.trunk",
+            title: "Nuôi thân",
+            sequence: 1,
+            playbookStatus: "approved",
+            transitions: [{ to: "stage.prod" }],
+          },
+        ],
+      },
+      production: {
+        title: "Prod",
+        repeatable: true,
+        initialStageId: "stage.prod",
+        stages: [
+          {
+            id: "stage.prod",
+            title: "Prod",
+            sequence: 1,
+            playbookStatus: "approved",
+            transitions: [],
+          },
+        ],
+      },
     },
     path: "species.md",
   };
@@ -84,7 +109,14 @@ describe("compiler selection and serialization integration", () => {
       };
 
       const result = selectEligibleContent(
-        [mockSpecies, mockPlaybook, mockRef, draftPlaybook, reviewPlaybook, nonViDoc],
+        [
+          mockSpecies,
+          mockPlaybook,
+          mockRef,
+          draftPlaybook,
+          reviewPlaybook,
+          nonViDoc,
+        ],
         "production",
       );
 
@@ -121,8 +153,34 @@ describe("compiler selection and serialization integration", () => {
       const speciesWithReviewStage: NormalizedPlantSpecies = {
         ...mockSpecies,
         lifecycles: {
-          development: { title: "Dev", repeatable: false, initialStageId: "stage.review", stages: [{ id: "stage.review", title: "Review Stage", sequence: 1, playbookStatus: "review", transitions: [{ to: "stage.prod" }] }] },
-          production: { title: "Prod", repeatable: true, initialStageId: "stage.prod", stages: [{ id: "stage.prod", title: "Prod", sequence: 1, playbookStatus: "approved", transitions: [] }] }
+          development: {
+            title: "Dev",
+            repeatable: false,
+            initialStageId: "stage.review",
+            stages: [
+              {
+                id: "stage.review",
+                title: "Review Stage",
+                sequence: 1,
+                playbookStatus: "review",
+                transitions: [{ to: "stage.prod" }],
+              },
+            ],
+          },
+          production: {
+            title: "Prod",
+            repeatable: true,
+            initialStageId: "stage.prod",
+            stages: [
+              {
+                id: "stage.prod",
+                title: "Prod",
+                sequence: 1,
+                playbookStatus: "approved",
+                transitions: [],
+              },
+            ],
+          },
         },
       };
 
@@ -186,13 +244,19 @@ describe("compiler selection and serialization integration", () => {
 
       const result = serializeBundle([playbookWithUnorderedRefs], "production");
       const parsed = JSON.parse(result);
-      expect(parsed.stagePlaybooks[0].references).toEqual(["ref.a", "ref.m", "ref.z"]);
+      expect(parsed.stagePlaybooks[0].references).toEqual([
+        "ref.a",
+        "ref.m",
+        "ref.z",
+      ]);
     });
 
     it("omits default reminder templates from serialized stage playbooks", () => {
       const parsed = JSON.parse(serializeBundle([mockPlaybook], "production"));
 
-      expect(parsed.stagePlaybooks[0]).not.toHaveProperty("defaultReminderTemplates");
+      expect(parsed.stagePlaybooks[0]).not.toHaveProperty(
+        "defaultReminderTemplates",
+      );
     });
 
     it("ensures output has exactly one trailing newline and no metadata timestamp", () => {

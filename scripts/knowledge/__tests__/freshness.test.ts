@@ -2,7 +2,6 @@
  * @jest-environment node
  */
 
-import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { checkKnowledgeFreshness } from "../freshness";
 import { createTestWorkspace, type TestWorkspace } from "./test-workspace";
@@ -76,7 +75,11 @@ references: ["ref.osu"]
 `,
     );
 
-    const committedBundlePath = join(workspace.knowledgeRoot, "_generated", "mobile-bundle.json");
+    const committedBundlePath = join(
+      workspace.knowledgeRoot,
+      "_generated",
+      "mobile-bundle.json",
+    );
     const result = await checkKnowledgeFreshness({
       repositoryRoot: workspace.repositoryRoot,
       knowledgeRoot: workspace.knowledgeRoot,
@@ -88,7 +91,9 @@ references: ["ref.osu"]
     expect(result.diagnostics[0]!).toMatchObject({
       code: "KNOWLEDGE_ARTIFACT_STALE",
       path: committedBundlePath,
-      message: expect.stringContaining('Run "pnpm knowledge:compile" and commit knowledge/_generated/mobile-bundle.json.'),
+      message: expect.stringContaining(
+        'Run "pnpm knowledge:compile" and commit knowledge/_generated/mobile-bundle.json.',
+      ),
     });
   });
 
@@ -150,80 +155,88 @@ references: ["ref.osu"]
 `,
     );
 
-    const committedBundlePath = join(workspace.knowledgeRoot, "_generated", "mobile-bundle.json");
+    const committedBundlePath = join(
+      workspace.knowledgeRoot,
+      "_generated",
+      "mobile-bundle.json",
+    );
 
     // First write matching compiled output
-    const expectedSerialized = JSON.stringify(
-      {
-        schemaVersion: "1.0.0",
-        contentVersion: "1.0.0",
-        mode: "production",
-        species: [
-          {
-            id: "plant.grape",
-            type: "plant_species",
-            title: "Nho",
-            locale: "vi-VN",
-            version: "1.0.0",
-            status: "approved",
-            references: ["ref.osu"],
-            scientificName: "Vitis vinifera",
-            lifecycles: {
-              development: {
-                title: "Dev",
-                repeatable: false,
-                initialStageId: "grape.stage.trunk-development",
-                stages: [
-                  {
-                    id: "grape.stage.trunk-development",
-                    title: "Nuôi thân",
-                    sequence: 1,
-                    transitions: [{ to: "grape.stage.pruning" }],
-                    playbookStatus: "unavailable",
-                  },
-                ],
+    const expectedSerialized =
+      JSON.stringify(
+        {
+          schemaVersion: "1.0.0",
+          contentVersion: "1.0.0",
+          mode: "production",
+          species: [
+            {
+              id: "plant.grape",
+              type: "plant_species",
+              title: "Nho",
+              locale: "vi-VN",
+              version: "1.0.0",
+              status: "approved",
+              references: ["ref.osu"],
+              scientificName: "Vitis vinifera",
+              lifecycles: {
+                development: {
+                  title: "Dev",
+                  repeatable: false,
+                  initialStageId: "grape.stage.trunk-development",
+                  stages: [
+                    {
+                      id: "grape.stage.trunk-development",
+                      title: "Nuôi thân",
+                      sequence: 1,
+                      transitions: [{ to: "grape.stage.pruning" }],
+                      playbookStatus: "unavailable",
+                    },
+                  ],
+                },
+                production: {
+                  title: "Prod",
+                  repeatable: true,
+                  initialStageId: "grape.stage.pruning",
+                  stages: [
+                    {
+                      id: "grape.stage.pruning",
+                      title: "Cắt cành",
+                      sequence: 1,
+                      transitions: [],
+                      playbookStatus: "unavailable",
+                    },
+                  ],
+                },
               },
-              production: {
-                title: "Prod",
-                repeatable: true,
-                initialStageId: "grape.stage.pruning",
-                stages: [
-                  {
-                    id: "grape.stage.pruning",
-                    title: "Cắt cành",
-                    sequence: 1,
-                    transitions: [],
-                    playbookStatus: "unavailable",
-                  },
-                ],
-              },
+              bodyMarkdown: "# Cây nho\n",
             },
-            bodyMarkdown: "# Cây nho\n",
-          },
-        ],
-        stagePlaybooks: [],
-        carePlans: [],
-        guides: [],
-        references: [
-          {
-            id: "ref.osu",
-            type: "reference_source",
-            title: "OSU Extension",
-            version: "1.0.0",
-            status: "active",
-            publisher: "OSU",
-            sourceType: "extension_guide",
-            url: "http://example.com/osu",
-            accessed: "2026-07-11",
-            bodyMarkdown: "# OSU Extension Guide\n",
-          }
-        ],
-      },
-      null,
-      2,
-    ) + "\n";
+          ],
+          stagePlaybooks: [],
+          carePlans: [],
+          guides: [],
+          references: [
+            {
+              id: "ref.osu",
+              type: "reference_source",
+              title: "OSU Extension",
+              version: "1.0.0",
+              status: "active",
+              publisher: "OSU",
+              sourceType: "extension_guide",
+              url: "http://example.com/osu",
+              accessed: "2026-07-11",
+              bodyMarkdown: "# OSU Extension Guide\n",
+            },
+          ],
+        },
+        null,
+        2,
+      ) + "\n";
 
-    await workspace.writeKnowledgeFile("_generated/mobile-bundle.json", expectedSerialized);
+    await workspace.writeKnowledgeFile(
+      "_generated/mobile-bundle.json",
+      expectedSerialized,
+    );
 
     let result = await checkKnowledgeFreshness({
       repositoryRoot: workspace.repositoryRoot,
@@ -237,7 +250,10 @@ references: ["ref.osu"]
     expect(result.ok).toBe(true);
 
     // Write mismatched content (e.g. trailing characters or minor change)
-    await workspace.writeKnowledgeFile("_generated/mobile-bundle.json", expectedSerialized + " ");
+    await workspace.writeKnowledgeFile(
+      "_generated/mobile-bundle.json",
+      expectedSerialized + " ",
+    );
 
     result = await checkKnowledgeFreshness({
       repositoryRoot: workspace.repositoryRoot,

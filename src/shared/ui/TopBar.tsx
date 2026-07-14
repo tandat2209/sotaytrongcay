@@ -13,13 +13,25 @@ type TopBarProps = {
   titleIcon?: LucideIcon;
 };
 
-export function TopBar({ action, backAccessibilityLabel = "Quay lại", onBack, title, titleIcon: TitleIcon }: TopBarProps) {
+export function TopBar({
+  action,
+  backAccessibilityLabel = "Quay lại",
+  onBack,
+  title,
+  titleIcon: TitleIcon,
+}: TopBarProps) {
   return (
     <View style={styles.bar}>
-      <IconButton accessibilityLabel={backAccessibilityLabel} icon={ChevronLeft} onPress={onBack} />
+      <IconButton
+        accessibilityLabel={backAccessibilityLabel}
+        icon={ChevronLeft}
+        onPress={onBack}
+      />
       <View style={styles.titleWrap}>
         {TitleIcon ? <TitleIcon color={colors.primary} size={20} /> : null}
-        <Typography style={styles.title} variant="headlineSmall">{title}</Typography>
+        <Typography style={styles.title} variant="headlineSmall">
+          {title}
+        </Typography>
       </View>
       <View style={styles.action}>{action}</View>
     </View>
@@ -28,7 +40,17 @@ export function TopBar({ action, backAccessibilityLabel = "Quay lại", onBack, 
 
 const styles = StyleSheet.create({
   action: { alignItems: "flex-end", minWidth: 44 },
-  bar: { alignItems: "center", flexDirection: "row", gap: spacing.sm, minHeight: 52 },
+  bar: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: spacing.sm,
+    minHeight: 52,
+  },
   title: { flex: 1 },
-  titleWrap: { alignItems: "center", flex: 1, flexDirection: "row", gap: spacing.sm },
+  titleWrap: {
+    alignItems: "center",
+    flex: 1,
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
 });

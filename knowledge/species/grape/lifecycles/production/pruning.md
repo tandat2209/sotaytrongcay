@@ -20,4 +20,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.

@@ -20,4 +20,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Hoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).

@@ -77,14 +77,12 @@ export function validateRelationships(
         // Validate speciesId exists and has type plant_species
         validateIdRef(doc, doc.speciesId, "speciesId", "plant_species");
 
-
-
         // Validate if this playbook is present in its species stage journey
         const species = idMap.get(doc.speciesId);
         if (species && species.type === "plant_species") {
           const allStages = [
             ...(species.lifecycles?.development?.stages ?? []),
-            ...(species.lifecycles?.production?.stages ?? [])
+            ...(species.lifecycles?.production?.stages ?? []),
           ];
           const inJourney = allStages.some((j) => j.id === doc.id);
           if (!inJourney) {

@@ -20,6 +20,7 @@ Read the quality-gate and reporting sections of `docs/ENGINEERING_STANDARDS.md`,
 
 Use pnpm, matching the repository package manager:
 
+- Format check: `pnpm format:check`
 - TypeScript: `pnpm typecheck`
 - Lint: `pnpm lint`
 - Tests: `pnpm test`

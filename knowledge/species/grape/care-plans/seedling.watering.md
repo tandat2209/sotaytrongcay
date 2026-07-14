@@ -17,13 +17,13 @@ eligibility:
 on_missing_history: suggest
 frequency:
   ground:
-    display: 'Mỗi 2–3 ngày trong mùa khô, giảm xuống khi mưa nhiều'
+    display: "Mỗi 2–3 ngày trong mùa khô, giảm xuống khi mưa nhiều"
     interval_days: 3
   container:
     display: Mỗi 1–2 ngày — chậu thoát nước nhanh hơn đất trồng
     interval_days: 2
 notes:
-  - 'Tưới nhẹ và đều quanh gốc, không tưới mạnh gây bật gốc cây con.'
+  - "Tưới nhẹ và đều quanh gốc, không tưới mạnh gây bật gốc cây con."
   - Lá héo buổi sáng sớm = thiếu nước. Lá vàng + đất ẩm liên tục = tưới thừa.
   - Không phun nước lên lá non — dễ gây nấm và cháy lá dưới nắng.
   - Giai đoạn này cây dễ chết do úng rễ hơn do khô hạn.

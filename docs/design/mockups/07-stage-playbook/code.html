@@ -1,288 +1,481 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcf9f8;
-            color: #1c1b1b;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid #E5E7EB;
-        }
-        .scroll-hide::-webkit-scrollbar {
-            display: none;
-        }
+<html class="light" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #fcf9f8;
+        color: #1c1b1b;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        border: 1px solid #e5e7eb;
+      }
+      .scroll-hide::-webkit-scrollbar {
+        display: none;
+      }
     </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-fixed": "#161c22",
-                        "tertiary": "#343a40",
-                        "surface": "#fcf9f8",
-                        "secondary-fixed": "#e9ddff",
-                        "inverse-on-surface": "#f3f0ef",
-                        "primary-fixed": "#bcf0ae",
-                        "surface-container-high": "#eae7e7",
-                        "on-tertiary-container": "#bdc3cb",
-                        "secondary": "#65558f",
-                        "on-primary-fixed-variant": "#23501e",
-                        "primary": "#154212",
-                        "on-background": "#1c1b1b",
-                        "inverse-surface": "#313030",
-                        "surface-container-highest": "#e5e2e1",
-                        "on-surface": "#1c1b1b",
-                        "on-error": "#ffffff",
-                        "error": "#ba1a1a",
-                        "on-secondary-fixed": "#201047",
-                        "on-tertiary-fixed-variant": "#41474e",
-                        "on-tertiary": "#ffffff",
-                        "secondary-fixed-dim": "#cfbdfe",
-                        "surface-tint": "#3b6934",
-                        "primary-container": "#2d5a27",
-                        "surface-container-lowest": "#ffffff",
-                        "on-surface-variant": "#42493e",
-                        "tertiary-fixed-dim": "#c1c7cf",
-                        "secondary-container": "#cfbdfe",
-                        "on-primary": "#ffffff",
-                        "surface-bright": "#fcf9f8",
-                        "outline": "#72796e",
-                        "outline-variant": "#c2c9bb",
-                        "surface-container": "#f0eded",
-                        "on-primary-container": "#9dd090",
-                        "error-container": "#ffdad6",
-                        "surface-dim": "#dcd9d9",
-                        "background": "#fcf9f8",
-                        "on-secondary": "#ffffff",
-                        "surface-variant": "#e5e2e1",
-                        "on-secondary-fixed-variant": "#4d3d75",
-                        "inverse-primary": "#a1d494",
-                        "on-secondary-container": "#594982",
-                        "on-error-container": "#93000a",
-                        "tertiary-container": "#4a5157",
-                        "surface-container-low": "#f6f3f2",
-                        "on-primary-fixed": "#002201",
-                        "tertiary-fixed": "#dde3eb",
-                        "primary-fixed-dim": "#a1d494"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "xl": "32px",
-                        "xs": "4px",
-                        "sm": "8px",
-                        "md": "16px",
-                        "lg": "24px",
-                        "gutter": "16px",
-                        "base": "4px",
-                        "container-margin": "16px"
-                    },
-                    "fontFamily": {
-                        "label-md": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "body-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "headline-md": ["Inter"]
-                    },
-                    "fontSize": {
-                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
-                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
-                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "600"}],
-                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
-                    }
-                },
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#161c22",
+              tertiary: "#343a40",
+              surface: "#fcf9f8",
+              "secondary-fixed": "#e9ddff",
+              "inverse-on-surface": "#f3f0ef",
+              "primary-fixed": "#bcf0ae",
+              "surface-container-high": "#eae7e7",
+              "on-tertiary-container": "#bdc3cb",
+              secondary: "#65558f",
+              "on-primary-fixed-variant": "#23501e",
+              primary: "#154212",
+              "on-background": "#1c1b1b",
+              "inverse-surface": "#313030",
+              "surface-container-highest": "#e5e2e1",
+              "on-surface": "#1c1b1b",
+              "on-error": "#ffffff",
+              error: "#ba1a1a",
+              "on-secondary-fixed": "#201047",
+              "on-tertiary-fixed-variant": "#41474e",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed-dim": "#cfbdfe",
+              "surface-tint": "#3b6934",
+              "primary-container": "#2d5a27",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#42493e",
+              "tertiary-fixed-dim": "#c1c7cf",
+              "secondary-container": "#cfbdfe",
+              "on-primary": "#ffffff",
+              "surface-bright": "#fcf9f8",
+              outline: "#72796e",
+              "outline-variant": "#c2c9bb",
+              "surface-container": "#f0eded",
+              "on-primary-container": "#9dd090",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dcd9d9",
+              background: "#fcf9f8",
+              "on-secondary": "#ffffff",
+              "surface-variant": "#e5e2e1",
+              "on-secondary-fixed-variant": "#4d3d75",
+              "inverse-primary": "#a1d494",
+              "on-secondary-container": "#594982",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#4a5157",
+              "surface-container-low": "#f6f3f2",
+              "on-primary-fixed": "#002201",
+              "tertiary-fixed": "#dde3eb",
+              "primary-fixed-dim": "#a1d494",
             },
-        }
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              xl: "32px",
+              xs: "4px",
+              sm: "8px",
+              md: "16px",
+              lg: "24px",
+              gutter: "16px",
+              base: "4px",
+              "container-margin": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-sm": ["Inter"],
+              "headline-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "body-lg": ["Inter"],
+              "label-sm": ["Inter"],
+              "headline-md": ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.02em",
+                  fontWeight: "500",
+                },
+              ],
+              "headline-sm": [
+                "18px",
+                { lineHeight: "24px", fontWeight: "600" },
+              ],
+              "headline-lg": [
+                "28px",
+                {
+                  lineHeight: "34px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "label-sm": ["10px", { lineHeight: "12px", fontWeight: "600" }],
+              "headline-md": [
+                "22px",
+                {
+                  lineHeight: "28px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
     </script>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
   </head>
-<body class="bg-surface pb-[80px]">
-<!-- Top App Bar -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md">
-<div class="flex items-center justify-between px-lg h-16 w-full max-w-7xl mx-auto">
-<div class="flex items-center gap-md">
-<button class="p-2 -ml-2 transition-all ease-in-out hover:opacity-80 active:scale-95">
-<span class="material-symbols-outlined text-primary">arrow_back</span>
-</button>
-<h1 class="font-headline-sm text-headline-sm text-primary">Hướng dẫn chi tiết</h1>
-</div>
-<button class="material-symbols-outlined text-primary hover:opacity-80">share</button>
-</div>
-</header>
-<main class="pt-20 px-container-margin max-w-2xl mx-auto space-y-lg">
-<!-- Hero Context -->
-<section class="relative overflow-hidden rounded-xl bg-primary-container p-lg text-on-primary-container">
-<div class="relative z-10">
-<div class="flex items-center gap-sm mb-xs">
-<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
-<span class="font-label-md text-label-md uppercase tracking-wider text-primary-fixed">Cây trồng của tôi</span>
-</div>
-<h2 class="font-headline-lg text-headline-lg text-white mb-xs">Nho sân thượng</h2>
-<div class="inline-flex items-center gap-xs px-sm py-1 bg-surface/20 rounded-full">
-<span class="material-symbols-outlined text-label-sm" style="font-size: 14px;">vital_signs</span>
-<span class="font-label-md text-label-md">Giai đoạn: Cây con</span>
-</div>
-</div>
-<div class="absolute -right-8 -bottom-8 opacity-20">
-<span class="material-symbols-outlined text-[120px]">eco</span>
-</div>
-</section>
-<!-- Chăm sóc cơ bản (Bento Style) -->
-<section class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm">
-<span class="material-symbols-outlined">water_drop</span> Chăm sóc cơ bản
-            </h3>
-<div class="grid grid-cols-2 gap-md">
-<div class="bg-white p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-default">
-<span class="material-symbols-outlined text-blue-500 mb-sm">opacity</span>
-<h4 class="font-label-md text-label-md text-on-surface-variant">Tưới nước</h4>
-<p class="font-headline-sm text-headline-sm text-primary mt-xs">2 ngày/lần</p>
-<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Độ ẩm: 60-70%</p>
-</div>
-<div class="bg-white p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-default">
-<span class="material-symbols-outlined text-amber-500 mb-sm">nutrition</span>
-<h4 class="font-label-md text-label-md text-on-surface-variant">Bón phân</h4>
-<p class="font-headline-sm text-headline-sm text-primary mt-xs">NPK 30-10-10</p>
-<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Định kỳ: 10-15 ngày</p>
-</div>
-</div>
-</section>
-<!-- Thao tác quan trọng -->
-<section class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm">
-<span class="material-symbols-outlined">task_alt</span> Thao tác quan trọng
-            </h3>
-<div class="space-y-sm">
-<!-- Dos -->
-<div class="flex gap-md p-md bg-white rounded-xl border-l-4 border-l-primary shadow-sm">
-<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-primary">done_all</span>
-</div>
-<div>
-<h4 class="font-body-lg text-body-lg font-bold text-primary">Nên làm</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Vặt bỏ toàn bộ chồi nách để tập trung dinh dưỡng nuôi thân chính phát triển nhanh nhất.</p>
-</div>
-</div>
-<!-- Don'ts -->
-<div class="flex gap-md p-md bg-white rounded-xl border-l-4 border-l-error shadow-sm">
-<div class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-error">close</span>
-</div>
-<div>
-<h4 class="font-body-lg text-body-lg font-bold text-error">Cần tránh</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Buộc dây định hướng quá chặt làm nghẹt dòng nhựa lưu thông trong thân cây.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Sâu bệnh thường gặp -->
-<section class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm">
-<span class="material-symbols-outlined">bug_report</span> Sâu bệnh thường gặp
-            </h3>
-<div class="flex flex-wrap gap-sm">
-<div class="px-md py-sm bg-surface-container-high rounded-full flex items-center gap-xs border border-outline-variant hover:bg-white transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">pest_control</span>
-<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">Rệp sáp</span>
-</div>
-<div class="px-md py-sm bg-surface-container-high rounded-full flex items-center gap-xs border border-outline-variant hover:bg-white transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">coronavirus</span>
-<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">Nấm lá</span>
-</div>
-<div class="px-md py-sm bg-surface-container-high rounded-full flex items-center gap-xs border border-outline-variant hover:bg-white transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">science</span>
-<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary">Bọ trĩ</span>
-</div>
-</div>
-</section>
-<!-- Tiêu chí hoàn thành -->
-<section class="bg-primary/5 rounded-xl border border-primary/20 p-md space-y-sm">
-<h3 class="font-label-sm text-label-sm uppercase tracking-widest text-primary flex items-center gap-xs">
-<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">flag</span>
-                Tiêu chí hoàn thành giai đoạn
-            </h3>
-<div class="flex gap-md items-start">
-<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-primary/20">
-<img class="w-full h-full object-cover" data-alt="A macro photograph of a healthy young grapevine with a thick main stem, reaching upwards towards a trellis. The lighting is soft morning sunlight, highlighting the vibrant green of the leaves and the strength of the vine. The background is a blurred garden setting, conveying growth and vitality in a professional botanical guide style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR-xGfkTmYT2-hDjfusznnZVtjiCK-SVr7Qi-IG_2s1Xb2nI5bkHoYKLGU3VWgroD5KAUXtQXhykkOCy0U8W0tH-SJgDElptUU6a0v_qfBxZujgonDVUEvrtB4f_whAPwVB9Fb1TFgIdTNLUUpb-EeQtUHv7_AlG-83_mB1S7aOH0Kew81Vw99GKzzSe7ofJOY2jMYw1ef_pnotNO77X0yCjX0K8w0Qka49CVv7amWKRQ0RaT1erWMpq4KCF1RMOyGtidp5BA94QXP"/>
-</div>
-<p class="font-body-md text-body-md text-on-surface">
-                    Thân chính mập mạp, gỗ hóa phần gốc, đạt chiều cao trung bình 1.5m và đủ độ dẻo để bắt đầu vắt lên giàn.
-                </p>
-</div>
-</section>
-<!-- Giai đoạn tiếp theo -->
-<footer class="mt-xl pb-md">
-<div class="bg-white rounded-xl border border-outline-variant p-md flex items-center justify-between hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="flex items-center gap-md">
-<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
-<span class="material-symbols-outlined">trending_up</span>
-</div>
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sắp tới</p>
-<h4 class="font-headline-sm text-headline-sm text-primary">Giai đoạn: Leo giàn</h4>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline">chevron_right</span>
-</div>
-</footer>
-</main>
-<!-- Bottom Navigation Bar -->
-<nav class="fixed bottom-0 w-full h-[64px] pb-safe bg-surface border-t border-outline-variant flex justify-around items-center px-container-margin z-50">
-<a class="flex flex-col items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container-high active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
-<span class="font-label-md text-label-md">Hôm nay</span>
-</a>
-<a class="flex flex-col items-center justify-center text-primary transition-colors hover:bg-surface-container-high active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined" data-icon="potted_plant" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
-<span class="font-label-md text-label-md">Cây trồng</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container-high active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
-<span class="font-label-md text-label-md">Nhật ký</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container-high active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-<span class="font-label-md text-label-md">Tôi</span>
-</a>
-</nav>
-<script>
-        // Simple Micro-interactions
-        document.querySelectorAll('.px-md.py-sm.bg-surface-container-high').forEach(tag => {
-            tag.addEventListener('click', () => {
-                tag.classList.toggle('bg-primary');
-                tag.classList.toggle('text-white');
-                const text = tag.querySelector('span:last-child');
-                text.classList.toggle('text-white');
-                const icon = tag.querySelector('.material-symbols-outlined');
-                icon.classList.toggle('text-white');
-            });
+  <body class="bg-surface pb-[80px]">
+    <!-- Top App Bar -->
+    <header
+      class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md"
+    >
+      <div
+        class="flex items-center justify-between px-lg h-16 w-full max-w-7xl mx-auto"
+      >
+        <div class="flex items-center gap-md">
+          <button
+            class="p-2 -ml-2 transition-all ease-in-out hover:opacity-80 active:scale-95"
+          >
+            <span class="material-symbols-outlined text-primary"
+              >arrow_back</span
+            >
+          </button>
+          <h1 class="font-headline-sm text-headline-sm text-primary">
+            Hướng dẫn chi tiết
+          </h1>
+        </div>
+        <button class="material-symbols-outlined text-primary hover:opacity-80">
+          share
+        </button>
+      </div>
+    </header>
+    <main class="pt-20 px-container-margin max-w-2xl mx-auto space-y-lg">
+      <!-- Hero Context -->
+      <section
+        class="relative overflow-hidden rounded-xl bg-primary-container p-lg text-on-primary-container"
+      >
+        <div class="relative z-10">
+          <div class="flex items-center gap-sm mb-xs">
+            <span
+              class="material-symbols-outlined text-primary-fixed"
+              style="font-variation-settings: &quot;FILL&quot; 1"
+              >potted_plant</span
+            >
+            <span
+              class="font-label-md text-label-md uppercase tracking-wider text-primary-fixed"
+              >Cây trồng của tôi</span
+            >
+          </div>
+          <h2 class="font-headline-lg text-headline-lg text-white mb-xs">
+            Nho sân thượng
+          </h2>
+          <div
+            class="inline-flex items-center gap-xs px-sm py-1 bg-surface/20 rounded-full"
+          >
+            <span
+              class="material-symbols-outlined text-label-sm"
+              style="font-size: 14px"
+              >vital_signs</span
+            >
+            <span class="font-label-md text-label-md">Giai đoạn: Cây con</span>
+          </div>
+        </div>
+        <div class="absolute -right-8 -bottom-8 opacity-20">
+          <span class="material-symbols-outlined text-[120px]">eco</span>
+        </div>
+      </section>
+      <!-- Chăm sóc cơ bản (Bento Style) -->
+      <section class="space-y-md">
+        <h3
+          class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm"
+        >
+          <span class="material-symbols-outlined">water_drop</span> Chăm sóc cơ
+          bản
+        </h3>
+        <div class="grid grid-cols-2 gap-md">
+          <div
+            class="bg-white p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-default"
+          >
+            <span class="material-symbols-outlined text-blue-500 mb-sm"
+              >opacity</span
+            >
+            <h4 class="font-label-md text-label-md text-on-surface-variant">
+              Tưới nước
+            </h4>
+            <p class="font-headline-sm text-headline-sm text-primary mt-xs">
+              2 ngày/lần
+            </p>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+              Độ ẩm: 60-70%
+            </p>
+          </div>
+          <div
+            class="bg-white p-md rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-default"
+          >
+            <span class="material-symbols-outlined text-amber-500 mb-sm"
+              >nutrition</span
+            >
+            <h4 class="font-label-md text-label-md text-on-surface-variant">
+              Bón phân
+            </h4>
+            <p class="font-headline-sm text-headline-sm text-primary mt-xs">
+              NPK 30-10-10
+            </p>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+              Định kỳ: 10-15 ngày
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- Thao tác quan trọng -->
+      <section class="space-y-md">
+        <h3
+          class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm"
+        >
+          <span class="material-symbols-outlined">task_alt</span> Thao tác quan
+          trọng
+        </h3>
+        <div class="space-y-sm">
+          <!-- Dos -->
+          <div
+            class="flex gap-md p-md bg-white rounded-xl border-l-4 border-l-primary shadow-sm"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"
+            >
+              <span class="material-symbols-outlined text-primary"
+                >done_all</span
+              >
+            </div>
+            <div>
+              <h4 class="font-body-lg text-body-lg font-bold text-primary">
+                Nên làm
+              </h4>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                Vặt bỏ toàn bộ chồi nách để tập trung dinh dưỡng nuôi thân chính
+                phát triển nhanh nhất.
+              </p>
+            </div>
+          </div>
+          <!-- Don'ts -->
+          <div
+            class="flex gap-md p-md bg-white rounded-xl border-l-4 border-l-error shadow-sm"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center shrink-0"
+            >
+              <span class="material-symbols-outlined text-error">close</span>
+            </div>
+            <div>
+              <h4 class="font-body-lg text-body-lg font-bold text-error">
+                Cần tránh
+              </h4>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                Buộc dây định hướng quá chặt làm nghẹt dòng nhựa lưu thông trong
+                thân cây.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Sâu bệnh thường gặp -->
+      <section class="space-y-md">
+        <h3
+          class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm"
+        >
+          <span class="material-symbols-outlined">bug_report</span> Sâu bệnh
+          thường gặp
+        </h3>
+        <div class="flex flex-wrap gap-sm">
+          <div
+            class="px-md py-sm bg-surface-container-high rounded-full flex items-center gap-xs border border-outline-variant hover:bg-white transition-colors cursor-pointer group"
+          >
+            <span
+              class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary"
+              >pest_control</span
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary"
+              >Rệp sáp</span
+            >
+          </div>
+          <div
+            class="px-md py-sm bg-surface-container-high rounded-full flex items-center gap-xs border border-outline-variant hover:bg-white transition-colors cursor-pointer group"
+          >
+            <span
+              class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary"
+              >coronavirus</span
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary"
+              >Nấm lá</span
+            >
+          </div>
+          <div
+            class="px-md py-sm bg-surface-container-high rounded-full flex items-center gap-xs border border-outline-variant hover:bg-white transition-colors cursor-pointer group"
+          >
+            <span
+              class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary"
+              >science</span
+            >
+            <span
+              class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary"
+              >Bọ trĩ</span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Tiêu chí hoàn thành -->
+      <section
+        class="bg-primary/5 rounded-xl border border-primary/20 p-md space-y-sm"
+      >
+        <h3
+          class="font-label-sm text-label-sm uppercase tracking-widest text-primary flex items-center gap-xs"
+        >
+          <span
+            class="material-symbols-outlined text-[18px]"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >flag</span
+          >
+          Tiêu chí hoàn thành giai đoạn
+        </h3>
+        <div class="flex gap-md items-start">
+          <div
+            class="w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-primary/20"
+          >
+            <img
+              class="w-full h-full object-cover"
+              data-alt="A macro photograph of a healthy young grapevine with a thick main stem, reaching upwards towards a trellis. The lighting is soft morning sunlight, highlighting the vibrant green of the leaves and the strength of the vine. The background is a blurred garden setting, conveying growth and vitality in a professional botanical guide style."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR-xGfkTmYT2-hDjfusznnZVtjiCK-SVr7Qi-IG_2s1Xb2nI5bkHoYKLGU3VWgroD5KAUXtQXhykkOCy0U8W0tH-SJgDElptUU6a0v_qfBxZujgonDVUEvrtB4f_whAPwVB9Fb1TFgIdTNLUUpb-EeQtUHv7_AlG-83_mB1S7aOH0Kew81Vw99GKzzSe7ofJOY2jMYw1ef_pnotNO77X0yCjX0K8w0Qka49CVv7amWKRQ0RaT1erWMpq4KCF1RMOyGtidp5BA94QXP"
+            />
+          </div>
+          <p class="font-body-md text-body-md text-on-surface">
+            Thân chính mập mạp, gỗ hóa phần gốc, đạt chiều cao trung bình 1.5m
+            và đủ độ dẻo để bắt đầu vắt lên giàn.
+          </p>
+        </div>
+      </section>
+      <!-- Giai đoạn tiếp theo -->
+      <footer class="mt-xl pb-md">
+        <div
+          class="bg-white rounded-xl border border-outline-variant p-md flex items-center justify-between hover:bg-surface-container-low transition-colors cursor-pointer"
+        >
+          <div class="flex items-center gap-md">
+            <div
+              class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container"
+            >
+              <span class="material-symbols-outlined">trending_up</span>
+            </div>
+            <div>
+              <p
+                class="font-label-sm text-label-sm text-on-surface-variant uppercase"
+              >
+                Sắp tới
+              </p>
+              <h4 class="font-headline-sm text-headline-sm text-primary">
+                Giai đoạn: Leo giàn
+              </h4>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-outline"
+            >chevron_right</span
+          >
+        </div>
+      </footer>
+    </main>
+    <!-- Bottom Navigation Bar -->
+    <nav
+      class="fixed bottom-0 w-full h-[64px] pb-safe bg-surface border-t border-outline-variant flex justify-around items-center px-container-margin z-50"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container-high active:scale-95 duration-100"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="calendar_today"
+          >calendar_today</span
+        >
+        <span class="font-label-md text-label-md">Hôm nay</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-primary transition-colors hover:bg-surface-container-high active:scale-95 duration-100"
+        href="#"
+      >
+        <span
+          class="material-symbols-outlined"
+          data-icon="potted_plant"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >potted_plant</span
+        >
+        <span class="font-label-md text-label-md">Cây trồng</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container-high active:scale-95 duration-100"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="menu_book"
+          >menu_book</span
+        >
+        <span class="font-label-md text-label-md">Nhật ký</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant transition-colors hover:bg-surface-container-high active:scale-95 duration-100"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="person">person</span>
+        <span class="font-label-md text-label-md">Tôi</span>
+      </a>
+    </nav>
+    <script>
+      // Simple Micro-interactions
+      document
+        .querySelectorAll(".px-md.py-sm.bg-surface-container-high")
+        .forEach((tag) => {
+          tag.addEventListener("click", () => {
+            tag.classList.toggle("bg-primary");
+            tag.classList.toggle("text-white");
+            const text = tag.querySelector("span:last-child");
+            text.classList.toggle("text-white");
+            const icon = tag.querySelector(".material-symbols-outlined");
+            icon.classList.toggle("text-white");
+          });
         });
     </script>
-</body></html>
+  </body>
+</html>

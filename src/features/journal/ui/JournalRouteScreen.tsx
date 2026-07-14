@@ -9,13 +9,39 @@ import { listPlants } from "@/features/plants/data/plant-repository";
 import { JournalScreen } from "./JournalScreen";
 
 export function JournalRouteScreen() {
-  const query = useQuery({ queryKey: ["journal"], queryFn: async () => {
-    const [activities, updates, plants] = await Promise.all([listCareActivities(), listPlantUpdates(), listPlants()]);
-    return { activities, updates, plants };
-  } });
+  const query = useQuery({
+    queryKey: ["journal"],
+    queryFn: async () => {
+      const [activities, updates, plants] = await Promise.all([
+        listCareActivities(),
+        listPlantUpdates(),
+        listPlants(),
+      ]);
+      return { activities, updates, plants };
+    },
+  });
   if (query.isPending) return <Text>Đang tải…</Text>;
   if (query.isError) return <Text>Chưa thể tải nhật ký. Hãy thử lại.</Text>;
   const photoUris = getLatestPlantPhotoUrisByPlant(query.data.updates);
-  const plants = Object.fromEntries(query.data.plants.map((plant) => [plant.id, { ...resolvePlantIdentity(plant), imageUri: photoUris[plant.id] ?? null, name: plant.name, speciesId: plant.speciesId, stageId: plant.stageId }]));
-  return <JournalScreen activities={query.data.activities} onOpenActivity={(id) => router.push(`/entries/${id}`)} onOpenUpdate={(id) => router.push(`/updates/${id}`)} plants={plants} updates={query.data.updates} />;
+  const plants = Object.fromEntries(
+    query.data.plants.map((plant) => [
+      plant.id,
+      {
+        ...resolvePlantIdentity(plant),
+        imageUri: photoUris[plant.id] ?? null,
+        name: plant.name,
+        speciesId: plant.speciesId,
+        stageId: plant.stageId,
+      },
+    ]),
+  );
+  return (
+    <JournalScreen
+      activities={query.data.activities}
+      onOpenActivity={(id) => router.push(`/entries/${id}`)}
+      onOpenUpdate={(id) => router.push(`/updates/${id}`)}
+      plants={plants}
+      updates={query.data.updates}
+    />
+  );
 }

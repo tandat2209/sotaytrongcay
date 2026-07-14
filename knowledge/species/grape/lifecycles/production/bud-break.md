@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Mầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ.

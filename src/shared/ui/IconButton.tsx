@@ -2,7 +2,6 @@ import type { LucideIcon } from "lucide-react-native";
 import { Pressable, StyleSheet } from "react-native";
 import { colors, control, radius } from "./theme";
 
-
 type IconButtonProps = {
   accessibilityLabel: string;
   disabled?: boolean;
@@ -10,7 +9,12 @@ type IconButtonProps = {
   onPress: () => void;
 };
 
-export function IconButton({ accessibilityLabel, disabled = false, icon: Icon, onPress }: IconButtonProps) {
+export function IconButton({
+  accessibilityLabel,
+  disabled = false,
+  icon: Icon,
+  onPress,
+}: IconButtonProps) {
   return (
     <Pressable
       accessibilityLabel={accessibilityLabel}
@@ -19,7 +23,11 @@ export function IconButton({ accessibilityLabel, disabled = false, icon: Icon, o
       disabled={disabled}
       hitSlop={6}
       onPress={onPress}
-      style={({ pressed }) => [styles.button, pressed && !disabled && styles.pressed, disabled && styles.disabled]}
+      style={({ pressed }) => [
+        styles.button,
+        pressed && !disabled && styles.pressed,
+        disabled && styles.disabled,
+      ]}
     >
       <Icon color={colors.text} size={22} />
     </Pressable>

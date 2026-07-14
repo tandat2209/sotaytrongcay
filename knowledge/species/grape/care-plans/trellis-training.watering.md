@@ -18,7 +18,7 @@ eligibility:
 on_missing_history: suggest
 frequency:
   ground:
-    display: 'Mỗi 3–4 ngày, tăng lên nếu thời tiết nóng và khô'
+    display: "Mỗi 3–4 ngày, tăng lên nếu thời tiết nóng và khô"
     interval_days: 3
   container:
     display: Mỗi 2–3 ngày — kiểm tra độ ẩm đất trước mỗi lần tưới
@@ -30,7 +30,7 @@ notes:
   - >-
     Không tưới nhỏ giọt liên tục trên mặt đất — rễ sẽ chỉ phát triển gần mặt và
     dễ tổn thương.
-  - 'Tưới vào buổi sáng sớm hoặc chiều mát, tránh tưới giữa trưa nắng gắt.'
+  - "Tưới vào buổi sáng sớm hoặc chiều mát, tránh tưới giữa trưa nắng gắt."
 version: 1.0.0
 status: review
 references:

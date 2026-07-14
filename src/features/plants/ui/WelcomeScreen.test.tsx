@@ -6,7 +6,9 @@ describe("WelcomeScreen", () => {
     const onStart = jest.fn();
     const screen = render(<WelcomeScreen onStart={onStart} />);
 
-    fireEvent.press(screen.getByRole("button", { name: "Bắt đầu với cây đầu tiên" }));
+    fireEvent.press(
+      screen.getByRole("button", { name: "Bắt đầu với cây đầu tiên" }),
+    );
 
     expect(onStart).toHaveBeenCalledTimes(1);
   });

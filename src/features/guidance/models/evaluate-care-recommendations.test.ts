@@ -7,7 +7,8 @@ const plant: Plant = {
   id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1",
   name: "Nho sân thượng",
   speciesId: "plant.grape",
-  stageId: "grape.stage.trunk-development", growingMethod: "container" as const,
+  stageId: "grape.stage.trunk-development",
+  growingMethod: "container" as const,
   location: null,
   plantedAt: null,
   stageStartedAt: null,
@@ -55,7 +56,10 @@ describe("evaluateCarePlans", () => {
       plans: [plan],
     });
 
-    expect(result[0]).toMatchObject({ status: "recommended", daysSinceLastActivity: 2 });
+    expect(result[0]).toMatchObject({
+      status: "recommended",
+      daysSinceLastActivity: 2,
+    });
   });
 
   it("uses the ground interval for ground plants", () => {
@@ -66,7 +70,10 @@ describe("evaluateCarePlans", () => {
       plans: [plan],
     });
 
-    expect(result[0]).toMatchObject({ status: "not_recommended", daysSinceLastActivity: 2 });
+    expect(result[0]).toMatchObject({
+      status: "not_recommended",
+      daysSinceLastActivity: 2,
+    });
   });
 
   it("preserves a negative evaluation with the recent-care reason", () => {
@@ -77,7 +84,10 @@ describe("evaluateCarePlans", () => {
       plans: [plan],
     });
 
-    expect(result[0]).toMatchObject({ status: "not_recommended", daysSinceLastActivity: 1 });
+    expect(result[0]).toMatchObject({
+      status: "not_recommended",
+      daysSinceLastActivity: 1,
+    });
     expect(result[0]?.explanation).toContain("cách đây 1 ngày");
   });
 
@@ -89,7 +99,10 @@ describe("evaluateCarePlans", () => {
       plans: [plan],
     });
 
-    expect(result[0]).toMatchObject({ status: "recommended", daysSinceLastActivity: null });
+    expect(result[0]).toMatchObject({
+      status: "recommended",
+      daysSinceLastActivity: null,
+    });
   });
 
   it("returns unavailable for future activity history", () => {

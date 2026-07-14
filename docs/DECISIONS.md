@@ -7,6 +7,7 @@ This file records confirmed decisions. Unvalidated ideas remain in `PROJECT_CONT
 Each entry includes a date, status, decision, and rationale. Valid statuses are `Proposed`, `Accepted`, and `Superseded`.
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
+
 ## 2026-07-11 — Use ordered lifecycle metadata for growth stages
 
 **Status:** Accepted
@@ -26,7 +27,6 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 **Consequences:** The compiler validates and bundles concise stage metadata only. Future care suggestions or reminders require separately reviewed product behavior and knowledge contracts.
 
 **Alternatives:** Retaining templates or task metadata would imply scheduling and execution behavior that the MVP does not implement.
-
 
 ## 2026-07-10 — Make gardening history the core value
 

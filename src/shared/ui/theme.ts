@@ -46,5 +46,10 @@ export const typography = {
   headlineSmall: { fontSize: 18, fontWeight: "600" as const, lineHeight: 24 },
   bodyLarge: { fontSize: 16, fontWeight: "400" as const, lineHeight: 24 },
   bodyMedium: { fontSize: 14, fontWeight: "400" as const, lineHeight: 20 },
-  label: { fontSize: 12, fontWeight: "600" as const, letterSpacing: 0.2, lineHeight: 16 },
+  label: {
+    fontSize: 12,
+    fontWeight: "600" as const,
+    letterSpacing: 0.2,
+    lineHeight: 16,
+  },
 } as const;

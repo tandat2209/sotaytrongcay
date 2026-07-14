@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Nuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.

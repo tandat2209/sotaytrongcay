@@ -26,12 +26,15 @@ const activityPresentation = {
     label: "Tưới nước",
     softColor: colors.activityWaterSoft,
   },
-} satisfies Record<CarePlan["activityType"], Readonly<{
-  color: string;
-  icon: LucideIcon;
-  label: string;
-  softColor: string;
-}>>;
+} satisfies Record<
+  CarePlan["activityType"],
+  Readonly<{
+    color: string;
+    icon: LucideIcon;
+    label: string;
+    softColor: string;
+  }>
+>;
 
 const activityOrder: Record<CarePlan["activityType"], number> = {
   watering: 0,
@@ -39,7 +42,11 @@ const activityOrder: Record<CarePlan["activityType"], number> = {
   spraying: 2,
 };
 
-export function StageCarePlanSection({ carePlans }: { carePlans: readonly CarePlan[] }) {
+export function StageCarePlanSection({
+  carePlans,
+}: {
+  carePlans: readonly CarePlan[];
+}) {
   if (carePlans.length === 0) return null;
 
   return (
@@ -49,11 +56,18 @@ export function StageCarePlanSection({ carePlans }: { carePlans: readonly CarePl
         <Typography variant="headlineSmall">Chăm sóc cần theo dõi</Typography>
       </View>
       <Typography color="textSecondary" variant="bodyMedium">
-        Nội dung chung theo giai đoạn, chưa thay thế đánh giá đất, thời tiết và tình trạng thực tế của cây.
+        Nội dung chung theo giai đoạn, chưa thay thế đánh giá đất, thời tiết và
+        tình trạng thực tế của cây.
       </Typography>
       {[...carePlans]
-        .sort((left, right) => activityOrder[left.activityType] - activityOrder[right.activityType])
-        .map((plan) => <CarePlanCard key={plan.id} plan={plan} />)}
+        .sort(
+          (left, right) =>
+            activityOrder[left.activityType] -
+            activityOrder[right.activityType],
+        )
+        .map((plan) => (
+          <CarePlanCard key={plan.id} plan={plan} />
+        ))}
     </View>
   );
 }
@@ -65,11 +79,18 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
   return (
     <SurfaceCard style={styles.card}>
       <View style={styles.planHeading}>
-        <View style={[styles.activityIcon, { backgroundColor: presentation.softColor }]}>
+        <View
+          style={[
+            styles.activityIcon,
+            { backgroundColor: presentation.softColor },
+          ]}
+        >
           <ActivityIcon color={presentation.color} size={20} />
         </View>
         <View style={styles.headingCopy}>
-          <Typography color="textSecondary" variant="label">{presentation.label.toUpperCase()}</Typography>
+          <Typography color="textSecondary" variant="label">
+            {presentation.label.toUpperCase()}
+          </Typography>
           <Typography variant="headlineSmall">{plan.title}</Typography>
         </View>
       </View>
@@ -80,8 +101,16 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
 
       {plan.frequency ? (
         <PlanDetail label="TẦN SUẤT THAM KHẢO">
-          <FrequencyRow icon={Earth} label="Trồng đất" value={plan.frequency.ground.display} />
-          <FrequencyRow icon={Box} label="Trồng chậu" value={plan.frequency.container.display} />
+          <FrequencyRow
+            icon={Earth}
+            label="Trồng đất"
+            value={plan.frequency.ground.display}
+          />
+          <FrequencyRow
+            icon={Box}
+            label="Trồng chậu"
+            value={plan.frequency.container.display}
+          />
         </PlanDetail>
       ) : null}
 
@@ -90,7 +119,9 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
           {plan.recommendedInputs.map((input) => (
             <View key={input.group} style={styles.detailItem}>
               <Typography variant="bodyLarge">{input.group}</Typography>
-              <Typography color="textSecondary" variant="bodyMedium">{input.examples}</Typography>
+              <Typography color="textSecondary" variant="bodyMedium">
+                {input.examples}
+              </Typography>
             </View>
           ))}
         </PlanDetail>
@@ -101,7 +132,13 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
           {plan.notes.map((note) => (
             <View key={note} style={styles.noteRow}>
               <Info color={presentation.color} size={18} />
-              <Typography color="textSecondary" style={styles.noteCopy} variant="bodyMedium">{note}</Typography>
+              <Typography
+                color="textSecondary"
+                style={styles.noteCopy}
+                variant="bodyMedium"
+              >
+                {note}
+              </Typography>
             </View>
           ))}
         </PlanDetail>
@@ -111,10 +148,21 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
 }
 
 function PlanDetail({ children, label }: PropsWithChildren<{ label: string }>) {
-  return <View style={styles.detail}><Typography color="primary" variant="label">{label}</Typography>{children}</View>;
+  return (
+    <View style={styles.detail}>
+      <Typography color="primary" variant="label">
+        {label}
+      </Typography>
+      {children}
+    </View>
+  );
 }
 
-function FrequencyRow({ icon: Icon, label, value }: Readonly<{
+function FrequencyRow({
+  icon: Icon,
+  label,
+  value,
+}: Readonly<{
   icon: LucideIcon;
   label: string;
   value: string;
@@ -124,18 +172,30 @@ function FrequencyRow({ icon: Icon, label, value }: Readonly<{
       <Icon color={colors.textSecondary} size={18} />
       <View style={styles.headingCopy}>
         <Typography variant="bodyLarge">{label}</Typography>
-        <Typography color="textSecondary" variant="bodyMedium">{value}</Typography>
+        <Typography color="textSecondary" variant="bodyMedium">
+          {value}
+        </Typography>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  activityIcon: { alignItems: "center", borderRadius: 20, height: 40, justifyContent: "center", width: 40 },
+  activityIcon: {
+    alignItems: "center",
+    borderRadius: 20,
+    height: 40,
+    justifyContent: "center",
+    width: 40,
+  },
   card: { gap: spacing.lg },
   detail: { gap: spacing.sm },
   detailItem: { gap: spacing.xs },
-  frequencyRow: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
+  frequencyRow: {
+    alignItems: "flex-start",
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
   heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   headingCopy: { flex: 1, gap: spacing.xs },
   noteCopy: { flex: 1 },

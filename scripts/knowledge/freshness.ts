@@ -33,7 +33,7 @@ export async function checkKnowledgeFreshness(request: {
   let committedContent = "";
   try {
     committedContent = await readFile(committedBundlePath, "utf8");
-  } catch (error: unknown) {
+  } catch {
     return {
       ok: false,
       diagnostics: [

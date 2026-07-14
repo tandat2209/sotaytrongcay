@@ -87,6 +87,7 @@ pnpm start
 Run the quality gates:
 
 ```sh
+pnpm format:check
 pnpm typecheck
 pnpm lint
 pnpm test

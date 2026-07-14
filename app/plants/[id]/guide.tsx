@@ -18,7 +18,9 @@ const paramsSchema = z.object({
 });
 
 export default function StagePlaybookRoute() {
-  const { id, stageId: stageIdParam } = paramsSchema.parse(useLocalSearchParams());
+  const { id, stageId: stageIdParam } = paramsSchema.parse(
+    useLocalSearchParams(),
+  );
 
   const query = useQuery({
     queryKey: ["plant", id],
@@ -26,7 +28,8 @@ export default function StagePlaybookRoute() {
   });
 
   if (query.isPending) return <Text>Đang tải…</Text>;
-  if (query.isError || !query.data) return <Text>Không tìm thấy cây trồng.</Text>;
+  if (query.isError || !query.data)
+    return <Text>Không tìm thấy cây trồng.</Text>;
 
   const plant = query.data;
   // Use the explicit stageId param when browsing to a different stage,
@@ -51,7 +54,10 @@ export default function StagePlaybookRoute() {
       {...(nextStage
         ? {
             onOpenNextStage: () =>
-              router.push({ pathname: "/plants/[id]/guide", params: { id, stageId: nextStage.id } }),
+              router.push({
+                pathname: "/plants/[id]/guide",
+                params: { id, stageId: nextStage.id },
+              }),
           }
         : {})}
       playbook={playbook}

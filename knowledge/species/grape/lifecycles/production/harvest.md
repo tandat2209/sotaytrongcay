@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Khoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.

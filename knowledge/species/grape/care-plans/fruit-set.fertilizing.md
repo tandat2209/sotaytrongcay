@@ -16,12 +16,12 @@ goal: >-
   Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang
   phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.
 recommended_inputs:
-  - group: 'Phân NPK cân đối, hơi thiên kali'
+  - group: "Phân NPK cân đối, hơi thiên kali"
     examples: NPK 16-16-16 hoặc tương tự
   - group: Bổ sung canxi
     examples: Canxi clorua (CaCl₂) phun qua lá — quan trọng cho thành tế bào trái
   - group: Phương án hữu cơ
-    examples: 'Trà phân compost, phân cá kết hợp rong biển'
+    examples: "Trà phân compost, phân cá kết hợp rong biển"
 frequency:
   ground:
     display: Mỗi 1–2 tuần — đây là giai đoạn bón nặng

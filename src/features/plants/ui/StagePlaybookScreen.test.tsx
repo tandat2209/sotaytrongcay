@@ -139,7 +139,9 @@ describe("StagePlaybookScreen", () => {
 
     expect(screen.getByText("SẮP TỚI")).toBeTruthy();
     expect(screen.getByText(/Giai đoạn: Leo giàn/)).toBeTruthy();
-    fireEvent.press(screen.getByRole("button", { name: /Xem giai đoạn tiếp theo/ }));
+    fireEvent.press(
+      screen.getByRole("button", { name: /Xem giai đoạn tiếp theo/ }),
+    );
     expect(onOpenNextStage).toHaveBeenCalledTimes(1);
   });
 
@@ -169,7 +171,9 @@ describe("StagePlaybookScreen", () => {
       />,
     );
 
-    fireEvent.press(screen.getByRole("button", { name: "Quay lại chi tiết cây" }));
+    fireEvent.press(
+      screen.getByRole("button", { name: "Quay lại chi tiết cây" }),
+    );
     expect(onBack).toHaveBeenCalledTimes(1);
   });
 });

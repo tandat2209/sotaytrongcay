@@ -10,14 +10,26 @@ type EmptyStateProps = {
   title: string;
 };
 
-export function EmptyState({ description, icon: Icon, title }: EmptyStateProps) {
+export function EmptyState({
+  description,
+  icon: Icon,
+  title,
+}: EmptyStateProps) {
   return (
     <SurfaceCard style={styles.container}>
       <View accessibilityElementsHidden style={styles.icon}>
         <Icon color={colors.primary} size={24} />
       </View>
-      <Typography style={styles.title} variant="headlineSmall">{title}</Typography>
-      <Typography color="textSecondary" style={styles.description} variant="bodyMedium">{description}</Typography>
+      <Typography style={styles.title} variant="headlineSmall">
+        {title}
+      </Typography>
+      <Typography
+        color="textSecondary"
+        style={styles.description}
+        variant="bodyMedium"
+      >
+        {description}
+      </Typography>
     </SurfaceCard>
   );
 }

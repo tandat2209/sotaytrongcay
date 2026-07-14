@@ -112,7 +112,10 @@ export interface StageJourneyItem {
   readonly id: string;
   readonly title: string;
   readonly sequence: number;
-  readonly transitions?: readonly { readonly to: string; readonly condition?: string }[];
+  readonly transitions?: readonly {
+    readonly to: string;
+    readonly condition?: string;
+  }[];
   readonly playbookStatus: "unavailable" | "draft" | "review" | "approved";
 }
 
@@ -186,7 +189,11 @@ export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {
 export interface NormalizedReferenceSource extends NormalizedBaseDocument {
   readonly type: "reference_source";
   readonly publisher: string;
-  readonly sourceType: "extension_guide" | "research_paper" | "expert_review" | "regulatory_guidance";
+  readonly sourceType:
+    | "extension_guide"
+    | "research_paper"
+    | "expert_review"
+    | "regulatory_guidance";
   readonly url: string;
   readonly accessed: string;
   readonly status: "active" | "superseded" | "unavailable";
@@ -198,4 +205,3 @@ export type NormalizedKnowledgeDocument =
   | NormalizedCarePlan
   | NormalizedCareGuide
   | NormalizedReferenceSource;
-

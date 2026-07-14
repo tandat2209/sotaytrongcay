@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Chuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.

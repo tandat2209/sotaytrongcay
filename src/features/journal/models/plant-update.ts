@@ -21,28 +21,47 @@ export const PlantUpdateSchema = PlantUpdateFieldsSchema.extend({
   photos: z.array(PlantUpdatePhotoSchema),
 }).superRefine((update, context) => {
   if (update.notes === null && update.photos.length === 0) {
-    context.addIssue({ code: "custom", message: "Thêm ảnh hoặc ghi chú trước khi lưu." });
+    context.addIssue({
+      code: "custom",
+      message: "Thêm ảnh hoặc ghi chú trước khi lưu.",
+    });
   }
 
   const positions = new Set(update.photos.map((photo) => photo.position));
   if (positions.size !== update.photos.length) {
-    context.addIssue({ code: "custom", message: "Vị trí ảnh không được trùng nhau.", path: ["photos"] });
+    context.addIssue({
+      code: "custom",
+      message: "Vị trí ảnh không được trùng nhau.",
+      path: ["photos"],
+    });
   }
 });
 
 export type PlantUpdate = z.infer<typeof PlantUpdateSchema>;
 export type PlantUpdatePhoto = z.infer<typeof PlantUpdatePhotoSchema>;
 
-export function getLatestPlantPhoto(updates: readonly PlantUpdate[]): PlantUpdatePhoto | null {
+export function getLatestPlantPhoto(
+  updates: readonly PlantUpdate[],
+): PlantUpdatePhoto | null {
   const latestUpdate = updates
     .filter((update) => update.photos.length > 0)
     .slice()
-    .sort((left, right) => right.occurredAt.localeCompare(left.occurredAt) || right.createdAt.localeCompare(left.createdAt))[0];
+    .sort(
+      (left, right) =>
+        right.occurredAt.localeCompare(left.occurredAt) ||
+        right.createdAt.localeCompare(left.createdAt),
+    )[0];
 
-  return latestUpdate?.photos.slice().sort((left, right) => left.position - right.position)[0] ?? null;
+  return (
+    latestUpdate?.photos
+      .slice()
+      .sort((left, right) => left.position - right.position)[0] ?? null
+  );
 }
 
-export function getLatestPlantPhotoUrisByPlant(updates: readonly PlantUpdate[]): Readonly<Record<string, string>> {
+export function getLatestPlantPhotoUrisByPlant(
+  updates: readonly PlantUpdate[],
+): Readonly<Record<string, string>> {
   const updatesByPlant = new Map<string, PlantUpdate[]>();
 
   for (const update of updates) {
@@ -52,7 +71,12 @@ export function getLatestPlantPhotoUrisByPlant(updates: readonly PlantUpdate[]):
   }
 
   return Object.fromEntries(
-    Array.from(updatesByPlant, ([plantId, plantUpdates]) => [plantId, getLatestPlantPhoto(plantUpdates)?.localUri] as const)
-      .filter((entry): entry is readonly [string, string] => entry[1] !== undefined),
+    Array.from(
+      updatesByPlant,
+      ([plantId, plantUpdates]) =>
+        [plantId, getLatestPlantPhoto(plantUpdates)?.localUri] as const,
+    ).filter(
+      (entry): entry is readonly [string, string] => entry[1] !== undefined,
+    ),
   );
 }

@@ -6,11 +6,14 @@ import type {
 } from "./types";
 
 // Explicit Vietnamese diacritics Unicode character regex (case-insensitive)
-const VIETNAMESE_REGEX = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
+const VIETNAMESE_REGEX =
+  /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
 
 export function extractMarkdownSection(body: string, heading: string): string {
   const lines = body.split("\n");
-  const headingIndex = lines.findIndex((line) => line !== undefined && line.trim().startsWith(heading));
+  const headingIndex = lines.findIndex(
+    (line) => line !== undefined && line.trim().startsWith(heading),
+  );
   if (headingIndex === -1) {
     return "";
   }
@@ -64,7 +67,10 @@ export function validateContentQuality(
       }
     } else if (doc.type === "growth_stage_playbook") {
       // Playbooks with safety/avoid guidance must cite a reference
-      const avoidSection = extractMarkdownSection(doc.bodyMarkdown, "## Điều cần tránh");
+      const avoidSection = extractMarkdownSection(
+        doc.bodyMarkdown,
+        "## Điều cần tránh",
+      );
       const userFacing = doc as NormalizedUserFacingBaseDocument;
       if (avoidSection.length > 0 && userFacing.references.length === 0) {
         diagnostics.push({

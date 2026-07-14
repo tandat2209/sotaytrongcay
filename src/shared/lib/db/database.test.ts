@@ -26,7 +26,9 @@ describe("database migrations", () => {
   it("adds and truthfully backfills the current stage start in version 6", () => {
     const sql = getMigrationStatements(5).join("\n");
 
-    expect(sql).toContain("ALTER TABLE plants ADD COLUMN stage_started_at TEXT");
+    expect(sql).toContain(
+      "ALTER TABLE plants ADD COLUMN stage_started_at TEXT",
+    );
     expect(sql).toContain("UPDATE plants");
     expect(sql).toContain("FROM plant_stage_history");
     expect(sql).toContain("history.to_stage_id = plants.stage_id");

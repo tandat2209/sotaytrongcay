@@ -1,76 +1,524 @@
 <!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Care Entry · UI plan</title>
-  <style>
-    :root{--bg:#FCF9F8;--surface:#fff;--subtle:#F6F3F2;--ink:#1C1B1B;--muted:#42493E;--border:#C2C9BB;--green:#154212;--water:#1D4ED8;--water-soft:#DBEAFE;--feed:#8A4B00;--feed-soft:#FFF3E0;--purple:#65558F;--purple-soft:#E9DDFF;--red:#BA1A1A;--r:16px;--shadow:0 12px 32px rgba(28,27,27,.09)}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1160px;margin:auto;padding:40px 20px 72px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}h1{font-size:38px;line-height:1.1;letter-spacing:-.04em;margin:8px 0 12px}h2{font-size:22px;line-height:1.2;margin:0 0 16px}p{margin:0;color:var(--muted)}.lead{max-width:680px;font-size:18px}.grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:28px;margin-top:32px}.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;min-width:0}.phone{width:min(100%,390px);margin:auto;background:var(--bg);border:10px solid #222;border-radius:36px;box-shadow:var(--shadow);overflow:hidden}.phone-top{height:28px;background:#222}.screen{padding:16px 16px 22px}.bar{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;margin-bottom:18px}.back{font-size:27px;line-height:1}.plant{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:14px}.label{font-size:12px;font-weight:800;letter-spacing:.02em;display:block;margin:17px 0 7px}.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.option{border:1px solid var(--border);border-radius:12px;padding:11px 8px;background:white;color:var(--muted);font-weight:700;font-size:14px;text-align:center}.option.selected.water{border-color:var(--water);background:var(--water-soft);color:var(--water)}.option.selected.feed{border-color:var(--feed);background:var(--feed-soft);color:var(--feed)}.field{min-height:48px;border:1px solid var(--border);background:white;border-radius:12px;padding:12px;color:var(--muted);font-size:14px}.time{display:grid;grid-template-columns:1.25fr .75fr;gap:8px}.details{border-top:1px solid var(--border);margin-top:20px;padding-top:16px}.activity-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px;min-width:0}.activity-title span{min-width:0;overflow-wrap:anywhere}.activity-title.water{color:var(--water)}.activity-title.feed{color:var(--feed)}.optional{font-size:12px;color:var(--muted);font-weight:500}.button{width:100%;margin-top:24px;min-height:48px;border:0;border-radius:12px;background:var(--green);color:white;font-weight:800;font-size:15px}.callout{border-left:4px solid var(--green);background:#E7F0E4;border-radius:0 12px 12px 0;padding:14px 16px;margin-top:18px}.callout strong{display:block}.section{margin-top:22px}.rule{border:0;border-top:1px solid var(--border);margin:20px 0}.token-list{display:grid;gap:10px}.token{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;gap:12px;padding:12px;border-radius:12px;background:var(--subtle)}.swatch{height:40px;width:40px;border-radius:12px;border:1px solid rgba(0,0,0,.08)}.token b{display:block}.token small{color:var(--muted)}.flow{display:grid;gap:9px}.step{display:flex;align-items:flex-start;gap:11px}.number{flex:0 0 28px;width:28px;height:28px;border-radius:99px;background:var(--green);color:white;text-align:center;font-size:13px;font-weight:800;line-height:28px}.step p{padding-top:2px}.checks{padding-left:20px;margin:0;color:var(--muted)}.checks li{margin:7px 0}.decision{margin-top:28px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px}.choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.choice label{border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer}.choice label:has(input:checked){border:2px solid var(--green);background:#E7F0E4}.choice b{display:block;margin:5px 0}.queue{border:0;border-radius:10px;background:var(--green);color:#fff;padding:12px 16px;font-weight:800}@media(max-width:760px){.wrap{padding:28px 14px 48px}h1{font-size:30px}.grid{grid-template-columns:1fr}.panel{padding:18px}.choice{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <div class="eyebrow">Sổ Tay Trồng Cây · Care Entry</div>
-    <h1>Ghi việc đã làm.<br>Không đoán lúc đang làm.</h1>
-    <p class="lead">Một form chung cho hành vi cốt lõi. Chi tiết theo hoạt động. Người dùng luôn chọn thời điểm thực tế đã tưới hoặc bón phân trước khi lưu.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Care Entry · UI plan</title>
+    <style>
+      :root {
+        --bg: #fcf9f8;
+        --surface: #fff;
+        --subtle: #f6f3f2;
+        --ink: #1c1b1b;
+        --muted: #42493e;
+        --border: #c2c9bb;
+        --green: #154212;
+        --water: #1d4ed8;
+        --water-soft: #dbeafe;
+        --feed: #8a4b00;
+        --feed-soft: #fff3e0;
+        --purple: #65558f;
+        --purple-soft: #e9ddff;
+        --red: #ba1a1a;
+        --r: 16px;
+        --shadow: 0 12px 32px rgba(28, 27, 27, 0.09);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.5 ui-rounded,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      .wrap {
+        max-width: 1160px;
+        margin: auto;
+        padding: 40px 20px 72px;
+      }
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+      h1 {
+        font-size: 38px;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin: 8px 0 12px;
+      }
+      h2 {
+        font-size: 22px;
+        line-height: 1.2;
+        margin: 0 0 16px;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .lead {
+        max-width: 680px;
+        font-size: 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 28px;
+        margin-top: 32px;
+      }
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 24px;
+        min-width: 0;
+      }
+      .phone {
+        width: min(100%, 390px);
+        margin: auto;
+        background: var(--bg);
+        border: 10px solid #222;
+        border-radius: 36px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .phone-top {
+        height: 28px;
+        background: #222;
+      }
+      .screen {
+        padding: 16px 16px 22px;
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 18px;
+      }
+      .back {
+        font-size: 27px;
+        line-height: 1;
+      }
+      .plant {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 14px;
+        margin-bottom: 14px;
+      }
+      .label {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        display: block;
+        margin: 17px 0 7px;
+      }
+      .seg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .option {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 11px 8px;
+        background: white;
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 14px;
+        text-align: center;
+      }
+      .option.selected.water {
+        border-color: var(--water);
+        background: var(--water-soft);
+        color: var(--water);
+      }
+      .option.selected.feed {
+        border-color: var(--feed);
+        background: var(--feed-soft);
+        color: var(--feed);
+      }
+      .field {
+        min-height: 48px;
+        border: 1px solid var(--border);
+        background: white;
+        border-radius: 12px;
+        padding: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .time {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 8px;
+      }
+      .details {
+        border-top: 1px solid var(--border);
+        margin-top: 20px;
+        padding-top: 16px;
+      }
+      .activity-title {
+        font-size: 15px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        min-width: 0;
+      }
+      .activity-title span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+      .activity-title.water {
+        color: var(--water);
+      }
+      .activity-title.feed {
+        color: var(--feed);
+      }
+      .optional {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .button {
+        width: 100%;
+        margin-top: 24px;
+        min-height: 48px;
+        border: 0;
+        border-radius: 12px;
+        background: var(--green);
+        color: white;
+        font-weight: 800;
+        font-size: 15px;
+      }
+      .callout {
+        border-left: 4px solid var(--green);
+        background: #e7f0e4;
+        border-radius: 0 12px 12px 0;
+        padding: 14px 16px;
+        margin-top: 18px;
+      }
+      .callout strong {
+        display: block;
+      }
+      .section {
+        margin-top: 22px;
+      }
+      .rule {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 20px 0;
+      }
+      .token-list {
+        display: grid;
+        gap: 10px;
+      }
+      .token {
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr);
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        background: var(--subtle);
+      }
+      .swatch {
+        height: 40px;
+        width: 40px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .token b {
+        display: block;
+      }
+      .token small {
+        color: var(--muted);
+      }
+      .flow {
+        display: grid;
+        gap: 9px;
+      }
+      .step {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+      }
+      .number {
+        flex: 0 0 28px;
+        width: 28px;
+        height: 28px;
+        border-radius: 99px;
+        background: var(--green);
+        color: white;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 28px;
+      }
+      .step p {
+        padding-top: 2px;
+      }
+      .checks {
+        padding-left: 20px;
+        margin: 0;
+        color: var(--muted);
+      }
+      .checks li {
+        margin: 7px 0;
+      }
+      .decision {
+        margin-top: 28px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 24px;
+      }
+      .choice {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 16px 0;
+      }
+      .choice label {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px;
+        cursor: pointer;
+      }
+      .choice label:has(input:checked) {
+        border: 2px solid var(--green);
+        background: #e7f0e4;
+      }
+      .choice b {
+        display: block;
+        margin: 5px 0;
+      }
+      .queue {
+        border: 0;
+        border-radius: 10px;
+        background: var(--green);
+        color: #fff;
+        padding: 12px 16px;
+        font-weight: 800;
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          padding: 28px 14px 48px;
+        }
+        h1 {
+          font-size: 30px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .panel {
+          padding: 18px;
+        }
+        .choice {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="eyebrow">Sổ Tay Trồng Cây · Care Entry</div>
+      <h1>Ghi việc đã làm.<br />Không đoán lúc đang làm.</h1>
+      <p class="lead">
+        Một form chung cho hành vi cốt lõi. Chi tiết theo hoạt động. Người dùng
+        luôn chọn thời điểm thực tế đã tưới hoặc bón phân trước khi lưu.
+      </p>
 
-    <section class="grid">
-      <article class="panel">
-        <h2>Watering</h2>
-        <div class="phone" aria-label="Bản xem trước form tưới nước">
-          <div class="phone-top"></div><div class="screen">
-            <div class="bar"><span class="back">‹</span> Ghi chăm sóc</div>
-            <div class="plant">Cây&nbsp;&nbsp; <b>Cà chua bi</b> &nbsp;⌄</div>
-            <span class="label">Hoạt động</span>
-            <div class="seg"><div class="option selected water">♧ &nbsp;Tưới nước</div><div class="option">✦ &nbsp;Bón phân</div></div>
-            <span class="label">Đã thực hiện lúc</span>
-            <div class="time"><div class="field">13/07/2026 &nbsp;⌄</div><div class="field">07:30 &nbsp;⌄</div></div>
-            <div class="details"><div class="activity-title water">💧 Tưới nước</div>
-              <span class="label">Lượng nước <span class="optional">(không bắt buộc)</span></span><div class="field">0 &nbsp;&nbsp;&nbsp; lít</div>
-              <span class="label">Ghi chú <span class="optional">(không bắt buộc)</span></span><div class="field">Thêm điều bạn muốn nhớ</div>
-            </div><button class="button">Lưu hoạt động</button>
+      <section class="grid">
+        <article class="panel">
+          <h2>Watering</h2>
+          <div class="phone" aria-label="Bản xem trước form tưới nước">
+            <div class="phone-top"></div>
+            <div class="screen">
+              <div class="bar"><span class="back">‹</span> Ghi chăm sóc</div>
+              <div class="plant">Cây&nbsp;&nbsp; <b>Cà chua bi</b> &nbsp;⌄</div>
+              <span class="label">Hoạt động</span>
+              <div class="seg">
+                <div class="option selected water">♧ &nbsp;Tưới nước</div>
+                <div class="option">✦ &nbsp;Bón phân</div>
+              </div>
+              <span class="label">Đã thực hiện lúc</span>
+              <div class="time">
+                <div class="field">13/07/2026 &nbsp;⌄</div>
+                <div class="field">07:30 &nbsp;⌄</div>
+              </div>
+              <div class="details">
+                <div class="activity-title water">💧 Tưới nước</div>
+                <span class="label"
+                  >Lượng nước
+                  <span class="optional">(không bắt buộc)</span></span
+                >
+                <div class="field">0 &nbsp;&nbsp;&nbsp; lít</div>
+                <span class="label"
+                  >Ghi chú <span class="optional">(không bắt buộc)</span></span
+                >
+                <div class="field">Thêm điều bạn muốn nhớ</div>
+              </div>
+              <button class="button">Lưu hoạt động</button>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="panel">
-        <h2>Fertilizing</h2>
-        <div class="phone" aria-label="Bản xem trước form bón phân">
-          <div class="phone-top"></div><div class="screen">
-            <div class="bar"><span class="back">‹</span> Ghi chăm sóc</div>
-            <div class="plant">Cây&nbsp;&nbsp; <b>Cà chua bi</b> &nbsp;⌄</div>
-            <span class="label">Hoạt động</span>
-            <div class="seg"><div class="option">♧ &nbsp;Tưới nước</div><div class="option selected feed">♙ &nbsp;Bón phân</div></div>
-            <span class="label">Đã thực hiện lúc</span>
-            <div class="time"><div class="field">13/07/2026 &nbsp;⌄</div><div class="field">07:30 &nbsp;⌄</div></div>
-            <div class="details"><div class="activity-title feed">♙ Bón phân</div>
-              <span class="label">Sản phẩm / loại phân <span class="optional">(không bắt buộc)</span></span><div class="field">Ví dụ: phân trùn quế</div>
-              <span class="label">Ghi chú <span class="optional">(không bắt buộc)</span></span><div class="field">Thêm điều bạn muốn nhớ</div>
-            </div><button class="button">Lưu hoạt động</button>
+        </article>
+        <article class="panel">
+          <h2>Fertilizing</h2>
+          <div class="phone" aria-label="Bản xem trước form bón phân">
+            <div class="phone-top"></div>
+            <div class="screen">
+              <div class="bar"><span class="back">‹</span> Ghi chăm sóc</div>
+              <div class="plant">Cây&nbsp;&nbsp; <b>Cà chua bi</b> &nbsp;⌄</div>
+              <span class="label">Hoạt động</span>
+              <div class="seg">
+                <div class="option">♧ &nbsp;Tưới nước</div>
+                <div class="option selected feed">♙ &nbsp;Bón phân</div>
+              </div>
+              <span class="label">Đã thực hiện lúc</span>
+              <div class="time">
+                <div class="field">13/07/2026 &nbsp;⌄</div>
+                <div class="field">07:30 &nbsp;⌄</div>
+              </div>
+              <div class="details">
+                <div class="activity-title feed">♙ Bón phân</div>
+                <span class="label"
+                  >Sản phẩm / loại phân
+                  <span class="optional">(không bắt buộc)</span></span
+                >
+                <div class="field">Ví dụ: phân trùn quế</div>
+                <span class="label"
+                  >Ghi chú <span class="optional">(không bắt buộc)</span></span
+                >
+                <div class="field">Thêm điều bạn muốn nhớ</div>
+              </div>
+              <button class="button">Lưu hoạt động</button>
+            </div>
           </div>
+        </article>
+      </section>
+
+      <section class="grid section">
+        <article class="panel">
+          <h2>One visual language</h2>
+          <div class="token-list">
+            <div class="token">
+              <div class="swatch" style="background: #dbeafe"></div>
+              <div>
+                <b>💧 Tưới nước · water-outline</b
+                ><small>Main #1D4ED8 · soft #DBEAFE</small>
+              </div>
+            </div>
+            <div class="token">
+              <div class="swatch" style="background: #fff3e0"></div>
+              <div>
+                <b>♙ Bón phân · nutrition-outline</b
+                ><small>Main #8A4B00 · soft #FFF3E0</small>
+              </div>
+            </div>
+            <div class="token">
+              <div class="swatch" style="background: #e9ddff"></div>
+              <div>
+                <b>⚗ Phun thuốc · flask-outline</b
+                ><small>Main #65558F · soft #E9DDFF</small>
+              </div>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Identity only</strong>
+            <p>
+              Activity color marks type on picker, Quick Care, Journal,
+              Timeline, detail header. Save button stays app green. Risk/status
+              colors stay separate.
+            </p>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Behavior contract</h2>
+          <div class="flow">
+            <div class="step">
+              <span class="number">1</span>
+              <p>
+                Open from Today, reminder, Plant Detail Quick Care, or manual
+                entry.
+              </p>
+            </div>
+            <div class="step">
+              <span class="number">2</span>
+              <p>Prefill plant/type where known. User can edit both.</p>
+            </div>
+            <div class="step">
+              <span class="number">3</span>
+              <p>
+                <b>Đã thực hiện lúc</b> requires date and time. Default now;
+                user changes to actual activity time.
+              </p>
+            </div>
+            <div class="step">
+              <span class="number">4</span>
+              <p>
+                <b>Lưu hoạt động</b> is sole history-write action. Store origin
+                and separate system <code>createdAt</code>.
+              </p>
+            </div>
+          </div>
+          <hr class="rule" />
+          <ul class="checks">
+            <li>Icon always paired with Vietnamese label.</li>
+            <li>Color never sole meaning signal.</li>
+            <li>Optional fields stay collapsed to type-specific minimum.</li>
+          </ul>
+        </article>
+      </section>
+
+      <form
+        class="decision"
+        data-lavish-question="care-entry-approval"
+        onsubmit="
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          const plan = data.get('plan');
+          if (plan)
+            window.lavish.queuePrompt('Care Entry UI decision: ' + plan, {
+              tag: 'care-entry-plan',
+              text: String(plan),
+              element: event.currentTarget,
+              data: { decision: plan },
+            });
+        "
+      >
+        <h2>Review decision</h2>
+        <p>Pick direction. Then send queued feedback in Lavish.</p>
+        <div class="choice">
+          <label
+            ><input
+              type="radio"
+              name="plan"
+              value="Approve proposed UI: common metadata, required performed date/time, blue watering, ochre fertilizing, nutrition-outline."
+              checked
+            /><b>Approve proposed UI</b
+            ><span>Ready to define shared metadata and build.</span></label
+          ><label
+            ><input
+              type="radio"
+              name="plan"
+              value="Revise Care Entry UI. I will add specifics in annotation."
+            /><b>Revise</b><span>Mark screen or add comment.</span></label
+          >
         </div>
-      </article>
-    </section>
-
-    <section class="grid section">
-      <article class="panel"><h2>One visual language</h2><div class="token-list">
-        <div class="token"><div class="swatch" style="background:#DBEAFE"></div><div><b>💧 Tưới nước · water-outline</b><small>Main #1D4ED8 · soft #DBEAFE</small></div></div>
-        <div class="token"><div class="swatch" style="background:#FFF3E0"></div><div><b>♙ Bón phân · nutrition-outline</b><small>Main #8A4B00 · soft #FFF3E0</small></div></div>
-        <div class="token"><div class="swatch" style="background:#E9DDFF"></div><div><b>⚗ Phun thuốc · flask-outline</b><small>Main #65558F · soft #E9DDFF</small></div></div>
-      </div><div class="callout"><strong>Identity only</strong><p>Activity color marks type on picker, Quick Care, Journal, Timeline, detail header. Save button stays app green. Risk/status colors stay separate.</p></div></article>
-      <article class="panel"><h2>Behavior contract</h2><div class="flow">
-        <div class="step"><span class="number">1</span><p>Open from Today, reminder, Plant Detail Quick Care, or manual entry.</p></div>
-        <div class="step"><span class="number">2</span><p>Prefill plant/type where known. User can edit both.</p></div>
-        <div class="step"><span class="number">3</span><p><b>Đã thực hiện lúc</b> requires date and time. Default now; user changes to actual activity time.</p></div>
-        <div class="step"><span class="number">4</span><p><b>Lưu hoạt động</b> is sole history-write action. Store origin and separate system <code>createdAt</code>.</p></div>
-      </div><hr class="rule"><ul class="checks"><li>Icon always paired with Vietnamese label.</li><li>Color never sole meaning signal.</li><li>Optional fields stay collapsed to type-specific minimum.</li></ul></article>
-    </section>
-
-    <form class="decision" data-lavish-question="care-entry-approval" onsubmit="event.preventDefault(); const data=new FormData(event.currentTarget); const plan=data.get('plan'); if(plan) window.lavish.queuePrompt('Care Entry UI decision: '+plan,{tag:'care-entry-plan',text:String(plan),element:event.currentTarget,data:{decision:plan}})">
-      <h2>Review decision</h2><p>Pick direction. Then send queued feedback in Lavish.</p>
-      <div class="choice"><label><input type="radio" name="plan" value="Approve proposed UI: common metadata, required performed date/time, blue watering, ochre fertilizing, nutrition-outline." checked><b>Approve proposed UI</b><span>Ready to define shared metadata and build.</span></label><label><input type="radio" name="plan" value="Revise Care Entry UI. I will add specifics in annotation."><b>Revise</b><span>Mark screen or add comment.</span></label></div>
-      <button class="queue" type="submit">Queue decision</button>
-    </form>
-  </main>
-</body>
+        <button class="queue" type="submit">Queue decision</button>
+      </form>
+    </main>
+  </body>
 </html>

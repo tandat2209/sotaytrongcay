@@ -9,13 +9,30 @@ type FormFieldProps = PropsWithChildren<{
   supportingText?: ReactNode;
 }>;
 
-export function FormField({ children, error, label, supportingText }: FormFieldProps) {
+export function FormField({
+  children,
+  error,
+  label,
+  supportingText,
+}: FormFieldProps) {
   return (
     <View style={styles.field}>
       <Typography variant="label">{label}</Typography>
       {children}
-      {supportingText ? <Typography color="textSecondary" variant="bodyMedium">{supportingText}</Typography> : null}
-      {error ? <Typography accessibilityRole="alert" color="error" variant="bodyMedium">{error}</Typography> : null}
+      {supportingText ? (
+        <Typography color="textSecondary" variant="bodyMedium">
+          {supportingText}
+        </Typography>
+      ) : null}
+      {error ? (
+        <Typography
+          accessibilityRole="alert"
+          color="error"
+          variant="bodyMedium"
+        >
+          {error}
+        </Typography>
+      ) : null}
     </View>
   );
 }

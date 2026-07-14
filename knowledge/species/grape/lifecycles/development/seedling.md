@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Giai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.

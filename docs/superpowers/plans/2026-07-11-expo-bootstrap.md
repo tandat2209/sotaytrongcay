@@ -11,6 +11,7 @@
 ## Task 1: Record the authoritative navigation decision
 
 **Files:**
+
 - Modify: `docs/DECISIONS.md`
 
 1. Correct the status of the contextual-actions-without-FAB decision to `Accepted`.
@@ -19,6 +20,7 @@
 ## Task 2: Create the Expo and TypeScript foundation
 
 **Files:**
+
 - Create: `package.json`
 - Create: `app.config.ts`
 - Create: `expo-env.d.ts`
@@ -36,6 +38,7 @@
 ## Task 3: Build the application composition root
 
 **Files:**
+
 - Create: `src/bootstrap/AppProviders.tsx`
 - Create: `src/shared/ui/theme.ts`
 - Create: `src/shared/ui/Screen.tsx`
@@ -49,6 +52,7 @@
 ## Task 4: Build the approved four-destination shell
 
 **Files:**
+
 - Create: `app/_layout.tsx`
 - Create: `app/index.tsx`
 - Create: `app/(tabs)/_layout.tsx`
@@ -76,6 +80,7 @@
 ## Task 5: Verify and document the bootstrap
 
 **Files:**
+
 - Modify: `README.md`
 - Modify: `TODO.md`
 - Create: `pnpm-lock.yaml`

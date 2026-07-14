@@ -21,14 +21,20 @@ export function evaluateCarePlans({
   );
 }
 
-function evaluateCarePlan(input: Readonly<{
-  activities: readonly CareActivity[];
-  evaluatedAt: Date;
-  plant: Plant;
-  plan: CarePlan;
-}>): CareEvaluation {
+function evaluateCarePlan(
+  input: Readonly<{
+    activities: readonly CareActivity[];
+    evaluatedAt: Date;
+    plant: Plant;
+    plan: CarePlan;
+  }>,
+): CareEvaluation {
   const { activities, evaluatedAt, plant, plan } = input;
-  const latestActivity = latestActivityForType(activities, plant.id, plan.activityType);
+  const latestActivity = latestActivityForType(
+    activities,
+    plant.id,
+    plan.activityType,
+  );
   const identity = `${plant.id}:${localDateKey(evaluatedAt)}:${plan.id}:${plan.version}`;
 
   if (latestActivity === null) {
@@ -46,16 +52,33 @@ function evaluateCarePlan(input: Readonly<{
       };
     }
 
-    return unavailableEvaluation(plant.id, plan.activityType, identity, plan.title, "Chưa có đủ lịch sử chăm sóc để đưa ra gợi ý.");
+    return unavailableEvaluation(
+      plant.id,
+      plan.activityType,
+      identity,
+      plan.title,
+      "Chưa có đủ lịch sử chăm sóc để đưa ra gợi ý.",
+    );
   }
 
   const occurredAt = new Date(latestActivity.occurredAt);
   if (Number.isNaN(occurredAt.getTime()) || occurredAt > evaluatedAt) {
-    return unavailableEvaluation(plant.id, plan.activityType, identity, plan.title, "Dữ liệu lịch sử chăm sóc chưa hợp lệ.");
+    return unavailableEvaluation(
+      plant.id,
+      plan.activityType,
+      identity,
+      plan.title,
+      "Dữ liệu lịch sử chăm sóc chưa hợp lệ.",
+    );
   }
 
-  const daysSinceLastActivity = localCalendarDayDifference(occurredAt, evaluatedAt);
-  const thresholdDays = plan.frequency?.[plant.growingMethod]?.intervalDays ?? plan.eligibility.suggestAfterDays;
+  const daysSinceLastActivity = localCalendarDayDifference(
+    occurredAt,
+    evaluatedAt,
+  );
+  const thresholdDays =
+    plan.frequency?.[plant.growingMethod]?.intervalDays ??
+    plan.eligibility.suggestAfterDays;
   if (daysSinceLastActivity >= thresholdDays) {
     return {
       activityType: plan.activityType,
@@ -108,19 +131,38 @@ function latestActivityForType(
   plantId: string,
   activityType: CareActivityType,
 ): CareActivity | null {
-  return activities
-    .filter((activity) => activity.plantId === plantId && activity.type === activityType)
-    .sort((left, right) => right.occurredAt.localeCompare(left.occurredAt))[0] ?? null;
+  return (
+    activities
+      .filter(
+        (activity) =>
+          activity.plantId === plantId && activity.type === activityType,
+      )
+      .sort((left, right) =>
+        right.occurredAt.localeCompare(left.occurredAt),
+      )[0] ?? null
+  );
 }
 
 function localCalendarDayDifference(start: Date, end: Date): number {
-  const startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
-  const endDay = new Date(end.getFullYear(), end.getMonth(), end.getDate()).getTime();
+  const startDay = new Date(
+    start.getFullYear(),
+    start.getMonth(),
+    start.getDate(),
+  ).getTime();
+  const endDay = new Date(
+    end.getFullYear(),
+    end.getMonth(),
+    end.getDate(),
+  ).getTime();
   return Math.round((endDay - startDay) / 86_400_000);
 }
 
 function localDateKey(date: Date): string {
-  return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0"),
+  ].join("-");
 }
 
 function activityLabel(type: CareActivityType): string {

@@ -21,20 +21,31 @@ export function serializeBundle(
   mode: CompilationMode,
 ): string {
   // 1. Separate types and sort by ID
-  const speciesDocs = (documents.filter((d) => d.type === "plant_species") as NormalizedPlantSpecies[])
-    .sort((a, b) => a.id.localeCompare(b.id));
+  const speciesDocs = (
+    documents.filter(
+      (d) => d.type === "plant_species",
+    ) as NormalizedPlantSpecies[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
 
-  const stageDocs = (documents.filter((d) => d.type === "growth_stage_playbook") as NormalizedGrowthStagePlaybook[])
-    .sort((a, b) => a.id.localeCompare(b.id));
+  const stageDocs = (
+    documents.filter(
+      (d) => d.type === "growth_stage_playbook",
+    ) as NormalizedGrowthStagePlaybook[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
 
-  const planDocs = (documents.filter((d) => d.type === "care_plan") as NormalizedCarePlan[])
-    .sort((a, b) => b.priority - a.priority || a.id.localeCompare(b.id));
+  const planDocs = (
+    documents.filter((d) => d.type === "care_plan") as NormalizedCarePlan[]
+  ).sort((a, b) => b.priority - a.priority || a.id.localeCompare(b.id));
 
-  const guideDocs = (documents.filter((d) => d.type === "care_guide") as NormalizedCareGuide[])
-    .sort((a, b) => a.id.localeCompare(b.id));
+  const guideDocs = (
+    documents.filter((d) => d.type === "care_guide") as NormalizedCareGuide[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
 
-  const refDocs = (documents.filter((d) => d.type === "reference_source") as NormalizedReferenceSource[])
-    .sort((a, b) => a.id.localeCompare(b.id));
+  const refDocs = (
+    documents.filter(
+      (d) => d.type === "reference_source",
+    ) as NormalizedReferenceSource[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
 
   // 2. Build objects in contract key order
   const compiledSpecies = speciesDocs.map((s) => {
@@ -80,19 +91,23 @@ export function serializeBundle(
 
   const compiledStagePlaybooks = stageDocs.map((s) => {
     // Find the species document to extract title, sequence, lifecycleId, transitions
-    const species = compiledSpecies.find(sp => sp.id === s.speciesId);
+    const species = compiledSpecies.find((sp) => sp.id === s.speciesId);
     let title = s.title;
     let sequence = s.sequence;
     let lifecycleId = s.lifecycleId;
 
     if (species) {
-      const devStage = species.lifecycles.development.stages.find(st => st.id === s.id);
+      const devStage = species.lifecycles.development.stages.find(
+        (st) => st.id === s.id,
+      );
       if (devStage) {
         title = devStage.title;
         sequence = devStage.sequence;
         lifecycleId = "development";
       } else {
-        const prodStage = species.lifecycles.production.stages.find(st => st.id === s.id);
+        const prodStage = species.lifecycles.production.stages.find(
+          (st) => st.id === s.id,
+        );
         if (prodStage) {
           title = prodStage.title;
           sequence = prodStage.sequence;
@@ -139,7 +154,9 @@ export function serializeBundle(
       suggestAfterDays: r.eligibility.suggestAfterDays,
     },
     onMissingHistory: r.onMissingHistory,
-    ...(r.recommendedInputs !== undefined && { recommendedInputs: r.recommendedInputs }),
+    ...(r.recommendedInputs !== undefined && {
+      recommendedInputs: r.recommendedInputs,
+    }),
     ...(r.frequency !== undefined && { frequency: r.frequency }),
     ...(r.notes !== undefined && { notes: r.notes }),
     bodyMarkdown: r.bodyMarkdown,
@@ -156,7 +173,9 @@ export function serializeBundle(
     references: sortArray(g.references),
     speciesIds: sortArray(g.speciesIds),
     stageIds: sortArray(g.stageIds),
-    ...(g.recommendedInputs !== undefined && { recommendedInputs: g.recommendedInputs }),
+    ...(g.recommendedInputs !== undefined && {
+      recommendedInputs: g.recommendedInputs,
+    }),
     ...(g.frequency !== undefined && { frequency: g.frequency }),
     ...(g.notes !== undefined && { notes: g.notes }),
     bodyMarkdown: g.bodyMarkdown,

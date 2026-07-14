@@ -2,12 +2,14 @@ import { tabDestinations } from "./navigation";
 
 describe("tab navigation contract", () => {
   it("contains only the four approved Vietnamese destinations", () => {
-    expect(tabDestinations.map(({ label, name }) => ({ label, name }))).toEqual([
-      { name: "today", label: "Hôm nay" },
-      { name: "plants", label: "Cây trồng" },
-      { name: "journal", label: "Nhật ký" },
-      { name: "me", label: "Tôi" },
-    ]);
+    expect(tabDestinations.map(({ label, name }) => ({ label, name }))).toEqual(
+      [
+        { name: "today", label: "Hôm nay" },
+        { name: "plants", label: "Cây trồng" },
+        { name: "journal", label: "Nhật ký" },
+        { name: "me", label: "Tôi" },
+      ],
+    );
   });
 
   it("does not expose an action destination", () => {

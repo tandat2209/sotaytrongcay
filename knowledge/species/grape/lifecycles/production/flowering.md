@@ -19,4 +19,5 @@ recommended_knowledge_topics:
 references:
   - ref.osu.growing-table-grapes
 ---
+
 Hoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.

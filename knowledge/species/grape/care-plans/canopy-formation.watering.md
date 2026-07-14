@@ -17,10 +17,10 @@ eligibility:
 on_missing_history: suggest
 frequency:
   ground:
-    display: 'Mỗi 3–4 ngày, giảm dần ở 2–3 tuần cuối giai đoạn'
+    display: "Mỗi 3–4 ngày, giảm dần ở 2–3 tuần cuối giai đoạn"
     interval_days: 3
   container:
-    display: 'Mỗi 2–3 ngày, giảm tần suất khi cành bắt đầu hóa gỗ'
+    display: "Mỗi 2–3 ngày, giảm tần suất khi cành bắt đầu hóa gỗ"
     interval_days: 2
 notes:
   - >-

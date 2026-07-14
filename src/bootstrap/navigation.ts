@@ -1,4 +1,9 @@
-import { CalendarDays, NotebookPen, Sprout, UserRound } from "lucide-react-native";
+import {
+  CalendarDays,
+  NotebookPen,
+  Sprout,
+  UserRound,
+} from "lucide-react-native";
 
 export const tabDestinations = [
   { name: "today", label: "Hôm nay", icon: CalendarDays },

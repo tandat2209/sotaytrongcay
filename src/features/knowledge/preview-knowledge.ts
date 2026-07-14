@@ -31,7 +31,10 @@ export type CareGuide = Readonly<{
   goal: string;
   bodyMarkdown: string;
   recommendedInputs?: readonly { group: string; examples: string }[];
-  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
+  frequency?: {
+    ground: { display: string; intervalDays: number };
+    container: { display: string; intervalDays: number };
+  };
   notes?: readonly string[];
 }>;
 
@@ -47,7 +50,10 @@ export type CarePlan = Readonly<{
     suggestAfterDays: number;
   }>;
   onMissingHistory: "suggest" | "withhold";
-  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
+  frequency?: {
+    ground: { display: string; intervalDays: number };
+    container: { display: string; intervalDays: number };
+  };
   recommendedInputs?: readonly { group: string; examples: string }[];
   notes?: readonly string[];
   version: string;
@@ -60,13 +66,16 @@ export type CarePlan = Readonly<{
 type RawSpecies = {
   id: string;
   title: string;
-  lifecycles: Record<string, {
-    stages: {
-      id: string;
-      title: string;
-      transitions: { to: string }[];
-    }[];
-  }>;
+  lifecycles: Record<
+    string,
+    {
+      stages: {
+        id: string;
+        title: string;
+        transitions: { to: string }[];
+      }[];
+    }
+  >;
 };
 
 type RawPlaybook = {
@@ -91,7 +100,10 @@ type RawGuide = {
   stageIds?: string[];
   bodyMarkdown?: string;
   recommendedInputs?: { group: string; examples: string }[];
-  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
+  frequency?: {
+    ground: { display: string; intervalDays: number };
+    container: { display: string; intervalDays: number };
+  };
   notes?: string[];
 };
 
@@ -109,7 +121,10 @@ type RawCarePlan = {
     suggestAfterDays: number;
   };
   onMissingHistory: "suggest" | "withhold";
-  frequency?: { ground: { display: string; intervalDays: number }; container: { display: string; intervalDays: number } };
+  frequency?: {
+    ground: { display: string; intervalDays: number };
+    container: { display: string; intervalDays: number };
+  };
   recommendedInputs?: { group: string; examples: string }[];
   notes?: string[];
   version: string;
@@ -133,13 +148,18 @@ const bundle: PreviewBundle = previewBundle as PreviewBundle;
 // ---------------------------------------------------------------------------
 
 export function getPreviewPlantKnowledge(): PreviewPlantKnowledge;
-export function getPreviewPlantKnowledge(speciesId: string): PreviewPlantKnowledge | null;
-export function getPreviewPlantKnowledge(speciesId?: string): PreviewPlantKnowledge | null {
+export function getPreviewPlantKnowledge(
+  speciesId: string,
+): PreviewPlantKnowledge | null;
+export function getPreviewPlantKnowledge(
+  speciesId?: string,
+): PreviewPlantKnowledge | null {
   const species = speciesId
     ? bundle.species.find((candidate) => candidate.id === speciesId)
     : bundle.species[0];
   if (!species) {
-    if (!speciesId) throw new Error("Preview knowledge does not contain a species");
+    if (!speciesId)
+      throw new Error("Preview knowledge does not contain a species");
     return null;
   }
   return {
@@ -173,7 +193,9 @@ export function getStagePlaybook(stageId: string): StagePlaybook | null {
  * Returns the playbook for the stage that comes after `currentStageId`
  * according to its authored lifecycle transition, or null when no transition exists.
  */
-export function getNextStagePlaybook(currentStageId: string): StagePlaybook | null {
+export function getNextStagePlaybook(
+  currentStageId: string,
+): StagePlaybook | null {
   const currentStage = bundle.species
     .flatMap((species) => Object.values(species.lifecycles))
     .flatMap((lifecycle) => lifecycle.stages)
@@ -181,11 +203,15 @@ export function getNextStagePlaybook(currentStageId: string): StagePlaybook | nu
   const nextStageId = currentStage?.transitions[0]?.to;
   if (!nextStageId) return null;
 
-  const next = bundle.stagePlaybooks.find((playbook) => playbook.id === nextStageId);
+  const next = bundle.stagePlaybooks.find(
+    (playbook) => playbook.id === nextStageId,
+  );
   return next ? toPlaybook(next) : null;
 }
 
-export function listInformationalGuidesForStage(stageId: string): readonly CareGuide[] {
+export function listInformationalGuidesForStage(
+  stageId: string,
+): readonly CareGuide[] {
   return bundle.guides
     .filter((guide) => (guide.stageIds ?? []).includes(stageId))
     .sort((left, right) => left.id.localeCompare(right.id))
@@ -199,10 +225,12 @@ export function getCarePlansForStage(stageId: string): readonly CarePlan[] {
     .map(toCarePlan);
 }
 
-export function listCarePlans(input: Readonly<{
-  speciesId: string;
-  stageId: string;
-}>): readonly CarePlan[] {
+export function listCarePlans(
+  input: Readonly<{
+    speciesId: string;
+    stageId: string;
+  }>,
+): readonly CarePlan[] {
   return bundle.carePlans
     .filter((plan) => plan.speciesIds.includes(input.speciesId))
     .filter((plan) => plan.stageIds.includes(input.stageId))
@@ -225,7 +253,9 @@ function toCarePlan(raw: RawCarePlan): CarePlan {
     eligibility: raw.eligibility,
     onMissingHistory: raw.onMissingHistory,
     ...(raw.frequency !== undefined && { frequency: raw.frequency }),
-    ...(raw.recommendedInputs !== undefined && { recommendedInputs: raw.recommendedInputs }),
+    ...(raw.recommendedInputs !== undefined && {
+      recommendedInputs: raw.recommendedInputs,
+    }),
     ...(raw.notes !== undefined && { notes: raw.notes }),
     version: raw.version,
   };
@@ -237,7 +267,9 @@ function toCareGuide(raw: RawGuide): CareGuide {
     title: raw.title,
     goal: raw.goal,
     bodyMarkdown: raw.bodyMarkdown ?? "",
-    ...(raw.recommendedInputs !== undefined && { recommendedInputs: raw.recommendedInputs }),
+    ...(raw.recommendedInputs !== undefined && {
+      recommendedInputs: raw.recommendedInputs,
+    }),
     ...(raw.frequency !== undefined && { frequency: raw.frequency }),
     ...(raw.notes !== undefined && { notes: raw.notes }),
   };

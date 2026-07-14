@@ -5,21 +5,27 @@ export const WaterAmountSchema = z.object({
   unit: z.literal("liter"),
 });
 
-export const CareActivitySchema = z.object({
-  id: z.string().uuid(),
-  mutationId: z.string().uuid(),
-  plantId: z.string().uuid(),
-  type: z.enum(["watering", "fertilizing", "spraying"]),
-  occurredAt: z.string().datetime(),
-  origin: z.enum(["today", "reminder", "manual"]),
-  amount: WaterAmountSchema.nullable(),
-  notes: z.string().nullable(),
-  createdAt: z.string().datetime(),
-}).superRefine((activity, context) => {
-  if (activity.type !== "watering" && activity.amount !== null) {
-    context.addIssue({ code: "custom", message: "A liter amount is valid only for watering.", path: ["amount"] });
-  }
-});
+export const CareActivitySchema = z
+  .object({
+    id: z.string().uuid(),
+    mutationId: z.string().uuid(),
+    plantId: z.string().uuid(),
+    type: z.enum(["watering", "fertilizing", "spraying"]),
+    occurredAt: z.string().datetime(),
+    origin: z.enum(["today", "reminder", "manual"]),
+    amount: WaterAmountSchema.nullable(),
+    notes: z.string().nullable(),
+    createdAt: z.string().datetime(),
+  })
+  .superRefine((activity, context) => {
+    if (activity.type !== "watering" && activity.amount !== null) {
+      context.addIssue({
+        code: "custom",
+        message: "A liter amount is valid only for watering.",
+        path: ["amount"],
+      });
+    }
+  });
 
 export type CareActivity = z.infer<typeof CareActivitySchema>;
 export type CareActivityType = CareActivity["type"];

@@ -18,10 +18,10 @@ eligibility:
 on_missing_history: suggest
 frequency:
   ground:
-    display: 'Mỗi 3–4 ngày, chỉ tưới vào vùng rễ (tưới gốc hoặc nhỏ giọt)'
+    display: "Mỗi 3–4 ngày, chỉ tưới vào vùng rễ (tưới gốc hoặc nhỏ giọt)"
     interval_days: 3
   container:
-    display: 'Mỗi 2–3 ngày, đổ nước vào đĩa lót hoặc tưới gốc nhẹ nhàng'
+    display: "Mỗi 2–3 ngày, đổ nước vào đĩa lót hoặc tưới gốc nhẹ nhàng"
     interval_days: 2
 notes:
   - >-

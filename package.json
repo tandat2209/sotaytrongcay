@@ -7,7 +7,11 @@
     "node": ">=22.13.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --fix"
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,html,json,md,yaml,yml}": "prettier --write"
   },
   "scripts": {
     "start": "expo start",
@@ -16,7 +20,9 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit && tsc -p scripts/knowledge/tsconfig.json --noEmit",
     "lint": "eslint .",
-    "precommit": "npx lint-staged",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "precommit": "pnpm exec lint-staged",
     "test": "jest --runInBand",
     "export": "expo export --platform all",
     "knowledge:validate": "tsx scripts/knowledge/cli.ts validate",
@@ -67,6 +73,7 @@
     "jest": "^29.7.0",
     "jest-expo": "~57.0.1",
     "lint-staged": "^16.3.4",
+    "prettier": "^3.9.5",
     "tsx": "^4.23.0",
     "typescript": "~6.0.3",
     "yaml": "^2.9.0"

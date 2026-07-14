@@ -26,11 +26,13 @@ function formatDate(isoDate: string): string {
 export function CreatePlantScreen({ onBack, onSave }: Props) {
   const knowledge = getPreviewPlantKnowledge();
   const defaultStage = knowledge.stages[0];
-  if (!defaultStage) throw new Error("Preview knowledge does not contain a stage");
+  if (!defaultStage)
+    throw new Error("Preview knowledge does not contain a stage");
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const [growingMethod, setGrowingMethod] = useState<Plant["growingMethod"]>("container");
+  const [growingMethod, setGrowingMethod] =
+    useState<Plant["growingMethod"]>("container");
   const [plantedAt, setPlantedAt] = useState<string | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [stageId, setStageId] = useState(defaultStage.id);
@@ -114,10 +116,19 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
                 accessibilityRole="radio"
                 accessibilityState={{ checked: selected }}
                 key={method.value}
-                onPress={() => setGrowingMethod(method.value as Plant["growingMethod"])}
-                style={({ pressed }) => [styles.chip, selected && styles.chipSelected, pressed && styles.chipPressed]}
+                onPress={() =>
+                  setGrowingMethod(method.value as Plant["growingMethod"])
+                }
+                style={({ pressed }) => [
+                  styles.chip,
+                  selected && styles.chipSelected,
+                  pressed && styles.chipPressed,
+                ]}
               >
-                <Typography color={selected ? "surface" : "text"} variant="bodyMedium">
+                <Typography
+                  color={selected ? "surface" : "text"}
+                  variant="bodyMedium"
+                >
                   {method.label}
                 </Typography>
               </Pressable>
@@ -133,7 +144,10 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
           onPress={() => setShowDatePicker(true)}
           style={styles.dateButton}
         >
-          <Typography color={plantedAt ? "text" : "textSecondary"} variant="bodyLarge">
+          <Typography
+            color={plantedAt ? "text" : "textSecondary"}
+            variant="bodyLarge"
+          >
             {plantedAt ? formatDate(plantedAt) : "Chưa chọn (tùy chọn)"}
           </Typography>
           <CalendarDays color={colors.textSecondary} size={20} />
@@ -157,7 +171,9 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
             onPress={() => setShowDatePicker(false)}
             style={styles.dateDone}
           >
-            <Typography color="primary" variant="bodyLarge">Xong</Typography>
+            <Typography color="primary" variant="bodyLarge">
+              Xong
+            </Typography>
           </Pressable>
         )}
       </FormField>
@@ -173,14 +189,21 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
                 accessibilityState={{ checked: selected }}
                 key={stage.id}
                 onPress={() => setStageId(stage.id)}
-                style={({ pressed }) => [styles.chip, selected && styles.chipSelected, pressed && styles.chipPressed]}
+                style={({ pressed }) => [
+                  styles.chip,
+                  selected && styles.chipSelected,
+                  pressed && styles.chipPressed,
+                ]}
               >
                 <StageIcon
                   color={selected ? colors.surface : colors.primary}
                   size={18}
                   stageId={stage.id}
                 />
-                <Typography color={selected ? "surface" : "text"} variant="bodyMedium">
+                <Typography
+                  color={selected ? "surface" : "text"}
+                  variant="bodyMedium"
+                >
                   {stage.title}
                 </Typography>
               </Pressable>
@@ -189,12 +212,25 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         </View>
       </FormField>
 
-      {saveError ? <Typography accessibilityRole="alert" color="error" variant="bodyMedium">{saveError}</Typography> : null}
+      {saveError ? (
+        <Typography
+          accessibilityRole="alert"
+          color="error"
+          variant="bodyMedium"
+        >
+          {saveError}
+        </Typography>
+      ) : null}
 
       <PrimaryButton label="Lưu cây" loading={saving} onPress={submit} />
 
-      <Typography color="textSecondary" variant="bodyMedium" style={styles.reassurance}>
-        Bạn có thể thay đổi các thông tin này bất kỳ lúc nào trong phần cài đặt cây trồng.
+      <Typography
+        color="textSecondary"
+        variant="bodyMedium"
+        style={styles.reassurance}
+      >
+        Bạn có thể thay đổi các thông tin này bất kỳ lúc nào trong phần cài đặt
+        cây trồng.
       </Typography>
     </Screen>
   );
@@ -215,7 +251,10 @@ const styles = StyleSheet.create({
   },
   chipPressed: { opacity: 0.82 },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
-  chipSelected: { backgroundColor: colors.primary, borderColor: colors.primary },
+  chipSelected: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
   dateButton: {
     alignItems: "center",
     backgroundColor: colors.surface,

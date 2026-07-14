@@ -24,10 +24,7 @@
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     },
     "mode": {
-      "enum": [
-        "production",
-        "preview"
-      ]
+      "enum": ["production", "preview"]
     },
     "species": {
       "type": "array",
@@ -80,20 +77,12 @@
           "lifecycles": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "development",
-              "production"
-            ],
+            "required": ["development", "production"],
             "properties": {
               "development": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": [
-                  "title",
-                  "repeatable",
-                  "initialStageId",
-                  "stages"
-                ],
+                "required": ["title", "repeatable", "initialStageId", "stages"],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -116,12 +105,7 @@
               "production": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": [
-                  "title",
-                  "repeatable",
-                  "initialStageId",
-                  "stages"
-                ],
+                "required": ["title", "repeatable", "initialStageId", "stages"],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -208,10 +192,7 @@
             "minimum": 1
           },
           "lifecycleId": {
-            "enum": [
-              "development",
-              "production"
-            ]
+            "enum": ["development", "production"]
           },
           "primaryObjective": {
             "type": "string",
@@ -320,10 +301,7 @@
             "items": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "group",
-                "examples"
-              ],
+              "required": ["group", "examples"],
               "properties": {
                 "group": {
                   "type": "string",
@@ -339,10 +317,7 @@
           "frequency": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "ground",
-              "container"
-            ],
+            "required": ["ground", "container"],
             "properties": {
               "ground": {
                 "type": "string",
@@ -400,11 +375,7 @@
             "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
           },
           "status": {
-            "enum": [
-              "active",
-              "superseded",
-              "unavailable"
-            ]
+            "enum": ["active", "superseded", "unavailable"]
           },
           "publisher": {
             "type": "string",
@@ -496,19 +467,12 @@
             }
           },
           "activityType": {
-            "enum": [
-              "watering",
-              "fertilizing",
-              "spraying"
-            ]
+            "enum": ["watering", "fertilizing", "spraying"]
           },
           "eligibility": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "kind",
-              "suggestAfterDays"
-            ],
+            "required": ["kind", "suggestAfterDays"],
             "properties": {
               "kind": {
                 "const": "elapsed_days_since_activity"
@@ -520,10 +484,7 @@
             }
           },
           "onMissingHistory": {
-            "enum": [
-              "suggest",
-              "withhold"
-            ]
+            "enum": ["suggest", "withhold"]
           },
           "priority": {
             "type": "integer",
@@ -543,18 +504,12 @@
           "frequency": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "ground",
-              "container"
-            ],
+            "required": ["ground", "container"],
             "properties": {
               "ground": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": [
-                  "display",
-                  "intervalDays"
-                ],
+                "required": ["display", "intervalDays"],
                 "properties": {
                   "display": {
                     "type": "string",
@@ -569,10 +524,7 @@
               "container": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": [
-                  "display",
-                  "intervalDays"
-                ],
+                "required": ["display", "intervalDays"],
                 "properties": {
                   "display": {
                     "type": "string",
@@ -592,10 +544,7 @@
             "items": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "group",
-                "examples"
-              ],
+              "required": ["group", "examples"],
               "properties": {
                 "group": {
                   "type": "string",
@@ -622,13 +571,7 @@
   },
   "$defs": {
     "status": {
-      "enum": [
-        "draft",
-        "review",
-        "approved",
-        "deprecated",
-        "archived"
-      ]
+      "enum": ["draft", "review", "approved", "deprecated", "archived"]
     },
     "references": {
       "type": "array",
@@ -641,12 +584,7 @@
     "stage_journey_item": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title",
-        "sequence",
-        "playbookStatus"
-      ],
+      "required": ["id", "title", "sequence", "playbookStatus"],
       "properties": {
         "id": {
           "type": "string",
@@ -661,21 +599,14 @@
           "minimum": 1
         },
         "playbookStatus": {
-          "enum": [
-            "unavailable",
-            "draft",
-            "review",
-            "approved"
-          ]
+          "enum": ["unavailable", "draft", "review", "approved"]
         },
         "transitions": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "to"
-            ],
+            "required": ["to"],
             "properties": {
               "to": {
                 "type": "string"

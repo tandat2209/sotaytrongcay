@@ -122,7 +122,9 @@ export async function getDb() {
 export async function initializeDatabase(): Promise<void> {
   const db = await getDb();
   await db.execAsync("PRAGMA foreign_keys = ON;");
-  const row = await db.getFirstAsync<{ user_version: number }>("PRAGMA user_version;");
+  const row = await db.getFirstAsync<{ user_version: number }>(
+    "PRAGMA user_version;",
+  );
   const currentVersion = row?.user_version ?? 0;
 
   for (const migration of getMigrationStatements(currentVersion)) {

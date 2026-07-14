@@ -76,15 +76,15 @@ Users can:
 
 ## Capability rationale
 
-| Capability | User value | MVP constraint |
-| --- | --- | --- |
-| Quick care tracking | Preserves reliable history | Minimum required fields only |
-| Plant Dashboard | Answers when care last happened | Summary, not analytics |
-| Stage tips | Adds relevant learning | Informational and non-trackable |
-| Today care prompts | Surfaces likely next care | User must confirm by saving activity |
-| Weather context | Avoids obvious timing mistakes | Reviewed rules and freshness labels |
-| Reminders | Supports planned future care | One-time scheduling first |
-| Journal | Makes activity history searchable | No knowledge articles mixed into history |
+| Capability          | User value                        | MVP constraint                           |
+| ------------------- | --------------------------------- | ---------------------------------------- |
+| Quick care tracking | Preserves reliable history        | Minimum required fields only             |
+| Plant Dashboard     | Answers when care last happened   | Summary, not analytics                   |
+| Stage tips          | Adds relevant learning            | Informational and non-trackable          |
+| Today care prompts  | Surfaces likely next care         | User must confirm by saving activity     |
+| Weather context     | Avoids obvious timing mistakes    | Reviewed rules and freshness labels      |
+| Reminders           | Supports planned future care      | One-time scheduling first                |
+| Journal             | Makes activity history searchable | No knowledge articles mixed into history |
 
 ## Conceptual data model
 

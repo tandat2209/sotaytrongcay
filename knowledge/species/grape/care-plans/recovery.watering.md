@@ -23,7 +23,7 @@ frequency:
       già
     interval_days: 3
   container:
-    display: 'Mỗi 3–4 ngày ban đầu, giảm dần để kích thích lá rụng'
+    display: "Mỗi 3–4 ngày ban đầu, giảm dần để kích thích lá rụng"
     interval_days: 2
 notes:
   - >-

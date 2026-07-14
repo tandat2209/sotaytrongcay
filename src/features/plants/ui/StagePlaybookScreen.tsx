@@ -1,7 +1,17 @@
-import { BookOpen, ChevronRight, Clock, Flag, Lightbulb } from "lucide-react-native";
+import {
+  BookOpen,
+  ChevronRight,
+  Clock,
+  Flag,
+  Lightbulb,
+} from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
-import type { CareGuide, CarePlan, StagePlaybook } from "@/features/knowledge/preview-knowledge";
+import type {
+  CareGuide,
+  CarePlan,
+  StagePlaybook,
+} from "@/features/knowledge/preview-knowledge";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
@@ -29,28 +39,43 @@ export function StagePlaybookScreen({
 }: Props) {
   return (
     <Screen introduction={null} title="">
-      <TopBar backAccessibilityLabel="Quay lại chi tiết cây" onBack={onBack} title="Hướng dẫn chi tiết" titleIcon={BookOpen} />
+      <TopBar
+        backAccessibilityLabel="Quay lại chi tiết cây"
+        onBack={onBack}
+        title="Hướng dẫn chi tiết"
+        titleIcon={BookOpen}
+      />
 
       <View style={styles.hero}>
         <View style={styles.heroStageRow}>
           <StageIcon color="#FFFFFF" size={20} stageId={playbook.id} />
-          <Typography style={styles.heroTitle} variant="headlineMedium">{playbook.title}</Typography>
+          <Typography style={styles.heroTitle} variant="headlineMedium">
+            {playbook.title}
+          </Typography>
         </View>
         {playbook.estimatedDuration ? (
           <View style={styles.heroDuration}>
             <Clock color={colors.secondarySoft} size={14} />
-            <Typography style={styles.heroDurationText} variant="bodyMedium">{playbook.estimatedDuration}</Typography>
+            <Typography style={styles.heroDurationText} variant="bodyMedium">
+              {playbook.estimatedDuration}
+            </Typography>
           </View>
         ) : null}
         <View style={styles.heroReviewBadge}>
-          <Typography style={styles.heroReviewText} variant="label">NỘI DUNG CHỜ DUYỆT</Typography>
+          <Typography style={styles.heroReviewText} variant="label">
+            NỘI DUNG CHỜ DUYỆT
+          </Typography>
         </View>
       </View>
 
       <View style={styles.section}>
         <SurfaceCard style={styles.objectiveCard}>
-          <Typography color="textSecondary" variant="label">MỤC TIÊU GIAI ĐOẠN</Typography>
-          <Typography variant="bodyLarge">{playbook.primaryObjective}</Typography>
+          <Typography color="textSecondary" variant="label">
+            MỤC TIÊU GIAI ĐOẠN
+          </Typography>
+          <Typography variant="bodyLarge">
+            {playbook.primaryObjective}
+          </Typography>
         </SurfaceCard>
       </View>
 
@@ -67,8 +92,12 @@ export function StagePlaybookScreen({
           <SurfaceCard style={styles.listCard}>
             {playbook.recommendedKnowledgeTopics.map((topic) => (
               <View key={topic} style={styles.bulletRow}>
-                <Typography color="textSecondary" variant="bodyMedium">·</Typography>
-                <Typography color="textSecondary" variant="bodyMedium">{topic}</Typography>
+                <Typography color="textSecondary" variant="bodyMedium">
+                  ·
+                </Typography>
+                <Typography color="textSecondary" variant="bodyMedium">
+                  {topic}
+                </Typography>
               </View>
             ))}
           </SurfaceCard>
@@ -80,11 +109,15 @@ export function StagePlaybookScreen({
           <SurfaceCard style={styles.exitCard}>
             <View style={styles.exitHeading}>
               <Flag color={colors.primary} size={18} />
-              <Typography color="secondary" variant="label">TIÊU CHÍ HOÀN THÀNH GIAI ĐOẠN</Typography>
+              <Typography color="secondary" variant="label">
+                TIÊU CHÍ HOÀN THÀNH GIAI ĐOẠN
+              </Typography>
             </View>
             {playbook.exitCriteria.map((criterion) => (
               <View key={criterion} style={styles.bulletRow}>
-                <Typography color="textSecondary" variant="bodyMedium">·</Typography>
+                <Typography color="textSecondary" variant="bodyMedium">
+                  ·
+                </Typography>
                 <Typography variant="bodyMedium">{criterion}</Typography>
               </View>
             ))}
@@ -100,11 +133,19 @@ export function StagePlaybookScreen({
         >
           <SurfaceCard style={styles.nextStageCard}>
             <View style={styles.nextStageIcon}>
-              <StageIcon color={colors.secondary} size={22} stageId={nextStage.id} />
+              <StageIcon
+                color={colors.secondary}
+                size={22}
+                stageId={nextStage.id}
+              />
             </View>
             <View style={styles.actionCopy}>
-              <Typography color="textSecondary" variant="label">SẮP TỚI</Typography>
-              <Typography variant="headlineSmall">Giai đoạn: {nextStage.title}</Typography>
+              <Typography color="textSecondary" variant="label">
+                SẮP TỚI
+              </Typography>
+              <Typography variant="headlineSmall">
+                Giai đoạn: {nextStage.title}
+              </Typography>
             </View>
             <ChevronRight color={colors.textSecondary} size={20} />
           </SurfaceCard>
@@ -116,9 +157,17 @@ export function StagePlaybookScreen({
 
 const styles = StyleSheet.create({
   actionCopy: { flex: 1, gap: spacing.xs },
-  bulletRow: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
+  bulletRow: {
+    alignItems: "flex-start",
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
   durationRow: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
-  exitCard: { borderColor: colors.primary, borderLeftColor: colors.primary, gap: spacing.sm },
+  exitCard: {
+    borderColor: colors.primary,
+    borderLeftColor: colors.primary,
+    gap: spacing.sm,
+  },
   exitHeading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   hero: {
     backgroundColor: colors.primary,
@@ -155,5 +204,9 @@ const styles = StyleSheet.create({
   },
   objectiveCard: { gap: spacing.sm },
   section: { gap: spacing.md },
-  sectionHeading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  sectionHeading: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
 });

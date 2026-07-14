@@ -11,7 +11,11 @@ export type PendingJournalPhoto = Readonly<{
   sourceUri: string;
 }>;
 
-export function getPersistentPhotoName(photoId: string, fileName: string | null, sourceUri: string): string {
+export function getPersistentPhotoName(
+  photoId: string,
+  fileName: string | null,
+  sourceUri: string,
+): string {
   const uriPath = sourceUri.split(/[?#]/, 1)[0] ?? sourceUri;
   const candidate = fileName ?? uriPath;
   const extension = candidate.match(/\.([a-zA-Z0-9]+)$/)?.[1]?.toLowerCase();
@@ -23,21 +27,42 @@ export async function persistJournalPhotos(
   updateId: string,
   photos: readonly PendingJournalPhoto[],
 ): Promise<PlantUpdatePhoto[]> {
-  const directory = new Directory(Paths.document, "journal-photos", plantId, updateId);
+  const directory = new Directory(
+    Paths.document,
+    "journal-photos",
+    plantId,
+    updateId,
+  );
   directory.create({ idempotent: true, intermediates: true });
 
   const persisted: PlantUpdatePhoto[] = [];
   for (const photo of photos) {
-    const destination = new File(directory, getPersistentPhotoName(photo.id, photo.fileName, photo.sourceUri));
+    const destination = new File(
+      directory,
+      getPersistentPhotoName(photo.id, photo.fileName, photo.sourceUri),
+    );
     if (!destination.exists) {
       await new File(photo.sourceUri).copy(destination);
     }
-    persisted.push({ id: photo.id, localUri: destination.uri, position: photo.position, createdAt: photo.createdAt });
+    persisted.push({
+      id: photo.id,
+      localUri: destination.uri,
+      position: photo.position,
+      createdAt: photo.createdAt,
+    });
   }
   return persisted;
 }
 
-export function deletePersistedJournalPhotos(plantId: string, updateId: string): void {
-  const directory = new Directory(Paths.document, "journal-photos", plantId, updateId);
+export function deletePersistedJournalPhotos(
+  plantId: string,
+  updateId: string,
+): void {
+  const directory = new Directory(
+    Paths.document,
+    "journal-photos",
+    plantId,
+    updateId,
+  );
   if (directory.exists) directory.delete();
 }

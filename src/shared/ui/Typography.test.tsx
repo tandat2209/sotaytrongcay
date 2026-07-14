@@ -3,7 +3,9 @@ import { Typography } from "./Typography";
 
 describe("Typography", () => {
   it("renders a semantic headline variant", () => {
-    const screen = render(<Typography variant="headlineMedium">Cây trồng</Typography>);
+    const screen = render(
+      <Typography variant="headlineMedium">Cây trồng</Typography>,
+    );
 
     expect(screen.getByText("Cây trồng")).toBeTruthy();
   });

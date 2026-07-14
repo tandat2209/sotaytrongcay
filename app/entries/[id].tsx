@@ -10,16 +10,41 @@ import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
 import { getPlant } from "@/features/plants/data/plant-repository";
 
 export default function ActivityDetailRoute() {
-  const { id } = z.object({ id: z.string().uuid() }).parse(useLocalSearchParams());
-  const query = useQuery({ queryKey: ["activity", id], queryFn: async () => {
-    const activity = await getCareActivity(id);
-    if (!activity) return { activity, imageUri: null, plant: null };
-    const [plant, updates] = await Promise.all([getPlant(activity.plantId), listPlantUpdates(activity.plantId)]);
-    return { activity, imageUri: getLatestPlantPhoto(updates)?.localUri ?? null, plant };
-  }});
+  const { id } = z
+    .object({ id: z.string().uuid() })
+    .parse(useLocalSearchParams());
+  const query = useQuery({
+    queryKey: ["activity", id],
+    queryFn: async () => {
+      const activity = await getCareActivity(id);
+      if (!activity) return { activity, imageUri: null, plant: null };
+      const [plant, updates] = await Promise.all([
+        getPlant(activity.plantId),
+        listPlantUpdates(activity.plantId),
+      ]);
+      return {
+        activity,
+        imageUri: getLatestPlantPhoto(updates)?.localUri ?? null,
+        plant,
+      };
+    },
+  });
   if (query.isPending) return <Text>Đang tải…</Text>;
   if (query.isError) return <Text>Chưa thể tải hoạt động. Hãy thử lại.</Text>;
-  if (!query.data.activity) return <Text>Hoạt động này không còn tồn tại.</Text>;
-  const identity = query.data.plant ? resolvePlantIdentity(query.data.plant) : { speciesTitle: "Chưa xác định", stageTitle: "Chưa xác định" };
-  return <ActivityDetailScreen activity={query.data.activity} imageUri={query.data.imageUri} onBack={() => router.back()} plantName={query.data.plant?.name ?? "Cây trồng"} speciesTitle={identity.speciesTitle} stageId={query.data.plant?.stageId ?? ""} stageTitle={identity.stageTitle} />;
+  if (!query.data.activity)
+    return <Text>Hoạt động này không còn tồn tại.</Text>;
+  const identity = query.data.plant
+    ? resolvePlantIdentity(query.data.plant)
+    : { speciesTitle: "Chưa xác định", stageTitle: "Chưa xác định" };
+  return (
+    <ActivityDetailScreen
+      activity={query.data.activity}
+      imageUri={query.data.imageUri}
+      onBack={() => router.back()}
+      plantName={query.data.plant?.name ?? "Cây trồng"}
+      speciesTitle={identity.speciesTitle}
+      stageId={query.data.plant?.stageId ?? ""}
+      stageTitle={identity.stageTitle}
+    />
+  );
 }

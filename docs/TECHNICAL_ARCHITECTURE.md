@@ -150,17 +150,17 @@ Create directories only when they support real behavior. Empty scaffolding is fo
 
 ## 4. Layer responsibilities
 
-| Layer | Owns | Must not own |
-| --- | --- | --- |
-| Route | URL, params, layout, navigation | Business logic, queries, Supabase calls |
-| UI | Rendering, interaction, accessibility, form presentation | SQL, sync policy, remote access |
-| Application | Use cases, orchestration, query options, invalidation | JSX, navigation, vendor details |
-| Model | Domain terms, invariants, schemas, transitions | I/O, React, framework state |
-| Data | Feature persistence interface and adapters | UI state, cross-feature workflow |
-| Sync | Outbox, push/pull, retry, checkpoint, conflict | Presentation and navigation |
-| Infrastructure | SQLite, Supabase, files, notifications, logging | Feature-specific rules |
-| Shared UI | Stable design primitives | Domain components |
-| Bootstrap | Dependency creation and lifecycle | Product use cases |
+| Layer          | Owns                                                     | Must not own                            |
+| -------------- | -------------------------------------------------------- | --------------------------------------- |
+| Route          | URL, params, layout, navigation                          | Business logic, queries, Supabase calls |
+| UI             | Rendering, interaction, accessibility, form presentation | SQL, sync policy, remote access         |
+| Application    | Use cases, orchestration, query options, invalidation    | JSX, navigation, vendor details         |
+| Model          | Domain terms, invariants, schemas, transitions           | I/O, React, framework state             |
+| Data           | Feature persistence interface and adapters               | UI state, cross-feature workflow        |
+| Sync           | Outbox, push/pull, retry, checkpoint, conflict           | Presentation and navigation             |
+| Infrastructure | SQLite, Supabase, files, notifications, logging          | Feature-specific rules                  |
+| Shared UI      | Stable design primitives                                 | Domain components                       |
+| Bootstrap      | Dependency creation and lifecycle                        | Product use cases                       |
 
 Dependencies point inward: model → nothing; application → model/interfaces; adapters → owned interfaces; UI → feature public interface. Shared code imports no feature. Enforce this in lint/CI.
 
@@ -316,19 +316,19 @@ Follow [ENGINEERING_STANDARDS.md](./ENGINEERING_STANDARDS.md). Architecture-spec
 
 ## 8. State management
 
-| State | Owner |
-| --- | --- |
-| Durable business data | SQLite feature repositories |
-| Curated plant knowledge | Read-only Knowledge Repository |
-| Current/stale weather | Weather repository + SQLite cache |
-| Derived care suggestions | Guidance application module; no durable suggestion state |
-| Async lifecycle/projections | TanStack Query |
-| Form drafts/validation | React Hook Form + Zod |
-| Auth state machine | Auth module |
-| Navigation | Expo Router |
-| Local UI state | Nearby component/reducer |
-| Theme, locale, dependencies | Narrow root providers |
-| Sync status | Sync module |
+| State                       | Owner                                                    |
+| --------------------------- | -------------------------------------------------------- |
+| Durable business data       | SQLite feature repositories                              |
+| Curated plant knowledge     | Read-only Knowledge Repository                           |
+| Current/stale weather       | Weather repository + SQLite cache                        |
+| Derived care suggestions    | Guidance application module; no durable suggestion state |
+| Async lifecycle/projections | TanStack Query                                           |
+| Form drafts/validation      | React Hook Form + Zod                                    |
+| Auth state machine          | Auth module                                              |
+| Navigation                  | Expo Router                                              |
+| Local UI state              | Nearby component/reducer                                 |
+| Theme, locale, dependencies | Narrow root providers                                    |
+| Sync status                 | Sync module                                              |
 
 Do not add Redux or Zustand unless a documented state need cannot fit these owners.
 
@@ -429,18 +429,18 @@ Track crash-free sessions, startup, migrations, sync latency/backlog, upload fai
 
 ## 15. Testing strategy
 
-| Level | Scope |
-| --- | --- |
-| Model | Pure rules, schemas, transitions, dates, units |
-| Feature | Public interface with isolated SQLite |
-| UI | Rendering, interaction, states, accessibility |
-| Supabase | Migrations, RPC, Storage, RLS |
-| Knowledge | Schema validation, stable IDs, links, ordering, localization |
-| Weather | Normalization, freshness, stale fallback, provider errors |
-| Guidance | Stage tips, suggestion derivation, reasons, deduplication, weather effects, prefills |
-| Activity saving | Validation, idempotency, origin attribution, optional detail updates |
-| Sync | Offline, retry, idempotency, conflicts, restart |
-| E2E | P0 flows with Maestro on iOS and Android |
+| Level           | Scope                                                                                |
+| --------------- | ------------------------------------------------------------------------------------ |
+| Model           | Pure rules, schemas, transitions, dates, units                                       |
+| Feature         | Public interface with isolated SQLite                                                |
+| UI              | Rendering, interaction, states, accessibility                                        |
+| Supabase        | Migrations, RPC, Storage, RLS                                                        |
+| Knowledge       | Schema validation, stable IDs, links, ordering, localization                         |
+| Weather         | Normalization, freshness, stale fallback, provider errors                            |
+| Guidance        | Stage tips, suggestion derivation, reasons, deduplication, weather effects, prefills |
+| Activity saving | Validation, idempotency, origin attribution, optional detail updates                 |
+| Sync            | Offline, retry, idempotency, conflicts, restart                                      |
+| E2E             | P0 flows with Maestro on iOS and Android                                             |
 
 Use real local/test infrastructure by default. Do not add mock/fake implementations unless requested.
 

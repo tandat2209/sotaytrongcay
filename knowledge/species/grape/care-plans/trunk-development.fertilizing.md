@@ -17,9 +17,9 @@ goal: >-
   đoạn nhu cầu đạm (N) bắt đầu tăng.
 recommended_inputs:
   - group: Phân giàu đạm (high-N)
-    examples: 'Urê (hòa nước tưới lượng nhỏ), phân cá (fish emulsion)'
+    examples: "Urê (hòa nước tưới lượng nhỏ), phân cá (fish emulsion)"
   - group: Phân NPK cân đối
-    examples: 'NPK 16-16-16, phân compost bón quanh gốc'
+    examples: "NPK 16-16-16, phân compost bón quanh gốc"
 frequency:
   ground:
     display: Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh
@@ -32,7 +32,7 @@ notes:
     Thừa đạm tạo ra thân mềm, dễ bệnh và chậm hóa gỗ. Nếu cây đã tự mọc khỏe,
     giảm hoặc ngừng bón.
   - Giữ phân cách gốc thân ít nhất 5 cm để tránh thối gốc.
-  - 'Lá xanh đậm bất thường kèm lóng dài = dư đạm, cần giảm liều.'
+  - "Lá xanh đậm bất thường kèm lóng dài = dư đạm, cần giảm liều."
 version: 1.0.0
 status: review
 references:

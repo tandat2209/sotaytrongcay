@@ -18,7 +18,7 @@ eligibility:
 on_missing_history: suggest
 frequency:
   ground:
-    display: 'Mỗi 2–3 ngày trong thời tiết nóng, 3–4 ngày khi mát hơn'
+    display: "Mỗi 2–3 ngày trong thời tiết nóng, 3–4 ngày khi mát hơn"
     interval_days: 3
   container:
     display: Mỗi 1–2 ngày — chậu thoát nước nhanh và trái cần nhiều nước

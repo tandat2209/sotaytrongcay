@@ -12,9 +12,16 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
   return (
     <Screen title="Chăm cây dễ hơn mỗi ngày" titleIcon={Leaf}>
       <View style={styles.hero}>
-        <View accessibilityElementsHidden style={styles.heroMark}><Leaf color={colors.primary} size={52} /></View>
-        <Typography color="textSecondary" style={styles.description} variant="bodyLarge">
-          Ghi lại lần tưới, bón phân và phun thuốc để luôn nhớ cây đã được chăm khi nào.
+        <View accessibilityElementsHidden style={styles.heroMark}>
+          <Leaf color={colors.primary} size={52} />
+        </View>
+        <Typography
+          color="textSecondary"
+          style={styles.description}
+          variant="bodyLarge"
+        >
+          Ghi lại lần tưới, bón phân và phun thuốc để luôn nhớ cây đã được chăm
+          khi nào.
         </Typography>
       </View>
       <SurfaceCard style={styles.benefits}>
@@ -29,18 +36,41 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 function Benefit({ icon: Icon, text }: { icon: LucideIcon; text: string }) {
   return (
     <View style={styles.benefit}>
-      <View style={styles.benefitIcon}><Icon color={colors.primary} size={20} /></View>
-      <Typography style={styles.benefitText} variant="bodyLarge">{text}</Typography>
+      <View style={styles.benefitIcon}>
+        <Icon color={colors.primary} size={20} />
+      </View>
+      <Typography style={styles.benefitText} variant="bodyLarge">
+        {text}
+      </Typography>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  benefit: { alignItems: "center", flexDirection: "row", gap: spacing.md, minHeight: 44 },
-  benefitIcon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: 20, height: 40, justifyContent: "center", width: 40 },
+  benefit: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: spacing.md,
+    minHeight: 44,
+  },
+  benefitIcon: {
+    alignItems: "center",
+    backgroundColor: colors.primarySoft,
+    borderRadius: 20,
+    height: 40,
+    justifyContent: "center",
+    width: 40,
+  },
   benefitText: { flex: 1 },
   benefits: { gap: spacing.md },
   description: { textAlign: "center" },
   hero: { alignItems: "center", gap: spacing.md, paddingVertical: spacing.lg },
-  heroMark: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: 48, height: 96, justifyContent: "center", width: 96 },
+  heroMark: {
+    alignItems: "center",
+    backgroundColor: colors.primarySoft,
+    borderRadius: 48,
+    height: 96,
+    justifyContent: "center",
+    width: 96,
+  },
 });

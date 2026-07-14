@@ -94,6 +94,7 @@ lifecycles:
           - to: grape.stage.pruning
         playbook_status: review
 ---
+
 # Nho
 
 ## Phạm vi
@@ -105,6 +106,7 @@ Tên khoa học dùng `Vitis spp.` vì “Nho” trong sản phẩm là nhóm c�
 ## Hành trình sinh trưởng
 
 Toàn bộ 12 giai đoạn tạo thành một mô hình lifecycles (vòng đời).
+
 - **Giai đoạn kiến thiết (Development):** Diễn ra một lần duy nhất từ lúc trồng (Cây con) đến khi hoàn thiện khung giàn (Hình thành tán).
 - **Chu kỳ sản xuất (Production):** Lặp lại hàng năm, bắt đầu từ Sau cắt cành và kết thúc ở Sau thu hoạch để bắt đầu vụ mới. Việc chuyển tiếp từ giai đoạn kiến thiết (Hình thành tán) sẽ dẫn thẳng tới chu kỳ sản xuất (Sau cắt cành).
 

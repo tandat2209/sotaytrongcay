@@ -5,7 +5,11 @@ import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
-export function StageInformationalGuideSection({ guides }: { guides: readonly CareGuide[] }) {
+export function StageInformationalGuideSection({
+  guides,
+}: {
+  guides: readonly CareGuide[];
+}) {
   if (guides.length === 0) return null;
 
   return (
@@ -20,9 +24,13 @@ export function StageInformationalGuideSection({ guides }: { guides: readonly Ca
             <View style={styles.icon}>
               <BookOpen color={colors.primary} size={20} />
             </View>
-            <Typography style={styles.title} variant="headlineSmall">{guide.title}</Typography>
+            <Typography style={styles.title} variant="headlineSmall">
+              {guide.title}
+            </Typography>
           </View>
-          {guide.goal !== guide.title ? <Typography variant="bodyLarge">{guide.goal}</Typography> : null}
+          {guide.goal !== guide.title ? (
+            <Typography variant="bodyLarge">{guide.goal}</Typography>
+          ) : null}
           <GuideMarkdown markdown={guide.bodyMarkdown} />
         </SurfaceCard>
       ))}
@@ -31,7 +39,10 @@ export function StageInformationalGuideSection({ guides }: { guides: readonly Ca
 }
 
 function GuideMarkdown({ markdown }: { markdown: string }) {
-  const lines = markdown.trim().split("\n").filter((line) => line.trim().length > 0);
+  const lines = markdown
+    .trim()
+    .split("\n")
+    .filter((line) => line.trim().length > 0);
 
   return (
     <View style={styles.content}>
@@ -42,15 +53,35 @@ function GuideMarkdown({ markdown }: { markdown: string }) {
         const numbered = trimmed.match(/^(\d+)\.\s+(.+)$/);
 
         if (heading?.[1]) {
-          return <Typography key={`${index}-${trimmed}`} variant="bodyLarge">{plainText(heading[1])}</Typography>;
+          return (
+            <Typography key={`${index}-${trimmed}`} variant="bodyLarge">
+              {plainText(heading[1])}
+            </Typography>
+          );
         }
         if (bullet?.[1]) {
-          return <GuideRow key={`${index}-${trimmed}`} marker="·" text={bullet[1]} />;
+          return (
+            <GuideRow key={`${index}-${trimmed}`} marker="·" text={bullet[1]} />
+          );
         }
         if (numbered?.[1] && numbered[2]) {
-          return <GuideRow key={`${index}-${trimmed}`} marker={`${numbered[1]}.`} text={numbered[2]} />;
+          return (
+            <GuideRow
+              key={`${index}-${trimmed}`}
+              marker={`${numbered[1]}.`}
+              text={numbered[2]}
+            />
+          );
         }
-        return <Typography color="textSecondary" key={`${index}-${trimmed}`} variant="bodyMedium">{plainText(trimmed)}</Typography>;
+        return (
+          <Typography
+            color="textSecondary"
+            key={`${index}-${trimmed}`}
+            variant="bodyMedium"
+          >
+            {plainText(trimmed)}
+          </Typography>
+        );
       })}
     </View>
   );
@@ -59,8 +90,16 @@ function GuideMarkdown({ markdown }: { markdown: string }) {
 function GuideRow({ marker, text }: { marker: string; text: string }) {
   return (
     <View style={styles.row}>
-      <Typography color="primary" variant="bodyMedium">{marker}</Typography>
-      <Typography color="textSecondary" style={styles.title} variant="bodyMedium">{plainText(text)}</Typography>
+      <Typography color="primary" variant="bodyMedium">
+        {marker}
+      </Typography>
+      <Typography
+        color="textSecondary"
+        style={styles.title}
+        variant="bodyMedium"
+      >
+        {plainText(text)}
+      </Typography>
     </View>
   );
 }
@@ -74,7 +113,14 @@ const styles = StyleSheet.create({
   content: { gap: spacing.sm },
   guideHeading: { alignItems: "center", flexDirection: "row", gap: spacing.md },
   heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  icon: { alignItems: "center", backgroundColor: colors.primarySoft, borderRadius: 20, height: 40, justifyContent: "center", width: 40 },
+  icon: {
+    alignItems: "center",
+    backgroundColor: colors.primarySoft,
+    borderRadius: 20,
+    height: 40,
+    justifyContent: "center",
+    width: 40,
+  },
   row: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   section: { gap: spacing.md },
   title: { flex: 1 },

@@ -20,4 +20,7 @@ export type WeatherState =
   | { status: "unavailable"; reason: "not-configured" | "permission-denied" }
   | { status: "error" };
 
-export const productionWeather: WeatherState = { status: "unavailable", reason: "not-configured" };
+export const productionWeather: WeatherState = {
+  status: "unavailable",
+  reason: "not-configured",
+};

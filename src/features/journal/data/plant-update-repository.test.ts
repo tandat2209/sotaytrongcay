@@ -1,4 +1,9 @@
-import { plantUpdateFromRows, plantUpdateToInsertParams, type PlantUpdatePhotoRow, type PlantUpdateRow } from "./plant-update-repository";
+import {
+  plantUpdateFromRows,
+  plantUpdateToInsertParams,
+  type PlantUpdatePhotoRow,
+  type PlantUpdateRow,
+} from "./plant-update-repository";
 import type { PlantUpdate } from "../models/plant-update";
 
 const photo = {
@@ -51,13 +56,24 @@ describe("plant update repository mapping", () => {
   });
 
   it("rebuilds an update with photos ordered by position", () => {
-    const secondPhoto: PlantUpdatePhotoRow = { ...photoRow, id: "397a9ba6-509f-4d65-a9ba-60f925c24729", local_uri: "file:///second.jpg", position: 1 };
+    const secondPhoto: PlantUpdatePhotoRow = {
+      ...photoRow,
+      id: "397a9ba6-509f-4d65-a9ba-60f925c24729",
+      local_uri: "file:///second.jpg",
+      position: 1,
+    };
 
-    expect(plantUpdateFromRows(row, [secondPhoto, photoRow])).toEqual({ ...update, photos: [photo, {
-      id: secondPhoto.id,
-      localUri: secondPhoto.local_uri,
-      position: secondPhoto.position,
-      createdAt: secondPhoto.created_at,
-    }] });
+    expect(plantUpdateFromRows(row, [secondPhoto, photoRow])).toEqual({
+      ...update,
+      photos: [
+        photo,
+        {
+          id: secondPhoto.id,
+          localUri: secondPhoto.local_uri,
+          position: secondPhoto.position,
+          createdAt: secondPhoto.created_at,
+        },
+      ],
+    });
   });
 });

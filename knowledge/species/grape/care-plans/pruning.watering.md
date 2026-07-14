@@ -28,7 +28,7 @@ notes:
     Cây không có lá nên nhu cầu nước thấp hơn nhiều so với các giai đoạn sinh
     trưởng. Tưới quá nhiều gây úng rễ.
   - Tưới một lần sau cắt cành để giúp rễ hồi phục và hỗ trợ hấp thụ phân bón.
-  - 'Vết cắt tươi — tránh phun nước lên thân và vết cắt, chỉ tưới vào vùng rễ.'
+  - "Vết cắt tươi — tránh phun nước lên thân và vết cắt, chỉ tưới vào vùng rễ."
 version: 1.0.0
 status: review
 references:

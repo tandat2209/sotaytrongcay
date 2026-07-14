@@ -7,7 +7,11 @@ import { validateRelationships } from "./relationship-validator";
 import { validateStageGraphs } from "./stage-graph-validator";
 import { validateContentQuality } from "./content-quality-validator";
 import { sortKnowledgeDiagnostics } from "./diagnostics";
-import type { CompilationMode, KnowledgeDiagnostic, NormalizedKnowledgeDocument } from "./types";
+import type {
+  CompilationMode,
+  KnowledgeDiagnostic,
+  NormalizedKnowledgeDocument,
+} from "./types";
 
 const REPOSITORY_ROOT = resolve(__dirname, "../..");
 const KNOWLEDGE_ROOT = join(REPOSITORY_ROOT, "knowledge");
@@ -16,7 +20,9 @@ function printDiagnostics(diagnostics: readonly KnowledgeDiagnostic[]) {
   for (const diag of diagnostics) {
     const fieldPart = diag.field ? ` [field: ${diag.field}]` : "";
     const docIdPart = diag.documentId ? ` [docId: ${diag.documentId}]` : "";
-    console.error(`Error: ${diag.code} in ${diag.path}${docIdPart}${fieldPart} - ${diag.message}`);
+    console.error(
+      `Error: ${diag.code} in ${diag.path}${docIdPart}${fieldPart} - ${diag.message}`,
+    );
   }
 }
 
@@ -42,7 +48,9 @@ async function run() {
 
   if (!command || !["validate", "compile", "check"].includes(command)) {
     console.error("Usage: tsx cli.ts <validate|compile|check> [options]");
-    console.error("Options for compile: --mode <production|preview> --output <path>");
+    console.error(
+      "Options for compile: --mode <production|preview> --output <path>",
+    );
     process.exit(2);
   }
 
@@ -52,9 +60,18 @@ async function run() {
       repositoryRoot: REPOSITORY_ROOT,
       knowledgeRoot: KNOWLEDGE_ROOT,
     });
-    const diagnostics: KnowledgeDiagnostic[] = [...sourceValidation.diagnostics];
+    const diagnostics: KnowledgeDiagnostic[] = [
+      ...sourceValidation.diagnostics,
+    ];
 
-    if (diagnostics.some((d) => d.code === "KNOWLEDGE_PARSE_FAILED" || d.code === "KNOWLEDGE_SCHEMA_INVALID" || d.code === "KNOWLEDGE_SCHEMA_LOAD_FAILED")) {
+    if (
+      diagnostics.some(
+        (d) =>
+          d.code === "KNOWLEDGE_PARSE_FAILED" ||
+          d.code === "KNOWLEDGE_SCHEMA_INVALID" ||
+          d.code === "KNOWLEDGE_SCHEMA_LOAD_FAILED",
+      )
+    ) {
       printDiagnostics(sortKnowledgeDiagnostics(diagnostics));
       process.exit(1);
     }
@@ -70,7 +87,11 @@ async function run() {
     const stageGraphDiag = validateStageGraphs(normalizedDocs);
     const contentQualityDiag = validateContentQuality(normalizedDocs);
 
-    diagnostics.push(...relationshipDiag, ...stageGraphDiag, ...contentQualityDiag);
+    diagnostics.push(
+      ...relationshipDiag,
+      ...stageGraphDiag,
+      ...contentQualityDiag,
+    );
 
     if (diagnostics.length > 0) {
       printDiagnostics(sortKnowledgeDiagnostics(diagnostics));
@@ -98,10 +119,15 @@ async function run() {
 
     // Explicit constraint: preview mode cannot write to the production output path
     const resolvedOutput = resolve(REPOSITORY_ROOT, output);
-    const resolvedProductionOutput = resolve(KNOWLEDGE_ROOT, "_generated/mobile-bundle.json");
+    const resolvedProductionOutput = resolve(
+      KNOWLEDGE_ROOT,
+      "_generated/mobile-bundle.json",
+    );
 
     if (mode === "preview" && resolvedOutput === resolvedProductionOutput) {
-      console.error("Error: Preview mode cannot write to the production output path knowledge/_generated/mobile-bundle.json.");
+      console.error(
+        "Error: Preview mode cannot write to the production output path knowledge/_generated/mobile-bundle.json.",
+      );
       process.exit(2);
     }
 
@@ -123,7 +149,11 @@ async function run() {
   }
 
   if (command === "check") {
-    const committedBundlePath = join(KNOWLEDGE_ROOT, "_generated", "mobile-bundle.json");
+    const committedBundlePath = join(
+      KNOWLEDGE_ROOT,
+      "_generated",
+      "mobile-bundle.json",
+    );
     const checkResult = await checkKnowledgeFreshness({
       repositoryRoot: REPOSITORY_ROOT,
       knowledgeRoot: KNOWLEDGE_ROOT,

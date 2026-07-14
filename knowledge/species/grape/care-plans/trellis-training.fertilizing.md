@@ -17,9 +17,9 @@ goal: >-
   tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.
 recommended_inputs:
   - group: Phân NPK cân đối
-    examples: 'NPK 16-16-16, phân compost bón quanh gốc'
+    examples: "NPK 16-16-16, phân compost bón quanh gốc"
   - group: Phân hữu cơ bón phụ
-    examples: 'Phân cá pha loãng kết hợp rong biển, phân compost'
+    examples: "Phân cá pha loãng kết hợp rong biển, phân compost"
 frequency:
   ground:
     display: Mỗi 2–4 tuần

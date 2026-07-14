@@ -1,6 +1,9 @@
 import type { KnowledgeDiagnostic } from "./types";
 
-function compareOptionalText(left: string | undefined, right: string | undefined): number {
+function compareOptionalText(
+  left: string | undefined,
+  right: string | undefined,
+): number {
   return (left ?? "").localeCompare(right ?? "");
 }
 
@@ -13,7 +16,10 @@ export function sortKnowledgeDiagnostics(
       return pathOrder;
     }
 
-    const documentOrder = compareOptionalText(left.documentId, right.documentId);
+    const documentOrder = compareOptionalText(
+      left.documentId,
+      right.documentId,
+    );
     if (documentOrder !== 0) {
       return documentOrder;
     }

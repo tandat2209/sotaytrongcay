@@ -22,9 +22,9 @@ recommended_inputs:
       NPK 16-16-16 — tiếp tục đạm vì cây cần giữ bộ lá quang hợp để tích trữ
       năng lượng
   - group: Phân hữu cơ bón nặng
-    examples: 'Phân bò ủ hoai, phân trùn quế, phân vỏ trấu compost'
+    examples: "Phân bò ủ hoai, phân trùn quế, phân vỏ trấu compost"
   - group: Bón lót lân và kali
-    examples: 'Bột xương, lân tự nhiên, kali sunfat'
+    examples: "Bột xương, lân tự nhiên, kali sunfat"
   - group: Vôi điều chỉnh pH (nếu cần)
     examples: Vôi dolomite — chỉ dùng khi pH đất giảm dưới 5.5 do bón phân hóa học nhiều
 frequency:

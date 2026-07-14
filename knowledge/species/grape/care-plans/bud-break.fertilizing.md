@@ -17,8 +17,8 @@ goal: >-
   bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.
 recommended_inputs:
   - group: Phân giàu đạm (high-N)
-    examples: 'Urê (hòa nước, tưới ngấm), phân cá (fish emulsion), NPK 20-10-10'
-  - group: 'Vi lượng bổ sung (Zn, B, Fe)'
+    examples: "Urê (hòa nước, tưới ngấm), phân cá (fish emulsion), NPK 20-10-10"
+  - group: "Vi lượng bổ sung (Zn, B, Fe)"
     examples: Phun qua lá nếu nghi ngờ thiếu — chỉ dùng khi xác nhận thiếu
 frequency:
   ground:
