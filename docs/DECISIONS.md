@@ -318,6 +318,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Rationale:** Separate user scheduling choices from reviewed care knowledge, make stage defaults reusable, and keep plant-specific behavior predictable rather than silently changing after a stage edit.
 
+## 2026-07-15 — Make Settings persistent tab
+
+**Status:** Accepted
+
+**Decision:** Replace the former “Tôi” tab with “Cài đặt”. Settings is the fourth persistent destination and exposes only shipped notification and Care Plan schedule configuration. Remove the Me feature and `/me` route; MVP has no profile or account destination.
+
+**Rationale:** The former Me screen only linked to Settings, creating duplicate navigation without owned behavior. Making Settings direct reduces one step and deletes unused feature code.
+
+**Consequences:** `/settings` remains the canonical tab deep link. Older decisions that name “Tôi” as a destination are superseded only for tab identity; Today, Plants, Journal, and contextual care behavior remain unchanged.
+
 ## 2026-07-15 — Split stage frequency by growing method
 
 **Status:** Accepted

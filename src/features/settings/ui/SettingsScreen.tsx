@@ -10,7 +10,6 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
-import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
@@ -28,14 +27,13 @@ const settings = [
   },
 ];
 
-export default function SettingsRoute() {
+export function SettingsScreen() {
   return (
-    <Screen title="">
-      <TopBar
-        onBack={() => router.back()}
-        title="Cài đặt"
-        titleIcon={Settings}
-      />
+    <Screen
+      introduction="Quản lý tùy chọn ứng dụng và dữ liệu của bạn."
+      title="Cài đặt"
+      titleIcon={Settings}
+    >
       <View style={styles.list}>
         {settings.map(({ icon: Icon, label, path }) => (
           <Pressable

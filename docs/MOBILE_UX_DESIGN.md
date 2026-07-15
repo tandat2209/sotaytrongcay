@@ -37,7 +37,7 @@ Stage guidance supports care tracking through concise tips. It does not create a
 - Bottom navigation contains places users revisit.
 - The app has no global FAB or Quick Action menu.
 - Today and Plant Detail expose the relevant care, journal, and stage actions.
-- Reminders remain secondary to Today, Plant Detail, and Me.
+- Reminders remain secondary to Today, Plant Detail, and Settings.
 
 ### Mobile-first
 
@@ -80,7 +80,7 @@ Future scope includes recurring schedules, additional species, collaboration, an
 1. **Hôm nay** — weather, “Việc cần làm hôm nay”, reminders, quick plant updates, and recent activity.
 2. **Cây trồng** — plants, care summaries, stage tips, and Timeline.
 3. **Nhật ký** — global activity history.
-4. **Tôi** — preferences, reminders, data tools, and support.
+4. **Cài đặt** — notification and Care Plan schedule configuration.
 
 There is no central action layered over the navigation. Each action appears where the user has enough plant and care context to understand its result.
 
@@ -116,7 +116,7 @@ Tapping "Hướng dẫn chi tiết" opens the Stage Playbook screen for the curr
 
 ### Manage reminders
 
-`Hôm nay hoặc Tôi → Tất cả lời nhắc → Tạo, hoàn thành hoặc hoãn`
+`Hôm nay hoặc Cài đặt → Thông báo hoặc lịch chăm sóc`
 
 A completed reminder may open a prefilled care-entry form. It does not create history without user confirmation.
 
@@ -127,7 +127,7 @@ A completed reminder may open a prefilled care-entry form. It does not create hi
 1. Today — “Hôm nay”
 2. Plant List — “Cây trồng”
 3. Journal — “Nhật ký”
-4. Me — “Tôi”
+4. Settings — “Cài đặt”
 
 Core and secondary screens:
 
@@ -357,7 +357,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Purpose:** Customize schedule snapshots without editing curated Care Plan knowledge or creating manual care tasks.
 
-**Navigation:** `Tôi → Cài đặt` exposes three destinations: “Thông báo”, “Kế hoạch chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
+**Navigation:** `Cài đặt` exposes three destinations: “Thông báo”, “Kế hoạch chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
 
 **Stage settings:** List every authored stage and its Care Plans. A stage snapshot belongs to one exact Care Plan. Ground and container each show their authored frequency and may set an independent interval; notification delivery and time are shared by both growing methods. Reset restores both authored frequencies.
 
@@ -369,31 +369,23 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Dữ liệu đã nhập vẫn được giữ lại.” Permission denial still preserves in-app schedule behavior.
 
-### 7.11 Me — “Tôi”
+### 7.11 Settings — “Cài đặt”
 
-**Purpose:** Own preferences, reminder management, data tools, and support.
+**Purpose:** Configure shipped notification and Care Plan schedule behavior.
 
 **Components:**
 
-- “Cài đặt”
 - “Thông báo”
-- “Lời nhắc”
-- “Sao lưu & khôi phục”
-- “Xuất dữ liệu”
-- “Ngôn ngữ”
-- “Giao diện”
-- “Giới thiệu”
-- “Gửi phản hồi”
+- “Kế hoạch chăm sóc theo giai đoạn”
+- “Tùy chỉnh theo cây”
 
-Do not show unavailable future capabilities as disabled placeholders.
+**Empty state:** Not applicable; only shipped settings appear.
 
-**Empty state:** Not applicable; only shipped capabilities appear.
-
-**Loading state:** Render local preferences immediately; load account and sync status independently.
+**Loading state:** Render local settings immediately.
 
 **Error state:** Keep errors inside the affected row.
 
-**User actions:** Manage preferences, reminders, notifications, backup, export, language, theme, help, and feedback.
+**User actions:** Review notification permission, customize stage schedules, or customize one plant schedule.
 
 ## 8. Shared interaction patterns
 
@@ -431,7 +423,7 @@ Do not show unavailable future capabilities as disabled placeholders.
 
 ## 9. Navigation rationale
 
-Today, Plants, Journal, and Me remain persistent destinations. Actions live on Today and Plant Detail, where the plant and care context are visible.
+Today, Plants, Journal, and Settings remain persistent destinations. Actions live on Today and Plant Detail, where the plant and care context are visible.
 
 No global FAB avoids duplicating Today actions. Plant Detail alone may use one plant-scoped floating action menu because plant context is already fixed; it opens Care Entry or “Thêm nhật ký” and never writes history directly.
 

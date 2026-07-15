@@ -34,7 +34,7 @@ See [SCREEN_REVIEW.md](./SCREEN_REVIEW.md) for the current screen-by-screen prod
 | 11    | `11-manual-spraying`                   | Manual spraying detail treatment                         | Product/dosage content is exploratory                                    |
 | 12    | `12-new-journal-entry`                 | Photo, notes, plant selection, and optional stage change | Strong current-flow reference                                            |
 | 13    | `13-journal`                           | Global chronological history                             | Add source labels and full filters                                       |
-| 14    | `14-me-settings`                       | Me information architecture                              | Use the shared sans-serif typography                                     |
+| 14    | `14-me-settings`                       | Settings information architecture                        | Use the shared sans-serif typography                                     |
 
 Each numbered screen directory keeps its `screen.png` and `code.html` together. Future references should follow `NN-short-purpose` naming.
 
@@ -120,7 +120,7 @@ Bottom navigation contains four destinations:
 1. “Hôm nay”
 2. “Cây trồng”
 3. “Nhật ký”
-4. “Tôi”
+4. “Cài đặt”
 
 The active destination uses primary green for icon and label. Inactive destinations use a neutral color with sufficient contrast.
 
@@ -307,7 +307,7 @@ Do not copy these details into implementation:
 - Placeholder plant images and the unrelated avatar in `02-today-overview`.
 - Generic “Thực hiện” labels in `02-today-overview`; implementation should use explicit care labels.
 - Incomplete bottom navigation in `02-today-overview`; implementation keeps all four destinations.
-- Serif typography in `14-me-settings`.
+- Serif typography in `14-me-settings`; Settings uses shared sans-serif typography.
 - “Hôm nay” active while viewing a plant in `06-plant-detail`.
 - Prescriptive products, dosages, watering values, and sensor readings.
 - Missing Journal source labels and plant/date/activity filters.

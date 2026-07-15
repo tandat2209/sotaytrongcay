@@ -77,7 +77,7 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   ├── today.tsx
 │   │   ├── plants.tsx
 │   │   ├── journal.tsx
-│   │   └── me.tsx
+│   │   └── settings.tsx
 │   ├── plants/
 │   │   └── [id]/
 │   │       ├── index.tsx    # Plant Detail
@@ -105,7 +105,6 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   ├── weather/
 │   │   ├── knowledge/
 │   │   ├── today/
-│   │   ├── me/
 │   │   ├── auth/
 │   │   └── settings/
 │   ├── sync/                    # Outbox, push/pull, checkpoints, conflicts
@@ -175,7 +174,16 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 - `weather`: current conditions, freshness, location precision, and care-context summary.
 - `knowledge`: read-only species, stage playbooks, tips, care recommendations, health, fertilizer, seasonal, and weather-rule content.
 - `today`: derived guidance/weather/reminder/journal read model; owns no source data.
-- `me`: composition for preferences, data tools, support, and future account capabilities; owns no business records.
+- `settings`: notification and Care Plan schedule configuration routes; owns no business records.
+
+**Context:** The former Me tab was an empty wrapper around Settings while shipped preference controls lived on a separate route.
+
+**Decision:** Settings is the fourth persistent tab. The Me feature and `/me` route are removed.
+
+**Rationale:** One direct Settings destination avoids duplicate navigation and removes a feature with no owned behavior.
+
+**Consequences:** `/settings` remains the canonical deep link through the tab route. The MVP has no profile or account destination.
+
 - `auth`: guest identity, session, account upgrade, sign-out.
 - `sync`: mutation envelopes, checkpoints, and sync status.
 
@@ -187,7 +195,7 @@ Playbook parsing and presentation remain internal to the module. Care-suggestion
 
 ### Navigation composition
 
-The `(tabs)` layout owns four destination tabs. Route files remain thin and import public screens from `today`, `plants`, `journal`, and `me`.
+The `(tabs)` layout owns four destination tabs. Route files remain thin and import public screens from `today`, `plants`, `journal`, and `settings`.
 
 Today and Plant Detail open public care-entry and new-journal-entry routes with validated plant and activity parameters.
 

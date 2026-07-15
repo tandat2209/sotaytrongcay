@@ -7,7 +7,7 @@ describe("tab navigation contract", () => {
         { name: "today", label: "Hôm nay" },
         { name: "plants", label: "Cây trồng" },
         { name: "journal", label: "Nhật ký" },
-        { name: "me", label: "Tôi" },
+        { name: "settings", label: "Cài đặt" },
       ],
     );
   });

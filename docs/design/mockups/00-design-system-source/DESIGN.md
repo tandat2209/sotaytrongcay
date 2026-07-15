@@ -175,7 +175,7 @@ The shape language is **friendly and modern**.
 
 ### Navigation
 
-- **Bottom Bar:** 4 tabs (Hôm nay, Cây trồng, Nhật ký, Tôi).
+- **Bottom Bar:** 4 tabs (Hôm nay, Cây trồng, Nhật ký, Cài đặt).
 - Active state: Primary Green icon and label.
 - Inactive state: Mid-grey icon and label.
 - Height: 64px + safe area.
