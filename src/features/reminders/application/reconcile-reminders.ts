@@ -1,5 +1,5 @@
 import { findLatestCareActivity, listCareActivities } from "@/features/journal";
-import { listCarePlans } from "@/features/knowledge";
+import { listCarePlans, type CarePlan } from "@/features/knowledge";
 import { listPlants, type Plant } from "@/features/plants";
 import { createId } from "@/shared/lib/identifiers";
 import {
@@ -26,7 +26,9 @@ export type ScheduleReconciliation = Readonly<{
 
 export async function reconcileAllCarePlanReminders(): Promise<void> {
   const plants = await listPlants();
-  await Promise.all(plants.map(reconcilePlantCarePlanReminders));
+  await Promise.all(
+    plants.map((plant) => reconcilePlantCarePlanReminders(plant)),
+  );
 }
 
 export async function reconcilePlantsForStage(stageId: string): Promise<void> {
@@ -34,25 +36,36 @@ export async function reconcilePlantsForStage(stageId: string): Promise<void> {
   await Promise.all(
     plants
       .filter((plant) => plant.stageId === stageId)
-      .map(reconcilePlantCarePlanReminders),
+      .map((plant) => reconcilePlantCarePlanReminders(plant)),
   );
 }
 
 export async function reconcilePlantCarePlanReminders(
   plant: Plant,
+  previousPlant?: Plant,
 ): Promise<ScheduleReconciliation> {
   const [activities, allPlantSnapshots, stageSnapshots] = await Promise.all([
     listCareActivities(plant.id),
     listPlantScheduleSnapshots(plant.id),
     listStageScheduleSnapshots(),
   ]);
-  const plans = listCarePlans({
-    speciesId: plant.speciesId,
-    stageId: plant.stageId,
-  }).filter((plan) => plan.frequency?.[plant.growingMethod] !== undefined);
+  const plans = listApplicableCarePlans(plant);
+  const previousPlans = previousPlant
+    ? listApplicableCarePlans(previousPlant)
+    : plans;
+  const changes = diffCarePlanApplicability(previousPlans, plans);
   const currentPlanIds = new Set(plans.map((plan) => plan.id));
-  const activated: string[] = [];
-  const deactivated: string[] = [];
+  const departedPlanIds = new Set([
+    ...previousPlans
+      .filter((plan) => !currentPlanIds.has(plan.id))
+      .map((plan) => plan.id),
+    ...allPlantSnapshots
+      .filter(
+        (snapshot) =>
+          snapshot.isActive && !currentPlanIds.has(snapshot.carePlanId),
+      )
+      .map((snapshot) => snapshot.carePlanId),
+  ]);
   const now = new Date();
 
   for (const snapshot of allPlantSnapshots) {
@@ -63,18 +76,18 @@ export async function reconcilePlantCarePlanReminders(
       isActive: shouldBeActive,
       updatedAt: now.toISOString(),
     });
-    const previous = await getNotificationState(plant.id, snapshot.carePlanId);
+  }
+
+  for (const carePlanId of departedPlanIds) {
+    const previous = await getNotificationState(plant.id, carePlanId);
     if (previous) await cancelReminderNotificationPair(previous);
-    if (!shouldBeActive) {
-      await saveNotificationState({
-        plantId: plant.id,
-        carePlanId: snapshot.carePlanId,
-        mainNotificationId: null,
-        followUpNotificationId: null,
-        updatedAt: now.toISOString(),
-      });
-    }
-    (shouldBeActive ? activated : deactivated).push(snapshot.carePlanId);
+    await saveNotificationState({
+      plantId: plant.id,
+      carePlanId,
+      mainNotificationId: null,
+      followUpNotificationId: null,
+      updatedAt: now.toISOString(),
+    });
   }
 
   for (const plan of plans) {
@@ -119,7 +132,30 @@ export async function reconcilePlantCarePlanReminders(
       ...notificationIds,
     });
   }
-  return { activated, deactivated };
+  return changes;
+}
+
+export function diffCarePlanApplicability(
+  previousPlans: readonly CarePlan[],
+  currentPlans: readonly CarePlan[],
+): ScheduleReconciliation {
+  const previousPlanIds = new Set(previousPlans.map((plan) => plan.id));
+  const currentPlanIds = new Set(currentPlans.map((plan) => plan.id));
+  return {
+    activated: currentPlans
+      .filter((plan) => !previousPlanIds.has(plan.id))
+      .map((plan) => plan.title),
+    deactivated: previousPlans
+      .filter((plan) => !currentPlanIds.has(plan.id))
+      .map((plan) => plan.title),
+  };
+}
+
+function listApplicableCarePlans(plant: Plant): readonly CarePlan[] {
+  return listCarePlans({
+    speciesId: plant.speciesId,
+    stageId: plant.stageId,
+  }).filter((plan) => plan.frequency?.[plant.growingMethod] !== undefined);
 }
 
 export function findStageSnapshot(

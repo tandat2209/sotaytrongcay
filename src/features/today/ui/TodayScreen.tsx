@@ -34,7 +34,9 @@ export function TodayScreen() {
     queryKey: ["today"],
     queryFn: async () => {
       const plants = await listPlants();
-      await Promise.all(plants.map(reconcilePlantCarePlanReminders));
+      await Promise.all(
+        plants.map((plant) => reconcilePlantCarePlanReminders(plant)),
+      );
       const [activities, plantSnapshots, stageSnapshots, updates] =
         await Promise.all([
           listCareActivities(),

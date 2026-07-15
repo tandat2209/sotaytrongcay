@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { z } from "zod";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity } from "@/features/plants";
@@ -12,6 +12,7 @@ import { createId } from "@/shared/lib/identifiers";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
+import { colors, spacing } from "@/shared/ui/theme";
 import { listPlantUpdates } from "../data/plant-update-repository";
 import { getLatestPlantPhoto } from "../models/plant-update";
 import { savePlantUpdateWithPhotos } from "../application/save-plant-update";
@@ -92,7 +93,7 @@ export function PlantUpdateRouteScreen({
       ? { ...plant, stageId: draft.stageId, stageStartedAt: draft.occurredAt }
       : plant;
     const reminderUpdate = stageChanged
-      ? await reconcilePlantCarePlanReminders(updatedPlant)
+      ? await reconcilePlantCarePlanReminders(updatedPlant, plant)
       : null;
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: ["plant", plantId] }),
@@ -127,13 +128,24 @@ export function PlantUpdateRouteScreen({
       />
       <BottomSheet
         footer={
-          <PrimaryButton
-            label="Xem kế hoạch chăm sóc"
-            onPress={() => {
-              setReconciliation(null);
-              onReviewReminders();
-            }}
-          />
+          <View style={styles.sheetActions}>
+            <PrimaryButton
+              backgroundColor={colors.surfaceSubtle}
+              label="Đóng"
+              onPress={() => {
+                setReconciliation(null);
+                onSaved();
+              }}
+              textColor={colors.text}
+            />
+            <PrimaryButton
+              label="Xem kế hoạch chăm sóc"
+              onPress={() => {
+                setReconciliation(null);
+                onReviewReminders();
+              }}
+            />
+          </View>
         }
         onDismiss={() => {
           setReconciliation(null);
@@ -160,3 +172,7 @@ function formatScheduleChanges(reconciliation: ReminderReconciliation): string {
     .filter(Boolean)
     .join("\n");
 }
+
+const styles = StyleSheet.create({
+  sheetActions: { gap: spacing.sm },
+});
