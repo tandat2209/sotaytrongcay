@@ -1,11 +1,12 @@
 import { ChevronRight, FileText } from "lucide-react-native";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import {
-  CARE_ACTIVITY_LABELS,
   CARE_ACTIVITY_VISUALS,
+  getCareActivityLabel,
   type JournalItem,
   type PlantUpdate,
 } from "@/features/journal";
+import { formatDateTime, formatNumber, t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
@@ -23,7 +24,9 @@ export function PlantDetailRecentJournal({
 }: Props) {
   return (
     <View style={styles.section}>
-      <Typography variant="headlineSmall">Nhật ký gần đây</Typography>
+      <Typography variant="headlineSmall">
+        {t("plants.recentJournal.title")}
+      </Typography>
       {items.length ? (
         <SurfaceCard style={styles.list}>
           {items.map((item) =>
@@ -44,7 +47,7 @@ export function PlantDetailRecentJournal({
         </SurfaceCard>
       ) : (
         <Typography color="textSecondary" variant="bodyMedium">
-          Chưa có bản ghi nhật ký nào được lưu.
+          {t("plants.recentJournal.empty")}
         </Typography>
       )}
     </View>
@@ -58,13 +61,16 @@ function CareRow({
   activity: Extract<JournalItem, { kind: "care" }>["record"];
   onPress: () => void;
 }>) {
-  const label = CARE_ACTIVITY_LABELS[activity.type];
+  const label = getCareActivityLabel(activity.type);
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
   const ActivityIcon = visual.icon;
-  const occurredAt = new Date(activity.occurredAt).toLocaleString("vi-VN");
+  const occurredAt = formatDateTime(new Date(activity.occurredAt));
   return (
     <Pressable
-      accessibilityLabel={`Mở ${label.toLowerCase()}, ${occurredAt}`}
+      accessibilityLabel={t("plants.recentJournal.open", {
+        label: label.toLowerCase(),
+        time: occurredAt,
+      })}
       accessibilityRole="button"
       onPress={onPress}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
@@ -90,11 +96,17 @@ function UpdateRow({
   const photoUri = update.photos
     .slice()
     .sort((left, right) => left.position - right.position)[0]?.localUri;
-  const occurredAt = new Date(update.occurredAt).toLocaleString("vi-VN");
-  const summary = update.notes ?? `${update.photos.length} ảnh`;
+  const occurredAt = formatDateTime(new Date(update.occurredAt));
+  const summary =
+    update.notes ??
+    t("plants.recentJournal.photoCount", {
+      count: formatNumber(update.photos.length),
+    });
   return (
     <Pressable
-      accessibilityLabel={`Mở cập nhật cây, ${occurredAt}`}
+      accessibilityLabel={t("journal.update.openAccessibility", {
+        time: occurredAt,
+      })}
       accessibilityRole="button"
       onPress={onPress}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
@@ -111,7 +123,9 @@ function UpdateRow({
         </View>
       )}
       <View style={styles.copy}>
-        <Typography variant="bodyLarge">Cập nhật cây</Typography>
+        <Typography variant="bodyLarge">
+          {t("journal.filter.update")}
+        </Typography>
         <Typography
           color="textSecondary"
           numberOfLines={1}

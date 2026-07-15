@@ -448,7 +448,9 @@ Follow `docs/design/DESIGN.md` for tokens, typography, spacing, components, and 
 
 **P0:** Plant creation, contextual care entry, Plant Dashboard care summaries, stage tips, photo journal with optional stage update, Timeline, reminders, weather context, and four-tab navigation.
 
-**P1:** Rich activity details, Journal search/filters, improved care prompts, archive, export, backup/restore, language, and theme.
+**P1:** Rich activity details, Journal search/filters, improved care prompts, archive, export, backup/restore, runtime language selection, alternate language catalogs, and theme.
+
+Current UI remains Vietnamese-only. Application chrome uses typed translation keys so future catalogs can replace copy without another screen-by-screen extraction. Curated Knowledge Base content keeps its separate locale and review contract.
 
 **P2:** Recurrence, additional species, collaboration, analytics, diagnostics, AI, premium capabilities, and connected devices.
 

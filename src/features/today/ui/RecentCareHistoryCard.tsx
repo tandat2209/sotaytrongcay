@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
+import { formatDateTime, t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, spacing } from "@/shared/ui/theme";
@@ -19,10 +20,12 @@ export function RecentCareHistoryCard({
 }: Props) {
   return (
     <SurfaceCard style={styles.card}>
-      <Typography variant="headlineSmall">Lịch sử chăm sóc gần đây</Typography>
+      <Typography variant="headlineSmall">
+        {t("today.history.title")}
+      </Typography>
       {activities.length === 0 ? (
         <Typography color="textSecondary" variant="bodyMedium">
-          Chưa có hoạt động chăm sóc nào được lưu.
+          {t("today.history.empty")}
         </Typography>
       ) : (
         <View>
@@ -38,13 +41,13 @@ export function RecentCareHistoryCard({
         </View>
       )}
       <Pressable
-        accessibilityLabel="Xem tất cả nhật ký"
+        accessibilityLabel={t("today.history.viewAll")}
         accessibilityRole="button"
         onPress={onOpenJournal}
         style={styles.journalAction}
       >
         <Typography color="primary" variant="bodyMedium">
-          Xem tất cả nhật ký
+          {t("today.history.viewAll")}
         </Typography>
       </Pressable>
     </SurfaceCard>
@@ -62,7 +65,10 @@ function HistoryRow({
   const ActivityIcon = visual.icon;
   return (
     <Pressable
-      accessibilityLabel={`Mở ${activityLabel(activity)} lúc ${formatOccurredAt(activity.occurredAt)}`}
+      accessibilityLabel={t("today.history.openAccessibility", {
+        activity: activityLabel(activity),
+        time: formatOccurredAt(activity.occurredAt),
+      })}
       accessibilityRole="button"
       onPress={onPress}
       style={styles.row}
@@ -81,20 +87,15 @@ function HistoryRow({
 function activityLabel(activity: TodayActivity): string {
   const verb =
     activity.type === "watering"
-      ? "Đã tưới"
+      ? t("today.history.watered")
       : activity.type === "fertilizing"
-        ? "Đã bón phân"
-        : "Đã phun thuốc";
+        ? t("today.history.fertilized")
+        : t("today.history.sprayed");
   return `${verb} ${activity.plantName}`;
 }
 
 function formatOccurredAt(occurredAt: string): string {
-  return new Intl.DateTimeFormat("vi-VN", {
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    month: "long",
-  }).format(new Date(occurredAt));
+  return formatDateTime(new Date(occurredAt));
 }
 
 const styles = StyleSheet.create({

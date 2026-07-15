@@ -12,6 +12,7 @@ import type {
   CarePlan,
   StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
+import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
@@ -40,9 +41,9 @@ export function StagePlaybookScreen({
   return (
     <Screen introduction={null} title="">
       <TopBar
-        backAccessibilityLabel="Quay lại chi tiết cây"
+        backAccessibilityLabel={t("plants.guide.back")}
         onBack={onBack}
-        title="Hướng dẫn chi tiết"
+        title={t("plants.guide.details")}
         titleIcon={BookOpen}
       />
 
@@ -63,7 +64,7 @@ export function StagePlaybookScreen({
         ) : null}
         <View style={styles.heroReviewBadge}>
           <Typography style={styles.heroReviewText} variant="label">
-            NỘI DUNG CHỜ DUYỆT
+            {t("plants.guide.reviewBadge")}
           </Typography>
         </View>
       </View>
@@ -71,7 +72,7 @@ export function StagePlaybookScreen({
       <View style={styles.section}>
         <SurfaceCard style={styles.objectiveCard}>
           <Typography color="textSecondary" variant="label">
-            MỤC TIÊU GIAI ĐOẠN
+            {t("plants.guide.objective")}
           </Typography>
           <Typography variant="bodyLarge">
             {playbook.primaryObjective}
@@ -87,7 +88,9 @@ export function StagePlaybookScreen({
         <View style={styles.section}>
           <View style={styles.sectionHeading}>
             <Lightbulb color={colors.primary} size={20} />
-            <Typography variant="headlineSmall">Nên tìm hiểu</Typography>
+            <Typography variant="headlineSmall">
+              {t("plants.guide.shouldLearn")}
+            </Typography>
           </View>
           <SurfaceCard style={styles.listCard}>
             {playbook.recommendedKnowledgeTopics.map((topic) => (
@@ -110,7 +113,7 @@ export function StagePlaybookScreen({
             <View style={styles.exitHeading}>
               <Flag color={colors.primary} size={18} />
               <Typography color="secondary" variant="label">
-                TIÊU CHÍ HOÀN THÀNH GIAI ĐOẠN
+                {t("plants.guide.completionCriteria")}
               </Typography>
             </View>
             {playbook.exitCriteria.map((criterion) => (
@@ -127,7 +130,9 @@ export function StagePlaybookScreen({
 
       {nextStage && onOpenNextStage ? (
         <Pressable
-          accessibilityLabel={`Xem giai đoạn tiếp theo: ${nextStage.title}`}
+          accessibilityLabel={t("plants.guide.nextAccessibility", {
+            stage: nextStage.title,
+          })}
           accessibilityRole="button"
           onPress={onOpenNextStage}
         >
@@ -141,10 +146,10 @@ export function StagePlaybookScreen({
             </View>
             <View style={styles.actionCopy}>
               <Typography color="textSecondary" variant="label">
-                SẮP TỚI
+                {t("plants.guide.next")}
               </Typography>
               <Typography variant="headlineSmall">
-                Giai đoạn: {nextStage.title}
+                {t("plants.guide.nextStage", { stage: nextStage.title })}
               </Typography>
             </View>
             <ChevronRight color={colors.textSecondary} size={20} />

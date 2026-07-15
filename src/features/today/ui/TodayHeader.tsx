@@ -1,6 +1,7 @@
 import { Moon, Sun, Sunset } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 
+import { formatTodayDate, t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
@@ -10,16 +11,12 @@ export function TodayHeader({ date = new Date() }: Props) {
   const hour = date.getHours();
   const greeting =
     hour < 12
-      ? "Chào buổi sáng"
+      ? t("today.greeting.morning")
       : hour < 18
-        ? "Chào buổi chiều"
-        : "Chào buổi tối";
+        ? t("today.greeting.afternoon")
+        : t("today.greeting.evening");
   const GreetingIcon = hour < 12 ? Sun : hour < 18 ? Sunset : Moon;
-  const dateLabel = new Intl.DateTimeFormat("vi-VN", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  }).format(date);
+  const dateLabel = formatTodayDate(date);
 
   return (
     <View style={styles.header}>

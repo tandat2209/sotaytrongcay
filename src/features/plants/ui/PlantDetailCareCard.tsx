@@ -7,10 +7,11 @@ import {
 } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import {
-  CARE_ACTIVITY_LABELS,
   CARE_ACTIVITY_VISUALS,
+  getCareActivityLabel,
 } from "@/features/journal";
 import type { CareEvaluationStatus } from "@/features/guidance/models/care-evaluation";
+import { t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
@@ -27,7 +28,7 @@ export function PlantDetailCareCard({
   onOpenActivity,
   onOpenDetails,
 }: Props) {
-  const label = CARE_ACTIVITY_LABELS[card.activityType];
+  const label = getCareActivityLabel(card.activityType);
   const visual = CARE_ACTIVITY_VISUALS[card.activityType];
   const status = statusContent(card.evaluation?.status);
   const ActivityIcon = visual.icon;
@@ -46,7 +47,9 @@ export function PlantDetailCareCard({
         </View>
         {card.details ? (
           <Pressable
-            accessibilityLabel={`Xem khuyến nghị ${label.toLowerCase()}`}
+            accessibilityLabel={t("plants.care.recommendationAccessibility", {
+              activity: label.toLowerCase(),
+            })}
             accessibilityRole="button"
             hitSlop={6}
             onPress={() => onOpenDetails(card)}
@@ -62,14 +65,16 @@ export function PlantDetailCareCard({
       <View style={styles.frequency}>
         <CalendarDays color={colors.textSecondary} size={15} />
         <Typography color="textSecondary" variant="bodyMedium">
-          {card.frequencyDisplay ?? "Chưa có tần suất đã duyệt"}
+          {card.frequencyDisplay ?? t("plants.care.frequencyMissing")}
         </Typography>
       </View>
       <View style={styles.information}>
         <Pressable
           accessibilityLabel={
             card.lastActivity
-              ? `Xem lần ${label.toLowerCase()} gần nhất`
+              ? t("plants.care.latestAccessibility", {
+                  activity: label.toLowerCase(),
+                })
               : undefined
           }
           accessibilityRole={card.lastActivity ? "button" : undefined}
@@ -82,7 +87,7 @@ export function PlantDetailCareCard({
           <Typography variant="bodyLarge">
             {card.lastActivity
               ? formatRelativeActivity(card.lastActivity.occurredAt)
-              : "Chưa có dữ liệu"}
+              : t("plants.care.noData")}
           </Typography>
         </Pressable>
         <View
@@ -104,7 +109,7 @@ function statusContent(status: CareEvaluationStatus | undefined) {
       backgroundColor: "#FCE8E6",
       color: colors.error,
       icon: CircleAlert,
-      label: "Nên xem xét",
+      label: t("plants.care.status.recommended"),
       textColor: "error" as const,
     };
   if (status === "not_recommended")
@@ -112,14 +117,14 @@ function statusContent(status: CareEvaluationStatus | undefined) {
       backgroundColor: colors.primarySoft,
       color: colors.primary,
       icon: CheckCircle,
-      label: "Chưa cần",
+      label: t("plants.care.status.notRecommended"),
       textColor: "primary" as const,
     };
   return {
     backgroundColor: colors.surfaceSubtle,
     color: colors.textSecondary,
     icon: CircleHelp,
-    label: "Chưa có gợi ý",
+    label: t("plants.care.status.none"),
     textColor: "textSecondary" as const,
   };
 }
@@ -129,8 +134,8 @@ function formatRelativeActivity(occurredAt: string): string {
     0,
     Math.floor((Date.now() - new Date(occurredAt).getTime()) / 86_400_000),
   );
-  if (elapsedDays === 0) return "Hôm nay";
-  return `${elapsedDays} ngày trước`;
+  if (elapsedDays === 0) return t("plants.care.today");
+  return t("plants.care.relativeDays", { days: elapsedDays });
 }
 
 const styles = StyleSheet.create({

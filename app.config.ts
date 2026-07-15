@@ -1,7 +1,8 @@
 import type { ExpoConfig } from "expo/config";
+import { configT } from "./src/shared/i18n/config-copy";
 
 const config: ExpoConfig = {
-  name: "Sổ tay trồng cây",
+  name: configT("app.name"),
   slug: "so-tay-trong-cay",
   version: "0.1.0",
   orientation: "portrait",
@@ -27,11 +28,9 @@ const config: ExpoConfig = {
     [
       "expo-image-picker",
       {
-        cameraPermission:
-          "Cho phép Sổ tay trồng cây dùng camera để chụp ảnh cây.",
+        cameraPermission: configT("app.permissions.camera"),
         microphonePermission: false,
-        photosPermission:
-          "Cho phép Sổ tay trồng cây truy cập ảnh để lưu vào nhật ký.",
+        photosPermission: configT("app.permissions.photos"),
       },
     ],
   ],

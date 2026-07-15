@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, StyleSheet, View } from "react-native";
 
+import { t } from "@/shared/i18n";
 import { listAllCarePlanStages, StageIcon } from "@/features/knowledge";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -12,14 +13,19 @@ export default function StageCarePlansRoute() {
   const stages = listAllCarePlanStages();
   return (
     <Screen title="">
-      <TopBar onBack={() => router.back()} title="Kế hoạch theo giai đoạn" />
+      <TopBar
+        onBack={() => router.back()}
+        title={t("settings.carePlans.title")}
+      />
       <Typography color="textSecondary" variant="bodyMedium">
-        Tùy chỉnh lịch nhắc cho tất cả cây dùng cùng kế hoạch chăm sóc.
+        {t("settings.carePlans.introduction")}
       </Typography>
       <View style={styles.list}>
         {stages.map((stage) => (
           <Pressable
-            accessibilityLabel={`Mở kế hoạch giai đoạn ${stage.title}`}
+            accessibilityLabel={t("settings.carePlans.openStageAccessibility", {
+              stage: stage.title,
+            })}
             accessibilityRole="button"
             key={stage.id}
             onPress={() =>
@@ -35,7 +41,7 @@ export default function StageCarePlansRoute() {
                 {stage.title}
               </Typography>
               <Typography color="primary" variant="bodyMedium">
-                Xem
+                {t("today.priority.expand")}
               </Typography>
             </SurfaceCard>
           </Pressable>

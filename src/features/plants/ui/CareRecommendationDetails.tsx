@@ -1,6 +1,7 @@
 import { Info } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import type { PlantDetailCareDetails } from "../models/plant-detail-projection";
@@ -12,16 +13,16 @@ export function CareRecommendationDetails({
 }) {
   return (
     <View style={styles.content}>
-      <DetailSection label="MỤC TIÊU">
+      <DetailSection label={t("plants.guide.objective")}>
         <Typography variant="bodyLarge">{details.goal}</Typography>
       </DetailSection>
-      <DetailSection label="TẦN SUẤT THEO CÁCH TRỒNG">
+      <DetailSection label={t("plants.guide.frequency")}>
         <Typography variant="bodyLarge">
-          {details.frequencyDisplay ?? "Chưa có tần suất đã duyệt"}
+          {details.frequencyDisplay ?? t("plants.care.frequencyMissing")}
         </Typography>
       </DetailSection>
       {details.recommendedInputs.length ? (
-        <DetailSection label="ĐẦU VÀO GỢI Ý">
+        <DetailSection label={t("plants.guide.recommendedInputs")}>
           {details.recommendedInputs.map((input) => (
             <View key={input.group} style={styles.item}>
               <Typography variant="bodyLarge">{input.group}</Typography>
@@ -33,7 +34,7 @@ export function CareRecommendationDetails({
         </DetailSection>
       ) : null}
       {details.notes.length ? (
-        <DetailSection label="LƯU Ý">
+        <DetailSection label={t("plants.guide.notes")}>
           {details.notes.map((note) => (
             <View key={note} style={styles.note}>
               <Info color={colors.primary} size={18} />

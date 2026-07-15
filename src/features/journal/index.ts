@@ -14,16 +14,17 @@ export {
   CARE_ACTIVITY_VISUALS,
 } from "./models/care-activity-icon";
 export type { CareActivityVisual } from "./models/care-activity-icon";
-export {
-  CARE_ACTIVITY_LABELS,
-  CARE_ACTIVITY_ORIGIN_LABELS,
-  findLatestCareActivity,
-} from "./models/care-activity";
+export { findLatestCareActivity } from "./models/care-activity";
 export type {
   CareActivity,
   CareActivityOrigin,
   CareActivityType,
 } from "./models/care-activity";
+export {
+  getCareActivityLabel,
+  getCareActivityOriginLabel,
+  getCareActivityUnitLabel,
+} from "./ui/care-activity-copy";
 export { createJournalItems } from "./models/journal-item";
 export type { JournalItem } from "./models/journal-item";
 export {

@@ -3,6 +3,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { z } from "zod";
 
+import { t } from "@/shared/i18n";
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
 import { getCarePlansForStage, getStagePlaybook } from "@/features/knowledge";
 import {
@@ -29,14 +30,14 @@ export default function StageCarePlanDetailRoute() {
     queryFn: listStageScheduleSnapshots,
   });
   const plans = getCarePlansForStage(stageId);
-  const title = getStagePlaybook(stageId)?.title ?? "Giai đoạn";
+  const title = getStagePlaybook(stageId)?.title ?? t("common.fallback.stage");
 
   return (
     <Screen title="">
       <TopBar onBack={() => router.back()} title={title} />
       {plans.length === 0 ? (
         <Typography color="textSecondary" variant="bodyMedium">
-          Chưa có kế hoạch chăm sóc đã duyệt cho giai đoạn này.
+          {t("settings.carePlans.empty")}
         </Typography>
       ) : null}
       {plans.map((plan) => {
@@ -95,7 +96,7 @@ export default function StageCarePlanDetailRoute() {
               />
             ) : (
               <Typography color="textSecondary" variant="bodyMedium">
-                Kế hoạch này chưa có tần suất đã duyệt.
+                {t("plants.care.frequencyMissing")}
               </Typography>
             )}
           </SurfaceCard>

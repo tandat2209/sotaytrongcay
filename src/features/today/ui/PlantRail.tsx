@@ -5,6 +5,7 @@ import {
   resolvePlantIdentity,
   type Plant,
 } from "@/features/plants";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -25,7 +26,9 @@ export function PlantRail({
     <View style={styles.section}>
       <View style={styles.heading}>
         <View style={styles.title}>
-          <Typography variant="headlineSmall">Khu Vườn Của Tôi</Typography>
+          <Typography variant="headlineSmall">
+            {t("today.overview.myGarden")}
+          </Typography>
           <View style={styles.count}>
             <Typography color="primary" variant="label">
               {plants.length}
@@ -33,14 +36,14 @@ export function PlantRail({
           </View>
         </View>
         <Pressable
-          accessibilityLabel="Thêm cây"
+          accessibilityLabel={t("today.overview.addPlant")}
           accessibilityRole="button"
           onPress={onAddPlant}
           style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
         >
           <Plus color={colors.primary} size={18} />
           <Typography color="primary" variant="label">
-            Thêm cây
+            {t("today.overview.addPlant")}
           </Typography>
         </Pressable>
       </View>
@@ -53,7 +56,9 @@ export function PlantRail({
           const identity = resolvePlantIdentity(plant);
           return (
             <Pressable
-              accessibilityLabel={`Mở cây ${plant.name}`}
+              accessibilityLabel={t("plants.list.openAccessibility", {
+                plant: plant.name,
+              })}
               accessibilityRole="button"
               key={plant.id}
               onPress={() => onOpenPlant(plant.id)}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Switch, TextInput, View } from "react-native";
 
+import { formatNumber, t } from "@/shared/i18n";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
@@ -54,14 +55,14 @@ export function ScheduleSnapshotEditor({
       (intervalDays !== null &&
         (!Number.isInteger(intervalDays) || intervalDays < 1))
     ) {
-      setError("Tần suất phải từ 1 ngày trở lên.");
+      setError(t("reminders.validation.frequency"));
       return;
     }
     if (
       notificationEnabled &&
       !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(notificationTime)
     ) {
-      setError("Giờ thông báo phải theo dạng 08:00.");
+      setError(t("reminders.validation.time"));
       return;
     }
     setSaving(true);
@@ -75,7 +76,7 @@ export function ScheduleSnapshotEditor({
           : initial.notificationTime,
       });
     } catch {
-      setError("Chưa thể lưu tùy chỉnh. Dữ liệu đã nhập vẫn được giữ lại.");
+      setError(t("reminders.validation.save"));
     } finally {
       setSaving(false);
     }
@@ -84,22 +85,26 @@ export function ScheduleSnapshotEditor({
   return (
     <View style={styles.content}>
       <FormField
-        label="Tần suất"
+        label={t("reminders.schedule.frequency")}
         supportingText={
           allowInheritedFrequency
             ? inheritedIntervalDays === undefined ||
               inheritedIntervalDays === null
-              ? "Để trống để dùng tần suất đã duyệt theo cách trồng."
-              : `Mặc định: ${inheritedIntervalDays} ngày. Để trống để dùng giá trị này.`
+              ? t("reminders.schedule.frequencySupporting")
+              : t("reminders.schedule.defaultFrequency", {
+                  days: formatNumber(inheritedIntervalDays),
+                })
             : undefined
         }
       >
         <TextInput
-          accessibilityLabel="Số ngày giữa các lần chăm sóc"
+          accessibilityLabel={t("reminders.schedule.frequencyAccessibility")}
           keyboardType="number-pad"
           onChangeText={setInterval}
           placeholder={
-            allowInheritedFrequency ? "Theo kế hoạch chăm sóc" : "Ví dụ: 3"
+            allowInheritedFrequency
+              ? t("reminders.schedule.frequencyInherited")
+              : t("reminders.schedule.frequencyExample")
           }
           placeholderTextColor={colors.textSecondary}
           style={styles.input}
@@ -107,17 +112,19 @@ export function ScheduleSnapshotEditor({
         />
       </FormField>
       <View style={styles.toggleRow}>
-        <Typography variant="bodyLarge">Gửi thông báo</Typography>
+        <Typography variant="bodyLarge">
+          {t("reminders.schedule.notification")}
+        </Typography>
         <Switch
-          accessibilityLabel="Gửi thông báo"
+          accessibilityLabel={t("reminders.schedule.notification")}
           onValueChange={setNotificationEnabled}
           value={notificationEnabled}
         />
       </View>
       {notificationEnabled ? (
-        <FormField label="Giờ thông báo">
+        <FormField label={t("reminders.schedule.notificationTime")}>
           <TextInput
-            accessibilityLabel="Giờ thông báo"
+            accessibilityLabel={t("reminders.schedule.notificationTime")}
             onChangeText={setNotificationTime}
             placeholder="08:00"
             placeholderTextColor={colors.textSecondary}
@@ -133,13 +140,15 @@ export function ScheduleSnapshotEditor({
       ) : null}
       <PrimaryButton
         disabled={saving}
-        label={saving ? "Đang lưu…" : "Lưu thay đổi"}
+        label={
+          saving ? t("common.actions.saving") : t("common.actions.saveChanges")
+        }
         onPress={() => void save()}
       />
       {onReset ? (
         <Pressable accessibilityRole="button" onPress={() => void onReset()}>
           <Typography color="primary" variant="bodyMedium">
-            Dùng tất cả cài đặt theo giai đoạn
+            {t("reminders.schedule.resetPlant")}
           </Typography>
         </Pressable>
       ) : null}

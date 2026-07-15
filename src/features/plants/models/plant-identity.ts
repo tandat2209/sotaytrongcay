@@ -1,4 +1,5 @@
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
+import { t } from "@/shared/i18n";
 import type { Plant } from "./plant";
 
 export type PlantIdentity = Readonly<{
@@ -11,9 +12,9 @@ export function resolvePlantIdentity(
 ): PlantIdentity {
   const knowledge = getPreviewPlantKnowledge(plant.speciesId);
   return {
-    speciesTitle: knowledge?.species.title ?? "Chưa xác định",
+    speciesTitle: knowledge?.species.title ?? t("common.fallback.unknown"),
     stageTitle:
       knowledge?.stages.find((stage) => stage.id === plant.stageId)?.title ??
-      "Chưa xác định",
+      t("common.fallback.unknown"),
   };
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Switch, TextInput, View } from "react-native";
 
+import { appLocale, t } from "@/shared/i18n";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
@@ -48,14 +49,14 @@ export function StageScheduleSnapshotEditor({
     const groundIntervalDays = Number(groundInterval);
     const containerIntervalDays = Number(containerInterval);
     if (![groundIntervalDays, containerIntervalDays].every(isValidInterval)) {
-      setError("Tần suất phải từ 1 ngày trở lên.");
+      setError(t("reminders.validation.frequency"));
       return;
     }
     if (
       notificationEnabled &&
       !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(notificationTime)
     ) {
-      setError("Giờ thông báo phải theo dạng 08:00.");
+      setError(t("reminders.validation.time"));
       return;
     }
     setSaving(true);
@@ -70,7 +71,7 @@ export function StageScheduleSnapshotEditor({
           : initial.notificationTime,
       });
     } catch {
-      setError("Chưa thể lưu tùy chỉnh. Dữ liệu đã nhập vẫn được giữ lại.");
+      setError(t("reminders.validation.save"));
     } finally {
       setSaving(false);
     }
@@ -79,27 +80,29 @@ export function StageScheduleSnapshotEditor({
   return (
     <View style={styles.content}>
       <IntervalField
-        label="Trồng đất"
+        label={t("plants.guide.ground")}
         onChangeText={setGroundInterval}
         value={groundInterval}
       />
       <IntervalField
-        label="Trồng chậu"
+        label={t("plants.guide.container")}
         onChangeText={setContainerInterval}
         value={containerInterval}
       />
       <View style={styles.toggleRow}>
-        <Typography variant="bodyLarge">Gửi thông báo</Typography>
+        <Typography variant="bodyLarge">
+          {t("reminders.schedule.notification")}
+        </Typography>
         <Switch
-          accessibilityLabel="Gửi thông báo"
+          accessibilityLabel={t("reminders.schedule.notification")}
           onValueChange={setNotificationEnabled}
           value={notificationEnabled}
         />
       </View>
       {notificationEnabled ? (
-        <FormField label="Giờ thông báo">
+        <FormField label={t("reminders.schedule.notificationTime")}>
           <TextInput
-            accessibilityLabel="Giờ thông báo"
+            accessibilityLabel={t("reminders.schedule.notificationTime")}
             onChangeText={setNotificationTime}
             placeholder="08:00"
             placeholderTextColor={colors.textSecondary}
@@ -119,13 +122,15 @@ export function StageScheduleSnapshotEditor({
       ) : null}
       <PrimaryButton
         disabled={saving}
-        label={saving ? "Đang lưu…" : "Lưu thay đổi"}
+        label={
+          saving ? t("common.actions.saving") : t("common.actions.saveChanges")
+        }
         onPress={() => void save()}
       />
       {onReset ? (
         <Pressable accessibilityRole="button" onPress={() => void onReset()}>
           <Typography color="primary" variant="bodyMedium">
-            Dùng tất cả cài đặt mặc định
+            {t("reminders.schedule.resetStage")}
           </Typography>
         </Pressable>
       ) : null}
@@ -143,9 +148,15 @@ function IntervalField({
   value: string;
 }>) {
   return (
-    <FormField label={label} supportingText="Số ngày giữa các lần chăm sóc">
+    <FormField
+      label={label}
+      supportingText={t("reminders.schedule.frequencyAccessibility")}
+    >
       <TextInput
-        accessibilityLabel={`Tần suất ${label.toLocaleLowerCase("vi")}`}
+        accessibilityLabel={t(
+          "reminders.schedule.frequencyByMethodAccessibility",
+          { method: label.toLocaleLowerCase(appLocale) },
+        )}
         keyboardType="number-pad"
         onChangeText={onChangeText}
         style={styles.input}

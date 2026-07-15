@@ -2,6 +2,7 @@ import { Camera, Images, X, type LucideIcon } from "lucide-react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -33,7 +34,7 @@ export function JournalPhotoField({ onChange, photos }: Props) {
   async function takePhoto() {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
-      setError("Cần quyền dùng camera để chụp ảnh cây.");
+      setError(t("journal.photo.cameraPermission"));
       return;
     }
     const result = await ImagePicker.launchCameraAsync({
@@ -64,12 +65,16 @@ export function JournalPhotoField({ onChange, photos }: Props) {
           {photos.map((photo, index) => (
             <View key={photo.uri} style={styles.previewWrap}>
               <Image
-                accessibilityLabel={`Ảnh cây ${index + 1}`}
+                accessibilityLabel={t("journal.photo.imageAccessibility", {
+                  index: index + 1,
+                })}
                 source={{ uri: photo.uri }}
                 style={styles.preview}
               />
               <Pressable
-                accessibilityLabel={`Xóa ảnh ${index + 1}`}
+                accessibilityLabel={t("journal.photo.removeAccessibility", {
+                  index: index + 1,
+                })}
                 accessibilityRole="button"
                 onPress={() =>
                   onChange(
@@ -88,18 +93,18 @@ export function JournalPhotoField({ onChange, photos }: Props) {
         <PhotoAction
           disabled={full}
           icon={Camera}
-          label="Chụp ảnh"
+          label={t("journal.photo.capture")}
           onPress={() => void takePhoto()}
         />
         <PhotoAction
           disabled={full}
           icon={Images}
-          label="Chọn ảnh"
+          label={t("journal.photo.addFromLibrary")}
           onPress={() => void choosePhotos()}
         />
       </View>
       <Typography color="textSecondary" variant="bodyMedium">
-        Tối đa {MAX_PHOTOS} ảnh. Ảnh đầu tiên sẽ đại diện cho cập nhật này.
+        {t("journal.photo.limit", { count: MAX_PHOTOS })}
       </Typography>
       {error ? (
         <Typography

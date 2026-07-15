@@ -1,3 +1,4 @@
+import { getCareActivityLabel } from "@/features/journal";
 import {
   createJournalItems,
   getLatestPlantPhoto,
@@ -14,6 +15,7 @@ import {
   listCarePlans,
   type StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
+import { t } from "@/shared/i18n";
 import type { Plant } from "./plant";
 import { resolvePlantIdentity } from "./plant-identity";
 
@@ -121,9 +123,7 @@ export function createPlantDetailProjection({
           ) ?? null,
         frequencyDisplay,
         lastActivity: latestCare[activityType],
-        title:
-          plan?.title ??
-          (activityType === "watering" ? "Tưới nước" : "Bón phân"),
+        title: plan?.title ?? getCareActivityLabel(activityType),
       };
     }),
     latestCare,
@@ -152,14 +152,14 @@ function createAgeLabels(
   if (stageAgeDays !== null)
     labels.push(
       stageAgeDays === 0
-        ? "Bắt đầu giai đoạn hôm nay"
-        : `${stageAgeDays} ngày ở giai đoạn này`,
+        ? t("plants.age.stageToday")
+        : t("plants.age.stageDays", { days: stageAgeDays }),
     );
   if (plantedAgeDays !== null)
     labels.push(
       plantedAgeDays === 0
-        ? "Trồng hôm nay"
-        : `Đã trồng ${plantedAgeDays} ngày`,
+        ? t("plants.age.plantedToday")
+        : t("plants.age.plantedDays", { days: plantedAgeDays }),
     );
   return labels;
 }

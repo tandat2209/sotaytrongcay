@@ -1,6 +1,7 @@
 import { ChevronRight, Sprout } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
+import { t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -21,15 +22,15 @@ export function PlantsScreen({
 }: Props) {
   return (
     <Screen
-      introduction="Quản lý cây trồng và xem lịch sử chăm sóc của từng cây."
-      title="Cây trồng"
+      introduction={t("plants.list.introduction")}
+      title={t("navigation.tabs.plants")}
       titleIcon={Sprout}
     >
       {plants.length === 0 ? (
         <EmptyState
-          description="Cây bạn thêm sẽ được hiển thị tại đây cùng giai đoạn sinh trưởng."
+          description={t("plants.list.emptyDescription")}
           icon={Sprout}
-          title="Chưa có cây trồng"
+          title={t("plants.list.emptyTitle")}
         />
       ) : (
         <View style={styles.list}>
@@ -37,7 +38,9 @@ export function PlantsScreen({
             const identity = resolvePlantIdentity(plant);
             return (
               <Pressable
-                accessibilityLabel={`Mở cây ${plant.name}`}
+                accessibilityLabel={t("plants.list.openAccessibility", {
+                  plant: plant.name,
+                })}
                 accessibilityRole="button"
                 key={plant.id}
                 onPress={() => onOpenPlant(plant.id)}

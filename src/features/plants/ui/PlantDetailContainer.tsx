@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import { z } from "zod";
 import type { CareActivityType, CareEntryDetails } from "@/features/journal";
 import { listCareActivities, listPlantUpdates } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { productionWeather } from "@/shared/weather/weather-state";
 import { getPlant } from "../data/plant-repository";
 import { createPlantDetailProjection } from "../models/plant-detail-projection";
@@ -51,23 +52,30 @@ export function PlantDetailContainer({
         : null;
     },
   });
-  if (query.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
+  if (query.isPending)
+    return <Text>{t("common.state.loadingDeviceData")}</Text>;
   if (query.isError)
     return (
       <>
         <Text>
           {query.error instanceof z.ZodError
-            ? "Dữ liệu trên thiết bị chưa hợp lệ."
-            : "Chưa thể tải cây."}
+            ? t("common.state.invalidDeviceData")
+            : t("plants.error.load")}
         </Text>
-        <PrimaryButton label="Thử lại" onPress={() => void query.refetch()} />
+        <PrimaryButton
+          label={t("common.actions.retry")}
+          onPress={() => void query.refetch()}
+        />
       </>
     );
   if (!query.data)
     return (
       <>
-        <Text>Không tìm thấy cây trồng.</Text>
-        <PrimaryButton label="Quay lại Cây trồng" onPress={onBack} />
+        <Text>{t("plants.error.notFound")}</Text>
+        <PrimaryButton
+          label={t("common.actions.backToPlants")}
+          onPress={onBack}
+        />
       </>
     );
   return (

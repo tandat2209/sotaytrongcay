@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import {
-  CARE_ACTIVITY_LABELS,
   CARE_ACTIVITY_VISUALS,
+  getCareActivityLabel,
 } from "@/features/journal";
 import { PlantIdentity } from "@/features/plants";
+import { t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
@@ -30,7 +31,7 @@ export function TodayPriorityList({ cards, onRecordCare }: Props) {
           style={styles.fill}
           variant="bodyMedium"
         >
-          Hôm nay chưa có việc đến hạn.
+          {t("today.priority.empty")}
         </Typography>
       </SurfaceCard>
     );
@@ -51,12 +52,20 @@ export function TodayPriorityList({ cards, onRecordCare }: Props) {
         />
         {card.dueStatus ? (
           <Typography color="textSecondary" variant="bodyMedium">
-            {card.dueStatus === "overdue" ? "Quá hạn" : "Đến hạn hôm nay"} · Kế
-            hoạch chăm sóc
+            {card.dueStatus === "overdue"
+              ? t("today.priority.overdue")
+              : t("today.priority.due")}{" "}
+            · {t("today.priority.plan")}
           </Typography>
         ) : null}
         <Pressable
-          accessibilityLabel={`${expanded ? "Thu gọn" : "Xem"} lý do và hướng dẫn cho ${card.title} của ${card.plantName}`}
+          accessibilityLabel={t("today.priority.explanationAccessibility", {
+            action: expanded
+              ? t("today.priority.collapse")
+              : t("today.priority.expand"),
+            plant: card.plantName,
+            title: card.title,
+          })}
           accessibilityRole="button"
           accessibilityState={{ expanded }}
           onPress={() =>
@@ -83,14 +92,18 @@ export function TodayPriorityList({ cards, onRecordCare }: Props) {
             <CircleHelp color={colors.textSecondary} size={16} />
             <Typography style={styles.fill} variant="bodyMedium">
               <Typography style={styles.bold} variant="bodyMedium">
-                Tại sao:{" "}
+                {t("today.priority.why")}
               </Typography>
               {card.explanation}
             </Typography>
           </View>
         ) : null}
         <Pressable
-          accessibilityLabel={`${CARE_ACTIVITY_LABELS[card.activityType]} cho ${card.plantName}`}
+          accessibilityLabel={t("today.priority.explanationAccessibility", {
+            action: getCareActivityLabel(card.activityType),
+            plant: card.plantName,
+            title: card.title,
+          })}
           accessibilityRole="button"
           onPress={() => onRecordCare(card)}
           style={[
@@ -103,7 +116,7 @@ export function TodayPriorityList({ cards, onRecordCare }: Props) {
             style={[styles.careActionLabel, { color: visual.color }]}
             variant="bodyMedium"
           >
-            {CARE_ACTIVITY_LABELS[card.activityType]}
+            {getCareActivityLabel(card.activityType)}
           </Typography>
         </Pressable>
       </SurfaceCard>

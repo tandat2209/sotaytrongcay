@@ -7,6 +7,7 @@ import {
   getPlantUpdate,
   listPlantUpdates,
 } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { PlantUpdateDetailScreen } from "@/features/journal/ui/PlantUpdateDetailScreen";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity } from "@/features/plants";
@@ -31,24 +32,27 @@ export default function PlantUpdateDetailRoute() {
       };
     },
   });
-  if (query.isPending) return <Text>Đang tải…</Text>;
-  if (query.isError) return <Text>Chưa thể tải cập nhật. Hãy thử lại.</Text>;
-  if (!query.data.update) return <Text>Cập nhật này không còn tồn tại.</Text>;
+  if (query.isPending) return <Text>{t("common.state.loading")}</Text>;
+  if (query.isError) return <Text>{t("journal.error.loadUpdate")}</Text>;
+  if (!query.data.update) return <Text>{t("journal.error.updateGone")}</Text>;
   const update = query.data.update;
   const plant = query.data.plant;
   const identity = plant
     ? resolvePlantIdentity(plant)
-    : { speciesTitle: "Chưa xác định", stageTitle: "Chưa xác định" };
+    : {
+        speciesTitle: t("common.fallback.unknown"),
+        stageTitle: t("common.fallback.unknown"),
+      };
   const stageTitle = plant
     ? (getPreviewPlantKnowledge(plant.speciesId)?.stages.find(
         (stage) => stage.id === update.stageId,
-      )?.title ?? "Chưa xác định")
-    : "Chưa xác định";
+      )?.title ?? t("common.fallback.unknown"))
+    : t("common.fallback.unknown");
   return (
     <PlantUpdateDetailScreen
       imageUri={query.data.imageUri}
       onBack={() => router.back()}
-      plantName={plant?.name ?? "Cây trồng"}
+      plantName={plant?.name ?? t("common.fallback.plant")}
       speciesTitle={identity.speciesTitle}
       stageTitle={stageTitle}
       update={update}

@@ -7,6 +7,7 @@ import {
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { formatCareEvaluationReason } from "@/features/guidance";
 import {
   CareEntryScreen,
   type CareActivityType,
@@ -16,6 +17,7 @@ import { StageIcon } from "@/features/knowledge/stage-icons";
 import type { StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type { WeatherState } from "@/shared/weather/weather-state";
+import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -66,9 +68,9 @@ export function PlantDetailScreen({
   const entryCard = careEntryType
     ? projection.careCards.find((card) => card.activityType === careEntryType)
     : null;
-  const entryReason =
-    entryCard?.evaluation?.explanation ||
-    projection.stagePlaybook?.primaryObjective;
+  const entryReason = entryCard?.evaluation
+    ? formatCareEvaluationReason(entryCard.evaluation.reason)
+    : projection.stagePlaybook?.primaryObjective;
   const entrySuggestion = entryCard?.details?.recommendedInputs
     .map((input) => input.examples)
     .join(" · ");
@@ -90,9 +92,9 @@ export function PlantDetailScreen({
       >
         {onBack ? (
           <TopBar
-            backAccessibilityLabel="Quay lại Cây trồng"
+            backAccessibilityLabel={t("common.actions.backToPlants")}
             onBack={onBack}
-            title="Chi tiết cây"
+            title={t("plants.screen.details")}
             titleIcon={Leaf}
           />
         ) : null}
@@ -109,7 +111,9 @@ export function PlantDetailScreen({
           projection={projection}
         />
         <View style={styles.section}>
-          <Typography variant="headlineSmall">Chăm sóc hôm nay</Typography>
+          <Typography variant="headlineSmall">
+            {t("plants.screen.careToday")}
+          </Typography>
           {projection.careCards.map((card) => (
             <PlantDetailCareCard
               card={card}
@@ -133,7 +137,7 @@ export function PlantDetailScreen({
           <View style={styles.sheetTitle}>
             <Info color={colors.primary} size={20} />
             <Typography variant="headlineSmall">
-              {selectedCareCard?.title ?? "Khuyến nghị chăm sóc"}
+              {selectedCareCard?.title ?? t("plants.screen.recommendation")}
             </Typography>
           </View>
         }
@@ -173,7 +177,9 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
   return (
     <View style={styles.compactSection}>
       <View style={styles.journeyHeading}>
-        <Typography variant="headlineSmall">Giai đoạn sinh trưởng</Typography>
+        <Typography variant="headlineSmall">
+          {t("plants.screen.lifecycle")}
+        </Typography>
         {currentIndex >= 0 ? (
           <Typography color="textSecondary" variant="label">
             {currentIndex + 1}/{projection.lifecycleStages.length}
@@ -187,7 +193,11 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
               return (
                 <View
                   accessibilityLabel={
-                    stage.isCurrent ? `${stage.title}, hiện tại` : stage.title
+                    stage.isCurrent
+                      ? t("plants.screen.currentStageAccessibility", {
+                          stage: stage.title,
+                        })
+                      : stage.title
                   }
                   key={stage.id}
                   style={styles.journeyStep}
@@ -221,7 +231,7 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
         </ScrollView>
       ) : (
         <Typography color="textSecondary" variant="bodyMedium">
-          Chưa có hành trình cho cây này.
+          {t("plants.screen.journeyEmpty")}
         </Typography>
       )}
     </View>
@@ -240,21 +250,21 @@ function CurrentStage({
   return (
     <SurfaceCard style={styles.stageCard}>
       <Typography color="secondary" variant="label">
-        MỤC TIÊU GIAI ĐOẠN
+        {t("plants.guide.objective")}
       </Typography>
       <Typography color="textSecondary" variant="bodyLarge">
         {projection.stagePlaybook?.primaryObjective ||
-          "Chưa có hướng dẫn cho giai đoạn này."}
+          t("plants.guide.missing")}
       </Typography>
       {projection.stagePlaybook ? (
         <View style={styles.reviewBadge}>
           <Typography color="secondary" variant="label">
-            NỘI DUNG CHỜ DUYỆT
+            {t("plants.guide.reviewBadge")}
           </Typography>
         </View>
       ) : null}
       <Pressable
-        accessibilityLabel="Tùy chỉnh kế hoạch chăm sóc cho cây này"
+        accessibilityLabel={t("plants.screen.customizeAccessibility")}
         accessibilityRole="button"
         onPress={onOpenSchedule}
         style={({ pressed }) => [
@@ -264,13 +274,15 @@ function CurrentStage({
       >
         <Leaf color={colors.primary} size={20} />
         <Typography color="primary" style={styles.flex} variant="bodyLarge">
-          Tùy chỉnh theo cây
+          {t("plants.screen.customize")}
         </Typography>
         <ChevronRight color={colors.primary} size={18} />
       </Pressable>
       {onOpenPlaybook && projection.stagePlaybook ? (
         <Pressable
-          accessibilityLabel={`Mở hướng dẫn chi tiết cho giai đoạn ${projection.stageTitle}`}
+          accessibilityLabel={t("plants.screen.guideAccessibility", {
+            stage: projection.stageTitle,
+          })}
           accessibilityRole="button"
           onPress={onOpenPlaybook}
           style={({ pressed }) => [
@@ -280,7 +292,7 @@ function CurrentStage({
         >
           <BookOpen color={colors.primary} size={20} />
           <Typography color="primary" style={styles.flex} variant="bodyLarge">
-            Xem hướng dẫn chi tiết
+            {t("plants.screen.viewGuide")}
           </Typography>
           <ChevronRight color={colors.primary} size={18} />
         </Pressable>
@@ -298,7 +310,7 @@ function StageTips({ playbook }: { playbook: StagePlaybook | null }) {
   return (
     <View style={styles.section}>
       <Typography variant="headlineSmall">
-        Chuẩn bị cho bước tiếp theo
+        {t("plants.screen.nextStep")}
       </Typography>
       <SurfaceCard style={styles.tipsCard}>
         {[...playbook.recommendedKnowledgeTopics, ...playbook.exitCriteria].map(

@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import type { PlantKnowledgeStage } from "@/features/knowledge";
+import { datePickerLocale, formatDateTime, t } from "@/shared/i18n";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import { PlantIdentity } from "@/features/plants";
 import { FormField } from "@/shared/ui/FormField";
@@ -67,19 +68,27 @@ export function PlantUpdateScreen({
       onBack();
       return;
     }
-    Alert.alert("Bỏ thay đổi?", "Ảnh và ghi chú chưa lưu sẽ bị mất.", [
-      { style: "cancel", text: "Tiếp tục chỉnh sửa" },
-      { onPress: onBack, style: "destructive", text: "Bỏ thay đổi" },
-    ]);
+    Alert.alert(
+      t("journal.update.discardTitle"),
+      t("journal.update.discardBody"),
+      [
+        { style: "cancel", text: t("journal.update.keepEditing") },
+        {
+          onPress: onBack,
+          style: "destructive",
+          text: t("journal.update.discardAction"),
+        },
+      ],
+    );
   }
 
   async function submit() {
     if (!notes.trim() && photos.length === 0) {
-      setError("Thêm ảnh hoặc ghi chú trước khi lưu.");
+      setError(t("journal.update.validationContent"));
       return;
     }
     if (occurredAt.getTime() > Date.now()) {
-      setError("Thời gian cập nhật không thể ở tương lai.");
+      setError(t("journal.validation.futureUpdate"));
       return;
     }
     setError(null);
@@ -92,7 +101,7 @@ export function PlantUpdateScreen({
         stageId,
       });
     } catch {
-      setError("Chưa thể lưu nhật ký. Ảnh và ghi chú vẫn được giữ lại.");
+      setError(t("journal.error.saveUpdate"));
     } finally {
       setSaving(false);
     }
@@ -103,7 +112,7 @@ export function PlantUpdateScreen({
       <Screen
         footer={
           <PrimaryButton
-            label="Lưu nhật ký"
+            label={t("journal.update.save")}
             loading={saving}
             onPress={() => void submit()}
           />
@@ -111,9 +120,9 @@ export function PlantUpdateScreen({
         title=""
       >
         <TopBar
-          backAccessibilityLabel="Quay lại Chi tiết cây"
+          backAccessibilityLabel={t("common.actions.backToPlantDetail")}
           onBack={requestBack}
-          title="Thêm nhật ký"
+          title={t("journal.update.title")}
           titleIcon={NotebookPen}
         />
         <PlantIdentity
@@ -122,9 +131,9 @@ export function PlantUpdateScreen({
           size="list"
           speciesTitle={speciesTitle}
           stageId={stageId}
-          stageTitle={stage?.title ?? "Chưa xác định"}
+          stageTitle={stage?.title ?? t("common.fallback.unknown")}
         />
-        <FormField label="Ảnh">
+        <FormField label={t("journal.update.images")}>
           <JournalPhotoField
             onChange={(value) => {
               setPhotos(value);
@@ -133,21 +142,21 @@ export function PlantUpdateScreen({
             photos={photos}
           />
         </FormField>
-        <FormField label="Thời gian cập nhật">
+        <FormField label={t("journal.update.dateLabel")}>
           <Pressable
-            accessibilityLabel="Chọn thời gian cập nhật"
+            accessibilityLabel={t("journal.update.dateAccessibility")}
             accessibilityRole="button"
             onPress={() => setShowDatePicker(true)}
             style={styles.control}
           >
             <Typography variant="bodyLarge">
-              {occurredAt.toLocaleString("vi-VN")}
+              {formatDateTime(occurredAt)}
             </Typography>
             <CalendarDays color={colors.textSecondary} size={20} />
           </Pressable>
           {showDatePicker ? (
             <DateTimePicker
-              locale="vi-VN"
+              locale={datePickerLocale}
               maximumDate={new Date()}
               mode="datetime"
               onChange={(_, date) => {
@@ -159,34 +168,34 @@ export function PlantUpdateScreen({
           ) : null}
           {showDatePicker && Platform.OS === "ios" ? (
             <Pressable
-              accessibilityLabel="Xong"
+              accessibilityLabel={t("common.actions.done")}
               accessibilityRole="button"
               onPress={() => setShowDatePicker(false)}
               style={styles.done}
             >
               <Typography color="primary" variant="bodyLarge">
-                Xong
+                {t("common.actions.done")}
               </Typography>
             </Pressable>
           ) : null}
         </FormField>
-        <FormField label="Ghi chú (không bắt buộc)">
+        <FormField label={t("journal.careEntry.notesLabel")}>
           <TextInput
-            accessibilityLabel="Ghi chú nhật ký"
+            accessibilityLabel={t("journal.update.notesAccessibility")}
             multiline
             onChangeText={(value) => {
               setNotes(value);
               setError(null);
             }}
-            placeholder="Ghi lại thay đổi, quan sát hoặc việc đã làm"
+            placeholder={t("journal.update.notesPlaceholder")}
             placeholderTextColor={colors.textSecondary}
             style={styles.notes}
             value={notes}
           />
         </FormField>
-        <FormField label="Giai đoạn hiện tại">
+        <FormField label={t("journal.update.currentStage")}>
           <Pressable
-            accessibilityLabel="Thay đổi giai đoạn hiện tại"
+            accessibilityLabel={t("journal.update.changeStageAccessibility")}
             accessibilityRole="button"
             onPress={() => setShowStagePicker(true)}
             style={styles.control}
@@ -194,11 +203,11 @@ export function PlantUpdateScreen({
             <View style={styles.stage}>
               <StageIcon color={colors.primary} size={20} stageId={stageId} />
               <Typography variant="bodyLarge">
-                {stage?.title ?? "Chưa xác định"}
+                {stage?.title ?? t("common.fallback.unknown")}
               </Typography>
             </View>
             <Typography color="primary" variant="label">
-              Thay đổi
+              {t("journal.update.changeStage")}
             </Typography>
           </Pressable>
         </FormField>

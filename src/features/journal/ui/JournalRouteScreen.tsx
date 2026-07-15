@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { Text } from "react-native";
+import { t } from "@/shared/i18n";
 import { listCareActivities } from "../data/care-activity-repository";
 import { listPlantUpdates } from "../data/plant-update-repository";
 import { getLatestPlantPhotoUrisByPlant } from "../models/plant-update";
@@ -20,8 +21,8 @@ export function JournalRouteScreen() {
       return { activities, updates, plants };
     },
   });
-  if (query.isPending) return <Text>Đang tải…</Text>;
-  if (query.isError) return <Text>Chưa thể tải nhật ký. Hãy thử lại.</Text>;
+  if (query.isPending) return <Text>{t("common.state.loading")}</Text>;
+  if (query.isError) return <Text>{t("journal.error.loadJournal")}</Text>;
   const photoUris = getLatestPlantPhotoUrisByPlant(query.data.updates);
   const plants = Object.fromEntries(
     query.data.plants.map((plant) => [

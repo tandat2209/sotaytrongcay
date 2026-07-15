@@ -1,3 +1,4 @@
+import { formatDateTime, t } from "@/shared/i18n";
 import {
   CircleAlert,
   CloudOff,
@@ -17,7 +18,7 @@ export function WeatherCard({ weather }: { weather: WeatherState }) {
       <SurfaceCard style={styles.card}>
         <Icon icon={weather.status === "stale" ? Clock : CloudSun} />
         <View style={styles.copy}>
-          <Typography variant="headlineSmall">Thời tiết hôm nay</Typography>
+          <Typography variant="headlineSmall">{t("weather.title")}</Typography>
           <Typography variant="bodyLarge">{weather.summary}</Typography>
           {formatMetrics(weather.metrics) ? (
             <Typography color="textSecondary" variant="bodyMedium">
@@ -26,7 +27,7 @@ export function WeatherCard({ weather }: { weather: WeatherState }) {
           ) : null}
           <Typography color="textSecondary" variant="bodyMedium">
             {weather.locationLabel} ·{" "}
-            {new Date(weather.observedAt).toLocaleString("vi-VN")}
+            {formatDateTime(new Date(weather.observedAt))}
           </Typography>
           <Typography color="textSecondary" variant="label">
             {weather.source} · {weather.freshnessLabel}
@@ -37,33 +38,35 @@ export function WeatherCard({ weather }: { weather: WeatherState }) {
   }
   const content =
     weather.status === "loading"
-      ? { detail: "Đang tải dữ liệu thời tiết…", label: "Đang tải" }
+      ? {
+          detail: t("weather.detail.loading"),
+          label: t("weather.state.loading"),
+        }
       : weather.status === "offline"
         ? {
-            detail: "Bạn đang ngoại tuyến. Chưa có dữ liệu thời tiết đã lưu.",
-            label: "Ngoại tuyến",
+            detail: t("weather.detail.offline"),
+            label: t("weather.state.offline"),
           }
         : weather.status === "error"
           ? {
-              detail:
-                "Chưa thể tải dữ liệu thời tiết. Các phần khác vẫn dùng được.",
-              label: "Không thể tải thời tiết",
+              detail: t("weather.detail.error"),
+              label: t("weather.state.error"),
             }
           : weather.status === "unavailable" &&
               weather.reason === "permission-denied"
             ? {
-                detail: "Chưa được phép dùng vị trí để tải thời tiết.",
-                label: "Thời tiết hiện chưa khả dụng",
+                detail: t("weather.detail.permission"),
+                label: t("weather.state.unavailable"),
               }
             : {
-                detail: "Chưa có dữ liệu thời tiết để hiển thị.",
-                label: "Thời tiết hiện chưa khả dụng",
+                detail: t("weather.detail.unavailable"),
+                label: t("weather.state.unavailable"),
               };
   return (
     <SurfaceCard style={styles.card}>
       <Icon icon={weather.status === "error" ? CircleAlert : CloudOff} />
       <View style={styles.copy}>
-        <Typography variant="headlineSmall">Thời tiết hôm nay</Typography>
+        <Typography variant="headlineSmall">{t("weather.title")}</Typography>
         <Typography color="textSecondary" variant="bodyMedium">
           {content.detail}
         </Typography>
@@ -83,10 +86,10 @@ function formatMetrics(metrics: WeatherMetrics | undefined): string | null {
       : `${metrics.temperatureCelsius}°C`,
     metrics.humidityPercent === undefined
       ? null
-      : `Độ ẩm ${metrics.humidityPercent}%`,
+      : t("weather.metric.humidity", { percent: metrics.humidityPercent }),
     metrics.rainChancePercent === undefined
       ? null
-      : `Khả năng mưa ${metrics.rainChancePercent}%`,
+      : t("weather.metric.rain", { percent: metrics.rainChancePercent }),
   ].filter((value): value is string => value !== null);
   return values.length > 0 ? values.join(" · ") : null;
 }

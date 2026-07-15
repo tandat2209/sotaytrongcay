@@ -9,6 +9,7 @@ import {
   saveCareActivity,
   type CareActivityType,
 } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { getStagePlaybook, listCarePlans } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity, type Plant } from "@/features/plants";
 import { reconcilePlantCarePlanReminders } from "@/features/reminders";
@@ -35,13 +36,14 @@ export default function CareEntryRoute() {
     queryKey: ["plant-photos", id],
     queryFn: () => listPlantUpdates(id),
   });
-  if (plantQuery.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
+  if (plantQuery.isPending)
+    return <Text>{t("common.state.loadingDeviceData")}</Text>;
   if (plantQuery.isError)
     return (
       <>
-        <Text>Chưa thể tải cây.</Text>
+        <Text>{t("plants.error.load")}</Text>
         <PrimaryButton
-          label="Thử lại"
+          label={t("common.actions.retry")}
           onPress={() => void plantQuery.refetch()}
         />
       </>
@@ -49,9 +51,9 @@ export default function CareEntryRoute() {
   if (!plantQuery.data)
     return (
       <>
-        <Text>Không tìm thấy cây trồng.</Text>
+        <Text>{t("plants.error.notFound")}</Text>
         <PrimaryButton
-          label="Quay lại Cây trồng"
+          label={t("common.actions.backToPlants")}
           onPress={() => router.replace("/plants")}
         />
       </>

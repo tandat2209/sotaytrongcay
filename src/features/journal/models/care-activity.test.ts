@@ -1,7 +1,4 @@
-import {
-  CareActivitySchema,
-  findLatestCareActivity,
-} from "./care-activity";
+import { CareActivitySchema, findLatestCareActivity } from "./care-activity";
 
 describe("CareActivitySchema", () => {
   it("accepts watering without an amount", () => {

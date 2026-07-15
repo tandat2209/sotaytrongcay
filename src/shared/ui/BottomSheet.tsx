@@ -1,3 +1,4 @@
+import { t } from "@/shared/i18n";
 import { X } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import type { PropsWithChildren, ReactNode } from "react";
@@ -59,7 +60,7 @@ export function BottomSheet({
         style={styles.flex}
       >
         <Pressable
-          accessibilityLabel="Đóng bảng chọn"
+          accessibilityLabel={t("shared.bottomSheet.close")}
           onPress={onDismiss}
           style={styles.backdrop}
         />
@@ -75,7 +76,7 @@ export function BottomSheet({
                 title
               )}
               <IconButton
-                accessibilityLabel="Đóng"
+                accessibilityLabel={t("common.actions.close")}
                 icon={X}
                 onPress={onDismiss}
               />

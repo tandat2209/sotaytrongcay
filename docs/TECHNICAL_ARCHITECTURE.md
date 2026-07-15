@@ -189,6 +189,14 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 
 Features never import another feature's internals or database tables.
 
+### Localization boundary
+
+Application-owned user-facing copy resolves through the pure typed catalog in `src/shared/i18n`. The shipped catalog is `vi-VN`; routes, feature UI, accessibility labels, alerts, and notifications import its public resolver and formatters instead of embedding copy or locale tags. Expo build-time config remains a static exception because its loader cannot resolve the TypeScript runtime catalog. Models return language-neutral states, codes, dates, counts, and interpolation values rather than translated presentation strings.
+
+Curated Knowledge Base titles, goals, guides, and recommendations remain locale-aware authored content in the Knowledge Repository. They are not UI catalog messages. User-entered names and notes also remain data.
+
+No locale provider or persisted preference exists while only one locale ships. Add narrow root locale state only when catalog selection can vary at runtime; do not add another global store.
+
 The Guidance module exposes a small capability surface: read reviewed stage tips, derive separately reviewed care suggestions, and build a validated Care Entry prefill. A user confirms a stage change only while saving a journal entry.
 
 Playbook parsing and presentation remain internal to the module. Care-suggestion applicability, weather adjustment, prioritization, explanation, and deduplication require their own reviewed contracts; this change does not add a rule engine.

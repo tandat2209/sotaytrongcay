@@ -3,6 +3,7 @@ import { CalendarDays, Sprout } from "lucide-react-native";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
+import { datePickerLocale, formatDate, t } from "@/shared/i18n";
 import { getPreviewPlantKnowledge } from "@/features/knowledge/preview-knowledge";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -17,11 +18,6 @@ type Props = {
   onBack?: () => void;
   onSave: (draft: PlantDraft) => Promise<void>;
 };
-
-function formatDate(isoDate: string): string {
-  const [year, month, day] = isoDate.split("-");
-  return `${day}/${month}/${year}`;
-}
 
 export function CreatePlantScreen({ onBack, onSave }: Props) {
   const knowledge = getPreviewPlantKnowledge();
@@ -42,7 +38,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
 
   async function submit() {
     if (!name.trim()) {
-      setNameError("Hãy đặt tên cho cây");
+      setNameError(t("plants.validation.name"));
       return;
     }
     setSaving(true);
@@ -57,7 +53,7 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         stageStartedAt: null,
       });
     } catch {
-      setSaveError("Chưa thể lưu cây. Dữ liệu đã nhập vẫn được giữ lại.");
+      setSaveError(t("plants.error.save"));
     } finally {
       setSaving(false);
     }
@@ -67,52 +63,57 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
     <Screen title="">
       {onBack ? (
         <TopBar
-          backAccessibilityLabel="Quay lại Cây trồng"
+          backAccessibilityLabel={t("common.actions.backToPlants")}
           onBack={onBack}
-          title={`Thiết lập: ${knowledge.species.title}`}
+          title={t("plants.create.title", { species: knowledge.species.title })}
           titleIcon={Sprout}
         />
       ) : (
-        <Typography variant="headlineLarge">{`Thiết lập: ${knowledge.species.title}`}</Typography>
+        <Typography variant="headlineLarge">
+          {t("plants.create.title", { species: knowledge.species.title })}
+        </Typography>
       )}
 
-      <FormField error={nameError} label="Tên gọi riêng">
+      <FormField error={nameError} label={t("plants.create.name")}>
         <TextInput
-          accessibilityLabel="Tên gọi riêng"
+          accessibilityLabel={t("plants.create.name")}
           autoCapitalize="sentences"
           onChangeText={(value) => {
             setName(value);
             if (nameError) setNameError(null);
           }}
-          placeholder="Ví dụ: Nho sân thượng"
+          placeholder={t("plants.create.namePlaceholder")}
           placeholderTextColor={colors.textSecondary}
           style={styles.input}
           value={name}
         />
       </FormField>
 
-      <FormField label="Vị trí">
+      <FormField label={t("plants.create.location")}>
         <TextInput
-          accessibilityLabel="Vị trí"
+          accessibilityLabel={t("plants.create.location")}
           autoCapitalize="sentences"
           onChangeText={setLocation}
-          placeholder="Ví dụ: Ban công hướng Đông"
+          placeholder={t("plants.create.locationPlaceholder")}
           placeholderTextColor={colors.textSecondary}
           style={styles.input}
           value={location}
         />
       </FormField>
 
-      <FormField label="Cách trồng">
+      <FormField label={t("plants.create.growingMethod")}>
         <View accessibilityRole="radiogroup" style={styles.chips}>
           {[
-            { value: "container", label: "Chậu" },
-            { value: "ground", label: "Đất" },
+            { value: "container", label: t("plants.method.container") },
+            { value: "ground", label: t("plants.method.ground") },
           ].map((method) => {
             const selected = method.value === growingMethod;
             return (
               <Pressable
-                accessibilityLabel={`Chọn cách trồng ${method.label}`}
+                accessibilityLabel={t(
+                  "plants.create.growingMethodAccessibility",
+                  { method: method.label },
+                )}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: selected }}
                 key={method.value}
@@ -137,9 +138,9 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         </View>
       </FormField>
 
-      <FormField label="Ngày bắt đầu trồng">
+      <FormField label={t("plants.create.dateLabel")}>
         <Pressable
-          accessibilityLabel="Chọn ngày bắt đầu trồng"
+          accessibilityLabel={t("plants.create.dateAccessibility")}
           accessibilityRole="button"
           onPress={() => setShowDatePicker(true)}
           style={styles.dateButton}
@@ -148,13 +149,15 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
             color={plantedAt ? "text" : "textSecondary"}
             variant="bodyLarge"
           >
-            {plantedAt ? formatDate(plantedAt) : "Chưa chọn (tùy chọn)"}
+            {plantedAt
+              ? formatDate(new Date(`${plantedAt}T00:00:00`))
+              : t("plants.create.dateEmpty")}
           </Typography>
           <CalendarDays color={colors.textSecondary} size={20} />
         </Pressable>
         {showDatePicker && (
           <DateTimePicker
-            locale="vi-VN"
+            locale={datePickerLocale}
             maximumDate={new Date()}
             mode="date"
             onChange={(_, date) => {
@@ -166,25 +169,28 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         )}
         {showDatePicker && Platform.OS === "ios" && (
           <Pressable
-            accessibilityLabel="Xong"
+            accessibilityLabel={t("common.actions.done")}
             accessibilityRole="button"
             onPress={() => setShowDatePicker(false)}
             style={styles.dateDone}
           >
             <Typography color="primary" variant="bodyLarge">
-              Xong
+              {t("common.actions.done")}
             </Typography>
           </Pressable>
         )}
       </FormField>
 
-      <FormField label="Giai đoạn hiện tại">
+      <FormField label={t("plants.create.stage")}>
         <View accessibilityRole="radiogroup" style={styles.chips}>
           {knowledge.stages.map((stage) => {
             const selected = stage.id === stageId;
             return (
               <Pressable
-                accessibilityLabel={`Chọn giai đoạn ${stage.title}`}
+                accessibilityLabel={t(
+                  "journal.stagePicker.selectAccessibility",
+                  { stage: stage.title },
+                )}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: selected }}
                 key={stage.id}
@@ -222,15 +228,18 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         </Typography>
       ) : null}
 
-      <PrimaryButton label="Lưu cây" loading={saving} onPress={submit} />
+      <PrimaryButton
+        label={t("plants.create.save")}
+        loading={saving}
+        onPress={submit}
+      />
 
       <Typography
         color="textSecondary"
         variant="bodyMedium"
         style={styles.reassurance}
       >
-        Bạn có thể thay đổi các thông tin này bất kỳ lúc nào trong phần cài đặt
-        cây trồng.
+        {t("plants.create.reassurance")}
       </Typography>
     </Screen>
   );

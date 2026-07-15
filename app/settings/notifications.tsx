@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
 
+import { t } from "@/shared/i18n";
 import { ensureReminderNotificationPermission } from "@/features/reminders";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -18,17 +19,21 @@ export default function NotificationSettingsRoute() {
   }, []);
   return (
     <Screen title="">
-      <TopBar onBack={() => router.back()} title="Thông báo" titleIcon={Bell} />
+      <TopBar
+        onBack={() => router.back()}
+        title={t("settings.notifications.title")}
+        titleIcon={Bell}
+      />
       <Typography variant="bodyLarge">
         {enabled === null
-          ? "Đang kiểm tra quyền thông báo…"
+          ? t("settings.notifications.checking")
           : enabled
-            ? "Thông báo hệ thống đang được bật."
-            : "Thông báo hệ thống đang tắt."}
+            ? t("settings.notifications.enabled")
+            : t("settings.notifications.disabled")}
       </Typography>
       {enabled ? null : (
         <PrimaryButton
-          label="Bật thông báo"
+          label={t("settings.notifications.enable")}
           onPress={() =>
             void ensureReminderNotificationPermission().then(setEnabled)
           }

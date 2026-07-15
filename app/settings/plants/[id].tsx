@@ -8,6 +8,7 @@ import {
   findLatestCareActivity,
   listCareActivities,
 } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { getPlant } from "@/features/plants";
 import { listCarePlans } from "@/features/knowledge";
 import {
@@ -46,10 +47,12 @@ export default function PlantScheduleDetailRoute() {
     },
   });
   if (query.isPending)
-    return <Typography variant="bodyMedium">Đang tải cây trồng…</Typography>;
+    return (
+      <Typography variant="bodyMedium">{t("common.state.loading")}</Typography>
+    );
   if (!query.data)
     return (
-      <Typography variant="bodyMedium">Không tìm thấy cây trồng.</Typography>
+      <Typography variant="bodyMedium">{t("plants.error.notFound")}</Typography>
     );
 
   const { activities, plant, plantSnapshots, stageSnapshots } = query.data;
@@ -67,7 +70,7 @@ export default function PlantScheduleDetailRoute() {
     <Screen title="">
       <TopBar
         onBack={() => router.back()}
-        title={`Tùy chỉnh · ${plant.name}`}
+        title={t("settings.plants.titleForPlant", { plant: plant.name })}
       />
       {activePlans.map((plan) => {
         const snapshot =
@@ -97,8 +100,10 @@ export default function PlantScheduleDetailRoute() {
             </View>
             <Typography color="textSecondary" variant="bodyMedium">
               {snapshot
-                ? "Đang dùng tùy chỉnh theo cây."
-                : `Đang dùng cài đặt theo ${resolved.source === "stage" ? "giai đoạn" : "kế hoạch chăm sóc"}.`}
+                ? t("settings.plants.activeCustom")
+                : resolved.source === "stage"
+                  ? t("settings.plants.sourceStage")
+                  : t("settings.plants.sourceCarePlan")}
             </Typography>
             <ScheduleSnapshotEditor
               allowInheritedFrequency={false}
@@ -150,13 +155,14 @@ export default function PlantScheduleDetailRoute() {
       })}
       {inactive.length > 0 ? (
         <>
-          <Typography variant="headlineSmall">Giai đoạn khác</Typography>
+          <Typography variant="headlineSmall">
+            {t("settings.plants.otherStage")}
+          </Typography>
           {inactive.map((snapshot) => (
             <SurfaceCard key={snapshot.id}>
               <Typography variant="bodyLarge">{snapshot.carePlanId}</Typography>
               <Typography color="textSecondary" variant="bodyMedium">
-                Tùy chỉnh được giữ lại và sẽ hoạt động khi kế hoạch này áp dụng
-                lại.
+                {t("settings.plants.inactive")}
               </Typography>
             </SurfaceCard>
           ))}

@@ -8,6 +8,18 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-15 — Keep UI localization static and Vietnamese-only
+
+**Status:** Accepted
+
+**Decision:** Resolve all application-owned user-facing copy through a typed, language-neutral key catalog with `vi-VN` as the only shipped locale. Keep curated Knowledge Base content in its separate locale-aware repository. Defer runtime locale selection, device-locale detection, persistence, fallback chains, and alternate catalogs until another language is delivered.
+
+**Rationale:** Translation keys remove embedded UI copy now without adding unused runtime state or dependencies. Knowledge content has separate review, version, source, and locale contracts that must not be collapsed into application chrome.
+
+**Consequences:** UI copy, accessibility labels, alerts, and notifications share one Vietnamese catalog. Expo build-time config keeps its static native permission descriptions beside the config because Expo's config loader cannot resolve the TypeScript runtime catalog; it is an explicit build-time exception. Models expose language-neutral facts where presentation varies. Adding the first alternate locale later requires catalog selection and narrow root locale state, while existing keys and call sites remain reusable.
+
+**Alternatives:** Adding an i18n dependency or locale provider now would create unused switching, fallback, and persistence behavior while the product still ships one language.
+
 ## 2026-07-11 — Use ordered lifecycle metadata for growth stages
 
 **Status:** Accepted

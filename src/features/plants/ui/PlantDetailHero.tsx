@@ -3,6 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { Image, Modal, Pressable, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
 import { PlantAgeTicker } from "./PlantAgeTicker";
@@ -41,7 +42,11 @@ export function PlantDetailHero({
   return (
     <>
       <Pressable
-        accessibilityLabel={`${name}, ${speciesTitle}.${ageDescription} Mở ảnh mới nhất toàn màn hình`}
+        accessibilityLabel={t("plants.photo.openLatest", {
+          age: ageDescription,
+          plant: name,
+          species: speciesTitle,
+        })}
         accessibilityRole="button"
         onPress={() => setViewerOpen(true)}
         style={({ pressed }) => [styles.hero, pressed && styles.pressed]}
@@ -99,7 +104,7 @@ export function PlantDetailHero({
           style={styles.viewer}
         >
           <Pressable
-            accessibilityLabel="Đóng ảnh"
+            accessibilityLabel={t("plants.photo.close")}
             accessibilityRole="button"
             hitSlop={6}
             onPress={() => setViewerOpen(false)}
@@ -111,7 +116,7 @@ export function PlantDetailHero({
             <X color={colors.surface} size={28} />
           </Pressable>
           <Image
-            accessibilityLabel={`Ảnh mới nhất của ${name}`}
+            accessibilityLabel={t("plants.photo.latest", { plant: name })}
             accessible
             accessibilityIgnoresInvertColors
             onError={handleImageError}

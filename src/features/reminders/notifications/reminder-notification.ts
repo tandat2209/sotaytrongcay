@@ -2,6 +2,7 @@ import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import { z } from "zod";
 
+import { t } from "@/shared/i18n";
 import { deriveNotificationPair } from "../models/schedule-snapshot";
 
 export const ReminderNotificationPayloadSchema = z.object({
@@ -24,7 +25,7 @@ export async function configureReminderNotificationChannel(): Promise<void> {
   if (Platform.OS !== "android") return;
   await Notifications.setNotificationChannelAsync("care-reminders", {
     importance: Notifications.AndroidImportance.DEFAULT,
-    name: "Lời nhắc chăm sóc",
+    name: t("reminders.channel.care"),
   });
 }
 
@@ -67,7 +68,9 @@ export async function scheduleReminderNotificationPair(
           content: {
             body: input.body,
             data: ReminderNotificationPayloadSchema.parse(input.payload),
-            title: followUp ? `Nhắc lại: ${input.title}` : input.title,
+            title: followUp
+              ? t("reminders.followUpTitle", { title: input.title })
+              : input.title,
           },
           trigger: {
             channelId: "care-reminders",

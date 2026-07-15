@@ -1,8 +1,12 @@
 import { Box, Earth, Info, Leaf, type LucideIcon } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
-import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
+import {
+  CARE_ACTIVITY_VISUALS,
+  getCareActivityLabel,
+} from "@/features/journal";
 import type { CarePlan } from "@/features/knowledge/preview-knowledge";
+import { t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
@@ -11,19 +15,19 @@ const activityPresentation = {
   fertilizing: {
     color: colors.activityFertilizing,
     icon: CARE_ACTIVITY_VISUALS.fertilizing.icon,
-    label: "Bón phân",
+    label: getCareActivityLabel("fertilizing"),
     softColor: colors.activityFertilizingSoft,
   },
   spraying: {
     color: colors.primary,
     icon: CARE_ACTIVITY_VISUALS.spraying.icon,
-    label: "Phun thuốc",
+    label: getCareActivityLabel("spraying"),
     softColor: colors.primarySoft,
   },
   watering: {
     color: colors.activityWater,
     icon: CARE_ACTIVITY_VISUALS.watering.icon,
-    label: "Tưới nước",
+    label: getCareActivityLabel("watering"),
     softColor: colors.activityWaterSoft,
   },
 } satisfies Record<
@@ -53,11 +57,12 @@ export function StageCarePlanSection({
     <View style={styles.section}>
       <View style={styles.heading}>
         <Leaf color={colors.primary} size={20} />
-        <Typography variant="headlineSmall">Chăm sóc cần theo dõi</Typography>
+        <Typography variant="headlineSmall">
+          {t("plants.guide.careTitle")}
+        </Typography>
       </View>
       <Typography color="textSecondary" variant="bodyMedium">
-        Nội dung chung theo giai đoạn, chưa thay thế đánh giá đất, thời tiết và
-        tình trạng thực tế của cây.
+        {t("plants.guide.careDisclaimer")}
       </Typography>
       {[...carePlans]
         .sort(
@@ -95,27 +100,27 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
         </View>
       </View>
 
-      <PlanDetail label="MỤC TIÊU">
+      <PlanDetail label={t("plants.guide.objective")}>
         <Typography variant="bodyLarge">{plan.goal}</Typography>
       </PlanDetail>
 
       {plan.frequency ? (
-        <PlanDetail label="TẦN SUẤT THAM KHẢO">
+        <PlanDetail label={t("plants.guide.frequency")}>
           <FrequencyRow
             icon={Earth}
-            label="Trồng đất"
+            label={t("plants.guide.ground")}
             value={plan.frequency.ground.display}
           />
           <FrequencyRow
             icon={Box}
-            label="Trồng chậu"
+            label={t("plants.guide.container")}
             value={plan.frequency.container.display}
           />
         </PlanDetail>
       ) : null}
 
       {plan.recommendedInputs?.length ? (
-        <PlanDetail label="ĐẦU VÀO THAM KHẢO">
+        <PlanDetail label={t("plants.guide.inputs")}>
           {plan.recommendedInputs.map((input) => (
             <View key={input.group} style={styles.detailItem}>
               <Typography variant="bodyLarge">{input.group}</Typography>
@@ -128,7 +133,7 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
       ) : null}
 
       {plan.notes?.length ? (
-        <PlanDetail label="LƯU Ý QUAN TRỌNG">
+        <PlanDetail label={t("plants.guide.notes")}>
           {plan.notes.map((note) => (
             <View key={note} style={styles.noteRow}>
               <Info color={presentation.color} size={18} />

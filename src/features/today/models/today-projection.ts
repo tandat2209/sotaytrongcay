@@ -1,4 +1,7 @@
-import { evaluateCarePlans } from "@/features/guidance";
+import {
+  evaluateCarePlans,
+  formatCareEvaluationReason,
+} from "@/features/guidance";
 import {
   findLatestCareActivity,
   getLatestPlantPhotoUrisByPlant,
@@ -14,6 +17,7 @@ import {
   type PlantCarePlanScheduleSnapshot,
   type StageCarePlanScheduleSnapshot,
 } from "@/features/reminders";
+import { t } from "@/shared/i18n";
 import {
   productionWeather,
   type WeatherState,
@@ -77,7 +81,8 @@ export function createTodayProjection({
     .slice(0, 3)
     .map((activity) => ({
       ...activity,
-      plantName: plantMap.get(activity.plantId)?.name ?? "Cây trồng",
+      plantName:
+        plantMap.get(activity.plantId)?.name ?? t("common.fallback.plant"),
     }));
   const careCards = plants
     .flatMap<TodayCareCard>((plant) =>
@@ -144,7 +149,11 @@ export function createTodayProjection({
         })[0];
         if (!evaluation || evaluation.status !== "recommended") return [];
         return [
-          { ...base, dueStatus: null, explanation: evaluation.explanation },
+          {
+            ...base,
+            dueStatus: null,
+            explanation: formatCareEvaluationReason(evaluation.reason),
+          },
         ];
       }),
     )

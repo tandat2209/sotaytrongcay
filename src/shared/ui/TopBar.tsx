@@ -1,3 +1,4 @@
+import { t } from "@/shared/i18n";
 import { ChevronLeft, type LucideIcon } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
@@ -15,7 +16,7 @@ type TopBarProps = {
 
 export function TopBar({
   action,
-  backAccessibilityLabel = "Quay lại",
+  backAccessibilityLabel = t("common.actions.back"),
   onBack,
   title,
   titleIcon: TitleIcon,

@@ -1,3 +1,4 @@
+import { t } from "@/shared/i18n";
 import {
   Bell,
   ChevronRight,
@@ -14,15 +15,19 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
 const settings = [
-  { icon: Bell, label: "Thông báo", path: "/settings/notifications" as const },
+  {
+    icon: Bell,
+    label: t("settings.row.notifications"),
+    path: "/settings/notifications" as const,
+  },
   {
     icon: ListTree,
-    label: "Kế hoạch chăm sóc theo giai đoạn",
+    label: t("settings.row.carePlans"),
     path: "/settings/care-plans" as const,
   },
   {
     icon: Sprout,
-    label: "Tùy chỉnh theo cây",
+    label: t("settings.row.plants"),
     path: "/settings/plants" as const,
   },
 ];
@@ -30,8 +35,8 @@ const settings = [
 export function SettingsScreen() {
   return (
     <Screen
-      introduction="Quản lý tùy chọn ứng dụng và dữ liệu của bạn."
-      title="Cài đặt"
+      introduction={t("settings.introduction")}
+      title={t("navigation.tabs.settings")}
       titleIcon={Settings}
     >
       <View style={styles.list}>

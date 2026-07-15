@@ -2,6 +2,7 @@ import { ListTree } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import type { PlantKnowledgeStage } from "@/features/knowledge";
+import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
@@ -27,7 +28,9 @@ export function PlantStagePickerSheet({
       title={
         <View style={styles.title}>
           <ListTree color={colors.primary} size={20} />
-          <Typography variant="headlineSmall">Chọn giai đoạn</Typography>
+          <Typography variant="headlineSmall">
+            {t("journal.stagePicker.select")}
+          </Typography>
         </View>
       }
       visible={visible}
@@ -36,7 +39,9 @@ export function PlantStagePickerSheet({
         const selected = stage.id === selectedStageId;
         return (
           <Pressable
-            accessibilityLabel={`Chọn giai đoạn ${stage.title}`}
+            accessibilityLabel={t("journal.stagePicker.selectAccessibility", {
+              stage: stage.title,
+            })}
             accessibilityRole="radio"
             accessibilityState={{ checked: selected }}
             key={stage.id}

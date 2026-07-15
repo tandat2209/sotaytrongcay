@@ -17,6 +17,7 @@ This document is the working contract for every code change. If a request confli
 - Do not create mock or fake implementations unless explicitly requested.
 - Follow current Expo, React Native, and Supabase best practices for installed versions.
 - Preserve security, accessibility, offline safety, observability, and testability.
+- Resolve application-owned user-facing copy through `src/shared/i18n`, including accessibility labels, alerts, notifications, validation feedback, and native config text. Do not move curated Knowledge Base content or user data into the UI catalog.
 
 ## 2. Change scope
 

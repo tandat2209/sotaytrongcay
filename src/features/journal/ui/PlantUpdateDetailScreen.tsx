@@ -6,6 +6,7 @@ import {
 } from "lucide-react-native";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { PlantIdentity } from "@/features/plants";
+import { formatDateTime, t } from "@/shared/i18n";
 import type { PlantUpdate } from "../models/plant-update";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -33,9 +34,9 @@ export function PlantUpdateDetailScreen({
   return (
     <Screen title="">
       <TopBar
-        backAccessibilityLabel="Quay lại Nhật ký"
+        backAccessibilityLabel={t("common.actions.backToJournal")}
         onBack={onBack}
-        title="Chi tiết cập nhật"
+        title={t("journal.update.detailTitle")}
         titleIcon={FileText}
       />
       <PlantIdentity
@@ -58,7 +59,9 @@ export function PlantUpdateDetailScreen({
             .sort((left, right) => left.position - right.position)
             .map((photo, index) => (
               <Image
-                accessibilityLabel={`Ảnh cây ${index + 1}`}
+                accessibilityLabel={t("journal.photo.imageAccessibility", {
+                  index: index + 1,
+                })}
                 key={photo.id}
                 source={{ uri: photo.localUri }}
                 style={styles.photo}
@@ -69,12 +72,20 @@ export function PlantUpdateDetailScreen({
       <SurfaceCard style={styles.card}>
         <Detail
           icon={CalendarDays}
-          label="Thời gian"
-          value={new Date(update.occurredAt).toLocaleString("vi-VN")}
+          label={t("journal.filter.date")}
+          value={formatDateTime(new Date(update.occurredAt))}
         />
-        <Detail icon={Leaf} label="Giai đoạn đã lưu" value={stageTitle} />
+        <Detail
+          icon={Leaf}
+          label={t("journal.update.savedStage")}
+          value={stageTitle}
+        />
         {update.notes ? (
-          <Detail icon={FileText} label="Ghi chú" value={update.notes} />
+          <Detail
+            icon={FileText}
+            label={t("journal.activityDetail.notes")}
+            value={update.notes}
+          />
         ) : null}
       </SurfaceCard>
     </Screen>

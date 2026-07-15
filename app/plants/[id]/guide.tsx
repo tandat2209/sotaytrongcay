@@ -7,6 +7,7 @@ import {
   listCarePlans,
   listInformationalGuidesForStage,
 } from "@/features/knowledge/preview-knowledge";
+import { t } from "@/shared/i18n";
 import { getPlant } from "@/features/plants";
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import { useQuery } from "@tanstack/react-query";
@@ -27,9 +28,9 @@ export default function StagePlaybookRoute() {
     queryFn: () => getPlant(id),
   });
 
-  if (query.isPending) return <Text>Đang tải…</Text>;
+  if (query.isPending) return <Text>{t("common.state.loading")}</Text>;
   if (query.isError || !query.data)
-    return <Text>Không tìm thấy cây trồng.</Text>;
+    return <Text>{t("plants.error.notFound")}</Text>;
 
   const plant = query.data;
   // Use the explicit stageId param when browsing to a different stage,
@@ -38,7 +39,7 @@ export default function StagePlaybookRoute() {
   const playbook = getStagePlaybook(stageId);
 
   if (!playbook) {
-    return <Text>Chưa có hướng dẫn cho giai đoạn này.</Text>;
+    return <Text>{t("plants.guide.missing")}</Text>;
   }
 
   const carePlans = listCarePlans({ speciesId: plant.speciesId, stageId });

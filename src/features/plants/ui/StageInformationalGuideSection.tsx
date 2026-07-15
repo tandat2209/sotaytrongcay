@@ -1,6 +1,7 @@
 import { BookOpen } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
 import type { CareGuide } from "@/features/knowledge/preview-knowledge";
+import { t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
@@ -16,7 +17,9 @@ export function StageInformationalGuideSection({
     <View style={styles.section}>
       <View style={styles.heading}>
         <BookOpen color={colors.primary} size={20} />
-        <Typography variant="headlineSmall">Hướng dẫn tham khảo</Typography>
+        <Typography variant="headlineSmall">
+          {t("plants.guide.reference")}
+        </Typography>
       </View>
       {guides.map((guide) => (
         <SurfaceCard key={guide.id} style={styles.card}>

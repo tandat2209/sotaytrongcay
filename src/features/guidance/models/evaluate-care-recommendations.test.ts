@@ -88,7 +88,11 @@ describe("evaluateCarePlans", () => {
       status: "not_recommended",
       daysSinceLastActivity: 1,
     });
-    expect(result[0]?.explanation).toContain("cách đây 1 ngày");
+    expect(result[0]?.reason).toEqual({
+      activityType: "watering",
+      daysSinceLastActivity: 1,
+      kind: "recent_history",
+    });
   });
 
   it("uses the reviewed missing-history behavior", () => {

@@ -31,22 +31,6 @@ export type CareActivity = z.infer<typeof CareActivitySchema>;
 export type CareActivityType = CareActivity["type"];
 export type CareActivityOrigin = CareActivity["origin"];
 
-export const CARE_ACTIVITY_LABELS: Record<CareActivityType, string> = {
-  watering: "Tưới nước",
-  fertilizing: "Bón phân",
-  spraying: "Phun thuốc",
-};
-
-export const CARE_ACTIVITY_ORIGIN_LABELS: Record<CareActivityOrigin, string> = {
-  today: "Từ hôm nay",
-  reminder: "Từ lời nhắc",
-  manual: "Ghi thủ công",
-};
-
-export const CARE_ACTIVITY_UNIT_LABELS = {
-  liter: "lít",
-} as const;
-
 export function findLatestCareActivity(
   activities: readonly CareActivity[],
   plantId: string,

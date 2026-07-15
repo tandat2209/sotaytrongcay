@@ -7,6 +7,7 @@ import {
   PlantIdentity,
   resolvePlantIdentity,
 } from "@/features/plants";
+import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
@@ -17,13 +18,15 @@ export default function PlantScheduleListRoute() {
   const query = useQuery({ queryKey: ["plants"], queryFn: listPlants });
   return (
     <Screen title="">
-      <TopBar onBack={() => router.back()} title="Tùy chỉnh theo cây" />
+      <TopBar onBack={() => router.back()} title={t("settings.plants.title")} />
       {query.isPending ? (
-        <Typography variant="bodyMedium">Đang tải cây trồng…</Typography>
+        <Typography variant="bodyMedium">
+          {t("common.state.loading")}
+        </Typography>
       ) : null}
       {query.data?.length === 0 ? (
         <Typography color="textSecondary" variant="bodyMedium">
-          Chưa có cây trồng để tùy chỉnh.
+          {t("settings.plants.noPlants")}
         </Typography>
       ) : null}
       <View style={styles.list}>
@@ -31,7 +34,9 @@ export default function PlantScheduleListRoute() {
           const identity = resolvePlantIdentity(plant);
           return (
             <Pressable
-              accessibilityLabel={`Tùy chỉnh kế hoạch cho ${plant.name}`}
+              accessibilityLabel={t("settings.plants.openAccessibility", {
+                plant: plant.name,
+              })}
               accessibilityRole="button"
               key={plant.id}
               onPress={() =>

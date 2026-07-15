@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { t } from "@/shared/i18n";
 import { savePlantUpdate } from "../data/plant-update-repository";
 import {
   PlantUpdateFieldsSchema,
@@ -25,7 +26,7 @@ const SavePlantUpdateCommandSchema = PlantUpdateFieldsSchema.extend({
   if (command.notes === null && command.photos.length === 0) {
     context.addIssue({
       code: "custom",
-      message: "Thêm ảnh hoặc ghi chú trước khi lưu.",
+      message: t("journal.update.validationContent"),
     });
   }
 });

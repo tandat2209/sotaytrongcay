@@ -5,6 +5,7 @@ import {
   getLatestPlantPhotoUrisByPlant,
   listPlantUpdates,
 } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { listPlants } from "@/features/plants/data/plant-repository";
 import { PlantsScreen } from "@/features/plants/ui/PlantsScreen";
 
@@ -15,9 +16,8 @@ export default function PlantsRoute() {
     queryFn: () => listPlantUpdates(),
   });
 
-  if (plantsQuery.isPending) return <Text>Đang tải…</Text>;
-  if (plantsQuery.isError)
-    return <Text>Chưa thể tải cây trồng. Hãy thử lại.</Text>;
+  if (plantsQuery.isPending) return <Text>{t("common.state.loading")}</Text>;
+  if (plantsQuery.isError) return <Text>{t("plants.error.loadList")}</Text>;
 
   return (
     <PlantsScreen

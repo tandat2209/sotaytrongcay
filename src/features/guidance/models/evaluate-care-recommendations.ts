@@ -5,7 +5,7 @@ import {
 } from "@/features/journal";
 import type { CarePlan } from "@/features/knowledge";
 import type { Plant } from "@/features/plants";
-import type { CareEvaluation } from "./care-evaluation";
+import type { CareEvaluation, CareEvaluationReason } from "./care-evaluation";
 
 type EvaluationInput = Readonly<{
   activities: readonly CareActivity[];
@@ -48,7 +48,7 @@ function evaluateCarePlan(
         daysSinceLastActivity: null,
         definitionId: plan.id,
         definitionVersion: plan.version,
-        explanation: plan.goal,
+        reason: { goal: plan.goal, kind: "authored_goal" },
         id: identity,
         plantId: plant.id,
         status: "recommended",
@@ -61,7 +61,7 @@ function evaluateCarePlan(
       plan.activityType,
       identity,
       plan.title,
-      "Chưa có đủ lịch sử chăm sóc để đưa ra gợi ý.",
+      { kind: "missing_history" },
     );
   }
 
@@ -72,7 +72,7 @@ function evaluateCarePlan(
       plan.activityType,
       identity,
       plan.title,
-      "Dữ liệu lịch sử chăm sóc chưa hợp lệ.",
+      { kind: "invalid_history" },
     );
   }
 
@@ -89,7 +89,12 @@ function evaluateCarePlan(
       daysSinceLastActivity,
       definitionId: plan.id,
       definitionVersion: plan.version,
-      explanation: `${plan.goal} Lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
+      reason: {
+        activityType: plan.activityType,
+        daysSinceLastActivity,
+        goal: plan.goal,
+        kind: "elapsed_history",
+      },
       id: identity,
       plantId: plant.id,
       status: "recommended",
@@ -102,7 +107,11 @@ function evaluateCarePlan(
     daysSinceLastActivity,
     definitionId: plan.id,
     definitionVersion: plan.version,
-    explanation: `Chưa cần ${activityLabel(plan.activityType).toLowerCase()} — lần ghi gần nhất cách đây ${daysSinceLastActivity} ngày.`,
+    reason: {
+      activityType: plan.activityType,
+      daysSinceLastActivity,
+      kind: "recent_history",
+    },
     id: identity,
     plantId: plant.id,
     status: "not_recommended",
@@ -115,16 +124,16 @@ function unavailableEvaluation(
   activityType: CareActivityType,
   id: string,
   title: string,
-  explanation: string,
+  reason: CareEvaluationReason,
 ): CareEvaluation {
   return {
     activityType,
     daysSinceLastActivity: null,
     definitionId: null,
     definitionVersion: null,
-    explanation,
     id,
     plantId,
+    reason,
     status: "unavailable",
     title,
   };
@@ -150,12 +159,4 @@ function localDateKey(date: Date): string {
     String(date.getMonth() + 1).padStart(2, "0"),
     String(date.getDate()).padStart(2, "0"),
   ].join("-");
-}
-
-function activityLabel(type: CareActivityType): string {
-  return {
-    fertilizing: "Bón phân",
-    spraying: "Phun thuốc",
-    watering: "Tưới nước",
-  }[type];
 }

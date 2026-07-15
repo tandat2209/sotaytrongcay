@@ -7,7 +7,9 @@ import {
 } from "lucide-react-native";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { getCareActivityLabel } from "@/features/journal";
 import type { CareActivityType } from "@/features/journal/models/care-activity";
+import { datePickerLocale, formatDateTime, t } from "@/shared/i18n";
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal/models/care-activity-icon";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
@@ -35,12 +37,6 @@ type Props = Readonly<{
   type: CareActivityType;
   visible: boolean;
 }>;
-
-const ENTRY_TITLES: Record<CareActivityType, string> = {
-  fertilizing: "Bón phân",
-  spraying: "Phun thuốc",
-  watering: "Tưới nước",
-};
 
 export function CareEntryScreen({
   imageUri,
@@ -73,11 +69,11 @@ export function CareEntryScreen({
       parsedAmount !== null &&
       (!Number.isFinite(parsedAmount) || parsedAmount <= 0)
     ) {
-      setError("Lượng nước phải lớn hơn 0");
+      setError(t("journal.validation.waterAmount"));
       return;
     }
     if (occurredAt.getTime() > Date.now()) {
-      setError("Thời gian thực hiện không thể ở tương lai.");
+      setError(t("journal.validation.futureActivity"));
       return;
     }
     setError(null);
@@ -90,7 +86,7 @@ export function CareEntryScreen({
         occurredAt: occurredAt.toISOString(),
       });
     } catch {
-      setError("Chưa thể lưu hoạt động. Dữ liệu đã nhập vẫn được giữ lại.");
+      setError(t("journal.error.saveActivity"));
     } finally {
       setSaving(false);
     }
@@ -101,7 +97,7 @@ export function CareEntryScreen({
       footer={
         <PrimaryButton
           backgroundColor={visual.backgroundColor}
-          label="Lưu hoạt động"
+          label={t("journal.careEntry.save")}
           loading={saving}
           onPress={submit}
           textColor={visual.color}
@@ -111,7 +107,9 @@ export function CareEntryScreen({
       title={
         <View style={styles.title}>
           <ActivityIcon color={visual.color} size={22} />
-          <Typography variant="headlineSmall">{ENTRY_TITLES[type]}</Typography>
+          <Typography variant="headlineSmall">
+            {getCareActivityLabel(type)}
+          </Typography>
         </View>
       }
       visible={visible}
@@ -125,29 +123,37 @@ export function CareEntryScreen({
         stageTitle={stageTitle}
       />
       {suggestion ? (
-        <ContextRow icon={Lightbulb} label="Gợi ý:" text={suggestion} />
+        <ContextRow
+          icon={Lightbulb}
+          label={t("journal.careEntry.suggestionLabel")}
+          text={suggestion}
+        />
       ) : null}
       {reason ? (
-        <ContextRow icon={CircleHelp} label="Lý do:" text={reason} />
+        <ContextRow
+          icon={CircleHelp}
+          label={t("journal.careEntry.reasonLabel")}
+          text={reason}
+        />
       ) : null}
       <FormField
-        error={error?.startsWith("Thời gian") ? error : null}
-        label="Thời gian thực hiện"
+        error={error === t("journal.validation.futureActivity") ? error : null}
+        label={t("journal.careEntry.dateLabel")}
       >
         <Pressable
-          accessibilityLabel="Chọn thời gian thực hiện"
+          accessibilityLabel={t("journal.careEntry.dateAccessibility")}
           accessibilityRole="button"
           onPress={() => setShowPicker(true)}
           style={styles.timeButton}
         >
           <Typography variant="bodyLarge">
-            {occurredAt.toLocaleString("vi-VN")}
+            {formatDateTime(occurredAt)}
           </Typography>
           <CalendarDays color={colors.textSecondary} size={20} />
         </Pressable>
         {showPicker ? (
           <DateTimePicker
-            locale="vi-VN"
+            locale={datePickerLocale}
             maximumDate={new Date()}
             mode="datetime"
             onChange={(_, date) => {
@@ -159,25 +165,25 @@ export function CareEntryScreen({
         ) : null}
         {showPicker && Platform.OS === "ios" ? (
           <Pressable
-            accessibilityLabel="Xong"
+            accessibilityLabel={t("common.actions.done")}
             accessibilityRole="button"
             onPress={() => setShowPicker(false)}
             style={styles.done}
           >
             <Typography color="primary" variant="bodyLarge">
-              Xong
+              {t("common.actions.done")}
             </Typography>
           </Pressable>
         ) : null}
       </FormField>
       {type === "watering" ? (
         <FormField
-          error={error?.startsWith("Lượng") ? error : null}
-          label="Lượng nước (không bắt buộc)"
+          error={error === t("journal.validation.waterAmount") ? error : null}
+          label={t("journal.careEntry.amountLabel")}
         >
           <View style={styles.amountRow}>
             <TextInput
-              accessibilityLabel="Lượng nước"
+              accessibilityLabel={t("journal.careEntry.amountAccessibility")}
               inputMode="decimal"
               onChangeText={setAmount}
               placeholder="0"
@@ -186,20 +192,20 @@ export function CareEntryScreen({
               value={amount}
             />
             <Typography style={styles.unit} variant="bodyLarge">
-              lít
+              {t("journal.activityUnit.liter")}
             </Typography>
           </View>
         </FormField>
       ) : null}
       <FormField
-        error={error?.startsWith("Chưa thể") ? error : null}
-        label="Ghi chú (không bắt buộc)"
+        error={error === t("journal.error.saveActivity") ? error : null}
+        label={t("journal.careEntry.notesLabel")}
       >
         <TextInput
-          accessibilityLabel="Ghi chú"
+          accessibilityLabel={t("journal.careEntry.notesAccessibility")}
           multiline
           onChangeText={setNotes}
-          placeholder="Thêm điều bạn muốn nhớ"
+          placeholder={t("journal.careEntry.notesPlaceholder")}
           placeholderTextColor={colors.textSecondary}
           style={[styles.input, styles.notes]}
           value={notes}

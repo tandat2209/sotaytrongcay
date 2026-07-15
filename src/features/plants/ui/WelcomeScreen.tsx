@@ -1,5 +1,6 @@
 import { BookOpen, Clock, Leaf, type LucideIcon } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
+import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -10,7 +11,7 @@ type WelcomeScreenProps = { onStart: () => void };
 
 export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
   return (
-    <Screen title="Chăm cây dễ hơn mỗi ngày" titleIcon={Leaf}>
+    <Screen title={t("plants.welcome.title")} titleIcon={Leaf}>
       <View style={styles.hero}>
         <View accessibilityElementsHidden style={styles.heroMark}>
           <Leaf color={colors.primary} size={52} />
@@ -20,15 +21,14 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           style={styles.description}
           variant="bodyLarge"
         >
-          Ghi lại lần tưới, bón phân và phun thuốc để luôn nhớ cây đã được chăm
-          khi nào.
+          {t("plants.welcome.body")}
         </Typography>
       </View>
       <SurfaceCard style={styles.benefits}>
-        <Benefit icon={Clock} text="Xem lần chăm sóc gần nhất" />
-        <Benefit icon={BookOpen} text="Hiểu bối cảnh giai đoạn sinh trưởng" />
+        <Benefit icon={Clock} text={t("plants.welcome.benefitHistory")} />
+        <Benefit icon={BookOpen} text={t("plants.welcome.benefitStage")} />
       </SurfaceCard>
-      <PrimaryButton label="Bắt đầu với cây đầu tiên" onPress={onStart} />
+      <PrimaryButton label={t("plants.welcome.start")} onPress={onStart} />
     </Screen>
   );
 }

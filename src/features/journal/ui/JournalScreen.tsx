@@ -11,6 +11,11 @@ import {
 import type { PlantIdentityData } from "@/features/plants";
 import { PlantIdentity } from "@/features/plants";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
+import {
+  getCareActivityLabel,
+  getCareActivityOriginLabel,
+} from "@/features/journal";
+import { appLocale, formatDate, formatTime, t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { IconButton } from "@/shared/ui/IconButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -18,11 +23,7 @@ import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import { CARE_ACTIVITY_VISUALS } from "../models/care-activity-icon";
-import {
-  CARE_ACTIVITY_LABELS,
-  CARE_ACTIVITY_ORIGIN_LABELS,
-  type CareActivity,
-} from "../models/care-activity";
+import { type CareActivity } from "../models/care-activity";
 import { createJournalItems, type JournalItem } from "../models/journal-item";
 import type { PlantUpdate } from "../models/plant-update";
 import { JournalFilterSheet, type JournalFilters } from "./JournalFilterSheet";
@@ -80,7 +81,7 @@ export function JournalScreen({
     () =>
       Object.entries(plants)
         .map(([id, plant]) => ({ id, name: plant.name }))
-        .sort((left, right) => left.name.localeCompare(right.name, "vi")),
+        .sort((left, right) => left.name.localeCompare(right.name, appLocale)),
     [plants],
   );
 
@@ -90,36 +91,36 @@ export function JournalScreen({
       headerAction={
         <View style={styles.headerActions}>
           <IconButton
-            accessibilityLabel="Tìm trong ghi chú"
+            accessibilityLabel={t("journal.list.search")}
             icon={Search}
             onPress={() => setSearchVisible((visible) => !visible)}
           />
           <IconButton
-            accessibilityLabel="Mở bộ lọc nhật ký"
+            accessibilityLabel={t("journal.filter.open")}
             icon={Filter}
             onPress={() => setShowFilters(true)}
           />
         </View>
       }
       scrollable={false}
-      title="Nhật ký"
+      title={t("journal.list.title")}
       titleIcon={NotebookPen}
     >
       {searchVisible ? (
         <View style={styles.search}>
           <Search color={colors.textSecondary} size={20} />
           <TextInput
-            accessibilityLabel="Tìm trong ghi chú"
+            accessibilityLabel={t("journal.list.search")}
             autoCorrect
             autoFocus
             onChangeText={setQuery}
-            placeholder="Tìm trong ghi chú"
+            placeholder={t("journal.list.search")}
             placeholderTextColor={colors.textSecondary}
             style={styles.searchInput}
             value={query}
           />
           <IconButton
-            accessibilityLabel="Đóng tìm kiếm"
+            accessibilityLabel={t("common.actions.close")}
             icon={X}
             onPress={() => {
               setQuery("");
@@ -130,14 +131,14 @@ export function JournalScreen({
       ) : null}
       {hasFilters ? (
         <Pressable
-          accessibilityLabel="Mở bộ lọc nhật ký đang áp dụng"
+          accessibilityLabel={t("journal.filter.openActive")}
           accessibilityRole="button"
           onPress={() => setShowFilters(true)}
           style={styles.activeFilter}
         >
           <Filter color={colors.surface} size={16} />
           <Typography color="surface" variant="label">
-            Đang lọc
+            {t("journal.filter.active")}
           </Typography>
         </Pressable>
       ) : null}
@@ -150,15 +151,15 @@ export function JournalScreen({
         ListEmptyComponent={
           activities.length || updates.length ? (
             <EmptyState
-              description="Thử đổi từ khóa tìm kiếm hoặc xóa bộ lọc."
+              description={t("journal.list.noMatchDescription")}
               icon={Search}
-              title="Không tìm thấy hoạt động phù hợp"
+              title={t("journal.list.noMatchTitle")}
             />
           ) : (
             <EmptyState
-              description="Hoạt động chăm sóc, ảnh và ghi chú đã lưu sẽ xuất hiện ở đây."
+              description={t("journal.list.emptyDescription")}
               icon={NotebookPen}
-              title="Nhật ký của bạn chưa có nội dung"
+              title={t("journal.list.emptyTitle")}
             />
           )
         }
@@ -214,18 +215,15 @@ function JournalRow({
   plant?: PlantSummary;
   plantName?: string;
 }>) {
-  const name = plant?.name ?? plantName ?? "Cây trồng";
-  const occurredAt = new Date(item.occurredAt).toLocaleTimeString("vi-VN", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const name = plant?.name ?? plantName ?? t("common.fallback.plant");
+  const occurredAt = formatTime(new Date(item.occurredAt));
   if (item.kind === "care") {
     const record = item.record;
     const visual = CARE_ACTIVITY_VISUALS[record.type];
     const ActivityIcon = visual.icon;
     return (
       <Pressable
-        accessibilityLabel={`${CARE_ACTIVITY_LABELS[record.type]} · ${name}`}
+        accessibilityLabel={`${getCareActivityLabel(record.type)} · ${name}`}
         accessibilityRole="button"
         onPress={() => onOpenActivity(item.id)}
         style={styles.row}
@@ -244,7 +242,7 @@ function JournalRow({
         <SurfaceCard style={styles.card}>
           <View style={styles.cardHeader}>
             <Typography variant="headlineSmall">
-              {CARE_ACTIVITY_LABELS[record.type]}
+              {getCareActivityLabel(record.type)}
             </Typography>
             <Typography color="textSecondary" variant="label">
               {occurredAt}
@@ -274,7 +272,7 @@ function JournalRow({
             </Typography>
           ) : null}
           <Typography color="textSecondary" variant="label">
-            {CARE_ACTIVITY_ORIGIN_LABELS[record.origin]}
+            {getCareActivityOriginLabel(record.origin)}
           </Typography>
         </SurfaceCard>
       </Pressable>
@@ -287,12 +285,14 @@ function JournalRow({
   const stageTitle = plant
     ? (getPreviewPlantKnowledge(plant.speciesId)?.stages.find(
         (stage) => stage.id === record.stageId,
-      )?.title ?? "Chưa xác định")
-    : "Chưa xác định";
-  const summary = record.notes ?? `Đã thêm ${record.photos.length} ảnh`;
+      )?.title ?? t("common.fallback.unknown"))
+    : t("common.fallback.unknown");
+  const summary =
+    record.notes ??
+    t("journal.list.photoSummary", { count: record.photos.length });
   return (
     <Pressable
-      accessibilityLabel={`Cập nhật cây · ${name}`}
+      accessibilityLabel={`${t("journal.filter.update")} · ${name}`}
       accessibilityRole="button"
       onPress={() => onOpenUpdate(item.id)}
       style={styles.row}
@@ -333,7 +333,7 @@ function JournalRow({
           )}
           {photoUri ? (
             <Image
-              accessibilityLabel="Ảnh cập nhật cây"
+              accessibilityLabel={t("journal.photo.updateImageAccessibility")}
               source={{ uri: photoUri }}
               style={styles.photo}
             />
@@ -349,7 +349,7 @@ function filterItems(
   filters: JournalFilters,
   query: string,
 ) {
-  const normalizedQuery = query.trim().toLocaleLowerCase("vi");
+  const normalizedQuery = query.trim().toLocaleLowerCase(appLocale);
   const now = new Date();
   const today = new Date(
     now.getFullYear(),
@@ -375,7 +375,9 @@ function filterItems(
       matchesType &&
       matchesPlant &&
       matchesDate &&
-      (record.notes ?? "").toLocaleLowerCase("vi").includes(normalizedQuery)
+      (record.notes ?? "")
+        .toLocaleLowerCase(appLocale)
+        .includes(normalizedQuery)
     );
   });
 }
@@ -397,6 +399,7 @@ function createRows(items: readonly JournalItem[]): readonly Row[] {
 }
 
 function formatDateHeading(occurredAt: string) {
+  if (!occurredAt) return "";
   const date = new Date(occurredAt);
   const now = new Date();
   const day = new Date(
@@ -409,13 +412,9 @@ function formatDateHeading(occurredAt: string) {
     now.getMonth(),
     now.getDate(),
   ).getTime();
-  if (day === today) return "Hôm nay";
-  if (day === today - 24 * 60 * 60 * 1000) return "Hôm qua";
-  return date.toLocaleDateString("vi-VN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  if (day === today) return t("journal.filter.today");
+  if (day === today - 24 * 60 * 60 * 1000) return t("journal.list.yesterday");
+  return formatDate(date);
 }
 
 const styles = StyleSheet.create({

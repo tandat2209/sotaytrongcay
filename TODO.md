@@ -44,6 +44,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## Engineering
 
+- [x] Move application-owned Vietnamese copy behind typed translation keys.
 - [x] Define the feature-first, local-first architecture and Supabase sync strategy.
 - [x] Update architecture for derived care suggestions and three tracked care activities.
 - [x] Bootstrap strict TypeScript, quality gates, and test infrastructure.
@@ -69,6 +70,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
 ## Future
 
+- [ ] Add alternate UI and Knowledge Base catalogs plus persisted runtime locale selection when another language enters delivery scope.
 - [ ] Evaluate additional Care Plan schedule policies after user feedback.
 - [ ] Evaluate guidance for additional plant species.
 - [ ] Evaluate AI personalization only after deterministic suggestions prove useful.

@@ -1,6 +1,8 @@
 import { Check, ListFilter } from "lucide-react-native";
 import { useState, type ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
+import { getCareActivityLabel } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
@@ -29,20 +31,20 @@ const recordOptions: readonly Readonly<{
   label: string;
   value: JournalRecordFilter;
 }>[] = [
-  { label: "Tất cả", value: "all" },
-  { label: "Cập nhật cây", value: "update" },
-  { label: "Tưới nước", value: "watering" },
-  { label: "Bón phân", value: "fertilizing" },
-  { label: "Phun thuốc", value: "spraying" },
+  { label: t("journal.filter.allRecords"), value: "all" },
+  { label: t("journal.filter.update"), value: "update" },
+  { label: getCareActivityLabel("watering"), value: "watering" },
+  { label: getCareActivityLabel("fertilizing"), value: "fertilizing" },
+  { label: getCareActivityLabel("spraying"), value: "spraying" },
 ];
 
 const dateOptions: readonly Readonly<{
   label: string;
   value: JournalDateRange;
 }>[] = [
-  { label: "Tất cả thời gian", value: "all" },
-  { label: "Hôm nay", value: "today" },
-  { label: "7 ngày qua", value: "week" },
+  { label: t("journal.filter.allDates"), value: "all" },
+  { label: t("journal.filter.today"), value: "today" },
+  { label: t("journal.filter.week"), value: "week" },
 ];
 
 export function JournalFilterSheet({
@@ -63,17 +65,21 @@ export function JournalFilterSheet({
   };
   return (
     <BottomSheet
-      footer={<PrimaryButton label="Áp dụng" onPress={apply} />}
+      footer={
+        <PrimaryButton label={t("common.actions.apply")} onPress={apply} />
+      }
       onDismiss={close}
       title={
         <View style={styles.title}>
           <ListFilter color={colors.primary} size={20} />
-          <Typography variant="headlineSmall">Lọc nhật ký</Typography>
+          <Typography variant="headlineSmall">
+            {t("journal.filter.title")}
+          </Typography>
         </View>
       }
       visible={visible}
     >
-      <FilterGroup label="Loại bản ghi">
+      <FilterGroup label={t("journal.filter.recordType")}>
         {recordOptions.map((option) => (
           <FilterOption
             key={option.value}
@@ -85,9 +91,9 @@ export function JournalFilterSheet({
           />
         ))}
       </FilterGroup>
-      <FilterGroup label="Cây trồng">
+      <FilterGroup label={t("journal.filter.plant")}>
         <FilterOption
-          label="Tất cả cây"
+          label={t("journal.filter.allPlants")}
           onPress={() => setDraft((value) => ({ ...value, plantId: null }))}
           selected={draft.plantId === null}
         />
@@ -102,7 +108,7 @@ export function JournalFilterSheet({
           />
         ))}
       </FilterGroup>
-      <FilterGroup label="Thời gian">
+      <FilterGroup label={t("journal.filter.date")}>
         {dateOptions.map((option) => (
           <FilterOption
             key={option.value}
@@ -115,7 +121,7 @@ export function JournalFilterSheet({
         ))}
       </FilterGroup>
       <Pressable
-        accessibilityLabel="Xóa bộ lọc"
+        accessibilityLabel={t("journal.filter.clear")}
         accessibilityRole="button"
         onPress={() =>
           setDraft({ dateRange: "all", plantId: null, recordFilter: "all" })
@@ -123,7 +129,7 @@ export function JournalFilterSheet({
         style={styles.clear}
       >
         <Typography color="primary" variant="bodyLarge">
-          Xóa bộ lọc
+          {t("journal.filter.clear")}
         </Typography>
       </Pressable>
     </BottomSheet>

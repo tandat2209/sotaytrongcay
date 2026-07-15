@@ -10,10 +10,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  CARE_ACTIVITY_LABELS,
   CARE_ACTIVITY_VISUALS,
+  getCareActivityLabel,
   type CareActivityType,
 } from "@/features/journal";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -162,7 +163,7 @@ export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
       >
         <SafeAreaView edges={["bottom"]} style={styles.overlay}>
           <Pressable
-            accessibilityLabel="Đóng menu thao tác"
+            accessibilityLabel={t("plants.action.closeMenu")}
             accessibilityRole="button"
             onPress={dismiss}
             style={styles.backdrop}
@@ -173,7 +174,7 @@ export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
               color={colors.primary}
               icon={Camera}
               index={3}
-              label="Thêm nhật ký"
+              label={t("plants.action.update")}
               onPress={() => select(onAddJournal)}
               progress={progress}
               reduceMotion={reduceMotion}
@@ -185,14 +186,14 @@ export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
                 icon={CARE_ACTIVITY_VISUALS[type].icon}
                 index={2 - index}
                 key={type}
-                label={CARE_ACTIVITY_LABELS[type]}
+                label={getCareActivityLabel(type)}
                 onPress={() => select(() => onRecordCare(type))}
                 progress={progress}
                 reduceMotion={reduceMotion}
               />
             ))}
             <Fab
-              accessibilityLabel="Đóng thao tác cho cây"
+              accessibilityLabel={t("plants.action.close")}
               expanded
               icon={X}
               onPress={dismiss}
@@ -284,7 +285,7 @@ function CyclingFab({
   return (
     <Animated.View style={{ transform: [{ scale: fabScale }] }}>
       <Pressable
-        accessibilityLabel="Mở thao tác cho cây"
+        accessibilityLabel={t("plants.action.open")}
         accessibilityRole="button"
         accessibilityState={{ expanded: false }}
         onPress={onPress}

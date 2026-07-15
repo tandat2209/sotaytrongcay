@@ -1,4 +1,10 @@
 import { StyleSheet, View } from "react-native";
+import {
+  getCareActivityLabel,
+  getCareActivityOriginLabel,
+  getCareActivityUnitLabel,
+} from "@/features/journal";
+import { formatDateTime, formatNumber, t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
@@ -6,12 +12,7 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import { CARE_ACTIVITY_VISUALS } from "../models/care-activity-icon";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
-import {
-  CARE_ACTIVITY_LABELS,
-  CARE_ACTIVITY_ORIGIN_LABELS,
-  CARE_ACTIVITY_UNIT_LABELS,
-  CareActivity,
-} from "../models/care-activity";
+import { type CareActivity } from "../models/care-activity";
 
 type Props = {
   activity: CareActivity;
@@ -32,14 +33,16 @@ export function ActivityDetailScreen({
   stageId,
   stageTitle,
 }: Props) {
-  const title = `Chi tiết ${CARE_ACTIVITY_LABELS[activity.type].toLowerCase()}`;
+  const title = t("journal.activityDetail.title", {
+    activity: getCareActivityLabel(activity.type).toLowerCase(),
+  });
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
   const ActivityIcon = visual.icon;
   return (
     <Screen title="">
       {onBack ? (
         <TopBar
-          backAccessibilityLabel="Quay lại Nhật ký"
+          backAccessibilityLabel={t("common.actions.backToJournal")}
           onBack={onBack}
           title={title}
           titleIcon={visual.icon}
@@ -63,30 +66,33 @@ export function ActivityDetailScreen({
         </View>
         <View style={styles.copy}>
           <Typography variant="headlineSmall">
-            {CARE_ACTIVITY_LABELS[activity.type]}
+            {getCareActivityLabel(activity.type)}
           </Typography>
           <Typography color="textSecondary" variant="bodyMedium">
-            {new Date(activity.occurredAt).toLocaleString("vi-VN")}
+            {formatDateTime(new Date(activity.occurredAt))}
           </Typography>
         </View>
       </SurfaceCard>
       <SurfaceCard style={styles.card}>
         <Detail
-          label="Nguồn"
-          value={CARE_ACTIVITY_ORIGIN_LABELS[activity.origin]}
+          label={t("journal.activityDetail.origin")}
+          value={getCareActivityOriginLabel(activity.origin)}
         />
         {activity.type === "watering" ? (
           <Detail
-            label="Lượng nước"
+            label={t("journal.activityDetail.amount")}
             value={
               activity.amount
-                ? `${activity.amount.value.toLocaleString("vi-VN")} ${CARE_ACTIVITY_UNIT_LABELS[activity.amount.unit]}`
-                : "Không ghi"
+                ? `${formatNumber(activity.amount.value)} ${getCareActivityUnitLabel(activity.amount.unit)}`
+                : t("journal.activityDetail.notRecorded")
             }
           />
         ) : null}
         {activity.notes ? (
-          <Detail label="Ghi chú" value={activity.notes} />
+          <Detail
+            label={t("journal.activityDetail.notes")}
+            value={activity.notes}
+          />
         ) : null}
       </SurfaceCard>
     </Screen>

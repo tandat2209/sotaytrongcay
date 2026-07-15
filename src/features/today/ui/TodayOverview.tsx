@@ -1,6 +1,7 @@
 import { CalendarDays, Sprout } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 
+import { t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
@@ -36,18 +37,18 @@ export function TodayOverview({
     return (
       <View style={styles.emptyState}>
         <EmptyState
-          description="Thêm cây đầu tiên để theo dõi lịch sử chăm sóc và xem việc cần chú ý."
+          description={t("today.overview.emptyDescription")}
           icon={Sprout}
-          title="Bắt đầu với cây đầu tiên của bạn"
+          title={t("today.overview.emptyTitle")}
         />
         <Pressable
-          accessibilityLabel="Thêm cây"
+          accessibilityLabel={t("today.overview.addPlant")}
           accessibilityRole="button"
           onPress={onAddPlant}
           style={styles.addPlantButton}
         >
           <Typography style={styles.addPlantLabel} variant="bodyLarge">
-            Thêm cây
+            {t("today.overview.addPlant")}
           </Typography>
         </Pressable>
       </View>
@@ -59,7 +60,9 @@ export function TodayOverview({
       <View style={styles.section}>
         <View style={styles.sectionHeading}>
           <CalendarDays color={colors.primary} size={20} />
-          <Typography variant="headlineSmall">Việc cần làm hôm nay</Typography>
+          <Typography variant="headlineSmall">
+            {t("today.overview.tasks")}
+          </Typography>
         </View>
         <TodayPriorityList
           cards={projection.careCards}

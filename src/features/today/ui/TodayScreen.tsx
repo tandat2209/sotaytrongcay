@@ -16,6 +16,7 @@ import {
   listStageScheduleSnapshots,
   reconcilePlantCarePlanReminders,
 } from "@/features/reminders";
+import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -70,15 +71,15 @@ export function TodayScreen() {
   const identity = plant ? resolvePlantIdentity(plant) : null;
   const errorMessage =
     query.error instanceof z.ZodError
-      ? "Dữ liệu trên thiết bị chưa hợp lệ."
-      : "Chưa thể tải trang Hôm nay.";
+      ? t("common.state.invalidDeviceData")
+      : t("today.error.load");
 
   return (
     <>
-      <Screen introduction={<TodayHeader />} title="Hôm nay">
+      <Screen introduction={<TodayHeader />} title={t("navigation.tabs.today")}>
         {query.isPending ? (
           <Typography color="textSecondary" variant="bodyLarge">
-            Đang tải dữ liệu trên thiết bị…
+            {t("common.state.loadingDeviceData")}
           </Typography>
         ) : null}
         {query.isError ? (
@@ -87,7 +88,7 @@ export function TodayScreen() {
               {errorMessage}
             </Typography>
             <PrimaryButton
-              label="Thử lại"
+              label={t("common.actions.retry")}
               onPress={() => void query.refetch()}
             />
           </>

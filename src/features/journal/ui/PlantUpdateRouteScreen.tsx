@@ -8,6 +8,7 @@ import {
   reconcilePlantCarePlanReminders,
   type ReminderReconciliation,
 } from "@/features/reminders";
+import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -42,23 +43,30 @@ export function PlantUpdateRouteScreen({
     queryKey: ["plant-photos", plantId],
     queryFn: () => listPlantUpdates(plantId),
   });
-  if (query.isPending) return <Text>Đang tải dữ liệu trên thiết bị…</Text>;
+  if (query.isPending)
+    return <Text>{t("common.state.loadingDeviceData")}</Text>;
   if (query.isError)
     return (
       <>
         <Text>
           {query.error instanceof z.ZodError
-            ? "Dữ liệu trên thiết bị chưa hợp lệ."
-            : "Chưa thể tải cây."}
+            ? t("common.state.invalidDeviceData")
+            : t("plants.error.load")}
         </Text>
-        <PrimaryButton label="Thử lại" onPress={() => void query.refetch()} />
+        <PrimaryButton
+          label={t("common.actions.retry")}
+          onPress={() => void query.refetch()}
+        />
       </>
     );
   if (!query.data)
     return (
       <>
-        <Text>Không tìm thấy cây trồng.</Text>
-        <PrimaryButton label="Quay lại Cây trồng" onPress={onBack} />
+        <Text>{t("plants.error.notFound")}</Text>
+        <PrimaryButton
+          label={t("common.actions.backToPlants")}
+          onPress={onBack}
+        />
       </>
     );
 
@@ -131,7 +139,7 @@ export function PlantUpdateRouteScreen({
           <View style={styles.sheetActions}>
             <PrimaryButton
               backgroundColor={colors.surfaceSubtle}
-              label="Đóng"
+              label={t("journal.update.close")}
               onPress={() => {
                 setReconciliation(null);
                 onSaved();
@@ -139,7 +147,7 @@ export function PlantUpdateRouteScreen({
               textColor={colors.text}
             />
             <PrimaryButton
-              label="Xem kế hoạch chăm sóc"
+              label={t("journal.update.viewCarePlan")}
               onPress={() => {
                 setReconciliation(null);
                 onReviewReminders();
@@ -151,7 +159,7 @@ export function PlantUpdateRouteScreen({
           setReconciliation(null);
           onSaved();
         }}
-        title="Kế hoạch chăm sóc đã được cập nhật"
+        title={t("journal.update.planChangedTitle")}
         visible={reconciliation !== null}
       >
         <Typography color="textSecondary" variant="bodyMedium">
@@ -166,8 +174,8 @@ function formatScheduleChanges(reconciliation: ReminderReconciliation): string {
   const activated = reconciliation.activated.slice(0, 3).join(" · ");
   const deactivated = reconciliation.deactivated.slice(0, 3).join(" · ");
   return [
-    activated && `Đã áp dụng: ${activated}`,
-    deactivated && `Đã tắt: ${deactivated}`,
+    activated && t("journal.update.appliedPlan", { plan: activated }),
+    deactivated && t("journal.update.deactivatedPlan", { plan: deactivated }),
   ]
     .filter(Boolean)
     .join("\n");

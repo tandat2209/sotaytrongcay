@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { t } from "@/shared/i18n";
 
 export const PlantUpdatePhotoSchema = z.object({
   id: z.string().uuid(),
@@ -23,7 +24,7 @@ export const PlantUpdateSchema = PlantUpdateFieldsSchema.extend({
   if (update.notes === null && update.photos.length === 0) {
     context.addIssue({
       code: "custom",
-      message: "Thêm ảnh hoặc ghi chú trước khi lưu.",
+      message: t("journal.update.validationContent"),
     });
   }
 
