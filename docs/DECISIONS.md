@@ -120,6 +120,14 @@ Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` a
 
 **Rationale:** A recommendation is not evidence that care happened. Explicit Save keeps history trustworthy while preserving a fast entry path.
 
+## 2026-07-15 — Record watering with quick-select intensity
+
+**Status:** Accepted
+
+**Decision:** Every newly saved watering activity records one stable intensity: `light`, `moderate`, `deep`, or `rain`. Care Entry presents “Tưới nhẹ”, “Tưới vừa”, “Tưới đẫm”, and “Mưa” as one-tap choices, then uses the existing explicit “Lưu hoạt động” action as confirmation. Estimated liters remain optional under collapsed “Thêm chi tiết”; the app never derives or prefills volume from intensity. Legacy amount-only rows keep a null intensity and display that uncertainty without inference.
+
+**Rationale:** Growers can reliably recall relative watering intensity more often than exact volume. Stable language-neutral codes support persistence and localization, while explicit Save preserves trustworthy history and nullable migration compatibility avoids fabricating past data.
+
 ## 2026-07-11 — Derive care suggestions without persistent tasks
 
 **Status:** Accepted

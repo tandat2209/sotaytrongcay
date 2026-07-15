@@ -35,7 +35,8 @@ export default function PlantDetailRoute() {
           type,
           occurredAt: details.occurredAt,
           origin: "manual",
-          amount: details.amount,
+          intensity: details.intensity,
+          estimatedAmountLiters: details.estimatedAmountLiters,
           notes: details.notes,
           createdAt,
         });

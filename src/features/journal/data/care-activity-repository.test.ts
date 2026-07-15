@@ -10,13 +10,14 @@ const activity = {
   type: "watering",
   occurredAt: "2026-07-11T08:30:00.000Z",
   origin: "manual",
-  amount: { value: 1.5, unit: "liter" },
+  intensity: "moderate",
+  estimatedAmountLiters: 1.5,
   notes: null,
   createdAt: "2026-07-11T08:30:00.000Z",
 } as const;
 
 describe("care activity repository mapping", () => {
-  it("stores a stable unit code", () => {
+  it("stores stable watering intensity and liter code", () => {
     expect(careActivityToInsertParams(activity)).toEqual([
       activity.id,
       activity.mutationId,
@@ -24,6 +25,7 @@ describe("care activity repository mapping", () => {
       "watering",
       activity.occurredAt,
       "manual",
+      "moderate",
       1.5,
       "liter",
       null,
@@ -40,11 +42,30 @@ describe("care activity repository mapping", () => {
         activity_type: "watering",
         occurred_at: activity.occurredAt,
         origin: "manual",
+        watering_intensity: "moderate",
         amount_value: 1.5,
         amount_unit: "liter",
         notes: null,
         created_at: activity.createdAt,
       }),
     ).toEqual(activity);
+  });
+
+  it("keeps legacy watering intensity unknown", () => {
+    expect(
+      careActivityFromRow({
+        id: activity.id,
+        mutation_id: activity.mutationId,
+        plant_id: activity.plantId,
+        activity_type: "watering",
+        occurred_at: activity.occurredAt,
+        origin: "manual",
+        watering_intensity: null,
+        amount_value: 1.5,
+        amount_unit: "liter",
+        notes: null,
+        created_at: activity.createdAt,
+      }).intensity,
+    ).toBeNull();
   });
 });

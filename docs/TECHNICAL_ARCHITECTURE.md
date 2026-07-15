@@ -229,7 +229,7 @@ Every species definition contains at least one stage. The generic `other` specie
 
 This keeps the database invariant valid without inventing a plant-specific stage.
 
-A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Optional type-specific detail uses validated one-to-one records, not an unbounded key/value model.
+A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Watering also stores one stable intensity code (`light`, `moderate`, `deep`, or `rain`) plus optional user-entered estimated liters. New watering saves require intensity; the read model permits null only for legacy rows migrated without inference. Intensity never implies, derives, or prefills volume. Optional type-specific detail uses validated one-to-one records, not an unbounded key/value model.
 
 A plant update stores plant, occurrence time, optional note, photos, confirmed stage ID, and sync metadata. Pruning and observations may be described in the note but do not introduce dedicated activity types.
 

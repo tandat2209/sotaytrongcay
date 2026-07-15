@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(9);
+    expect(DATABASE_VERSION).toBe(10);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -39,7 +39,7 @@ describe("database migrations", () => {
   it("replaces V7 reminder preferences with schedule snapshots in version 8", () => {
     const [sql] = getMigrationStatements(7);
 
-    expect(DATABASE_VERSION).toBe(9);
+    expect(DATABASE_VERSION).toBe(10);
     expect(sql).toContain(
       "DROP TABLE IF EXISTS care_plan_reminder_preferences",
     );
@@ -62,6 +62,17 @@ describe("database migrations", () => {
     expect(sql).toContain("notification_enabled INTEGER");
     expect(sql).toContain("frequency_override_days, frequency_override_days");
     expect(sql).not.toContain("growing_method");
+  });
+
+  it("adds nullable stable watering intensity without backfill in version 10", () => {
+    const [sql] = getMigrationStatements(9);
+
+    expect(sql).toContain(
+      "ALTER TABLE care_activities ADD COLUMN watering_intensity TEXT",
+    );
+    expect(sql).toContain("'light', 'moderate', 'deep', 'rain'");
+    expect(sql).toContain("watering_intensity IS NULL");
+    expect(sql).not.toContain("UPDATE care_activities");
   });
 
   it("resets the prototype tables before establishing the clean baseline", () => {

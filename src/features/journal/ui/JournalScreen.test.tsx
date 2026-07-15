@@ -8,7 +8,8 @@ const activity = {
   type: "watering",
   occurredAt: "2026-07-11T08:30:00.000Z",
   origin: "manual",
-  amount: null,
+  intensity: null,
+  estimatedAmountLiters: null,
   notes: null,
   createdAt: "2026-07-11T08:30:00.000Z",
 } as const;

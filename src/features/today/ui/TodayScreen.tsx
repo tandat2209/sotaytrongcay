@@ -118,7 +118,8 @@ export function TodayScreen() {
               type: entry.activityType,
               occurredAt: details.occurredAt,
               origin: "today",
-              amount: details.amount,
+              intensity: details.intensity,
+              estimatedAmountLiters: details.estimatedAmountLiters,
               notes: details.notes,
               createdAt,
             });

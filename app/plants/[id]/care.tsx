@@ -103,7 +103,8 @@ function CareEntry({
           type,
           occurredAt: details.occurredAt,
           origin,
-          amount: details.amount,
+          intensity: details.intensity,
+          estimatedAmountLiters: details.estimatedAmountLiters,
           notes: details.notes,
           createdAt: now,
         });

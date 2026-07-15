@@ -51,6 +51,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.
+- [x] Replace visible exact-liter watering entry with stable one-tap intensity and hidden optional estimated liters.
 - [x] Build first-slice Plant Detail recent-watering summary and global Journal/Activity Detail views.
 - [x] Deliver current-data Plant Detail slice: three care types summarised and recordable, stage identity, review-guidance text, weather context, recent care history, activity detail navigation, and 'Hướng dẫn chi tiết' link to stage playbook.
 - [x] Extend the first slice with fertilizing, spraying, and full Plant Dashboard care summaries.

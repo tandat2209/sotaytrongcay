@@ -1,5 +1,10 @@
 import { getDb } from "@/shared/lib/db/database";
-import { CareActivity, CareActivitySchema } from "../models/care-activity";
+import {
+  type CareActivity,
+  CareActivitySchema,
+  type NewCareActivity,
+  NewCareActivitySchema,
+} from "../models/care-activity";
 
 export type CareActivityRow = {
   id: string;
@@ -8,6 +13,7 @@ export type CareActivityRow = {
   activity_type: string;
   occurred_at: string;
   origin: string;
+  watering_intensity: string | null;
   amount_value: number | null;
   amount_unit: string | null;
   notes: string | null;
@@ -24,8 +30,9 @@ export function careActivityToInsertParams(
     activity.type,
     activity.occurredAt,
     activity.origin,
-    activity.amount?.value ?? null,
-    activity.amount?.unit ?? null,
+    activity.intensity,
+    activity.estimatedAmountLiters,
+    activity.estimatedAmountLiters === null ? null : "liter",
     activity.notes,
     activity.createdAt,
   ];
@@ -39,22 +46,23 @@ export function careActivityFromRow(row: CareActivityRow): CareActivity {
     type: row.activity_type,
     occurredAt: row.occurred_at,
     origin: row.origin,
-    amount:
+    intensity: row.watering_intensity,
+    estimatedAmountLiters:
       row.amount_value === null || row.amount_unit === null
         ? null
-        : { value: row.amount_value, unit: row.amount_unit },
+        : row.amount_value,
     notes: row.notes,
     createdAt: row.created_at,
   });
 }
 
-export async function saveCareActivity(input: CareActivity): Promise<void> {
-  const activity = CareActivitySchema.parse(input);
+export async function saveCareActivity(input: NewCareActivity): Promise<void> {
+  const activity = NewCareActivitySchema.parse(input);
   const db = await getDb();
   await db.runAsync(
     `INSERT OR IGNORE INTO care_activities
-      (id, mutation_id, plant_id, activity_type, occurred_at, origin, amount_value, amount_unit, notes, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (id, mutation_id, plant_id, activity_type, occurred_at, origin, watering_intensity, amount_value, amount_unit, notes, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     careActivityToInsertParams(activity),
   );
 }

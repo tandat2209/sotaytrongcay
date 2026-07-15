@@ -3,6 +3,7 @@ import {
   getCareActivityLabel,
   getCareActivityOriginLabel,
   getCareActivityUnitLabel,
+  getWateringIntensityLabel,
 } from "@/features/journal";
 import { formatDateTime, formatNumber, t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
@@ -79,14 +80,22 @@ export function ActivityDetailScreen({
           value={getCareActivityOriginLabel(activity.origin)}
         />
         {activity.type === "watering" ? (
-          <Detail
-            label={t("journal.activityDetail.amount")}
-            value={
-              activity.amount
-                ? `${formatNumber(activity.amount.value)} ${getCareActivityUnitLabel(activity.amount.unit)}`
-                : t("journal.activityDetail.notRecorded")
-            }
-          />
+          <>
+            <Detail
+              label={t("journal.activityDetail.intensity")}
+              value={
+                activity.intensity
+                  ? getWateringIntensityLabel(activity.intensity)
+                  : t("journal.activityDetail.legacyIntensity")
+              }
+            />
+            {activity.estimatedAmountLiters !== null ? (
+              <Detail
+                label={t("journal.activityDetail.amount")}
+                value={`${formatNumber(activity.estimatedAmountLiters)} ${getCareActivityUnitLabel("liter")}`}
+              />
+            ) : null}
+          </>
         ) : null}
         {activity.notes ? (
           <Detail

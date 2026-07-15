@@ -39,7 +39,8 @@ function activity(occurredAt: string): CareActivity {
     type: "watering",
     occurredAt,
     origin: "manual",
-    amount: null,
+    intensity: null,
+    estimatedAmountLiters: null,
     notes: null,
     createdAt: occurredAt,
   };

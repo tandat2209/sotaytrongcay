@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 9;
+export const DATABASE_VERSION = 10;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -207,6 +207,11 @@ FROM stage_care_plan_schedule_snapshots_v8;
 DROP TABLE stage_care_plan_schedule_snapshots_v8;
 `;
 
+const V10_ADD_WATERING_INTENSITY = `
+ALTER TABLE care_activities ADD COLUMN watering_intensity TEXT
+  CHECK (watering_intensity IS NULL OR watering_intensity IN ('light', 'moderate', 'deep', 'rain'));
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
@@ -219,6 +224,7 @@ export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion < 8) migrations.push(V8_REPLACE_REMINDER_PREFERENCES);
   if (currentVersion < 9)
     migrations.push(V9_SPLIT_STAGE_FREQUENCY_BY_GROWING_METHOD);
+  if (currentVersion < 10) migrations.push(V10_ADD_WATERING_INTENSITY);
   return migrations;
 }
 

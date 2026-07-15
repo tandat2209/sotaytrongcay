@@ -27,7 +27,8 @@ function activity(
     type,
     occurredAt,
     origin: "manual",
-    amount: type === "watering" ? { value: 1.5, unit: "liter" } : null,
+    intensity: type === "watering" ? "moderate" : null,
+    estimatedAmountLiters: type === "watering" ? 1.5 : null,
     notes: null,
     createdAt: occurredAt,
   };

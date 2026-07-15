@@ -303,7 +303,9 @@ No result shows “Không tìm thấy hoạt động phù hợp” + “Xóa b�
 
 Plant identity uses the latest persisted journal photo when available and falls back to the leaf treatment without blocking the form if photo loading fails.
 
-Watering optional fields include method, amount/unit, notes, and photos.
+Watering first shows four one-tap intensity choices: “Tưới nhẹ — làm ẩm bề mặt đất”, “Tưới vừa — tưới đủ ẩm vùng rễ”, “Tưới đẫm — tưới kỹ đến khi đất ẩm sâu”, and “Mưa — cây được tưới tự nhiên”. Selection updates visible and accessible radio state; “Lưu hoạt động” remains the only persistence action.
+
+Optional estimated liters and notes stay hidden under collapsed “Thêm chi tiết”. The app never prefills estimated liters or derives volume from intensity. Legacy watering rows without intensity show “Chưa ghi mức tưới” rather than inferred intensity.
 
 Fertilizing optional fields include product, fertilizer type, NPK, amount/unit, application method, notes, and photos.
 

@@ -19,11 +19,14 @@ export type {
   CareActivity,
   CareActivityOrigin,
   CareActivityType,
+  WateringIntensity,
 } from "./models/care-activity";
 export {
   getCareActivityLabel,
   getCareActivityOriginLabel,
   getCareActivityUnitLabel,
+  getWateringIntensityDescription,
+  getWateringIntensityLabel,
 } from "./ui/care-activity-copy";
 export { createJournalItems } from "./models/journal-item";
 export type { JournalItem } from "./models/journal-item";

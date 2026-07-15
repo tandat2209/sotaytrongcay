@@ -14,6 +14,7 @@ import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import {
   getCareActivityLabel,
   getCareActivityOriginLabel,
+  getWateringIntensityLabel,
 } from "@/features/journal";
 import { appLocale, formatDate, formatTime, t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
@@ -262,6 +263,11 @@ function JournalRow({
               {name}
             </Typography>
           )}
+          {record.type === "watering" && record.intensity ? (
+            <Typography color="textSecondary" variant="bodyMedium">
+              {getWateringIntensityLabel(record.intensity)}
+            </Typography>
+          ) : null}
           {record.notes ? (
             <Typography
               color="textSecondary"

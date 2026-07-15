@@ -11,15 +11,21 @@ it("shows saved watering details", () => {
         type: "watering",
         occurredAt: "2026-07-11T08:30:00.000Z",
         origin: "manual",
-        amount: { value: 1.5, unit: "liter" },
+        intensity: "moderate",
+        estimatedAmountLiters: 1.5,
         notes: "Tưới quanh gốc",
         createdAt: "2026-07-11T08:30:00.000Z",
       }}
       plantName="Nho sân thượng"
+      speciesTitle="Nho"
+      stageId="pruning"
+      stageTitle="Cắt tỉa"
     />,
   );
 
-  expect(screen.getByText("Lượng nước")).toBeTruthy();
+  expect(screen.getByText("Mức tưới")).toBeTruthy();
+  expect(screen.getByText("Tưới vừa")).toBeTruthy();
+  expect(screen.getByText("Lượng nước ước tính")).toBeTruthy();
   expect(screen.getByText("1,5 lít")).toBeTruthy();
   expect(screen.getByText("Ghi thủ công")).toBeTruthy();
   expect(screen.getByText("Tưới quanh gốc")).toBeTruthy();
@@ -35,16 +41,20 @@ it("does not label fertilizing notes as water", () => {
         type: "fertilizing",
         occurredAt: "2026-07-11T08:30:00.000Z",
         origin: "manual",
-        amount: null,
+        intensity: null,
+        estimatedAmountLiters: null,
         notes: "Đã ghi lại",
         createdAt: "2026-07-11T08:30:00.000Z",
       }}
       plantName="Nho sân thượng"
+      speciesTitle="Nho"
+      stageId="pruning"
+      stageTitle="Cắt tỉa"
     />,
   );
 
   expect(screen.getByText("Đã ghi lại")).toBeTruthy();
-  expect(screen.queryByText("Lượng nước")).toBeNull();
+  expect(screen.queryByText("Lượng nước ước tính")).toBeNull();
 });
 
 it("shows spraying details without a Lượng nước field", () => {
@@ -57,16 +67,20 @@ it("shows spraying details without a Lượng nước field", () => {
         type: "spraying",
         occurredAt: "2026-07-11T09:00:00.000Z",
         origin: "manual",
-        amount: null,
+        intensity: null,
+        estimatedAmountLiters: null,
         notes: "Quan sát lá",
         createdAt: "2026-07-11T09:00:00.000Z",
       }}
       plantName="Nho sân thượng"
+      speciesTitle="Nho"
+      stageId="pruning"
+      stageTitle="Cắt tỉa"
     />,
   );
 
   expect(screen.getByText("Chi tiết phun thuốc")).toBeTruthy();
   expect(screen.getByText("Phun thuốc")).toBeTruthy();
   expect(screen.getByText("Quan sát lá")).toBeTruthy();
-  expect(screen.queryByText("Lượng nước")).toBeNull();
+  expect(screen.queryByText("Lượng nước ước tính")).toBeNull();
 });

@@ -3,6 +3,7 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import {
   CARE_ACTIVITY_VISUALS,
   getCareActivityLabel,
+  getWateringIntensityLabel,
   type JournalItem,
   type PlantUpdate,
 } from "@/features/journal";
@@ -80,6 +81,11 @@ function CareRow({
       </View>
       <View style={styles.copy}>
         <Typography variant="bodyLarge">{label}</Typography>
+        {activity.type === "watering" && activity.intensity ? (
+          <Typography color="textSecondary" variant="bodyMedium">
+            {getWateringIntensityLabel(activity.intensity)}
+          </Typography>
+        ) : null}
         <Typography color="textSecondary" variant="bodyMedium">
           {occurredAt}
         </Typography>

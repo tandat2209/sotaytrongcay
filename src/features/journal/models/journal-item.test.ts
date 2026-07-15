@@ -9,7 +9,8 @@ const care: CareActivity = {
   type: "watering",
   occurredAt: "2026-07-12T08:00:00.000Z",
   origin: "manual",
-  amount: null,
+  intensity: null,
+  estimatedAmountLiters: null,
   notes: null,
   createdAt: "2026-07-12T08:00:00.000Z",
 };
