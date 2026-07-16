@@ -8,6 +8,18 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Extend care guidance additively and keep foliar nutrition under fertilizing
+
+**Status:** Accepted
+
+**Decision:** Evolve the Care Plan and Care Activity contracts through optional backward-compatible fields rather than a breaking Knowledge Base revision. Care Plans may distinguish an actionable recommendation from a condition check, carry explicit check-before-acting guidance, optionally suggest a fertilizer application method, and optionally suggest a prevention or treatment purpose for spraying. Saved spraying activities may add nullable product-name, purpose, and target-name snapshots. Keep one `spraying` activity type for plant-protection spraying, and record foliar nutrition as `fertilizing` with `applicationMethod: foliar`.
+
+Do not add the full `due`, `check`, `monitor`, `withhold`, and `not_applicable` model until reviewed inputs can calculate those states. Do not add recommended watering intensity, new spraying activity types, spray inventory, stable target-issue IDs, or automated weather and diagnosis behavior in this slice.
+
+**Rationale:** The current elapsed-history evaluator cannot distinguish “perform now” from “inspect before deciding,” while fertilizing already has the concrete item and foliar-method contracts needed for nutritional spraying. Optional additions make watering condition-aware and spraying purpose-driven without invalidating Knowledge Base `1.0.0`, existing activity history, reminder snapshots, or stage logic.
+
+**Consequences:** The first content follow-up is one narrow, sourced, review-stage spraying Care Plan with no commercial product or dosage prescription. Shipping the optional fields requires a Knowledge Base schema minor-version adapter, mode-aware Today and Plant Detail presentation, check-oriented notification wording, and nullable spraying-detail columns. Existing records receive display fallbacks and are never reclassified from their notes. See [the model and UI impact audit](./research/2026-07-16-knowledge-model-ui-impact.md).
+
 ## 2026-07-16 — Show latest saved fertilizer use in catalog management
 
 **Status:** Accepted

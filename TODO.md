@@ -2,6 +2,42 @@
 
 Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
+## Knowledge model and UI follow-up
+
+Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact audit](./docs/research/2026-07-16-knowledge-model-ui-impact.md). Keep content corrections, optional model fields, and recommendation-state UI in separate phases.
+
+### Phase 1 — content and review
+
+- [ ] **Start here:** Author one narrow, source-backed grape `spraying` Care Plan at `review` status for a clearly defined stage and prevention or treatment purpose; do not name a commercial product, prescribe a dosage, or emit it in the production bundle.
+- [ ] Obtain qualified review of the first spraying Care Plan's Vietnamese wording, stage applicability, purpose, safety boundaries, and sources before approval.
+- [ ] Audit every review-stage Care Plan for contradictions among `frequency.display`, `frequency.interval_days`, and `eligibility.suggest_after_days`; correct content without changing the schema.
+- [ ] Move generic techniques and event-specific guidance that the elapsed-time engine cannot evaluate into Care Guides without creating Today cards, reminders, or history.
+
+### Phase 2 — optional backward-compatible fields
+
+- [ ] Add optional `recommendation_mode: action | check` and structured `check_before_acting` fields to authored and compiled Care Plans, compiler types, schemas, validators, fixtures, and documentation.
+- [ ] Add an explicit Knowledge Base bundle adapter that accepts `1.0.x` and `1.1.x`, defaults an omitted recommendation mode to `action`, and rejects unsupported major versions.
+- [ ] Add optional `application_method` to reviewed fertilizer suggestions and prefill it as an editable Fertilizer Application draft without selecting or saving anything automatically.
+- [ ] Add optional `recommended_spray_purpose: prevention | treatment` to Care Plans without changing eligibility or reminder timing.
+- [ ] Add nullable saved spraying product-name, purpose, and target-name fields with a forward SQLite migration; preserve all legacy spraying rows without backfill or note parsing.
+- [ ] Add progressive spraying entry for optional purpose, product name, and target name while keeping plant, time, and explicit Save as the minimum path.
+- [ ] Add compatible spraying summaries to Activity Detail, Journal, and Plant Detail recent history, with “Đã phun” as the legacy fallback.
+
+### Phase 3 — action/check presentation
+
+- [ ] Derive action/check presentation from the existing evaluator plus `recommendationMode` without persisting recommendation instances.
+- [ ] Update Today cards so `check` opens inspection guidance and recording remains a separate explicit action.
+- [ ] Update Plant Detail care cards and details to show state, last activity, reason, and check-before-acting guidance without making every Care Plan look pending.
+- [ ] Update Care Plan schedule settings and notification reconciliation so check schedules use “Kiểm tra…” wording while preserving existing snapshots and preferences.
+- [ ] Add regression coverage for absent optional fields, Knowledge Base `1.0.0`, legacy watering intensity, fertilizing without item IDs, generic spraying history, and existing reminder preferences.
+
+### Deferred from this model slice
+
+- [ ] Evaluate `monitor` and `withhold` only after reviewed weather, symptom, observation, or risk inputs exist.
+- [ ] Evaluate recommended watering intensity only after the engine has sufficient reviewed context; never prefill exact volume.
+- [ ] Evaluate one-time or event-based schedules only after the engine can observe the triggering event.
+- [ ] Evaluate spray inventory, stable pest/disease target IDs, product-label data, and separate spraying-related activity types only after user research demonstrates a management or safety need.
+
 ## Product validation
 
 - [ ] Interview 5–8 grape growers about watering and fertilizing records.
@@ -63,7 +99,6 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Add Care Plan schedule snapshots and local notification delivery.
 - [ ] Add a complete mixed-event Timeline.
 - [x] Implement the reviewed one-to-many fertilizer-application contract.
-- [ ] Add type-specific spraying details.
 - [x] Replace the Settings tab with More and add reusable User Fertilizer management with contextual selection from Care Entry.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.

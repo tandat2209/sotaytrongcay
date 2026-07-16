@@ -10,6 +10,7 @@ This directory stores product context, UX decisions, architecture, and engineeri
 - `knowledge/_schemas/` owns authored and mobile-bundle field contracts.
 - [KNOWLEDGE_BASE_ARCHITECTURE.md](./KNOWLEDGE_BASE_ARCHITECTURE.md) owns the conceptual authoring model and must conform to schemas and accepted decisions.
 - [Engineering standards](./ENGINEERING_STANDARDS.md) owns implementation and verification requirements.
+- [Research notes](./research/README.md) store dated findings and option analysis. They are supporting evidence, not behavior or data-shape authority.
 
 When sources conflict, accepted decisions control behavior and schemas control data shape. Update lower-precedence documentation rather than inferring automation from mockups or review-stage knowledge content.
 
