@@ -1,4 +1,4 @@
-import { getDb } from "@/shared/lib/db/database";
+import { getDb, runDatabaseWrite } from "@/shared/lib/db/database";
 import type { SQLiteDatabase } from "expo-sqlite";
 import {
   type CareActivity,
@@ -65,8 +65,9 @@ export function careActivityFromRow(row: CareActivityRow): CareActivity {
 
 export async function saveCareActivity(input: NewCareActivity): Promise<void> {
   const activity = NewCareActivitySchema.parse(input);
-  const db = await getDb();
-  await insertCareActivity(db, activity);
+  await runDatabaseWrite(async (db) => {
+    await insertCareActivity(db, activity);
+  });
 }
 
 export async function insertCareActivity(
@@ -105,8 +106,9 @@ export async function updateCareActivity(
 }
 
 export async function deleteCareActivity(id: string): Promise<void> {
-  const db = await getDb();
-  await db.runAsync("DELETE FROM care_activities WHERE id = ?", [id]);
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync("DELETE FROM care_activities WHERE id = ?", [id]);
+  });
 }
 
 export async function listCareActivities(

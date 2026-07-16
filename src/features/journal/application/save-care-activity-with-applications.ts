@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getDb } from "@/shared/lib/db/database";
+import { withDatabaseWriteTransaction } from "@/shared/lib/db/database";
 import {
   insertCareActivity,
   updateCareActivity,
@@ -74,11 +74,10 @@ export async function saveCareActivityWithApplications(
   input: CareActivityWithApplicationsInput,
 ): Promise<void> {
   const command = parseCareActivityWithApplications(input);
-  const db = await getDb();
-  await db.withTransactionAsync(async () => {
-    await insertCareActivity(db, command.activity);
+  await withDatabaseWriteTransaction(async (transaction) => {
+    await insertCareActivity(transaction, command.activity);
     for (const application of command.applications) {
-      await insertFertilizerApplication(db, application);
+      await insertFertilizerApplication(transaction, application);
     }
   });
 }
@@ -87,15 +86,14 @@ export async function updateCareActivityWithApplications(
   input: CareActivityWithApplicationsInput,
 ): Promise<void> {
   const command = parseCareActivityWithApplications(input);
-  const db = await getDb();
-  await db.withTransactionAsync(async () => {
-    await updateCareActivity(db, command.activity);
-    await db.runAsync(
+  await withDatabaseWriteTransaction(async (transaction) => {
+    await updateCareActivity(transaction, command.activity);
+    await transaction.runAsync(
       "DELETE FROM fertilizer_applications WHERE care_activity_id = ?",
       [command.activity.id],
     );
     for (const application of command.applications) {
-      await insertFertilizerApplication(db, application);
+      await insertFertilizerApplication(transaction, application);
     }
   });
 }

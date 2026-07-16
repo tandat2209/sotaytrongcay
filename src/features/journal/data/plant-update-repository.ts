@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getDb } from "@/shared/lib/db/database";
+import { getDb, withDatabaseWriteTransaction } from "@/shared/lib/db/database";
 import { PlantUpdateSchema, type PlantUpdate } from "../models/plant-update";
 import { createPlantStageHistory } from "../models/plant-stage-history";
 
@@ -65,16 +65,14 @@ export async function savePlantUpdate(
 ): Promise<void> {
   const update = PlantUpdateSchema.parse(input);
   const stageHistoryId = z.string().uuid().parse(stageHistoryIdInput);
-  const db = await getDb();
-
-  await db.withTransactionAsync(async () => {
-    const plant = await db.getFirstAsync<{ stage_id: string }>(
+  await withDatabaseWriteTransaction(async (transaction) => {
+    const plant = await transaction.getFirstAsync<{ stage_id: string }>(
       "SELECT stage_id FROM plants WHERE id = ?",
       [update.plantId],
     );
     if (!plant) throw new Error("Plant not found while saving journal update.");
 
-    const result = await db.runAsync(
+    const result = await transaction.runAsync(
       `INSERT OR IGNORE INTO plant_updates
         (id, mutation_id, plant_id, occurred_at, notes, stage_id, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -83,7 +81,7 @@ export async function savePlantUpdate(
     if (result.changes === 0) return;
 
     for (const photo of update.photos) {
-      await db.runAsync(
+      await transaction.runAsync(
         `INSERT INTO plant_update_photos
           (id, plant_update_id, local_uri, position, created_at)
          VALUES (?, ?, ?, ?, ?)`,
@@ -101,11 +99,11 @@ export async function savePlantUpdate(
       createdAt: update.createdAt,
     });
     if (stageHistory) {
-      await db.runAsync(
+      await transaction.runAsync(
         "UPDATE plants SET stage_id = ?, stage_started_at = ? WHERE id = ?",
         [stageHistory.toStageId, stageHistory.changedAt, stageHistory.plantId],
       );
-      await db.runAsync(
+      await transaction.runAsync(
         `INSERT INTO plant_stage_history
           (id, plant_id, from_stage_id, to_stage_id, journal_entry_id, changed_at, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?)`,

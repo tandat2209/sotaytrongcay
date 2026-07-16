@@ -34,6 +34,26 @@ superseded by this baseline decision. Developers must delete or reset an older
 local database before running this build. Once V1 ships, backward-compatible
 forward migrations and recovery verification become mandatory.
 
+## 2026-07-16 — Serialize local SQLite writes
+
+**Status:** Accepted
+
+**Decision:** Route every application-owned SQLite mutation through one shared
+FIFO write queue. Multi-step writes additionally use
+`withExclusiveTransactionAsync` and execute all statements through its supplied
+transaction handle. Reads remain direct and may proceed independently.
+
+**Rationale:** Expo's non-exclusive asynchronous transactions can include
+unrelated queries that run while the transaction is active. Reminder
+reconciliation and user saves can overlap, so explicit serialization prevents
+one feature's write from entering or disrupting another feature's transaction.
+
+**Consequences:** Writes wait for the active write to settle, including when it
+fails; a rejection does not block later work. Aggregate journal saves keep
+atomic rollback while unrelated writes cannot join them. This intentionally
+trades parallel write throughput for deterministic local persistence, which
+fits the MVP's small, user-driven mutation volume.
+
 ## 2026-07-16 — Show curated stage illustrations in preview Stage Playbooks
 
 **Status:** Accepted

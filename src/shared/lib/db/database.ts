@@ -1,7 +1,10 @@
 import * as SQLite from "expo-sqlite";
+import { createSerializedTaskQueue } from "./serialized-task-queue";
 
 export const DB_NAME = "sotaytrongcay.db";
 export const DATABASE_VERSION = 1;
+
+const databaseWriteQueue = createSerializedTaskQueue();
 
 // The app has not been released, so V1 is the complete fresh-install schema.
 // Future schema changes must use forward-only migrations from this baseline.
@@ -204,34 +207,48 @@ export async function getDb(): Promise<SQLite.SQLiteDatabase> {
   return await SQLite.openDatabaseAsync(DB_NAME);
 }
 
+export async function runDatabaseWrite<Result>(
+  task: (db: SQLite.SQLiteDatabase) => Promise<Result>,
+): Promise<Result> {
+  return await databaseWriteQueue.run(async () => task(await getDb()));
+}
+
+export async function withDatabaseWriteTransaction(
+  task: (transaction: SQLite.SQLiteDatabase) => Promise<void>,
+): Promise<void> {
+  await runDatabaseWrite(async (db) => {
+    await db.withExclusiveTransactionAsync(task);
+  });
+}
+
 export async function initializeDatabase(): Promise<void> {
-  const db = await getDb();
-  await db.execAsync("PRAGMA journal_mode = WAL;");
-  await db.execAsync("PRAGMA foreign_keys = ON;");
+  await runDatabaseWrite(async (db) => {
+    await db.execAsync("PRAGMA journal_mode = WAL;");
+    await db.execAsync("PRAGMA foreign_keys = ON;");
 
-  const row = await db.getFirstAsync<{ user_version: number }>(
-    "PRAGMA user_version;",
-  );
-  const currentVersion = row?.user_version ?? 0;
-
-  if (currentVersion > DATABASE_VERSION) {
-    throw new Error(
-      `Database version ${currentVersion} is newer than supported version ${DATABASE_VERSION}.`,
+    const row = await db.getFirstAsync<{ user_version: number }>(
+      "PRAGMA user_version;",
     );
-  }
+    const currentVersion = row?.user_version ?? 0;
 
-  const [migration] = getMigrationStatements(currentVersion);
-  if (!migration) return;
+    if (currentVersion > DATABASE_VERSION) {
+      throw new Error(
+        `Database version ${currentVersion} is newer than supported version ${DATABASE_VERSION}.`,
+      );
+    }
 
-  await db.withExclusiveTransactionAsync(async (transaction) => {
-    await transaction.execAsync(migration);
-    await transaction.execAsync(`PRAGMA user_version = ${DATABASE_VERSION};`);
+    const [migration] = getMigrationStatements(currentVersion);
+    if (!migration) return;
+
+    await db.withExclusiveTransactionAsync(async (transaction) => {
+      await transaction.execAsync(migration);
+      await transaction.execAsync(`PRAGMA user_version = ${DATABASE_VERSION};`);
+    });
   });
 }
 
 export async function resetDatabase(): Promise<void> {
-  const db = await getDb();
-  await db.withExclusiveTransactionAsync(async (transaction) => {
+  await withDatabaseWriteTransaction(async (transaction) => {
     await transaction.execAsync(`
       DROP TABLE IF EXISTS fertilizer_applications;
       DROP TABLE IF EXISTS user_fertilizers;

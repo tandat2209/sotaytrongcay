@@ -1,4 +1,4 @@
-import { getDb } from "@/shared/lib/db/database";
+import { getDb, runDatabaseWrite } from "@/shared/lib/db/database";
 import {
   type NewUserFertilizer,
   NewUserFertilizerSchema,
@@ -76,22 +76,24 @@ export async function saveUserFertilizer(
   input: NewUserFertilizer,
 ): Promise<void> {
   const fertilizer = NewUserFertilizerSchema.parse(input);
-  const db = await getDb();
-  await db.runAsync(
-    `INSERT INTO user_fertilizers
-      (id, mutation_id, name, fertilizer_group, knowledge_id, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?)
-     ON CONFLICT(id) DO UPDATE SET
-       mutation_id = excluded.mutation_id,
-       name = excluded.name,
-       fertilizer_group = excluded.fertilizer_group,
-       knowledge_id = excluded.knowledge_id,
-       updated_at = excluded.updated_at`,
-    userFertilizerToParams(fertilizer),
-  );
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync(
+      `INSERT INTO user_fertilizers
+        (id, mutation_id, name, fertilizer_group, knowledge_id, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+         mutation_id = excluded.mutation_id,
+         name = excluded.name,
+         fertilizer_group = excluded.fertilizer_group,
+         knowledge_id = excluded.knowledge_id,
+         updated_at = excluded.updated_at`,
+      userFertilizerToParams(fertilizer),
+    );
+  });
 }
 
 export async function deleteUserFertilizer(id: string): Promise<void> {
-  const db = await getDb();
-  await db.runAsync("DELETE FROM user_fertilizers WHERE id = ?", [id]);
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync("DELETE FROM user_fertilizers WHERE id = ?", [id]);
+  });
 }
