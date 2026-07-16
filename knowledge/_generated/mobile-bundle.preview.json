@@ -164,7 +164,7 @@
           ]
         }
       },
-      "bodyMarkdown": "# Nho\n\n## Phạm vi\n\nGói thí điểm hỗ trợ người trồng nho tại nhà và thiết lập toàn bộ vòng đời của cây nho thông qua 12 giai đoạn.\n\nTên khoa học dùng `Vitis spp.` vì “Nho” trong sản phẩm là nhóm cây chung. Giống cụ thể có thể được bổ sung vào dữ liệu cây trồng mà không thay đổi ID loài.\n\n## Hành trình sinh trưởng\n\nToàn bộ 12 giai đoạn tạo thành một mô hình lifecycles (vòng đời).\n- **Giai đoạn kiến thiết (Development):** Diễn ra một lần duy nhất từ lúc trồng (Cây con) đến khi hoàn thiện khung giàn (Hình thành tán).\n- **Chu kỳ sản xuất (Production):** Lặp lại hàng năm, bắt đầu từ Sau cắt cành và kết thúc ở Sau thu hoạch để bắt đầu vụ mới. Việc chuyển tiếp từ giai đoạn kiến thiết (Hình thành tán) sẽ dẫn thẳng tới chu kỳ sản xuất (Sau cắt cành).\n\n## Giới hạn\n\nGói này không quy định giống nho cụ thể, hệ giàn, khí hậu, loại đất, kích thước chậu, lượng nước, công thức phân bón hoặc chương trình phun thuốc. Đây là mô hình tổng quan đóng vai trò làm khung xương cho các ứng dụng chăm sóc.\n"
+      "bodyMarkdown": "\n# Nho\n\n## Phạm vi\n\nGói thí điểm hỗ trợ người trồng nho tại nhà và thiết lập toàn bộ vòng đời của cây nho thông qua 12 giai đoạn.\n\nTên khoa học dùng `Vitis spp.` vì “Nho” trong sản phẩm là nhóm cây chung. Giống cụ thể có thể được bổ sung vào dữ liệu cây trồng mà không thay đổi ID loài.\n\n## Hành trình sinh trưởng\n\nToàn bộ 12 giai đoạn tạo thành một mô hình lifecycles (vòng đời).\n\n- **Giai đoạn kiến thiết (Development):** Diễn ra một lần duy nhất từ lúc trồng (Cây con) đến khi hoàn thiện khung giàn (Hình thành tán).\n- **Chu kỳ sản xuất (Production):** Lặp lại hàng năm, bắt đầu từ Sau cắt cành và kết thúc ở Sau thu hoạch để bắt đầu vụ mới. Việc chuyển tiếp từ giai đoạn kiến thiết (Hình thành tán) sẽ dẫn thẳng tới chu kỳ sản xuất (Sau cắt cành).\n\n## Giới hạn\n\nGói này không quy định giống nho cụ thể, hệ giàn, khí hậu, loại đất, kích thước chậu, lượng nước, công thức phân bón hoặc chương trình phun thuốc. Đây là mô hình tổng quan đóng vai trò làm khung xương cho các ứng dụng chăm sóc.\n"
     }
   ],
   "stagePlaybooks": [
@@ -195,7 +195,7 @@
         "Nhận biết bọ trĩ",
         "Phân biệt chồi hoa và chồi điếc"
       ],
-      "bodyMarkdown": "Mầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ.\n"
+      "bodyMarkdown": "\nMầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ.\n"
     },
     {
       "id": "grape.stage.canopy-formation",
@@ -224,7 +224,7 @@
         "Bón phân giai đoạn hình thành tán",
         "Quá trình hóa gỗ của cành nho"
       ],
-      "bodyMarkdown": "Nuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.\n"
+      "bodyMarkdown": "\nNuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.\n"
     },
     {
       "id": "grape.stage.flowering",
@@ -253,7 +253,7 @@
         "Tại sao nho rụng bông?",
         "Ảnh hưởng của sương mù đến thụ phấn"
       ],
-      "bodyMarkdown": "Hoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.\n"
+      "bodyMarkdown": "\nHoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.\n"
     },
     {
       "id": "grape.stage.fruit-development",
@@ -283,7 +283,7 @@
         "Sử dụng túi bọc loại nào?",
         "Vì sao nho bị nứt trái?"
       ],
-      "bodyMarkdown": "Trái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ.\n"
+      "bodyMarkdown": "\nTrái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ.\n"
     },
     {
       "id": "grape.stage.fruit-set",
@@ -313,7 +313,7 @@
         "Kỹ thuật tỉa trái nho chuẩn",
         "Phòng nấm phấn trắng trên trái non"
       ],
-      "bodyMarkdown": "Hoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).\n"
+      "bodyMarkdown": "\nHoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).\n"
     },
     {
       "id": "grape.stage.harvest",
@@ -342,7 +342,7 @@
         "Chuẩn bị bón phân sau thu hoạch",
         "Cách bảo quản nho tươi lâu"
       ],
-      "bodyMarkdown": "Khoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.\n"
+      "bodyMarkdown": "\nKhoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.\n"
     },
     {
       "id": "grape.stage.pruning",
@@ -372,7 +372,7 @@
         "Cách xác định mắt ngủ khỏe",
         "Vệ sinh vườn sau cắt cành"
       ],
-      "bodyMarkdown": "Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.\n"
+      "bodyMarkdown": "\nCắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.\n"
     },
     {
       "id": "grape.stage.recovery",
@@ -400,7 +400,7 @@
         "Bón phân giai đoạn sau thu hoạch",
         "Vì sao nho cần ngủ đông?"
       ],
-      "bodyMarkdown": "Cây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.\n"
+      "bodyMarkdown": "\nCây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.\n"
     },
     {
       "id": "grape.stage.ripening",
@@ -430,7 +430,7 @@
         "Bón phân giai đoạn quả chín",
         "Cách xác định nho đã chín hoàn toàn"
       ],
-      "bodyMarkdown": "Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.\n"
+      "bodyMarkdown": "\nTrái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.\n"
     },
     {
       "id": "grape.stage.seedling",
@@ -459,7 +459,7 @@
         "Cách chọn đất trồng",
         "Nhận biết sâu hại mầm non"
       ],
-      "bodyMarkdown": "Giai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.\n"
+      "bodyMarkdown": "\nGiai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.\n"
     },
     {
       "id": "grape.stage.trellis-training",
@@ -488,7 +488,7 @@
         "Cách tạo cành cấp 1",
         "Nhận biết bệnh sương mai"
       ],
-      "bodyMarkdown": "Chuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.\n"
+      "bodyMarkdown": "\nChuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.\n"
     },
     {
       "id": "grape.stage.trunk-development",
@@ -517,7 +517,7 @@
         "Cách cột dây không làm nghẹt thân",
         "Kỹ thuật lẩy chồi nách"
       ],
-      "bodyMarkdown": "Tập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.\n"
+      "bodyMarkdown": "\nTập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.\n"
     }
   ],
   "carePlans": [
@@ -550,11 +550,33 @@
       "recommendedInputs": [
         {
           "group": "Phân giàu đạm (high-N)",
-          "examples": "Urê (hòa nước, tưới ngấm), phân cá (fish emulsion), NPK 20-10-10"
+          "suggestions": [
+            {
+              "id": "fertilizer.urea",
+              "name": "Urê",
+              "group": "single"
+            },
+            {
+              "id": "fertilizer.fish-emulsion",
+              "name": "Phân cá",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.npk-20-10-10",
+              "name": "NPK 20-10-10",
+              "group": "npk"
+            }
+          ]
         },
         {
           "group": "Vi lượng bổ sung (Zn, B, Fe)",
-          "examples": "Phun qua lá nếu nghi ngờ thiếu — chỉ dùng khi xác nhận thiếu"
+          "suggestions": [
+            {
+              "id": "fertilizer.trace-elements",
+              "name": "Vi lượng Zn, B, Fe",
+              "group": "supplement"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -644,11 +666,33 @@
       "recommendedInputs": [
         {
           "group": "Phân giàu kali (high-K)",
-          "examples": "Kali sunfat (SOP / 0-0-50), chiết xuất rong biển, tro gỗ (cẩn thận — tro gỗ làm tăng pH đất)"
+          "suggestions": [
+            {
+              "id": "fertilizer.potassium-sulfate",
+              "name": "Kali sunfat",
+              "group": "single"
+            },
+            {
+              "id": "fertilizer.seaweed-extract",
+              "name": "Rong biển",
+              "group": "supplement"
+            }
+          ]
         },
         {
           "group": "Phân NPK thiên kali",
-          "examples": "NPK 12-12-17 hoặc tương tự, phân compost phủ mặt"
+          "suggestions": [
+            {
+              "id": "fertilizer.npk-12-12-17",
+              "name": "NPK 12-12-17",
+              "group": "npk"
+            },
+            {
+              "id": "fertilizer.compost",
+              "name": "Phân compost",
+              "group": "organic"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -782,15 +826,43 @@
       "recommendedInputs": [
         {
           "group": "Phân giàu kali (high-K)",
-          "examples": "Kali sunfat (SOP), chiết xuất rong biển, NPK thiên kali"
+          "suggestions": [
+            {
+              "id": "fertilizer.potassium-sulfate",
+              "name": "Kali sunfat",
+              "group": "single"
+            },
+            {
+              "id": "fertilizer.seaweed-extract",
+              "name": "Rong biển",
+              "group": "supplement"
+            },
+            {
+              "id": "fertilizer.high-potassium-npk",
+              "name": "NPK thiên kali",
+              "group": "npk"
+            }
+          ]
         },
         {
           "group": "Phun canxi qua lá",
-          "examples": "Canxi clorua (CaCl₂) phun mỗi 7–14 ngày để phòng nứt trái"
+          "suggestions": [
+            {
+              "id": "fertilizer.calcium-chloride",
+              "name": "Canxi clorua",
+              "group": "supplement"
+            }
+          ]
         },
         {
           "group": "Bổ sung magiê (nếu thiếu)",
-          "examples": "Muối Epsom (magiê sunfat) — dùng khi lá già vàng giữa gân lá"
+          "suggestions": [
+            {
+              "id": "fertilizer.magnesium-sulfate",
+              "name": "Magiê sunfat",
+              "group": "supplement"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -884,15 +956,43 @@
       "recommendedInputs": [
         {
           "group": "Phân NPK cân đối, hơi thiên kali",
-          "examples": "NPK 16-16-16 hoặc tương tự"
+          "suggestions": [
+            {
+              "id": "fertilizer.npk-16-16-16",
+              "name": "NPK 16-16-16",
+              "group": "npk"
+            }
+          ]
         },
         {
           "group": "Bổ sung canxi",
-          "examples": "Canxi clorua (CaCl₂) phun qua lá — quan trọng cho thành tế bào trái"
+          "suggestions": [
+            {
+              "id": "fertilizer.calcium-chloride",
+              "name": "Canxi clorua",
+              "group": "supplement"
+            }
+          ]
         },
         {
           "group": "Phương án hữu cơ",
-          "examples": "Trà phân compost, phân cá kết hợp rong biển"
+          "suggestions": [
+            {
+              "id": "fertilizer.compost-tea",
+              "name": "Trà phân compost",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.fish-emulsion",
+              "name": "Phân cá",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.seaweed-extract",
+              "name": "Rong biển",
+              "group": "supplement"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -1024,11 +1124,28 @@
       "recommendedInputs": [
         {
           "group": "Phân NPK cân đối",
-          "examples": "NPK 16-16-16 liều vừa"
+          "suggestions": [
+            {
+              "id": "fertilizer.npk-16-16-16",
+              "name": "NPK 16-16-16",
+              "group": "npk"
+            }
+          ]
         },
         {
           "group": "Phân lót hữu cơ",
-          "examples": "Phân bò ủ hoai (\"phân lót\"), phân trùn quế rải quanh vùng rễ"
+          "suggestions": [
+            {
+              "id": "fertilizer.composted-cow-manure",
+              "name": "Phân bò ủ hoai",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.vermicompost",
+              "name": "Phân trùn quế",
+              "group": "organic"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -1119,19 +1236,63 @@
       "recommendedInputs": [
         {
           "group": "Phân NPK cân đối",
-          "examples": "NPK 16-16-16 — tiếp tục đạm vì cây cần giữ bộ lá quang hợp để tích trữ năng lượng"
+          "suggestions": [
+            {
+              "id": "fertilizer.npk-16-16-16",
+              "name": "NPK 16-16-16",
+              "group": "npk"
+            }
+          ]
         },
         {
           "group": "Phân hữu cơ bón nặng",
-          "examples": "Phân bò ủ hoai, phân trùn quế, phân vỏ trấu compost"
+          "suggestions": [
+            {
+              "id": "fertilizer.composted-cow-manure",
+              "name": "Phân bò ủ hoai",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.vermicompost",
+              "name": "Phân trùn quế",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.rice-husk-compost",
+              "name": "Phân vỏ trấu compost",
+              "group": "organic"
+            }
+          ]
         },
         {
           "group": "Bón lót lân và kali",
-          "examples": "Bột xương, lân tự nhiên, kali sunfat"
+          "suggestions": [
+            {
+              "id": "fertilizer.bone-meal",
+              "name": "Bột xương",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.rock-phosphate",
+              "name": "Lân tự nhiên",
+              "group": "single"
+            },
+            {
+              "id": "fertilizer.potassium-sulfate",
+              "name": "Kali sunfat",
+              "group": "single"
+            }
+          ]
         },
         {
           "group": "Vôi điều chỉnh pH (nếu cần)",
-          "examples": "Vôi dolomite — chỉ dùng khi pH đất giảm dưới 5.5 do bón phân hóa học nhiều"
+          "suggestions": [
+            {
+              "id": "fertilizer.dolomitic-lime",
+              "name": "Vôi dolomite",
+              "group": "supplement"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -1223,7 +1384,23 @@
       "recommendedInputs": [
         {
           "group": "Phân giàu kali (high-K)",
-          "examples": "Kali sunfat phun qua lá, chiết xuất rong biển, KH₂PO₄ (mono kali photphat) pha loãng phun lá"
+          "suggestions": [
+            {
+              "id": "fertilizer.potassium-sulfate",
+              "name": "Kali sunfat",
+              "group": "single"
+            },
+            {
+              "id": "fertilizer.seaweed-extract",
+              "name": "Rong biển",
+              "group": "supplement"
+            },
+            {
+              "id": "fertilizer.monopotassium-phosphate",
+              "name": "Mono kali photphat",
+              "group": "single"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -1359,11 +1536,38 @@
       "recommendedInputs": [
         {
           "group": "Phân NPK cân đối",
-          "examples": "NPK 16-16-16, phân compost bón quanh gốc"
+          "suggestions": [
+            {
+              "id": "fertilizer.npk-16-16-16",
+              "name": "NPK 16-16-16",
+              "group": "npk"
+            },
+            {
+              "id": "fertilizer.compost",
+              "name": "Phân compost",
+              "group": "organic"
+            }
+          ]
         },
         {
           "group": "Phân hữu cơ bón phụ",
-          "examples": "Phân cá pha loãng kết hợp rong biển, phân compost"
+          "suggestions": [
+            {
+              "id": "fertilizer.fish-emulsion",
+              "name": "Phân cá",
+              "group": "organic"
+            },
+            {
+              "id": "fertilizer.seaweed-extract",
+              "name": "Rong biển",
+              "group": "supplement"
+            },
+            {
+              "id": "fertilizer.compost",
+              "name": "Phân compost",
+              "group": "organic"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -1452,11 +1656,33 @@
       "recommendedInputs": [
         {
           "group": "Phân giàu đạm (high-N)",
-          "examples": "Urê (hòa nước tưới lượng nhỏ), phân cá (fish emulsion)"
+          "suggestions": [
+            {
+              "id": "fertilizer.urea",
+              "name": "Urê",
+              "group": "single"
+            },
+            {
+              "id": "fertilizer.fish-emulsion",
+              "name": "Phân cá",
+              "group": "organic"
+            }
+          ]
         },
         {
           "group": "Phân NPK cân đối",
-          "examples": "NPK 16-16-16, phân compost bón quanh gốc"
+          "suggestions": [
+            {
+              "id": "fertilizer.npk-16-16-16",
+              "name": "NPK 16-16-16",
+              "group": "npk"
+            },
+            {
+              "id": "fertilizer.compost",
+              "name": "Phân compost",
+              "group": "organic"
+            }
+          ]
         }
       ],
       "frequency": {
@@ -1502,9 +1728,9 @@
       },
       "onMissingHistory": "suggest",
       "notes": [
-        "Không tự động điền sẵn lượng nước hoặc độ ẩm đất khi người dùng chưa xác nhận.",
-        "Không suy đoán điều kiện trồng khi chưa có đủ bối cảnh.",
-        "Không chuyển thời gian từ lần tưới trước thành lượng nước tưới tự động."
+        "Kiểm tra đất quanh vùng rễ trước khi tưới; chỉ tưới khi đất bắt đầu khô, không tưới theo lịch cố định.",
+        "Tưới chậm vào vùng gốc để đất ẩm đều; không để nước đọng quanh gốc hoặc trong chậu.",
+        "Điều chỉnh lần tưới theo nắng, mưa, loại chậu và khả năng thoát nước của đất."
       ],
       "bodyMarkdown": ""
     }

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      try {
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-high": "#eae7e7",
+                "surface-container-low": "#f6f3f2",
+                "tertiary-container": "#4a5157",
+                "inverse-primary": "#a1d494",
+                "surface-dim": "#dcd9d9",
+                "error-container": "#ffdad6",
+                "inverse-surface": "#313030",
+                "on-primary-fixed-variant": "#23501e",
+                "surface-variant": "#e5e2e1",
+                "surface-container-lowest": "#ffffff",
+                "on-error-container": "#93000a",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#594982",
+                "inverse-on-surface": "#f3f0ef",
+                "on-tertiary-container": "#bdc3cb",
+                error: "#ba1a1a",
+                "tertiary-fixed": "#dde3eb",
+                "surface-container": "#f0eded",
+                primary: "#154212",
+                "on-secondary-fixed-variant": "#4d3d75",
+                "surface-container-highest": "#e5e2e1",
+                "outline-variant": "#c2c9bb",
+                "tertiary-fixed-dim": "#c1c7cf",
+                "surface-tint": "#3b6934",
+                "on-secondary": "#ffffff",
+                secondary: "#65558f",
+                "secondary-fixed": "#e9ddff",
+                "on-surface": "#1c1b1b",
+                "on-primary": "#ffffff",
+                "secondary-fixed-dim": "#cfbdfe",
+                "primary-fixed": "#bcf0ae",
+                "on-tertiary-fixed-variant": "#41474e",
+                tertiary: "#343a40",
+                "on-tertiary": "#ffffff",
+                "primary-fixed-dim": "#a1d494",
+                "primary-container": "#2d5a27",
+                "on-primary-fixed": "#002201",
+                "secondary-container": "#cfbdfe",
+                "on-tertiary-fixed": "#161c22",
+                "on-surface-variant": "#42493e",
+                outline: "#72796e",
+                background: "#fcf9f8",
+                surface: "#fcf9f8",
+                "on-primary-container": "#9dd090",
+                "surface-bright": "#fcf9f8",
+                "on-secondary-fixed": "#201047",
+                "on-background": "#1c1b1b",
+              },
+              borderRadius: {
+                DEFAULT: "0.25rem",
+                lg: "0.5rem",
+                xl: "0.75rem",
+                full: "9999px",
+              },
+              spacing: {
+                lg: "24px",
+                md: "16px",
+                xl: "32px",
+                "container-margin": "16px",
+                base: "4px",
+                sm: "8px",
+                xs: "4px",
+                gutter: "16px",
+              },
+              fontFamily: {
+                "headline-md": ["Inter"],
+                "label-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-sm": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-md": ["Inter"],
+              },
+              fontSize: {
+                "headline-md": [
+                  "22px",
+                  {
+                    lineHeight: "28px",
+                    letterSpacing: "-0.01em",
+                    fontWeight: "600",
+                  },
+                ],
+                "label-md": [
+                  "12px",
+                  {
+                    lineHeight: "16px",
+                    letterSpacing: "0.02em",
+                    fontWeight: "500",
+                  },
+                ],
+                "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                "label-sm": ["10px", { lineHeight: "12px", fontWeight: "600" }],
+                "headline-sm": [
+                  "18px",
+                  { lineHeight: "24px", fontWeight: "600" },
+                ],
+                "headline-lg": [
+                  "28px",
+                  {
+                    lineHeight: "34px",
+                    letterSpacing: "-0.02em",
+                    fontWeight: "600",
+                  },
+                ],
+                "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              },
+            },
+          },
+        };
+      } catch (_e) {}
+    </script>
+  </head>
+  <body
+    class="bg-background text-on-background min-h-screen flex flex-col font-sans"
+  >
+    <!-- Top App Bar -->
+    <header
+      class="w-full sticky top-0 z-40 bg-background dark:bg-background flex items-center justify-between px-container-margin h-16"
+    >
+      <button
+        class="text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:opacity-70 transition-opacity"
+      >
+        <span class="material-symbols-outlined" data-original-icon="arrow_back"
+          >arrow_back</span
+        >
+      </button>
+      <h1 class="font-headline-sm text-headline-sm text-primary font-bold">
+        Phân trùn quế
+      </h1>
+      <div class="w-10 h-10"></div>
+      <!-- Placeholder for alignment -->
+    </header>
+
+    <!-- Main Content -->
+    <main
+      class="flex-grow px-container-margin py-md flex flex-col gap-lg pb-[100px]"
+    >
+      <!-- Cách sử dụng Section -->
+      <section class="flex flex-col gap-sm">
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">
+          Cách sử dụng
+        </h2>
+        <div class="flex flex-wrap gap-sm">
+          <button
+            class="chip-active px-md py-sm rounded-full border text-body-md font-body-md transition-colors"
+          >
+            Bón gốc
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            Pha tưới
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            Phun lá
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            Phủ mặt
+          </button>
+        </div>
+      </section>
+
+      <!-- Lượng sử dụng Section -->
+      <section class="flex flex-col gap-sm">
+        <div class="flex justify-between items-baseline">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">
+            Lượng sử dụng
+          </h2>
+          <span class="font-body-md text-body-md text-on-surface-variant"
+            >(Không bắt buộc)</span
+          >
+        </div>
+        <div class="flex flex-wrap gap-sm">
+          <button
+            class="chip-active px-md py-sm rounded-full border text-body-md font-body-md transition-colors"
+          >
+            Không ghi lượng
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            1 nắm
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            2 nắm
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            1 muỗng
+          </button>
+          <button
+            class="chip-inactive px-md py-sm rounded-full border text-body-md font-body-md transition-colors hover:bg-surface-container"
+          >
+            Tự nhập
+          </button>
+        </div>
+      </section>
+
+      <!-- Đơn vị Section -->
+
+      <!-- Ghi chú riêng Section -->
+      <section class="flex flex-col gap-sm">
+        <div class="flex justify-between items-baseline">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">
+            Ghi chú
+          </h2>
+          <span class="font-body-md text-body-md text-on-surface-variant"
+            >(Không bắt buộc)</span
+          >
+        </div>
+        <textarea
+          class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl p-md font-body-lg text-body-lg text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none h-16"
+          placeholder="Ví dụ: rải quanh mép chậu"
+        ></textarea>
+      </section>
+    </main>
+
+    <!-- Fixed Bottom Button -->
+    <div
+      class="fixed bottom-0 left-0 w-full p-container-margin pb-[calc(16px+env(safe-area-inset-bottom))] bg-background/90 backdrop-blur-sm z-50 border-t border-outline-variant/30"
+    >
+      <button
+        class="w-full bg-primary text-on-primary font-headline-sm text-headline-sm rounded-xl py-3 h-12 flex items-center justify-center hover:bg-surface-tint active:scale-[0.98] transition-all shadow-sm"
+      >
+        Xong
+      </button>
+    </div>
+
+    <script class="">
+      // Simple script to toggle chip selection for demonstration
+      document.querySelectorAll("section").forEach((section) => {
+        const buttons = section.querySelectorAll("button:not(.w-full)"); // Exclude the main action button
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            // For exclusive selection within a section (except maybe units/methods in a real app)
+            buttons.forEach((b) => {
+              b.classList.remove("chip-active");
+              b.classList.add("chip-inactive");
+            });
+            e.currentTarget.classList.remove("chip-inactive");
+            e.currentTarget.classList.add("chip-active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

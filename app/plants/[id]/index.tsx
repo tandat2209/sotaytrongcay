@@ -2,7 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { z } from "zod";
 
-import { saveCareActivity } from "@/features/journal";
+import {
+  createFertilizerApplicationRecords,
+  saveCareActivityWithApplications,
+} from "@/features/journal";
 import { getPlant, PlantDetailContainer } from "@/features/plants";
 import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
@@ -28,17 +31,25 @@ export default function PlantDetailRoute() {
       onOpenUpdate={(updateId) => router.push(`/updates/${updateId}`)}
       onRecordCare={async (type, details) => {
         const createdAt = new Date().toISOString();
-        await saveCareActivity({
-          id: createId(),
-          mutationId: createId(),
-          plantId: id,
-          type,
-          occurredAt: details.occurredAt,
-          origin: "manual",
-          intensity: details.intensity,
-          estimatedAmountLiters: details.estimatedAmountLiters,
-          notes: details.notes,
-          createdAt,
+        const activityId = createId();
+        await saveCareActivityWithApplications({
+          activity: {
+            id: activityId,
+            mutationId: createId(),
+            plantId: id,
+            type,
+            occurredAt: details.occurredAt,
+            origin: "manual",
+            intensity: details.intensity,
+            estimatedAmountLiters: details.estimatedAmountLiters,
+            notes: details.notes,
+            createdAt,
+          },
+          applications: createFertilizerApplicationRecords(
+            activityId,
+            details.fertilizerApplications,
+            createId,
+          ),
         });
         const plant = await getPlant(id);
         if (plant) await reconcilePlantCarePlanReminders(plant);

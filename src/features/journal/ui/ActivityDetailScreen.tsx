@@ -14,9 +14,12 @@ import { colors, spacing } from "@/shared/ui/theme";
 import { CARE_ACTIVITY_VISUALS } from "../models/care-activity-icon";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
 import { type CareActivity } from "../models/care-activity";
+import type { FertilizerApplication } from "../models/fertilizer-application";
+import { FertilizerApplicationDetailsList } from "./FertilizerApplicationDetailsList";
 
 type Props = {
   activity: CareActivity;
+  fertilizerApplications?: readonly FertilizerApplication[];
   imageUri?: string | null;
   onBack?: () => void;
   plantName: string;
@@ -27,6 +30,7 @@ type Props = {
 
 export function ActivityDetailScreen({
   activity,
+  fertilizerApplications = [],
   imageUri,
   onBack,
   plantName,
@@ -74,6 +78,7 @@ export function ActivityDetailScreen({
           </Typography>
         </View>
       </SurfaceCard>
+      <FertilizerApplicationDetailsList applications={fertilizerApplications} />
       <SurfaceCard style={styles.card}>
         <Detail
           label={t("journal.activityDetail.origin")}

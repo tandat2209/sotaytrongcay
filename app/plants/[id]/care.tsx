@@ -4,9 +4,10 @@ import { Text } from "react-native";
 import { z } from "zod";
 import {
   CareEntryScreen,
+  createFertilizerApplicationRecords,
   getLatestPlantPhoto,
   listPlantUpdates,
-  saveCareActivity,
+  saveCareActivityWithApplications,
   type CareActivityType,
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
@@ -87,26 +88,38 @@ function CareEntry({
   }).find((candidate) => candidate.activityType === type);
   const reason = getStagePlaybook(plant.stageId)?.primaryObjective;
   const suggestion = plan?.recommendedInputs
-    ?.map((input) => input.examples)
+    ?.flatMap((input) => input.suggestions)
+    .map(({ name }) => name)
     .join(" · ");
   return (
     <CareEntryScreen
+      {...(plan?.fertilizerSuggestions
+        ? { fertilizerSuggestions: plan.fertilizerSuggestions }
+        : {})}
       {...(reason ? { reason } : {})}
-      {...(suggestion ? { suggestion } : {})}
+      {...(suggestion && type !== "fertilizing" ? { suggestion } : {})}
       onDismiss={() => router.back()}
       onSave={async (details) => {
         const now = new Date().toISOString();
-        await saveCareActivity({
-          id: createId(),
-          mutationId: createId(),
-          plantId: plant.id,
-          type,
-          occurredAt: details.occurredAt,
-          origin,
-          intensity: details.intensity,
-          estimatedAmountLiters: details.estimatedAmountLiters,
-          notes: details.notes,
-          createdAt: now,
+        const activityId = createId();
+        await saveCareActivityWithApplications({
+          activity: {
+            id: activityId,
+            mutationId: createId(),
+            plantId: plant.id,
+            type,
+            occurredAt: details.occurredAt,
+            origin,
+            intensity: details.intensity,
+            estimatedAmountLiters: details.estimatedAmountLiters,
+            notes: details.notes,
+            createdAt: now,
+          },
+          applications: createFertilizerApplicationRecords(
+            activityId,
+            details.fertilizerApplications,
+            createId,
+          ),
         });
         await reconcilePlantCarePlanReminders(plant);
         await Promise.all([

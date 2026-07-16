@@ -8,6 +8,36 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Use “Mở rộng” as the fourth tab and expose Fertilizer Management
+
+**Status:** Accepted
+
+**Decision:** Replace the persistent “Cài đặt” tab with “Mở rộng”. The More index exposes “Quản lý phân bón” alongside notification and Care Plan schedule settings. Fertilizer Management has two entry paths: contextual access from fertilizing Care Entry and persistent access through `Mở rộng → Quản lý phân bón`. Both routes operate on the same private User Fertilizer catalog; catalog changes create no Care Activity.
+
+**Rationale:** Fertilizer records are reusable user-owned data rather than a one-time form detail, so growers need a place to maintain them outside a care event without losing the fast contextual path while recording. “Mở rộng” can hold this and other secondary destinations without making a configuration-only screen a primary tab.
+
+**Consequences:** The 2026-07-15 Settings-tab decision is superseded. The persistent tab route is `/more`; notification and Care Plan configuration remain secondary `/settings/*` destinations beneath More. Fertilizer Management preserves the caller context so selection from Care Entry returns to its draft, while access from More remains standalone.
+
+## 2026-07-16 — Save multiple fertilizer applications under one fertilizing activity
+
+**Status:** Accepted
+
+**Decision:** A fertilizing Care Activity may contain zero or more ordered, user-entered Fertilizer Applications. Each optional application records the fertilizer identity and may record its group, NPK, amount/unit, application method, and item note. Nested add/edit/remove screens modify only the Care Entry draft; the parent “Lưu hoạt động” action atomically saves the activity and its applications.
+
+**Rationale:** Home growers may apply more than one product at the same time, and splitting one occurrence into several Care Activities would duplicate plant, time, origin, general notes, and save work. A child-record model preserves one trustworthy event while keeping optional product detail structured.
+
+**Consequences:** The target user-data model changes from one fertilizing-detail record per activity to a one-to-many aggregate. An application may snapshot a selected User Fertilizer so catalog edits or deletion cannot rewrite history. Curated Fertilizer Profiles remain Knowledge Base content and are not created or linked by matching free text. Implementation requires explicit schemas, migration, aggregate save/edit/delete behavior, draft-preserving navigation, and tests before the mockups can ship.
+
+## 2026-07-16 — Select reviewed fertilizer suggestions inline
+
+**Status:** Accepted
+
+**Decision:** A fertilizing Care Entry may show structured fertilizer suggestions authored by its applicable Care Plan as inline, wrapping, selectable chips. Tapping a chip adds or removes a fertilizer snapshot in the in-memory draft without opening the application editor. The parent “Lưu hoạt động” action remains the only history-write boundary. “Thêm loại phân” remains the path for manual catalog selection and optional application details.
+
+**Rationale:** A grower can record a suggested fertilizer with one selection and one explicit confirmation instead of traversing add and edit sheets, while the explicit Save boundary preserves trustworthy history and the manual path covers products and details outside reviewed suggestions.
+
+**Consequences:** Care Plan fertilizer suggestions require stable IDs, Vietnamese names, canonical fertilizer groups, source review, and compiler validation. Fertilizing recommended inputs no longer carry free-text examples. Chips wrap on mobile without horizontal scrolling and expose selected state accessibly.
+
 ## 2026-07-15 — Keep UI localization static and Vietnamese-only
 
 **Status:** Accepted
@@ -340,7 +370,7 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 ## 2026-07-15 — Make Settings persistent tab
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-16 “Mở rộng” tab decision
 
 **Decision:** Replace the former “Tôi” tab with “Cài đặt”. Settings is the fourth persistent destination and exposes only shipped notification and Care Plan schedule configuration. Remove the Me feature and `/me` route; MVP has no profile or account destination.
 

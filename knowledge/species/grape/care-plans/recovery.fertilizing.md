@@ -18,15 +18,37 @@ goal: >-
   cung cấp năng lượng cho vụ sau.
 recommended_inputs:
   - group: Phân NPK cân đối
-    examples: >-
-      NPK 16-16-16 — tiếp tục đạm vì cây cần giữ bộ lá quang hợp để tích trữ
-      năng lượng
+    suggestions:
+      - id: fertilizer.npk-16-16-16
+        name: NPK 16-16-16
+        fertilizer_group: npk
   - group: Phân hữu cơ bón nặng
-    examples: "Phân bò ủ hoai, phân trùn quế, phân vỏ trấu compost"
+    suggestions:
+      - id: fertilizer.composted-cow-manure
+        name: Phân bò ủ hoai
+        fertilizer_group: organic
+      - id: fertilizer.vermicompost
+        name: Phân trùn quế
+        fertilizer_group: organic
+      - id: fertilizer.rice-husk-compost
+        name: Phân vỏ trấu compost
+        fertilizer_group: organic
   - group: Bón lót lân và kali
-    examples: "Bột xương, lân tự nhiên, kali sunfat"
+    suggestions:
+      - id: fertilizer.bone-meal
+        name: Bột xương
+        fertilizer_group: organic
+      - id: fertilizer.rock-phosphate
+        name: Lân tự nhiên
+        fertilizer_group: single
+      - id: fertilizer.potassium-sulfate
+        name: Kali sunfat
+        fertilizer_group: single
   - group: Vôi điều chỉnh pH (nếu cần)
-    examples: Vôi dolomite — chỉ dùng khi pH đất giảm dưới 5.5 do bón phân hóa học nhiều
+    suggestions:
+      - id: fertilizer.dolomitic-lime
+        name: Vôi dolomite
+        fertilizer_group: supplement
 frequency:
   ground:
     display: >-

@@ -41,6 +41,7 @@ type Row =
   | Readonly<{ connectsToNext: boolean; kind: "item"; item: JournalItem }>;
 type Props = Readonly<{
   activities?: readonly CareActivity[];
+  fertilizerNamesByActivity?: Readonly<Record<string, readonly string[]>>;
   onOpenActivity?: (id: string) => void;
   onOpenUpdate?: (id: string) => void;
   plantNames?: Readonly<Record<string, string>>;
@@ -56,6 +57,7 @@ const emptyFilters: JournalFilters = {
 
 export function JournalScreen({
   activities = [],
+  fertilizerNamesByActivity = {},
   onOpenActivity = () => undefined,
   onOpenUpdate = () => undefined,
   plantNames = {},
@@ -182,6 +184,7 @@ export function JournalScreen({
                 ? { plantName: plantNames[row.item.record.plantId] }
                 : {})}
               connectsToNext={row.connectsToNext}
+              fertilizerNames={fertilizerNamesByActivity[row.item.id] ?? []}
               item={row.item}
               onOpenActivity={onOpenActivity}
               onOpenUpdate={onOpenUpdate}
@@ -203,6 +206,7 @@ export function JournalScreen({
 
 function JournalRow({
   connectsToNext,
+  fertilizerNames,
   item,
   onOpenActivity,
   onOpenUpdate,
@@ -210,6 +214,7 @@ function JournalRow({
   plantName,
 }: Readonly<{
   connectsToNext: boolean;
+  fertilizerNames: readonly string[];
   item: JournalItem;
   onOpenActivity: (id: string) => void;
   onOpenUpdate: (id: string) => void;
@@ -266,6 +271,15 @@ function JournalRow({
           {record.type === "watering" && record.intensity ? (
             <Typography color="textSecondary" variant="bodyMedium">
               {getWateringIntensityLabel(record.intensity)}
+            </Typography>
+          ) : null}
+          {record.type === "fertilizing" && fertilizerNames.length > 0 ? (
+            <Typography
+              color="textSecondary"
+              numberOfLines={2}
+              variant="bodyMedium"
+            >
+              {fertilizerNames.join(" · ")}
             </Typography>
           ) : null}
           {record.notes ? (

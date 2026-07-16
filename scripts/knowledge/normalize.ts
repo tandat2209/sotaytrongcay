@@ -1,4 +1,5 @@
 import type {
+  FertilizerSuggestion,
   NormalizedKnowledgeDocument,
   StageJourneyItem,
   ValidatedSourceDocument,
@@ -145,16 +146,44 @@ export function normalizeDocument(
       const recommendedInputs = Array.isArray(rawInputs)
         ? rawInputs
             .filter(
-              (item): item is Readonly<{ group: unknown; examples: unknown }> =>
+              (
+                item,
+              ): item is Readonly<{
+                group: unknown;
+                suggestions: unknown;
+              }> =>
                 typeof item === "object" &&
                 item !== null &&
                 "group" in item &&
-                "examples" in item,
+                "suggestions" in item,
             )
-            .map((item) => ({
-              group: String(item.group),
-              examples: String(item.examples),
-            }))
+            .map((item) => {
+              const rawSuggestions =
+                "suggestions" in item && Array.isArray(item.suggestions)
+                  ? item.suggestions
+                  : undefined;
+              const suggestions = rawSuggestions?.map((suggestion) => {
+                const value = suggestion as Readonly<Record<string, unknown>>;
+                const group = value.fertilizer_group;
+                const normalizedGroup: FertilizerSuggestion["group"] =
+                  group === "organic" ||
+                  group === "npk" ||
+                  group === "single" ||
+                  group === "supplement" ||
+                  group === "other"
+                    ? group
+                    : "other";
+                return {
+                  id: String(value.id),
+                  name: String(value.name),
+                  group: normalizedGroup,
+                };
+              });
+              return {
+                group: String(item.group),
+                suggestions: suggestions ?? [],
+              };
+            })
         : undefined;
       const rawFrequency = fm.frequency as RawFrequency | undefined;
       const frequency =

@@ -8,6 +8,10 @@ export {
   listPlantUpdates,
 } from "./data/plant-update-repository";
 export { savePlantUpdateWithPhotos } from "./application/save-plant-update";
+export {
+  createFertilizerApplicationRecords,
+  saveCareActivityWithApplications,
+} from "./application/save-care-activity-with-applications";
 export type { SavePlantUpdateCommand } from "./application/save-plant-update";
 export {
   CARE_ACTIVITY_ICONS,
@@ -21,6 +25,12 @@ export type {
   CareActivityType,
   WateringIntensity,
 } from "./models/care-activity";
+export { listFertilizerApplications } from "./data/fertilizer-application-repository";
+export type {
+  FertilizerAmountUnit,
+  FertilizerApplication,
+  FertilizerApplicationMethod,
+} from "./models/fertilizer-application";
 export {
   getCareActivityLabel,
   getCareActivityOriginLabel,

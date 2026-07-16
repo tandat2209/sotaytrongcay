@@ -142,7 +142,9 @@ describe("createPlantDetailProjection", () => {
         recommendedInputs: expect.arrayContaining([
           expect.objectContaining({
             group: "Phân giàu đạm (high-N)",
-            examples: expect.stringContaining("Urê"),
+            suggestions: expect.arrayContaining([
+              expect.objectContaining({ name: "Urê" }),
+            ]),
           }),
         ]),
       }),

@@ -5,9 +5,10 @@ import { z } from "zod";
 
 import {
   CareEntryScreen,
+  createFertilizerApplicationRecords,
   listCareActivities,
   listPlantUpdates,
-  saveCareActivity,
+  saveCareActivityWithApplications,
 } from "@/features/journal";
 import { listCarePlans } from "@/features/knowledge";
 import { listPlants, resolvePlantIdentity } from "@/features/plants";
@@ -106,22 +107,33 @@ export function TodayScreen() {
       </Screen>
       {entry && plant && identity ? (
         <CareEntryScreen
+          fertilizerSuggestions={entry.fertilizerSuggestions}
           reason={entry.explanation}
-          {...(entry.suggestion ? { suggestion: entry.suggestion } : {})}
+          {...(entry.suggestion && entry.activityType !== "fertilizing"
+            ? { suggestion: entry.suggestion }
+            : {})}
           onDismiss={() => setEntry(null)}
           onSave={async (details) => {
             const createdAt = new Date().toISOString();
-            await saveCareActivity({
-              id: createId(),
-              mutationId: createId(),
-              plantId: entry.plantId,
-              type: entry.activityType,
-              occurredAt: details.occurredAt,
-              origin: "today",
-              intensity: details.intensity,
-              estimatedAmountLiters: details.estimatedAmountLiters,
-              notes: details.notes,
-              createdAt,
+            const activityId = createId();
+            await saveCareActivityWithApplications({
+              activity: {
+                id: activityId,
+                mutationId: createId(),
+                plantId: entry.plantId,
+                type: entry.activityType,
+                occurredAt: details.occurredAt,
+                origin: "today",
+                intensity: details.intensity,
+                estimatedAmountLiters: details.estimatedAmountLiters,
+                notes: details.notes,
+                createdAt,
+              },
+              applications: createFertilizerApplicationRecords(
+                activityId,
+                details.fertilizerApplications,
+                createId,
+              ),
             });
             await reconcilePlantCarePlanReminders(plant);
             await Promise.all([

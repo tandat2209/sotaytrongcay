@@ -1,20 +1,25 @@
-import { t } from "@/shared/i18n";
+import { router } from "expo-router";
 import {
   Bell,
   ChevronRight,
+  Ellipsis,
   ListTree,
-  Settings,
+  PackageOpen,
   Sprout,
 } from "lucide-react-native";
-import { router } from "expo-router";
 import { Pressable, StyleSheet, View } from "react-native";
-
+import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 
-const settings = [
+const destinations = [
+  {
+    icon: PackageOpen,
+    label: t("more.row.fertilizers"),
+    path: "/more/fertilizers" as const,
+  },
   {
     icon: Bell,
     label: t("settings.row.notifications"),
@@ -32,15 +37,15 @@ const settings = [
   },
 ];
 
-export function SettingsScreen() {
+export function MoreScreen() {
   return (
     <Screen
-      introduction={t("settings.introduction")}
-      title={t("navigation.tabs.settings")}
-      titleIcon={Settings}
+      introduction={t("more.introduction")}
+      title={t("navigation.tabs.more")}
+      titleIcon={Ellipsis}
     >
       <View style={styles.list}>
-        {settings.map(({ icon: Icon, label, path }) => (
+        {destinations.map(({ icon: Icon, label, path }) => (
           <Pressable
             accessibilityLabel={label}
             accessibilityRole="button"

@@ -37,7 +37,7 @@ Stage guidance supports care tracking through concise tips. It does not create a
 - Bottom navigation contains places users revisit.
 - The app has no global FAB or Quick Action menu.
 - Today and Plant Detail expose the relevant care, journal, and stage actions.
-- Reminders remain secondary to Today, Plant Detail, and Settings.
+- Reminders remain secondary to Today, Plant Detail, and “Mở rộng”.
 
 ### Mobile-first
 
@@ -80,7 +80,7 @@ Future scope includes recurring schedules, additional species, collaboration, an
 1. **Hôm nay** — weather, “Việc cần làm hôm nay”, reminders, quick plant updates, and recent activity.
 2. **Cây trồng** — plants, care summaries, stage tips, and Timeline.
 3. **Nhật ký** — global activity history.
-4. **Cài đặt** — notification and Care Plan schedule configuration.
+4. **Mở rộng** — fertilizer management, notification, and Care Plan schedule configuration.
 
 There is no central action layered over the navigation. Each action appears where the user has enough plant and care context to understand its result.
 
@@ -97,6 +97,14 @@ There is no central action layered over the navigation. Each action appears wher
 Shortest watering path:
 
 `Hôm nay → Tưới nước → Lưu hoạt động`
+
+Fertilizing with optional detail:
+
+`Hôm nay hoặc Chi tiết cây → Bón phân → Thêm loại phân → Chọn hoặc thêm phân bón → Nhập cách dùng tùy chọn → Xong → Lưu hoạt động`
+
+Selecting a fertilizer, “Xong”, edit, and remove actions only change the in-memory Care Entry draft. Returning from a nested editor restores the parent draft. Only “Lưu hoạt động” writes the fertilizing activity and all of its fertilizer applications.
+
+Care Entry is the first route to fertilizer selection and creation: `Bón phân → Thêm loại phân`. The persistent second route is `Mở rộng → Quản lý phân bón`. Creating or editing a reusable fertilizer from either route updates the private fertilizer catalog but does not create a Care Activity.
 
 ### Add a plant update or change stage
 
@@ -116,7 +124,7 @@ Tapping "Hướng dẫn chi tiết" opens the Stage Playbook screen for the curr
 
 ### Manage reminders
 
-`Hôm nay hoặc Cài đặt → Thông báo hoặc lịch chăm sóc`
+`Hôm nay hoặc Mở rộng → Thông báo hoặc lịch chăm sóc`
 
 A completed reminder may open a prefilled care-entry form. It does not create history without user confirmation.
 
@@ -127,7 +135,7 @@ A completed reminder may open a prefilled care-entry form. It does not create hi
 1. Today — “Hôm nay”
 2. Plant List — “Cây trồng”
 3. Journal — “Nhật ký”
-4. Settings — “Cài đặt”
+4. More — “Mở rộng”
 
 Core and secondary screens:
 
@@ -140,6 +148,8 @@ Core and secondary screens:
 11. Activity or Journal Detail
 12. Reminder Management — "Tất cả lời nhắc"
 13. Create/Edit Reminder
+14. Fertilizer Management — “Quản lý phân bón”
+15. Create/Edit User Fertilizer — “Thêm phân bón” / “Chỉnh sửa phân bón”
 
 There is no standalone Task Guidance or guided-task completion screen in MVP.
 
@@ -299,7 +309,7 @@ No result shows “Không tìm thấy hoạt động phù hợp” + “Xóa b�
 
 **Purpose:** Save performed watering, fertilizing, or spraying with minimal input.
 
-**Components:** Read-only or preselected activity type; plant; time; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”.
+**Components:** Read-only or preselected activity type; plant; time; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”. Fertilizing may replace the generic collapsed area with a fertilizer-application list and nested add/edit screens when the user chooses to record products.
 
 Plant identity uses the latest persisted journal photo when available and falls back to the leaf treatment without blocking the form if photo loading fails.
 
@@ -307,7 +317,13 @@ Watering first shows four one-tap intensity choices: “Tưới nhẹ — làm �
 
 Optional estimated liters and notes stay hidden under collapsed “Thêm chi tiết”. The app never prefills estimated liters or derives volume from intensity. Legacy watering rows without intensity show “Chưa ghi mức tưới” rather than inferred intensity.
 
-Fertilizing optional fields include product, fertilizer type, NPK, amount/unit, application method, notes, and photos.
+Fertilizing requires no product detail. The parent sheet keeps plant context, occurrence time, an optional activity note, and a list of zero or more fertilizer applications. Creating an application requires a user-entered fertilizer name; fertilizer group, NPK, amount/unit, application method, and item-specific note remain optional. A repeated name from recent user history is a convenience, not approved guidance or a default selection.
+
+“Thêm loại phân” opens a selector backed by “Phân bón của tôi”. The user may select an existing fertilizer or create one in a focused add screen. Selecting a fertilizer then opens its application editor; “Xong” returns the application to the parent draft without saving history. Back or close preserves the parent draft and asks before discarding changed child fields. Removing an application from the draft does not delete its reusable fertilizer record.
+
+When the applicable approved Care Plan contains structured fertilizer suggestions, show each suggestion as an inline selectable chip under “Đã dùng loại phân nào?”. Chips wrap naturally across lines, with approximately two or three per normal mobile row depending on label length; never use horizontal scrolling. Tapping a chip toggles its fertilizer snapshot in the in-memory draft and does not open the nested editor or save history. “Lưu hoạt động” remains the only persistence action. “Thêm loại phân” remains available for a fertilizer outside the suggestions or for optional usage details.
+
+Use “Thêm chi tiết” for inline disclosure, “Thêm loại phân” for selecting or creating a reusable fertilizer, and an explicit edit affordance for an existing application. Focused add/edit screens do not show bottom navigation and return to the originating Care Entry. “Mở rộng” remains the fourth persistent tab and never labels a save action.
 
 Spraying optional fields include product, purpose, dosage/unit, method, notes, and photos.
 
@@ -359,7 +375,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Purpose:** Customize schedule snapshots without editing curated Care Plan knowledge or creating manual care tasks.
 
-**Navigation:** `Cài đặt` exposes three destinations: “Thông báo”, “Kế hoạch chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
+**Navigation:** `Mở rộng` exposes “Thông báo”, “Kế hoạch chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
 
 **Stage settings:** List every authored stage and its Care Plans. A stage snapshot belongs to one exact Care Plan. Ground and container each show their authored frequency and may set an independent interval; notification delivery and time are shared by both growing methods. Reset restores both authored frequencies.
 
@@ -371,23 +387,26 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Dữ liệu đã nhập vẫn được giữ lại.” Permission denial still preserves in-app schedule behavior.
 
-### 7.11 Settings — “Cài đặt”
+### 7.11 More — “Mở rộng”
 
-**Purpose:** Configure shipped notification and Care Plan schedule behavior.
+**Purpose:** Provide one persistent place for secondary management and configuration destinations.
 
 **Components:**
 
+- “Quản lý phân bón”
 - “Thông báo”
 - “Kế hoạch chăm sóc theo giai đoạn”
 - “Tùy chỉnh theo cây”
 
-**Empty state:** Not applicable; only shipped settings appear.
+“Quản lý phân bón” lists reusable private fertilizers, supports search, add, edit, and delete, and does not display curated recommendations. Deleting a reusable fertilizer requires confirmation and leaves saved Fertilizer Applications unchanged. The same management screen is also reachable contextually from fertilizing Care Entry, which returns the selected fertilizer to the existing draft.
 
-**Loading state:** Render local settings immediately.
+**Empty state:** The More index always shows its shipped destinations. Fertilizer Management shows “Chưa có phân bón đã lưu” with “Thêm phân bón”.
+
+**Loading state:** Render the local More index immediately. Fertilizer Management renders its local catalog before remote synchronization.
 
 **Error state:** Keep errors inside the affected row.
 
-**User actions:** Review notification permission, customize stage schedules, or customize one plant schedule.
+**User actions:** Manage saved fertilizers, review notification permission, customize stage schedules, or customize one plant schedule.
 
 ## 8. Shared interaction patterns
 
@@ -425,7 +444,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 ## 9. Navigation rationale
 
-Today, Plants, Journal, and Settings remain persistent destinations. Actions live on Today and Plant Detail, where the plant and care context are visible.
+Today, Plants, Journal, and More remain persistent destinations. Care actions live on Today and Plant Detail, where the plant and care context are visible; More owns secondary management destinations such as Fertilizer Management and settings.
 
 No global FAB avoids duplicating Today actions. Plant Detail alone may use one plant-scoped floating action menu because plant context is already fixed; it opens Care Entry or “Thêm nhật ký” and never writes history directly.
 

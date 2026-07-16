@@ -38,7 +38,15 @@ const plan: CarePlan = {
     ground: { display: "Mỗi 3 ngày", intervalDays: 3 },
     container: { display: "Mỗi 3 ngày", intervalDays: 3 },
   },
-  recommendedInputs: [{ group: "Nước", examples: "Nước sạch" }],
+  fertilizerSuggestions: [
+    { id: "fertilizer.npk", name: "NPK", group: "npk" },
+  ],
+  recommendedInputs: [
+    {
+      group: "Phân NPK",
+      suggestions: [{ id: "fertilizer.npk", name: "NPK", group: "npk" }],
+    },
+  ],
   version: "1.0.0",
 };
 const plantSnapshot: PlantCarePlanScheduleSnapshot = {
@@ -98,7 +106,8 @@ describe("createTodayProjection", () => {
       expect.objectContaining({
         carePlanId: plan.id,
         dueStatus: "due",
-        suggestion: "Nước sạch",
+        fertilizerSuggestions: plan.fertilizerSuggestions,
+        suggestion: "NPK",
       }),
     ]);
   });

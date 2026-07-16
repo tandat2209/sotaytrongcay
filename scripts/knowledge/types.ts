@@ -168,7 +168,13 @@ export interface NormalizedCarePlan extends NormalizedUserFacingBaseDocument {
 
 export interface RecommendedInput {
   readonly group: string;
-  readonly examples: string;
+  readonly suggestions: readonly FertilizerSuggestion[];
+}
+
+export interface FertilizerSuggestion {
+  readonly id: string;
+  readonly name: string;
+  readonly group: "organic" | "npk" | "single" | "supplement" | "other";
 }
 
 export interface CareFrequency {
@@ -181,9 +187,14 @@ export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {
   readonly goal: string;
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
-  readonly recommendedInputs?: readonly RecommendedInput[];
+  readonly recommendedInputs?: readonly GuideRecommendedInput[];
   readonly frequency?: CareFrequency;
   readonly notes?: readonly string[];
+}
+
+export interface GuideRecommendedInput {
+  readonly group: string;
+  readonly examples: string;
 }
 
 export interface NormalizedReferenceSource extends NormalizedBaseDocument {

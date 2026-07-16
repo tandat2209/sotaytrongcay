@@ -14,10 +14,16 @@ import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
 import { CareEntryContextFields } from "./CareEntryContextFields";
 import { CareEntryDetailsSection } from "./CareEntryDetailsSection";
+import {
+  FertilizingApplicationsSection,
+  type FertilizerApplicationDetails,
+} from "./FertilizingApplicationsSection";
 import { WateringIntensityPicker } from "./WateringIntensityPicker";
+import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
 
 export type CareEntryDetails = Readonly<{
   estimatedAmountLiters: number | null;
+  fertilizerApplications: readonly FertilizerApplicationDetails[];
   intensity: WateringIntensity | null;
   notes: string | null;
   occurredAt: string;
@@ -25,6 +31,7 @@ export type CareEntryDetails = Readonly<{
 
 type Props = Readonly<{
   imageUri?: string | null;
+  fertilizerSuggestions?: readonly FertilizerSuggestion[];
   onDismiss: () => void;
   onSave: (details: CareEntryDetails) => Promise<void>;
   reason?: string;
@@ -40,6 +47,9 @@ type Props = Readonly<{
 export function CareEntryScreen(props: Props) {
   const [amount, setAmount] = useState("");
   const [intensity, setIntensity] = useState<WateringIntensity | null>(null);
+  const [fertilizerApplications, setFertilizerApplications] = useState<
+    readonly FertilizerApplicationDetails[]
+  >([]);
   const [notes, setNotes] = useState("");
   const [occurredAt, setOccurredAt] = useState(() => new Date());
   const [error, setError] = useState<string | null>(null);
@@ -72,6 +82,7 @@ export function CareEntryScreen(props: Props) {
     try {
       await props.onSave({
         estimatedAmountLiters: parsedAmount,
+        fertilizerApplications,
         intensity: props.type === "watering" ? intensity : null,
         notes: notes.trim() || null,
         occurredAt: occurredAt.toISOString(),
@@ -129,6 +140,13 @@ export function CareEntryScreen(props: Props) {
           }
           onChange={setIntensity}
           value={intensity}
+        />
+      ) : null}
+      {props.type === "fertilizing" ? (
+        <FertilizingApplicationsSection
+          onChange={setFertilizerApplications}
+          suggestions={props.fertilizerSuggestions ?? []}
+          value={fertilizerApplications}
         />
       ) : null}
       <CareEntryDetailsSection

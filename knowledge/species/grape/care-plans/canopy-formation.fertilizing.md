@@ -18,11 +18,21 @@ goal: >-
   kỳ mang trái đầu tiên.
 recommended_inputs:
   - group: Phân giàu kali (high-K)
-    examples: >-
-      Kali sunfat (SOP / 0-0-50), chiết xuất rong biển, tro gỗ (cẩn thận — tro
-      gỗ làm tăng pH đất)
+    suggestions:
+      - id: fertilizer.potassium-sulfate
+        name: Kali sunfat
+        fertilizer_group: single
+      - id: fertilizer.seaweed-extract
+        name: Rong biển
+        fertilizer_group: supplement
   - group: Phân NPK thiên kali
-    examples: "NPK 12-12-17 hoặc tương tự, phân compost phủ mặt"
+    suggestions:
+      - id: fertilizer.npk-12-12-17
+        name: NPK 12-12-17
+        fertilizer_group: npk
+      - id: fertilizer.compost
+        name: Phân compost
+        fertilizer_group: organic
 frequency:
   ground:
     display: >-

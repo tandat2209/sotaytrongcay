@@ -1,4 +1,5 @@
 import { getDb } from "@/shared/lib/db/database";
+import type { SQLiteDatabase } from "expo-sqlite";
 import {
   type CareActivity,
   CareActivitySchema,
@@ -59,6 +60,13 @@ export function careActivityFromRow(row: CareActivityRow): CareActivity {
 export async function saveCareActivity(input: NewCareActivity): Promise<void> {
   const activity = NewCareActivitySchema.parse(input);
   const db = await getDb();
+  await insertCareActivity(db, activity);
+}
+
+export async function insertCareActivity(
+  db: SQLiteDatabase,
+  activity: NewCareActivity,
+): Promise<void> {
   await db.runAsync(
     `INSERT OR IGNORE INTO care_activities
       (id, mutation_id, plant_id, activity_type, occurred_at, origin, watering_intensity, amount_value, amount_unit, notes, created_at)

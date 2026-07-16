@@ -54,9 +54,21 @@ export type CarePlan = Readonly<{
     ground: { display: string; intervalDays: number };
     container: { display: string; intervalDays: number };
   };
-  recommendedInputs?: readonly { group: string; examples: string }[];
+  recommendedInputs?: readonly RecommendedInput[];
+  fertilizerSuggestions?: readonly FertilizerSuggestion[];
   notes?: readonly string[];
   version: string;
+}>;
+
+export type FertilizerSuggestion = Readonly<{
+  id: string;
+  name: string;
+  group: "organic" | "npk" | "single" | "supplement" | "other";
+}>;
+
+export type RecommendedInput = Readonly<{
+  group: string;
+  suggestions: readonly FertilizerSuggestion[];
 }>;
 
 // ---------------------------------------------------------------------------
@@ -125,7 +137,10 @@ type RawCarePlan = {
     ground: { display: string; intervalDays: number };
     container: { display: string; intervalDays: number };
   };
-  recommendedInputs?: { group: string; examples: string }[];
+  recommendedInputs?: {
+    group: string;
+    suggestions: FertilizerSuggestion[];
+  }[];
   notes?: string[];
   version: string;
 };
@@ -251,6 +266,9 @@ export function listCarePlans(
 // ---------------------------------------------------------------------------
 
 function toCarePlan(raw: RawCarePlan): CarePlan {
+  const fertilizerSuggestions = raw.recommendedInputs?.flatMap(
+    (input) => input.suggestions,
+  );
   return {
     id: raw.id,
     title: raw.title,
@@ -264,6 +282,7 @@ function toCarePlan(raw: RawCarePlan): CarePlan {
     ...(raw.recommendedInputs !== undefined && {
       recommendedInputs: raw.recommendedInputs,
     }),
+    ...(fertilizerSuggestions?.length && { fertilizerSuggestions }),
     ...(raw.notes !== undefined && { notes: raw.notes }),
     version: raw.version,
   };

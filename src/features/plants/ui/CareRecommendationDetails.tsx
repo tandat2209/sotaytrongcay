@@ -27,7 +27,7 @@ export function CareRecommendationDetails({
             <View key={input.group} style={styles.item}>
               <Typography variant="bodyLarge">{input.group}</Typography>
               <Typography color="textSecondary" variant="bodyMedium">
-                {input.examples}
+                {input.suggestions.map(({ name }) => name).join(" · ")}
               </Typography>
             </View>
           ))}

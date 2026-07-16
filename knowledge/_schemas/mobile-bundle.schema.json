@@ -310,6 +310,31 @@
                 "examples": {
                   "type": "string",
                   "minLength": 1
+                },
+                "suggestions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["id", "name", "group"],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^fertilizer\\.[a-z0-9-]+$"
+                      },
+                      "name": { "type": "string", "minLength": 1 },
+                      "group": {
+                        "enum": [
+                          "organic",
+                          "npk",
+                          "single",
+                          "supplement",
+                          "other"
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -544,15 +569,36 @@
             "items": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["group", "examples"],
+              "required": ["group", "suggestions"],
               "properties": {
                 "group": {
                   "type": "string",
                   "minLength": 1
                 },
-                "examples": {
-                  "type": "string",
-                  "minLength": 1
+                "suggestions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["id", "name", "group"],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^fertilizer\\.[a-z0-9-]+$"
+                      },
+                      "name": { "type": "string", "minLength": 1 },
+                      "group": {
+                        "enum": [
+                          "organic",
+                          "npk",
+                          "single",
+                          "supplement",
+                          "other"
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }

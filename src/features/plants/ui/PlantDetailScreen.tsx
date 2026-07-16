@@ -72,8 +72,13 @@ export function PlantDetailScreen({
     ? formatCareEvaluationReason(entryCard.evaluation.reason)
     : projection.stagePlaybook?.primaryObjective;
   const entrySuggestion = entryCard?.details?.recommendedInputs
-    .map((input) => input.examples)
+    .flatMap((input) => input.suggestions)
+    .map(({ name }) => name)
     .join(" · ");
+  const fertilizerSuggestions =
+    entryCard?.details?.recommendedInputs.flatMap(
+      (input) => input.suggestions,
+    ) ?? [];
   const recordQuickCare = (type: CareActivityType) => {
     setCareEntryType(type);
   };
@@ -149,8 +154,11 @@ export function PlantDetailScreen({
       </BottomSheet>
       {careEntryType ? (
         <CareEntryScreen
+          fertilizerSuggestions={fertilizerSuggestions}
           {...(entryReason ? { reason: entryReason } : {})}
-          {...(entrySuggestion ? { suggestion: entrySuggestion } : {})}
+          {...(entrySuggestion && careEntryType !== "fertilizing"
+            ? { suggestion: entrySuggestion }
+            : {})}
           onDismiss={() => setCareEntryType(null)}
           onSave={async (details) => {
             await onRecordCare(careEntryType, details);

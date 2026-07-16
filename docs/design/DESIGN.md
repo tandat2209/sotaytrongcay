@@ -18,25 +18,26 @@ See [SCREEN_REVIEW.md](./SCREEN_REVIEW.md) for the current screen-by-screen prod
 
 ## 2. Reference index
 
-| Order | Reference                              | Intended use                                             | Status notes                                                             |
-| ----- | -------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------ |
-| 00    | `00-design-system-source`              | Original generated token reference                       | Supporting source only                                                   |
-| 01    | `01-welcome`                           | Onboarding direction                                     | Revise copy toward care tracking                                         |
-| 02    | `02-today-overview`                    | Today hierarchy, care prompts, and “Thêm nhật ký”        | Current direction; replace placeholders and complete four-tab navigation |
-| 03    | `03-add-plant-select-species`          | Species search and selection                             | Strong layout reference                                                  |
-| 04    | `04-add-plant-details`                 | Plant setup and stage selection                          | Validate fields and stage list                                           |
-| 05    | `05-add-plant-success`                 | First next step after plant creation                     | Reduce celebration and blocking UI                                       |
-| 06    | `06-plant-detail`                      | Plant summary, tips, and care history                    | Tracking controls must be prominent                                      |
-| 07    | `07-stage-playbook`                    | Stage guide hierarchy                                    | Strong reference; content needs review                                   |
-| 08    | `08-manual-watering`                   | Manual watering bottom sheet                             | Do not prefill unsupported amounts                                       |
-| 09    | `09-manual-fertilizing-recommendation` | Fertilizing context and warning                          | Products are not approved content                                        |
-| 10    | `10-manual-fertilizing-details`        | Optional fertilizer detail fields                        | Keep optional and collapsed                                              |
-| 11    | `11-manual-spraying`                   | Manual spraying detail treatment                         | Product/dosage content is exploratory                                    |
-| 12    | `12-new-journal-entry`                 | Photo, notes, plant selection, and optional stage change | Strong current-flow reference                                            |
-| 13    | `13-journal`                           | Global chronological history                             | Add source labels and full filters                                       |
-| 14    | `14-me-settings`                       | Settings information architecture                        | Use the shared sans-serif typography                                     |
+| Order | Reference                              | Intended use                                              | Status notes                                                             |
+| ----- | -------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------ |
+| 00    | `00-design-system-source`              | Original generated token reference                        | Supporting source only                                                   |
+| 01    | `01-welcome`                           | Onboarding direction                                      | Revise copy toward care tracking                                         |
+| 02    | `02-today-overview`                    | Today hierarchy, care prompts, and “Thêm nhật ký”         | Current direction; replace placeholders and complete four-tab navigation |
+| 03    | `03-add-plant-select-species`          | Species search and selection                              | Strong layout reference                                                  |
+| 04    | `04-add-plant-details`                 | Plant setup and stage selection                           | Validate fields and stage list                                           |
+| 05    | `05-add-plant-success`                 | First next step after plant creation                      | Reduce celebration and blocking UI                                       |
+| 06    | `06-plant-detail`                      | Plant summary, tips, and care history                     | Tracking controls must be prominent                                      |
+| 07    | `07-stage-playbook`                    | Stage guide hierarchy                                     | Strong reference; content needs review                                   |
+| 08    | `08-manual-watering`                   | Manual watering bottom sheet                              | Do not prefill unsupported amounts                                       |
+| 09    | `09-manual-fertilizing-recommendation` | Superseded fertilizing reference                          | Do not use                                                               |
+| 10    | `10-manual-fertilizing-details`        | Optional fertilizer detail fields                         | Nested manual-detail reference only                                      |
+| 11    | `11-manual-spraying`                   | Manual spraying detail treatment                          | Product/dosage content is exploratory                                    |
+| 12    | `12-new-journal-entry`                 | Photo, notes, plant selection, and optional stage change  | Strong current-flow reference                                            |
+| 13    | `13-journal`                           | Global chronological history                              | Add source labels and full filters                                       |
+| 14    | `14-me-settings`                       | Secondary-management grouping                             | Content may inform More; Settings is no longer a persistent tab          |
+| 15    | `15-fertilizing-care-entry`            | Current fertilizing draft, suggestion, add, and edit flow | Use `01-main-sheet.png` for the parent sheet; follow `SCREEN_REVIEW.md` |
 
-Each numbered screen directory keeps its `screen.png` and `code.html` together. Future references should follow `NN-short-purpose` naming.
+Single-screen references keep `screen.png` and `code.html` together. A multi-screen feature reference uses one `NN-feature-purpose` directory with matching ordered pairs such as `01-main-sheet.png` and `01-main-sheet.html`. All reference directories and files use English `kebab-case`; generated or temporary Vietnamese slugs must be renamed during review.
 
 ## 3. Product expression
 
@@ -120,13 +121,15 @@ Bottom navigation contains four destinations:
 1. “Hôm nay”
 2. “Cây trồng”
 3. “Nhật ký”
-4. “Cài đặt”
+4. “Mở rộng”
 
 The active destination uses primary green for icon and label. Inactive destinations use a neutral color with sufficient contrast.
 
 Do not add a global FAB. Plant Detail may use one local floating action menu for plant-scoped watering, fertilizing, spraying, and journal entry; Today remains FAB-free. It opens the selected entry flow and never saves directly.
 
 Plant Detail keeps “Cây trồng” active. A focused form should not show a misleading destination state.
+
+Nested fertilizing add/edit screens belong to the originating Care Entry. They show no bottom navigation, preserve the parent draft on return, and do not persist until “Lưu hoạt động” is selected on the parent sheet. “Mở rộng” is the fourth tab and provides the standalone second path to “Quản lý phân bón”; it is not a child-editor or save label.
 
 ## 7. Information hierarchy
 
@@ -201,6 +204,9 @@ Care Entry is the single path for watering, fertilizing, and spraying. “Thêm 
 
 - Keep plant, activity, and time as the minimum path.
 - Place product, amount, dosage, method, notes, and photos under “Thêm chi tiết”.
+- A fertilizing sheet may summarize multiple fertilizer applications as editable rows. Keep per-item fields in focused add/edit screens and keep the single “Lưu hoạt động” action on the parent sheet.
+- Show structured, reviewed Care Plan fertilizer suggestions as inline chips that wrap without horizontal scrolling. Tapping a chip only updates the draft; it never saves history or opens the nested editor.
+- Manual fertilizer selection uses the private “Phân bón của tôi” catalog shared with `Mở rộng → Quản lý phân bón`. Do not render mockup-only NPK formulas, fertilizer groups, or amounts as selected defaults.
 - Never prefill fertilizer, pesticide, dosage, or water amount without approved Knowledge Base logic and sufficient context.
 - Show weather as context, not fabricated certainty.
 - Change the plant's stage only when the user selects a different stage and saves the journal entry.
@@ -307,7 +313,7 @@ Do not copy these details into implementation:
 - Placeholder plant images and the unrelated avatar in `02-today-overview`.
 - Generic “Thực hiện” labels in `02-today-overview`; implementation should use explicit care labels.
 - Incomplete bottom navigation in `02-today-overview`; implementation keeps all four destinations.
-- Serif typography in `14-me-settings`; Settings uses shared sans-serif typography.
+- Serif typography in `14-me-settings`; secondary destinations under More use shared sans-serif typography.
 - “Hôm nay” active while viewing a plant in `06-plant-detail`.
 - Prescriptive products, dosages, watering values, and sensor readings.
 - Missing Journal source labels and plant/date/activity filters.
@@ -323,6 +329,8 @@ Before treating the set as an implementation baseline, add references for:
 - Journal entry with changed-stage and validation/error variants.
 - Completion-criteria checklist.
 - Reminder Management.
+- More index and its selected fourth-tab state.
+- Fertilizer Management in standalone mode and Care Entry selection mode.
 - Journal source labels and full filter sheet.
 - Empty, loading, offline, stale-weather, and error variants.
 

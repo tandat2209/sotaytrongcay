@@ -17,9 +17,18 @@ goal: >-
   Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.
 recommended_inputs:
   - group: Phân NPK cân đối
-    examples: NPK 16-16-16 liều vừa
+    suggestions:
+      - id: fertilizer.npk-16-16-16
+        name: NPK 16-16-16
+        fertilizer_group: npk
   - group: Phân lót hữu cơ
-    examples: 'Phân bò ủ hoai ("phân lót"), phân trùn quế rải quanh vùng rễ'
+    suggestions:
+      - id: fertilizer.composted-cow-manure
+        name: Phân bò ủ hoai
+        fertilizer_group: organic
+      - id: fertilizer.vermicompost
+        name: Phân trùn quế
+        fertilizer_group: organic
 frequency:
   ground:
     display: Một lần duy nhất trong tuần đầu sau cắt cành

@@ -17,9 +17,21 @@ goal: >-
   đoạn nhu cầu đạm (N) bắt đầu tăng.
 recommended_inputs:
   - group: Phân giàu đạm (high-N)
-    examples: "Urê (hòa nước tưới lượng nhỏ), phân cá (fish emulsion)"
+    suggestions:
+      - id: fertilizer.urea
+        name: Urê
+        fertilizer_group: single
+      - id: fertilizer.fish-emulsion
+        name: Phân cá
+        fertilizer_group: organic
   - group: Phân NPK cân đối
-    examples: "NPK 16-16-16, phân compost bón quanh gốc"
+    suggestions:
+      - id: fertilizer.npk-16-16-16
+        name: NPK 16-16-16
+        fertilizer_group: npk
+      - id: fertilizer.compost
+        name: Phân compost
+        fertilizer_group: organic
 frequency:
   ground:
     display: Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh

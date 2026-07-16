@@ -4,6 +4,7 @@ import { Text } from "react-native";
 import { z } from "zod";
 import { t } from "@/shared/i18n";
 import { getCareActivity } from "@/features/journal/data/care-activity-repository";
+import { listFertilizerApplications } from "@/features/journal/data/fertilizer-application-repository";
 import { listPlantUpdates } from "@/features/journal/data/plant-update-repository";
 import { getLatestPlantPhoto } from "@/features/journal/models/plant-update";
 import { ActivityDetailScreen } from "@/features/journal/ui/ActivityDetailScreen";
@@ -19,12 +20,14 @@ export default function ActivityDetailRoute() {
     queryFn: async () => {
       const activity = await getCareActivity(id);
       if (!activity) return { activity, imageUri: null, plant: null };
-      const [plant, updates] = await Promise.all([
+      const [fertilizerApplications, plant, updates] = await Promise.all([
+        listFertilizerApplications(activity.id),
         getPlant(activity.plantId),
         listPlantUpdates(activity.plantId),
       ]);
       return {
         activity,
+        fertilizerApplications,
         imageUri: getLatestPlantPhoto(updates)?.localUri ?? null,
         plant,
       };
@@ -43,6 +46,7 @@ export default function ActivityDetailRoute() {
   return (
     <ActivityDetailScreen
       activity={query.data.activity}
+      fertilizerApplications={query.data.fertilizerApplications}
       imageUri={query.data.imageUri}
       onBack={() => router.back()}
       plantName={query.data.plant?.name ?? t("common.fallback.plant")}

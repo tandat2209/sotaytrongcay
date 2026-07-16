@@ -1,0 +1,81 @@
+import { z } from "zod";
+import { getDb } from "@/shared/lib/db/database";
+import { insertCareActivity } from "../data/care-activity-repository";
+import { insertFertilizerApplication } from "../data/fertilizer-application-repository";
+import { NewCareActivitySchema } from "../models/care-activity";
+import { FertilizerApplicationSchema } from "../models/fertilizer-application";
+import type { FertilizerApplication } from "../models/fertilizer-application";
+
+type FertilizerApplicationDetails = Omit<
+  FertilizerApplication,
+  "careActivityId" | "id" | "position"
+>;
+
+const CareActivityWithApplicationsSchema = z
+  .object({
+    activity: NewCareActivitySchema,
+    applications: z.array(FertilizerApplicationSchema),
+  })
+  .superRefine(({ activity, applications }, context) => {
+    if (activity.type !== "fertilizing" && applications.length > 0) {
+      context.addIssue({
+        code: "custom",
+        message: "Fertilizer applications require a fertilizing activity.",
+        path: ["applications"],
+      });
+    }
+    applications.forEach((application, index) => {
+      if (application.careActivityId !== activity.id) {
+        context.addIssue({
+          code: "custom",
+          message: "Fertilizer application belongs to another activity.",
+          path: ["applications", index, "careActivityId"],
+        });
+      }
+      if (application.position !== index) {
+        context.addIssue({
+          code: "custom",
+          message: "Fertilizer application positions must be contiguous.",
+          path: ["applications", index, "position"],
+        });
+      }
+    });
+  });
+
+export type CareActivityWithApplicationsInput = z.input<
+  typeof CareActivityWithApplicationsSchema
+>;
+
+export function parseCareActivityWithApplications(
+  input: CareActivityWithApplicationsInput,
+) {
+  return CareActivityWithApplicationsSchema.parse(input);
+}
+
+export function createFertilizerApplicationRecords(
+  careActivityId: string,
+  details: readonly FertilizerApplicationDetails[],
+  createId: () => string,
+): FertilizerApplication[] {
+  return details.map((application, position) =>
+    FertilizerApplicationSchema.parse({
+      ...application,
+      id: createId(),
+      careActivityId,
+      position,
+    }),
+  );
+}
+
+export async function saveCareActivityWithApplications(
+  input: CareActivityWithApplicationsInput,
+): Promise<void> {
+  const command = parseCareActivityWithApplications(input);
+  const db = await getDb();
+  await db.withTransactionAsync(async () => {
+    await insertCareActivity(db, command.activity);
+    for (const application of command.applications) {
+      await insertFertilizerApplication(db, application);
+    }
+  });
+}

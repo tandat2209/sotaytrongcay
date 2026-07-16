@@ -12,7 +12,7 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 
 **Context:** Layer-first folders scatter one feature across the repository.
 
-**Decision:** Organize by `plants`, `guidance`, `journal`, `reminders`, `weather`, `knowledge`, `today`, `auth`, and `settings`; separate model, application, data, and UI inside each feature.
+**Decision:** Organize by `plants`, `guidance`, `journal`, `fertilizers`, `reminders`, `weather`, `knowledge`, `today`, `auth`, `more`, and `settings`; separate model, application, data, and UI inside each feature.
 
 **Rationale:** Related knowledge and changes stay local.
 
@@ -77,7 +77,7 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   ├── today.tsx
 │   │   ├── plants.tsx
 │   │   ├── journal.tsx
-│   │   └── settings.tsx
+│   │   └── more.tsx
 │   ├── plants/
 │   │   └── [id]/
 │   │       ├── index.tsx    # Plant Detail
@@ -86,6 +86,8 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │       └── guide.tsx    # Stage Playbook — accepts optional stageId query param
 │   ├── entries/
 │   ├── reminders/
+│   ├── more/
+│   │   └── fertilizers/
 │   ├── settings/
 │   └── data-management/
 ├── src/
@@ -100,12 +102,14 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   │   ├── README.md
 │   │   │   └── index.ts
 │   │   ├── journal/
+│   │   ├── fertilizers/
 │   │   ├── guidance/
 │   │   ├── reminders/
 │   │   ├── weather/
 │   │   ├── knowledge/
 │   │   ├── today/
 │   │   ├── auth/
+│   │   ├── more/
 │   │   └── settings/
 │   ├── sync/                    # Outbox, push/pull, checkpoints, conflicts
 │   ├── infrastructure/
@@ -170,19 +174,21 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 - `plants`: plant identity, species, metadata, active/archive state, current growth stage, and stage history.
 - `guidance`: reviewed stage tips and deterministic, ephemeral care suggestions with explanations and optional Care Entry prefills.
 - `journal`: core care records, photo-and-note plant updates, photos, and timeline.
+- `fertilizers`: reusable private User Fertilizer catalog, selection, and management. It does not own curated Fertilizer Profiles or create care history.
 - `reminders`: Care Plan schedule snapshots, resolved due timing, and local notification delivery. It never creates care history.
 - `weather`: current conditions, freshness, location precision, and care-context summary.
 - `knowledge`: read-only species, stage playbooks, tips, care recommendations, health, fertilizer, seasonal, and weather-rule content.
 - `today`: derived guidance/weather/reminder/journal read model; owns no source data.
-- `settings`: notification and Care Plan schedule configuration routes; owns no business records.
+- `more`: composition-only index for secondary destinations such as Fertilizer Management and settings; owns no business records.
+- `settings`: notification and Care Plan schedule configuration routes; owns no fertilizer or care records.
 
-**Context:** The former Me tab was an empty wrapper around Settings while shipped preference controls lived on a separate route.
+**Context:** A configuration-only fourth tab cannot expose reusable fertilizer management without mislabelling user-owned data as settings.
 
-**Decision:** Settings is the fourth persistent tab. The Me feature and `/me` route are removed.
+**Decision:** More is the fourth persistent tab. The Me feature and `/me` route remain removed; notification and schedule settings become destinations beneath More.
 
-**Rationale:** One direct Settings destination avoids duplicate navigation and removes a feature with no owned behavior.
+**Rationale:** More provides a stable home for secondary management without turning Fertilizer Management into a fifth tab or hiding it inside a care event.
 
-**Consequences:** `/settings` remains the canonical deep link through the tab route. The MVP has no profile or account destination.
+**Consequences:** `/more` is the canonical fourth-tab deep link. Existing settings routes remain valid secondary routes, and the MVP still has no profile or account destination.
 
 - `auth`: guest identity, session, account upgrade, sign-out.
 - `sync`: mutation envelopes, checkpoints, and sync status.
@@ -203,21 +209,23 @@ Playbook parsing and presentation remain internal to the module. Care-suggestion
 
 ### Navigation composition
 
-The `(tabs)` layout owns four destination tabs. Route files remain thin and import public screens from `today`, `plants`, `journal`, and `settings`.
+The `(tabs)` layout owns four destination tabs. Route files remain thin and import public screens from `today`, `plants`, `journal`, and `more`.
 
-Today and Plant Detail open public care-entry and new-journal-entry routes with validated plant and activity parameters.
+Today and Plant Detail open public care-entry and new-journal-entry routes with validated plant and activity parameters. Fertilizing add/edit views are child routes or feature-owned nested screens of the Care Entry draft; they are not destinations and never persist independently.
 
-Schedule customization is secondary Settings behavior. It has separate notification, stage-Care-Plan, and plant-first routes; Plant Detail may open its current plant's customization directly. Today remains action-only.
+Fertilizer Management is reachable from More and contextually from fertilizing Care Entry. The More route opens the standalone manager; Care Entry passes return-selection context so choosing or creating a fertilizer resumes the existing draft. Schedule customization remains secondary settings behavior beneath More, with separate notification, stage-Care-Plan, and plant-first routes; Plant Detail may open its current plant's customization directly. Today remains action-only.
 
 There is no global action overlay. Today derives relevant core-care prompts; Plant Detail supplies the current plant context directly.
 
 ### User data and Knowledge Base separation
 
-User data includes plants, current stage selection, core care activities, plant journal updates, photos, timeline, and reminders. It is private, mutable, synchronized, and protected by Supabase RLS.
+User data includes plants, current stage selection, reusable User Fertilizers, core care activities, plant journal updates, photos, timeline, and reminders. It is private, mutable, synchronized, and protected by Supabase RLS.
 
 Knowledge Base data includes plant species, valid growth stages, diseases, pests, fertilizers, care guides, and seasonal tips. It is curated, read-only in the app, versioned, and never mixed into user-owned tables.
 
 User records reference stable knowledge IDs such as `speciesId`, `growthStageId`, or optional catalog IDs. A label change in knowledge must not rewrite journal history.
+
+A User Fertilizer is a private reusable catalog record with a stable ID, required user label, optional group and NPK metadata, timestamps, and sync metadata. Fertilizer Management owns create, edit, archive/delete, search, and selection. These operations never create Care Activities.
 
 Stage playbooks are review-stage guidance contracts, not user data. Each playbook defines concise stage context: objective, entry and exit observations, estimated duration, knowledge topics, and sources. They do not define reminders, tasks, automatic transitions, or executable agronomic rules.
 
@@ -229,7 +237,7 @@ Every species definition contains at least one stage. The generic `other` specie
 
 This keeps the database invariant valid without inventing a plant-specific stage.
 
-A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Watering also stores one stable intensity code (`light`, `moderate`, `deep`, or `rain`) plus optional user-entered estimated liters. New watering saves require intensity; the read model permits null only for legacy rows migrated without inference. Intensity never implies, derives, or prefills volume. Optional type-specific detail uses validated one-to-one records, not an unbounded key/value model.
+A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Watering also stores one stable intensity code (`light`, `moderate`, `deep`, or `rain`) plus optional user-entered estimated liters. New watering saves require intensity; the read model permits null only for legacy rows migrated without inference. Intensity never implies, derives, or prefills volume. Type-specific details use explicit validated records rather than an unbounded key/value model. Watering and spraying details are at most one-to-one; a fertilizing activity may own zero or more ordered fertilizer-application records.
 
 A plant update stores plant, occurrence time, optional note, photos, confirmed stage ID, and sync metadata. Pruning and observations may be described in the note but do not introduce dedicated activity types.
 
@@ -247,7 +255,11 @@ The care record may store `origin = today`, `reminder`, or `manual`, plus an opt
 
 The save command uses a client-generated mutation ID so retries cannot duplicate history.
 
-Fertilizing detail stores product name, fertilizer type, NPK ratio, amount with unit, and application method. Spraying detail stores product name, purpose, dosage with unit, and notes.
+Each fertilizer-application record belongs to exactly one fertilizing Care Activity and stores a stable ID, display order, optional User Fertilizer ID, and an immutable display snapshot containing the required name plus optional group and NPK ratio. It may also store an optional amount-and-unit pair, application method, and item note. The parent Care Activity owns occurrence time, origin, general notes, photos, and synchronization metadata. Saving the parent atomically creates the activity and its current application set under one mutation ID; nested add, edit, remove, back, and “Xong” actions only mutate form state. Editing or deleting a User Fertilizer never mutates an existing application snapshot.
+
+User-entered fertilizer applications are journal history, not Knowledge Base Fertilizer Profiles. A future optional profile ID may preserve provenance when a reviewed catalog item is deliberately selected, but names or NPK text must never be auto-linked by string matching.
+
+Spraying detail stores product name, purpose, dosage with unit, and notes.
 
 Do not use free-form units when a structured value is available. Preserve the original user-entered value for display while storing a normalized value when conversion is safe.
 

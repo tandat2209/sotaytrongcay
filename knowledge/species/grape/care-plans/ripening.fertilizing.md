@@ -18,9 +18,16 @@ goal: >-
   lá không mong muốn và làm chậm chín.
 recommended_inputs:
   - group: Phân giàu kali (high-K)
-    examples: >-
-      Kali sunfat phun qua lá, chiết xuất rong biển, KH₂PO₄ (mono kali photphat)
-      pha loãng phun lá
+    suggestions:
+      - id: fertilizer.potassium-sulfate
+        name: Kali sunfat
+        fertilizer_group: single
+      - id: fertilizer.seaweed-extract
+        name: Rong biển
+        fertilizer_group: supplement
+      - id: fertilizer.monopotassium-phosphate
+        name: Mono kali photphat
+        fertilizer_group: single
 frequency:
   ground:
     display: "Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch"

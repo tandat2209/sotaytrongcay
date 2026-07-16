@@ -17,9 +17,21 @@ goal: >-
   bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.
 recommended_inputs:
   - group: Phân giàu đạm (high-N)
-    examples: "Urê (hòa nước, tưới ngấm), phân cá (fish emulsion), NPK 20-10-10"
+    suggestions:
+      - id: fertilizer.urea
+        name: Urê
+        fertilizer_group: single
+      - id: fertilizer.fish-emulsion
+        name: Phân cá
+        fertilizer_group: organic
+      - id: fertilizer.npk-20-10-10
+        name: NPK 20-10-10
+        fertilizer_group: npk
   - group: "Vi lượng bổ sung (Zn, B, Fe)"
-    examples: Phun qua lá nếu nghi ngờ thiếu — chỉ dùng khi xác nhận thiếu
+    suggestions:
+      - id: fertilizer.trace-elements
+        name: Vi lượng Zn, B, Fe
+        fertilizer_group: supplement
 frequency:
   ground:
     display: Mỗi 1–2 tuần trong giai đoạn chồi đang phát triển mạnh

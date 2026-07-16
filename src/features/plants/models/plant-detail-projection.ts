@@ -13,6 +13,7 @@ import {
   getPreviewPlantKnowledge,
   getStagePlaybook,
   listCarePlans,
+  type RecommendedInput,
   type StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
@@ -31,7 +32,7 @@ export type PlantDetailCareDetails = Readonly<{
   frequencyDisplay: string | null;
   goal: string;
   notes: readonly string[];
-  recommendedInputs: readonly Readonly<{ examples: string; group: string }>[];
+  recommendedInputs: readonly RecommendedInput[];
 }>;
 
 export type PlantDetailCareCard = Readonly<{

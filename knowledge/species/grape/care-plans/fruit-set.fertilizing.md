@@ -17,11 +17,26 @@ goal: >-
   phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.
 recommended_inputs:
   - group: "Phân NPK cân đối, hơi thiên kali"
-    examples: NPK 16-16-16 hoặc tương tự
+    suggestions:
+      - id: fertilizer.npk-16-16-16
+        name: NPK 16-16-16
+        fertilizer_group: npk
   - group: Bổ sung canxi
-    examples: Canxi clorua (CaCl₂) phun qua lá — quan trọng cho thành tế bào trái
+    suggestions:
+      - id: fertilizer.calcium-chloride
+        name: Canxi clorua
+        fertilizer_group: supplement
   - group: Phương án hữu cơ
-    examples: "Trà phân compost, phân cá kết hợp rong biển"
+    suggestions:
+      - id: fertilizer.compost-tea
+        name: Trà phân compost
+        fertilizer_group: organic
+      - id: fertilizer.fish-emulsion
+        name: Phân cá
+        fertilizer_group: organic
+      - id: fertilizer.seaweed-extract
+        name: Rong biển
+        fertilizer_group: supplement
 frequency:
   ground:
     display: Mỗi 1–2 tuần — đây là giai đoạn bón nặng

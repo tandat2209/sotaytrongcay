@@ -32,6 +32,7 @@ export type TodayCareCard = Readonly<{
   carePlanId: string;
   dueStatus: "due" | "overdue" | null;
   explanation: string;
+  fertilizerSuggestions: NonNullable<CarePlan["fertilizerSuggestions"]>;
   id: string;
   imageUri: string | null;
   plantId: string;
@@ -91,6 +92,7 @@ export function createTodayProjection({
         const base = {
           activityType: plan.activityType,
           carePlanId: plan.id,
+          fertilizerSuggestions: plan.fertilizerSuggestions ?? [],
           id: `${plant.id}:${plan.id}`,
           imageUri: plantPhotoUris[plant.id] ?? null,
           plantId: plant.id,
@@ -101,7 +103,8 @@ export function createTodayProjection({
           stageTitle: identity.stageTitle,
           suggestion:
             plan.recommendedInputs
-              ?.map((input) => input.examples)
+              ?.flatMap((input) => input.suggestions)
+              .map(({ name }) => name)
               .join(" · ") ?? null,
           title: plan.title,
         };

@@ -18,11 +18,26 @@ goal: >-
   nhiều nhất trong toàn bộ chu kỳ.
 recommended_inputs:
   - group: Phân giàu kali (high-K)
-    examples: "Kali sunfat (SOP), chiết xuất rong biển, NPK thiên kali"
+    suggestions:
+      - id: fertilizer.potassium-sulfate
+        name: Kali sunfat
+        fertilizer_group: single
+      - id: fertilizer.seaweed-extract
+        name: Rong biển
+        fertilizer_group: supplement
+      - id: fertilizer.high-potassium-npk
+        name: NPK thiên kali
+        fertilizer_group: npk
   - group: Phun canxi qua lá
-    examples: Canxi clorua (CaCl₂) phun mỗi 7–14 ngày để phòng nứt trái
+    suggestions:
+      - id: fertilizer.calcium-chloride
+        name: Canxi clorua
+        fertilizer_group: supplement
   - group: Bổ sung magiê (nếu thiếu)
-    examples: Muối Epsom (magiê sunfat) — dùng khi lá già vàng giữa gân lá
+    suggestions:
+      - id: fertilizer.magnesium-sulfate
+        name: Magiê sunfat
+        fertilizer_group: supplement
 frequency:
   ground:
     display: Mỗi 1–2 tuần

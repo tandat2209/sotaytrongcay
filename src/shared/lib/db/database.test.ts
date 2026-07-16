@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(10);
+    expect(DATABASE_VERSION).toBe(12);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -39,7 +39,7 @@ describe("database migrations", () => {
   it("replaces V7 reminder preferences with schedule snapshots in version 8", () => {
     const [sql] = getMigrationStatements(7);
 
-    expect(DATABASE_VERSION).toBe(10);
+    expect(DATABASE_VERSION).toBe(12);
     expect(sql).toContain(
       "DROP TABLE IF EXISTS care_plan_reminder_preferences",
     );
@@ -73,6 +73,35 @@ describe("database migrations", () => {
     expect(sql).toContain("'light', 'moderate', 'deep', 'rain'");
     expect(sql).toContain("watering_intensity IS NULL");
     expect(sql).not.toContain("UPDATE care_activities");
+  });
+
+  it("adds the private user fertilizer catalog in version 11", () => {
+    const [sql] = getMigrationStatements(10);
+
+    expect(DATABASE_VERSION).toBe(12);
+    expect(sql).toContain("CREATE TABLE user_fertilizers");
+    expect(sql).toContain("mutation_id TEXT NOT NULL UNIQUE");
+    expect(sql).toContain("name TEXT NOT NULL");
+    expect(sql).toContain(
+      "fertilizer_group IN ('organic', 'npk', 'single', 'supplement', 'other')",
+    );
+    expect(sql).toContain("CREATE INDEX idx_user_fertilizers_name");
+  });
+
+  it("adds ordered fertilizer application snapshots in version 12", () => {
+    const [sql] = getMigrationStatements(11);
+
+    expect(DATABASE_VERSION).toBe(12);
+    expect(sql).toContain("CREATE TABLE fertilizer_applications");
+    expect(sql).toContain("user_fertilizer_id TEXT");
+    expect(sql).toContain("name_snapshot TEXT NOT NULL");
+    expect(sql).toContain("UNIQUE (care_activity_id, position)");
+    expect(sql).toContain(
+      "FOREIGN KEY (user_fertilizer_id) REFERENCES user_fertilizers(id) ON DELETE SET NULL",
+    );
+    expect(sql).toContain(
+      "FOREIGN KEY (care_activity_id) REFERENCES care_activities(id) ON DELETE CASCADE",
+    );
   });
 
   it("resets the prototype tables before establishing the clean baseline", () => {

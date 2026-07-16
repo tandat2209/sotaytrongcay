@@ -24,7 +24,10 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 ## MVP UX
 
 - [x] Prototype Plant Detail with an informational lifecycle journey, current-stage objective, deterministic watering/fertilizing care cards, plant-scoped Quick Care, recent saved care, and weather context.
-- [ ] Prototype fast watering and fertilizing entry flows.
+- [x] Prototype and review fast watering and fertilizing entry flows.
+- [ ] Validate the multi-fertilizer draft and nested add/edit flow with home grape growers.
+- [ ] Validate whether growers understand both “Thêm loại phân” in Care Entry and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
+- [ ] Validate whether inline reviewed fertilizer chips reduce fertilizing-entry time without being mistaken for automatic prescriptions.
 - [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.
 - [x] Add “Thêm nhật ký” with photos, notes, and optional stage change to Plant Detail.
@@ -59,7 +62,9 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Add local photo-and-note Plant Updates with user-confirmed stage history, Journal display, and derived Plant Detail photos.
 - [x] Add Care Plan schedule snapshots and local notification delivery.
 - [ ] Add a complete mixed-event Timeline.
-- [ ] Add type-specific fertilizer and spraying details after reviewed field contracts exist.
+- [x] Implement the reviewed one-to-many fertilizer-application contract.
+- [ ] Add type-specific spraying details.
+- [x] Replace the Settings tab with More and add reusable User Fertilizer management with contextual selection from Care Entry.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
 - [x] Build the first deterministic watering suggestion without persistent task instances, including transparent positive and negative Today evaluations.
@@ -84,7 +89,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Define technical and Knowledge Base architecture.
 - [x] Separate user data from curated knowledge.
 - [x] Distinguish trackable care from informational stage tips.
-- [x] Review mockups 01–14 against the current product and Knowledge Base contract.
+- [x] Review mockups 01–15 against the current product and Knowledge Base contract.
 - [x] Author a sourced "Nuôi thân" grape Knowledge Base pilot with stable IDs and schemas.
 - [x] Remove reminder-template and task/transition behavior from the review-stage grape playbook contract.
 - [x] Align Knowledge Base documentation ownership and precedence with schemas and accepted product decisions.

@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 10;
+export const DATABASE_VERSION = 12;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -212,6 +212,56 @@ ALTER TABLE care_activities ADD COLUMN watering_intensity TEXT
   CHECK (watering_intensity IS NULL OR watering_intensity IN ('light', 'moderate', 'deep', 'rain'));
 `;
 
+const V11_ADD_USER_FERTILIZERS = `
+CREATE TABLE user_fertilizers (
+  id TEXT PRIMARY KEY NOT NULL,
+  mutation_id TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  fertilizer_group TEXT CHECK (
+    fertilizer_group IS NULL OR
+    fertilizer_group IN ('organic', 'npk', 'single', 'supplement', 'other')
+  ),
+  npk TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE INDEX idx_user_fertilizers_name
+  ON user_fertilizers(name COLLATE NOCASE);
+`;
+
+const V12_ADD_FERTILIZER_APPLICATIONS = `
+CREATE TABLE fertilizer_applications (
+  id TEXT PRIMARY KEY NOT NULL,
+  care_activity_id TEXT NOT NULL,
+  user_fertilizer_id TEXT,
+  position INTEGER NOT NULL CHECK (position >= 0),
+  name_snapshot TEXT NOT NULL,
+  group_snapshot TEXT CHECK (
+    group_snapshot IS NULL OR
+    group_snapshot IN ('organic', 'npk', 'single', 'supplement', 'other')
+  ),
+  npk_snapshot TEXT,
+  amount_value REAL CHECK (amount_value IS NULL OR amount_value > 0),
+  amount_unit TEXT CHECK (
+    amount_unit IS NULL OR
+    amount_unit IN ('handful', 'spoon', 'cap', 'gram', 'milliliter', 'other')
+  ),
+  application_method TEXT CHECK (
+    application_method IS NULL OR
+    application_method IN ('root', 'drench', 'foliar', 'topdress')
+  ),
+  notes TEXT,
+  UNIQUE (care_activity_id, position),
+  FOREIGN KEY (care_activity_id) REFERENCES care_activities(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_fertilizer_id) REFERENCES user_fertilizers(id) ON DELETE SET NULL,
+  CHECK ((amount_value IS NULL) = (amount_unit IS NULL))
+);
+
+CREATE INDEX idx_fertilizer_applications_activity
+  ON fertilizer_applications(care_activity_id, position);
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
@@ -225,6 +275,8 @@ export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion < 9)
     migrations.push(V9_SPLIT_STAGE_FREQUENCY_BY_GROWING_METHOD);
   if (currentVersion < 10) migrations.push(V10_ADD_WATERING_INTENSITY);
+  if (currentVersion < 11) migrations.push(V11_ADD_USER_FERTILIZERS);
+  if (currentVersion < 12) migrations.push(V12_ADD_FERTILIZER_APPLICATIONS);
   return migrations;
 }
 
@@ -251,6 +303,8 @@ export async function initializeDatabase(): Promise<void> {
 export async function resetDatabase(): Promise<void> {
   const db = await getDb();
   await db.execAsync(`
+    DROP TABLE IF EXISTS fertilizer_applications;
+    DROP TABLE IF EXISTS user_fertilizers;
     DROP TABLE IF EXISTS plant_care_plan_notification_states;
     DROP TABLE IF EXISTS plant_care_plan_schedule_snapshots;
     DROP TABLE IF EXISTS stage_care_plan_schedule_snapshots;

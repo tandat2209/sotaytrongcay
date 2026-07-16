@@ -86,6 +86,35 @@ describe("preview knowledge", () => {
       expect(recs[0]!.goal.length).toBeGreaterThan(0);
     });
 
+    it("exposes structured fertilizer suggestions from a fertilizing plan", () => {
+      const plan = getCarePlansForStage("grape.stage.canopy-formation").find(
+        (candidate) => candidate.activityType === "fertilizing",
+      );
+
+      expect(plan?.fertilizerSuggestions).toEqual(
+        expect.arrayContaining([
+          {
+            id: "fertilizer.potassium-sulfate",
+            name: "Kali sunfat",
+            group: "single",
+          },
+        ]),
+      );
+    });
+
+    it("exposes fertilizer chips for the default trunk-development stage", () => {
+      const plan = getCarePlansForStage("grape.stage.trunk-development").find(
+        (candidate) => candidate.activityType === "fertilizing",
+      );
+
+      expect(plan?.fertilizerSuggestions?.map(({ name }) => name)).toEqual([
+        "Urê",
+        "Phân cá",
+        "NPK 16-16-16",
+        "Phân compost",
+      ]);
+    });
+
     it("returns an empty array for a stage with no plans", () => {
       expect(getCarePlansForStage("grape.stage.nonexistent")).toHaveLength(0);
     });

@@ -63,6 +63,7 @@ Users can:
 
 - Grape plant profiles with current growth stage.
 - Contextual care entry for watering, fertilizing, and spraying.
+- A reusable private fertilizer catalog reachable from fertilizing Care Entry and “Mở rộng” → “Quản lý phân bón”.
 - “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
 - Optional structured details for products, NPK, amounts, dosage, methods, notes, and photos.
 - Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
@@ -93,7 +94,8 @@ Users can:
 - A **Care Plan** owns stage-scoped watering, fertilizing, or spraying guidance and its deterministic suggestion fields: title, goal, optional growing-method frequency, recommended inputs, notes, species/stage scope, eligibility, missing-history policy, and priority. MVP permits one applicable plan per scope.
 - A **Care Guide** contains generic informational techniques such as training or pruning and does not create tracked care recommendations.
 - Review-stage content remains informational and creates no history.
-- A **Care Activity** records performed watering, fertilizing, or spraying.
+- A **Care Activity** records performed watering, fertilizing, or spraying. One fertilizing activity may contain zero or more user-entered **Fertilizer Applications** so a mixed application is still saved as one occurrence.
+- A **User Fertilizer** is a reusable private catalog record. Selecting one copies its identity into a Fertilizer Application; managing the catalog does not create history, and later catalog changes do not rewrite saved applications.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
 - Saving either record adds it to the plant Timeline and global Journal.
 - A care record may store its origin as Today, reminder, or manual entry.
@@ -101,6 +103,7 @@ Users can:
 - A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. A plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
 - Weather Rules may prioritize, delay, suppress, or annotate a suggestion.
 - User data references stable Knowledge Base IDs but never owns curated content.
+- User-entered fertilizer names, groups, quantities, methods, and notes are mutable history. They do not create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.
 
 ## Knowledge Base model
 

@@ -31,6 +31,8 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
+User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names or NPK values resemble curated content. The Knowledge Base may supply a reviewed prefill only through a versioned Care Plan contract; user catalog records remain separate and have no guidance status.
+
 ## 4. Domain relationship map
 
 ```mermaid
@@ -121,7 +123,7 @@ flowchart LR
 
 **Required fields:** ID, Vietnamese title and goal, activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
 
-**Optional fields:** Growing-method frequency, recommended inputs, notes, and Markdown instructions.
+**Optional fields:** Growing-method frequency, recommended inputs, notes, and Markdown instructions. Each fertilizing recommended-input group contains structured suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection; fertilizer examples are not stored as free text.
 
 **Relationships:** A Care Plan may be evaluated directly into an informational recommendation. It does not require a Care Guide and remains informational until a user explicitly saves a related care activity.
 
@@ -174,6 +176,8 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 **Optional fields:** NPK range, amount range with unit and assumptions, organic/synthetic classification, compatibility, example product names.
 
 **Relationships:** Composes Nutrients; referenced by stages, fertilizing recommendations, troubleshooting, and weather rules.
+
+It is neither a User Fertilizer nor the record of what a grower used. A saved fertilizing Care Activity owns its fertilizer-application snapshots; no user catalog record or application is linked to a profile by name or NPK text alone.
 
 **Example:** `fertilizer.nitrogen-forward-balanced` for vegetative growth, with over-fertilization cautions.
 
