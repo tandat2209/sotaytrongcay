@@ -1,173 +1,47 @@
 import { DATABASE_VERSION, getMigrationStatements } from "./database";
 
 describe("database migrations", () => {
-  it("creates plants and care activities with stable watering units", () => {
-    const sql = getMigrationStatements(0).join("\n");
+  it("creates the complete unreleased schema from one V1 baseline", () => {
+    const migrations = getMigrationStatements(0);
 
-    expect(DATABASE_VERSION).toBe(15);
+    expect(DATABASE_VERSION).toBe(1);
+    expect(migrations).toHaveLength(1);
+
+    const [sql] = migrations;
     expect(sql).toContain("CREATE TABLE plants");
-    expect(sql).toContain("name TEXT NOT NULL");
-    expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
-    expect(sql).toContain("amount_unit TEXT CHECK (amount_unit IN ('liter'))");
-    expect(sql).toContain("mutation_id TEXT NOT NULL UNIQUE");
-  });
+    expect(sql).toContain("location TEXT");
+    expect(sql).toContain("growing_method TEXT NOT NULL");
+    expect(sql).toContain("stage_started_at TEXT");
 
-  it("adds journal updates, ordered photos, and stage history in version 5", () => {
-    const [sql] = getMigrationStatements(4);
-
-    expect(sql).toContain("CREATE TABLE plant_updates");
-    expect(sql).toContain("CREATE TABLE plant_update_photos");
-    expect(sql).toContain("position INTEGER NOT NULL");
-    expect(sql).toContain("CREATE TABLE plant_stage_history");
-    expect(sql).toContain("journal_entry_id TEXT NOT NULL UNIQUE");
-    expect(sql).not.toContain("DROP TABLE");
-  });
-
-  it("adds and truthfully backfills the current stage start in version 6", () => {
-    const [sql] = getMigrationStatements(5);
-
-    expect(sql).toContain(
-      "ALTER TABLE plants ADD COLUMN stage_started_at TEXT",
-    );
-    expect(sql).toContain("UPDATE plants");
-    expect(sql).toContain("FROM plant_stage_history");
-    expect(sql).toContain("history.to_stage_id = plants.stage_id");
-    expect(sql).not.toContain("planted_at");
-    expect(sql).not.toContain("created_at");
-  });
-
-  it("replaces V7 reminder preferences with schedule snapshots in version 8", () => {
-    const [sql] = getMigrationStatements(7);
-
-    expect(DATABASE_VERSION).toBe(15);
-    expect(sql).toContain(
-      "DROP TABLE IF EXISTS care_plan_reminder_preferences",
-    );
-    expect(sql).toContain("CREATE TABLE stage_care_plan_schedule_snapshots");
-    expect(sql).toContain("UNIQUE (stage_id, care_plan_id)");
-    expect(sql).toContain("CREATE TABLE plant_care_plan_schedule_snapshots");
-    expect(sql).toContain("CREATE TABLE plant_care_plan_notification_states");
-    expect(sql).not.toContain("paused_at");
-  });
-
-  it("splits V8 stage frequency while keeping notifications shared in version 9", () => {
-    const [sql] = getMigrationStatements(8);
-
-    expect(sql).toContain(
-      "ALTER TABLE stage_care_plan_schedule_snapshots RENAME TO",
-    );
-    expect(sql).toContain("ground_frequency_override_days INTEGER");
-    expect(sql).toContain("container_frequency_override_days INTEGER");
-    expect(sql).toContain("UNIQUE (stage_id, care_plan_id)");
-    expect(sql).toContain("notification_enabled INTEGER");
-    expect(sql).toContain("frequency_override_days, frequency_override_days");
-    expect(sql).not.toContain("growing_method");
-  });
-
-  it("adds nullable stable watering intensity without backfill in version 10", () => {
-    const [sql] = getMigrationStatements(9);
-
-    expect(sql).toContain(
-      "ALTER TABLE care_activities ADD COLUMN watering_intensity TEXT",
-    );
-    expect(sql).toContain("'light', 'moderate', 'deep', 'rain'");
-    expect(sql).toContain("watering_intensity IS NULL");
-    expect(sql).not.toContain("UPDATE care_activities");
-  });
-
-  it("adds the private user fertilizer catalog in version 11", () => {
-    const [sql] = getMigrationStatements(10);
-
-    expect(DATABASE_VERSION).toBe(15);
-    expect(sql).toContain("CREATE TABLE user_fertilizers");
-    expect(sql).toContain("mutation_id TEXT NOT NULL UNIQUE");
-    expect(sql).toContain("name TEXT NOT NULL");
-    expect(sql).toContain(
-      "fertilizer_group IN ('organic', 'npk', 'single', 'supplement', 'other')",
-    );
-    expect(sql).toContain("CREATE INDEX idx_user_fertilizers_name");
-  });
-
-  it("adds ordered fertilizer application snapshots in version 12", () => {
-    const [sql] = getMigrationStatements(11);
-
-    expect(DATABASE_VERSION).toBe(15);
-    expect(sql).toContain("CREATE TABLE fertilizer_applications");
-    expect(sql).toContain("user_fertilizer_id TEXT");
-    expect(sql).toContain("name_snapshot TEXT NOT NULL");
-    expect(sql).toContain("UNIQUE (care_activity_id, position)");
-    expect(sql).toContain(
-      "FOREIGN KEY (user_fertilizer_id) REFERENCES user_fertilizers(id) ON DELETE SET NULL",
-    );
-    expect(sql).toContain(
-      "FOREIGN KEY (care_activity_id) REFERENCES care_activities(id) ON DELETE CASCADE",
-    );
-  });
-
-  it("removes NPK ratio fields in version 13", () => {
-    const [sql] = getMigrationStatements(12);
-
-    expect(DATABASE_VERSION).toBe(15);
-    expect(sql).toContain("ALTER TABLE user_fertilizers DROP COLUMN npk");
-    expect(sql).toContain(
-      "ALTER TABLE fertilizer_applications DROP COLUMN npk_snapshot",
-    );
-  });
-
-  it("links suggested fertilizers to catalog records and history in version 14", () => {
-    const [sql] = getMigrationStatements(13);
-
-    expect(DATABASE_VERSION).toBe(15);
-    expect(sql).toContain(
-      "ALTER TABLE user_fertilizers ADD COLUMN knowledge_id TEXT",
-    );
-    expect(sql).toContain(
-      "CREATE UNIQUE INDEX idx_user_fertilizers_knowledge_id",
-    );
-    expect(sql).toContain(
-      "ALTER TABLE fertilizer_applications ADD COLUMN knowledge_id_snapshot TEXT",
-    );
-  });
-
-  it("adds paired nullable spraying target snapshots without backfill in version 15", () => {
-    const [sql] = getMigrationStatements(14);
-
-    expect(DATABASE_VERSION).toBe(15);
-    expect(sql).toContain(
-      "ALTER TABLE care_activities ADD COLUMN spray_target_id TEXT",
-    );
-    expect(sql).toContain(
-      "ALTER TABLE care_activities ADD COLUMN spray_target_name_snapshot TEXT",
-    );
+    expect(sql).toContain("CREATE TABLE care_activities");
+    expect(sql).toContain("watering_intensity TEXT");
+    expect(sql).toContain("spray_target_id TEXT");
+    expect(sql).toContain("spray_target_name_snapshot TEXT");
     expect(sql).toContain(
       "(spray_target_id IS NULL) = (spray_target_name_snapshot IS NULL)",
     );
-    expect(sql).not.toContain("UPDATE care_activities");
-  });
 
-  it("resets the prototype tables before establishing the clean baseline", () => {
-    const sql = getMigrationStatements(0).join("\n");
+    expect(sql).toContain("CREATE TABLE plant_updates");
+    expect(sql).toContain("CREATE TABLE plant_update_photos");
+    expect(sql).toContain("CREATE TABLE plant_stage_history");
+    expect(sql).toContain("CREATE TABLE stage_care_plan_schedule_snapshots");
+    expect(sql).toContain("ground_frequency_override_days INTEGER");
+    expect(sql).toContain("container_frequency_override_days INTEGER");
+    expect(sql).toContain("CREATE TABLE plant_care_plan_schedule_snapshots");
+    expect(sql).toContain("CREATE TABLE plant_care_plan_notification_states");
+    expect(sql).toContain("CREATE TABLE user_fertilizers");
+    expect(sql).toContain("knowledge_id TEXT");
+    expect(sql).toContain("CREATE TABLE fertilizer_applications");
+    expect(sql).toContain("knowledge_id_snapshot TEXT");
 
-    expect(sql).toContain("DROP TABLE IF EXISTS activities");
-    expect(sql).toContain("DROP TABLE IF EXISTS observations");
-    expect(sql).toContain("DROP TABLE IF EXISTS plants");
-  });
-
-  it("resets version-one prototype databases before using the current schema", () => {
-    const sql = getMigrationStatements(1).join("\n");
-
-    expect(sql).toContain("DROP TABLE IF EXISTS activities");
-    expect(sql).toContain("CREATE TABLE plants");
-  });
-
-  it("adds the location column when upgrading from version 2", () => {
-    const [sql] = getMigrationStatements(2);
-
-    expect(sql).toContain("ALTER TABLE plants ADD COLUMN location TEXT");
+    expect(sql).not.toContain("ALTER TABLE");
     expect(sql).not.toContain("DROP TABLE");
+    expect(sql).not.toContain("UPDATE plants");
+    expect(sql).not.toContain("care_plan_reminder_preferences");
+    expect(sql).not.toContain("npk_snapshot");
   });
 
-  it("does not return applied migrations", () => {
+  it("does not migrate an installed V1 database", () => {
     expect(getMigrationStatements(DATABASE_VERSION)).toEqual([]);
   });
 });

@@ -26,7 +26,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Add optional `application_method` to reviewed fertilizer suggestions and prefill it as an editable Fertilizer Application draft without selecting or saving anything automatically.
 - [ ] Add optional `recommended_spray_purpose: prevention | treatment` to Care Plans without changing eligibility or reminder timing.
 - [ ] Add nullable saved spraying product-name and purpose fields with a forward SQLite migration; preserve all legacy spraying rows without backfill or note parsing.
-- [x] Add an optional stable target ID plus immutable target-name snapshot to saved spraying with forward SQLite migration V15; preserve legacy rows without backfill or note parsing, and keep a saved target available while editing if the current catalog no longer contains it.
+- [x] Add an optional stable target ID plus immutable target-name snapshot to saved spraying in the unreleased SQLite V1 baseline; keep a saved target available while editing if the current catalog no longer contains it.
 - [ ] Define target-aware Care Plan scope without weakening the one-plan-per-species/stage/activity rule or treating monitoring relevance as spray eligibility.
 - [ ] Extend progressive spraying entry with optional purpose and product name. The optional curated single-target chips are complete; plant, time, and explicit Save remain the minimum path.
 - [x] Add target-compatible spraying summaries to Activity Detail, Journal, Today recent history, and Plant Detail recent history, with generic spraying text as the legacy fallback.
@@ -96,6 +96,11 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Define the feature-first, local-first architecture and Supabase sync strategy.
 - [x] Update architecture for derived care suggestions and three tracked care activities.
 - [x] Bootstrap strict TypeScript, quality gates, and test infrastructure.
+- [x] Consolidate the unreleased SQLite schema into one atomic V1 fresh-install baseline and enable WAL plus foreign keys before repository access.
+- [ ] Serialize local SQLite writes and move multi-step saves to exclusive transactions that use the transaction handle.
+- [ ] Replace broad `INSERT OR IGNORE` writes with explicit idempotency handling and verify affected-row counts where a no-op is unexpected.
+- [ ] Add cursor pagination or bounded reads for growing Journal and photo result sets.
+- [ ] Add an Android fresh-install database smoke check before the first production release.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.

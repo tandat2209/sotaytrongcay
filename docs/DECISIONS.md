@@ -8,6 +8,32 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Consolidate the unreleased SQLite schema as V1
+
+**Status:** Accepted
+
+**Decision:** Replace the development-only V2–V15 migration chain with one
+complete V1 fresh-install schema. Existing development installations are
+disposable and must reset or reinstall; no production-data repair path is
+required. Future schema changes use forward-only migrations from V1.
+
+Initialize SQLite by enabling WAL and foreign keys before reading the schema
+version. Create the V1 schema and record `user_version = 1` in one exclusive
+transaction so interruption cannot commit a partial schema as current.
+
+**Rationale:** The application has not been released, so preserving prototype
+database layouts adds migration risk without preserving user data. One atomic
+baseline is easier to verify and removes the interrupted-migration failure mode
+before the schema becomes a compatibility contract.
+
+**Consequences:** Current plants, journal, fertilizer, spraying-target, and
+schedule data contracts are unchanged. Earlier accepted decisions that name a
+specific development migration version remain authoritative for behavior and
+data shape, but their migration-number and backfill delivery details are
+superseded by this baseline decision. Developers must delete or reset an older
+local database before running this build. Once V1 ships, backward-compatible
+forward migrations and recovery verification become mandatory.
+
 ## 2026-07-16 — Show curated stage illustrations in preview Stage Playbooks
 
 **Status:** Accepted
