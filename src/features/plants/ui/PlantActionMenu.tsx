@@ -8,7 +8,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   CARE_ACTIVITY_VISUALS,
   getCareActivityLabel,
@@ -46,6 +46,7 @@ const IDLE_ACTIONS: readonly IdleAction[] = [
 ];
 
 export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
+  const insets = useSafeAreaInsets();
   const [open, setOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [iconIndex, setIconIndex] = useState(0);
@@ -161,14 +162,17 @@ export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
         transparent
         visible={open}
       >
-        <SafeAreaView edges={["bottom"]} style={styles.overlay}>
+        <View style={styles.overlay}>
           <Pressable
             accessibilityLabel={t("plants.action.closeMenu")}
             accessibilityRole="button"
             onPress={dismiss}
             style={styles.backdrop}
           />
-          <View style={styles.menu}>
+          <View
+            style={[styles.menu, { bottom: spacing.lg + insets.bottom }]}
+            testID="plant-action-menu"
+          >
             <AnimatedAction
               backgroundColor={colors.primarySoft}
               color={colors.primary}
@@ -199,7 +203,7 @@ export function PlantActionMenu({ onAddJournal, onRecordCare }: Props) {
               onPress={dismiss}
             />
           </View>
-        </SafeAreaView>
+        </View>
       </Modal>
     </>
   );
@@ -372,7 +376,6 @@ const styles = StyleSheet.create({
   },
   menu: {
     alignItems: "flex-end",
-    bottom: spacing.lg,
     gap: spacing.sm,
     position: "absolute",
     right: spacing.md,
