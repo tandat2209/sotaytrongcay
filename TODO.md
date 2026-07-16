@@ -100,7 +100,8 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Serialize local SQLite writes and move multi-step saves to exclusive transactions that use the transaction handle.
 - [x] Replace broad `INSERT OR IGNORE` writes with explicit idempotency handling and verify affected-row counts where a no-op is unexpected.
 - [x] Add cursor pagination or bounded reads for growing Journal and photo result sets.
-- [ ] Add an Android fresh-install database smoke check before the first production release.
+- [x] Add an Android fresh-install database smoke command for the first production release.
+- [ ] Run the database smoke command on the first Android release-candidate APK and record the result.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.

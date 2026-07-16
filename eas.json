@@ -9,6 +9,12 @@
       "android": {
         "buildType": "apk"
       }
+    },
+    "database-smoke": {
+      "extends": "preview",
+      "env": {
+        "EXPO_PUBLIC_ENABLE_DATABASE_SMOKE_CHECK": "true"
+      }
     }
   }
 }

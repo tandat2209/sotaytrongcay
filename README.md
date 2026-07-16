@@ -90,6 +90,21 @@ The `preview` profile creates an APK for internal distribution. After the build
 finishes, open the EAS installation link on an Android device; Google Play
 registration is not required.
 
+Before the first Android release, build and run the destructive fresh-install
+database smoke check on a disposable device or emulator:
+
+```sh
+pnpm dlx eas-cli build --platform android --profile database-smoke
+pnpm android:db-smoke -- /absolute/path/to/database-smoke.apk
+```
+
+The command warns before uninstalling `vn.sotaytrongcay.app`, which deletes all
+of that installation's local data. It installs the dedicated APK, opens the
+opt-in smoke route, and verifies the complete SQLite V1 schema, integrity, WAL,
+foreign keys, create/read/update behavior, photo persistence, and cascade
+deletion on Android. Do not run it on a device containing data that must be
+retained.
+
 Run the quality gates:
 
 ```sh

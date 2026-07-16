@@ -91,6 +91,33 @@ remains page-sized. The unreleased V1 baseline gains global timeline indexes;
 there is no schema-version change and development installations must still be
 reset or reinstalled as required by the V1 consolidation decision.
 
+## 2026-07-16 — Gate Android release with a native database smoke build
+
+**Status:** Accepted
+
+**Decision:** Keep the database smoke screen disabled in normal builds. A
+dedicated internal-distribution EAS profile enables it and produces an APK with
+the production Android package ID. The host command requires explicit wipe
+confirmation, uninstalls the existing package, installs that APK, opens the
+smoke deep link, and reads a deterministic pass or fail token from the native
+view hierarchy.
+
+After normal application bootstrap creates the database, the smoke check
+verifies the complete SQLite V1 table set, database integrity, WAL, foreign
+keys, create/read/update behavior across a Plant, Care Activity, Plant Update,
+and photo, then verifies cascade deletion. Reserved smoke records are deleted
+in the same exclusive transaction.
+
+**Rationale:** Jest and desktop SQLite checks cannot reproduce Android native
+storage, APK configuration, or a truly empty application sandbox. A dedicated
+fresh-install check provides a repeatable release gate without exposing a data
+mutation tool in normal preview or production builds.
+
+**Consequences:** The command intentionally deletes all local data for
+`vn.sotaytrongcay.app` on the connected device and must run only on a disposable
+device or emulator. Adding the command does not prove a release candidate has
+passed; each release still records its on-device result before submission.
+
 ## 2026-07-16 — Show curated stage illustrations in preview Stage Playbooks
 
 **Status:** Accepted
