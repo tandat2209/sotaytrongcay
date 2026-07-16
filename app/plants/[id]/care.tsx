@@ -5,10 +5,9 @@ import { z } from "zod";
 import {
   CareEntryScreen,
   createFertilizerApplicationRecords,
-  getLatestPlantPhoto,
+  getLatestPlantPhotoUri,
   getCareActivity,
   listFertilizerApplications,
-  listPlantUpdates,
   saveCareActivityWithApplications,
   updateCareActivityWithApplications,
   type CareActivity,
@@ -46,7 +45,7 @@ export default function CareEntryRoute() {
   });
   const photosQuery = useQuery({
     queryKey: ["plant-photos", id],
-    queryFn: () => listPlantUpdates(id),
+    queryFn: () => getLatestPlantPhotoUri(id),
   });
   const activityQuery = useQuery({
     enabled: Boolean(activityId),
@@ -89,7 +88,7 @@ export default function CareEntryRoute() {
     );
   return (
     <CareEntry
-      imageUri={getLatestPlantPhoto(photosQuery.data ?? [])?.localUri ?? null}
+      imageUri={photosQuery.data ?? null}
       {...(activityQuery.data
         ? {
             editingActivity: activityQuery.data.activity,

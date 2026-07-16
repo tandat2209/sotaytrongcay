@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react-native";
+import { FlatList } from "react-native";
 import { JournalScreen } from "./JournalScreen";
 
 const activity = {
@@ -29,5 +30,44 @@ describe("JournalScreen", () => {
       screen.getByRole("button", { name: "Tưới nước · Nho sân thượng" }),
     );
     expect(onOpenActivity).toHaveBeenCalledWith(activity.id);
+  });
+
+  it("requests the next bounded page at the end of the list", () => {
+    const onLoadMore = jest.fn();
+    const screen = render(
+      <JournalScreen activities={[activity]} hasMore onLoadMore={onLoadMore} />,
+    );
+
+    fireEvent(screen.UNSAFE_getByType(FlatList), "onEndReached");
+
+    expect(onLoadMore).toHaveBeenCalledTimes(1);
+  });
+
+  it("sends note search to the repository criteria", () => {
+    const onCriteriaChange = jest.fn();
+    const screen = render(
+      <JournalScreen
+        criteria={{
+          dateRange: "all",
+          plantId: null,
+          query: "",
+          recordFilter: "all",
+        }}
+        onCriteriaChange={onCriteriaChange}
+      />,
+    );
+
+    fireEvent.press(screen.getByRole("button", { name: "Tìm trong ghi chú" }));
+    fireEvent.changeText(
+      screen.getAllByLabelText("Tìm trong ghi chú")[1]!,
+      "chồi mới",
+    );
+
+    expect(onCriteriaChange).toHaveBeenCalledWith({
+      dateRange: "all",
+      plantId: null,
+      query: "chồi mới",
+      recordFilter: "all",
+    });
   });
 });

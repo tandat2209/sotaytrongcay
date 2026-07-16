@@ -32,5 +32,11 @@ export function createJournalItems(
       occurredAt: record.occurredAt,
       record,
     })),
-  ].sort((left, right) => right.occurredAt.localeCompare(left.occurredAt));
+  ].sort(
+    (left, right) =>
+      right.occurredAt.localeCompare(left.occurredAt) ||
+      right.record.createdAt.localeCompare(left.record.createdAt) ||
+      right.kind.localeCompare(left.kind) ||
+      right.id.localeCompare(left.id),
+  );
 }

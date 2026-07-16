@@ -22,6 +22,13 @@ export type PlantUpdatePhotoRow = {
   created_at: string;
 };
 
+export type LatestPlantPhotoRow = Readonly<{
+  local_uri: string;
+  plant_id: string;
+}>;
+
+const DEFAULT_PLANT_UPDATE_LIMIT = 50;
+
 export function plantUpdateToInsertParams(
   update: PlantUpdate,
 ): (string | null)[] {
@@ -135,31 +142,25 @@ export async function savePlantUpdate(
   });
 }
 
-export async function listPlantUpdates(
-  plantId?: string,
+async function listPlantUpdates(
+  plantId: string,
+  limit: number,
 ): Promise<PlantUpdate[]> {
   const db = await getDb();
-  const updates = plantId
-    ? await db.getAllAsync<PlantUpdateRow>(
-        "SELECT * FROM plant_updates WHERE plant_id = ? ORDER BY occurred_at DESC, created_at DESC",
-        [plantId],
-      )
-    : await db.getAllAsync<PlantUpdateRow>(
-        "SELECT * FROM plant_updates ORDER BY occurred_at DESC, created_at DESC",
-      );
+  const boundedLimit = normalizeLimit(limit);
+  const updates = await db.getAllAsync<PlantUpdateRow>(
+    "SELECT * FROM plant_updates WHERE plant_id = ? ORDER BY occurred_at DESC, created_at DESC, id DESC LIMIT ?",
+    [plantId, boundedLimit],
+  );
   if (updates.length === 0) return [];
 
-  const photos = plantId
-    ? await db.getAllAsync<PlantUpdatePhotoRow>(
-        `SELECT photo.* FROM plant_update_photos photo
-       JOIN plant_updates entry ON entry.id = photo.plant_update_id
-       WHERE entry.plant_id = ?
-       ORDER BY entry.occurred_at DESC, photo.position`,
-        [plantId],
-      )
-    : await db.getAllAsync<PlantUpdatePhotoRow>(
-        "SELECT * FROM plant_update_photos ORDER BY plant_update_id, position",
-      );
+  const updateIds = updates.map((update) => update.id);
+  const photos = await db.getAllAsync<PlantUpdatePhotoRow>(
+    `SELECT * FROM plant_update_photos
+      WHERE plant_update_id IN (${updateIds.map(() => "?").join(", ")})
+      ORDER BY plant_update_id, position`,
+    updateIds,
+  );
   const photosByUpdate = new Map<string, PlantUpdatePhotoRow[]>();
   for (const photo of photos) {
     const updatePhotos = photosByUpdate.get(photo.plant_update_id) ?? [];
@@ -170,6 +171,70 @@ export async function listPlantUpdates(
   return updates.map((update) =>
     plantUpdateFromRows(update, photosByUpdate.get(update.id) ?? []),
   );
+}
+
+export async function listRecentPlantUpdates(
+  plantId: string,
+  limit: number,
+): Promise<PlantUpdate[]> {
+  return await listPlantUpdates(plantId, limit);
+}
+
+export function latestPlantPhotoUrisFromRows(
+  rows: readonly LatestPlantPhotoRow[],
+): Readonly<Record<string, string>> {
+  return Object.fromEntries(
+    rows.map((row) => [row.plant_id, row.local_uri] as const),
+  );
+}
+
+export async function listLatestPlantPhotoUris(): Promise<
+  Readonly<Record<string, string>>
+> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<LatestPlantPhotoRow>(
+    `WITH ranked_photos AS (
+       SELECT entry.plant_id,
+              photo.local_uri,
+              ROW_NUMBER() OVER (
+                PARTITION BY entry.plant_id
+                ORDER BY entry.occurred_at DESC, entry.created_at DESC,
+                         entry.id DESC, photo.position ASC
+              ) AS photo_rank
+         FROM plant_updates AS entry
+         JOIN plant_update_photos AS photo
+           ON photo.plant_update_id = entry.id
+     )
+     SELECT plant_id, local_uri
+       FROM ranked_photos
+      WHERE photo_rank = 1`,
+  );
+  return latestPlantPhotoUrisFromRows(rows);
+}
+
+export async function getLatestPlantPhotoUri(
+  plantId: string,
+): Promise<string | null> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<{ local_uri: string }>(
+    `SELECT photo.local_uri
+       FROM plant_updates AS entry
+       JOIN plant_update_photos AS photo
+         ON photo.plant_update_id = entry.id
+      WHERE entry.plant_id = ?
+      ORDER BY entry.occurred_at DESC, entry.created_at DESC, entry.id DESC,
+               photo.position ASC
+      LIMIT 1`,
+    [plantId],
+  );
+  return row?.local_uri ?? null;
+}
+
+function normalizeLimit(limit: number): number {
+  if (!Number.isInteger(limit) || limit < 1) {
+    throw new Error("Plant update limit must be a positive integer.");
+  }
+  return Math.min(limit, DEFAULT_PLANT_UPDATE_LIMIT);
 }
 
 export async function getPlantUpdate(id: string): Promise<PlantUpdate | null> {

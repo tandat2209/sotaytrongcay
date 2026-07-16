@@ -1,6 +1,7 @@
 import { Camera, Filter, NotebookPen, Search, X } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   Pressable,
@@ -19,6 +20,7 @@ import {
 import { appLocale, formatDate, formatTime, t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { IconButton } from "@/shared/ui/IconButton";
+import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
@@ -26,6 +28,10 @@ import { colors, radius, spacing } from "@/shared/ui/theme";
 import { CARE_ACTIVITY_VISUALS } from "../models/care-activity-icon";
 import { type CareActivity } from "../models/care-activity";
 import { createJournalItems, type JournalItem } from "../models/journal-item";
+import {
+  emptyJournalCriteria,
+  type JournalCriteria,
+} from "../models/journal-query";
 import type { PlantUpdate } from "../models/plant-update";
 import { JournalFilterSheet, type JournalFilters } from "./JournalFilterSheet";
 
@@ -41,45 +47,56 @@ type Row =
   | Readonly<{ connectsToNext: boolean; kind: "item"; item: JournalItem }>;
 type Props = Readonly<{
   activities?: readonly CareActivity[];
+  criteria?: JournalCriteria;
   fertilizerNamesByActivity?: Readonly<Record<string, readonly string[]>>;
+  hasAnyEntries?: boolean;
+  hasMore?: boolean;
+  isLoadingMore?: boolean;
+  loadMoreError?: boolean;
+  onCriteriaChange?: (criteria: JournalCriteria) => void;
+  onLoadMore?: () => void;
   onOpenActivity?: (id: string) => void;
   onOpenUpdate?: (id: string) => void;
+  onRetryLoadMore?: () => void;
   plantNames?: Readonly<Record<string, string>>;
   plants?: Readonly<Record<string, PlantSummary>>;
   updates?: readonly PlantUpdate[];
 }>;
 
-const emptyFilters: JournalFilters = {
-  dateRange: "all",
-  plantId: null,
-  recordFilter: "all",
-};
-
 export function JournalScreen({
   activities = [],
+  criteria = emptyJournalCriteria,
   fertilizerNamesByActivity = {},
+  hasAnyEntries: hasAnyEntriesInput,
+  hasMore = false,
+  isLoadingMore = false,
+  loadMoreError = false,
+  onCriteriaChange = () => undefined,
+  onLoadMore = () => undefined,
   onOpenActivity = () => undefined,
   onOpenUpdate = () => undefined,
+  onRetryLoadMore = () => undefined,
   plantNames = {},
   plants = {},
   updates = [],
 }: Props) {
-  const [filters, setFilters] = useState<JournalFilters>(emptyFilters);
-  const [query, setQuery] = useState("");
+  const hasAnyEntries =
+    hasAnyEntriesInput ?? (activities.length > 0 || updates.length > 0);
   const [searchVisible, setSearchVisible] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const rows = useMemo(
-    () =>
-      createRows(
-        filterItems(createJournalItems(activities, updates), filters, query),
-      ),
-    [activities, filters, query, updates],
+    () => createRows(createJournalItems(activities, updates)),
+    [activities, updates],
   );
+  const filters: JournalFilters = {
+    dateRange: criteria.dateRange,
+    plantId: criteria.plantId,
+    recordFilter: criteria.recordFilter,
+  };
   const hasFilters =
-    filters !== emptyFilters &&
-    (filters.dateRange !== "all" ||
-      filters.plantId !== null ||
-      filters.recordFilter !== "all");
+    filters.dateRange !== "all" ||
+    filters.plantId !== null ||
+    filters.recordFilter !== "all";
   const plantOptions = useMemo(
     () =>
       Object.entries(plants)
@@ -116,17 +133,17 @@ export function JournalScreen({
             accessibilityLabel={t("journal.list.search")}
             autoCorrect
             autoFocus
-            onChangeText={setQuery}
+            onChangeText={(query) => onCriteriaChange({ ...criteria, query })}
             placeholder={t("journal.list.search")}
             placeholderTextColor={colors.textSecondary}
             style={styles.searchInput}
-            value={query}
+            value={criteria.query}
           />
           <IconButton
             accessibilityLabel={t("common.actions.close")}
             icon={X}
             onPress={() => {
-              setQuery("");
+              onCriteriaChange({ ...criteria, query: "" });
               setSearchVisible(false);
             }}
           />
@@ -149,10 +166,12 @@ export function JournalScreen({
         contentContainerStyle={styles.list}
         data={rows}
         keyExtractor={(row, index) =>
-          row.kind === "header" ? `${row.label}-${index}` : row.item.id
+          row.kind === "header"
+            ? `${row.label}-${index}`
+            : `${row.item.kind}:${row.item.id}`
         }
         ListEmptyComponent={
-          activities.length || updates.length ? (
+          hasAnyEntries ? (
             <EmptyState
               description={t("journal.list.noMatchDescription")}
               icon={Search}
@@ -166,6 +185,20 @@ export function JournalScreen({
             />
           )
         }
+        ListFooterComponent={
+          loadMoreError ? (
+            <PrimaryButton
+              label={t("common.actions.retry")}
+              onPress={onRetryLoadMore}
+            />
+          ) : isLoadingMore ? (
+            <ActivityIndicator color={colors.primary} />
+          ) : null
+        }
+        onEndReached={() => {
+          if (hasMore && !isLoadingMore) onLoadMore();
+        }}
+        onEndReachedThreshold={0.4}
         renderItem={({ item: row }) =>
           row.kind === "header" ? (
             <Typography
@@ -195,7 +228,9 @@ export function JournalScreen({
       />
       <JournalFilterSheet
         filters={filters}
-        onApply={setFilters}
+        onApply={(nextFilters) =>
+          onCriteriaChange({ ...criteria, ...nextFilters })
+        }
         onDismiss={() => setShowFilters(false)}
         plants={plantOptions}
         visible={showFilters}
@@ -367,44 +402,6 @@ function JournalRow({
       </SurfaceCard>
     </Pressable>
   );
-}
-
-function filterItems(
-  items: readonly JournalItem[],
-  filters: JournalFilters,
-  query: string,
-) {
-  const normalizedQuery = query.trim().toLocaleLowerCase(appLocale);
-  const now = new Date();
-  const today = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-  ).getTime();
-  const weekStart = today - 6 * 24 * 60 * 60 * 1000;
-  return items.filter((item) => {
-    const record = item.record;
-    const matchesType =
-      filters.recordFilter === "all" ||
-      filters.recordFilter === item.kind ||
-      (item.kind === "care" && filters.recordFilter === item.record.type);
-    const matchesPlant =
-      filters.plantId === null || record.plantId === filters.plantId;
-    const occurredAt = new Date(item.occurredAt).getTime();
-    const matchesDate =
-      filters.dateRange === "all" ||
-      (filters.dateRange === "today"
-        ? occurredAt >= today
-        : occurredAt >= weekStart);
-    return (
-      matchesType &&
-      matchesPlant &&
-      matchesDate &&
-      (record.notes ?? "")
-        .toLocaleLowerCase(appLocale)
-        .includes(normalizedQuery)
-    );
-  });
 }
 
 function createRows(items: readonly JournalItem[]): readonly Row[] {

@@ -180,8 +180,12 @@ CREATE TABLE fertilizer_applications (
 
 CREATE INDEX idx_care_activities_plant_time
   ON care_activities(plant_id, occurred_at DESC);
+CREATE INDEX idx_care_activities_time
+  ON care_activities(occurred_at DESC, created_at DESC, id DESC);
 CREATE INDEX idx_plant_updates_plant_time
   ON plant_updates(plant_id, occurred_at DESC, created_at DESC);
+CREATE INDEX idx_plant_updates_time
+  ON plant_updates(occurred_at DESC, created_at DESC, id DESC);
 CREATE INDEX idx_plant_update_photos_entry_position
   ON plant_update_photos(plant_update_id, position);
 CREATE INDEX idx_plant_stage_history_plant_time

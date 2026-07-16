@@ -258,6 +258,23 @@ describe("createPlantDetailProjection", () => {
     );
   });
 
+  it("keeps the separately queried latest photo with bounded recent updates", () => {
+    const recentNoteOnlyUpdate = plantUpdate(
+      "2026-07-16T08:00:00.000Z",
+      "bb000001-0000-0000-0000-000000000001",
+    );
+    const projection = createPlantDetailProjection({
+      activities: [],
+      evaluatedAt,
+      latestPhotoUri: "file:///older-photo-entry.jpg",
+      plant,
+      updates: [recentNoteOnlyUpdate],
+    });
+
+    expect(projection.latestPhotoUri).toBe("file:///older-photo-entry.jpg");
+    expect(projection.recentJournalItems[0]?.id).toBe(recentNoteOnlyUpdate.id);
+  });
+
   it("uses truthful empty guidance for unknown knowledge", () => {
     const projection = project([], {
       ...plant,

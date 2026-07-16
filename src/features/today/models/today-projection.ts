@@ -56,6 +56,7 @@ export type TodayProjection = Readonly<{
 type TodayProjectionInput = Readonly<{
   activities: readonly CareActivity[];
   evaluatedAt?: Date;
+  plantPhotoUris?: Readonly<Record<string, string>>;
   plansByPlant?: ReadonlyMap<string, readonly CarePlan[]>;
   plantSnapshots?: readonly PlantCarePlanScheduleSnapshot[];
   plants: readonly Plant[];
@@ -67,6 +68,7 @@ type TodayProjectionInput = Readonly<{
 export function createTodayProjection({
   activities,
   evaluatedAt = new Date(),
+  plantPhotoUris: persistedPlantPhotoUris,
   plansByPlant = new Map(),
   plantSnapshots = [],
   plants,
@@ -75,7 +77,8 @@ export function createTodayProjection({
   weather = productionWeather,
 }: TodayProjectionInput): TodayProjection {
   const plantMap = new Map(plants.map((plant) => [plant.id, plant]));
-  const plantPhotoUris = getLatestPlantPhotoUrisByPlant(updates);
+  const plantPhotoUris =
+    persistedPlantPhotoUris ?? getLatestPlantPhotoUrisByPlant(updates);
   const recentActivities = activities
     .slice()
     .sort((left, right) => right.occurredAt.localeCompare(left.occurredAt))

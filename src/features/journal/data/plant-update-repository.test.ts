@@ -1,4 +1,5 @@
 import {
+  latestPlantPhotoUrisFromRows,
   plantUpdateFromRows,
   plantUpdateToInsertParams,
   type PlantUpdatePhotoRow,
@@ -75,5 +76,13 @@ describe("plant update repository mapping", () => {
         },
       ],
     });
+  });
+
+  it("maps one bounded latest-photo row per plant", () => {
+    expect(
+      latestPlantPhotoUrisFromRows([
+        { local_uri: photo.localUri, plant_id: update.plantId },
+      ]),
+    ).toEqual({ [update.plantId]: photo.localUri });
   });
 });

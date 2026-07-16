@@ -8,8 +8,7 @@ import {
   getCareActivity,
 } from "@/features/journal/data/care-activity-repository";
 import { listFertilizerApplications } from "@/features/journal/data/fertilizer-application-repository";
-import { listPlantUpdates } from "@/features/journal/data/plant-update-repository";
-import { getLatestPlantPhoto } from "@/features/journal/models/plant-update";
+import { getLatestPlantPhotoUri } from "@/features/journal/data/plant-update-repository";
 import { ActivityDetailScreen } from "@/features/journal/ui/ActivityDetailScreen";
 import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
 import { getPlant } from "@/features/plants/data/plant-repository";
@@ -24,15 +23,15 @@ export default function ActivityDetailRoute() {
     queryFn: async () => {
       const activity = await getCareActivity(id);
       if (!activity) return { activity, imageUri: null, plant: null };
-      const [fertilizerApplications, plant, updates] = await Promise.all([
+      const [fertilizerApplications, imageUri, plant] = await Promise.all([
         listFertilizerApplications(activity.id),
+        getLatestPlantPhotoUri(activity.plantId),
         getPlant(activity.plantId),
-        listPlantUpdates(activity.plantId),
       ]);
       return {
         activity,
         fertilizerApplications,
-        imageUri: getLatestPlantPhoto(updates)?.localUri ?? null,
+        imageUri,
         plant,
       };
     },

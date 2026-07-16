@@ -60,6 +60,37 @@ ID. A verified retry skips dependent child inserts because the original
 aggregate transaction was atomic. Primary-key, foreign-key, check, and
 unrelated uniqueness failures remain visible instead of being broadly ignored.
 
+## 2026-07-16 — Bound Journal and photo reads
+
+**Status:** Accepted
+
+**Decision:** Read the global Journal as 20-entry mixed Care Activity and Plant
+Update pages. Keyset cursors use occurrence time, creation time, record kind,
+and ID so equal timestamps remain deterministic. Apply plant, record-type, and
+date filters before paging. Preserve Vietnamese note-search behavior by
+locale-normalizing bounded 60-row scan batches, then hydrate only the Care
+Activities, Plant Updates, photos, and fertilizer applications selected for the
+page.
+
+Read compact plant thumbnails through a separate query that returns at most one
+latest persisted photo per plant. Plant Detail loads only three recent Plant
+Updates plus its latest photo, and bounded Plant Update reads enforce a
+defensive 50-entry maximum.
+
+**Rationale:** Journal and photo tables grow for the lifetime of an offline
+installation. Loading every event and every photo into JavaScript increases
+Android memory pressure and makes a large local history look like an
+intermittent database failure. A stable cursor keeps each SQLite result and UI
+append bounded without making search or filters operate on only the currently
+visible page.
+
+**Consequences:** Scrolling near the end of Journal loads the next page and a
+failed append can be retried without discarding cached entries. Search with few
+matches may scan several bounded database batches, but retained JavaScript data
+remains page-sized. The unreleased V1 baseline gains global timeline indexes;
+there is no schema-version change and development installations must still be
+reset or reinstalled as required by the V1 consolidation decision.
+
 ## 2026-07-16 — Show curated stage illustrations in preview Stage Playbooks
 
 **Status:** Accepted

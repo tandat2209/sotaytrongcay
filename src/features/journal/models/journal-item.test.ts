@@ -42,4 +42,18 @@ describe("createJournalItems", () => {
     expect(activities).toEqual([care]);
     expect(updates).toEqual([update]);
   });
+
+  it("uses creation time, record kind, and ID as stable tie breakers", () => {
+    const tiedCare: CareActivity = {
+      ...care,
+      occurredAt: update.occurredAt,
+      createdAt: update.createdAt,
+    };
+
+    expect(
+      createJournalItems([tiedCare], [update]).map(
+        (item) => `${item.kind}:${item.id}`,
+      ),
+    ).toEqual([`update:${update.id}`, `care:${tiedCare.id}`]);
+  });
 });

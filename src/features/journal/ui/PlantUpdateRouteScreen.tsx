@@ -14,8 +14,7 @@ import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
-import { listPlantUpdates } from "../data/plant-update-repository";
-import { getLatestPlantPhoto } from "../models/plant-update";
+import { getLatestPlantPhotoUri } from "../data/plant-update-repository";
 import { savePlantUpdateWithPhotos } from "../application/save-plant-update";
 import { PlantUpdateScreen, type PlantUpdateDraft } from "./PlantUpdateScreen";
 
@@ -41,7 +40,7 @@ export function PlantUpdateRouteScreen({
   });
   const photosQuery = useQuery({
     queryKey: ["plant-photos", plantId],
-    queryFn: () => listPlantUpdates(plantId),
+    queryFn: () => getLatestPlantPhotoUri(plantId),
   });
   if (query.isPending)
     return <Text>{t("common.state.loadingDeviceData")}</Text>;
@@ -126,7 +125,7 @@ export function PlantUpdateRouteScreen({
   return (
     <>
       <PlantUpdateScreen
-        imageUri={getLatestPlantPhoto(photosQuery.data ?? [])?.localUri ?? null}
+        imageUri={photosQuery.data ?? null}
         initialStageId={plant.stageId}
         onBack={onBack}
         onSave={save}

@@ -2,11 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 import { z } from "zod";
-import {
-  getLatestPlantPhoto,
-  getPlantUpdate,
-  listPlantUpdates,
-} from "@/features/journal";
+import { getLatestPlantPhotoUri, getPlantUpdate } from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { PlantUpdateDetailScreen } from "@/features/journal/ui/PlantUpdateDetailScreen";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
@@ -21,12 +17,12 @@ export default function PlantUpdateDetailRoute() {
     queryFn: async () => {
       const update = await getPlantUpdate(id);
       if (!update) return { imageUri: null, plant: null, update };
-      const [plant, updates] = await Promise.all([
+      const [imageUri, plant] = await Promise.all([
+        getLatestPlantPhotoUri(update.plantId),
         getPlant(update.plantId),
-        listPlantUpdates(update.plantId),
       ]);
       return {
-        imageUri: getLatestPlantPhoto(updates)?.localUri ?? null,
+        imageUri,
         plant,
         update,
       };

@@ -6,8 +6,8 @@ import { z } from "zod";
 import {
   CareEntryScreen,
   createFertilizerApplicationRecords,
+  listLatestPlantPhotoUris,
   listCareActivities,
-  listPlantUpdates,
   saveCareActivityWithApplications,
 } from "@/features/journal";
 import { listCarePlans, listSprayTargets } from "@/features/knowledge";
@@ -39,17 +39,18 @@ export function TodayScreen() {
       await Promise.all(
         plants.map((plant) => reconcilePlantCarePlanReminders(plant)),
       );
-      const [activities, plantSnapshots, stageSnapshots, updates] =
+      const [activities, plantPhotoUris, plantSnapshots, stageSnapshots] =
         await Promise.all([
           listCareActivities(),
+          listLatestPlantPhotoUris(),
           listPlantScheduleSnapshots(),
           listStageScheduleSnapshots(),
-          listPlantUpdates(),
         ]);
       const evaluatedAt = new Date();
       return createTodayProjection({
         activities,
         evaluatedAt,
+        plantPhotoUris,
         plansByPlant: new Map(
           plants.map((plant) => [
             plant.id,
@@ -62,7 +63,6 @@ export function TodayScreen() {
         plantSnapshots,
         plants,
         stageSnapshots,
-        updates,
       });
     },
   });

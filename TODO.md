@@ -99,7 +99,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Consolidate the unreleased SQLite schema into one atomic V1 fresh-install baseline and enable WAL plus foreign keys before repository access.
 - [x] Serialize local SQLite writes and move multi-step saves to exclusive transactions that use the transaction handle.
 - [x] Replace broad `INSERT OR IGNORE` writes with explicit idempotency handling and verify affected-row counts where a no-op is unexpected.
-- [ ] Add cursor pagination or bounded reads for growing Journal and photo result sets.
+- [x] Add cursor pagination or bounded reads for growing Journal and photo result sets.
 - [ ] Add an Android fresh-install database smoke check before the first production release.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.

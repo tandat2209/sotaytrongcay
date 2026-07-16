@@ -7,10 +7,12 @@ import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
+import type {
+  JournalDateRange,
+  JournalRecordFilter,
+} from "../models/journal-query";
 
-export type JournalRecordFilter =
-  "all" | "care" | "fertilizing" | "spraying" | "update" | "watering";
-export type JournalDateRange = "all" | "today" | "week";
+export type { JournalDateRange, JournalRecordFilter };
 
 export type JournalFilters = Readonly<{
   dateRange: JournalDateRange;

@@ -5,8 +5,10 @@ export {
   saveCareActivity,
 } from "./data/care-activity-repository";
 export {
+  getLatestPlantPhotoUri,
+  listLatestPlantPhotoUris,
   getPlantUpdate,
-  listPlantUpdates,
+  listRecentPlantUpdates,
 } from "./data/plant-update-repository";
 export { savePlantUpdateWithPhotos } from "./application/save-plant-update";
 export {

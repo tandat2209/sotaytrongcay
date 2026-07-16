@@ -66,6 +66,7 @@ export type PlantDetailProjection = Readonly<{
 type PlantDetailProjectionInput = Readonly<{
   activities: readonly CareActivity[];
   evaluatedAt: Date;
+  latestPhotoUri?: string | null;
   plant: Plant;
   updates?: readonly PlantUpdate[];
 }>;
@@ -73,6 +74,7 @@ type PlantDetailProjectionInput = Readonly<{
 export function createPlantDetailProjection({
   activities,
   evaluatedAt,
+  latestPhotoUri: persistedLatestPhotoUri,
   plant,
   updates = [],
 }: PlantDetailProjectionInput): PlantDetailProjection {
@@ -128,7 +130,10 @@ export function createPlantDetailProjection({
       };
     }),
     latestCare,
-    latestPhotoUri: getLatestPlantPhoto(updates)?.localUri ?? null,
+    latestPhotoUri:
+      persistedLatestPhotoUri === undefined
+        ? (getLatestPlantPhoto(updates)?.localUri ?? null)
+        : persistedLatestPhotoUri,
     lifecycleStages:
       knowledge?.stages.map((stage) => ({
         ...stage,

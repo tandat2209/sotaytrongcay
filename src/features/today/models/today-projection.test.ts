@@ -38,9 +38,7 @@ const plan: CarePlan = {
     ground: { display: "Mỗi 3 ngày", intervalDays: 3 },
     container: { display: "Mỗi 3 ngày", intervalDays: 3 },
   },
-  fertilizerSuggestions: [
-    { id: "fertilizer.npk", name: "NPK", group: "npk" },
-  ],
+  fertilizerSuggestions: [{ id: "fertilizer.npk", name: "NPK", group: "npk" }],
   recommendedInputs: [
     {
       group: "Phân NPK",
@@ -172,5 +170,23 @@ describe("createTodayProjection", () => {
     });
 
     expect(projection.careCards[0]?.imageUri).toBe("file:///latest-plant.jpg");
+  });
+
+  it("accepts the bounded latest-photo projection without update history", () => {
+    const projection = createTodayProjection({
+      activities: [activity],
+      evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
+      plansByPlant,
+      plantPhotoUris: { [plant.id]: "file:///bounded-latest.jpg" },
+      plants: [plant],
+      plantSnapshots: [plantSnapshot],
+    });
+
+    expect(projection.plantPhotoUris).toEqual({
+      [plant.id]: "file:///bounded-latest.jpg",
+    });
+    expect(projection.careCards[0]?.imageUri).toBe(
+      "file:///bounded-latest.jpg",
+    );
   });
 });

@@ -2,7 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Text } from "react-native";
 import { z } from "zod";
 import type { CareActivityType, CareEntryDetails } from "@/features/journal";
-import { listCareActivities, listPlantUpdates } from "@/features/journal";
+import {
+  getLatestPlantPhotoUri,
+  listCareActivities,
+  listRecentPlantUpdates,
+} from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { productionWeather } from "@/shared/weather/weather-state";
 import { getPlant } from "../data/plant-repository";
@@ -37,15 +41,17 @@ export function PlantDetailContainer({
   const query = useQuery({
     queryKey: ["plant-detail", plantId],
     queryFn: async () => {
-      const [plant, activities, updates] = await Promise.all([
+      const [plant, activities, latestPhotoUri, updates] = await Promise.all([
         getPlant(plantId),
         listCareActivities(plantId),
-        listPlantUpdates(plantId),
+        getLatestPlantPhotoUri(plantId),
+        listRecentPlantUpdates(plantId, 3),
       ]);
       return plant
         ? createPlantDetailProjection({
             activities,
             evaluatedAt: new Date(),
+            latestPhotoUri,
             plant,
             updates,
           })
