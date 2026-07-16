@@ -143,6 +143,7 @@ export function serializeBundle(
       entryCriteria: s.entryCriteria,
       exitCriteria: s.exitCriteria,
       estimatedDuration: s.estimatedDuration,
+      ...(s.imageId !== undefined && { imageId: s.imageId }),
       bodyMarkdown: s.bodyMarkdown,
     };
   });

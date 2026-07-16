@@ -99,9 +99,9 @@ flowchart LR
 - estimated duration;
 - status, version, review metadata, and references.
 
-**Optional fields:** Typical climate/growing-method variants, images, expert notes.
+**Optional fields:** Typical climate/growing-method variants, one stable `image_id` for a curated stage illustration, expert notes.
 
-**Relationships:** Belongs to a Species lifecycle and follows its ordered position. Entry and exit observations support review; they do not create task state, reminders, automatic transitions, or executable rules.
+**Relationships:** Belongs to a Species lifecycle and follows its ordered position. A stage illustration is a general reference asset; it is not a user photo, stage confirmation, progress measurement, task state, reminder, automatic transition, or executable rule. Entry and exit observations support review; they do not create task state, reminders, automatic transitions, or executable rules.
 
 **Example:** `grape.stage.trunk-development`, shown as “Nuôi thân chính”, with primary objective “Xây dựng trục thân chính thẳng và khỏe để lên giàn.”
 

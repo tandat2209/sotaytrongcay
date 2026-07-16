@@ -190,6 +190,7 @@
         "Nụ hoa (bông gió) xuất hiện rõ rệt"
       ],
       "estimatedDuration": "2-3 tuần",
+      "imageId": "image.grape.stage.bud-break",
       "bodyMarkdown": "\nMầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ.\n"
     },
     {
@@ -215,6 +216,7 @@
         "Tán lá phủ kín mặt giàn"
       ],
       "estimatedDuration": "2-3 tháng",
+      "imageId": "image.grape.stage.canopy-formation",
       "bodyMarkdown": "\nNuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.\n"
     },
     {
@@ -239,6 +241,7 @@
         "Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)"
       ],
       "estimatedDuration": "1-2 tuần",
+      "imageId": "image.grape.stage.flowering",
       "bodyMarkdown": "\nHoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.\n"
     },
     {
@@ -264,6 +267,7 @@
         "Trái bắt đầu chuyển màu (Veraison)"
       ],
       "estimatedDuration": "4-6 tuần",
+      "imageId": "image.grape.stage.fruit-development",
       "bodyMarkdown": "\nTrái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ.\n"
     },
     {
@@ -289,6 +293,7 @@
         "Đã tỉa xong chùm"
       ],
       "estimatedDuration": "2-3 tuần",
+      "imageId": "image.grape.stage.fruit-set",
       "bodyMarkdown": "\nHoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).\n"
     },
     {
@@ -313,6 +318,7 @@
         "Cắt hết trái trên cây"
       ],
       "estimatedDuration": "1-2 tuần",
+      "imageId": "image.grape.stage.harvest",
       "bodyMarkdown": "\nKhoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.\n"
     },
     {
@@ -338,6 +344,7 @@
         "Nứt nanh (mầm xanh xuất hiện)"
       ],
       "estimatedDuration": "1-2 tuần",
+      "imageId": "image.grape.stage.pruning",
       "bodyMarkdown": "\nCắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.\n"
     },
     {
@@ -362,6 +369,7 @@
         "Cây sẵn sàng cho chu kỳ cắt cành mới"
       ],
       "estimatedDuration": "1-2 tháng",
+      "imageId": "image.grape.stage.recovery",
       "bodyMarkdown": "\nCây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.\n"
     },
     {
@@ -387,6 +395,7 @@
         "Hạt chuyển màu đen"
       ],
       "estimatedDuration": "2-4 tuần",
+      "imageId": "image.grape.stage.ripening",
       "bodyMarkdown": "\nTrái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.\n"
     },
     {
@@ -411,6 +420,7 @@
         "Bắt đầu bám giàn/cọc"
       ],
       "estimatedDuration": "2-4 tuần",
+      "imageId": "image.grape.stage.seedling",
       "bodyMarkdown": "\nGiai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.\n"
     },
     {
@@ -435,6 +445,7 @@
         "Bấm ngọn cành cấp 1"
       ],
       "estimatedDuration": "2-4 tháng",
+      "imageId": "image.grape.stage.trellis-training",
       "bodyMarkdown": "\nChuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.\n"
     },
     {
@@ -459,6 +470,7 @@
         "Đã bấm ngọn thân chính"
       ],
       "estimatedDuration": "1-3 tháng",
+      "imageId": "image.grape.stage.trunk-development",
       "bodyMarkdown": "\nTập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.\n"
     }
   ],

@@ -12,6 +12,7 @@ exit_criteria:
   - Hoa tàn
   - Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)
 estimated_duration: 1-2 tuần
+image_id: image.grape.stage.flowering
 references:
   - ref.osu.growing-table-grapes
 ---

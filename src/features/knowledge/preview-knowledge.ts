@@ -22,6 +22,7 @@ export type StagePlaybook = Readonly<{
   entryCriteria: readonly string[];
   exitCriteria: readonly string[];
   bodyMarkdown: string;
+  imageId: string | null;
 }>;
 
 export type CareGuide = Readonly<{
@@ -112,6 +113,7 @@ type RawPlaybook = {
   estimatedDuration?: string;
   entryCriteria?: string[];
   exitCriteria?: string[];
+  imageId?: string;
   bodyMarkdown?: string;
 };
 
@@ -386,6 +388,7 @@ function toPlaybook(raw: RawPlaybook): StagePlaybook {
     estimatedDuration: raw.estimatedDuration ?? null,
     entryCriteria: raw.entryCriteria ?? [],
     exitCriteria: raw.exitCriteria ?? [],
+    imageId: raw.imageId ?? null,
     bodyMarkdown: raw.bodyMarkdown ?? "",
   };
 }

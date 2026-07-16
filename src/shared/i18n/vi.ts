@@ -378,7 +378,10 @@ export const vi = {
     "Mở hoặc thu gọn hướng dẫn bổ sung {title}",
     ["title"],
   ],
-  "plants.guide.reviewBadge": ["NỘI DUNG CHỜ DUYỆT", []],
+  "plants.guide.stageImageAccessibility": [
+    "Ảnh minh hoạ giai đoạn {stage}",
+    ["stage"],
+  ],
   "plants.guide.threatDisclaimer": [
     "Nội dung dùng để quan sát và tham khảo, không phải chẩn đoán hoặc chỉ định phun.",
     [],

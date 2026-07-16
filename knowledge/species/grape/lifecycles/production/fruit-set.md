@@ -13,6 +13,7 @@ exit_criteria:
   - Trái đạt kích thước bằng đầu ngón tay
   - Đã tỉa xong chùm
 estimated_duration: 2-3 tuần
+image_id: image.grape.stage.fruit-set
 references:
   - ref.osu.growing-table-grapes
 ---

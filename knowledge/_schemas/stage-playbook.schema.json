@@ -59,6 +59,10 @@
     "estimated_duration": {
       "type": "string"
     },
+    "image_id": {
+      "type": "string",
+      "pattern": "^image\\.[a-z0-9.-]+$"
+    },
     "references": {
       "type": "array",
       "minItems": 0,

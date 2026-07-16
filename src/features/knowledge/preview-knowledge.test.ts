@@ -30,6 +30,12 @@ describe("preview knowledge", () => {
     expect(playbook!.exitCriteria.length).toBeGreaterThan(0);
   });
 
+  it("exposes the curated stage image identity", () => {
+    expect(getStagePlaybook("grape.stage.trunk-development")).toMatchObject({
+      imageId: "image.grape.stage.trunk-development",
+    });
+  });
+
   it("returns null for an unknown stage ID", () => {
     expect(getStagePlaybook("unknown.stage.id")).toBeNull();
   });

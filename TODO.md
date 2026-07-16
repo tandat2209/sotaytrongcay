@@ -137,10 +137,11 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Author a sourced "Nuôi thân" grape Knowledge Base pilot with stable IDs and schemas.
 - [x] Remove reminder-template and task/transition behavior from the review-stage grape playbook contract.
 - [x] Align Knowledge Base documentation ownership and precedence with schemas and accepted product decisions.
-- [x] Surface stage playbook content inline on Plant Detail (objective, knowledge topics, exit criteria) with 'NỘI DUNG CHỜ DUYỆT' label.
+- [x] Surface stage playbook content inline on Plant Detail (objective, knowledge topics, exit criteria).
 - [x] Implement StagePlaybookScreen as a general-purpose, stage-focused guide reader (not plant-specific); reachable from Plant Detail via 'Hướng dẫn chi tiết' CTA; supports forward browsing through stages via stageId query param.
 - [x] Show complete stage Care Plan details in Stage Playbook, including activity, goal, ground/container guidance, input categories, and important notes.
 - [x] Add stage-specific icons (12 stages mapped to Lucide) consistently across Plant Detail, Plant List, and Stage Playbook.
+- [x] Add one bundled review-stage illustration for each grape Stage Playbook, with a static image-ID resolver and fallback hero.
 - [x] Add location field and DateTimePicker for plantedAt to plant setup.
 
 ## Deferred pending reviewed contracts

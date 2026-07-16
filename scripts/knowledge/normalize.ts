@@ -120,6 +120,7 @@ export function normalizeDocument(
     }
 
     case "growth_stage_playbook": {
+      const imageId = typeof fm.image_id === "string" ? fm.image_id : undefined;
       return {
         id: doc.id,
         type: "growth_stage_playbook",
@@ -137,6 +138,7 @@ export function normalizeDocument(
         entryCriteria: stringList(fm.entry_criteria),
         exitCriteria: stringList(fm.exit_criteria),
         estimatedDuration: String(fm.estimated_duration),
+        ...(imageId !== undefined && { imageId }),
       };
     }
 

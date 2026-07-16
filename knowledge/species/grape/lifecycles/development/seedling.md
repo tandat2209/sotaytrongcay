@@ -12,6 +12,7 @@ exit_criteria:
   - Mầm chính vươn dài trên 30-50cm
   - Bắt đầu bám giàn/cọc
 estimated_duration: 2-4 tuần
+image_id: image.grape.stage.seedling
 references:
   - ref.osu.growing-table-grapes
 ---

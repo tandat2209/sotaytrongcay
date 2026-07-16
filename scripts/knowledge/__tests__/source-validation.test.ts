@@ -18,7 +18,7 @@ describe("knowledge source discovery and parsing", () => {
     await workspace.cleanup();
   });
 
-  it("discovers authored Markdown recursively while excluding schemas and generated files in lexical order", async () => {
+  it("discovers authored Markdown recursively while excluding schemas, generated files, and assets in lexical order", async () => {
     await workspace.writeKnowledgeFile(
       "species/grape/species.md",
       "---\nid: plant.grape\ntype: plant_species\n---\n# Nho\n",
@@ -34,6 +34,10 @@ describe("knowledge source discovery and parsing", () => {
     await workspace.writeKnowledgeFile(
       "_generated/ignored.md",
       "---\nid: ignored\n---\n",
+    );
+    await workspace.writeKnowledgeFile(
+      "assets/images/README.md",
+      "# Curated image assets\n",
     );
 
     await expect(

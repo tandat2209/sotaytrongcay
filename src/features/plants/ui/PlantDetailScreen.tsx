@@ -258,13 +258,6 @@ function CurrentStage({
         {projection.stagePlaybook?.primaryObjective ||
           t("plants.guide.missing")}
       </Typography>
-      {projection.stagePlaybook ? (
-        <View style={styles.reviewBadge}>
-          <Typography color="secondary" variant="label">
-            {t("plants.guide.reviewBadge")}
-          </Typography>
-        </View>
-      ) : null}
       <Pressable
         accessibilityLabel={t("plants.screen.customizeAccessibility")}
         accessibilityRole="button"
@@ -323,13 +316,6 @@ const styles = StyleSheet.create({
   },
   journeyLabel: { textAlign: "center" },
   journeyStep: { alignItems: "center", gap: spacing.xs, width: 68 },
-  reviewBadge: {
-    alignSelf: "flex-start",
-    backgroundColor: colors.secondarySoft,
-    borderRadius: radius.chip,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs,
-  },
   playbookAction: {
     alignItems: "center",
     borderRadius: radius.control,

@@ -265,8 +265,7 @@ Place the age chip beside the species chip in the wrapping identity metadata row
 **Components:**
 
 - Header: back button + title "Hướng dẫn chi tiết".
-- Hero card: stage icon + stage name + estimated duration + "NỘI DUNG CHỜ DUYỆT" badge (dark primary background).
-- "Mục tiêu" card: `primaryObjective`.
+- Hero card: the optional authored stage illustration with a bottom contrast gradient, stage icon + stage name + estimated duration + `primaryObjective`. It falls back to the dark primary treatment when the image is absent or unreadable; it is a general illustration, not a user-plant photo or stage confirmation.
 - "Chăm sóc cần theo dõi" section: one initially collapsed card per stage Care Plan. Its activity icon and title identify the care; expanding it reveals the goal, separate ground/container frequency when authored, recommended input categories when authored, and important notes.
 - A short statement clarifies that Care Plan content is general to the stage and does not replace assessment of soil, weather, growing method, or the plant's actual condition.
 - "Hướng dẫn bổ sung" section: one initially collapsed card per generic informational Care Guide. Opening a card shows its authored goal and Markdown instructions; these do not represent tracked activities.

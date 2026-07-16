@@ -12,6 +12,7 @@ exit_criteria:
   - Cành cấp 1 đạt độ dài tiêu chuẩn
   - Bấm ngọn cành cấp 1
 estimated_duration: 2-4 tháng
+image_id: image.grape.stage.trellis-training
 references:
   - ref.osu.growing-table-grapes
 ---

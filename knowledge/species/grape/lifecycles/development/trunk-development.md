@@ -12,6 +12,7 @@ exit_criteria:
   - Thân chính chạm dây kẽm mặt giàn
   - Đã bấm ngọn thân chính
 estimated_duration: 1-3 tháng
+image_id: image.grape.stage.trunk-development
 references:
   - ref.osu.growing-table-grapes
 ---

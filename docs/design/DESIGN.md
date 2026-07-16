@@ -186,6 +186,8 @@ Do not display fabricated photo, health, days-in-stage, progress, or sensor meas
 
 Use progressive sections for the stage goal, tracked Care Plans, generic informational guides with authored instructions, stage threat guidance, completion criteria, and next stage. Use a small target icon for the stage goal. Care Plan and informational-guide cards use their icon and title in a compact header; expanding them reveals their supporting content.
 
+When an authored stage illustration is available, use it in the rounded Stage Playbook hero with a bottom contrast gradient for the stage title, duration, and objective. The image is a general visual reference, never a replacement for the user's persisted Plant Update photo or evidence that the user's plant has reached the stage. Keep the primary-color hero as the loading/error fallback.
+
 Keep guidance scannable. Do not turn the screen into an unstructured article or a product catalog.
 
 ## 8. Form and feedback visual treatment

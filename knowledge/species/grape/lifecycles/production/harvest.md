@@ -12,6 +12,7 @@ entry_criteria:
 exit_criteria:
   - Cắt hết trái trên cây
 estimated_duration: 1-2 tuần
+image_id: image.grape.stage.harvest
 references:
   - ref.osu.growing-table-grapes
 ---

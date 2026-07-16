@@ -1,10 +1,4 @@
-import {
-  BookOpen,
-  ChevronRight,
-  Clock,
-  Flag,
-  Target,
-} from "lucide-react-native";
+import { BookOpen, ChevronRight, Flag } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
@@ -22,6 +16,7 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import { StageCarePlanSection } from "./StageCarePlanSection";
 import { StageInformationalGuideSection } from "./StageInformationalGuideSection";
+import { StagePlaybookHero } from "./StagePlaybookHero";
 import { StageThreatSection } from "./StageThreatSection";
 
 type Props = Readonly<{
@@ -58,41 +53,7 @@ export function StagePlaybookScreen({
         titleIcon={BookOpen}
       />
 
-      <View style={styles.hero}>
-        <View style={styles.heroStageRow}>
-          <StageIcon color="#FFFFFF" size={20} stageId={playbook.id} />
-          <Typography style={styles.heroTitle} variant="headlineMedium">
-            {playbook.title}
-          </Typography>
-        </View>
-        {playbook.estimatedDuration ? (
-          <View style={styles.heroDuration}>
-            <Clock color={colors.secondarySoft} size={14} />
-            <Typography style={styles.heroDurationText} variant="bodyMedium">
-              {playbook.estimatedDuration}
-            </Typography>
-          </View>
-        ) : null}
-        <View style={styles.heroReviewBadge}>
-          <Typography style={styles.heroReviewText} variant="label">
-            {t("plants.guide.reviewBadge")}
-          </Typography>
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <SurfaceCard style={styles.objectiveCard}>
-          <View style={styles.objectiveHeading}>
-            <Target color={colors.primary} size={18} />
-            <Typography color="textSecondary" variant="label">
-              {t("plants.guide.objective")}
-            </Typography>
-          </View>
-          <Typography variant="bodyLarge">
-            {playbook.primaryObjective}
-          </Typography>
-        </SurfaceCard>
-      </View>
+      <StagePlaybookHero playbook={playbook} />
 
       <StageCarePlanSection
         carePlans={carePlans}
@@ -166,31 +127,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.sm,
   },
-  durationRow: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
   exitCard: {
     borderColor: colors.primary,
     borderLeftColor: colors.primary,
     gap: spacing.sm,
   },
   exitHeading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  hero: {
-    backgroundColor: colors.primary,
-    borderRadius: 16,
-    gap: spacing.sm,
-    padding: spacing.lg,
-  },
-  heroDuration: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
-  heroDurationText: { color: colors.secondarySoft },
-  heroReviewBadge: {
-    alignSelf: "flex-start",
-    backgroundColor: "rgba(255,255,255,0.15)",
-    borderRadius: 4,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 2,
-  },
-  heroReviewText: { color: "#FFFFFF" },
-  heroStageRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  heroTitle: { color: "#FFFFFF", flex: 1 },
   nextStageCard: {
     alignItems: "center",
     flexDirection: "row",
@@ -204,12 +146,6 @@ const styles = StyleSheet.create({
     height: 48,
     justifyContent: "center",
     width: 48,
-  },
-  objectiveCard: { gap: spacing.sm },
-  objectiveHeading: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: spacing.sm,
   },
   section: { gap: spacing.md },
 });

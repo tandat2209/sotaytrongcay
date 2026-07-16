@@ -13,6 +13,7 @@ exit_criteria:
   - Mắt ngủ bắt đầu sưng to
   - Nứt nanh (mầm xanh xuất hiện)
 estimated_duration: 1-2 tuần
+image_id: image.grape.stage.pruning
 references:
   - ref.osu.growing-table-grapes
 ---

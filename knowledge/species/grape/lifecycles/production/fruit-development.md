@@ -13,6 +13,7 @@ exit_criteria:
   - Trái ngừng lớn
   - Trái bắt đầu chuyển màu (Veraison)
 estimated_duration: 4-6 tuần
+image_id: image.grape.stage.fruit-development
 references:
   - ref.osu.growing-table-grapes
 ---

@@ -12,6 +12,7 @@ exit_criteria:
   - Lá bắt đầu già úa
   - Cây sẵn sàng cho chu kỳ cắt cành mới
 estimated_duration: 1-2 tháng
+image_id: image.grape.stage.recovery
 references:
   - ref.osu.growing-table-grapes
 ---

@@ -32,6 +32,10 @@ _Avoid_: Công việc, hoạt động đã làm
 Reviewed-for-structure stage context that may state an objective, observable entry or exit context, duration, and sources. It does not prescribe care or create product behavior until separately approved.
 _Avoid_: Quy tắc tự động, hướng dẫn can thiệp, tác vụ hệ thống
 
+**Ảnh minh hoạ giai đoạn** (Stage illustration):
+A curated visual reference for one growth stage in the Stage Playbook. It is not a photo of the user's plant, proof that the plant is at that stage, or a progress measurement.
+_Avoid_: Ảnh cây của tôi, xác nhận giai đoạn, tiến độ cây
+
 **Việc cần tránh** (Thing to avoid):
 A stage-specific action or condition that may harm the plant and should be explained to the grower.
 _Avoid_: Lỗi, công việc

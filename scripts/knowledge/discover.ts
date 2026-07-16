@@ -1,7 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 
-const EXCLUDED_DIRECTORIES = new Set(["_schemas", "_generated"]);
+const EXCLUDED_DIRECTORIES = new Set(["_schemas", "_generated", "assets"]);
 
 export async function discoverMarkdownFiles(
   knowledgeRoot: string,

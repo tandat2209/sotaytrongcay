@@ -13,6 +13,7 @@ exit_criteria:
   - Cành hóa gỗ (chuyển màu nâu)
   - Tán lá phủ kín mặt giàn
 estimated_duration: 2-3 tháng
+image_id: image.grape.stage.canopy-formation
 references:
   - ref.osu.growing-table-grapes
 ---

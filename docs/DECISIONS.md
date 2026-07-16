@@ -8,6 +8,29 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Show curated stage illustrations in preview Stage Playbooks
+
+**Status:** Accepted
+
+**Decision:** A review-stage Growth Stage Playbook may declare one optional
+stable `image_id`. The preview bundle carries that ID and the mobile app resolves
+it through a static, bundled WebP registry. The Stage Playbook hero shows the
+illustration behind a dark contrast overlay and falls back to its primary-color
+hero when no image resolves or an image fails to load. The first slice covers
+the twelve grape stages only; there are no pest or disease images yet.
+
+**Rationale:** Stage guidance is text-heavy. One relevant image makes the
+general stage reference easier to scan without changing the user-owned plant
+identity model.
+
+**Consequences:** A stage illustration is never a Plant Update photo, proof of
+the user's current stage, lifecycle progress, diagnosis, care recommendation,
+or task. Review-stage images remain preview-only with their content. Production
+publication additionally requires recorded source, licence, attribution,
+Vietnamese alt text, and review status. The compiler ignores the `assets/`
+directory as authored Markdown, while the app statically imports the approved
+asset set for offline use.
+
 ## 2026-07-16 — Remove unlinked knowledge topics from the Knowledge Base
 
 **Status:** Accepted

@@ -13,6 +13,7 @@ exit_criteria:
   - Đạt độ ngọt mong muốn
   - Hạt chuyển màu đen
 estimated_duration: 2-4 tuần
+image_id: image.grape.stage.ripening
 references:
   - ref.osu.growing-table-grapes
 ---

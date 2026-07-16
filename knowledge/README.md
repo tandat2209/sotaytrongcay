@@ -56,6 +56,14 @@ authored body only when its species and monitoring stage match the playbook. It
 is read-only observation context, not diagnosis, spraying eligibility, a
 reminder, or a Care Entry prefill.
 
+Each review-stage grape Stage Playbook may also carry one optional stable
+`image_id`. The static asset resolver bundles its matching WebP from
+`knowledge/assets/images/` for offline preview display. A stage illustration is
+general visual context, not a photo of the user's plant or evidence that its
+stage is confirmed. Production publication requires the usual content review
+and recorded image source, licence, attribution, Vietnamese alt text, and
+review status.
+
 ## Care-content ownership
 
 - A `care_plan` is the authored source for tracked watering, fertilizing, and spraying guidance: title, goal, optional growing-method frequency, recommended inputs, notes, scope, eligibility, missing-history policy, and priority. Each fertilizing recommended-input group contains structured suggestions with stable IDs, Vietnamese names, and canonical fertilizer groups for inline Care Entry selection.
