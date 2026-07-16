@@ -14,6 +14,8 @@ const EXPECTED_TABLES = [
   "plants",
   "stage_care_plan_schedule_snapshots",
   "user_fertilizers",
+  "weather_cache",
+  "weather_locations",
 ] as const;
 
 type DatabaseSmokeCounts = Readonly<{

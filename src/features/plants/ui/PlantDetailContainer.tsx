@@ -8,7 +8,7 @@ import {
   listRecentPlantUpdates,
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
-import { productionWeather } from "@/shared/weather/weather-state";
+import { useWeather } from "@/features/weather";
 import { getPlant } from "../data/plant-repository";
 import { createPlantDetailProjection } from "../models/plant-detail-projection";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -38,6 +38,7 @@ export function PlantDetailContainer({
   onRecordCare,
   plantId,
 }: Props) {
+  const weather = useWeather();
   const query = useQuery({
     queryKey: ["plant-detail", plantId],
     queryFn: async () => {
@@ -94,7 +95,10 @@ export function PlantDetailContainer({
       onOpenUpdate={onOpenUpdate}
       onRecordCare={onRecordCare}
       projection={query.data}
-      weather={productionWeather}
+      weather={weather.weather}
+      weatherUpdating={weather.isUpdating}
+      onRefreshWeather={weather.refresh}
+      onUseWeatherLocation={weather.updateLocation}
     />
   );
 }

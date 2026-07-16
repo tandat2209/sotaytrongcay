@@ -5,7 +5,7 @@ import { t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
-import { WeatherCard } from "@/shared/weather/WeatherCard";
+import { WeatherCard, type WeatherState } from "@/features/weather";
 import type {
   TodayCareCard,
   TodayProjection,
@@ -13,8 +13,9 @@ import type {
 import { PlantRail } from "./PlantRail";
 import { RecentCareHistoryCard } from "./RecentCareHistoryCard";
 import { TodayPriorityList } from "./TodayPriorityList";
+import { TodayWeatherContext } from "./TodayWeatherContext";
 
-export { WeatherCard } from "@/shared/weather/WeatherCard";
+export { WeatherCard } from "@/features/weather";
 
 type Props = Readonly<{
   onAddPlant: () => void;
@@ -23,6 +24,10 @@ type Props = Readonly<{
   onOpenPlant: (id: string) => void;
   onRecordCare: (card: TodayCareCard) => void;
   projection: TodayProjection;
+  weather: WeatherState;
+  weatherUpdating: boolean;
+  onRefreshWeather: () => void;
+  onUseWeatherLocation: () => void;
 }>;
 
 export function TodayOverview({
@@ -32,54 +37,65 @@ export function TodayOverview({
   onOpenPlant,
   onRecordCare,
   projection,
+  weather,
+  weatherUpdating,
+  onRefreshWeather,
+  onUseWeatherLocation,
 }: Props) {
-  if (projection.plants.length === 0)
-    return (
-      <View style={styles.emptyState}>
-        <EmptyState
-          description={t("today.overview.emptyDescription")}
-          icon={Sprout}
-          title={t("today.overview.emptyTitle")}
-        />
-        <Pressable
-          accessibilityLabel={t("today.overview.addPlant")}
-          accessibilityRole="button"
-          onPress={onAddPlant}
-          style={styles.addPlantButton}
-        >
-          <Typography style={styles.addPlantLabel} variant="bodyLarge">
-            {t("today.overview.addPlant")}
-          </Typography>
-        </Pressable>
-      </View>
-    );
-
   return (
     <View style={styles.content}>
-      <WeatherCard weather={projection.weather} />
-      <View style={styles.section}>
-        <View style={styles.sectionHeading}>
-          <CalendarDays color={colors.primary} size={20} />
-          <Typography variant="headlineSmall">
-            {t("today.overview.tasks")}
-          </Typography>
+      <WeatherCard
+        disabled={weatherUpdating}
+        header={<TodayWeatherContext />}
+        onRetry={onRefreshWeather}
+        onUseLocation={onUseWeatherLocation}
+        weather={weather}
+      />
+      {projection.plants.length === 0 ? (
+        <View style={styles.emptyState}>
+          <EmptyState
+            description={t("today.overview.emptyDescription")}
+            icon={Sprout}
+            title={t("today.overview.emptyTitle")}
+          />
+          <Pressable
+            accessibilityLabel={t("today.overview.addPlant")}
+            accessibilityRole="button"
+            onPress={onAddPlant}
+            style={styles.addPlantButton}
+          >
+            <Typography style={styles.addPlantLabel} variant="bodyLarge">
+              {t("today.overview.addPlant")}
+            </Typography>
+          </Pressable>
         </View>
-        <TodayPriorityList
-          cards={projection.careCards}
-          onRecordCare={onRecordCare}
-        />
-      </View>
-      <RecentCareHistoryCard
-        activities={projection.recentActivities}
-        onOpenActivity={onOpenActivity}
-        onOpenJournal={onOpenJournal}
-      />
-      <PlantRail
-        onAddPlant={onAddPlant}
-        onOpenPlant={onOpenPlant}
-        photoUris={projection.plantPhotoUris}
-        plants={projection.plants}
-      />
+      ) : (
+        <>
+          <View style={styles.section}>
+            <View style={styles.sectionHeading}>
+              <CalendarDays color={colors.primary} size={20} />
+              <Typography variant="headlineSmall">
+                {t("today.overview.tasks")}
+              </Typography>
+            </View>
+            <TodayPriorityList
+              cards={projection.careCards}
+              onRecordCare={onRecordCare}
+            />
+          </View>
+          <RecentCareHistoryCard
+            activities={projection.recentActivities}
+            onOpenActivity={onOpenActivity}
+            onOpenJournal={onOpenJournal}
+          />
+          <PlantRail
+            onAddPlant={onAddPlant}
+            onOpenPlant={onOpenPlant}
+            photoUris={projection.plantPhotoUris}
+            plants={projection.plants}
+          />
+        </>
+      )}
     </View>
   );
 }

@@ -32,6 +32,8 @@ const validSnapshot: DatabaseSmokeSnapshot = {
     "plants",
     "stage_care_plan_schedule_snapshots",
     "user_fertilizers",
+    "weather_cache",
+    "weather_locations",
   ],
   updatedPlantName: "Database smoke updated",
   userVersion: DATABASE_VERSION,
@@ -46,6 +48,17 @@ describe("validateDatabaseSmokeSnapshot", () => {
       schema: true,
       userVersion: DATABASE_VERSION,
     });
+  });
+
+  it("rejects a schema without the weather cache", () => {
+    expect(() =>
+      validateDatabaseSmokeSnapshot({
+        ...validSnapshot,
+        tables: validSnapshot.tables.filter(
+          (table) => table !== "weather_cache",
+        ),
+      }),
+    ).toThrow("weather_cache");
   });
 
   it.each([

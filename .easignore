@@ -1,0 +1,14 @@
+node_modules/
+.expo/
+dist/
+web-build/
+ios/
+android/
+*.tsbuildinfo
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+expo-env.d.ts
+.claude/worktrees/

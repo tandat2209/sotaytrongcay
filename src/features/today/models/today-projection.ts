@@ -18,13 +18,13 @@ import {
   type StageCarePlanScheduleSnapshot,
 } from "@/features/reminders";
 import { t } from "@/shared/i18n";
-import {
-  productionWeather,
-  type WeatherState,
-} from "@/shared/weather/weather-state";
+import type { WeatherState } from "@/features/weather";
 
 export type TodayWeather = WeatherState;
-export { productionWeather };
+export const productionWeather: WeatherState = {
+  reason: "not-configured",
+  status: "unavailable",
+};
 export type TodayActivity = CareActivity & { plantName: string };
 
 export type TodayCareCard = Readonly<{

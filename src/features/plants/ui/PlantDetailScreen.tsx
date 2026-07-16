@@ -9,8 +9,7 @@ import {
 } from "@/features/journal";
 import { listSprayTargets } from "@/features/knowledge";
 import { StageIcon } from "@/features/knowledge/stage-icons";
-import { WeatherCard } from "@/shared/weather/WeatherCard";
-import type { WeatherState } from "@/shared/weather/weather-state";
+import { WeatherCard, type WeatherState } from "@/features/weather";
 import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Screen } from "@/shared/ui/Screen";
@@ -35,12 +34,15 @@ type Props = Readonly<{
   onOpenPlaybook?: () => void;
   onOpenSchedule: () => void;
   onOpenUpdate: (id: string) => void;
+  onRefreshWeather: () => void;
   onRecordCare: (
     type: CareActivityType,
     details: CareEntryDetails,
   ) => Promise<void>;
   projection: PlantDetailProjection;
+  onUseWeatherLocation: () => void;
   weather: WeatherState;
+  weatherUpdating: boolean;
 }>;
 
 export function PlantDetailScreen({
@@ -50,9 +52,12 @@ export function PlantDetailScreen({
   onOpenPlaybook,
   onOpenSchedule,
   onOpenUpdate,
+  onRefreshWeather,
   onRecordCare,
+  onUseWeatherLocation,
   projection,
   weather,
+  weatherUpdating,
 }: Props) {
   const [careEntryType, setCareEntryType] = useState<CareActivityType | null>(
     null,
@@ -122,7 +127,12 @@ export function PlantDetailScreen({
             />
           ))}
         </View>
-        <WeatherCard weather={weather} />
+        <WeatherCard
+          disabled={weatherUpdating}
+          onRetry={onRefreshWeather}
+          onUseLocation={onUseWeatherLocation}
+          weather={weather}
+        />
         <PlantDetailRecentJournal
           items={projection.recentJournalItems}
           onOpenActivity={onOpenActivity}

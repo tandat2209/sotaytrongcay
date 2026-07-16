@@ -50,7 +50,8 @@ Stage guidance supports care tracking through concise tips. It does not create a
 ### Trustworthy context
 
 - All visible product text is Vietnamese.
-- Weather includes source time and stale state.
+- Weather keeps source time and freshness internally; the visible summary is compact and icon-led, with stale status exposed as an accessible icon state.
+- Weather asks before using foreground location, stores a coarse app-level weather location, and remains display-only.
 - Measurements show their user, device, or provider source.
 - Suggestions never imply that an activity happened.
 - Product, dosage, and disease guidance requires approved knowledge.
@@ -175,8 +176,8 @@ There is no standalone Task Guidance or guided-task completion screen in MVP.
 
 **Components:**
 
-- Date and greeting.
-- “Thời tiết hôm nay”.
+- App logo and name without a repeated “Hôm nay” page heading; the date and greeting form the first row inside the weather card.
+- Compact weather summary.
 - “Việc cần làm hôm nay” with contextual “Tưới nước”, “Bón phân”, and “Phun thuốc” actions when applicable.
 - “Vừa ghi gần đây”.
 - “Khu Vườn Của Tôi” as horizontally scrollable photo cards with name, species, and current stage; “Thêm cây” stays in the section heading.
@@ -184,6 +185,8 @@ There is no standalone Task Guidance or guided-task completion screen in MVP.
 Each priority is compact by default: its “Vì sao”, reviewed explanation, and safe guidance expand only on request. Care prompts do not appear as completed/unchecked tasks or in a “Đã xem xét” section.
 
 Each button opens a care form with the plant and activity type prefilled. Nothing is recorded until the user selects “Lưu hoạt động”.
+
+The weather card initially explains that data is unavailable and offers “Dùng vị trí hiện tại”. After foreground permission, it shows no standalone title: a semantic condition icon and label lead compact icon-and-value groups for temperature, humidity, rain chance, and wind. The overview does not show the saved location, observation time, provider, freshness wording, or an update-location action. Metric icons retain full Vietnamese accessibility labels, and stale data uses an accessible status icon. Weather never changes the cards under “Việc cần làm hôm nay”.
 
 **Empty state:** No plants shows “Bắt đầu với cây đầu tiên của bạn” + “Thêm cây”. No due care shows “Hôm nay chưa có việc đến hạn”.
 
@@ -247,6 +250,8 @@ Plant Detail displays the first photo from the newest photo-bearing saved Plant 
 Place the age chip beside the species chip in the wrapping identity metadata row. Current-stage age uses only the persisted time when the current stage became active; planted age uses only the optional planting date. When both values exist, show current-stage age first and switch to planted age every ten seconds with a short vertical slide and crossfade. When only one exists, keep it static; when neither exists, omit the chip. Under reduced motion, show both available labels statically. The visual text may change, but screen readers receive one stable label containing every available value. Never derive stage age from planting date, plant creation date, lifecycle position, authored duration, photos, or care history. Health status remains absent until a persisted source contract exists.
 
 “Nhật ký gần đây” interleaves saved Care Activities and Plant Updates by occurrence time and shows at most three entries. Care rows show the activity icon, title, and time. Plant Update rows show the first saved photo thumbnail when available or a note icon otherwise, plus a note/photo summary and time. Selecting a row opens the matching care or update detail screen. Plant Updates remain journal records rather than dedicated care activities.
+
+Plant Detail reuses the same compact app-level weather summary as Today. Setup and retry actions appear only when weather is unavailable; available weather has no location-update action. Weather never changes Plant Detail care status, schedule, reminder, or saved history in the current scope.
 
 **Empty state:** Missing care shows “Chưa có dữ liệu” with the relevant record action. Missing reviewed recommendation shows “Chưa có gợi ý”. Unknown lifecycle or stage remains explicit.
 

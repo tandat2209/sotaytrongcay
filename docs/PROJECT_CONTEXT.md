@@ -56,7 +56,7 @@ Users can:
 - **Do not manufacture work:** informational tips have no completion state, reminder, or journal entry.
 - **Prompt, then confirm:** a Today care button may prefill entry, but the user saves what actually happened.
 - **Explain safely:** advice comes from reviewed Knowledge Base content and avoids unsupported certainty.
-- **Weather as context:** weather may adjust care suggestions but never fabricate measurements or actions.
+- **Weather as context:** current weather is display-only; future reviewed rules may adjust suggestions but never fabricate measurements or actions.
 - **User-controlled history:** activities remain editable, exportable, and deletable.
 
 ## MVP capabilities
@@ -77,15 +77,15 @@ Users can:
 
 ## Capability rationale
 
-| Capability          | User value                        | MVP constraint                           |
-| ------------------- | --------------------------------- | ---------------------------------------- |
-| Quick care tracking | Preserves reliable history        | Minimum required fields only             |
-| Plant Dashboard     | Answers when care last happened   | Summary, not analytics                   |
-| Stage tips          | Adds relevant learning            | Informational and non-trackable          |
-| Today care prompts  | Surfaces likely next care         | User must confirm by saving activity     |
-| Weather context     | Avoids obvious timing mistakes    | Reviewed rules and freshness labels      |
-| Care Plan schedules | Supports planned future care      | User snapshots never alter curated plans |
-| Journal             | Makes activity history searchable | No knowledge articles mixed into history |
+| Capability          | User value                         | MVP constraint                           |
+| ------------------- | ---------------------------------- | ---------------------------------------- |
+| Quick care tracking | Preserves reliable history         | Minimum required fields only             |
+| Plant Dashboard     | Answers when care last happened    | Summary, not analytics                   |
+| Stage tips          | Adds relevant learning             | Informational and non-trackable          |
+| Today care prompts  | Surfaces likely next care          | User must confirm by saving activity     |
+| Weather context     | Shows local conditions at a glance | Display-only, icon-led, user-approved    |
+| Care Plan schedules | Supports planned future care       | User snapshots never alter curated plans |
+| Journal             | Makes activity history searchable  | No knowledge articles mixed into history |
 
 ## Conceptual data model
 
@@ -102,7 +102,7 @@ Users can:
 - A care record may store its origin as Today, reminder, or manual entry.
 - A **Care Plan Schedule** derives future care timing from one Care Plan and saved activity history. It is distinct from suggestions and history; saving care remains required.
 - A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. A plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
-- Weather Rules may prioritize, delay, suppress, or annotate a suggestion.
+- Future reviewed Weather Rules may prioritize, delay, suppress, or annotate a suggestion; current weather is display-only.
 - User data references stable Knowledge Base IDs but never owns curated content.
 - User-entered fertilizer names, groups, quantities, methods, and notes are mutable history. They do not create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.
 

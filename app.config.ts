@@ -32,6 +32,12 @@ const config: ExpoConfig = {
     "expo-notifications",
     "expo-secure-store",
     "expo-sqlite",
+    [
+      "expo-location",
+      {
+        locationWhenInUsePermission: configT("app.permissions.location"),
+      },
+    ],
     "@react-native-community/datetimepicker",
     [
       "expo-image-picker",

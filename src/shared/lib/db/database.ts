@@ -178,6 +178,28 @@ CREATE TABLE fertilizer_applications (
   CHECK ((amount_value IS NULL) = (amount_unit IS NULL))
 );
 
+CREATE TABLE weather_locations (
+  id TEXT PRIMARY KEY NOT NULL CHECK (id = 'growing-location'),
+  label TEXT NOT NULL,
+  latitude REAL NOT NULL CHECK (latitude BETWEEN -90 AND 90),
+  longitude REAL NOT NULL CHECK (longitude BETWEEN -180 AND 180),
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE weather_cache (
+  location_id TEXT PRIMARY KEY NOT NULL,
+  condition TEXT NOT NULL
+    CHECK (condition IN ('clear', 'cloudy', 'fog', 'rain', 'showers', 'snow', 'thunderstorm', 'unknown')),
+  temperature_celsius REAL NOT NULL,
+  humidity_percent INTEGER NOT NULL CHECK (humidity_percent BETWEEN 0 AND 100),
+  rain_chance_percent INTEGER NOT NULL CHECK (rain_chance_percent BETWEEN 0 AND 100),
+  wind_speed_kph REAL NOT NULL CHECK (wind_speed_kph >= 0),
+  observed_at TEXT NOT NULL,
+  fetched_at TEXT NOT NULL,
+  source TEXT NOT NULL,
+  FOREIGN KEY (location_id) REFERENCES weather_locations(id) ON DELETE CASCADE
+);
+
 CREATE INDEX idx_care_activities_plant_time
   ON care_activities(plant_id, occurred_at DESC);
 CREATE INDEX idx_care_activities_time
@@ -254,6 +276,8 @@ export async function initializeDatabase(): Promise<void> {
 export async function resetDatabase(): Promise<void> {
   await withDatabaseWriteTransaction(async (transaction) => {
     await transaction.execAsync(`
+      DROP TABLE IF EXISTS weather_cache;
+      DROP TABLE IF EXISTS weather_locations;
       DROP TABLE IF EXISTS fertilizer_applications;
       DROP TABLE IF EXISTS user_fertilizers;
       DROP TABLE IF EXISTS plant_care_plan_notification_states;

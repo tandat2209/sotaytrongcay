@@ -123,8 +123,12 @@ A reviewed part of a Care Plan that decides when its tracked care guidance is sh
 _Avoid_: Lời khuyên AI, mã tùy ý
 
 **Thời tiết hôm nay** (Today's weather):
-Current local weather context used to explain or adjust care suggestions. It is not a standalone forecast destination.
+Current local weather context shown for awareness. In the current scope it does not change care suggestions, schedules, reminders, or history, and it is not a standalone forecast destination.
 _Avoid_: Dự báo thời tiết as the feature name
+
+**Vị trí thời tiết** (Weather location):
+The app-level, user-approved coarse location used to retrieve weather. It is separate from a Plant's free-text micro-location such as a balcony and from future Garden or Growing Area concepts.
+_Avoid_: Vườn, Khu vực trồng, or the Plant location field
 
 **Kiến thức chăm cây** (Plant-care knowledge):
 Curated species, stage, care, problem, fertilizer, seasonal, and weather-rule content. It never contains user plants or history.

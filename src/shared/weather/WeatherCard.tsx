@@ -1,122 +1,158 @@
-import { formatDateTime, t } from "@/shared/i18n";
-import {
-  CircleAlert,
-  CloudOff,
-  CloudSun,
-  Clock,
-  type LucideIcon,
-} from "lucide-react-native";
-import { StyleSheet, View } from "react-native";
+import type { WeatherState } from "@/features/weather/models/weather";
+import { formatNumber, t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
-import type { WeatherMetrics, WeatherState } from "./weather-state";
+import {
+  Clock,
+  Droplets,
+  Thermometer,
+  Umbrella,
+  Wind,
+  type LucideIcon,
+} from "lucide-react-native";
+import type { ReactNode } from "react";
+import { StyleSheet, View } from "react-native";
+import { formatWeatherCondition } from "./weather-copy";
+import { weatherConditionIcons } from "./weather-icons";
+import { WeatherUnavailableCard } from "./WeatherUnavailableCard";
 
-export function WeatherCard({ weather }: { weather: WeatherState }) {
+type Props = Readonly<{
+  disabled?: boolean;
+  header?: ReactNode;
+  onRetry?: () => void;
+  onUseLocation?: () => void;
+  weather: WeatherState;
+}>;
+
+export function WeatherCard({
+  disabled = false,
+  header,
+  onRetry,
+  onUseLocation,
+  weather,
+}: Props) {
   if (weather.status === "available" || weather.status === "stale") {
+    const temperature = formatNumber(weather.metrics.temperatureCelsius);
+    const windSpeed = formatNumber(weather.metrics.windSpeedKph);
+    const ConditionIcon = weatherConditionIcons[weather.condition];
+
     return (
-      <SurfaceCard style={styles.card}>
-        <Icon icon={weather.status === "stale" ? Clock : CloudSun} />
-        <View style={styles.copy}>
-          <Typography variant="headlineSmall">{t("weather.title")}</Typography>
-          <Typography variant="bodyLarge">{weather.summary}</Typography>
-          {formatMetrics(weather.metrics) ? (
-            <Typography color="textSecondary" variant="bodyMedium">
-              {formatMetrics(weather.metrics)}
-            </Typography>
+      <SurfaceCard style={styles.availableCard}>
+        {header}
+        <View style={styles.summaryRow}>
+          <Icon icon={ConditionIcon} />
+          <Typography variant="bodyLarge">
+            {formatWeatherCondition(weather.condition)}
+          </Typography>
+          {weather.status === "stale" ? (
+            <View
+              accessibilityLabel={t("weather.state.stale")}
+              accessible
+              style={styles.staleIcon}
+            >
+              <Clock color={colors.textSecondary} size={18} />
+            </View>
           ) : null}
-          <Typography color="textSecondary" variant="bodyMedium">
-            {weather.locationLabel} ·{" "}
-            {formatDateTime(new Date(weather.observedAt))}
-          </Typography>
-          <Typography color="textSecondary" variant="label">
-            {weather.source} · {weather.freshnessLabel}
-          </Typography>
+        </View>
+        <View style={styles.metricsRow}>
+          <Metric
+            accessibilityLabel={t("weather.metric.temperature", {
+              temperature,
+            })}
+            icon={Thermometer}
+            value={`${temperature}°C`}
+          />
+          <Metric
+            accessibilityLabel={t("weather.metric.humidity", {
+              percent: weather.metrics.humidityPercent,
+            })}
+            icon={Droplets}
+            value={`${weather.metrics.humidityPercent}%`}
+          />
+          <Metric
+            accessibilityLabel={t("weather.metric.rain", {
+              percent: weather.metrics.rainChancePercent,
+            })}
+            icon={Umbrella}
+            value={`${weather.metrics.rainChancePercent}%`}
+          />
+          <Metric
+            accessibilityLabel={t("weather.metric.wind", {
+              speed: windSpeed,
+            })}
+            icon={Wind}
+            value={`${windSpeed} km/h`}
+          />
         </View>
       </SurfaceCard>
     );
   }
-  const content =
-    weather.status === "loading"
-      ? {
-          detail: t("weather.detail.loading"),
-          label: t("weather.state.loading"),
-        }
-      : weather.status === "offline"
-        ? {
-            detail: t("weather.detail.offline"),
-            label: t("weather.state.offline"),
-          }
-        : weather.status === "error"
-          ? {
-              detail: t("weather.detail.error"),
-              label: t("weather.state.error"),
-            }
-          : weather.status === "unavailable" &&
-              weather.reason === "permission-denied"
-            ? {
-                detail: t("weather.detail.permission"),
-                label: t("weather.state.unavailable"),
-              }
-            : {
-                detail: t("weather.detail.unavailable"),
-                label: t("weather.state.unavailable"),
-              };
+
   return (
-    <SurfaceCard style={styles.card}>
-      <Icon icon={weather.status === "error" ? CircleAlert : CloudOff} />
-      <View style={styles.copy}>
-        <Typography variant="headlineSmall">{t("weather.title")}</Typography>
-        <Typography color="textSecondary" variant="bodyMedium">
-          {content.detail}
-        </Typography>
-        <Typography color="textSecondary" variant="label">
-          {content.label}
-        </Typography>
-      </View>
-    </SurfaceCard>
+    <WeatherUnavailableCard
+      disabled={disabled}
+      header={header}
+      onRetry={onRetry}
+      onUseLocation={onUseLocation}
+      weather={weather}
+    />
   );
 }
 
-function formatMetrics(metrics: WeatherMetrics | undefined): string | null {
-  if (!metrics) return null;
-  const values = [
-    metrics.temperatureCelsius === undefined
-      ? null
-      : `${metrics.temperatureCelsius}°C`,
-    metrics.humidityPercent === undefined
-      ? null
-      : t("weather.metric.humidity", { percent: metrics.humidityPercent }),
-    metrics.rainChancePercent === undefined
-      ? null
-      : t("weather.metric.rain", { percent: metrics.rainChancePercent }),
-  ].filter((value): value is string => value !== null);
-  return values.length > 0 ? values.join(" · ") : null;
+function Metric({
+  accessibilityLabel,
+  icon: MetricIcon,
+  value,
+}: {
+  accessibilityLabel: string;
+  icon: LucideIcon;
+  value: string;
+}) {
+  return (
+    <View
+      accessibilityLabel={accessibilityLabel}
+      accessible
+      style={styles.metric}
+    >
+      <MetricIcon color={colors.primary} size={18} />
+      <Typography color="textSecondary" variant="label">
+        {value}
+      </Typography>
+    </View>
+  );
 }
 
 function Icon({ icon: WeatherIcon }: { icon: LucideIcon }) {
   return (
     <View accessibilityElementsHidden style={styles.icon}>
-      <WeatherIcon color={colors.primary} size={24} />
+      <WeatherIcon color={colors.primary} size={22} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    alignItems: "center",
+  availableCard: {
     backgroundColor: colors.surfaceSubtle,
     borderColor: colors.primarySoft,
-    flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.sm,
   },
-  copy: { flex: 1, gap: spacing.xs },
   icon: {
     alignItems: "center",
     backgroundColor: colors.primarySoft,
-    borderRadius: 24,
-    height: 48,
+    borderRadius: 20,
+    height: 40,
     justifyContent: "center",
-    width: 48,
+    width: 40,
   },
+  metric: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
+  metricsRow: {
+    alignItems: "center",
+    columnGap: spacing.lg,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    rowGap: spacing.sm,
+  },
+  staleIcon: { marginLeft: "auto" },
+  summaryRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });

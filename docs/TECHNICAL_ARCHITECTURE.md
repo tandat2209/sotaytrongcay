@@ -48,11 +48,11 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 
 **Context:** Care recommendations can affect plant health, while MVP content and behavioral evidence are limited.
 
-**Decision:** Derive optional care suggestions locally from versioned stage playbooks, recent activity, and a small set of typed weather rules. Suggestions are ephemeral and AI does not produce MVP guidance.
+**Decision:** Derive optional care suggestions locally from versioned stage playbooks and recent activity. Suggestions are ephemeral and AI does not produce MVP guidance. Current weather is a separate display-only read model; typed weather adjustments require a later reviewed slice.
 
 **Rationale:** Reviewed deterministic rules are explainable, testable, offline-ready, and easier to correct.
 
-**Consequences:** Content review becomes a release gate. The rule set stays narrow, but its interface can later accept an AI-backed adapter.
+**Consequences:** Content review becomes a release gate. Weather provider failures cannot change or block guidance. A future rule slice must explicitly connect normalized weather to guidance with reviewed behavior and tests.
 
 ### Explicit activity saving
 
@@ -376,7 +376,7 @@ TanStack Query reads local repositories. Mutations run application use cases, co
 - Do not retry validation, permission, not-found, or conflict errors indefinitely.
 - Attach correlation IDs without logging personal data or credentials.
 
-Weather responses include observation time, forecast window, location precision, and provider attribution. They become normalized input to the local Guidance module.
+Weather responses include observation time, forecast window, location precision, and provider attribution. The current slice exposes them only through the Weather read model; a future reviewed change may provide normalized input to Guidance.
 
 ### Deterministic Care Suggestion Evaluator
 

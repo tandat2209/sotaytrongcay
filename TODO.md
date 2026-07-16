@@ -79,7 +79,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Add “Thêm nhật ký” to Today.
 - [ ] Remove the global FAB and Quick Action menu.
 - [ ] Add Journal source labels and filters.
-- [ ] Verify loading, empty, error, stale-weather, and offline states.
+- [ ] Verify loading, empty, error, stale-weather, permission-denied, and offline states on physical iOS and Android devices.
 - [x] Derive the Plant Detail photo from persisted user-captured Plant Update photos.
 - [x] Present the latest persisted Plant Detail photo as a tappable identity hero with a compact no-photo fallback.
 - [x] Interleave saved care and Plant Updates in Plant Detail’s three-entry recent journal.
@@ -116,7 +116,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Implement the reviewed one-to-many fertilizer-application contract.
 - [x] Replace the Settings tab with More and add reusable User Fertilizer management with contextual selection from Care Entry.
 - [x] Add approved stage guidance and a guide reader: StagePlaybookScreen has a read-only Plant Detail entry and an inline stage-schedule editor when opened from More.
-- [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
+- [x] Add an attributed weather provider, explicit coarse weather location, normalized local cache, and independent Today/Plant Detail display states.
 - [x] Build the first deterministic watering suggestion without persistent task instances, including transparent positive and negative Today evaluations.
 - [ ] Obtain reviewed guide instructions before promoting migrated grape recommendation guides beyond `review`.
 - [ ] Define differentiated recommendation priorities only after reviewed product ordering policy exists.

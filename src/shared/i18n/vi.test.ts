@@ -22,4 +22,8 @@ describe("Vietnamese translations", () => {
     expect(appLocale).toBe("vi-VN");
     expect(formatNumber(1234)).toBe("1.234");
   });
+
+  it("keeps the weather load error concise", () => {
+    expect(t("weather.detail.error")).toBe("Chưa thể tải dữ liệu thời tiết.");
+  });
 });

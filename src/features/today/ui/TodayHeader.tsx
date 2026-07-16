@@ -1,50 +1,29 @@
-import { Moon, Sun, Sunset } from "lucide-react-native";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
-import { formatTodayDate, t } from "@/shared/i18n";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, spacing } from "@/shared/ui/theme";
+import { spacing } from "@/shared/ui/theme";
 
-type Props = { date?: Date };
+const logoSource = require("../../../../assets/branding/logo.png");
 
-export function TodayHeader({ date = new Date() }: Props) {
-  const hour = date.getHours();
-  const greeting =
-    hour < 12
-      ? t("today.greeting.morning")
-      : hour < 18
-        ? t("today.greeting.afternoon")
-        : t("today.greeting.evening");
-  const GreetingIcon = hour < 12 ? Sun : hour < 18 ? Sunset : Moon;
-  const dateLabel = formatTodayDate(date);
-
+export function TodayHeader() {
   return (
-    <View style={styles.header}>
-      <Typography
-        color="textSecondary"
-        style={styles.date}
-        variant="bodyMedium"
-      >
-        {dateLabel}
+    <View style={styles.brand}>
+      <Image
+        accessibilityLabel={t("app.logo.accessibility")}
+        accessibilityRole="image"
+        resizeMode="contain"
+        source={logoSource}
+        style={styles.logo}
+      />
+      <Typography color="primary" variant="headlineSmall">
+        {t("app.name")}
       </Typography>
-      <View style={styles.greeting}>
-        <GreetingIcon color={colors.primary} size={18} />
-        <Typography style={styles.greetingText} variant="bodyMedium">
-          {greeting}
-        </Typography>
-      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  date: { flexShrink: 1, fontWeight: "500" },
-  greeting: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
-  greetingText: { color: colors.primary, fontWeight: "600" },
-  header: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: spacing.md,
-  },
+  brand: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  logo: { height: 32, width: 32 },
 });

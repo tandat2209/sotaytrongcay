@@ -17,6 +17,7 @@ import {
   listStageScheduleSnapshots,
   reconcilePlantCarePlanReminders,
 } from "@/features/reminders";
+import { useWeather } from "@/features/weather";
 import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -31,6 +32,7 @@ import { TodayOverview } from "./TodayOverview";
 
 export function TodayScreen() {
   const queryClient = useQueryClient();
+  const weather = useWeather();
   const [entry, setEntry] = useState<TodayCareCard | null>(null);
   const query = useQuery({
     queryKey: ["today"],
@@ -77,7 +79,7 @@ export function TodayScreen() {
 
   return (
     <>
-      <Screen introduction={<TodayHeader />} title={t("navigation.tabs.today")}>
+      <Screen introduction={<TodayHeader />} title="">
         {query.isPending ? (
           <Typography color="textSecondary" variant="bodyLarge">
             {t("common.state.loadingDeviceData")}
@@ -101,7 +103,11 @@ export function TodayScreen() {
             onOpenJournal={() => router.push("/journal")}
             onOpenPlant={(id) => router.push(`/plants/${id}`)}
             onRecordCare={setEntry}
+            onRefreshWeather={weather.refresh}
+            onUseWeatherLocation={weather.updateLocation}
             projection={query.data}
+            weather={weather.weather}
+            weatherUpdating={weather.isUpdating}
           />
         ) : null}
       </Screen>

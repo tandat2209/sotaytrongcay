@@ -8,6 +8,59 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Keep the weather summary compact
+
+**Status:** Accepted
+
+**Decision:** Show available weather on Today and Plant Detail as a compact,
+icon-led summary without a standalone card title. Pair the normalized condition
+with a semantic weather icon, then show temperature, humidity, rain chance, and
+wind as icon-and-value groups. Keep full Vietnamese metric meaning in
+accessibility labels.
+
+Do not show the saved weather location, observation time, provider,
+freshness wording, or an update-location action on the available summary.
+Retain the explicit setup action before location permission and retry actions
+for unavailable or error states. Keep location, source, observation time, and
+freshness in the normalized internal data for caching and reliability; weather
+remains display-only and never changes care guidance or recorded activity.
+
+**Rationale:** Today already supplies the temporal context, while the title and
+provider metadata made a secondary display-only card dominate the primary care
+content. Icon-led values preserve the useful weather scan with substantially
+less visual weight.
+
+**Consequences:** A user cannot replace an already saved weather location from
+the overview card in this slice. Stale data uses an icon with an accessible
+Vietnamese label instead of visible freshness copy. Setup and failure recovery
+remain explicit.
+
+## 2026-07-16 — Integrate weather as display-only context
+
+**Status:** Superseded by the 2026-07-16 compact weather summary decision
+
+**Decision:** Show a simple current-weather summary on Today and Plant Detail
+for one app-level weather location explicitly captured from the user's current
+device location. Store only coarse coordinates and normalized weather fields in
+SQLite, label provider time and stale data, and keep cached conditions visible
+when refresh fails. Weather is read-only display context: it does not change
+care plans, reminders, recommendations, evaluator results, or journal records.
+
+This supersedes the current-MVP behavior in the 2026-07-11 “Let weather modify
+recommendations” decision. Rain, temperature, humidity, and wind may influence
+future watering or spraying guidance only after separate reviewed rules and UX
+preserve explicit user control over recorded activities.
+
+**Rationale:** Separating provider and location reliability from care advice
+lets the product validate useful local context without implying unsupported
+automation. Explicit foreground permission, coarse coordinates, local caching,
+and visible attribution keep the first slice understandable and reversible.
+
+**Consequences:** Open-Meteo is accessed through a validated provider adapter
+without a client secret. The unreleased V1 schema adds weather-location and
+weather-cache tables, so existing development installations must reset or
+reinstall. Weather failures never block local tracking or guidance.
+
 ## 2026-07-16 — Consolidate the unreleased SQLite schema as V1
 
 **Status:** Accepted
@@ -386,7 +439,7 @@ Do not add the full `due`, `check`, `monitor`, `withhold`, and `not_applicable` 
 
 ## 2026-07-11 — Let weather modify recommendations
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-16 display-only weather integration decision
 
 **Decision:** Weather may prioritize, delay, suppress, or annotate care suggestions. MVP still excludes a weather destination, alerts, and complex automated scheduling.
 
@@ -426,7 +479,7 @@ Do not add the full `due`, `check`, `monitor`, `withhold`, and `not_applicable` 
 
 ## 2026-07-11 — Derive care suggestions without persistent tasks
 
-**Status:** Accepted
+**Status:** Superseded by the 2026-07-12 general history rule and the 2026-07-16 display-only weather integration decisions
 
 **Decision:** Compute contextual care suggestions from stage, weather, reminders, and recent history. Do not persist suggestion instances or task-completion state in MVP.
 
