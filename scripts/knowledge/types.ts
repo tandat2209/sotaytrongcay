@@ -3,6 +3,8 @@ export const KNOWLEDGE_DOCUMENT_TYPES = [
   "growth_stage_playbook",
   "care_plan",
   "care_guide",
+  "disease",
+  "pest",
   "reference_source",
 ] as const;
 
@@ -29,6 +31,7 @@ export type KnowledgeDiagnosticCode =
   | "KNOWLEDGE_BUNDLE_INVALID"
   | "KNOWLEDGE_ARTIFACT_STALE"
   | "KNOWLEDGE_WRITE_FAILED"
+  | "KNOWLEDGE_REQUIRED_SECTION_MISSING"
   | "KNOWLEDGE_VIETNAMESE_CONTENT_MISSING";
 
 export interface KnowledgeDiagnostic {
@@ -192,6 +195,22 @@ export interface NormalizedCareGuide extends NormalizedUserFacingBaseDocument {
   readonly notes?: readonly string[];
 }
 
+export interface NormalizedThreatBase extends NormalizedUserFacingBaseDocument {
+  readonly type: "disease" | "pest";
+  readonly scientificName?: string;
+  readonly speciesIds: readonly string[];
+  readonly stageIds: readonly string[];
+  readonly warningSignIds: readonly string[];
+}
+
+export interface NormalizedDisease extends NormalizedThreatBase {
+  readonly type: "disease";
+}
+
+export interface NormalizedPest extends NormalizedThreatBase {
+  readonly type: "pest";
+}
+
 export interface GuideRecommendedInput {
   readonly group: string;
   readonly examples: string;
@@ -215,4 +234,6 @@ export type NormalizedKnowledgeDocument =
   | NormalizedGrowthStagePlaybook
   | NormalizedCarePlan
   | NormalizedCareGuide
+  | NormalizedDisease
+  | NormalizedPest
   | NormalizedReferenceSource;

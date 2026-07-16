@@ -4,6 +4,32 @@
   "title": "Compiled Knowledge Bundle",
   "type": "object",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "schemaVersion": { "const": "1.1.0" } },
+        "required": ["schemaVersion"]
+      },
+      "then": {
+        "properties": { "diseases": true, "pests": true },
+        "required": ["diseases", "pests"]
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {
+              "properties": { "diseases": true },
+              "required": ["diseases"]
+            },
+            {
+              "properties": { "pests": true },
+              "required": ["pests"]
+            }
+          ]
+        }
+      }
+    }
+  ],
   "required": [
     "schemaVersion",
     "contentVersion",
@@ -365,6 +391,16 @@
         }
       }
     },
+    "diseases": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/compiled_disease" }
+    },
+    "pests": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/compiled_pest" }
+    },
     "references": {
       "type": "array",
       "uniqueItems": true,
@@ -616,6 +652,128 @@
     }
   },
   "$defs": {
+    "compiled_disease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "title",
+        "locale",
+        "version",
+        "status",
+        "references",
+        "speciesIds",
+        "stageIds",
+        "warningSignIds",
+        "bodyMarkdown"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^disease\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+        },
+        "type": { "const": "disease" },
+        "title": { "type": "string", "minLength": 1 },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "status": { "$ref": "#/$defs/status" },
+        "references": { "$ref": "#/$defs/references" },
+        "speciesIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^plant\\.[a-z0-9-]+$"
+          }
+        },
+        "stageIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+        },
+        "warningSignIds": {
+          "type": "array",
+          "maxItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^sign\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+          }
+        },
+        "scientificName": { "type": "string", "minLength": 1 },
+        "bodyMarkdown": { "type": "string" }
+      }
+    },
+    "compiled_pest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "title",
+        "locale",
+        "version",
+        "status",
+        "references",
+        "speciesIds",
+        "stageIds",
+        "warningSignIds",
+        "bodyMarkdown"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^pest\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+        },
+        "type": { "const": "pest" },
+        "title": { "type": "string", "minLength": 1 },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "status": { "$ref": "#/$defs/status" },
+        "references": { "$ref": "#/$defs/references" },
+        "speciesIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^plant\\.[a-z0-9-]+$"
+          }
+        },
+        "stageIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+        },
+        "warningSignIds": {
+          "type": "array",
+          "maxItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^sign\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+          }
+        },
+        "scientificName": { "type": "string", "minLength": 1 },
+        "bodyMarkdown": { "type": "string" }
+      }
+    },
     "status": {
       "enum": ["draft", "review", "approved", "deprecated", "archived"]
     },

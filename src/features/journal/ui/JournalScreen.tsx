@@ -282,6 +282,11 @@ function JournalRow({
               {fertilizerNames.join(" · ")}
             </Typography>
           ) : null}
+          {record.type === "spraying" && record.sprayTargetNameSnapshot ? (
+            <Typography color="textSecondary" variant="bodyMedium">
+              {record.sprayTargetNameSnapshot}
+            </Typography>
+          ) : null}
           {record.notes ? (
             <Typography
               color="textSecondary"

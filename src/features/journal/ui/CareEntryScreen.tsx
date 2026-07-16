@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { getCareActivityLabel } from "@/features/journal";
-import type {
-  CareActivityType,
-  WateringIntensity,
-} from "@/features/journal/models/care-activity";
+import type { WateringIntensity } from "@/features/journal/models/care-activity";
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal/models/care-activity-icon";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
 import { t } from "@/shared/i18n";
@@ -14,55 +11,37 @@ import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
 import { CareEntryContextFields } from "./CareEntryContextFields";
 import { CareEntryDetailsSection } from "./CareEntryDetailsSection";
-import {
-  FertilizingApplicationsSection,
-  type FertilizerApplicationDetails,
-} from "./FertilizingApplicationsSection";
+import { FertilizingApplicationsSection } from "./FertilizingApplicationsSection";
 import { WateringIntensityPicker } from "./WateringIntensityPicker";
-import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
+import { SprayTargetPicker } from "./SprayTargetPicker";
+import {
+  mergeInitialSprayTarget,
+  type CareEntryDetails,
+  type CareEntryScreenProps,
+} from "./care-entry-types";
 
-export type CareEntryDetails = Readonly<{
-  estimatedAmountLiters: number | null;
-  fertilizerApplications: readonly FertilizerApplicationDetails[];
-  intensity: WateringIntensity | null;
-  notes: string | null;
-  occurredAt: string;
-}>;
-
-type Props = Readonly<{
-  imageUri?: string | null;
-  fertilizerSuggestions?: readonly FertilizerSuggestion[];
-  initialDetails?: CareEntryDetails;
-  onDismiss: () => void;
-  onSave: (details: CareEntryDetails) => Promise<void>;
-  reason?: string;
-  plantName: string;
-  speciesTitle: string;
-  suggestion?: string;
-  stageId: string;
-  stageTitle: string;
-  type: CareActivityType;
-  visible: boolean;
-}>;
-
-export function CareEntryScreen(props: Props) {
-  const [amount, setAmount] = useState(() =>
-    props.initialDetails?.estimatedAmountLiters?.toString() ?? "",
+export function CareEntryScreen(props: CareEntryScreenProps) {
+  const [amount, setAmount] = useState(
+    () => props.initialDetails?.estimatedAmountLiters?.toString() ?? "",
   );
   const [intensity, setIntensity] = useState<WateringIntensity | null>(
     () => props.initialDetails?.intensity ?? null,
   );
   const [fertilizerApplications, setFertilizerApplications] = useState<
-    readonly FertilizerApplicationDetails[]
+    CareEntryDetails["fertilizerApplications"]
   >(() => props.initialDetails?.fertilizerApplications ?? []);
   const [notes, setNotes] = useState(() => props.initialDetails?.notes ?? "");
   const [occurredAt, setOccurredAt] = useState(
     () => new Date(props.initialDetails?.occurredAt ?? Date.now()),
   );
+  const [sprayTargetId, setSprayTargetId] = useState(
+    () => props.initialDetails?.sprayTargetId ?? null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const visual = CARE_ACTIVITY_VISUALS[props.type];
   const ActivityIcon = visual.icon;
+  const sprayTargets = mergeInitialSprayTarget(props);
 
   async function submit() {
     const parsedAmount =
@@ -87,12 +66,18 @@ export function CareEntryScreen(props: Props) {
     setError(null);
     setSaving(true);
     try {
+      const sprayTarget =
+        props.type === "spraying"
+          ? sprayTargets.find((target) => target.id === sprayTargetId)
+          : undefined;
       await props.onSave({
         estimatedAmountLiters: parsedAmount,
         fertilizerApplications,
         intensity: props.type === "watering" ? intensity : null,
         notes: notes.trim() || null,
         occurredAt: occurredAt.toISOString(),
+        sprayTargetId: sprayTarget?.id ?? null,
+        sprayTargetNameSnapshot: sprayTarget?.title ?? null,
       });
     } catch {
       setError(t("journal.error.saveActivity"));
@@ -154,6 +139,13 @@ export function CareEntryScreen(props: Props) {
           onChange={setFertilizerApplications}
           suggestions={props.fertilizerSuggestions ?? []}
           value={fertilizerApplications}
+        />
+      ) : null}
+      {props.type === "spraying" ? (
+        <SprayTargetPicker
+          onChange={setSprayTargetId}
+          targets={sprayTargets}
+          value={sprayTargetId}
         />
       ) : null}
       <CareEntryDetailsSection

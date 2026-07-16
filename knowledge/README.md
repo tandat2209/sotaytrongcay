@@ -38,10 +38,17 @@ The grape species registry defines the canonical development and production life
 
 A review-stage playbook provides concise objective, observations, duration, knowledge topics, and sources. It does not create reminders, tasks, transitions, or care instructions. The product must not imply that a selectable stage has approved tips or recommendations until the relevant content is approved.
 
+The pilot includes one review-stage spraying Care Plan for powdery-mildew prevention at bud break, with Vietnamese applicability context from the Vietnam Academy of Agricultural Sciences. It remains editorial-preview content: its elapsed-day threshold is a checkpoint for reviewing an already confirmed prevention plan, not a fixed instruction to spray, and it prescribes no product or dosage.
+
+The pilot also includes review-stage target catalogs for grape powdery mildew and thrips. These are `disease` and `pest` knowledge entities, not diagnoses, Care Plans, reminders, or spraying schedules. Their stage relationships indicate when monitoring is relevant. They compile only into preview bundle schema `1.1.0`; production stays on `1.0.0` until explicit approval.
+
+The current spraying Care Entry may read only a target's stable ID, type, Vietnamese title, and species relationship from the preview catalog for optional history classification. It does not show or execute the review-stage body or stage relationships. Saving snapshots the selected title; an absent target catalog hides the selector and does not block legacy Knowledge Base bundles or activity history.
+
 ## Care-content ownership
 
 - A `care_plan` is the authored source for tracked watering, fertilizing, and spraying guidance: title, goal, optional growing-method frequency, recommended inputs, notes, scope, eligibility, missing-history policy, and priority. Each fertilizing recommended-input group contains structured suggestions with stable IDs, Vietnamese names, and canonical fertilizer groups for inline Care Entry selection.
 - A `care_guide` contains generic informational techniques such as training or pruning and is not required by a Care Plan.
+- A `disease` or `pest` provides a stable reviewed target identity, affected species and monitoring stages, observable evidence, prevention context, safe first response, escalation guidance, and sources. It does not establish that a plant has the issue or that spraying is due.
 - The compiler validates Care Plan scope and emits its presentation and decision fields together.
 - Informational guides, including pruning or training techniques, do not create activities, recommendations, reminders, or history.
 
@@ -71,6 +78,8 @@ IDs are immutable, lowercase, language-neutral, and namespaced by domain. Exampl
 - `grape.stage.trunk-development`
 - `grape.recommendation.check-soil-before-watering`
 - `grape.guide.train-main-shoot`
+- `disease.grape.powdery-mildew`
+- `pest.grape.thrips`
 - `ref.osu.growing-table-grapes`
 
 Changing Vietnamese wording does not change an ID.

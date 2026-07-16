@@ -2,6 +2,7 @@ export {
   getCarePlansForStage,
   listAllCarePlanStages,
   listInformationalGuidesForStage,
+  listSprayTargets,
   getNextStagePlaybook,
   getPreviewPlantKnowledge,
   getStagePlaybook,
@@ -14,4 +15,5 @@ export type {
   PlantKnowledgeStage,
   PreviewPlantKnowledge,
   StagePlaybook,
+  SprayTarget,
 } from "./preview-knowledge";

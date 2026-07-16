@@ -13,6 +13,7 @@ import {
   type CareActivityType,
   type CareEntryDetails,
 } from "@/features/journal";
+import { listSprayTargets } from "@/features/knowledge";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import type { StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
@@ -167,6 +168,7 @@ export function PlantDetailScreen({
           imageUri={projection.latestPhotoUri}
           plantName={projection.plant.name}
           speciesTitle={projection.speciesTitle}
+          sprayTargets={listSprayTargets(projection.plant.speciesId)}
           stageId={projection.plant.stageId}
           stageTitle={projection.stageTitle}
           type={careEntryType}

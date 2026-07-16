@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "contentVersion": "1.0.0",
   "mode": "preview",
   "species": [
@@ -1733,6 +1733,40 @@
         "Điều chỉnh lần tưới theo nắng, mưa, loại chậu và khả năng thoát nước của đất."
       ],
       "bodyMarkdown": ""
+    },
+    {
+      "id": "grape.recommendation.bud-break.powdery-mildew-prevention",
+      "type": "care_plan",
+      "title": "Rà soát phun phòng phấn trắng khi bật mầm",
+      "goal": "Giúp người trồng kiểm tra lại nguy cơ phấn trắng và kế hoạch phun phòng đã được xác nhận khi chồi non bắt đầu phát triển; đây không phải chỉ định phải phun theo lịch cố định.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.uc-ipm.grape-powdery-mildew",
+        "ref.umn.growing-grapes-home-garden",
+        "ref.vaas.grape-nh01-48"
+      ],
+      "priority": 40,
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.bud-break"
+      ],
+      "activityType": "spraying",
+      "eligibility": {
+        "kind": "elapsed_days_since_activity",
+        "suggestAfterDays": 7
+      },
+      "onMissingHistory": "withhold",
+      "notes": [
+        "Mốc 7 ngày chỉ dùng để rà soát lại kế hoạch phòng đã được xác nhận; đủ 7 ngày không đồng nghĩa là cây bắt buộc phải được phun.",
+        "Thời điểm và khoảng lặp phụ thuộc vào giai đoạn cây, nguy cơ bệnh, thời tiết và sản phẩm được chọn. Không sao chép lịch phun từ tài liệu tham khảo thành lịch dùng tại nhà.",
+        "Mảng trắng dạng bột trên chồi hoặc lá non có thể phù hợp với dấu hiệu phấn trắng nhưng không đủ để tự khẳng định bệnh. Khi dấu hiệu chưa rõ, cần hỏi người có chuyên môn trước khi xử lý.",
+        "Chỉ dùng sản phẩm có nhãn cho cây nho và mục tiêu cần phòng tại nơi trồng; tuân thủ nhãn về liều, khoảng cách lần phun, bảo hộ và thời gian cách ly."
+      ],
+      "bodyMarkdown": ""
     }
   ],
   "guides": [
@@ -1798,6 +1832,57 @@
       "bodyMarkdown": "\n# Định hướng thân chính\n\n## Mục đích\n\nGiúp một chồi khỏe phát triển thành thân chính theo hệ cọc hoặc giàn mà người trồng đã chọn.\n\nĐây là hướng dẫn tham khảo, không phải hoạt động có trạng thái hoàn thành và không tự tạo lịch sử.\n\n## Trước khi làm\n\n- Xác định hệ đỡ đủ chắc cho cây khi lớn hơn.\n- Quan sát các chồi hiện có và chọn chồi phù hợp với hướng tạo thân.\n- Chuẩn bị vật liệu buộc mềm, không có cạnh sắc.\n\n## Cách thực hiện an toàn\n\n1. Đưa chồi chính về gần cọc hoặc điểm đỡ mà không bẻ gập.\n2. Buộc lỏng để thân còn khoảng phát triển và có thể chuyển động nhẹ.\n3. Đặt thêm điểm buộc khi cần thay vì siết một điểm quá chặt.\n4. Kiểm tra định kỳ và nới hoặc thay dây khi thân lớn.\n5. Ghi ảnh vào “Thêm nhật ký” nếu muốn theo dõi thay đổi của thân.\n\n## Dừng lại và đánh giá lại\n\n- Chồi bị nứt, dập hoặc phải uốn mạnh mới chạm điểm đỡ.\n- Dây để lại vết hằn trên thân.\n- Không xác định được chồi nào nên giữ theo hệ giàn hoặc giống đang trồng.\n\nTrong các trường hợp này, không tiếp tục cắt hoặc buộc chỉ để khớp với hình minh họa chung.\n"
     }
   ],
+  "diseases": [
+    {
+      "id": "disease.grape.powdery-mildew",
+      "type": "disease",
+      "title": "Bệnh phấn trắng trên nho",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.uc-ipm.grape-powdery-mildew",
+        "ref.vaas.grape-nh01-48"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.bud-break",
+        "grape.stage.flowering",
+        "grape.stage.fruit-development",
+        "grape.stage.fruit-set",
+        "grape.stage.ripening"
+      ],
+      "warningSignIds": [],
+      "bodyMarkdown": "\n## Dấu hiệu có thể quan sát\n\nMảng trắng hoặc xám dạng bột trên lá, chồi non hay bộ phận của chùm nho có thể\nphù hợp với dấu hiệu phấn trắng. Cần kiểm tra nhiều vị trí trên cây; một biểu\nhiện đơn lẻ không đủ để khẳng định bệnh.\n\n## Điều kiện rủi ro\n\nCác mô xanh của cây nho có thể bị ảnh hưởng trong mùa sinh trưởng. Tán quá dày\nvà vệ sinh vườn kém là bối cảnh cần lưu ý, nhưng không tự chứng minh cây đang\nbị bệnh.\n\n## Phòng ngừa\n\nGiữ tán ở mật độ phù hợp để thông thoáng, vệ sinh khu vực trồng, thu gom tàn dư\ncây bị ảnh hưởng khi phù hợp, và duy trì tưới nước cùng dinh dưỡng cân đối.\n\n## Hành động an toàn ban đầu\n\nQuan sát kỹ mặt trên và mặt dưới lá, chồi và chùm; ghi lại vị trí cùng mức độ\nlan rộng. Ưu tiên vệ sinh và cải thiện độ thông thoáng. Không tự động phun chỉ\nvì tên bệnh xuất hiện trong ứng dụng.\n\nNếu cân nhắc sản phẩm bảo vệ thực vật, chỉ dùng sản phẩm có nhãn phù hợp cho\ncây nho và mục tiêu tại nơi trồng, đồng thời tuân thủ đầy đủ nhãn và nguyên tắc\n“4 đúng”. Tài liệu này không chỉ định sản phẩm, liều hoặc lịch phun.\n\n## Khi nào cần chuyên gia\n\nHỏi người có chuyên môn khi dấu hiệu lan nhanh, ảnh hưởng đến chùm, không thể\nphân biệt với nguyên nhân khác, hoặc trước khi chọn một biện pháp hóa học.\n"
+    }
+  ],
+  "pests": [
+    {
+      "id": "pest.grape.thrips",
+      "type": "pest",
+      "title": "Bọ trĩ hại nho",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.vaas.grape-nh01-48",
+        "ref.vusta.grape-thrips"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.bud-break",
+        "grape.stage.flowering",
+        "grape.stage.fruit-development",
+        "grape.stage.fruit-set"
+      ],
+      "warningSignIds": [],
+      "bodyMarkdown": "\n## Dấu hiệu có thể quan sát\n\nKiểm tra chồi, hoa và quả non để tìm bằng chứng bọ trĩ hiện diện và ghi lại vị\ntrí cùng mức độ xuất hiện. Tổn thương trên cây nếu đứng riêng lẻ không đủ để\nkết luận nguyên nhân là bọ trĩ.\n\n## Dạng gây hại\n\nNguồn Việt Nam ghi nhận bọ trĩ gây hại đáng kể khi cây đang ra hoa và phát\ntriển quả non. Mức độ ảnh hưởng phụ thuộc mật độ và giai đoạn, vì vậy tên loài\ngây hại không được dùng thay cho việc kiểm tra thực tế.\n\n## Giai đoạn cần lưu ý\n\nTheo dõi từ bật mầm, ra hoa, đậu quả đến giai đoạn quả đang phát triển. Các liên\nkết giai đoạn này chỉ mô tả thời kỳ cần quan sát, không tạo lịch phun. Nguồn\nViệt Nam được lưu trữ khuyến cáo ngừng phun bọ trĩ khi quả bắt đầu chín; cần\nngười có chuyên môn xác nhận hướng dẫn hiện hành trước khi áp dụng.\n\n## Phòng ngừa\n\nGiữ khu vực trồng sạch, chăm sóc tưới tiêu cân đối và tránh bón thừa đạm. Đây\nlà bối cảnh quản lý tổng hợp, không phải bằng chứng rằng cây đã hết hoặc đang\ncó bọ trĩ.\n\n## Hành động an toàn ban đầu\n\nGhi lại bằng chứng quan sát được và xác nhận mức độ với người có chuyên môn khi\nchưa rõ. Không phun chỉ vì đã đến một giai đoạn được liệt kê. Nếu biện pháp hóa\nhọc được xác nhận là cần thiết, chỉ dùng sản phẩm có đăng ký và nhãn phù hợp,\ntuân thủ nhãn, bảo hộ và thời gian cách ly.\n\n## Khi nào cần chuyên gia\n\nHỏi người có chuyên môn khi số lượng bọ trĩ tăng, hoa hoặc quả non bị ảnh hưởng\nrõ, không thể xác định tác nhân, hoặc trước khi chọn sản phẩm và ngưỡng xử lý.\n"
+    }
+  ],
   "references": [
     {
       "id": "ref.fao.grape-production",
@@ -1822,6 +1907,18 @@
       "url": "https://extension.oregonstate.edu/catalog/ec-1639-growing-table-grapes",
       "accessed": "2026-07-11",
       "bodyMarkdown": "\n# Review notes\n\nUsed for young-vine establishment, selecting a vigorous shoot for a straight trunk, keeping soil adequately moist without saturation, weed competition, and the dependence of irrigation on soil and growing conditions.\n\nThe source includes region-specific rates and fertilizer examples. Those values are not transferred into the pilot because the app does not yet know enough about local climate, soil, container, cultivar, or nutrient status.\n"
+    },
+    {
+      "id": "ref.uc-ipm.grape-powdery-mildew",
+      "type": "reference_source",
+      "title": "Powdery Mildew / Grape / Agriculture: Pest Management Guidelines",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "University of California Statewide Integrated Pest Management Program",
+      "sourceType": "extension_guide",
+      "url": "https://ipm.ucanr.edu/agriculture/grape/powdery-mildew/",
+      "accessed": "2026-07-16",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to support that powdery-mildew prevention begins with early-season risk\nreview and that treatment timing depends on vine growth stage, infection risk,\nweather, and the selected fungicide.\n\nThe source targets commercial California vineyards. Its products, rates, fixed\nspray intervals, risk thresholds, and registrations are not transferred into\nVietnamese home-grower guidance. A local reviewer must confirm applicability,\nand any pesticide use must follow the product label and local requirements.\n"
     },
     {
       "id": "ref.uc-ipm.young-grape-pruning",
@@ -1858,6 +1955,30 @@
       "url": "https://extension.umn.edu/gardening-minnesota/growing-grapes-home-garden",
       "accessed": "2026-07-11",
       "bodyMarkdown": "\n# Review notes\n\nUsed for the need to support young vines, establish roots before relying on shoot growth, apply water to the root zone, avoid unnecessary wetting of foliage, and adapt watering to rainfall and growing conditions.\n\nRegional volumes and seasonal timing are not transferred into the pilot as universal Vietnamese guidance.\n"
+    },
+    {
+      "id": "ref.vaas.grape-nh01-48",
+      "type": "reference_source",
+      "title": "Giống nho NH01-48",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "Viện Khoa học Nông nghiệp Việt Nam",
+      "sourceType": "extension_guide",
+      "url": "https://vaas.vn/vi/giong/giong-nho-nh01-48",
+      "accessed": "2026-07-16",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to confirm that powdery mildew is among the diseases documented for the\nVietnamese grape cultivar NH01-48 and to support integrated prevention through\nfield sanitation, appropriate canopy density, balanced nutrition, suitable\nwatering, removal of crop residue, and the Vietnamese “4 đúng” principle when\nchemical control is used.\n\nThis cultivar profile does not establish a universal bud-break treatment,\nproduct, dosage, or repeat interval, and it is not generalized to every grape\ncultivar. Those decisions remain subject to qualified local review and the\nlabel and registration applicable where the plant is grown.\n"
+    },
+    {
+      "id": "ref.vusta.grape-thrips",
+      "type": "reference_source",
+      "title": "Cách phòng trừ bọ trĩ hại nho",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam",
+      "sourceType": "extension_guide",
+      "url": "https://vusta.vn/cach-phong-tru-bo-tri-hai-nho-p84013.html",
+      "accessed": "2026-07-16",
+      "bodyMarkdown": "\n# Review notes\n\nVietnamese public technical article republished in 2006 from Báo Ninh Thuận\nand attributed to research from the Cotton Research and Development Institute.\nIt supports the monitoring relevance of thrips from bud break through flowering\nand fruit growth, sanitation and balanced care as preventive context, treatment\nonly after a threshold is reached, and stopping thrips spraying when berries\nbegin to ripen.\n\nThe material is old and does not define a current home-growing threshold,\nregistered product, dosage, protective equipment, or label instruction. It may\nsupport review-stage monitoring and safety boundaries, but any current chemical\ncontrol claim requires qualified local review and current Vietnamese\nregistration and label evidence.\n"
     }
   ]
 }

@@ -286,6 +286,27 @@ export function normalizeDocument(
       };
     }
 
+    case "disease":
+    case "pest": {
+      const scientificName =
+        typeof fm.scientific_name === "string" ? fm.scientific_name : undefined;
+      return {
+        id: doc.id,
+        type: doc.type,
+        path: doc.path,
+        title: String(fm.title),
+        version: String(fm.version),
+        bodyMarkdown: doc.body,
+        locale: String(fm.locale),
+        status: userFacingStatus(fm.status),
+        references: stringList(fm.references),
+        speciesIds: stringList(fm.species_ids),
+        stageIds: stringList(fm.stage_ids),
+        warningSignIds: stringList(fm.warning_sign_ids),
+        ...(scientificName !== undefined && { scientificName }),
+      };
+    }
+
     case "reference_source": {
       return {
         id: doc.id,

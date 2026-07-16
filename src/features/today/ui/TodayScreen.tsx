@@ -10,7 +10,7 @@ import {
   listPlantUpdates,
   saveCareActivityWithApplications,
 } from "@/features/journal";
-import { listCarePlans } from "@/features/knowledge";
+import { listCarePlans, listSprayTargets } from "@/features/knowledge";
 import { listPlants, resolvePlantIdentity } from "@/features/plants";
 import {
   listPlantScheduleSnapshots,
@@ -126,6 +126,8 @@ export function TodayScreen() {
                 origin: "today",
                 intensity: details.intensity,
                 estimatedAmountLiters: details.estimatedAmountLiters,
+                sprayTargetId: details.sprayTargetId,
+                sprayTargetNameSnapshot: details.sprayTargetNameSnapshot,
                 notes: details.notes,
                 createdAt,
               },
@@ -149,6 +151,7 @@ export function TodayScreen() {
           imageUri={entry.imageUri}
           plantName={entry.plantName}
           speciesTitle={entry.speciesTitle}
+          sprayTargets={listSprayTargets(plant.speciesId)}
           stageId={entry.stageId}
           stageTitle={entry.stageTitle}
           type={entry.activityType}

@@ -12,6 +12,8 @@ const activity = {
   origin: "manual",
   intensity: "moderate",
   estimatedAmountLiters: 1.5,
+  sprayTargetId: null,
+  sprayTargetNameSnapshot: null,
   notes: null,
   createdAt: "2026-07-11T08:30:00.000Z",
 } as const;
@@ -29,6 +31,8 @@ describe("care activity repository mapping", () => {
       1.5,
       "liter",
       null,
+      null,
+      null,
       activity.createdAt,
     ]);
   });
@@ -45,6 +49,8 @@ describe("care activity repository mapping", () => {
         watering_intensity: "moderate",
         amount_value: 1.5,
         amount_unit: "liter",
+        spray_target_id: null,
+        spray_target_name_snapshot: null,
         notes: null,
         created_at: activity.createdAt,
       }),
@@ -63,9 +69,37 @@ describe("care activity repository mapping", () => {
         watering_intensity: null,
         amount_value: 1.5,
         amount_unit: "liter",
+        spray_target_id: null,
+        spray_target_name_snapshot: null,
         notes: null,
         created_at: activity.createdAt,
       }).intensity,
     ).toBeNull();
+  });
+
+  it("maps a spraying target ID and immutable name snapshot", () => {
+    const targetId = "pest.grape.thrips";
+    const targetName = "Bọ trĩ hại nho";
+
+    expect(
+      careActivityFromRow({
+        id: activity.id,
+        mutation_id: activity.mutationId,
+        plant_id: activity.plantId,
+        activity_type: "spraying",
+        occurred_at: activity.occurredAt,
+        origin: "manual",
+        watering_intensity: null,
+        amount_value: null,
+        amount_unit: null,
+        spray_target_id: targetId,
+        spray_target_name_snapshot: targetName,
+        notes: null,
+        created_at: activity.createdAt,
+      }),
+    ).toMatchObject({
+      sprayTargetId: targetId,
+      sprayTargetNameSnapshot: targetName,
+    });
   });
 });

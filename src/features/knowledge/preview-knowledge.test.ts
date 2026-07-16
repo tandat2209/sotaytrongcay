@@ -5,6 +5,7 @@ import {
   getStagePlaybook,
   listInformationalGuidesForStage,
 } from "./preview-knowledge";
+import * as previewKnowledge from "./preview-knowledge";
 
 describe("preview knowledge", () => {
   it("exposes grape stages through a typed module", () => {
@@ -118,5 +119,29 @@ describe("preview knowledge", () => {
     it("returns an empty array for a stage with no plans", () => {
       expect(getCarePlansForStage("grape.stage.nonexistent")).toHaveLength(0);
     });
+  });
+
+  it("lists curated spraying targets by species without using stage eligibility", () => {
+    const listSprayTargets: unknown = Reflect.get(
+      previewKnowledge,
+      "listSprayTargets",
+    );
+
+    expect(typeof listSprayTargets).toBe("function");
+    if (typeof listSprayTargets !== "function") return;
+
+    expect(listSprayTargets("plant.grape")).toEqual([
+      {
+        id: "disease.grape.powdery-mildew",
+        kind: "disease",
+        title: "Bệnh phấn trắng trên nho",
+      },
+      {
+        id: "pest.grape.thrips",
+        kind: "pest",
+        title: "Bọ trĩ hại nho",
+      },
+    ]);
+    expect(listSprayTargets("plant.unknown")).toEqual([]);
   });
 });

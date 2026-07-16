@@ -86,6 +86,42 @@ describe("CareActivitySchema", () => {
     expect(activity.estimatedAmountLiters).toBeNull();
   });
 
+  it("accepts a paired curated target snapshot for spraying", () => {
+    const activity = NewCareActivitySchema.parse({
+      ...baseActivity,
+      type: "spraying",
+      intensity: null,
+      sprayTargetId: "pest.grape.thrips",
+      sprayTargetNameSnapshot: "Bọ trĩ hại nho",
+    });
+
+    expect(activity).toMatchObject({
+      sprayTargetId: "pest.grape.thrips",
+      sprayTargetNameSnapshot: "Bọ trĩ hại nho",
+    });
+  });
+
+  it("rejects an incomplete spraying target snapshot", () => {
+    expect(() =>
+      NewCareActivitySchema.parse({
+        ...baseActivity,
+        type: "spraying",
+        intensity: null,
+        sprayTargetId: "pest.grape.thrips",
+      }),
+    ).toThrow();
+  });
+
+  it("rejects spraying target fields for another care type", () => {
+    expect(() =>
+      NewCareActivitySchema.parse({
+        ...baseActivity,
+        sprayTargetId: "pest.grape.thrips",
+        sprayTargetNameSnapshot: "Bọ trĩ hại nho",
+      }),
+    ).toThrow();
+  });
+
   it("finds latest matching care regardless of input order", () => {
     const older = CareActivitySchema.parse({
       ...baseActivity,

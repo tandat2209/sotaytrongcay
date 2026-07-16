@@ -110,7 +110,10 @@ export function ActivityDetailScreen({
         />
         {activity.type === "watering" ? (
           <>
-            <Detail label={t("journal.activityDetail.intensity")} value={intensity ?? ""} />
+            <Detail
+              label={t("journal.activityDetail.intensity")}
+              value={intensity ?? ""}
+            />
             {activity.estimatedAmountLiters !== null ? (
               <Detail
                 label={t("journal.activityDetail.amount")}
@@ -118,6 +121,12 @@ export function ActivityDetailScreen({
               />
             ) : null}
           </>
+        ) : null}
+        {activity.type === "spraying" && activity.sprayTargetNameSnapshot ? (
+          <Detail
+            label={t("journal.activityDetail.sprayTarget")}
+            value={activity.sprayTargetNameSnapshot}
+          />
         ) : null}
       </SurfaceCard>
       <SurfaceCard style={styles.card}>
@@ -141,7 +150,9 @@ function Detail({ label, value }: { label: string; value: string }) {
       <Typography color="textSecondary" variant="label">
         {label}
       </Typography>
-      <Typography style={styles.value} variant="bodyLarge">{value}</Typography>
+      <Typography style={styles.value} variant="bodyLarge">
+        {value}
+      </Typography>
     </View>
   );
 }

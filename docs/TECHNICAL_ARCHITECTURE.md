@@ -237,7 +237,7 @@ Every species definition contains at least one stage. The generic `other` specie
 
 This keeps the database invariant valid without inventing a plant-specific stage.
 
-A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Watering also stores one stable intensity code (`light`, `moderate`, `deep`, or `rain`) plus optional user-entered estimated liters. New watering saves require intensity; the read model permits null only for legacy rows migrated without inference. Intensity never implies, derives, or prefills volume. Type-specific details use explicit validated records rather than an unbounded key/value model. Watering and spraying details are at most one-to-one; a fertilizing activity may own zero or more ordered fertilizer-application records.
+A care activity stores plant, one of `watering`, `fertilizing`, or `spraying`, occurrence time, notes, photos, origin, and sync metadata. Watering also stores one stable intensity code (`light`, `moderate`, `deep`, or `rain`) plus optional user-entered estimated liters. New watering saves require intensity; the read model permits null only for legacy rows migrated without inference. Intensity never implies, derives, or prefills volume. Spraying may store one optional curated pest/disease target as a paired stable Knowledge Base ID and immutable Vietnamese name snapshot. Type-specific details use explicit validated records rather than an unbounded key/value model. A fertilizing activity may own zero or more ordered fertilizer-application records.
 
 A plant update stores plant, occurrence time, optional note, photos, confirmed stage ID, and sync metadata. Pruning and observations may be described in the note but do not introduce dedicated activity types.
 
@@ -259,7 +259,7 @@ Each fertilizer-application record belongs to exactly one fertilizing Care Activ
 
 User-entered fertilizer applications are journal history, not Knowledge Base Fertilizer Profiles. A future optional profile ID may preserve provenance when a reviewed catalog item is deliberately selected, but names must never be auto-linked by string matching.
 
-Spraying detail stores product name, purpose, dosage with unit, and notes.
+Current spraying detail stores only the optional target ID/name snapshot pair in addition to the Care Activity's general notes. The pair records user intent and has no recommendation, reminder, diagnosis, or treatment semantics. Product name, purpose, dosage/unit, and application method remain deferred optional fields.
 
 Do not use free-form units when a structured value is available. Preserve the original user-entered value for display while storing a normalized value when conversion is safe.
 

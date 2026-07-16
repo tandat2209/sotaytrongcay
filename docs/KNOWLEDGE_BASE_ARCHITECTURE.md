@@ -217,6 +217,8 @@ It is neither a User Fertilizer nor the record of what a grower used. A saved fe
 
 **Example:** `pest.aphid` / “Rệp mềm”, linked to curled young leaves and sticky residue.
 
+**Current pilot implementation:** `disease` and `pest` source schemas use stable IDs plus species, stage, status, version, and reference relationships. Required agronomic concepts are stored under validated Vietnamese Markdown headings so reviewers can assess them without making them executable rules. `warning_sign_ids` is required but must be empty until the separate Warning Sign entity and relationship validator are implemented; authored observable evidence remains in the target document in the meantime. Target `stage_ids` means monitoring relevance only, never permission or timing to spray.
+
 ### 5.12 Warning Sign
 
 **Purpose:** Represents an observable condition without prematurely deciding its cause.
@@ -650,7 +652,8 @@ type: disease
 title: "Bệnh phấn trắng trên nho"
 locale: vi-VN
 species_ids: [plant.grape]
-warning_sign_ids: [sign.white-powdery-coating]
+stage_ids: [grape.stage.bud-break]
+warning_sign_ids: []
 version: 1.0.0
 status: review
 references: [ref.extension.grape-powdery-mildew]
@@ -662,7 +665,11 @@ Mảng trắng dạng bột xuất hiện trên lá hoặc chồi non.
 
 ## Điều kiện rủi ro
 
-Tán thiếu thông thoáng và điều kiện ẩm phù hợp cho bệnh phát triển.
+Tán quá dày là bối cảnh cần lưu ý nhưng không tự chứng minh cây đang bị bệnh.
+
+## Phòng ngừa
+
+Giữ tán thông thoáng, vệ sinh khu vực trồng và chăm sóc cây cân đối.
 
 ## Hành động an toàn ban đầu
 
@@ -672,6 +679,8 @@ Cách ly vật liệu bị ảnh hưởng khi phù hợp, cải thiện thông t
 
 Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân biệt với nguyên nhân khác.
 ```
+
+Review-stage `disease` and `pest` documents compile into the preview `1.1.0` bundle as `diseases` and `pests`. Production remains on `1.0.0` without those arrays until explicit approval. Runtime consumers must treat absent target arrays in `1.0.x` as empty before a `1.1.x` production publication.
 
 ## 11. Validation and publishing
 

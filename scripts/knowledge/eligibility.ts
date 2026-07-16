@@ -8,6 +8,7 @@ import type {
   NormalizedGrowthStagePlaybook,
   NormalizedCarePlan,
   NormalizedCareGuide,
+  NormalizedThreatBase,
 } from "./types";
 
 export interface SelectionResult {
@@ -120,6 +121,18 @@ export function selectEligibleContent(
         }
         for (const stId of guide.stageIds) {
           checkUfDependency(guide, stId, "stageIds");
+        }
+        break;
+      }
+
+      case "disease":
+      case "pest": {
+        const threat = doc as NormalizedThreatBase;
+        for (const spId of threat.speciesIds) {
+          checkUfDependency(threat, spId, "speciesIds");
+        }
+        for (const stId of threat.stageIds) {
+          checkUfDependency(threat, stId, "stageIds");
         }
         break;
       }

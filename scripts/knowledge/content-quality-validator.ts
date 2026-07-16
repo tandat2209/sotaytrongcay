@@ -9,6 +9,23 @@ import type {
 const VIETNAMESE_REGEX =
   /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
 
+const DISEASE_REQUIRED_SECTIONS = [
+  "## Dấu hiệu có thể quan sát",
+  "## Điều kiện rủi ro",
+  "## Phòng ngừa",
+  "## Hành động an toàn ban đầu",
+  "## Khi nào cần chuyên gia",
+] as const;
+
+const PEST_REQUIRED_SECTIONS = [
+  "## Dấu hiệu có thể quan sát",
+  "## Dạng gây hại",
+  "## Giai đoạn cần lưu ý",
+  "## Phòng ngừa",
+  "## Hành động an toàn ban đầu",
+  "## Khi nào cần chuyên gia",
+] as const;
+
 export function extractMarkdownSection(body: string, heading: string): string {
   const lines = body.split("\n");
   const headingIndex = lines.findIndex(
@@ -80,6 +97,22 @@ export function validateContentQuality(
           field: "references",
           message: `Safety or avoid guidance in growth stage playbook ${doc.id} requires at least one reference.`,
         });
+      }
+    } else if (doc.type === "disease" || doc.type === "pest") {
+      const requiredSections =
+        doc.type === "disease"
+          ? DISEASE_REQUIRED_SECTIONS
+          : PEST_REQUIRED_SECTIONS;
+      for (const heading of requiredSections) {
+        if (extractMarkdownSection(doc.bodyMarkdown, heading).length === 0) {
+          diagnostics.push({
+            code: "KNOWLEDGE_REQUIRED_SECTION_MISSING",
+            path: doc.path,
+            documentId: doc.id,
+            field: "bodyMarkdown",
+            message: `Threat document ${doc.id} requires a non-empty ${heading} section.`,
+          });
+        }
       }
     }
   }

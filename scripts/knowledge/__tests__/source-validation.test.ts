@@ -215,6 +215,74 @@ references: [ref.example]
 ---
 # Cố định thân chính
 `,
+  disease: `---
+id: disease.grape.powdery-mildew
+type: disease
+title: "Bệnh phấn trắng trên nho"
+locale: vi-VN
+species_ids: [plant.grape]
+stage_ids: [grape.stage.trunk-development]
+warning_sign_ids: []
+version: 1.0.0
+status: review
+references: [ref.example]
+---
+## Dấu hiệu có thể quan sát
+
+Mảng trắng dạng bột có thể xuất hiện trên lá hoặc chồi non.
+
+## Điều kiện rủi ro
+
+Theo dõi các mô xanh non trong giai đoạn có nguy cơ.
+
+## Phòng ngừa
+
+Giữ tán thông thoáng và vệ sinh vật liệu cây bị ảnh hưởng.
+
+## Hành động an toàn ban đầu
+
+Kiểm tra kỹ dấu hiệu trước khi quyết định xử lý.
+
+## Khi nào cần chuyên gia
+
+Dấu hiệu lan nhanh hoặc chưa thể phân biệt với nguyên nhân khác.
+`,
+  pest: `---
+id: pest.grape.thrips
+type: pest
+title: "Bọ trĩ hại nho"
+locale: vi-VN
+species_ids: [plant.grape]
+stage_ids: [grape.stage.trunk-development]
+warning_sign_ids: []
+version: 1.0.0
+status: review
+references: [ref.example]
+---
+## Dấu hiệu có thể quan sát
+
+Kiểm tra chồi, hoa và quả non để tìm bằng chứng bọ trĩ hiện diện.
+
+## Dạng gây hại
+
+Không kết luận bọ trĩ chỉ từ một dấu hiệu hư hại đơn lẻ.
+
+## Giai đoạn cần lưu ý
+
+Theo dõi trong các giai đoạn mô non phát triển.
+
+## Phòng ngừa
+
+Vệ sinh khu vực trồng và chăm sóc cây cân đối.
+
+## Hành động an toàn ban đầu
+
+Ghi lại bằng chứng và hỏi người có chuyên môn khi chưa rõ.
+
+## Khi nào cần chuyên gia
+
+Mật độ tăng hoặc cây bị ảnh hưởng rõ nhưng chưa xác định được nguyên nhân.
+`,
   reference: `---
 id: ref.example
 type: reference_source
@@ -259,6 +327,14 @@ describe("knowledge source schema validation", () => {
       validDocuments.guide,
     );
     await workspace.writeKnowledgeFile(
+      "catalogs/diseases/grape-powdery-mildew.md",
+      validDocuments.disease,
+    );
+    await workspace.writeKnowledgeFile(
+      "catalogs/pests/grape-thrips.md",
+      validDocuments.pest,
+    );
+    await workspace.writeKnowledgeFile(
       "references/ref-example.md",
       validDocuments.reference,
     );
@@ -270,6 +346,8 @@ describe("knowledge source schema validation", () => {
 
     expect(result.diagnostics).toEqual([]);
     expect(result.documents.map((document) => document.type)).toEqual([
+      "disease",
+      "pest",
       "reference_source",
       "care_plan",
       "care_guide",

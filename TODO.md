@@ -8,8 +8,10 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 
 ### Phase 1 — content and review
 
-- [ ] **Start here:** Author one narrow, source-backed grape `spraying` Care Plan at `review` status for a clearly defined stage and prevention or treatment purpose; do not name a commercial product, prescribe a dosage, or emit it in the production bundle.
+- [x] Author one narrow, source-backed grape `spraying` Care Plan at `review` status for bud-break powdery-mildew prevention; it names no commercial product, prescribes no dosage, and is excluded from the production bundle.
+- [x] Add schema-validated `pest` and `disease` Knowledge Base catalogs with stable review-only grape targets for bọ trĩ and bệnh phấn trắng; compile them only into preview bundle `1.1.0`.
 - [ ] Obtain qualified review of the first spraying Care Plan's Vietnamese wording, stage applicability, purpose, safety boundaries, and sources before approval.
+- [ ] Obtain qualified review of both target documents, including observable evidence, monitoring stages, prevention, escalation, and the age and limitations of the Vietnamese thrips source.
 - [ ] Audit every review-stage Care Plan for contradictions among `frequency.display`, `frequency.interval_days`, and `eligibility.suggest_after_days`; correct content without changing the schema.
 - [ ] Move generic techniques and event-specific guidance that the elapsed-time engine cannot evaluate into Care Guides without creating Today cards, reminders, or history.
 
@@ -19,9 +21,11 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Add an explicit Knowledge Base bundle adapter that accepts `1.0.x` and `1.1.x`, defaults an omitted recommendation mode to `action`, and rejects unsupported major versions.
 - [ ] Add optional `application_method` to reviewed fertilizer suggestions and prefill it as an editable Fertilizer Application draft without selecting or saving anything automatically.
 - [ ] Add optional `recommended_spray_purpose: prevention | treatment` to Care Plans without changing eligibility or reminder timing.
-- [ ] Add nullable saved spraying product-name, purpose, and target-name fields with a forward SQLite migration; preserve all legacy spraying rows without backfill or note parsing.
-- [ ] Add progressive spraying entry for optional purpose, product name, and target name while keeping plant, time, and explicit Save as the minimum path.
-- [ ] Add compatible spraying summaries to Activity Detail, Journal, and Plant Detail recent history, with “Đã phun” as the legacy fallback.
+- [ ] Add nullable saved spraying product-name and purpose fields with a forward SQLite migration; preserve all legacy spraying rows without backfill or note parsing.
+- [x] Add an optional stable target ID plus immutable target-name snapshot to saved spraying with forward SQLite migration V15; preserve legacy rows without backfill or note parsing, and keep a saved target available while editing if the current catalog no longer contains it.
+- [ ] Define target-aware Care Plan scope without weakening the one-plan-per-species/stage/activity rule or treating monitoring relevance as spray eligibility.
+- [ ] Extend progressive spraying entry with optional purpose and product name. The optional curated single-target chips are complete; plant, time, and explicit Save remain the minimum path.
+- [x] Add target-compatible spraying summaries to Activity Detail, Journal, Today recent history, and Plant Detail recent history, with generic spraying text as the legacy fallback.
 
 ### Phase 3 — action/check presentation
 
@@ -36,7 +40,8 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Evaluate `monitor` and `withhold` only after reviewed weather, symptom, observation, or risk inputs exist.
 - [ ] Evaluate recommended watering intensity only after the engine has sufficient reviewed context; never prefill exact volume.
 - [ ] Evaluate one-time or event-based schedules only after the engine can observe the triggering event.
-- [ ] Evaluate spray inventory, stable pest/disease target IDs, product-label data, and separate spraying-related activity types only after user research demonstrates a management or safety need.
+- [ ] Implement normalized Warning Sign entities and relationship validation before allowing non-empty `warningSignIds` in pest or disease targets.
+- [ ] Evaluate spray inventory, product-label data, and separate spraying-related activity types only after user research demonstrates a management or safety need.
 
 ## Product validation
 

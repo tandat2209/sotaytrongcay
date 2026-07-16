@@ -42,6 +42,10 @@ _Avoid_: Lỗi, công việc
 A core care action the user performed and wants to track: watering, fertilizing, or spraying.
 _Avoid_: Mẹo, lời nhắc
 
+**Vấn đề muốn xử lý** (Spraying target):
+One optional curated pest or disease the grower selects while recording a spraying Care Activity. The saved stable ID and Vietnamese name snapshot record the grower's intent at that time; they are not a diagnosis, proof of presence, treatment outcome, recommendation input, or reminder trigger.
+_Avoid_: Chẩn đoán, bệnh đã xác nhận, kết quả xử lý
+
 **Lần dùng phân bón** (Fertilizer application):
 One optional user-entered fertilizer item used during a saved fertilizing Care Activity. One activity may contain several applications; each application identifies the fertilizer by name and may record its group, application method, amount/unit, and an item-specific note. It is user history, not a curated Fertilizer Profile or a recommendation.
 _Avoid_: Kế hoạch chăm sóc, hồ sơ phân bón đã duyệt, gợi ý bón phân
@@ -75,6 +79,14 @@ _Avoid_: Chẩn đoán bệnh, trạng thái cây
 **Dấu hiệu cảnh báo** (Warning sign):
 An observable plant condition that may have several possible causes and can start a troubleshooting path.
 _Avoid_: Bệnh, chẩn đoán
+
+**Sâu hại** (Pest):
+A curated Knowledge Base entity describing a harmful organism, observable evidence, relevant monitoring stages, prevention context, safe first response, and escalation guidance. Its presence in the catalog or selection while logging is not a diagnosis or instruction to spray.
+_Avoid_: Dấu hiệu cảnh báo, thuốc phun, chẩn đoán
+
+**Bệnh hại** (Disease):
+A curated Knowledge Base entity describing a plant disease, observable evidence, relevant monitoring stages, risk context, prevention, safe first response, and escalation guidance without asserting that a plant has the disease.
+_Avoid_: Dấu hiệu cảnh báo, tình trạng cây, chẩn đoán
 
 **Nhật ký trồng cây** (Gardening journal):
 The chronological history of saved core care activities and plant updates.

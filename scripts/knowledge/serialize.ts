@@ -5,11 +5,15 @@ import type {
   NormalizedGrowthStagePlaybook,
   NormalizedCarePlan,
   NormalizedCareGuide,
+  NormalizedDisease,
+  NormalizedPest,
+  NormalizedThreatBase,
   NormalizedReferenceSource,
   StageJourneyItem,
 } from "./types";
 
-export const BUNDLE_SCHEMA_VERSION = "1.0.0";
+export const PRODUCTION_BUNDLE_SCHEMA_VERSION = "1.0.0";
+export const PREVIEW_BUNDLE_SCHEMA_VERSION = "1.1.0";
 export const KNOWLEDGE_CONTENT_VERSION = "1.0.0";
 
 function sortArray(arr: readonly string[]): readonly string[] {
@@ -39,6 +43,14 @@ export function serializeBundle(
 
   const guideDocs = (
     documents.filter((d) => d.type === "care_guide") as NormalizedCareGuide[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
+
+  const diseaseDocs = (
+    documents.filter((d) => d.type === "disease") as NormalizedDisease[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
+
+  const pestDocs = (
+    documents.filter((d) => d.type === "pest") as NormalizedPest[]
   ).sort((a, b) => a.id.localeCompare(b.id));
 
   const refDocs = (
@@ -181,6 +193,26 @@ export function serializeBundle(
     bodyMarkdown: g.bodyMarkdown,
   }));
 
+  const compileThreat = (threat: NormalizedThreatBase) => ({
+    id: threat.id,
+    type: threat.type,
+    title: threat.title,
+    locale: threat.locale,
+    version: threat.version,
+    status: threat.status,
+    references: sortArray(threat.references),
+    speciesIds: sortArray(threat.speciesIds),
+    stageIds: sortArray(threat.stageIds),
+    warningSignIds: sortArray(threat.warningSignIds),
+    ...(threat.scientificName !== undefined && {
+      scientificName: threat.scientificName,
+    }),
+    bodyMarkdown: threat.bodyMarkdown,
+  });
+
+  const compiledDiseases = diseaseDocs.map(compileThreat);
+  const compiledPests = pestDocs.map(compileThreat);
+
   const compiledReferences = refDocs.map((r) => ({
     id: r.id,
     type: r.type,
@@ -196,13 +228,20 @@ export function serializeBundle(
 
   // Construct the bundle using exact contract key order
   const bundle = {
-    schemaVersion: BUNDLE_SCHEMA_VERSION,
+    schemaVersion:
+      mode === "preview"
+        ? PREVIEW_BUNDLE_SCHEMA_VERSION
+        : PRODUCTION_BUNDLE_SCHEMA_VERSION,
     contentVersion: KNOWLEDGE_CONTENT_VERSION,
     mode,
     species: compiledSpecies,
     stagePlaybooks: compiledStagePlaybooks,
     carePlans: compiledCarePlans,
     guides: compiledGuides,
+    ...(mode === "preview" && {
+      diseases: compiledDiseases,
+      pests: compiledPests,
+    }),
     references: compiledReferences,
   };
 

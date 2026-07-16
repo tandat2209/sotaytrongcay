@@ -54,7 +54,7 @@ export {
 } from "./models/plant-update";
 export type { PlantUpdate, PlantUpdatePhoto } from "./models/plant-update";
 export { CareEntryScreen } from "./ui/CareEntryScreen";
-export type { CareEntryDetails } from "./ui/CareEntryScreen";
+export type { CareEntryDetails } from "./ui/care-entry-types";
 export { FertilizerUsageLabel } from "./ui/FertilizerUsageLabel";
 export { JournalRouteScreen as JournalScreen } from "./ui/JournalRouteScreen";
 export { PlantUpdateRouteScreen } from "./ui/PlantUpdateRouteScreen";

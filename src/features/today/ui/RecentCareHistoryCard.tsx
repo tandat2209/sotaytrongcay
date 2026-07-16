@@ -91,7 +91,11 @@ function activityLabel(activity: TodayActivity): string {
       : activity.type === "fertilizing"
         ? t("today.history.fertilized")
         : t("today.history.sprayed");
-  return `${verb} ${activity.plantName}`;
+  const target =
+    activity.type === "spraying" && activity.sprayTargetNameSnapshot
+      ? ` · ${activity.sprayTargetNameSnapshot}`
+      : "";
+  return `${verb} ${activity.plantName}${target}`;
 }
 
 function formatOccurredAt(occurredAt: string): string {

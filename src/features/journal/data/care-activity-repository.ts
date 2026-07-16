@@ -17,6 +17,8 @@ export type CareActivityRow = {
   watering_intensity: string | null;
   amount_value: number | null;
   amount_unit: string | null;
+  spray_target_id: string | null;
+  spray_target_name_snapshot: string | null;
   notes: string | null;
   created_at: string;
 };
@@ -34,6 +36,8 @@ export function careActivityToInsertParams(
     activity.intensity,
     activity.estimatedAmountLiters,
     activity.estimatedAmountLiters === null ? null : "liter",
+    activity.sprayTargetId ?? null,
+    activity.sprayTargetNameSnapshot ?? null,
     activity.notes,
     activity.createdAt,
   ];
@@ -52,6 +56,8 @@ export function careActivityFromRow(row: CareActivityRow): CareActivity {
       row.amount_value === null || row.amount_unit === null
         ? null
         : row.amount_value,
+    sprayTargetId: row.spray_target_id,
+    sprayTargetNameSnapshot: row.spray_target_name_snapshot,
     notes: row.notes,
     createdAt: row.created_at,
   });
@@ -69,8 +75,8 @@ export async function insertCareActivity(
 ): Promise<void> {
   await db.runAsync(
     `INSERT OR IGNORE INTO care_activities
-      (id, mutation_id, plant_id, activity_type, occurred_at, origin, watering_intensity, amount_value, amount_unit, notes, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (id, mutation_id, plant_id, activity_type, occurred_at, origin, watering_intensity, amount_value, amount_unit, spray_target_id, spray_target_name_snapshot, notes, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     careActivityToInsertParams(activity),
   );
 }
@@ -82,13 +88,16 @@ export async function updateCareActivity(
   await db.runAsync(
     `UPDATE care_activities
      SET occurred_at = ?, watering_intensity = ?, amount_value = ?,
-         amount_unit = ?, notes = ?
+         amount_unit = ?, spray_target_id = ?, spray_target_name_snapshot = ?,
+         notes = ?
      WHERE id = ?`,
     [
       activity.occurredAt,
       activity.intensity,
       activity.estimatedAmountLiters,
       activity.estimatedAmountLiters === null ? null : "liter",
+      activity.sprayTargetId ?? null,
+      activity.sprayTargetNameSnapshot ?? null,
       activity.notes,
       activity.id,
     ],

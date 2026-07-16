@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sotaytrongcay.local/schemas/disease.schema.json",
+  "title": "Disease",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "title",
+    "locale",
+    "species_ids",
+    "stage_ids",
+    "warning_sign_ids",
+    "version",
+    "status",
+    "references"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^disease\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+    },
+    "type": { "const": "disease" },
+    "title": { "type": "string", "minLength": 1 },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+    },
+    "scientific_name": { "type": "string", "minLength": 1 },
+    "species_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^plant\\.[a-z0-9-]+$"
+      }
+    },
+    "stage_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+    },
+    "warning_sign_ids": {
+      "type": "array",
+      "maxItems": 0,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^sign\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+      }
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "enum": ["draft", "review", "approved", "deprecated", "archived"]
+    },
+    "references": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^ref\\.[a-z0-9.-]+$"
+      }
+    }
+  }
+}

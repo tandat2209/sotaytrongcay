@@ -24,22 +24,28 @@ describe("grape knowledge pilot integration test", () => {
     if (!result.ok) return;
 
     const bundle = result.bundle as Readonly<{
+      schemaVersion: string;
       species: readonly Readonly<{ id: string }>[];
       stagePlaybooks: readonly Readonly<{ id: string }>[];
       carePlans: readonly Readonly<{ id: string }>[];
       guides: readonly Readonly<{ id: string }>[];
+      diseases: readonly Readonly<{ id: string }>[];
+      pests: readonly Readonly<{ id: string }>[];
       references: readonly Readonly<{ id: string }>[];
     }>;
 
     // Check sizes
+    expect(bundle.schemaVersion).toBe("1.1.0");
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
-    expect(bundle.carePlans).toHaveLength(21);
+    expect(bundle.carePlans).toHaveLength(22);
     expect(bundle.guides).toHaveLength(3);
-    expect(bundle.references).toHaveLength(5);
+    expect(bundle.diseases).toHaveLength(1);
+    expect(bundle.pests).toHaveLength(1);
+    expect(bundle.references).toHaveLength(8);
 
     // Verify IDs
-    expect(bundle.species[0].id).toBe("plant.grape");
+    expect(bundle.species[0]?.id).toBe("plant.grape");
     expect(bundle.stagePlaybooks.map((stage) => stage.id)).toContain(
       "grape.stage.trunk-development",
     );
@@ -48,18 +54,29 @@ describe("grape knowledge pilot integration test", () => {
     expect(recIds).toContain(
       "grape.recommendation.trunk-development.fertilizing",
     );
+    expect(recIds).toContain(
+      "grape.recommendation.bud-break.powdery-mildew-prevention",
+    );
 
     const guideIds = bundle.guides.map((guide) => guide.id).sort();
     expect(guideIds).toContain("grape.guide.train-main-shoot");
     expect(guideIds).toContain("grape.guide.fertilization-seedling");
 
+    expect(bundle.diseases.map((disease) => disease.id)).toEqual([
+      "disease.grape.powdery-mildew",
+    ]);
+    expect(bundle.pests.map((pest) => pest.id)).toEqual(["pest.grape.thrips"]);
+
     const refIds = bundle.references.map((reference) => reference.id).sort();
     expect(refIds).toEqual([
       "ref.fao.grape-production",
       "ref.osu.growing-table-grapes",
+      "ref.uc-ipm.grape-powdery-mildew",
       "ref.uc-ipm.young-grape-pruning",
       "ref.ucdavis.vineyard-nutrition",
       "ref.umn.growing-grapes-home-garden",
+      "ref.vaas.grape-nh01-48",
+      "ref.vusta.grape-thrips",
     ]);
 
     // Ensure no compiler-only fields like path, absolutePath, frontmatter are serialized
@@ -84,6 +101,7 @@ describe("grape knowledge pilot integration test", () => {
     if (!result.ok) return;
 
     const bundle = result.bundle as Readonly<{
+      schemaVersion: string;
       species: readonly Readonly<{ id: string }>[];
       stagePlaybooks: readonly Readonly<{ id: string }>[];
       carePlans: readonly Readonly<{ id: string }>[];
@@ -92,10 +110,13 @@ describe("grape knowledge pilot integration test", () => {
     }>;
 
     // Everything must be empty since no content has status: approved
+    expect(bundle.schemaVersion).toBe("1.0.0");
     expect(bundle.species).toEqual([]);
     expect(bundle.stagePlaybooks).toEqual([]);
     expect(bundle.carePlans).toEqual([]);
     expect(bundle.guides).toEqual([]);
     expect(bundle.references).toEqual([]);
+    expect(bundle).not.toHaveProperty("diseases");
+    expect(bundle).not.toHaveProperty("pests");
   });
 });

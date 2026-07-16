@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 14;
+export const DATABASE_VERSION = 15;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -278,6 +278,20 @@ CREATE INDEX idx_fertilizer_applications_knowledge_time
   ON fertilizer_applications(knowledge_id_snapshot, care_activity_id);
 `;
 
+const V15_ADD_SPRAY_TARGET_SNAPSHOT = `
+ALTER TABLE care_activities ADD COLUMN spray_target_id TEXT
+  CHECK (
+    spray_target_id IS NULL OR
+    spray_target_id GLOB 'pest.*' OR
+    spray_target_id GLOB 'disease.*'
+  );
+
+ALTER TABLE care_activities ADD COLUMN spray_target_name_snapshot TEXT
+  CHECK (
+    (spray_target_id IS NULL) = (spray_target_name_snapshot IS NULL)
+  );
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
@@ -295,6 +309,7 @@ export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion < 12) migrations.push(V12_ADD_FERTILIZER_APPLICATIONS);
   if (currentVersion < 13) migrations.push(V13_REMOVE_NPK_RATIO_FIELDS);
   if (currentVersion < 14) migrations.push(V14_LINK_SUGGESTED_FERTILIZERS);
+  if (currentVersion < 15) migrations.push(V15_ADD_SPRAY_TARGET_SNAPSHOT);
   return migrations;
 }
 

@@ -119,6 +119,19 @@ export function validateRelationships(
         break;
       }
 
+      case "disease":
+      case "pest": {
+        for (const spId of doc.speciesIds) {
+          validateIdRef(doc, spId, "speciesIds", "plant_species");
+        }
+        for (const stId of doc.stageIds) {
+          validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
+        }
+        // Warning Sign entities are not implemented yet. Empty lists are valid;
+        // populated relationships will be validated when that document type ships.
+        break;
+      }
+
       case "reference_source":
         break;
     }

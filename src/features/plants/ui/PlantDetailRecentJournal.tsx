@@ -86,6 +86,11 @@ function CareRow({
             {getWateringIntensityLabel(activity.intensity)}
           </Typography>
         ) : null}
+        {activity.type === "spraying" && activity.sprayTargetNameSnapshot ? (
+          <Typography color="textSecondary" variant="bodyMedium">
+            {activity.sprayTargetNameSnapshot}
+          </Typography>
+        ) : null}
         <Typography color="textSecondary" variant="bodyMedium">
           {occurredAt}
         </Typography>

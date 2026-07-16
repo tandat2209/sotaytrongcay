@@ -42,6 +42,8 @@ export default function PlantDetailRoute() {
             origin: "manual",
             intensity: details.intensity,
             estimatedAmountLiters: details.estimatedAmountLiters,
+            sprayTargetId: details.sprayTargetId,
+            sprayTargetNameSnapshot: details.sprayTargetNameSnapshot,
             notes: details.notes,
             createdAt,
           },

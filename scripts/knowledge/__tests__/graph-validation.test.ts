@@ -6,7 +6,7 @@ import { normalizeDocument } from "../normalize";
 import { validateRelationships } from "../relationship-validator";
 import { validateStageGraphs } from "../stage-graph-validator";
 import { validateContentQuality } from "../content-quality-validator";
-import type { ValidatedSourceDocument } from "../types";
+import type { NormalizedDisease, ValidatedSourceDocument } from "../types";
 
 describe("graph validation and normalization", () => {
   describe("normalization", () => {
@@ -76,6 +76,34 @@ describe("graph validation and normalization", () => {
       // Ensure raw snake_case and path properties do not seep into the output document fields unless permitted
       expect(normalized).not.toHaveProperty("scientific_name");
       expect(normalized).not.toHaveProperty("stage_journey");
+    });
+
+    it("normalizes pest and disease relationship fields without inventing warning signs", () => {
+      const mockDoc: ValidatedSourceDocument = {
+        id: "disease.grape.powdery-mildew",
+        type: "disease",
+        path: "knowledge/catalogs/diseases/grape-powdery-mildew.md",
+        absolutePath: "/path/to/grape-powdery-mildew.md",
+        body: "## Dấu hiệu có thể quan sát\n\nMảng trắng dạng bột.",
+        frontmatter: {
+          title: "Bệnh phấn trắng trên nho",
+          version: "1.0.0",
+          locale: "vi-VN",
+          status: "review",
+          species_ids: ["plant.grape"],
+          stage_ids: ["grape.stage.bud-break"],
+          warning_sign_ids: [],
+          references: ["ref.example"],
+        },
+      };
+
+      expect(normalizeDocument(mockDoc)).toMatchObject({
+        id: "disease.grape.powdery-mildew",
+        type: "disease",
+        speciesIds: ["plant.grape"],
+        stageIds: ["grape.stage.bud-break"],
+        warningSignIds: [],
+      });
     });
   });
 
@@ -417,6 +445,48 @@ describe("graph validation and normalization", () => {
           code: "KNOWLEDGE_VIETNAMESE_CONTENT_MISSING",
           documentId: "plant.grape",
           field: "locale",
+        }),
+      );
+    });
+
+    it("requires every safety-oriented disease section to contain content", () => {
+      const disease: NormalizedDisease = {
+        id: "disease.grape.powdery-mildew",
+        type: "disease",
+        path: "knowledge/catalogs/diseases/grape-powdery-mildew.md",
+        title: "Bệnh phấn trắng trên nho",
+        version: "1.0.0",
+        bodyMarkdown: `## Dấu hiệu có thể quan sát
+
+Mảng trắng dạng bột.
+
+## Điều kiện rủi ro
+
+Theo dõi mô xanh.
+
+## Phòng ngừa
+
+Giữ tán thông thoáng.
+
+## Hành động an toàn ban đầu
+
+Kiểm tra trước khi xử lý.
+
+## Khi nào cần chuyên gia
+`,
+        locale: "vi-VN",
+        status: "review",
+        references: ["ref.example"],
+        speciesIds: ["plant.grape"],
+        stageIds: ["grape.stage.bud-break"],
+        warningSignIds: [],
+      };
+
+      expect(validateContentQuality([disease])).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_REQUIRED_SECTION_MISSING",
+          documentId: disease.id,
+          field: "bodyMarkdown",
         }),
       );
     });

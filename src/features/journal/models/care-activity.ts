@@ -16,12 +16,20 @@ const CareActivityFieldsSchema = z.object({
   origin: z.enum(["today", "reminder", "manual"]),
   intensity: WateringIntensitySchema.nullable(),
   estimatedAmountLiters: z.number().positive().nullable(),
+  sprayTargetId: z
+    .string()
+    .regex(/^(?:disease|pest)\.[a-z0-9-]+(?:\.[a-z0-9-]+)*$/)
+    .nullable()
+    .optional(),
+  sprayTargetNameSnapshot: z.string().trim().min(1).nullable().optional(),
   notes: z.string().nullable(),
   createdAt: z.string().datetime(),
 });
 
 export const CareActivitySchema = CareActivityFieldsSchema.superRefine(
   (activity, context) => {
+    const sprayTargetId = activity.sprayTargetId ?? null;
+    const sprayTargetNameSnapshot = activity.sprayTargetNameSnapshot ?? null;
     if (
       activity.type !== "watering" &&
       (activity.intensity !== null || activity.estimatedAmountLiters !== null)
@@ -32,11 +40,30 @@ export const CareActivitySchema = CareActivityFieldsSchema.superRefine(
         path: ["intensity"],
       });
     }
+    if ((sprayTargetId === null) !== (sprayTargetNameSnapshot === null)) {
+      context.addIssue({
+        code: "custom",
+        message: "Spraying target ID and name snapshot must be saved together.",
+        path: ["sprayTargetId"],
+      });
+    }
+    if (
+      activity.type !== "spraying" &&
+      (sprayTargetId !== null || sprayTargetNameSnapshot !== null)
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Spraying target details are valid only for spraying.",
+        path: ["sprayTargetId"],
+      });
+    }
   },
 );
 
 export const NewCareActivitySchema = CareActivityFieldsSchema.superRefine(
   (activity, context) => {
+    const sprayTargetId = activity.sprayTargetId ?? null;
+    const sprayTargetNameSnapshot = activity.sprayTargetNameSnapshot ?? null;
     if (activity.type === "watering" && activity.intensity === null) {
       context.addIssue({
         code: "custom",
@@ -52,6 +79,23 @@ export const NewCareActivitySchema = CareActivityFieldsSchema.superRefine(
         code: "custom",
         message: "Watering details are valid only for watering.",
         path: ["intensity"],
+      });
+    }
+    if ((sprayTargetId === null) !== (sprayTargetNameSnapshot === null)) {
+      context.addIssue({
+        code: "custom",
+        message: "Spraying target ID and name snapshot must be saved together.",
+        path: ["sprayTargetId"],
+      });
+    }
+    if (
+      activity.type !== "spraying" &&
+      (sprayTargetId !== null || sprayTargetNameSnapshot !== null)
+    ) {
+      context.addIssue({
+        code: "custom",
+        message: "Spraying target details are valid only for spraying.",
+        path: ["sprayTargetId"],
       });
     }
   },

@@ -8,6 +8,30 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Record one optional curated target on spraying history
+
+**Status:** Accepted
+
+**Decision:** Keep one `spraying` activity type and let a grower optionally select one species-matched Pest or Disease while recording it. Persist the stable target ID and an immutable Vietnamese target-name snapshot as a nullable pair valid only for spraying. The UI may use only the target identity, type, and title from the review preview catalog; it must not expose or execute review-stage monitoring, prevention, or treatment content.
+
+The field is labeled “Vấn đề muốn xử lý (không bắt buộc)” and records intent, not diagnosis, proof that the issue exists, treatment success, or pesticide authorization. It does not change Today or Plant Detail recommendation cards, evaluator eligibility, Care Plan schedules, or reminder reconciliation. Existing activities remain unchanged and use generic spraying text. Bundles without target arrays hide the selector without blocking entry.
+
+**Rationale:** A nullable ID-and-snapshot pair makes spraying history more useful without coupling mutable Knowledge Base wording to past records or expanding the recommendation engine. One optional target keeps quick entry small; a target snapshot remains readable if catalog content is renamed or removed.
+
+**Consequences:** SQLite migration V15 adds two nullable columns without a backfill. Care Entry gains reusable single-select chips, and history surfaces conditionally show the saved target name. Multi-target selection, free-text targets, purpose, product, method, target guides, target-aware recommendations, diagnosis, and management screens remain deferred. This supersedes only the saved-target and target-selection deferral in the preceding target-catalog decision. See [the spraying target UI integration report](./research/2026-07-16-spraying-target-ui-integration.md).
+
+## 2026-07-16 — Establish curated pest and disease targets before target-aware spraying
+
+**Status:** Accepted
+
+**Decision:** Add `pest` and `disease` as schema-validated Knowledge Base document types with stable IDs, species and stage relationships, an explicitly empty Warning Sign relationship list until that entity type exists, review status, version, references, and required reviewed content sections. Start with review-only grape targets for bọ trĩ and bệnh phấn trắng. Compile these catalogs only into preview bundle schema `1.1.0`; keep the production bundle at `1.0.0` until qualified content approval and an explicit publish decision.
+
+This approves stable target IDs for curated knowledge and supersedes only their deferral in the 2026-07-16 additive-care-guidance decision. It does not yet add a target to Care Plans, spraying history, recommendation evaluation, reminders, or UI. Stage relationships mean monitoring relevance, not diagnosis, pesticide authorization, or a schedule to spray.
+
+**Rationale:** Target-aware entry and readable history need stable curated identity, but connecting targets directly to the current elapsed-time Care Plan engine would make issue relevance look like treatment eligibility and conflict with the one-plan-per-species/stage/activity scope. A preview-only taxonomy slice establishes validation and review boundaries without changing user behavior or stored data.
+
+**Consequences:** The first catalogs are `pest.grape.thrips` and `disease.grape.powdery-mildew`. Existing Knowledge Base `1.0.0`, activities, reminders, and stage logic remain compatible. Warning Sign entities, optional Care Plan target scope, nullable activity target ID/name snapshots, target selection, target-aware summaries, product labels, and diagnosis remain separately sequenced work. See [the spraying target model and product impact report](./research/2026-07-16-spraying-target-model-impact.md).
+
 ## 2026-07-16 — Extend care guidance additively and keep foliar nutrition under fertilizing
 
 **Status:** Accepted

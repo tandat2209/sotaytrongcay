@@ -16,7 +16,11 @@ import {
   type CareActivityType,
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
-import { getStagePlaybook, listCarePlans } from "@/features/knowledge";
+import {
+  getStagePlaybook,
+  listCarePlans,
+  listSprayTargets,
+} from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity, type Plant } from "@/features/plants";
 import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
@@ -30,9 +34,12 @@ const CareRouteSchema = z.object({
 });
 
 export default function CareEntryRoute() {
-  const { id, origin = "manual", activityId, type } = CareRouteSchema.parse(
-    useLocalSearchParams(),
-  );
+  const {
+    id,
+    origin = "manual",
+    activityId,
+    type,
+  } = CareRouteSchema.parse(useLocalSearchParams());
   const plantQuery = useQuery({
     queryKey: ["plant", id],
     queryFn: () => getPlant(id),
@@ -143,6 +150,8 @@ function CareEntry({
             origin: editingActivity?.origin ?? origin,
             intensity: details.intensity,
             estimatedAmountLiters: details.estimatedAmountLiters,
+            sprayTargetId: details.sprayTargetId,
+            sprayTargetNameSnapshot: details.sprayTargetNameSnapshot,
             notes: details.notes,
             createdAt: editingActivity?.createdAt ?? now,
           },
@@ -174,24 +183,30 @@ function CareEntry({
         ? {
             initialDetails: {
               estimatedAmountLiters: editingActivity.estimatedAmountLiters,
-              fertilizerApplications: existingApplications.map((application) => ({
-                userFertilizerId: application.userFertilizerId,
-                nameSnapshot: application.nameSnapshot,
-                groupSnapshot: application.groupSnapshot,
-                knowledgeIdSnapshot: application.knowledgeIdSnapshot,
-                amountValue: application.amountValue,
-                amountUnit: application.amountUnit,
-                applicationMethod: application.applicationMethod,
-                notes: application.notes,
-              })),
+              fertilizerApplications: existingApplications.map(
+                (application) => ({
+                  userFertilizerId: application.userFertilizerId,
+                  nameSnapshot: application.nameSnapshot,
+                  groupSnapshot: application.groupSnapshot,
+                  knowledgeIdSnapshot: application.knowledgeIdSnapshot,
+                  amountValue: application.amountValue,
+                  amountUnit: application.amountUnit,
+                  applicationMethod: application.applicationMethod,
+                  notes: application.notes,
+                }),
+              ),
               intensity: editingActivity.intensity,
               notes: editingActivity.notes,
               occurredAt: editingActivity.occurredAt,
+              sprayTargetId: editingActivity.sprayTargetId ?? null,
+              sprayTargetNameSnapshot:
+                editingActivity.sprayTargetNameSnapshot ?? null,
             },
           }
         : {})}
       plantName={plant.name}
       speciesTitle={identity.speciesTitle}
+      sprayTargets={listSprayTargets(plant.speciesId)}
       stageId={plant.stageId}
       stageTitle={identity.stageTitle}
       type={type}

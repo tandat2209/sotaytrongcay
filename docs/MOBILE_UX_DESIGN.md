@@ -325,7 +325,9 @@ When the applicable approved Care Plan contains structured fertilizer suggestion
 
 Use “Thêm chi tiết” for inline disclosure, “Thêm loại phân” for selecting or creating a reusable fertilizer, and an explicit edit affordance for an existing application. Focused add/edit screens do not show bottom navigation and return to the originating Care Entry. “Mở rộng” remains the fourth persistent tab and never labels a save action.
 
-Spraying optional fields include product, purpose, dosage/unit, method, notes, and photos.
+Spraying shows “Vấn đề muốn xử lý (không bắt buộc)” as a species-filtered, single-select group of curated pest and disease chips when catalog entries exist. Supporting text states that the selection records the target of the spraying event and is not a diagnosis. Tapping the selected chip clears it. The selector is hidden when an older Knowledge Base bundle has no target catalog, and saving remains available.
+
+The saved target name may appear as secondary context in Journal, Today recent history, Plant Detail recent history, and as a conditional “Vấn đề muốn xử lý” row in Activity Detail. Older spraying records keep generic spraying text. Product, purpose, dosage/unit, method, a free-text target, target guidance, and multiple targets remain future optional details; notes and photos keep their existing generic Care Entry behavior.
 
 When opened from Today, Plant Detail, or a reminder, relevant fields are prefilled and clearly editable. Saving remains required.
 

@@ -71,6 +71,12 @@ export type RecommendedInput = Readonly<{
   suggestions: readonly FertilizerSuggestion[];
 }>;
 
+export type SprayTarget = Readonly<{
+  id: string;
+  kind: "disease" | "pest";
+  title: string;
+}>;
+
 // ---------------------------------------------------------------------------
 // Raw bundle shape (only the fields we use)
 // ---------------------------------------------------------------------------
@@ -145,11 +151,20 @@ type RawCarePlan = {
   version: string;
 };
 
+type RawSprayTarget = {
+  id: string;
+  type: "disease" | "pest";
+  title: string;
+  speciesIds: string[];
+};
+
 type PreviewBundle = {
   species: RawSpecies[];
   stagePlaybooks: RawPlaybook[];
   guides: RawGuide[];
   carePlans: RawCarePlan[];
+  diseases?: RawSprayTarget[];
+  pests?: RawSprayTarget[];
 };
 
 // ---------------------------------------------------------------------------
@@ -259,6 +274,20 @@ export function listCarePlans(
     .filter((plan) => plan.stageIds.includes(input.stageId))
     .sort(sortPlans)
     .map(toCarePlan);
+}
+
+export function listSprayTargets(speciesId: string): readonly SprayTarget[] {
+  return [...(bundle.diseases ?? []), ...(bundle.pests ?? [])]
+    .filter((target) => target.speciesIds.includes(speciesId))
+    .sort(
+      (left, right) =>
+        left.type.localeCompare(right.type) || left.id.localeCompare(right.id),
+    )
+    .map((target) => ({
+      id: target.id,
+      kind: target.type,
+      title: target.title,
+    }));
 }
 
 // ---------------------------------------------------------------------------
