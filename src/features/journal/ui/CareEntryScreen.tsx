@@ -32,6 +32,7 @@ export type CareEntryDetails = Readonly<{
 type Props = Readonly<{
   imageUri?: string | null;
   fertilizerSuggestions?: readonly FertilizerSuggestion[];
+  initialDetails?: CareEntryDetails;
   onDismiss: () => void;
   onSave: (details: CareEntryDetails) => Promise<void>;
   reason?: string;
@@ -45,13 +46,19 @@ type Props = Readonly<{
 }>;
 
 export function CareEntryScreen(props: Props) {
-  const [amount, setAmount] = useState("");
-  const [intensity, setIntensity] = useState<WateringIntensity | null>(null);
+  const [amount, setAmount] = useState(() =>
+    props.initialDetails?.estimatedAmountLiters?.toString() ?? "",
+  );
+  const [intensity, setIntensity] = useState<WateringIntensity | null>(
+    () => props.initialDetails?.intensity ?? null,
+  );
   const [fertilizerApplications, setFertilizerApplications] = useState<
     readonly FertilizerApplicationDetails[]
-  >([]);
-  const [notes, setNotes] = useState("");
-  const [occurredAt, setOccurredAt] = useState(() => new Date());
+  >(() => props.initialDetails?.fertilizerApplications ?? []);
+  const [notes, setNotes] = useState(() => props.initialDetails?.notes ?? "");
+  const [occurredAt, setOccurredAt] = useState(
+    () => new Date(props.initialDetails?.occurredAt ?? Date.now()),
+  );
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const visual = CARE_ACTIVITY_VISUALS[props.type];

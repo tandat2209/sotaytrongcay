@@ -1,6 +1,12 @@
 import { Leaf } from "lucide-react-native";
 import { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
@@ -14,6 +20,8 @@ type Props = Readonly<{
   speciesTitle: string;
   stageId: string;
   stageTitle: string;
+  style?: StyleProp<ViewStyle>;
+  testID?: string;
 }>;
 
 const imageDimensions: Record<
@@ -32,6 +40,8 @@ export function PlantIdentity({
   speciesTitle,
   stageId,
   stageTitle,
+  style,
+  testID,
 }: Props) {
   const [failedImageUri, setFailedImageUri] = useState<string | null>(null);
   const dimensions = imageDimensions[size];
@@ -43,7 +53,9 @@ export function PlantIdentity({
         styles.container,
         size === "list" && styles.list,
         size === "rail" && styles.rail,
+        style,
       ]}
+      testID={testID}
     >
       <View
         accessibilityElementsHidden

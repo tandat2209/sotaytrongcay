@@ -6,8 +6,13 @@ import {
   CareEntryScreen,
   createFertilizerApplicationRecords,
   getLatestPlantPhoto,
+  getCareActivity,
+  listFertilizerApplications,
   listPlantUpdates,
   saveCareActivityWithApplications,
+  updateCareActivityWithApplications,
+  type CareActivity,
+  type FertilizerApplication,
   type CareActivityType,
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
@@ -21,14 +26,13 @@ const CareRouteSchema = z.object({
   id: z.string().uuid(),
   type: z.enum(["watering", "fertilizing", "spraying"]),
   origin: z.enum(["today", "reminder", "manual"]).optional(),
+  activityId: z.string().uuid().optional(),
 });
 
 export default function CareEntryRoute() {
-  const {
-    id,
-    origin = "manual",
-    type,
-  } = CareRouteSchema.parse(useLocalSearchParams());
+  const { id, origin = "manual", activityId, type } = CareRouteSchema.parse(
+    useLocalSearchParams(),
+  );
   const plantQuery = useQuery({
     queryKey: ["plant", id],
     queryFn: () => getPlant(id),
@@ -37,8 +41,25 @@ export default function CareEntryRoute() {
     queryKey: ["plant-photos", id],
     queryFn: () => listPlantUpdates(id),
   });
+  const activityQuery = useQuery({
+    enabled: Boolean(activityId),
+    queryKey: ["activity", activityId],
+    queryFn: async () => {
+      if (!activityId) return null;
+      const activity = await getCareActivity(activityId);
+      if (!activity) return null;
+      return {
+        activity,
+        applications: await listFertilizerApplications(activity.id),
+      };
+    },
+  });
   if (plantQuery.isPending)
     return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (activityQuery.isPending)
+    return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (activityId && !activityQuery.data)
+    return <Text>{t("journal.error.activityGone")}</Text>;
   if (plantQuery.isError)
     return (
       <>
@@ -62,6 +83,12 @@ export default function CareEntryRoute() {
   return (
     <CareEntry
       imageUri={getLatestPlantPhoto(photosQuery.data ?? [])?.localUri ?? null}
+      {...(activityQuery.data
+        ? {
+            editingActivity: activityQuery.data.activity,
+            existingApplications: activityQuery.data.applications,
+          }
+        : {})}
       origin={origin}
       plant={plantQuery.data}
       type={type}
@@ -71,11 +98,15 @@ export default function CareEntryRoute() {
 
 function CareEntry({
   imageUri,
+  editingActivity,
+  existingApplications = [],
   origin,
   plant,
   type,
 }: Readonly<{
   imageUri: string | null;
+  editingActivity?: CareActivity;
+  existingApplications?: readonly FertilizerApplication[];
   origin: "today" | "reminder" | "manual";
   plant: Plant;
   type: CareActivityType;
@@ -101,26 +132,31 @@ function CareEntry({
       onDismiss={() => router.back()}
       onSave={async (details) => {
         const now = new Date().toISOString();
-        const activityId = createId();
-        await saveCareActivityWithApplications({
+        const activityId = editingActivity?.id ?? createId();
+        const command = {
           activity: {
             id: activityId,
-            mutationId: createId(),
+            mutationId: editingActivity?.mutationId ?? createId(),
             plantId: plant.id,
             type,
             occurredAt: details.occurredAt,
-            origin,
+            origin: editingActivity?.origin ?? origin,
             intensity: details.intensity,
             estimatedAmountLiters: details.estimatedAmountLiters,
             notes: details.notes,
-            createdAt: now,
+            createdAt: editingActivity?.createdAt ?? now,
           },
           applications: createFertilizerApplicationRecords(
             activityId,
             details.fertilizerApplications,
             createId,
           ),
-        });
+        };
+        if (editingActivity) {
+          await updateCareActivityWithApplications(command);
+        } else {
+          await saveCareActivityWithApplications(command);
+        }
         await reconcilePlantCarePlanReminders(plant);
         await Promise.all([
           queryClient.invalidateQueries({
@@ -129,10 +165,31 @@ function CareEntry({
           queryClient.invalidateQueries({ queryKey: ["today"] }),
           queryClient.invalidateQueries({ queryKey: ["reminders"] }),
           queryClient.invalidateQueries({ queryKey: ["journal"] }),
+          queryClient.invalidateQueries({ queryKey: ["activity", activityId] }),
         ]);
         router.back();
       }}
       imageUri={imageUri}
+      {...(editingActivity
+        ? {
+            initialDetails: {
+              estimatedAmountLiters: editingActivity.estimatedAmountLiters,
+              fertilizerApplications: existingApplications.map((application) => ({
+                userFertilizerId: application.userFertilizerId,
+                nameSnapshot: application.nameSnapshot,
+                groupSnapshot: application.groupSnapshot,
+                knowledgeIdSnapshot: application.knowledgeIdSnapshot,
+                amountValue: application.amountValue,
+                amountUnit: application.amountUnit,
+                applicationMethod: application.applicationMethod,
+                notes: application.notes,
+              })),
+              intensity: editingActivity.intensity,
+              notes: editingActivity.notes,
+              occurredAt: editingActivity.occurredAt,
+            },
+          }
+        : {})}
       plantName={plant.name}
       speciesTitle={identity.speciesTitle}
       stageId={plant.stageId}

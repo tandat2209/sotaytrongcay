@@ -1,5 +1,6 @@
 export {
   getCareActivity,
+  deleteCareActivity,
   listCareActivities,
   saveCareActivity,
 } from "./data/care-activity-repository";
@@ -11,6 +12,7 @@ export { savePlantUpdateWithPhotos } from "./application/save-plant-update";
 export {
   createFertilizerApplicationRecords,
   saveCareActivityWithApplications,
+  updateCareActivityWithApplications,
 } from "./application/save-care-activity-with-applications";
 export type { SavePlantUpdateCommand } from "./application/save-plant-update";
 export {

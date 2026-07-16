@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react-native";
+import { fireEvent, render } from "@testing-library/react-native";
 import { ActivityDetailScreen } from "./ActivityDetailScreen";
 
 it("shows saved watering details", () => {
@@ -20,6 +20,8 @@ it("shows saved watering details", () => {
       speciesTitle="Nho"
       stageId="pruning"
       stageTitle="Cắt tỉa"
+      onDelete={() => undefined}
+      onEdit={() => undefined}
     />,
   );
 
@@ -29,6 +31,44 @@ it("shows saved watering details", () => {
   expect(screen.getByText("1,5 lít")).toBeTruthy();
   expect(screen.getByText("Ghi thủ công")).toBeTruthy();
   expect(screen.getByText("Tưới quanh gốc")).toBeTruthy();
+  expect(screen.getByTestId("activity-detail-plant-identity")).toHaveStyle({
+    flex: 0,
+  });
+});
+
+it("keeps secondary actions in the overflow menu", () => {
+  const onEdit = jest.fn();
+  const onDelete = jest.fn();
+  const screen = render(
+    <ActivityDetailScreen
+      activity={{
+        id: "86ee7489-6147-42b9-b73f-5650ea7fd214",
+        mutationId: "c353342e-9fe0-43a3-9d84-1b0ed436011d",
+        plantId: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1",
+        type: "watering",
+        occurredAt: "2026-07-11T08:30:00.000Z",
+        origin: "manual",
+        intensity: "moderate",
+        estimatedAmountLiters: null,
+        notes: null,
+        createdAt: "2026-07-11T08:30:00.000Z",
+      }}
+      onDelete={onDelete}
+      onEdit={onEdit}
+      onBack={() => undefined}
+      plantName="Nho sân thượng"
+      speciesTitle="Nho"
+      stageId="pruning"
+      stageTitle="Cắt tỉa"
+    />,
+  );
+
+  fireEvent.press(screen.getByLabelText("Tùy chọn hoạt động"));
+
+  expect(screen.getByTestId("activity-detail-menu")).toBeTruthy();
+  expect(screen.getByText("Xóa hoạt động")).toBeTruthy();
+  fireEvent.press(screen.getByText("Chỉnh sửa"));
+  expect(onEdit).toHaveBeenCalledTimes(1);
 });
 
 it("does not label fertilizing notes as water", () => {
@@ -50,6 +90,8 @@ it("does not label fertilizing notes as water", () => {
       speciesTitle="Nho"
       stageId="pruning"
       stageTitle="Cắt tỉa"
+      onDelete={() => undefined}
+      onEdit={() => undefined}
     />,
   );
 
@@ -76,10 +118,12 @@ it("shows spraying details without a Lượng nước field", () => {
       speciesTitle="Nho"
       stageId="pruning"
       stageTitle="Cắt tỉa"
+      onDelete={() => undefined}
+      onEdit={() => undefined}
     />,
   );
 
-  expect(screen.getByText("Chi tiết phun thuốc")).toBeTruthy();
+  expect(screen.getByText("Chi tiết hoạt động")).toBeTruthy();
   expect(screen.getByText("Phun thuốc")).toBeTruthy();
   expect(screen.getByText("Quan sát lá")).toBeTruthy();
   expect(screen.queryByText("Lượng nước ước tính")).toBeNull();

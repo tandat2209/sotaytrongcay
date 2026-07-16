@@ -75,6 +75,31 @@ export async function insertCareActivity(
   );
 }
 
+export async function updateCareActivity(
+  db: SQLiteDatabase,
+  activity: CareActivity,
+): Promise<void> {
+  await db.runAsync(
+    `UPDATE care_activities
+     SET occurred_at = ?, watering_intensity = ?, amount_value = ?,
+         amount_unit = ?, notes = ?
+     WHERE id = ?`,
+    [
+      activity.occurredAt,
+      activity.intensity,
+      activity.estimatedAmountLiters,
+      activity.estimatedAmountLiters === null ? null : "liter",
+      activity.notes,
+      activity.id,
+    ],
+  );
+}
+
+export async function deleteCareActivity(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync("DELETE FROM care_activities WHERE id = ?", [id]);
+}
+
 export async function listCareActivities(
   plantId?: string,
 ): Promise<CareActivity[]> {

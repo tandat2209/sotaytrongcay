@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { getDb } from "@/shared/lib/db/database";
-import { insertCareActivity } from "../data/care-activity-repository";
+import {
+  insertCareActivity,
+  updateCareActivity,
+} from "../data/care-activity-repository";
 import { insertFertilizerApplication } from "../data/fertilizer-application-repository";
 import { NewCareActivitySchema } from "../models/care-activity";
 import { FertilizerApplicationSchema } from "../models/fertilizer-application";
@@ -74,6 +77,23 @@ export async function saveCareActivityWithApplications(
   const db = await getDb();
   await db.withTransactionAsync(async () => {
     await insertCareActivity(db, command.activity);
+    for (const application of command.applications) {
+      await insertFertilizerApplication(db, application);
+    }
+  });
+}
+
+export async function updateCareActivityWithApplications(
+  input: CareActivityWithApplicationsInput,
+): Promise<void> {
+  const command = parseCareActivityWithApplications(input);
+  const db = await getDb();
+  await db.withTransactionAsync(async () => {
+    await updateCareActivity(db, command.activity);
+    await db.runAsync(
+      "DELETE FROM fertilizer_applications WHERE care_activity_id = ?",
+      [command.activity.id],
+    );
     for (const application of command.applications) {
       await insertFertilizerApplication(db, application);
     }
