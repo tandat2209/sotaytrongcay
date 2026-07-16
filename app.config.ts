@@ -4,6 +4,8 @@ import { configT } from "./src/shared/i18n/config-copy";
 const config: ExpoConfig = {
   name: configT("app.name"),
   slug: "so-tay-trong-cay",
+  description:
+    "A mobile-first plant-care companion for Vietnamese home growers to track care quickly and receive safe, stage-aware guidance.",
   version: "0.1.0",
   orientation: "portrait",
   scheme: "sotaytrongcay",
@@ -43,6 +45,11 @@ const config: ExpoConfig = {
   experiments: {
     typedRoutes: true,
     reactCompiler: true,
+  },
+  extra: {
+    eas: {
+      projectId: "f5cde76d-787a-4e7e-be98-c6b7048967a4",
+    },
   },
 };
 

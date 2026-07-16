@@ -80,6 +80,16 @@ pnpm install
 pnpm start
 ```
 
+Build a directly installable Android preview with EAS:
+
+```sh
+pnpm dlx eas-cli build --platform android --profile preview
+```
+
+The `preview` profile creates an APK for internal distribution. After the build
+finishes, open the EAS installation link on an Android device; Google Play
+registration is not required.
+
 Run the quality gates:
 
 ```sh
