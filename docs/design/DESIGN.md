@@ -184,7 +184,7 @@ Do not display fabricated photo, health, days-in-stage, progress, or sensor meas
 
 ### Stage playbook
 
-Use progressive sections for the stage goal, detailed tracked Care Plans, generic informational guides with authored instructions, stage threat guidance, completion criteria, and next stage. A Care Plan card identifies the activity and keeps its goal, ground/container guidance, input categories, and cautions together.
+Use progressive sections for the stage goal, tracked Care Plans, generic informational guides with authored instructions, stage threat guidance, completion criteria, and next stage. Use a small target icon for the stage goal. Care Plan and informational-guide cards use their icon and title in a compact header; expanding them reveals their supporting content.
 
 Keep guidance scannable. Do not turn the screen into an unstructured article or a product catalog.
 

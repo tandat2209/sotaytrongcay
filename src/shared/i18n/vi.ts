@@ -353,6 +353,10 @@ export const vi = {
     [],
   ],
   "plants.guide.careTitle": ["Chăm sóc cần theo dõi", []],
+  "plants.guide.careToggleAccessibility": [
+    "Mở hoặc thu gọn hướng dẫn {title}",
+    ["title"],
+  ],
   "plants.guide.completionCriteria": ["TIÊU CHÍ HOÀN THÀNH GIAI ĐOẠN", []],
   "plants.guide.details": ["Hướng dẫn chi tiết", []],
   "plants.guide.frequency": ["TẦN SUẤT THAM KHẢO", []],
@@ -367,9 +371,13 @@ export const vi = {
   ],
   "plants.guide.nextStage": ["Giai đoạn: {stage}", ["stage"]],
   "plants.guide.notes": ["LƯU Ý QUAN TRỌNG", []],
-  "plants.guide.objective": ["MỤC TIÊU GIAI ĐOẠN", []],
+  "plants.guide.objective": ["MỤC TIÊU", []],
   "plants.guide.recommendedInputs": ["ĐẦU VÀO GỢI Ý", []],
-  "plants.guide.reference": ["Hướng dẫn tham khảo", []],
+  "plants.guide.reference": ["Hướng dẫn bổ sung", []],
+  "plants.guide.referenceToggleAccessibility": [
+    "Mở hoặc thu gọn hướng dẫn bổ sung {title}",
+    ["title"],
+  ],
   "plants.guide.reviewBadge": ["NỘI DUNG CHỜ DUYỆT", []],
   "plants.guide.threatDisclaimer": [
     "Nội dung dùng để quan sát và tham khảo, không phải chẩn đoán hoặc chỉ định phun.",

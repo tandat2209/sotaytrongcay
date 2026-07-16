@@ -529,7 +529,7 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Rationale:** A Playbook is complete stage guidance, while a Care Plan is one activity-focused schedule. Embedding a clearly labelled user-owned schedule editor in the relevant Care Plan removes a duplicate screen without implying that users can edit curated agricultural guidance or that the Playbook is a task.
 
-**Consequences:** The stage schedule route uses an authored stage ID and can display stage-matched threats without loading a plant. Plant-scoped navigation remains supported as the read-only contextual entry. No Knowledge Base schema, SQLite schema, schedule snapshot, reminder, or activity-record migration is required.
+**Consequences:** The stage schedule route uses an authored stage ID and can display stage-matched threats without loading a plant. Plant-scoped navigation remains supported as the read-only contextual entry. Care Plan and informational-guide cards remain compact until opened, with their icon and title replacing redundant text. No Knowledge Base schema, SQLite schema, schedule snapshot, reminder, or activity-record migration is required.
 
 ## Decision template
 

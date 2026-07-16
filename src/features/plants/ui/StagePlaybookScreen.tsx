@@ -1,4 +1,10 @@
-import { BookOpen, ChevronRight, Clock, Flag } from "lucide-react-native";
+import {
+  BookOpen,
+  ChevronRight,
+  Clock,
+  Flag,
+  Target,
+} from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
@@ -76,9 +82,12 @@ export function StagePlaybookScreen({
 
       <View style={styles.section}>
         <SurfaceCard style={styles.objectiveCard}>
-          <Typography color="textSecondary" variant="label">
-            {t("plants.guide.objective")}
-          </Typography>
+          <View style={styles.objectiveHeading}>
+            <Target color={colors.primary} size={18} />
+            <Typography color="textSecondary" variant="label">
+              {t("plants.guide.objective")}
+            </Typography>
+          </View>
           <Typography variant="bodyLarge">
             {playbook.primaryObjective}
           </Typography>
@@ -197,5 +206,10 @@ const styles = StyleSheet.create({
     width: 48,
   },
   objectiveCard: { gap: spacing.sm },
+  objectiveHeading: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
   section: { gap: spacing.md },
 });

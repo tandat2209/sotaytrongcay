@@ -266,10 +266,10 @@ Place the age chip beside the species chip in the wrapping identity metadata row
 
 - Header: back button + title "Hướng dẫn chi tiết".
 - Hero card: stage icon + stage name + estimated duration + "NỘI DUNG CHỜ DUYỆT" badge (dark primary background).
-- "Mục tiêu giai đoạn" card: `primaryObjective`.
-- "Chăm sóc cần theo dõi" section: one detailed card per stage Care Plan. Each card identifies watering, fertilizing, or spraying and shows its goal, separate ground/container frequency when authored, recommended input categories when authored, and important notes.
+- "Mục tiêu" card: `primaryObjective`.
+- "Chăm sóc cần theo dõi" section: one initially collapsed card per stage Care Plan. Its activity icon and title identify the care; expanding it reveals the goal, separate ground/container frequency when authored, recommended input categories when authored, and important notes.
 - A short statement clarifies that Care Plan content is general to the stage and does not replace assessment of soil, weather, growing method, or the plant's actual condition.
-- "Hướng dẫn tham khảo" section: generic informational Care Guides relevant to the stage, including their authored goal and Markdown instructions; these do not represent tracked activities.
+- "Hướng dẫn bổ sung" section: one initially collapsed card per generic informational Care Guide. Opening a card shows its authored goal and Markdown instructions; these do not represent tracked activities.
 - "Sâu bệnh cần theo dõi" section: collapsed, read-only Pest and Disease cards whose authored species and monitoring-stage relationships match the playbook. It carries an explicit observation-only disclaimer and expands to the authored content. It is omitted when no target matches; it never creates a diagnosis, spraying instruction, reminder, recommendation card, entry prefill, or history.
 - "Tiêu chí hoàn thành giai đoạn" card: `exitCriteria` bullet list with flag icon.
 - "Sắp tới" card: next stage from the current stage's authored transition; tapping navigates to Stage Playbook for that stage. This may cross from the final development stage into the production lifecycle.
