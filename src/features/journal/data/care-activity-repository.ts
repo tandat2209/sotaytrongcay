@@ -1,4 +1,8 @@
 import { getDb, runDatabaseWrite } from "@/shared/lib/db/database";
+import {
+  type IdempotentInsertOutcome,
+  resolveIdempotentInsertOutcome,
+} from "@/shared/lib/db/idempotent-insert";
 import type { SQLiteDatabase } from "expo-sqlite";
 import {
   type CareActivity,
@@ -73,13 +77,26 @@ export async function saveCareActivity(input: NewCareActivity): Promise<void> {
 export async function insertCareActivity(
   db: SQLiteDatabase,
   activity: NewCareActivity,
-): Promise<void> {
-  await db.runAsync(
-    `INSERT OR IGNORE INTO care_activities
+): Promise<IdempotentInsertOutcome> {
+  const result = await db.runAsync(
+    `INSERT INTO care_activities
       (id, mutation_id, plant_id, activity_type, occurred_at, origin, watering_intensity, amount_value, amount_unit, spray_target_id, spray_target_name_snapshot, notes, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(mutation_id) DO NOTHING`,
     careActivityToInsertParams(activity),
   );
+  const saved =
+    result.changes === 0
+      ? await db.getFirstAsync<{ id: string }>(
+          "SELECT id FROM care_activities WHERE mutation_id = ?",
+          [activity.mutationId],
+        )
+      : null;
+  return resolveIdempotentInsertOutcome({
+    changes: result.changes,
+    expectedId: activity.id,
+    savedId: saved?.id ?? null,
+  });
 }
 
 export async function updateCareActivity(

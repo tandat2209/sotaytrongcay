@@ -75,7 +75,8 @@ export async function saveCareActivityWithApplications(
 ): Promise<void> {
   const command = parseCareActivityWithApplications(input);
   await withDatabaseWriteTransaction(async (transaction) => {
-    await insertCareActivity(transaction, command.activity);
+    const outcome = await insertCareActivity(transaction, command.activity);
+    if (outcome === "duplicate") return;
     for (const application of command.applications) {
       await insertFertilizerApplication(transaction, application);
     }

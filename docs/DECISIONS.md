@@ -54,6 +54,12 @@ atomic rollback while unrelated writes cannot join them. This intentionally
 trades parallel write throughput for deterministic local persistence, which
 fits the MVP's small, user-driven mutation volume.
 
+Idempotent activity and Plant Update inserts suppress only a conflict on their
+client mutation ID, then verify that the saved mutation belongs to the same row
+ID. A verified retry skips dependent child inserts because the original
+aggregate transaction was atomic. Primary-key, foreign-key, check, and
+unrelated uniqueness failures remain visible instead of being broadly ignored.
+
 ## 2026-07-16 — Show curated stage illustrations in preview Stage Playbooks
 
 **Status:** Accepted

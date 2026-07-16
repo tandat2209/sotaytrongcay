@@ -80,7 +80,7 @@ export async function insertFertilizerApplication(
 ): Promise<void> {
   const application = FertilizerApplicationSchema.parse(input);
   await db.runAsync(
-    `INSERT OR IGNORE INTO fertilizer_applications
+    `INSERT INTO fertilizer_applications
       (id, care_activity_id, user_fertilizer_id, position, name_snapshot,
        group_snapshot, knowledge_id_snapshot, amount_value, amount_unit,
        application_method, notes)

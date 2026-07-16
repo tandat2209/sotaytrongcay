@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { getDb, withDatabaseWriteTransaction } from "@/shared/lib/db/database";
+import { resolveIdempotentInsertOutcome } from "@/shared/lib/db/idempotent-insert";
 import { PlantUpdateSchema, type PlantUpdate } from "../models/plant-update";
 import { createPlantStageHistory } from "../models/plant-stage-history";
 
@@ -73,12 +74,25 @@ export async function savePlantUpdate(
     if (!plant) throw new Error("Plant not found while saving journal update.");
 
     const result = await transaction.runAsync(
-      `INSERT OR IGNORE INTO plant_updates
+      `INSERT INTO plant_updates
         (id, mutation_id, plant_id, occurred_at, notes, stage_id, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(mutation_id) DO NOTHING`,
       plantUpdateToInsertParams(update),
     );
-    if (result.changes === 0) return;
+    const saved =
+      result.changes === 0
+        ? await transaction.getFirstAsync<{ id: string }>(
+            "SELECT id FROM plant_updates WHERE mutation_id = ?",
+            [update.mutationId],
+          )
+        : null;
+    const outcome = resolveIdempotentInsertOutcome({
+      changes: result.changes,
+      expectedId: update.id,
+      savedId: saved?.id ?? null,
+    });
+    if (outcome === "duplicate") return;
 
     for (const photo of update.photos) {
       await transaction.runAsync(
