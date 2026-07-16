@@ -1,5 +1,7 @@
 export const vi = {
   "app.name": ["Sổ tay trồng cây", []],
+  "app.brandName": ["Sổ tay\ntrồng cây", []],
+  "app.logo.accessibility": ["Logo Sổ tay trồng cây", []],
   "app.permissions.camera": [
     "Cho phép Sổ tay trồng cây dùng camera để chụp ảnh cây.",
     [],
@@ -432,14 +434,29 @@ export const vi = {
   "plants.screen.recommendation": ["Khuyến nghị chăm sóc", []],
   "plants.screen.viewGuide": ["Xem hướng dẫn chi tiết", []],
   "plants.validation.name": ["Hãy đặt tên cho cây", []],
-  "plants.welcome.benefitHistory": ["Xem lần chăm sóc gần nhất", []],
-  "plants.welcome.benefitStage": ["Hiểu bối cảnh giai đoạn sinh trưởng", []],
+  "plants.welcome.benefitCare": ["Ghi lại hoạt động chỉ với vài lần chạm", []],
+  "plants.welcome.benefitCareDescription": [
+    "Tưới nước, bón phân và phun thuốc nhanh chóng.",
+    [],
+  ],
+  "plants.welcome.benefitReminder": ["Không bỏ lỡ lần chăm sóc tiếp theo", []],
+  "plants.welcome.benefitReminderDescription": [
+    "Tạo lời nhắc phù hợp với lịch chăm cây của bạn.",
+    [],
+  ],
+  "plants.welcome.benefitStage": ["Hiểu cây ở từng giai đoạn", []],
+  "plants.welcome.benefitStageDescription": [
+    "Xem hướng dẫn ngắn gọn theo giai đoạn sinh trưởng.",
+    [],
+  ],
   "plants.welcome.body": [
     "Ghi lại lần tưới, bón phân và phun thuốc để luôn nhớ cây đã được chăm khi nào.",
     [],
   ],
   "plants.welcome.start": ["Bắt đầu với cây đầu tiên", []],
-  "plants.welcome.title": ["Chăm cây dễ hơn mỗi ngày", []],
+  "plants.welcome.duration": ["Chỉ mất khoảng 1 phút", []],
+  "plants.welcome.imageAccessibility": ["Chùm nho xanh trên giàn nho", []],
+  "plants.welcome.title": ["Chăm cây dễ hơn\nmỗi ngày", []],
   "reminders.channel.care": ["Lời nhắc chăm sóc", []],
   "reminders.followUpTitle": ["Nhắc lại: {title}", ["title"]],
   "reminders.schedule.defaultFrequency": [

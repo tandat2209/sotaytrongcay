@@ -8,6 +8,12 @@ const config: ExpoConfig = {
   orientation: "portrait",
   scheme: "sotaytrongcay",
   userInterfaceStyle: "light",
+  icon: "./assets/branding/logo.png",
+  splash: {
+    backgroundColor: "#FCF9F8",
+    image: "./assets/branding/logo.png",
+    resizeMode: "contain",
+  },
   ios: {
     supportsTablet: true,
     bundleIdentifier: "vn.sotaytrongcay.app",
