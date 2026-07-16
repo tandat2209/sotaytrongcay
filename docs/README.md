@@ -6,6 +6,7 @@ This directory stores product context, UX decisions, architecture, and engineeri
 
 - [PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md) owns product scope, users, risks, and MVP capabilities.
 - [MOBILE_UX_DESIGN.md](./MOBILE_UX_DESIGN.md) owns interaction and screen behavior.
+- [Design guidelines](./design/DESIGN.md) own visual language, component hierarchy, and compact action treatment.
 - [DECISIONS.md](./DECISIONS.md) owns confirmed decisions and their rationale.
 - `knowledge/_schemas/` owns authored and mobile-bundle field contracts.
 - [KNOWLEDGE_BASE_ARCHITECTURE.md](./KNOWLEDGE_BASE_ARCHITECTURE.md) owns the conceptual authoring model and must conform to schemas and accepted decisions.
@@ -13,6 +14,8 @@ This directory stores product context, UX decisions, architecture, and engineeri
 - [Research notes](./research/README.md) store dated findings and option analysis. They are supporting evidence, not behavior or data-shape authority.
 
 When sources conflict, accepted decisions control behavior and schemas control data shape. Update lower-precedence documentation rather than inferring automation from mockups or review-stage knowledge content.
+
+Do not duplicate screen behavior between `MOBILE_UX_DESIGN.md` and `design/DESIGN.md`: the former owns the behavioral contract, while the latter owns reusable visual treatment.
 
 ## Reading order
 

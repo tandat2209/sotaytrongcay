@@ -16,6 +16,8 @@ Mockups may contain exploratory copy, generated images, placeholders, unsupporte
 
 See [SCREEN_REVIEW.md](./SCREEN_REVIEW.md) for the current screen-by-screen product and Knowledge Base assessment.
 
+`MOBILE_UX_DESIGN.md` is the canonical contract for screen behavior, navigation, actions, states, and user-visible copy. This document owns only the reusable visual system and presentation treatment. Its screen examples explain how a confirmed UX contract should look; they must not introduce, override, or duplicate behavior.
+
 ## 2. Reference index
 
 | Order | Reference                              | Intended use                                              | Status notes                                                             |
@@ -54,6 +56,13 @@ The visual hierarchy must reinforce:
 - Help beginners succeed.
 
 Last core care, contextual entry, reminders, and trustworthy history are primary. Current-stage tips are supporting information.
+
+### Compact action hierarchy
+
+- Prefer compact, scannable layouts and progressive disclosure over repeated explanatory copy.
+- Use familiar Lucide icons for local actions when they clearly communicate intent. Every icon action needs a Vietnamese accessibility label; a tap may reveal secondary explanation.
+- Reserve full-width primary buttons for the single consequential action in a focused screen or modal. Use icon or text actions for local adjustments.
+- Do not rely on an icon alone for destructive, irreversible, or ambiguous actions.
 
 ## 4. Language
 
@@ -116,6 +125,8 @@ Hydration may use soft blue, sunlight amber, and urgent plant-health states mute
 
 ## 6. Navigation
 
+Navigation destinations, routes, and allowed actions are defined in `MOBILE_UX_DESIGN.md`. This section defines only their visual treatment.
+
 Bottom navigation contains four destinations:
 
 1. “Hôm nay”
@@ -125,13 +136,11 @@ Bottom navigation contains four destinations:
 
 The active destination uses primary green for icon and label. Inactive destinations use a neutral color with sufficient contrast.
 
-Do not add a global FAB. Plant Detail may use one local floating action menu for plant-scoped watering, fertilizing, spraying, and journal entry; Today remains FAB-free. It opens the selected entry flow and never saves directly.
-
-Plant Detail keeps “Cây trồng” active. A focused form should not show a misleading destination state.
-
-Nested fertilizing add/edit screens belong to the originating Care Entry. They show no bottom navigation, preserve the parent draft on return, and do not persist until “Lưu hoạt động” is selected on the parent sheet. “Mở rộng” is the fourth tab and provides the standalone second path to “Quản lý phân bón”; it is not a child-editor or save label.
+Focused forms hide bottom navigation rather than showing a misleading active destination.
 
 ## 7. Information hierarchy
+
+The visual examples in this section do not define screen content, action availability, or data behavior; those remain in `MOBILE_UX_DESIGN.md`.
 
 ### Today
 
@@ -179,55 +188,11 @@ Use progressive sections for the stage goal, detailed tracked Care Plans, generi
 
 Keep guidance scannable. Do not turn the screen into an unstructured article or a product catalog.
 
-## 8. Care recording and history
+## 8. Form and feedback visual treatment
 
-Only selecting “Lưu hoạt động” in Care Entry creates a care record. Reading a tip, opening a care prompt, or responding to a reminder must not create history.
+Care and journal behavior, persistence, fields, and safety boundaries belong to `MOBILE_UX_DESIGN.md`. Present the confirmed flow with a clear minimum path, progressive disclosure for secondary details, units beside numeric inputs, preserved drafts after validation or network errors, and inline or temporary feedback after routine saves.
 
-“Lưu nhật ký” creates a flexible photo-and-note plant update. Pruning and observations may appear in its note but are not dedicated activity types.
-
-The form shows “Giai đoạn hiện tại” and a secondary “Thay đổi” control. Keep the current stage by default; never require users to reconsider it for every photo.
-
-Preferred feedback:
-
-`Đã lưu hoạt động`
-
-After Save, offer an optional next-reminder suggestion such as “7 ngày”, “14 ngày”, “30 ngày”, or “Không nhắc”.
-
-Entries opened from Today prompts display “Từ hôm nay”. Other source labels are “Từ lời nhắc” and “Ghi thủ công”. These labels describe entry origin, not automatic recording.
-
-Use full-screen success only for a meaningful onboarding milestone if user testing supports it. Routine saves use inline or temporary confirmation.
-
-## 9. Manual-entry patterns
-
-Care Entry is the single path for watering, fertilizing, and spraying. “Thêm nhật ký” handles photos, notes, pruning, observations, and other updates.
-
-- Keep plant, activity, and time as the minimum path.
-- Place product, amount, dosage, method, notes, and photos under “Thêm chi tiết”.
-- A fertilizing sheet may summarize multiple fertilizer applications as editable rows. Keep per-item fields in focused add/edit screens and keep the single “Lưu hoạt động” action on the parent sheet.
-- Show structured, reviewed Care Plan fertilizer suggestions as inline chips that wrap without horizontal scrolling. Tapping a chip only updates the draft; it never saves history or opens the nested editor.
-- Manual fertilizer selection uses the private “Phân bón của tôi” catalog shared with `Mở rộng → Quản lý phân bón`. Do not render mockup-only NPK formulas, fertilizer groups, or amounts as selected defaults.
-- Never prefill fertilizer, pesticide, dosage, or water amount without approved Knowledge Base logic and sufficient context.
-- Show weather as context, not fabricated certainty.
-- Change the plant's stage only when the user selects a different stage and saves the journal entry.
-- Future photo analysis may suggest a stage, but it must never change the confirmed stage automatically.
-- Display the current stage as read-only context unless the user enters an explicit stage-transition flow.
-
-## 10. Agronomic and safety content
-
-The following mockup content is exploratory and not approved guidance:
-
-- Fixed watering frequency or amount.
-- Soil-moisture values without measurements.
-- `NPK 30-10-10`, `MKP 0-52-34`, or other fertilizer recommendations.
-- Neem, biological products, specific pesticides, or “Thuốc đặc trị”.
-- Product combinations and exact dosage.
-- Disease or pest conclusions inferred from one symptom.
-
-Approved content must come from the Knowledge Base with stable ID, version, references, reviewer, scope, and Vietnamese explanation.
-
-Prefer safe actions such as checking soil moisture, reviewing recent care, observing warning signs, or consulting reviewed guidance.
-
-## 11. Components
+## 9. Components
 
 ### Buttons
 
@@ -278,7 +243,7 @@ Use shared `PlantIdentity` for compact identity surfaces such as plant lists, To
 - Plant photos should be realistic and relevant to the displayed species/stage.
 - Do not ship placeholder images, fantasy characters, or unrelated plant photography.
 
-## 12. Required states
+## 10. Required visual states
 
 Every production screen considers:
 
@@ -295,7 +260,7 @@ Every production screen considers:
 
 Weather sections fail independently. Knowledge and local history remain usable offline. Care Entry and “Thêm nhật ký” remain available when prompts cannot load.
 
-## 13. Accessibility
+## 11. Accessibility
 
 - Meet WCAG AA contrast.
 - Support text scaling without clipping.
@@ -305,7 +270,7 @@ Weather sections fail independently. Knowledge and local history remain usable o
 - Respect reduced motion.
 - Avoid confetti or bouncing animation when reduced motion is enabled.
 
-## 14. Known mockup exceptions
+## 12. Known mockup exceptions
 
 Do not copy these details into implementation:
 
@@ -318,7 +283,7 @@ Do not copy these details into implementation:
 - Missing Journal source labels and plant/date/activity filters.
 - Duplicate care suggestions in Plant Detail.
 
-## 15. Missing reference screens
+## 13. Missing reference screens
 
 Before treating the set as an implementation baseline, add references for:
 
@@ -333,7 +298,7 @@ Before treating the set as an implementation baseline, add references for:
 - Journal source labels and full filter sheet.
 - Empty, loading, offline, stale-weather, and error variants.
 
-## 16. Handoff checklist
+## 14. Handoff checklist
 
 Before implementing a mockup, confirm:
 

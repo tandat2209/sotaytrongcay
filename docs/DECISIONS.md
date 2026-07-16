@@ -521,6 +521,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** SQLite keeps uniqueness on `(stage_id, care_plan_id)` and adds two frequency columns. Resolution selects the plant's matching frequency field and the shared notification policy. Existing V8 shared frequency copies into both fields during migration.
 
+## 2026-07-16 — Browse Stage Playbooks from More
+
+**Status:** Accepted
+
+**Decision:** Rename the More destination to “Chăm sóc theo giai đoạn”. Each stage detail renders the shared Stage Playbook. Every tracked Care Plan keeps its authored “Tần suất tham khảo” read-only and shows a compact “Lịch của bạn” editor for its user-owned stage schedule snapshot. A right-aligned check icon explicitly saves the complete schedule draft; keyboard submit invokes the same save when available. Plant Detail keeps its contextual, read-only Playbook entry.
+
+**Rationale:** A Playbook is complete stage guidance, while a Care Plan is one activity-focused schedule. Embedding a clearly labelled user-owned schedule editor in the relevant Care Plan removes a duplicate screen without implying that users can edit curated agricultural guidance or that the Playbook is a task.
+
+**Consequences:** The stage schedule route uses an authored stage ID and can display stage-matched threats without loading a plant. Plant-scoped navigation remains supported as the read-only contextual entry. No Knowledge Base schema, SQLite schema, schedule snapshot, reminder, or activity-record migration is required.
+
 ## Decision template
 
 ```md

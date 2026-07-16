@@ -1,11 +1,16 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { z } from "zod";
 
-import { t } from "@/shared/i18n";
-import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
-import { getCarePlansForStage, getStagePlaybook } from "@/features/knowledge";
+import {
+  getCarePlansForStage,
+  getNextStagePlaybook,
+  getStagePlaybook,
+  listInformationalGuidesForStage,
+  listThreatsForStageId,
+} from "@/features/knowledge/preview-knowledge";
+import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import {
   deleteStageScheduleSnapshot,
   listStageScheduleSnapshots,
@@ -14,95 +19,107 @@ import {
   StageScheduleSnapshotEditor,
 } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
-import { Screen } from "@/shared/ui/Screen";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
-import { TopBar } from "@/shared/ui/TopBar";
+import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
 
+const paramsSchema = z.object({ stageId: z.string().min(1) });
+
 export default function StageCarePlanDetailRoute() {
-  const { stageId } = z
-    .object({ stageId: z.string().min(1) })
-    .parse(useLocalSearchParams());
+  const { stageId } = paramsSchema.parse(useLocalSearchParams());
   const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["stage-schedule-snapshots"],
     queryFn: listStageScheduleSnapshots,
   });
-  const plans = getCarePlansForStage(stageId);
-  const title = getStagePlaybook(stageId)?.title ?? t("common.fallback.stage");
+  const playbook = getStagePlaybook(stageId);
 
+  if (!playbook) return <Text>{t("plants.guide.missing")}</Text>;
+
+  const carePlans = getCarePlansForStage(stageId);
+  const nextStage = getNextStagePlaybook(stageId);
   return (
-    <Screen title="">
-      <TopBar onBack={() => router.back()} title={title} />
-      {plans.length === 0 ? (
+    <StagePlaybookScreen
+      carePlans={carePlans}
+      carePlansEmptyMessage={
         <Typography color="textSecondary" variant="bodyMedium">
           {t("settings.carePlans.empty")}
         </Typography>
-      ) : null}
-      {plans.map((plan) => {
+      }
+      informationalGuides={listInformationalGuidesForStage(stageId)}
+      nextStage={nextStage}
+      onBack={() => router.back()}
+      {...(nextStage
+        ? {
+            onOpenNextStage: () =>
+              router.push({
+                pathname: "/settings/care-plans/[stageId]",
+                params: { stageId: nextStage.id },
+              }),
+          }
+        : {})}
+      playbook={playbook}
+      renderCarePlanSchedule={(plan) => {
+        if (!plan.frequency) {
+          return (
+            <Typography color="textSecondary" variant="bodyMedium">
+              {t("plants.care.frequencyMissing")}
+            </Typography>
+          );
+        }
         const snapshot = query.data?.find(
           (item) => item.stageId === stageId && item.carePlanId === plan.id,
         );
-        const visual = CARE_ACTIVITY_VISUALS[plan.activityType];
-        const Icon = visual.icon;
         return (
-          <SurfaceCard key={plan.id}>
-            <View style={styles.titleRow}>
-              <Icon color={visual.color} size={22} />
-              <Typography style={styles.fill} variant="headlineSmall">
-                {plan.title}
-              </Typography>
-            </View>
-            <Typography color="textSecondary" variant="bodyMedium">
-              {plan.goal}
-            </Typography>
-            {plan.frequency ? (
-              <StageScheduleSnapshotEditor
-                initial={{
-                  groundIntervalDays:
-                    snapshot?.groundFrequencyOverrideDays ??
-                    plan.frequency.ground.intervalDays,
-                  containerIntervalDays:
-                    snapshot?.containerFrequencyOverrideDays ??
-                    plan.frequency.container.intervalDays,
-                  notificationEnabled: snapshot?.notificationEnabled ?? false,
-                  notificationTime: snapshot?.notificationTime ?? null,
-                }}
-                {...(snapshot
-                  ? {
-                      onReset: async () => {
-                        await deleteStageScheduleSnapshot(stageId, plan.id);
-                        await refreshStageSchedules(queryClient, stageId);
-                      },
-                    }
-                  : {})}
-                onSave={async (value) => {
-                  const now = new Date().toISOString();
-                  await saveStageScheduleSnapshot({
-                    id: snapshot?.id ?? createId(),
-                    mutationId: createId(),
-                    stageId,
-                    carePlanId: plan.id,
-                    groundFrequencyOverrideDays: value.groundIntervalDays,
-                    containerFrequencyOverrideDays: value.containerIntervalDays,
-                    notificationEnabled: value.notificationEnabled,
-                    notificationTime: value.notificationTime,
-                    createdAt: snapshot?.createdAt ?? now,
-                    updatedAt: now,
-                  });
-                  await refreshStageSchedules(queryClient, stageId);
-                }}
-              />
-            ) : (
-              <Typography color="textSecondary" variant="bodyMedium">
-                {t("plants.care.frequencyMissing")}
-              </Typography>
-            )}
-          </SurfaceCard>
+          <View style={styles.schedule}>
+            <StageScheduleSnapshotEditor
+              initial={{
+                groundIntervalDays:
+                  snapshot?.groundFrequencyOverrideDays ??
+                  plan.frequency.ground.intervalDays,
+                containerIntervalDays:
+                  snapshot?.containerFrequencyOverrideDays ??
+                  plan.frequency.container.intervalDays,
+                notificationEnabled: snapshot?.notificationEnabled ?? false,
+                notificationTime: snapshot?.notificationTime ?? null,
+              }}
+              {...(snapshot
+                ? {
+                    onReset: async () => {
+                      await deleteStageScheduleSnapshot(stageId, plan.id);
+                      await refreshStageSchedules(queryClient, stageId);
+                    },
+                  }
+                : {})}
+              onSave={async (value) => {
+                const now = new Date().toISOString();
+                await saveStageScheduleSnapshot({
+                  id: snapshot?.id ?? createId(),
+                  mutationId: createId(),
+                  stageId,
+                  carePlanId: plan.id,
+                  groundFrequencyOverrideDays: value.groundIntervalDays,
+                  containerFrequencyOverrideDays: value.containerIntervalDays,
+                  notificationEnabled: value.notificationEnabled,
+                  notificationTime: value.notificationTime,
+                  createdAt: snapshot?.createdAt ?? now,
+                  updatedAt: now,
+                });
+                await refreshStageSchedules(queryClient, stageId);
+              }}
+              resetValues={{
+                groundIntervalDays: plan.frequency.ground.intervalDays,
+                containerIntervalDays: plan.frequency.container.intervalDays,
+                notificationEnabled: false,
+                notificationTime: null,
+              }}
+            />
+          </View>
         );
-      })}
-    </Screen>
+      }}
+      screenTitle={t("settings.carePlans.title")}
+      threats={listThreatsForStageId(stageId)}
+    />
   );
 }
 
@@ -118,10 +135,5 @@ async function refreshStageSchedules(
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1 },
-  titleRow: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: spacing.sm,
-  },
+  schedule: { gap: spacing.sm },
 });

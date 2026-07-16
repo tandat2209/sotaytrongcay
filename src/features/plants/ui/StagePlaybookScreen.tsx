@@ -1,4 +1,5 @@
 import { BookOpen, ChevronRight, Clock, Flag } from "lucide-react-native";
+import type { ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import type {
@@ -19,21 +20,27 @@ import { StageThreatSection } from "./StageThreatSection";
 
 type Props = Readonly<{
   carePlans: readonly CarePlan[];
+  carePlansEmptyMessage?: ReactNode;
   informationalGuides: readonly CareGuide[];
   nextStage: StagePlaybook | null;
   onBack: () => void;
   onOpenNextStage?: () => void;
   playbook: StagePlaybook;
+  renderCarePlanSchedule?: (plan: CarePlan) => ReactNode;
+  screenTitle?: string;
   threats?: readonly StageThreat[];
 }>;
 
 export function StagePlaybookScreen({
   carePlans,
+  carePlansEmptyMessage,
   informationalGuides,
   nextStage,
   onBack,
   onOpenNextStage,
   playbook,
+  renderCarePlanSchedule,
+  screenTitle,
   threats = [],
 }: Props) {
   return (
@@ -41,7 +48,7 @@ export function StagePlaybookScreen({
       <TopBar
         backAccessibilityLabel={t("plants.guide.back")}
         onBack={onBack}
-        title={t("plants.guide.details")}
+        title={screenTitle ?? t("plants.guide.details")}
         titleIcon={BookOpen}
       />
 
@@ -78,7 +85,13 @@ export function StagePlaybookScreen({
         </SurfaceCard>
       </View>
 
-      <StageCarePlanSection carePlans={carePlans} />
+      <StageCarePlanSection
+        carePlans={carePlans}
+        emptyMessage={carePlansEmptyMessage}
+        {...(renderCarePlanSchedule
+          ? { renderSchedule: renderCarePlanSchedule }
+          : {})}
+      />
 
       <StageInformationalGuideSection guides={informationalGuides} />
 

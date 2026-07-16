@@ -109,7 +109,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Add a complete mixed-event Timeline.
 - [x] Implement the reviewed one-to-many fertilizer-application contract.
 - [x] Replace the Settings tab with More and add reusable User Fertilizer management with contextual selection from Care Entry.
-- [x] Add approved stage guidance and a guide reader: StagePlaybookScreen + app/plants/[id]/guide route with stageId-param forward browsing.
+- [x] Add approved stage guidance and a guide reader: StagePlaybookScreen has a read-only Plant Detail entry and an inline stage-schedule editor when opened from More.
 - [ ] Add a weather provider and local cache; weather sections currently show the truthful unavailable state.
 - [x] Build the first deterministic watering suggestion without persistent task instances, including transparent positive and negative Today evaluations.
 - [ ] Obtain reviewed guide instructions before promoting migrated grape recommendation guides beyond `review`.

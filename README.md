@@ -23,18 +23,18 @@ The first release focuses on three outcomes:
 2. See recent care and upcoming reminders for each plant.
 3. Provide concise stage-specific tips without turning every tip into a task.
 
-## Proposed MVP
+## Current MVP
 
 - Create grape plants and select their current growth stage.
 - Track watering, fertilizing, and spraying.
-- Store optional product, amount, method, notes, and photos.
-- Show last care and next reminder on Plant Detail.
-- Show stage tips, things to avoid, warning signs, and milestones on Plant Detail.
-- Use weather and history to suggest care for consideration.
+- Store optional care details, notes, and photo journal updates.
+- Show recent care, stage context, and locally managed schedules on Plant Detail.
+- Browse review-stage Playbooks with Care Plans, informational guides, and observation-only pest/disease context.
 - Start care entry from “Việc cần làm hôm nay”; record activity only after the user saves it.
 - Add a photo journal entry and optionally update the plant's stage in the same flow.
-- Review history in Plant Timeline and the global Journal.
-- Create and manage one-time reminders.
+- Review saved history in the global Journal and Plant Detail.
+- Customize stage and plant Care Plan schedules and local notifications.
+- Manage reusable private fertilizers from “Mở rộng”.
 
 ## Outside the initial scope
 
@@ -42,16 +42,12 @@ The first release focuses on three outcomes:
 - AI-generated recommendations.
 - Automated disease diagnosis.
 - Guidance for every plant species.
-- Complex scheduling or recurring automation.
+- Live weather-driven guidance or risk forecasting.
 - 7-day weather, alerts, IoT devices, marketplace, and social features.
 
 ## Documentation
 
-### Ownership and precedence
-
-Product scope is owned by [Project context](./docs/PROJECT_CONTEXT.md); interaction behavior by [Mobile UX design](./docs/MOBILE_UX_DESIGN.md); confirmed decisions by [Decision log](./docs/DECISIONS.md); and validated knowledge field contracts by `knowledge/_schemas/`. [Knowledge Base architecture](./docs/KNOWLEDGE_BASE_ARCHITECTURE.md) and [Grape Knowledge Base pilot](./knowledge/README.md) explain the authoring model and package scope, but must not override those contracts or infer runtime automation from review-stage content.
-
-When sources conflict, use accepted product decisions for behavior and schemas for data shape; then align the lower-precedence documentation.
+For documentation ownership, precedence, and reading order, see the [documentation map](./docs/README.md).
 
 - [Project context](./docs/PROJECT_CONTEXT.md)
 - [Mobile UX design](./docs/MOBILE_UX_DESIGN.md)
@@ -68,7 +64,7 @@ When sources conflict, use accepted product decisions for behavior and schemas f
 
 ## Status
 
-The Expo application foundation is bootstrapped with strict TypeScript, four approved Vietnamese navigation destinations, shared design primitives, TanStack Query providers, and automated quality gates. Product validation remains required before care-entry implementation.
+The Expo MVP supports local-first plant tracking, three care-entry flows, photo journal updates, stage guidance, schedule snapshots, local reminders, and reusable fertilizers. Grape Knowledge Base content remains review-stage until qualified review promotes it.
 
 ## Local development
 

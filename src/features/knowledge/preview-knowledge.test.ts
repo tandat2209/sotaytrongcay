@@ -4,6 +4,7 @@ import {
   getPreviewPlantKnowledge,
   getStagePlaybook,
   listInformationalGuidesForStage,
+  listThreatsForStageId,
 } from "./preview-knowledge";
 import * as previewKnowledge from "./preview-knowledge";
 
@@ -118,6 +119,14 @@ describe("preview knowledge", () => {
     it("returns an empty array for a stage with no plans", () => {
       expect(getCarePlansForStage("grape.stage.nonexistent")).toHaveLength(0);
     });
+  });
+
+  it("lists stage threat guidance without requiring a plant record", () => {
+    expect(
+      listThreatsForStageId("grape.stage.trunk-development").map(
+        (threat) => threat.id,
+      ),
+    ).toContain("pest.grape.scale-insects");
   });
 
   it("lists curated spraying targets by species without using stage eligibility", () => {

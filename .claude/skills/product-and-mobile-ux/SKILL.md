@@ -16,5 +16,6 @@ description: Apply product scope and mobile interaction rules for So Tay Trong C
 9. Keep shipped UI copy Vietnamese and resolve application-owned text through `src/shared/i18n`, including accessibility, alerts, validation, and notifications. Keep Knowledge Base content and user-entered data outside the UI catalog.
 10. Consider loading, empty, error, offline, and invalid-data behavior without inventing unsupported data or advice.
 11. Update `docs/PROJECT_CONTEXT.md` only when users, scope, or risks actually change; update `docs/MOBILE_UX_DESIGN.md` when confirmed interaction behavior changes.
+12. Apply the canonical compact action hierarchy in `docs/design/DESIGN.md`; do not restate or fork those visual rules here.
 
 If UX and visual-design documents conflict, do not select a behavior from aesthetic preference. Surface the conflict and resolve it against accepted decisions and product scope.

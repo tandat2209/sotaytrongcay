@@ -1,5 +1,5 @@
 import { Box, Earth, Info, Leaf, type LucideIcon } from "lucide-react-native";
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 import {
   CARE_ACTIVITY_VISUALS,
@@ -48,10 +48,18 @@ const activityOrder: Record<CarePlan["activityType"], number> = {
 
 export function StageCarePlanSection({
   carePlans,
+  emptyMessage,
+  renderSchedule,
 }: {
   carePlans: readonly CarePlan[];
+  emptyMessage?: ReactNode;
+  renderSchedule?: (plan: CarePlan) => ReactNode;
 }) {
-  if (carePlans.length === 0) return null;
+  if (carePlans.length === 0) {
+    return emptyMessage ? (
+      <View style={styles.section}>{emptyMessage}</View>
+    ) : null;
+  }
 
   return (
     <View style={styles.section}>
@@ -71,13 +79,20 @@ export function StageCarePlanSection({
             activityOrder[right.activityType],
         )
         .map((plan) => (
-          <CarePlanCard key={plan.id} plan={plan} />
+          <CarePlanCard
+            key={plan.id}
+            plan={plan}
+            schedule={renderSchedule?.(plan)}
+          />
         ))}
     </View>
   );
 }
 
-function CarePlanCard({ plan }: { plan: CarePlan }) {
+function CarePlanCard({
+  plan,
+  schedule,
+}: Readonly<{ plan: CarePlan; schedule?: ReactNode }>) {
   const presentation = activityPresentation[plan.activityType];
   const ActivityIcon = presentation.icon;
 
@@ -118,6 +133,8 @@ function CarePlanCard({ plan }: { plan: CarePlan }) {
           />
         </PlanDetail>
       ) : null}
+
+      {schedule}
 
       {plan.recommendedInputs?.length ? (
         <PlanDetail label={t("plants.guide.inputs")}>

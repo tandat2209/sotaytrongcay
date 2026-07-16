@@ -17,5 +17,6 @@ description: Design or implement mobile interfaces and mockups in this project. 
 10. Render Plant Detail’s “Nhật ký gần đây” as a compact, occurrence-time-ordered mix of Care Activities and Plant Updates, using the matching activity visual or first update photo/note icon and routing each type to its own detail screen.
 11. Place source-backed age metadata beside the species pill. If both current-stage and planted ages exist, show current-stage age first and switch every ten seconds with a short vertical slide/crossfade; use one static value, omit an empty pill, show both statically under reduced motion, keep one stable accessibility label, and allow the row to wrap.
 12. If `docs/design/DESIGN.md` and `docs/MOBILE_UX_DESIGN.md` disagree on order or behavior, stop and report the conflict rather than silently following the mockup.
+13. Apply the canonical compact action hierarchy in `docs/design/DESIGN.md`; do not restate or fork those visual rules here.
 
 Load `verification-and-handoff` before completion.

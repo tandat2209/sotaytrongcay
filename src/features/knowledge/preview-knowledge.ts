@@ -301,9 +301,26 @@ export function listThreatsForStage(input: {
   speciesId: string;
   stageId: string;
 }): readonly StageThreat[] {
+  return listStageThreats(
+    (target) =>
+      target.speciesIds.includes(input.speciesId) &&
+      target.stageIds.includes(input.stageId),
+  );
+}
+
+/**
+ * Returns curated threat guidance for an authored, globally stable stage ID.
+ * This supports browsing a stage playbook without selecting a plant first.
+ */
+export function listThreatsForStageId(stageId: string): readonly StageThreat[] {
+  return listStageThreats((target) => target.stageIds.includes(stageId));
+}
+
+function listStageThreats(
+  matches: (target: RawSprayTarget) => boolean,
+): readonly StageThreat[] {
   return [...(bundle.diseases ?? []), ...(bundle.pests ?? [])]
-    .filter((target) => target.speciesIds.includes(input.speciesId))
-    .filter((target) => target.stageIds.includes(input.stageId))
+    .filter(matches)
     .sort(
       (left, right) =>
         left.type.localeCompare(right.type) || left.id.localeCompare(right.id),

@@ -25,5 +25,10 @@ Sổ Tay Trồng Cây is a mobile-first MVP for Vietnamese home growers to track
 - Do not add placeholders, TODO comments, fake implementations, or unnecessary dependencies.
 - Treat accepted decisions as behavior authority and schemas as data-shape authority; report conflicts instead of guessing.
 - Run relevant verification and report exact results. Never claim an unrun check passed.
-- Update and align project skills (in `.agents/skills/`) and documentation (in `docs/`) to keep them synchronized with codebase changes.
+- Update the relevant project documentation when behavior, architecture, domain language, or Knowledge Base contracts change.
 - Maintain backlog items and future tasks under [TODO.md](./TODO.md).
+
+# Agent Reading
+
+- Start with [docs/README.md](./docs/README.md) to locate the authoritative product, UX, design, architecture, and decision records.
+- Treat `docs/MOBILE_UX_DESIGN.md` as the screen-behavior authority and `docs/design/DESIGN.md` as the visual-treatment authority. Do not duplicate or let one override the other.

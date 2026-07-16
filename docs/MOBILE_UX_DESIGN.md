@@ -376,9 +376,9 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Purpose:** Customize schedule snapshots without editing curated Care Plan knowledge or creating manual care tasks.
 
-**Navigation:** `Mở rộng` exposes “Thông báo”, “Kế hoạch chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
+**Navigation:** `Mở rộng` exposes “Thông báo”, “Chăm sóc theo giai đoạn”, and “Tùy chỉnh theo cây”.
 
-**Stage settings:** List every authored stage and its Care Plans. A stage snapshot belongs to one exact Care Plan. Ground and container each show their authored frequency and may set an independent interval; notification delivery and time are shared by both growing methods. Reset restores both authored frequencies.
+**Stage settings:** List every authored stage. Its detail is the shared Stage Playbook. Each tracked Care Plan keeps its read-only authored “Tần suất tham khảo” and adds a compact “Lịch của bạn” editor for its stage schedule snapshot: “Trồng đất · Mỗi [n] ngày” and “Trồng chậu · Mỗi [n] ngày”. A compact right-aligned save icon saves the complete draft; keyboard submit invokes the same save when available. Ground and container each show their authored frequency and may set an independent interval; notification delivery and time are shared by both growing methods. Reset restores both authored frequencies.
 
 **Plant settings:** Select a plant first. Active current-stage Care Plans show their effective source. Saving copies a complete effective schedule into a plant snapshot. “Dùng tất cả cài đặt theo giai đoạn” deletes that snapshot. Inactive retained snapshots appear under “Giai đoạn khác”.
 
@@ -396,7 +396,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 - “Quản lý phân bón”
 - “Thông báo”
-- “Kế hoạch chăm sóc theo giai đoạn”
+- “Chăm sóc theo giai đoạn”
 - “Tùy chỉnh theo cây”
 
 “Quản lý phân bón” lists reusable private fertilizers with their optional group icon and label plus newest saved use. It supports search, an accessible wrapping group filter with “Tất cả”, add, edit, and delete, and does not display curated recommendations. The saved-use line uses the same “Đã bón cho “{plant}”…” wording as Care Entry and never reflects an unsaved draft. Deleting a reusable fertilizer requires confirmation and leaves saved Fertilizer Applications unchanged. The same management screen is also reachable contextually from fertilizing Care Entry, which returns the selected fertilizer to the existing draft.
@@ -407,7 +407,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Error state:** Keep errors inside the affected row.
 
-**User actions:** Manage saved fertilizers, review notification permission, customize stage schedules, or customize one plant schedule.
+**User actions:** Manage saved fertilizers, review notification permission, browse read-only stage guidance, customize stage schedules, or customize one plant schedule.
 
 ## 8. Shared interaction patterns
 
