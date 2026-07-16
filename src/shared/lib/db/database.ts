@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 12;
+export const DATABASE_VERSION = 14;
 
 // Version 2 — initial schema (no location column).
 // Drops prototype tables and creates the current baseline.
@@ -262,6 +262,22 @@ CREATE INDEX idx_fertilizer_applications_activity
   ON fertilizer_applications(care_activity_id, position);
 `;
 
+const V13_REMOVE_NPK_RATIO_FIELDS = `
+ALTER TABLE user_fertilizers DROP COLUMN npk;
+ALTER TABLE fertilizer_applications DROP COLUMN npk_snapshot;
+`;
+
+const V14_LINK_SUGGESTED_FERTILIZERS = `
+ALTER TABLE user_fertilizers ADD COLUMN knowledge_id TEXT;
+CREATE UNIQUE INDEX idx_user_fertilizers_knowledge_id
+  ON user_fertilizers(knowledge_id)
+  WHERE knowledge_id IS NOT NULL;
+
+ALTER TABLE fertilizer_applications ADD COLUMN knowledge_id_snapshot TEXT;
+CREATE INDEX idx_fertilizer_applications_knowledge_time
+  ON fertilizer_applications(knowledge_id_snapshot, care_activity_id);
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   const migrations: string[] = [];
   if (currentVersion < 2) migrations.push(V2_INITIAL_MIGRATION);
@@ -277,6 +293,8 @@ export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion < 10) migrations.push(V10_ADD_WATERING_INTENSITY);
   if (currentVersion < 11) migrations.push(V11_ADD_USER_FERTILIZERS);
   if (currentVersion < 12) migrations.push(V12_ADD_FERTILIZER_APPLICATIONS);
+  if (currentVersion < 13) migrations.push(V13_REMOVE_NPK_RATIO_FIELDS);
+  if (currentVersion < 14) migrations.push(V14_LINK_SUGGESTED_FERTILIZERS);
   return migrations;
 }
 

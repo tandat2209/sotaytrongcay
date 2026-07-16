@@ -31,7 +31,7 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
-User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names or NPK values resemble curated content. The Knowledge Base may supply a reviewed prefill only through a versioned Care Plan contract; user catalog records remain separate and have no guidance status.
+User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Selecting a reviewed suggestion may copy its stable fertilizer ID into a private catalog record and later application snapshot for provenance and saved-usage lookup; this does not make user data curated knowledge. The Knowledge Base may supply a reviewed prefill only through a versioned Care Plan contract; user catalog records remain separate and have no guidance status.
 
 ## 4. Domain relationship map
 
@@ -177,7 +177,7 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 
 **Relationships:** Composes Nutrients; referenced by stages, fertilizing recommendations, troubleshooting, and weather rules.
 
-It is neither a User Fertilizer nor the record of what a grower used. A saved fertilizing Care Activity owns its fertilizer-application snapshots; no user catalog record or application is linked to a profile by name or NPK text alone.
+It is neither a User Fertilizer nor the record of what a grower used. A saved fertilizing Care Activity owns its fertilizer-application snapshots; no user catalog record or application is linked to a profile by name alone.
 
 **Example:** `fertilizer.nitrogen-forward-balanced` for vegetative growth, with over-fertilization cautions.
 

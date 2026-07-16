@@ -5,6 +5,10 @@ import {
   FertilizerManagementScreen,
   listUserFertilizers,
 } from "@/features/fertilizers";
+import {
+  listUserFertilizerUsages,
+  selectLatestUserFertilizerUsages,
+} from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 
@@ -12,6 +16,10 @@ export default function FertilizerManagementRoute() {
   const query = useQuery({
     queryKey: ["user-fertilizers"],
     queryFn: listUserFertilizers,
+  });
+  const usagesQuery = useQuery({
+    queryKey: ["user-fertilizer-usages"],
+    queryFn: listUserFertilizerUsages,
   });
   if (query.isPending)
     return <Text>{t("common.state.loadingDeviceData")}</Text>;
@@ -36,6 +44,9 @@ export default function FertilizerManagementRoute() {
           params: { id: fertilizer.id },
         })
       }
+      onRetryUsage={() => void usagesQuery.refetch()}
+      usageLoadFailed={usagesQuery.isError}
+      usages={selectLatestUserFertilizerUsages(usagesQuery.data ?? [])}
     />
   );
 }

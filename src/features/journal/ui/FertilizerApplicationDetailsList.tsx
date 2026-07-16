@@ -19,11 +19,6 @@ export function FertilizerApplicationDetailsList({
           <Typography variant="bodyLarge">
             {application.nameSnapshot}
           </Typography>
-          {application.npkSnapshot ? (
-            <Typography color="textSecondary" variant="bodyMedium">
-              {application.npkSnapshot}
-            </Typography>
-          ) : null}
           {application.applicationMethod ? (
             <Detail
               label={t("journal.fertilizing.method")}

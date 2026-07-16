@@ -8,7 +8,7 @@ const fertilizer = {
   mutationId: "f564cc87-e37b-46b2-a22c-071fa186e42e",
   name: "Phân trùn quế",
   group: "organic",
-  npk: null,
+  knowledgeId: null,
   createdAt: "2026-07-16T08:30:00.000Z",
   updatedAt: "2026-07-16T08:30:00.000Z",
 } as const;
@@ -23,6 +23,15 @@ describe("UserFertilizerSchema", () => {
       NewUserFertilizerSchema.parse({ ...fertilizer, name: "  NPK 13-13-21  " })
         .name,
     ).toBe("NPK 13-13-21");
+  });
+
+  it("preserves the stable ID of a knowledge-backed suggestion", () => {
+    expect(
+      UserFertilizerSchema.parse({
+        ...fertilizer,
+        knowledgeId: "fertilizer.compost",
+      }).knowledgeId,
+    ).toBe("fertilizer.compost");
   });
 
   it("rejects an empty label", () => {

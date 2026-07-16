@@ -8,6 +8,36 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Show latest saved fertilizer use in catalog management
+
+**Status:** Accepted
+
+**Decision:** Each “Quản lý phân bón” card shows its optional fertilizer group with an icon and text label, plus its newest saved Fertilizer Application. The catalog provides a wrapping group filter with an explicit “Tất cả” option. Latest use uses the same “Đã bón cho “{plant}”…” label as reviewed suggestion chips. The catalog identifies manual applications by their User Fertilizer ID and reviewed suggestions by their stable Knowledge Base ID when necessary.
+
+**Rationale:** The catalog is the grower’s reusable record of fertilizers, so its list should provide enough saved context to distinguish an unused product from one recently applied without opening the Journal.
+
+**Consequences:** Catalog persistence and an unsaved Care Entry draft never count as use history. The management projection reads local Fertilizer Applications and can continue showing history after a catalog record has been edited, while deletion still removes that catalog card without rewriting history.
+
+## 2026-07-16 — Remove user-entered NPK ratios and reuse one fertilizer form
+
+**Status:** Accepted
+
+**Decision:** A User Fertilizer stores a required name and optional fertilizer group, but no separate NPK-ratio field. Fertilizer Applications snapshot the name and optional group without an NPK-ratio field. Contextual creation from fertilizing Care Entry and standalone add/edit from Fertilizer Management compose the same fertilizer form and validation behavior. This supersedes the NPK portions of the 2026-07-16 multiple-fertilizer-applications decision while retaining `npk` as a valid fertilizer group.
+
+**Rationale:** A separate free-text NPK ratio adds catalog-entry friction without enough validated MVP value. Both entry paths operate on the same private catalog, so different fields and validation create avoidable inconsistency.
+
+**Consequences:** The NPK ratio columns are removed through a forward SQLite migration, existing ratio values are discarded, and the application no longer captures or displays them. Curated Knowledge Base fertilizer names may still contain formulas, and the `npk` group remains available.
+
+## 2026-07-16 — Save selected fertilizer suggestions to the private catalog
+
+**Status:** Accepted
+
+**Decision:** Selecting a reviewed fertilizer suggestion in Care Entry creates or reuses one User Fertilizer linked by the suggestion's stable Knowledge Base ID, then adds that catalog record to the in-memory fertilizing draft. Unselecting the suggestion removes it only from the draft and does not delete the catalog record. Suggestion chips show the newest saved Fertilizer Application for that stable ID as “Đã bón cho “{plant}” {days} ngày trước” or the same-day equivalent. This supersedes the no-user-record side effect in the 2026-07-16 inline-suggestion decision; the parent “Lưu hoạt động” action remains the only care-history write boundary.
+
+**Rationale:** Suggestions should become reusable in “Quản lý phân bón” without repeated manual entry, while saved usage context helps growers distinguish a familiar input from one they have not recorded using. Stable IDs avoid treating matching names as identity.
+
+**Consequences:** User Fertilizers gain an optional unique Knowledge Base ID and Fertilizer Applications snapshot that ID. Catalog persistence occurs on first suggestion selection even if the Care Entry is later dismissed, but “Đã bón…” reflects only saved activities. Deleting a catalog record does not remove historical usage provenance.
+
 ## 2026-07-16 — Use “Mở rộng” as the fourth tab and expose Fertilizer Management
 
 **Status:** Accepted

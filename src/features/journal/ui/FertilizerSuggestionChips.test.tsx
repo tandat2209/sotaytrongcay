@@ -23,8 +23,10 @@ describe("FertilizerSuggestionChips", () => {
         onAdd={onAdd}
         onToggle={onToggle}
         onToggleCustom={jest.fn()}
-        selectedNames={["Kali sunfat"]}
+        savingSuggestionId={null}
+        selectedKnowledgeIds={["fertilizer.potassium-sulfate"]}
         suggestions={suggestions}
+        usages={{}}
       />,
     );
 
@@ -46,8 +48,10 @@ describe("FertilizerSuggestionChips", () => {
         onAdd={jest.fn()}
         onToggle={jest.fn()}
         onToggleCustom={jest.fn()}
-        selectedNames={[]}
+        savingSuggestionId={null}
+        selectedKnowledgeIds={[]}
         suggestions={[]}
+        usages={{}}
       />,
     );
 

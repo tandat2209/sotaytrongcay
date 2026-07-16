@@ -27,7 +27,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Prototype and review fast watering and fertilizing entry flows.
 - [ ] Validate the multi-fertilizer draft and nested add/edit flow with home grape growers.
 - [ ] Validate whether growers understand both “Thêm loại phân” in Care Entry and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
-- [ ] Validate whether inline reviewed fertilizer chips reduce fertilizing-entry time without being mistaken for automatic prescriptions.
+- [ ] Validate whether inline reviewed fertilizer chips, automatic catalog reuse, and saved last-use context reduce fertilizing-entry time without being mistaken for automatic prescriptions.
 - [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.
 - [x] Add “Thêm nhật ký” with photos, notes, and optional stage change to Plant Detail.

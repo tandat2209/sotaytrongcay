@@ -1,20 +1,36 @@
-import { Search } from "lucide-react-native";
+import { ListFilter, Search } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
-import type { UserFertilizer } from "../models/user-fertilizer";
+import type {
+  FertilizerGroup,
+  UserFertilizer,
+} from "../models/user-fertilizer";
+import { filterUserFertilizers } from "../models/filter-user-fertilizers";
+import {
+  FertilizerUsageLabel,
+  type UserFertilizerUsage,
+} from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
+import { SelectableChip } from "@/shared/ui/SelectableChip";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
+import {
+  FERTILIZER_GROUP_ICONS,
+  FERTILIZER_GROUPS,
+} from "./fertilizer-group-visual";
 
 type Props = Readonly<{
   fertilizers: readonly UserFertilizer[];
   onAdd: () => void;
   onBack: () => void;
   onOpen: (fertilizer: UserFertilizer) => void;
+  onRetryUsage: () => void;
+  usageLoadFailed: boolean;
+  usages: Readonly<Record<string, UserFertilizerUsage>>;
 }>;
 
 export function FertilizerManagementScreen({
@@ -22,16 +38,16 @@ export function FertilizerManagementScreen({
   onAdd,
   onBack,
   onOpen,
+  onRetryUsage,
+  usageLoadFailed,
+  usages,
 }: Props) {
   const [search, setSearch] = useState("");
-  const filtered = useMemo(() => {
-    const query = search.trim().toLocaleLowerCase("vi-VN");
-    return query
-      ? fertilizers.filter((item) =>
-          item.name.toLocaleLowerCase("vi-VN").includes(query),
-        )
-      : fertilizers;
-  }, [fertilizers, search]);
+  const [group, setGroup] = useState<FertilizerGroup | null>(null);
+  const filtered = useMemo(
+    () => filterUserFertilizers(fertilizers, search, group),
+    [fertilizers, group, search],
+  );
   return (
     <Screen title="">
       <TopBar onBack={onBack} title={t("fertilizers.management.title")} />
@@ -46,10 +62,44 @@ export function FertilizerManagementScreen({
           value={search}
         />
       </View>
+      <View accessibilityRole="radiogroup" style={styles.filters}>
+        <SelectableChip
+          accessibilityLabel={t("fertilizers.management.filterAll")}
+          icon={ListFilter}
+          label={t("fertilizers.management.filterAll")}
+          onPress={() => setGroup(null)}
+          role="radio"
+          selected={group === null}
+        />
+        {FERTILIZER_GROUPS.map((item) => (
+          <SelectableChip
+            accessibilityLabel={t("fertilizers.management.filterGroup", {
+              group: t(`fertilizers.group.${item}`),
+            })}
+            icon={FERTILIZER_GROUP_ICONS[item]}
+            key={item}
+            label={t(`fertilizers.group.${item}`)}
+            onPress={() => setGroup(item)}
+            role="radio"
+            selected={group === item}
+          />
+        ))}
+      </View>
+      {usageLoadFailed ? (
+        <View style={styles.usageError}>
+          <Typography color="textSecondary" variant="bodyMedium">
+            {t("fertilizers.error.usageLoad")}
+          </Typography>
+          <PrimaryButton
+            label={t("common.actions.retry")}
+            onPress={onRetryUsage}
+          />
+        </View>
+      ) : null}
       {filtered.length === 0 ? (
         <View style={styles.empty}>
           <Typography variant="headlineSmall">
-            {search.trim()
+            {search.trim() || group
               ? t("fertilizers.management.noMatch")
               : t("fertilizers.management.empty")}
           </Typography>
@@ -59,25 +109,35 @@ export function FertilizerManagementScreen({
         </View>
       ) : (
         <View style={styles.list}>
-          {filtered.map((fertilizer) => (
-            <Pressable
-              accessibilityLabel={t("fertilizers.management.open", {
-                name: fertilizer.name,
-              })}
-              accessibilityRole="button"
-              key={fertilizer.id}
-              onPress={() => onOpen(fertilizer)}
-            >
-              <SurfaceCard style={styles.card}>
-                <Typography variant="bodyLarge">{fertilizer.name}</Typography>
-                {fertilizer.npk ? (
-                  <Typography color="textSecondary" variant="bodyMedium">
-                    {fertilizer.npk}
-                  </Typography>
-                ) : null}
-              </SurfaceCard>
-            </Pressable>
-          ))}
+          {filtered.map((fertilizer) => {
+            const usage = usages[fertilizer.id];
+            const GroupIcon = fertilizer.group
+              ? FERTILIZER_GROUP_ICONS[fertilizer.group]
+              : null;
+            return (
+              <Pressable
+                accessibilityLabel={t("fertilizers.management.open", {
+                  name: fertilizer.name,
+                })}
+                accessibilityRole="button"
+                key={fertilizer.id}
+                onPress={() => onOpen(fertilizer)}
+              >
+                <SurfaceCard style={styles.card}>
+                  <Typography variant="bodyLarge">{fertilizer.name}</Typography>
+                  {fertilizer.group && GroupIcon ? (
+                    <View style={styles.group}>
+                      <GroupIcon color={colors.textSecondary} size={16} />
+                      <Typography color="textSecondary" variant="label">
+                        {t(`fertilizers.group.${fertilizer.group}`)}
+                      </Typography>
+                    </View>
+                  ) : null}
+                  {usage ? <FertilizerUsageLabel usage={usage} /> : null}
+                </SurfaceCard>
+              </Pressable>
+            );
+          })}
         </View>
       )}
       <PrimaryButton label={t("fertilizers.management.add")} onPress={onAdd} />
@@ -88,6 +148,8 @@ export function FertilizerManagementScreen({
 const styles = StyleSheet.create({
   card: { gap: spacing.xs, minHeight: 64 },
   empty: { gap: spacing.sm, paddingVertical: spacing.xl },
+  filters: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
+  group: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
   list: { gap: spacing.sm },
   search: {
     alignItems: "center",
@@ -101,4 +163,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
   },
   searchInput: { color: colors.text, flex: 1, fontSize: 16 },
+  usageError: { gap: spacing.sm },
 });

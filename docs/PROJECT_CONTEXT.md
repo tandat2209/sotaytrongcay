@@ -65,7 +65,7 @@ Users can:
 - Contextual care entry for watering, fertilizing, and spraying.
 - A reusable private fertilizer catalog reachable from fertilizing Care Entry and “Mở rộng” → “Quản lý phân bón”.
 - “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
-- Optional structured details for products, NPK, amounts, dosage, methods, notes, and photos.
+- Optional structured details for products, fertilizer groups, amounts, dosage, methods, notes, and photos.
 - Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
 - Conditional planted age and current-stage age from their separate persisted dates; unknown dates remain absent.
 - Stage tips, things to avoid, warning signs, and upcoming milestone inside Plant Detail.
@@ -95,7 +95,7 @@ Users can:
 - A **Care Guide** contains generic informational techniques such as training or pruning and does not create tracked care recommendations.
 - Review-stage content remains informational and creates no history.
 - A **Care Activity** records performed watering, fertilizing, or spraying. One fertilizing activity may contain zero or more user-entered **Fertilizer Applications** so a mixed application is still saved as one occurrence.
-- A **User Fertilizer** is a reusable private catalog record. Selecting one copies its identity into a Fertilizer Application; managing the catalog does not create history, and later catalog changes do not rewrite saved applications.
+- A **User Fertilizer** is a reusable private catalog record. Selecting a reviewed fertilizer suggestion creates or reuses a catalog record linked by stable Knowledge Base ID; selecting any catalog item copies its identity into a Fertilizer Application. Managing the catalog does not create history, and later catalog changes do not rewrite saved applications.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
 - Saving either record adds it to the plant Timeline and global Journal.
 - A care record may store its origin as Today, reminder, or manual entry.

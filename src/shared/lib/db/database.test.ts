@@ -4,7 +4,7 @@ describe("database migrations", () => {
   it("creates plants and care activities with stable watering units", () => {
     const sql = getMigrationStatements(0).join("\n");
 
-    expect(DATABASE_VERSION).toBe(12);
+    expect(DATABASE_VERSION).toBe(14);
     expect(sql).toContain("CREATE TABLE plants");
     expect(sql).toContain("name TEXT NOT NULL");
     expect(sql).toContain("CREATE TABLE IF NOT EXISTS care_activities");
@@ -39,7 +39,7 @@ describe("database migrations", () => {
   it("replaces V7 reminder preferences with schedule snapshots in version 8", () => {
     const [sql] = getMigrationStatements(7);
 
-    expect(DATABASE_VERSION).toBe(12);
+    expect(DATABASE_VERSION).toBe(14);
     expect(sql).toContain(
       "DROP TABLE IF EXISTS care_plan_reminder_preferences",
     );
@@ -78,7 +78,7 @@ describe("database migrations", () => {
   it("adds the private user fertilizer catalog in version 11", () => {
     const [sql] = getMigrationStatements(10);
 
-    expect(DATABASE_VERSION).toBe(12);
+    expect(DATABASE_VERSION).toBe(14);
     expect(sql).toContain("CREATE TABLE user_fertilizers");
     expect(sql).toContain("mutation_id TEXT NOT NULL UNIQUE");
     expect(sql).toContain("name TEXT NOT NULL");
@@ -91,7 +91,7 @@ describe("database migrations", () => {
   it("adds ordered fertilizer application snapshots in version 12", () => {
     const [sql] = getMigrationStatements(11);
 
-    expect(DATABASE_VERSION).toBe(12);
+    expect(DATABASE_VERSION).toBe(14);
     expect(sql).toContain("CREATE TABLE fertilizer_applications");
     expect(sql).toContain("user_fertilizer_id TEXT");
     expect(sql).toContain("name_snapshot TEXT NOT NULL");
@@ -101,6 +101,31 @@ describe("database migrations", () => {
     );
     expect(sql).toContain(
       "FOREIGN KEY (care_activity_id) REFERENCES care_activities(id) ON DELETE CASCADE",
+    );
+  });
+
+  it("removes NPK ratio fields in version 13", () => {
+    const [sql] = getMigrationStatements(12);
+
+    expect(DATABASE_VERSION).toBe(14);
+    expect(sql).toContain("ALTER TABLE user_fertilizers DROP COLUMN npk");
+    expect(sql).toContain(
+      "ALTER TABLE fertilizer_applications DROP COLUMN npk_snapshot",
+    );
+  });
+
+  it("links suggested fertilizers to catalog records and history in version 14", () => {
+    const [sql] = getMigrationStatements(13);
+
+    expect(DATABASE_VERSION).toBe(14);
+    expect(sql).toContain(
+      "ALTER TABLE user_fertilizers ADD COLUMN knowledge_id TEXT",
+    );
+    expect(sql).toContain(
+      "CREATE UNIQUE INDEX idx_user_fertilizers_knowledge_id",
+    );
+    expect(sql).toContain(
+      "ALTER TABLE fertilizer_applications ADD COLUMN knowledge_id_snapshot TEXT",
     );
   });
 

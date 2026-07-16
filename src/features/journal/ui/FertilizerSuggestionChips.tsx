@@ -1,16 +1,22 @@
 import { StyleSheet, View } from "react-native";
-import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
+import {
+  type FertilizerSuggestion,
+  type FertilizerSuggestionUsage,
+} from "../models/suggested-fertilizer-application";
 import { t } from "@/shared/i18n";
 import { SelectableChip } from "@/shared/ui/SelectableChip";
 import { spacing } from "@/shared/ui/theme";
+import { FertilizerUsageLabel } from "./FertilizerUsageLabel";
 
 type Props = Readonly<{
   customNames: readonly string[];
   onAdd: () => void;
   onToggle: (suggestion: FertilizerSuggestion) => void;
   onToggleCustom: (name: string) => void;
-  selectedNames: readonly string[];
+  savingSuggestionId: string | null;
+  selectedKnowledgeIds: readonly string[];
   suggestions: readonly FertilizerSuggestion[];
+  usages: Readonly<Record<string, FertilizerSuggestionUsage>>;
 }>;
 
 export function FertilizerSuggestionChips({
@@ -18,24 +24,37 @@ export function FertilizerSuggestionChips({
   onAdd,
   onToggle,
   onToggleCustom,
-  selectedNames,
+  savingSuggestionId,
+  selectedKnowledgeIds,
   suggestions,
+  usages,
 }: Props) {
   return (
     <View style={styles.wrap}>
       {suggestions.map((suggestion) => {
-        const selected = selectedNames.includes(suggestion.name);
+        const selected = selectedKnowledgeIds.includes(suggestion.id);
+        const saving = savingSuggestionId === suggestion.id;
+        const usage = usages[suggestion.id];
         return (
-          <SelectableChip
-            accessibilityLabel={`${suggestion.name}, ${selected ? "đã chọn" : "chưa chọn"}`}
-            key={suggestion.id}
-            label={suggestion.name}
-            onPress={() => onToggle(suggestion)}
-            selected={selected}
-            selectedPrefix="✓ "
-            selectedTone="solid"
-            unselectedPrefix="+ "
-          />
+          <View key={suggestion.id} style={styles.suggestion}>
+            <SelectableChip
+              accessibilityLabel={t(
+                saving
+                  ? "journal.fertilizing.suggestion.saving"
+                  : selected
+                    ? "journal.fertilizing.suggestion.selected"
+                    : "journal.fertilizing.suggestion.unselected",
+                { name: suggestion.name },
+              )}
+              label={suggestion.name}
+              onPress={() => onToggle(suggestion)}
+              selected={selected}
+              selectedPrefix="✓ "
+              selectedTone="solid"
+              unselectedPrefix={saving ? "… " : "+ "}
+            />
+            {usage ? <FertilizerUsageLabel usage={usage} /> : null}
+          </View>
         );
       })}
       {customNames.map((name) => (
@@ -62,6 +81,7 @@ export function FertilizerSuggestionChips({
 }
 
 const styles = StyleSheet.create({
+  suggestion: { alignItems: "flex-start", gap: spacing.xs },
   wrap: {
     flexDirection: "row",
     flexWrap: "wrap",

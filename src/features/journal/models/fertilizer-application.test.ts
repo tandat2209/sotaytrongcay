@@ -1,5 +1,10 @@
 import { FertilizerApplicationSchema } from "./fertilizer-application";
-import { toggleSuggestedFertilizerApplication } from "./suggested-fertilizer-application";
+import {
+  getFertilizerUsageElapsedDays,
+  selectLatestUserFertilizerUsages,
+  selectLatestFertilizerSuggestionUsages,
+  toggleSuggestedFertilizerApplication,
+} from "./suggested-fertilizer-application";
 
 const application = {
   id: "bb88afb9-82cc-4d55-9635-fd645f7f51be",
@@ -8,7 +13,7 @@ const application = {
   position: 0,
   nameSnapshot: "Phân trùn quế",
   groupSnapshot: "organic",
-  npkSnapshot: null,
+  knowledgeIdSnapshot: null,
   amountValue: 2,
   amountUnit: "handful",
   applicationMethod: "topdress",
@@ -49,6 +54,7 @@ describe("FertilizerApplicationSchema", () => {
 });
 
 describe("toggleSuggestedFertilizerApplication", () => {
+  const userFertilizerId = "ba88afb9-82cc-4d55-9635-fd645f7f51be";
   const suggestion = {
     id: "fertilizer.potassium-sulfate",
     name: "Kali sunfat",
@@ -56,12 +62,14 @@ describe("toggleSuggestedFertilizerApplication", () => {
   };
 
   it("adds a knowledge suggestion to the unsaved application draft", () => {
-    expect(toggleSuggestedFertilizerApplication([], suggestion)).toEqual([
+    expect(
+      toggleSuggestedFertilizerApplication([], suggestion, userFertilizerId),
+    ).toEqual([
       {
-        userFertilizerId: null,
+        userFertilizerId,
         nameSnapshot: "Kali sunfat",
         groupSnapshot: "single",
-        npkSnapshot: null,
+        knowledgeIdSnapshot: suggestion.id,
         amountValue: null,
         amountUnit: null,
         applicationMethod: null,
@@ -80,10 +88,67 @@ describe("toggleSuggestedFertilizerApplication", () => {
             userFertilizerId: null,
             nameSnapshot: "Kali sunfat",
             groupSnapshot: "single",
+            knowledgeIdSnapshot: suggestion.id,
           },
         ],
         suggestion,
+        userFertilizerId,
       ),
     ).toEqual([application]);
+  });
+});
+
+describe("selectLatestFertilizerSuggestionUsages", () => {
+  it("keeps the newest saved use for each stable knowledge ID", () => {
+    const usages = selectLatestFertilizerSuggestionUsages([
+      {
+        knowledgeId: "fertilizer.compost",
+        occurredAt: "2026-07-12T08:00:00.000Z",
+        plantName: "Cây Nho Cũ",
+      },
+      {
+        knowledgeId: "fertilizer.compost",
+        occurredAt: "2026-07-14T08:00:00.000Z",
+        plantName: "Cây Nho",
+      },
+    ]);
+
+    expect(usages["fertilizer.compost"]).toEqual({
+      knowledgeId: "fertilizer.compost",
+      occurredAt: "2026-07-14T08:00:00.000Z",
+      plantName: "Cây Nho",
+    });
+  });
+
+  it("reports elapsed whole days for the usage label", () => {
+    expect(
+      getFertilizerUsageElapsedDays(
+        "2026-07-14T08:00:00.000Z",
+        new Date("2026-07-16T10:00:00.000Z"),
+      ),
+    ).toBe(2);
+  });
+});
+
+describe("selectLatestUserFertilizerUsages", () => {
+  it("keeps the newest saved use for each private fertilizer", () => {
+    const usages = selectLatestUserFertilizerUsages([
+      {
+        fertilizerId: "5ad47724-12dc-4d89-83da-54c0ef1cb770",
+        occurredAt: "2026-07-12T08:00:00.000Z",
+        plantName: "Cây Nho Cũ",
+      },
+      {
+        fertilizerId: "5ad47724-12dc-4d89-83da-54c0ef1cb770",
+        occurredAt: "2026-07-14T08:00:00.000Z",
+        plantName: "Cây Nho",
+      },
+    ]);
+
+    expect(usages["5ad47724-12dc-4d89-83da-54c0ef1cb770"]).toEqual({
+      fertilizerId: "5ad47724-12dc-4d89-83da-54c0ef1cb770",
+      occurredAt: "2026-07-14T08:00:00.000Z",
+      plantName: "Cây Nho",
+    });
   });
 });

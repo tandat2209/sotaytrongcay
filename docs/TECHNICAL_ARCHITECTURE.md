@@ -225,7 +225,7 @@ Knowledge Base data includes plant species, valid growth stages, diseases, pests
 
 User records reference stable knowledge IDs such as `speciesId`, `growthStageId`, or optional catalog IDs. A label change in knowledge must not rewrite journal history.
 
-A User Fertilizer is a private reusable catalog record with a stable ID, required user label, optional group and NPK metadata, timestamps, and sync metadata. Fertilizer Management owns create, edit, archive/delete, search, and selection. These operations never create Care Activities.
+A User Fertilizer is a private reusable catalog record with a stable ID, required user label, optional group, optional unique Knowledge Base fertilizer ID, timestamps, and sync metadata. Fertilizer Management owns create, edit, archive/delete, search, and selection. Selecting a reviewed fertilizer suggestion creates or reuses the linked catalog record without creating a Care Activity. Contextual creation and standalone management compose the same fertilizer form and validation behavior.
 
 Stage playbooks are review-stage guidance contracts, not user data. Each playbook defines concise stage context: objective, entry and exit observations, estimated duration, knowledge topics, and sources. They do not define reminders, tasks, automatic transitions, or executable agronomic rules.
 
@@ -249,15 +249,15 @@ If the stage is unchanged, the save creates no redundant stage-history row. Retr
 
 Care suggestions are derived read models, not stored task instances. A suggestion contains its knowledge definition ID and version, plant, proposed activity, reason, priority, optional weather adjustment, and validated Care Entry prefill. A Care Plan schedule is separate mutable user data: each stage snapshot overlays one exact Care Plan with separate ground/container frequency fields and one shared notification policy; plant snapshots copy a complete effective schedule. Resolution follows plant snapshot → matching stage frequency field plus shared stage notifications → authored Care Plan frequency.
 
-Opening, dismissing, or ignoring a suggestion creates no user record. Saving its Care Entry creates one care record and outbox item in a local transaction.
+Opening, dismissing, or ignoring a suggestion creates no user record. Selecting a reviewed fertilizer suggestion may create its reusable User Fertilizer immediately, while saving the parent Care Entry remains the only operation that creates care history and its outbox item.
 
 The care record may store `origin = today`, `reminder`, or `manual`, plus an optional recommendation ID and version for explanation and analytics.
 
 The save command uses a client-generated mutation ID so retries cannot duplicate history.
 
-Each fertilizer-application record belongs to exactly one fertilizing Care Activity and stores a stable ID, display order, optional User Fertilizer ID, and an immutable display snapshot containing the required name plus optional group and NPK ratio. It may also store an optional amount-and-unit pair, application method, and item note. The parent Care Activity owns occurrence time, origin, general notes, photos, and synchronization metadata. Saving the parent atomically creates the activity and its current application set under one mutation ID; nested add, edit, remove, back, and “Xong” actions only mutate form state. Editing or deleting a User Fertilizer never mutates an existing application snapshot.
+Each fertilizer-application record belongs to exactly one fertilizing Care Activity and stores a stable ID, display order, optional User Fertilizer ID, and an immutable display snapshot containing the required name, optional group, and optional Knowledge Base fertilizer ID. It may also store an optional amount-and-unit pair, application method, and item note. The parent Care Activity owns occurrence time, origin, general notes, photos, and synchronization metadata. Saving the parent atomically creates the activity and its current application set under one mutation ID; nested add, edit, remove, back, and “Xong” actions only mutate form state. Editing or deleting a User Fertilizer never mutates an existing application snapshot. Suggestion usage projections join saved applications to activities and plants by the snapshotted Knowledge Base ID and use the newest occurrence time.
 
-User-entered fertilizer applications are journal history, not Knowledge Base Fertilizer Profiles. A future optional profile ID may preserve provenance when a reviewed catalog item is deliberately selected, but names or NPK text must never be auto-linked by string matching.
+User-entered fertilizer applications are journal history, not Knowledge Base Fertilizer Profiles. A future optional profile ID may preserve provenance when a reviewed catalog item is deliberately selected, but names must never be auto-linked by string matching.
 
 Spraying detail stores product name, purpose, dosage with unit, and notes.
 

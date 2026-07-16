@@ -11,7 +11,7 @@ export type UserFertilizerRow = Readonly<{
   mutation_id: string;
   name: string;
   fertilizer_group: string | null;
-  npk: string | null;
+  knowledge_id: string | null;
   created_at: string;
   updated_at: string;
 }>;
@@ -24,7 +24,7 @@ export function userFertilizerToParams(
     fertilizer.mutationId,
     fertilizer.name,
     fertilizer.group,
-    fertilizer.npk,
+    fertilizer.knowledgeId,
     fertilizer.createdAt,
     fertilizer.updatedAt,
   ];
@@ -36,7 +36,7 @@ export function userFertilizerFromRow(row: UserFertilizerRow): UserFertilizer {
     mutationId: row.mutation_id,
     name: row.name,
     group: row.fertilizer_group,
-    npk: row.npk,
+    knowledgeId: row.knowledge_id,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   });
@@ -61,6 +61,17 @@ export async function getUserFertilizer(
   return row ? userFertilizerFromRow(row) : null;
 }
 
+export async function getUserFertilizerByKnowledgeId(
+  knowledgeId: string,
+): Promise<UserFertilizer | null> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<UserFertilizerRow>(
+    "SELECT * FROM user_fertilizers WHERE knowledge_id = ?",
+    [knowledgeId],
+  );
+  return row ? userFertilizerFromRow(row) : null;
+}
+
 export async function saveUserFertilizer(
   input: NewUserFertilizer,
 ): Promise<void> {
@@ -68,13 +79,13 @@ export async function saveUserFertilizer(
   const db = await getDb();
   await db.runAsync(
     `INSERT INTO user_fertilizers
-      (id, mutation_id, name, fertilizer_group, npk, created_at, updated_at)
+      (id, mutation_id, name, fertilizer_group, knowledge_id, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(id) DO UPDATE SET
        mutation_id = excluded.mutation_id,
        name = excluded.name,
        fertilizer_group = excluded.fertilizer_group,
-       npk = excluded.npk,
+       knowledge_id = excluded.knowledge_id,
        updated_at = excluded.updated_at`,
     userFertilizerToParams(fertilizer),
   );

@@ -13,7 +13,7 @@ const UserFertilizerFieldsSchema = z.object({
   mutationId: z.string().uuid(),
   name: z.string().trim().min(1),
   group: FertilizerGroupSchema.nullable(),
-  npk: z.string().trim().min(1).nullable(),
+  knowledgeId: z.string().trim().min(1).nullable(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });

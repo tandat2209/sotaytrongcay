@@ -8,7 +8,7 @@ const fertilizer = {
   mutationId: "f564cc87-e37b-46b2-a22c-071fa186e42e",
   name: "Phân trùn quế",
   group: "organic",
-  npk: null,
+  knowledgeId: null,
   createdAt: "2026-07-16T08:30:00.000Z",
   updatedAt: "2026-07-16T08:30:00.000Z",
 } as const;
@@ -33,7 +33,7 @@ describe("user fertilizer repository mapping", () => {
         mutation_id: fertilizer.mutationId,
         name: fertilizer.name,
         fertilizer_group: "organic",
-        npk: null,
+        knowledge_id: null,
         created_at: fertilizer.createdAt,
         updated_at: fertilizer.updatedAt,
       }),

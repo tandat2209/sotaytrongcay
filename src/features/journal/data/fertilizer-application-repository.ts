@@ -4,6 +4,10 @@ import {
   type FertilizerApplication,
   FertilizerApplicationSchema,
 } from "../models/fertilizer-application";
+import type {
+  FertilizerSuggestionUsage,
+  UserFertilizerUsage,
+} from "../models/suggested-fertilizer-application";
 
 export type FertilizerApplicationRow = Readonly<{
   id: string;
@@ -12,7 +16,7 @@ export type FertilizerApplicationRow = Readonly<{
   position: number;
   name_snapshot: string;
   group_snapshot: string | null;
-  npk_snapshot: string | null;
+  knowledge_id_snapshot: string | null;
   amount_value: number | null;
   amount_unit: string | null;
   application_method: string | null;
@@ -29,7 +33,7 @@ export function fertilizerApplicationToParams(
     application.position,
     application.nameSnapshot,
     application.groupSnapshot,
-    application.npkSnapshot,
+    application.knowledgeIdSnapshot,
     application.amountValue,
     application.amountUnit,
     application.applicationMethod,
@@ -47,7 +51,7 @@ export function fertilizerApplicationFromRow(
     position: row.position,
     nameSnapshot: row.name_snapshot,
     groupSnapshot: row.group_snapshot,
-    npkSnapshot: row.npk_snapshot,
+    knowledgeIdSnapshot: row.knowledge_id_snapshot,
     amountValue: row.amount_value,
     amountUnit: row.amount_unit,
     applicationMethod: row.application_method,
@@ -78,9 +82,70 @@ export async function insertFertilizerApplication(
   await db.runAsync(
     `INSERT OR IGNORE INTO fertilizer_applications
       (id, care_activity_id, user_fertilizer_id, position, name_snapshot,
-       group_snapshot, npk_snapshot, amount_value, amount_unit,
+       group_snapshot, knowledge_id_snapshot, amount_value, amount_unit,
        application_method, notes)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     fertilizerApplicationToParams(application),
   );
+}
+
+export type FertilizerSuggestionUsageRow = Readonly<{
+  knowledge_id: string;
+  occurred_at: string;
+  plant_name: string;
+}>;
+
+export async function listFertilizerSuggestionUsages(): Promise<
+  FertilizerSuggestionUsage[]
+> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<FertilizerSuggestionUsageRow>(
+    `SELECT applications.knowledge_id_snapshot AS knowledge_id,
+            activities.occurred_at,
+            plants.name AS plant_name
+       FROM fertilizer_applications AS applications
+       JOIN care_activities AS activities
+         ON activities.id = applications.care_activity_id
+       JOIN plants ON plants.id = activities.plant_id
+      WHERE applications.knowledge_id_snapshot IS NOT NULL
+      ORDER BY activities.occurred_at DESC`,
+  );
+  return rows.map((row) => ({
+    knowledgeId: row.knowledge_id,
+    occurredAt: row.occurred_at,
+    plantName: row.plant_name,
+  }));
+}
+
+export type UserFertilizerUsageRow = Readonly<{
+  fertilizer_id: string;
+  occurred_at: string;
+  plant_name: string;
+}>;
+
+export async function listUserFertilizerUsages(): Promise<
+  UserFertilizerUsage[]
+> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<UserFertilizerUsageRow>(
+    `SELECT fertilizers.id AS fertilizer_id,
+            activities.occurred_at,
+            plants.name AS plant_name
+       FROM user_fertilizers AS fertilizers
+       JOIN fertilizer_applications AS applications
+         ON applications.user_fertilizer_id = fertilizers.id
+         OR (
+           fertilizers.knowledge_id IS NOT NULL
+           AND applications.knowledge_id_snapshot = fertilizers.knowledge_id
+         )
+       JOIN care_activities AS activities
+         ON activities.id = applications.care_activity_id
+       JOIN plants ON plants.id = activities.plant_id
+      ORDER BY activities.occurred_at DESC`,
+  );
+  return rows.map((row) => ({
+    fertilizerId: row.fertilizer_id,
+    occurredAt: row.occurred_at,
+    plantName: row.plant_name,
+  }));
 }

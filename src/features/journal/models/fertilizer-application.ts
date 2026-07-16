@@ -32,7 +32,7 @@ export const FertilizerApplicationSchema = z
     position: z.number().int().nonnegative(),
     nameSnapshot: z.string().trim().min(1),
     groupSnapshot: FertilizerSnapshotGroupSchema.nullable(),
-    npkSnapshot: z.string().trim().min(1).nullable(),
+    knowledgeIdSnapshot: z.string().trim().min(1).nullable(),
     amountValue: z.number().positive().nullable(),
     amountUnit: FertilizerAmountUnitSchema.nullable(),
     applicationMethod: FertilizerApplicationMethodSchema.nullable(),

@@ -43,11 +43,11 @@ A core care action the user performed and wants to track: watering, fertilizing,
 _Avoid_: Mẹo, lời nhắc
 
 **Lần dùng phân bón** (Fertilizer application):
-One optional user-entered fertilizer item used during a saved fertilizing Care Activity. One activity may contain several applications; each application identifies the fertilizer by name and may record its group, application method, amount/unit, NPK, and an item-specific note. It is user history, not a curated Fertilizer Profile or a recommendation.
+One optional user-entered fertilizer item used during a saved fertilizing Care Activity. One activity may contain several applications; each application identifies the fertilizer by name and may record its group, application method, amount/unit, and an item-specific note. It is user history, not a curated Fertilizer Profile or a recommendation.
 _Avoid_: Kế hoạch chăm sóc, hồ sơ phân bón đã duyệt, gợi ý bón phân
 
 **Phân bón của tôi** (User fertilizer):
-A reusable, private fertilizer record managed by the grower and selectable while recording fertilizing. It stores identity and descriptive fields for reuse but creates no care history by itself. Editing or deleting it never rewrites saved Fertilizer Applications.
+A reusable, private fertilizer record managed by the grower and selectable while recording fertilizing. It stores identity and descriptive fields for reuse and may retain the stable ID of a reviewed suggestion, but creates no care history by itself. Editing or deleting it never rewrites saved Fertilizer Applications.
 _Avoid_: Hồ sơ phân bón đã duyệt, gợi ý bón phân, lần bón phân
 
 **Gợi ý chăm sóc** (Care recommendation):

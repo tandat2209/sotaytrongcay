@@ -25,12 +25,18 @@ export type {
   CareActivityType,
   WateringIntensity,
 } from "./models/care-activity";
-export { listFertilizerApplications } from "./data/fertilizer-application-repository";
+export {
+  listUserFertilizerUsages,
+  listFertilizerApplications,
+  listFertilizerSuggestionUsages,
+} from "./data/fertilizer-application-repository";
 export type {
   FertilizerAmountUnit,
   FertilizerApplication,
   FertilizerApplicationMethod,
 } from "./models/fertilizer-application";
+export { selectLatestUserFertilizerUsages } from "./models/suggested-fertilizer-application";
+export type { UserFertilizerUsage } from "./models/suggested-fertilizer-application";
 export {
   getCareActivityLabel,
   getCareActivityOriginLabel,
@@ -47,5 +53,6 @@ export {
 export type { PlantUpdate, PlantUpdatePhoto } from "./models/plant-update";
 export { CareEntryScreen } from "./ui/CareEntryScreen";
 export type { CareEntryDetails } from "./ui/CareEntryScreen";
+export { FertilizerUsageLabel } from "./ui/FertilizerUsageLabel";
 export { JournalRouteScreen as JournalScreen } from "./ui/JournalRouteScreen";
 export { PlantUpdateRouteScreen } from "./ui/PlantUpdateRouteScreen";

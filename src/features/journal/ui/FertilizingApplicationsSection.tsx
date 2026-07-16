@@ -1,8 +1,7 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import {
-  listUserFertilizers,
   saveUserFertilizer,
   type FertilizerGroup,
   type UserFertilizer,
@@ -13,22 +12,21 @@ import type {
 } from "../models/fertilizer-application";
 import { createId } from "@/shared/lib/identifiers";
 import { t } from "@/shared/i18n";
+import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
 import { FertilizerApplicationEditorSheet } from "./FertilizerApplicationEditorSheet";
 import { FertilizerPickerSheet } from "./FertilizerPickerSheet";
 import type { CreateFertilizerFields } from "./FertilizerPickerSheet";
-import {
-  toggleSuggestedFertilizerApplication,
-  type FertilizerSuggestion,
-} from "../models/suggested-fertilizer-application";
+import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
 import { FertilizerSuggestionChips } from "./FertilizerSuggestionChips";
+import { useSuggestedFertilizers } from "./useSuggestedFertilizers";
 
 export type FertilizerApplicationDetails = Readonly<{
   userFertilizerId: string | null;
   nameSnapshot: string;
   groupSnapshot: FertilizerGroup | null;
-  npkSnapshot: string | null;
+  knowledgeIdSnapshot: string | null;
   amountValue: number | null;
   amountUnit: FertilizerAmountUnit | null;
   applicationMethod: FertilizerApplicationMethod | null;
@@ -47,10 +45,7 @@ export function FertilizingApplicationsSection({
   value,
 }: Props) {
   const queryClient = useQueryClient();
-  const query = useQuery({
-    queryKey: ["user-fertilizers"],
-    queryFn: listUserFertilizers,
-  });
+  const suggested = useSuggestedFertilizers({ onChange, value });
   const [pickerVisible, setPickerVisible] = useState(false);
   const [creatingFertilizer, setCreatingFertilizer] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -62,7 +57,7 @@ export function FertilizingApplicationsSection({
         userFertilizerId: fertilizer.id,
         nameSnapshot: fertilizer.name,
         groupSnapshot: fertilizer.group,
-        npkSnapshot: fertilizer.npk,
+        knowledgeIdSnapshot: fertilizer.knowledgeId,
         amountValue: null,
         amountUnit: null,
         applicationMethod: null,
@@ -82,7 +77,7 @@ export function FertilizingApplicationsSection({
       mutationId: createId(),
       name,
       group,
-      npk: null,
+      knowledgeId: null,
       createdAt: now,
       updatedAt: now,
     };
@@ -92,9 +87,8 @@ export function FertilizingApplicationsSection({
   }
 
   const editing = editingIndex === null ? null : (value[editingIndex] ?? null);
-  const suggestionNames = suggestions.map((suggestion) => suggestion.name);
   const detailedApplications = value.filter(
-    (application) => !suggestionNames.includes(application.nameSnapshot),
+    (application) => application.knowledgeIdSnapshot === null,
   );
   return (
     <View style={styles.section}>
@@ -109,28 +103,56 @@ export function FertilizingApplicationsSection({
           setCreatingFertilizer(true);
           setPickerVisible(true);
         }}
-        onToggle={(suggestion) =>
-          onChange(toggleSuggestedFertilizerApplication(value, suggestion))
-        }
+        onToggle={(suggestion) => void suggested.toggleSuggestion(suggestion)}
         onToggleCustom={(name) =>
           onChange(
             value.filter((application) => application.nameSnapshot !== name),
           )
         }
-        selectedNames={value.map((application) => application.nameSnapshot)}
+        savingSuggestionId={suggested.savingSuggestionId}
+        selectedKnowledgeIds={value.flatMap((application) =>
+          application.knowledgeIdSnapshot
+            ? [application.knowledgeIdSnapshot]
+            : [],
+        )}
         suggestions={suggestions}
+        usages={suggested.usages}
       />
+      {suggested.suggestionError ? (
+        <Typography
+          accessibilityRole="alert"
+          color="error"
+          variant="bodyMedium"
+        >
+          {suggested.suggestionError}
+        </Typography>
+      ) : null}
+      {suggested.usageFailed ? (
+        <View style={styles.error}>
+          <Typography
+            accessibilityRole="alert"
+            color="error"
+            variant="bodyMedium"
+          >
+            {t("journal.fertilizing.suggestion.usageError")}
+          </Typography>
+          <PrimaryButton
+            label={t("common.actions.retry")}
+            onPress={() => void suggested.retryUsage()}
+          />
+        </View>
+      ) : null}
       {pickerVisible ? (
         <FertilizerPickerSheet
-          fertilizers={query.data ?? []}
-          failed={query.isError}
-          loading={query.isPending}
+          fertilizers={suggested.fertilizersQuery.data ?? []}
+          failed={suggested.fertilizersQuery.isError}
+          loading={suggested.fertilizersQuery.isPending}
           onCreate={create}
           onDismiss={() => {
             setCreatingFertilizer(false);
             setPickerVisible(false);
           }}
-          onRetry={() => void query.refetch()}
+          onRetry={() => void suggested.fertilizersQuery.refetch()}
           onSelect={select}
           startInCreateMode={creatingFertilizer}
           visible
@@ -162,5 +184,6 @@ export function FertilizingApplicationsSection({
 }
 
 const styles = StyleSheet.create({
+  error: { gap: spacing.sm },
   section: { gap: spacing.md },
 });

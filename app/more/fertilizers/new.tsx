@@ -14,6 +14,7 @@ export default function NewUserFertilizerRoute() {
     await saveUserFertilizer({
       ...fields,
       id: createId(),
+      knowledgeId: null,
       mutationId: createId(),
       createdAt: now,
       updatedAt: now,
