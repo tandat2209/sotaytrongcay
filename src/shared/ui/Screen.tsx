@@ -7,10 +7,15 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 import { Typography } from "./Typography";
 import { colors, spacing } from "./theme";
+
+const FLOATING_ACTION_CONTENT_BOTTOM_SPACE = 104;
 
 type ScreenProps = PropsWithChildren<{
   floatingAction?: ReactNode;
@@ -34,6 +39,7 @@ export function Screen({
   title,
   titleIcon: TitleIcon,
 }: ScreenProps) {
+  const insets = useSafeAreaInsets();
   const content = (
     <>
       {!!(title || introduction) && (
@@ -73,6 +79,12 @@ export function Screen({
               contentContainerStyle={[
                 styles.content,
                 floatingAction ? styles.contentWithFloatingAction : null,
+                floatingAction
+                  ? {
+                      paddingBottom:
+                        FLOATING_ACTION_CONTENT_BOTTOM_SPACE + insets.bottom,
+                    }
+                  : null,
                 footer ? styles.contentWithFooter : null,
               ]}
               contentInsetAdjustmentBehavior="automatic"
@@ -96,7 +108,14 @@ export function Screen({
             </SafeAreaView>
           ) : null}
           {floatingAction ? (
-            <View style={styles.floatingAction}>{floatingAction}</View>
+            <View
+              style={[
+                styles.floatingAction,
+                { bottom: spacing.lg + insets.bottom },
+              ]}
+            >
+              {floatingAction}
+            </View>
           ) : null}
         </View>
       </KeyboardAvoidingView>
@@ -113,7 +132,9 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xl,
     paddingHorizontal: spacing.md,
   },
-  contentWithFloatingAction: { paddingBottom: 104 },
+  contentWithFloatingAction: {
+    paddingBottom: FLOATING_ACTION_CONTENT_BOTTOM_SPACE,
+  },
   contentWithFooter: { paddingBottom: spacing.lg },
   unscrollableContent: { flex: 1, paddingBottom: 0 },
   footer: {
@@ -123,7 +144,6 @@ const styles = StyleSheet.create({
   },
   footerSafeArea: { backgroundColor: colors.surface },
   floatingAction: {
-    bottom: spacing.lg,
     position: "absolute",
     right: spacing.md,
   },
