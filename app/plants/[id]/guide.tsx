@@ -6,6 +6,7 @@ import {
   getStagePlaybook,
   listCarePlans,
   listInformationalGuidesForStage,
+  listThreatsForStage,
 } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
 import { getPlant } from "@/features/plants";
@@ -44,6 +45,7 @@ export default function StagePlaybookRoute() {
 
   const carePlans = listCarePlans({ speciesId: plant.speciesId, stageId });
   const informationalGuides = listInformationalGuidesForStage(stageId);
+  const threats = listThreatsForStage({ speciesId: plant.speciesId, stageId });
   const nextStage = getNextStagePlaybook(stageId);
 
   return (
@@ -62,6 +64,7 @@ export default function StagePlaybookRoute() {
           }
         : {})}
       playbook={playbook}
+      threats={threats}
     />
   );
 }

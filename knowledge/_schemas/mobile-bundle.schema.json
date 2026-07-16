@@ -7,7 +7,7 @@
   "allOf": [
     {
       "if": {
-        "properties": { "schemaVersion": { "const": "1.1.0" } },
+        "properties": { "schemaVersion": { "enum": ["1.1.0", "2.0.0"] } },
         "required": ["schemaVersion"]
       },
       "then": {
@@ -180,7 +180,6 @@
           "entryCriteria",
           "exitCriteria",
           "estimatedDuration",
-          "recommendedKnowledgeTopics",
           "bodyMarkdown"
         ],
         "properties": {

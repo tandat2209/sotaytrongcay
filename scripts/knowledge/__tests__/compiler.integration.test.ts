@@ -70,7 +70,6 @@ describe("compiler selection and serialization integration", () => {
     entryCriteria: [],
     exitCriteria: [],
     estimatedDuration: "1 week",
-    recommendedKnowledgeTopics: [],
     path: "stage.md",
   };
 
@@ -256,6 +255,14 @@ describe("compiler selection and serialization integration", () => {
 
       expect(parsed.stagePlaybooks[0]).not.toHaveProperty(
         "defaultReminderTemplates",
+      );
+    });
+
+    it("omits unlinked knowledge topics from serialized stage playbooks", () => {
+      const parsed = JSON.parse(serializeBundle([mockPlaybook], "production"));
+
+      expect(parsed.stagePlaybooks[0]).not.toHaveProperty(
+        "recommendedKnowledgeTopics",
       );
     });
 

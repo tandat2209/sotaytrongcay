@@ -149,7 +149,6 @@ export interface NormalizedGrowthStagePlaybook extends NormalizedUserFacingBaseD
   readonly entryCriteria: readonly string[];
   readonly exitCriteria: readonly string[];
   readonly estimatedDuration: string;
-  readonly recommendedKnowledgeTopics: readonly string[];
 }
 
 export interface NormalizedCarePlan extends NormalizedUserFacingBaseDocument {

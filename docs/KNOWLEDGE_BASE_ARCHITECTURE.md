@@ -96,7 +96,7 @@ flowchart LR
 
 - ID, species ID, Vietnamese name;
 - primary objective, entry observations, and exit observations;
-- estimated duration and recommended knowledge topics;
+- estimated duration;
 - status, version, review metadata, and references.
 
 **Optional fields:** Typical climate/growing-method variants, images, expert notes.
@@ -577,9 +577,6 @@ entry_criteria:
 exit_criteria:
   - "Thân chính vươn tới mặt giàn"
 estimated_duration: "1-2 tháng"
-recommended_knowledge_topics:
-  - "Kỹ thuật tỉa chồi nách"
-  - "Nhận biết thân chính và chồi phụ"
 references:
   - ref.osu.growing-table-grapes
 ---
@@ -680,7 +677,17 @@ Cách ly vật liệu bị ảnh hưởng khi phù hợp, cải thiện thông t
 Triệu chứng lan nhanh, ảnh hưởng chùm quả hoặc không thể phân biệt với nguyên nhân khác.
 ```
 
-Review-stage `disease` and `pest` documents compile into the preview `1.1.0` bundle as `diseases` and `pests`. Production remains on `1.0.0` without those arrays until explicit approval. Runtime consumers must treat absent target arrays in `1.0.x` as empty before a `1.1.x` production publication.
+Review-stage `disease` and `pest` documents compile into the preview `1.1.0`
+bundle as `diseases` and `pests`. The initial grape targets cover powdery
+mildew, thrips, mealybugs, scale insects, phylloxera, and aphids. Production
+remains on `1.0.0` without those arrays until explicit approval. Runtime
+consumers must treat absent target arrays in `1.0.x` as empty before a `1.1.x`
+production publication.
+
+The preview Stage Playbook may display a matching target's authored body in a
+collapsed, read-only monitoring section. This is presentation of reviewed
+context only: matching `stage_ids` never establishes diagnosis, a need to spray,
+eligibility, or reminder behavior.
 
 ## 11. Validation and publishing
 

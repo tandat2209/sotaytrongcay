@@ -21,7 +21,6 @@ export type StagePlaybook = Readonly<{
   estimatedDuration: string | null;
   entryCriteria: readonly string[];
   exitCriteria: readonly string[];
-  recommendedKnowledgeTopics: readonly string[];
   bodyMarkdown: string;
 }>;
 
@@ -77,6 +76,13 @@ export type SprayTarget = Readonly<{
   title: string;
 }>;
 
+export type StageThreat = Readonly<{
+  id: string;
+  kind: "disease" | "pest";
+  title: string;
+  bodyMarkdown: string;
+}>;
+
 // ---------------------------------------------------------------------------
 // Raw bundle shape (only the fields we use)
 // ---------------------------------------------------------------------------
@@ -106,7 +112,6 @@ type RawPlaybook = {
   estimatedDuration?: string;
   entryCriteria?: string[];
   exitCriteria?: string[];
-  recommendedKnowledgeTopics?: string[];
   bodyMarkdown?: string;
 };
 
@@ -156,6 +161,8 @@ type RawSprayTarget = {
   type: "disease" | "pest";
   title: string;
   speciesIds: string[];
+  stageIds: string[];
+  bodyMarkdown: string;
 };
 
 type PreviewBundle = {
@@ -290,6 +297,25 @@ export function listSprayTargets(speciesId: string): readonly SprayTarget[] {
     }));
 }
 
+export function listThreatsForStage(input: {
+  speciesId: string;
+  stageId: string;
+}): readonly StageThreat[] {
+  return [...(bundle.diseases ?? []), ...(bundle.pests ?? [])]
+    .filter((target) => target.speciesIds.includes(input.speciesId))
+    .filter((target) => target.stageIds.includes(input.stageId))
+    .sort(
+      (left, right) =>
+        left.type.localeCompare(right.type) || left.id.localeCompare(right.id),
+    )
+    .map((target) => ({
+      id: target.id,
+      kind: target.type,
+      title: target.title,
+      bodyMarkdown: target.bodyMarkdown,
+    }));
+}
+
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
@@ -343,7 +369,6 @@ function toPlaybook(raw: RawPlaybook): StagePlaybook {
     estimatedDuration: raw.estimatedDuration ?? null,
     entryCriteria: raw.entryCriteria ?? [],
     exitCriteria: raw.exitCriteria ?? [],
-    recommendedKnowledgeTopics: raw.recommendedKnowledgeTopics ?? [],
     bodyMarkdown: raw.bodyMarkdown ?? "",
   };
 }

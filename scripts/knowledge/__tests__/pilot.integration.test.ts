@@ -35,14 +35,14 @@ describe("grape knowledge pilot integration test", () => {
     }>;
 
     // Check sizes
-    expect(bundle.schemaVersion).toBe("1.1.0");
+    expect(bundle.schemaVersion).toBe("2.0.0");
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.carePlans).toHaveLength(22);
     expect(bundle.guides).toHaveLength(3);
     expect(bundle.diseases).toHaveLength(1);
-    expect(bundle.pests).toHaveLength(1);
-    expect(bundle.references).toHaveLength(8);
+    expect(bundle.pests).toHaveLength(5);
+    expect(bundle.references).toHaveLength(12);
 
     // Verify IDs
     expect(bundle.species[0]?.id).toBe("plant.grape");
@@ -65,13 +65,23 @@ describe("grape knowledge pilot integration test", () => {
     expect(bundle.diseases.map((disease) => disease.id)).toEqual([
       "disease.grape.powdery-mildew",
     ]);
-    expect(bundle.pests.map((pest) => pest.id)).toEqual(["pest.grape.thrips"]);
+    expect(bundle.pests.map((pest) => pest.id)).toEqual([
+      "pest.grape.aphids",
+      "pest.grape.mealybugs",
+      "pest.grape.phylloxera",
+      "pest.grape.scale-insects",
+      "pest.grape.thrips",
+    ]);
 
     const refIds = bundle.references.map((reference) => reference.id).sort();
     expect(refIds).toEqual([
       "ref.fao.grape-production",
       "ref.osu.growing-table-grapes",
+      "ref.uc-ipm.grape-aphids",
+      "ref.uc-ipm.grape-european-fruit-lecanium-scale",
+      "ref.uc-ipm.grape-phylloxera",
       "ref.uc-ipm.grape-powdery-mildew",
+      "ref.uc-ipm.grape-vine-mealybug",
       "ref.uc-ipm.young-grape-pruning",
       "ref.ucdavis.vineyard-nutrition",
       "ref.umn.growing-grapes-home-garden",

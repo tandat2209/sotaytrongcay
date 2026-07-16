@@ -371,7 +371,17 @@ export const vi = {
   "plants.guide.recommendedInputs": ["ĐẦU VÀO GỢI Ý", []],
   "plants.guide.reference": ["Hướng dẫn tham khảo", []],
   "plants.guide.reviewBadge": ["NỘI DUNG CHỜ DUYỆT", []],
-  "plants.guide.shouldLearn": ["Nên tìm hiểu", []],
+  "plants.guide.threatDisclaimer": [
+    "Nội dung dùng để quan sát và tham khảo, không phải chẩn đoán hoặc chỉ định phun.",
+    [],
+  ],
+  "plants.guide.threatDisease": ["Bệnh hại", []],
+  "plants.guide.threatPest": ["Sâu hại", []],
+  "plants.guide.threats": ["Sâu bệnh cần theo dõi", []],
+  "plants.guide.threatToggleAccessibility": [
+    "Mở hoặc thu gọn hướng dẫn về {title}",
+    ["title"],
+  ],
   "plants.list.emptyDescription": [
     "Cây bạn thêm sẽ được hiển thị tại đây cùng giai đoạn sinh trưởng.",
     [],
@@ -408,7 +418,6 @@ export const vi = {
   ],
   "plants.screen.journeyEmpty": ["Chưa có hành trình cho cây này.", []],
   "plants.screen.lifecycle": ["Giai đoạn sinh trưởng", []],
-  "plants.screen.nextStep": ["Chuẩn bị cho bước tiếp theo", []],
   "plants.screen.recommendation": ["Khuyến nghị chăm sóc", []],
   "plants.screen.viewGuide": ["Xem hướng dẫn chi tiết", []],
   "plants.validation.name": ["Hãy đặt tên cho cây", []],

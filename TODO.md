@@ -10,8 +10,12 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 
 - [x] Author one narrow, source-backed grape `spraying` Care Plan at `review` status for bud-break powdery-mildew prevention; it names no commercial product, prescribes no dosage, and is excluded from the production bundle.
 - [x] Add schema-validated `pest` and `disease` Knowledge Base catalogs with stable review-only grape targets for bọ trĩ and bệnh phấn trắng; compile them only into preview bundle `1.1.0`.
+- [x] Extend the review-only grape pest catalog with rệp sáp, rệp vảy, rệp hại rễ nho (phylloxera), and rệp muội using source-bounded observation, prevention context, safe first response, and escalation guidance only.
+- [x] Show stage-matched review Pest and Disease guidance as collapsed, read-only cards in the preview Stage Playbook; it remains observation context and does not affect care recommendations, reminders, or activity logging.
+- [x] Remove unlinked knowledge topics from Plant Detail, Stage Playbook, authored Stage Playbooks, and newly compiled bundles; accept and ignore the legacy compiled property for older preview bundles.
 - [ ] Obtain qualified review of the first spraying Care Plan's Vietnamese wording, stage applicability, purpose, safety boundaries, and sources before approval.
 - [ ] Obtain qualified review of both target documents, including observable evidence, monitoring stages, prevention, escalation, and the age and limitations of the Vietnamese thrips source.
+- [ ] Obtain qualified review of the added grape pest targets, including local applicability, identity limits, monitoring stages, and safe escalation; do not promote them from `review` based on foreign extension sources alone.
 - [ ] Audit every review-stage Care Plan for contradictions among `frequency.display`, `frequency.interval_days`, and `eligibility.suggest_after_days`; correct content without changing the schema.
 - [ ] Move generic techniques and event-specific guidance that the elapsed-time engine cannot evaluate into Care Guides without creating Today cards, reminders, or history.
 

@@ -12,10 +12,6 @@ exit_criteria:
   - Cành cấp 1 đạt độ dài tiêu chuẩn
   - Bấm ngọn cành cấp 1
 estimated_duration: 2-4 tháng
-recommended_knowledge_topics:
-  - Cách tạo cành cấp 1
-  - Nhận biết bệnh sương mai
-  - Bón phân giai đoạn leo giàn
 references:
   - ref.osu.growing-table-grapes
 ---

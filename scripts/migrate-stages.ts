@@ -62,7 +62,6 @@ function processFile(
     exit_criteria: parsed.data.exit_criteria,
     estimated_duration: parsed.data.estimated_duration,
     recommended_playbook: parsed.data.recommended_playbook,
-    recommended_knowledge_topics: parsed.data.recommended_knowledge_topics,
     references: parsed.data.references,
   };
 

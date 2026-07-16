@@ -13,10 +13,6 @@ exit_criteria:
   - Đạt độ ngọt mong muốn
   - Hạt chuyển màu đen
 estimated_duration: 2-4 tuần
-recommended_knowledge_topics:
-  - Bí quyết tăng độ ngọt cho nho
-  - Cách xác định nho đã chín hoàn toàn
-  - Bón phân giai đoạn quả chín
 references:
   - ref.osu.growing-table-grapes
 ---

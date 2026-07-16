@@ -15,7 +15,6 @@
     "entry_criteria",
     "exit_criteria",
     "estimated_duration",
-    "recommended_knowledge_topics",
     "references"
   ],
   "properties": {
@@ -59,12 +58,6 @@
     },
     "estimated_duration": {
       "type": "string"
-    },
-    "recommended_knowledge_topics": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     },
     "references": {
       "type": "array",

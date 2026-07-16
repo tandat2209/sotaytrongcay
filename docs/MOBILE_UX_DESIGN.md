@@ -63,7 +63,7 @@ Stage guidance supports care tracking through concise tips. It does not create a
 - Add photo-and-note journal entries for pruning, observations, growth, and other updates.
 - Attach optional structured details, notes, and photos.
 - View last care and next reminder for each plant.
-- View stage tips, entry criteria overview, knowledge topics, and exit criteria.
+- View stage tips, entry criteria overview, and exit criteria.
 - Browse to a full-stage playbook guide ("Hướng dẫn chi tiết") with detailed stage Care Plans, generic informational guides, and forward browsing to the next stage.
 - Show contextual care buttons inside “Việc cần làm hôm nay”.
 - Add “Thêm nhật ký” on Today and Plant Detail, with an optional stage change inside the journal form.
@@ -235,9 +235,8 @@ Show content in this order:
 2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. This is the single visible current-stage identifier: show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
 3. Compact current-stage objective without repeating the stage title, followed by a labelled Stage Playbook action.
 4. “Chăm sóc hôm nay” with large watering and fertilizing cards.
-5. Informational stage topics and milestones.
-6. Weather context.
-7. “Nhật ký gần đây” with the three most recent saved journal entries across core care and plant updates.
+5. Weather context.
+6. “Nhật ký gần đây” with the three most recent saved journal entries across core care and plant updates.
 
 Each care card shows reviewed recommendation title, growing-method frequency when defined, last saved activity, and deterministic status (`Nên xem xét`, `Chưa cần`, or `Chưa có gợi ý`). Keep the hierarchy compact: place a small activity icon beside the title, render frequency as supporting text without a filled chip, present the info action with secondary emphasis, and group the last activity with its status without a divider. Show the relative last-activity value directly without a redundant “Lần gần nhất” caption; keep the full meaning in the activity link's accessibility label. Missing reviewed frequency shows “Chưa có tần suất đã duyệt”. Status remains derived context, never persisted task state. When reviewed recommendation details exist, the card info action opens a read-only bottom sheet with the approved goal, growing-method frequency, recommended inputs, and notes. Empty optional sections stay absent; the sheet never records care.
 
@@ -271,7 +270,7 @@ Place the age chip beside the species chip in the wrapping identity metadata row
 - "Chăm sóc cần theo dõi" section: one detailed card per stage Care Plan. Each card identifies watering, fertilizing, or spraying and shows its goal, separate ground/container frequency when authored, recommended input categories when authored, and important notes.
 - A short statement clarifies that Care Plan content is general to the stage and does not replace assessment of soil, weather, growing method, or the plant's actual condition.
 - "Hướng dẫn tham khảo" section: generic informational Care Guides relevant to the stage, including their authored goal and Markdown instructions; these do not represent tracked activities.
-- "Nên tìm hiểu" section: `recommendedKnowledgeTopics` bullet list.
+- "Sâu bệnh cần theo dõi" section: collapsed, read-only Pest and Disease cards whose authored species and monitoring-stage relationships match the playbook. It carries an explicit observation-only disclaimer and expands to the authored content. It is omitted when no target matches; it never creates a diagnosis, spraying instruction, reminder, recommendation card, entry prefill, or history.
 - "Tiêu chí hoàn thành giai đoạn" card: `exitCriteria` bullet list with flag icon.
 - "Sắp tới" card: next stage from the current stage's authored transition; tapping navigates to Stage Playbook for that stage. This may cross from the final development stage into the production lifecycle.
 

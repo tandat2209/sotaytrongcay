@@ -167,7 +167,6 @@ describe("graph validation and normalization", () => {
           exitCriteria: [],
           estimatedDuration: "1 week",
           recommendedPlaybook: "playbook",
-          recommendedKnowledgeTopics: [],
           references: ["missing.ref"], // Missing reference
         },
         {
@@ -314,7 +313,6 @@ describe("graph validation and normalization", () => {
           exitCriteria: [],
           estimatedDuration: "1 week",
           recommendedPlaybook: "playbook",
-          recommendedKnowledgeTopics: [],
           references: [],
         },
         {
@@ -332,7 +330,6 @@ describe("graph validation and normalization", () => {
           exitCriteria: [],
           estimatedDuration: "1 week",
           recommendedPlaybook: "playbook",
-          recommendedKnowledgeTopics: [],
           references: [],
         },
         {
@@ -350,7 +347,6 @@ describe("graph validation and normalization", () => {
           exitCriteria: [],
           estimatedDuration: "1 week",
           recommendedPlaybook: "playbook",
-          recommendedKnowledgeTopics: [],
           references: [],
         },
       ];

@@ -12,10 +12,6 @@ exit_criteria:
   - Hoa tàn
   - Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)
 estimated_duration: 1-2 tuần
-recommended_knowledge_topics:
-  - Tại sao nho rụng bông?
-  - Ảnh hưởng của sương mù đến thụ phấn
-  - Bón phân giai đoạn ra hoa
 references:
   - ref.osu.growing-table-grapes
 ---

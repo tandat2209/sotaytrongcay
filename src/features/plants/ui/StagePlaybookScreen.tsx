@@ -1,15 +1,10 @@
-import {
-  BookOpen,
-  ChevronRight,
-  Clock,
-  Flag,
-  Lightbulb,
-} from "lucide-react-native";
+import { BookOpen, ChevronRight, Clock, Flag } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import type {
   CareGuide,
   CarePlan,
+  StageThreat,
   StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
@@ -20,6 +15,7 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import { StageCarePlanSection } from "./StageCarePlanSection";
 import { StageInformationalGuideSection } from "./StageInformationalGuideSection";
+import { StageThreatSection } from "./StageThreatSection";
 
 type Props = Readonly<{
   carePlans: readonly CarePlan[];
@@ -28,6 +24,7 @@ type Props = Readonly<{
   onBack: () => void;
   onOpenNextStage?: () => void;
   playbook: StagePlaybook;
+  threats?: readonly StageThreat[];
 }>;
 
 export function StagePlaybookScreen({
@@ -37,6 +34,7 @@ export function StagePlaybookScreen({
   onBack,
   onOpenNextStage,
   playbook,
+  threats = [],
 }: Props) {
   return (
     <Screen introduction={null} title="">
@@ -84,28 +82,7 @@ export function StagePlaybookScreen({
 
       <StageInformationalGuideSection guides={informationalGuides} />
 
-      {playbook.recommendedKnowledgeTopics.length > 0 ? (
-        <View style={styles.section}>
-          <View style={styles.sectionHeading}>
-            <Lightbulb color={colors.primary} size={20} />
-            <Typography variant="headlineSmall">
-              {t("plants.guide.shouldLearn")}
-            </Typography>
-          </View>
-          <SurfaceCard style={styles.listCard}>
-            {playbook.recommendedKnowledgeTopics.map((topic) => (
-              <View key={topic} style={styles.bulletRow}>
-                <Typography color="textSecondary" variant="bodyMedium">
-                  ·
-                </Typography>
-                <Typography color="textSecondary" variant="bodyMedium">
-                  {topic}
-                </Typography>
-              </View>
-            ))}
-          </SurfaceCard>
-        </View>
-      ) : null}
+      <StageThreatSection threats={threats} />
 
       {playbook.exitCriteria.length > 0 ? (
         <View style={styles.section}>
@@ -192,7 +169,6 @@ const styles = StyleSheet.create({
   heroReviewText: { color: "#FFFFFF" },
   heroStageRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   heroTitle: { color: "#FFFFFF", flex: 1 },
-  listCard: { gap: spacing.sm },
   nextStageCard: {
     alignItems: "center",
     flexDirection: "row",
@@ -209,9 +185,4 @@ const styles = StyleSheet.create({
   },
   objectiveCard: { gap: spacing.sm },
   section: { gap: spacing.md },
-  sectionHeading: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: spacing.sm,
-  },
 });

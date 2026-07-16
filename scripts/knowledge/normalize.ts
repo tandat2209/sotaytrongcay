@@ -137,7 +137,6 @@ export function normalizeDocument(
         entryCriteria: stringList(fm.entry_criteria),
         exitCriteria: stringList(fm.exit_criteria),
         estimatedDuration: String(fm.estimated_duration),
-        recommendedKnowledgeTopics: stringList(fm.recommended_knowledge_topics),
       };
     }
 

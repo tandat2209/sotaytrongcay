@@ -5,6 +5,7 @@ import { t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
+import { KnowledgeMarkdown } from "./KnowledgeMarkdown";
 
 export function StageInformationalGuideSection({
   guides,
@@ -34,86 +35,15 @@ export function StageInformationalGuideSection({
           {guide.goal !== guide.title ? (
             <Typography variant="bodyLarge">{guide.goal}</Typography>
           ) : null}
-          <GuideMarkdown markdown={guide.bodyMarkdown} />
+          <KnowledgeMarkdown markdown={guide.bodyMarkdown} />
         </SurfaceCard>
       ))}
     </View>
   );
 }
 
-function GuideMarkdown({ markdown }: { markdown: string }) {
-  const lines = markdown
-    .trim()
-    .split("\n")
-    .filter((line) => line.trim().length > 0);
-
-  return (
-    <View style={styles.content}>
-      {lines.map((line, index) => {
-        const trimmed = line.trim();
-        const heading = trimmed.match(/^#{1,6}\s+(.+)$/);
-        const bullet = trimmed.match(/^[-*]\s+(.+)$/);
-        const numbered = trimmed.match(/^(\d+)\.\s+(.+)$/);
-
-        if (heading?.[1]) {
-          return (
-            <Typography key={`${index}-${trimmed}`} variant="bodyLarge">
-              {plainText(heading[1])}
-            </Typography>
-          );
-        }
-        if (bullet?.[1]) {
-          return (
-            <GuideRow key={`${index}-${trimmed}`} marker="·" text={bullet[1]} />
-          );
-        }
-        if (numbered?.[1] && numbered[2]) {
-          return (
-            <GuideRow
-              key={`${index}-${trimmed}`}
-              marker={`${numbered[1]}.`}
-              text={numbered[2]}
-            />
-          );
-        }
-        return (
-          <Typography
-            color="textSecondary"
-            key={`${index}-${trimmed}`}
-            variant="bodyMedium"
-          >
-            {plainText(trimmed)}
-          </Typography>
-        );
-      })}
-    </View>
-  );
-}
-
-function GuideRow({ marker, text }: { marker: string; text: string }) {
-  return (
-    <View style={styles.row}>
-      <Typography color="primary" variant="bodyMedium">
-        {marker}
-      </Typography>
-      <Typography
-        color="textSecondary"
-        style={styles.title}
-        variant="bodyMedium"
-      >
-        {plainText(text)}
-      </Typography>
-    </View>
-  );
-}
-
-function plainText(value: string): string {
-  return value.replaceAll("**", "").replaceAll("`", "");
-}
-
 const styles = StyleSheet.create({
   card: { gap: spacing.md },
-  content: { gap: spacing.sm },
   guideHeading: { alignItems: "center", flexDirection: "row", gap: spacing.md },
   heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   icon: {
@@ -124,7 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 40,
   },
-  row: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   section: { gap: spacing.md },
   title: { flex: 1 },
 });

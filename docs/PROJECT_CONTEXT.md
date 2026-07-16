@@ -90,7 +90,7 @@ Users can:
 ## Conceptual data model
 
 - A **Plant** references one **Plant Species** and one current **Growth Stage**, with an optional persisted time when that stage became current.
-- A **Stage Guide** supplies review-stage context: objective, observations, duration, knowledge topics, and sources. It never creates reminders, tasks, automatic transitions, or executable rules.
+- A **Stage Guide** supplies review-stage context: objective, observations, duration, and sources. It never creates reminders, tasks, automatic transitions, or executable rules.
 - A **Care Plan** owns stage-scoped watering, fertilizing, or spraying guidance and its deterministic suggestion fields: title, goal, optional growing-method frequency, recommended inputs, notes, species/stage scope, eligibility, missing-history policy, and priority. MVP permits one applicable plan per scope.
 - A **Care Guide** contains generic informational techniques such as training or pruning and does not create tracked care recommendations.
 - A curated **Pest** or **Disease** target describes an issue, observable evidence, monitoring relevance, prevention, safe first response, and escalation guidance. A target relationship is not a diagnosis, treatment authorization, or executable spraying rule.

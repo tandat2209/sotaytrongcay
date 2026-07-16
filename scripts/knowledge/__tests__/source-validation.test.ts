@@ -177,7 +177,6 @@ primary_objective: "Objective"
 entry_criteria: ["Criteria"]
 exit_criteria: ["Criteria"]
 estimated_duration: "1 week"
-recommended_knowledge_topics: ["Topic"]
 references: [ref.example]
 ---
 # Nuôi thân

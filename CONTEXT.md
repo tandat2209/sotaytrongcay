@@ -29,7 +29,7 @@ Concise informational guidance relevant to the current stage. It is not a task, 
 _Avoid_: Công việc, hoạt động đã làm
 
 **Nội dung giai đoạn chờ duyệt** (Review-stage content):
-Reviewed-for-structure stage context that may state an objective, observable entry or exit context, duration, knowledge topics, and sources. It does not prescribe care or create product behavior until separately approved.
+Reviewed-for-structure stage context that may state an objective, observable entry or exit context, duration, and sources. It does not prescribe care or create product behavior until separately approved.
 _Avoid_: Quy tắc tự động, hướng dẫn can thiệp, tác vụ hệ thống
 
 **Việc cần tránh** (Thing to avoid):
@@ -87,6 +87,10 @@ _Avoid_: Dấu hiệu cảnh báo, thuốc phun, chẩn đoán
 **Bệnh hại** (Disease):
 A curated Knowledge Base entity describing a plant disease, observable evidence, relevant monitoring stages, risk context, prevention, safe first response, and escalation guidance without asserting that a plant has the disease.
 _Avoid_: Dấu hiệu cảnh báo, tình trạng cây, chẩn đoán
+
+**Sâu bệnh cần theo dõi** (Stage threat guidance):
+A read-only, stage-matched list of curated pests and diseases in the preview Stage Playbook. It supports observation and escalation only; it does not diagnose a plant, prescribe spraying, create a recommendation, or record history.
+_Avoid_: Việc cần làm, chẩn đoán, lịch phun
 
 **Nhật ký trồng cây** (Gardening journal):
 The chronological history of saved core care activities and plant updates.

@@ -35,7 +35,7 @@ See [SCREEN_REVIEW.md](./SCREEN_REVIEW.md) for the current screen-by-screen prod
 | 12    | `12-new-journal-entry`                 | Photo, notes, plant selection, and optional stage change  | Strong current-flow reference                                            |
 | 13    | `13-journal`                           | Global chronological history                              | Add source labels and full filters                                       |
 | 14    | `14-me-settings`                       | Secondary-management grouping                             | Content may inform More; Settings is no longer a persistent tab          |
-| 15    | `15-fertilizing-care-entry`            | Current fertilizing draft, suggestion, add, and edit flow | Use `01-main-sheet.png` for the parent sheet; follow `SCREEN_REVIEW.md` |
+| 15    | `15-fertilizing-care-entry`            | Current fertilizing draft, suggestion, add, and edit flow | Use `01-main-sheet.png` for the parent sheet; follow `SCREEN_REVIEW.md`  |
 
 Single-screen references keep `screen.png` and `code.html` together. A multi-screen feature reference uses one `NN-feature-purpose` directory with matching ordered pairs such as `01-main-sheet.png` and `01-main-sheet.html`. All reference directories and files use English `kebab-case`; generated or temporary Vietnamese slugs must be renamed during review.
 
@@ -158,9 +158,8 @@ Prioritize:
 2. Compact, horizontally scrollable 12-stage lifecycle journey as the single current-stage identifier.
 3. Compact current-stage objective without repeating the stage title.
 4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Use the Plant Detail floating action menu as the single record entry point.
-5. Stage topics and upcoming milestone.
-6. Weather context.
-7. Three most recent saved journal entries, interleaving care activities and plant updates.
+5. Weather context.
+6. Three most recent saved journal entries, interleaving care activities and plant updates.
 
 Use the 8/16/24-point spacing scale consistently, 24-point care-card padding, 20-point care-card corners, and large type. Keep journey compact and horizontal; all 12 stages remain reachable by scrolling. Do not replace it with percentage progress.
 
@@ -176,7 +175,7 @@ Do not display fabricated photo, health, days-in-stage, progress, or sensor meas
 
 ### Stage playbook
 
-Use progressive sections for the stage goal, detailed tracked Care Plans, generic informational guides with authored instructions, stage topics, completion criteria, and next stage. A Care Plan card identifies the activity and keeps its goal, ground/container guidance, input categories, and cautions together.
+Use progressive sections for the stage goal, detailed tracked Care Plans, generic informational guides with authored instructions, stage threat guidance, completion criteria, and next stage. A Care Plan card identifies the activity and keeps its goal, ground/container guidance, input categories, and cautions together.
 
 Keep guidance scannable. Do not turn the screen into an unstructured article or a product catalog.
 

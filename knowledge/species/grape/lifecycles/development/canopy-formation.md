@@ -13,9 +13,6 @@ exit_criteria:
   - Cành hóa gỗ (chuyển màu nâu)
   - Tán lá phủ kín mặt giàn
 estimated_duration: 2-3 tháng
-recommended_knowledge_topics:
-  - Quá trình hóa gỗ của cành nho
-  - Bón phân giai đoạn hình thành tán
 references:
   - ref.osu.growing-table-grapes
 ---

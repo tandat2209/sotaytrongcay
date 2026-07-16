@@ -27,7 +27,6 @@ describe("preview knowledge", () => {
     expect(playbook!.primaryObjective.length).toBeGreaterThan(0);
     expect(Array.isArray(playbook!.exitCriteria)).toBe(true);
     expect(playbook!.exitCriteria.length).toBeGreaterThan(0);
-    expect(playbook!.recommendedKnowledgeTopics.length).toBeGreaterThan(0);
   });
 
   it("returns null for an unknown stage ID", () => {
@@ -137,11 +136,60 @@ describe("preview knowledge", () => {
         title: "Bệnh phấn trắng trên nho",
       },
       {
+        id: "pest.grape.aphids",
+        kind: "pest",
+        title: "Rệp muội trên nho",
+      },
+      {
+        id: "pest.grape.mealybugs",
+        kind: "pest",
+        title: "Rệp sáp trên nho",
+      },
+      {
+        id: "pest.grape.phylloxera",
+        kind: "pest",
+        title: "Rệp hại rễ nho (Phylloxera)",
+      },
+      {
+        id: "pest.grape.scale-insects",
+        kind: "pest",
+        title: "Rệp vảy trên nho",
+      },
+      {
         id: "pest.grape.thrips",
         kind: "pest",
         title: "Bọ trĩ hại nho",
       },
     ]);
     expect(listSprayTargets("plant.unknown")).toEqual([]);
+  });
+
+  it("lists review-stage threats for monitoring in a matching stage", () => {
+    const listThreatsForStage: unknown = Reflect.get(
+      previewKnowledge,
+      "listThreatsForStage",
+    );
+
+    expect(typeof listThreatsForStage).toBe("function");
+    if (typeof listThreatsForStage !== "function") return;
+
+    expect(
+      listThreatsForStage({
+        speciesId: "plant.grape",
+        stageId: "grape.stage.bud-break",
+      }).map((threat: { id: string }) => threat.id),
+    ).toEqual([
+      "disease.grape.powdery-mildew",
+      "pest.grape.aphids",
+      "pest.grape.mealybugs",
+      "pest.grape.scale-insects",
+      "pest.grape.thrips",
+    ]);
+    expect(
+      listThreatsForStage({
+        speciesId: "plant.grape",
+        stageId: "grape.stage.nonexistent",
+      }),
+    ).toEqual([]);
   });
 });

@@ -36,13 +36,25 @@ The generated directory is build output and must not be edited by hand.
 
 The grape species registry defines the canonical development and production lifecycles. All 12 grape stage playbooks are review-stage material, not approved production guidance.
 
-A review-stage playbook provides concise objective, observations, duration, knowledge topics, and sources. It does not create reminders, tasks, transitions, or care instructions. The product must not imply that a selectable stage has approved tips or recommendations until the relevant content is approved.
+A review-stage playbook provides concise objective, observations, duration, and sources. It does not create reminders, tasks, transitions, or care instructions. The product must not imply that a selectable stage has approved tips or recommendations until the relevant content is approved.
 
 The pilot includes one review-stage spraying Care Plan for powdery-mildew prevention at bud break, with Vietnamese applicability context from the Vietnam Academy of Agricultural Sciences. It remains editorial-preview content: its elapsed-day threshold is a checkpoint for reviewing an already confirmed prevention plan, not a fixed instruction to spray, and it prescribes no product or dosage.
 
-The pilot also includes review-stage target catalogs for grape powdery mildew and thrips. These are `disease` and `pest` knowledge entities, not diagnoses, Care Plans, reminders, or spraying schedules. Their stage relationships indicate when monitoring is relevant. They compile only into preview bundle schema `1.1.0`; production stays on `1.0.0` until explicit approval.
+The pilot also includes review-stage target catalogs for grape powdery mildew,
+thrips, mealybugs, scale insects, phylloxera, and aphids. These are `disease`
+and `pest` knowledge entities, not diagnoses, Care Plans, reminders, or
+spraying schedules. Their stage relationships indicate when monitoring is
+relevant. They compile only into preview bundle schema `1.1.0`; production
+stays on `1.0.0` until explicit approval.
 
-The current spraying Care Entry may read only a target's stable ID, type, Vietnamese title, and species relationship from the preview catalog for optional history classification. It does not show or execute the review-stage body or stage relationships. Saving snapshots the selected title; an absent target catalog hides the selector and does not block legacy Knowledge Base bundles or activity history.
+The current spraying Care Entry may read only a target's stable ID, type,
+Vietnamese title, and species relationship from the preview catalog for optional
+history classification. Saving snapshots the selected title; an absent target
+catalog hides the selector and does not block legacy Knowledge Base bundles or
+activity history. Separately, the preview Stage Playbook may show a target's
+authored body only when its species and monitoring stage match the playbook. It
+is read-only observation context, not diagnosis, spraying eligibility, a
+reminder, or a Care Entry prefill.
 
 ## Care-content ownership
 
@@ -80,6 +92,10 @@ IDs are immutable, lowercase, language-neutral, and namespaced by domain. Exampl
 - `grape.guide.train-main-shoot`
 - `disease.grape.powdery-mildew`
 - `pest.grape.thrips`
+- `pest.grape.mealybugs`
+- `pest.grape.scale-insects`
+- `pest.grape.phylloxera`
+- `pest.grape.aphids`
 - `ref.osu.growing-table-grapes`
 
 Changing Vietnamese wording does not change an ID.

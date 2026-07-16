@@ -94,21 +94,6 @@ describe("StagePlaybookScreen", () => {
     expect(screen.getByText("Kiểm tra đất trước khi tưới")).toBeTruthy();
   });
 
-  it("renders recommended knowledge topics", () => {
-    const screen = render(
-      <StagePlaybookScreen
-        informationalGuides={informationalGuides}
-        carePlans={[]}
-        nextStage={null}
-        onBack={jest.fn()}
-        playbook={playbook}
-      />,
-    );
-
-    expect(screen.getByText("Nên tìm hiểu")).toBeTruthy();
-    expect(screen.getByText("Cách cột dây không làm nghẹt thân")).toBeTruthy();
-  });
-
   it("renders exit criteria in the Tiêu chí hoàn thành section", () => {
     const screen = render(
       <StagePlaybookScreen

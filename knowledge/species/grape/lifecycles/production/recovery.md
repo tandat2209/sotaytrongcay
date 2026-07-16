@@ -12,9 +12,6 @@ exit_criteria:
   - Lá bắt đầu già úa
   - Cây sẵn sàng cho chu kỳ cắt cành mới
 estimated_duration: 1-2 tháng
-recommended_knowledge_topics:
-  - Vì sao nho cần ngủ đông?
-  - Bón phân giai đoạn sau thu hoạch
 references:
   - ref.osu.growing-table-grapes
 ---

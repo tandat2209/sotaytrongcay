@@ -8,6 +8,73 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-16 — Remove unlinked knowledge topics from the Knowledge Base
+
+**Status:** Accepted
+
+**Decision:** Remove `recommended_knowledge_topics` from authored Stage
+Playbooks, normalized compiler types, and newly compiled Stage Playbooks. The
+preview bundle moves to schema `2.0.0`; production remains `1.0.0`.
+
+The mobile bundle schema accepts the former compiled field only as an optional
+legacy property. Runtime readers ignore it, so existing `1.1.0` preview bundles
+continue loading while new `2.0.0` bundles do not contain it. This supersedes
+the retention clause in the preceding unresolved-exploration decision.
+
+**Rationale:** The application has no reviewed destination for these prompts,
+so keeping them in authored content creates unshipped, misleading knowledge.
+
+**Consequences:** All current grape topic lists are removed without relocating
+their claims. There is no user-data migration: activities, plants, reminders,
+and care evaluation never stored or used the field. A future feature must model
+each concrete guide or destination explicitly instead of restoring a free-text
+topic list.
+
+## 2026-07-16 — Do not show unresolved exploration prompts
+
+**Status:** Accepted
+
+**Decision:** Remove `recommendedKnowledgeTopics` from Plant Detail and Stage
+Playbook presentation. The corresponding field was initially retained in the
+Knowledge Base, then removed by the subsequent Knowledge Base cleanup decision.
+
+**Rationale:** “Nên tìm hiểu” promises help without offering a next step. The
+Stage Playbook should contain usable guidance, and Plant Detail should remain a
+concise plant-context and history screen.
+
+**Consequences:** Plant Detail no longer shows a topic-summary card. Stage
+Playbook retains complete Care Plan, Care Guide, stage-threat, and exit-criteria
+sections. The initial UI change required no schema, bundle, persistence,
+recommendation, or reminder change.
+
+## 2026-07-16 — Show stage-matched threat guidance in Stage Playbook
+
+**Status:** Accepted
+
+**Decision:** In the preview Stage Playbook only, show a read-only “Sâu bệnh
+cần theo dõi” section for curated `pest` and `disease` targets whose species
+and monitoring-stage relationships match the playbook. Each target is a
+collapsed card with an explicit observation-only disclaimer; opening it reveals
+the authored review-stage body. The section is omitted when no target matches.
+
+This supersedes only the target-body display restriction and target-guide
+deferral in the 2026-07-16 spraying-target history decision. It does not change
+the target's meaning: stage relationships remain monitoring relevance, not
+diagnosis, evidence of presence, treatment authorization, or a spraying
+schedule. The section creates no Today card, reminder, care entry prefill,
+evaluator input, activity record, or notification. The Plant Detail summary
+remains compact and does not list threats.
+
+**Rationale:** The Stage Playbook is the complete read-only reference for a
+stage. Keeping threat guidance there lets growers inspect stage-relevant signs
+and escalation boundaries without duplicating the material in care cards or
+turning it into a task.
+
+**Consequences:** The preview-knowledge interface exposes an optional,
+stage-matched target list including title, type, and authored Markdown body.
+Older `1.0.x` bundles without target arrays return an empty list. Production
+still excludes review-stage targets until explicit content approval.
+
 ## 2026-07-16 — Record one optional curated target on spraying history
 
 **Status:** Accepted

@@ -13,10 +13,6 @@ exit_criteria:
   - Trái đạt kích thước bằng đầu ngón tay
   - Đã tỉa xong chùm
 estimated_duration: 2-3 tuần
-recommended_knowledge_topics:
-  - Kỹ thuật tỉa trái nho chuẩn
-  - Phòng nấm phấn trắng trên trái non
-  - Bón phân giai đoạn đậu quả
 references:
   - ref.osu.growing-table-grapes
 ---

@@ -1,10 +1,4 @@
-import {
-  BookOpen,
-  CheckCircle,
-  ChevronRight,
-  Info,
-  Leaf,
-} from "lucide-react-native";
+import { BookOpen, ChevronRight, Info, Leaf } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { formatCareEvaluationReason } from "@/features/guidance";
@@ -15,7 +9,6 @@ import {
 } from "@/features/journal";
 import { listSprayTargets } from "@/features/knowledge";
 import { StageIcon } from "@/features/knowledge/stage-icons";
-import type { StagePlaybook } from "@/features/knowledge/preview-knowledge";
 import { WeatherCard } from "@/shared/weather/WeatherCard";
 import type { WeatherState } from "@/shared/weather/weather-state";
 import { t } from "@/shared/i18n";
@@ -129,7 +122,6 @@ export function PlantDetailScreen({
             />
           ))}
         </View>
-        <StageTips playbook={projection.stagePlaybook} />
         <WeatherCard weather={weather} />
         <PlantDetailRecentJournal
           items={projection.recentJournalItems}
@@ -311,35 +303,7 @@ function CurrentStage({
   );
 }
 
-function StageTips({ playbook }: { playbook: StagePlaybook | null }) {
-  if (
-    !playbook?.recommendedKnowledgeTopics.length &&
-    !playbook?.exitCriteria.length
-  )
-    return null;
-  return (
-    <View style={styles.section}>
-      <Typography variant="headlineSmall">
-        {t("plants.screen.nextStep")}
-      </Typography>
-      <SurfaceCard style={styles.tipsCard}>
-        {[...playbook.recommendedKnowledgeTopics, ...playbook.exitCriteria].map(
-          (item) => (
-            <View key={item} style={styles.bullet}>
-              <CheckCircle color={colors.primary} size={18} />
-              <Typography color="textSecondary" variant="bodyMedium">
-                {item}
-              </Typography>
-            </View>
-          ),
-        )}
-      </SurfaceCard>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  bullet: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   compactSection: { gap: spacing.sm },
   connector: {
     backgroundColor: colors.border,
@@ -394,5 +358,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 32,
   },
-  tipsCard: { gap: spacing.sm },
 });
