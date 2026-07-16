@@ -3,56 +3,89 @@ import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
 
 export function KnowledgeMarkdown({ markdown }: { markdown: string }) {
-  const lines = markdown
-    .trim()
-    .split("\n")
-    .filter((line) => line.trim().length > 0);
+  const blocks = parseMarkdownBlocks(markdown);
 
   return (
     <View style={styles.content}>
-      {lines.map((line, index) => {
-        const trimmed = line.trim();
-        const heading = trimmed.match(/^#{1,6}\s+(.+)$/);
-        const bullet = trimmed.match(/^[-*]\s+(.+)$/);
-        const numbered = trimmed.match(/^(\d+)\.\s+(.+)$/);
-
-        if (heading?.[1]) {
+      {blocks.map((block, index) => {
+        if (block.kind === "heading") {
           return (
-            <Typography key={`${index}-${trimmed}`} variant="bodyLarge">
-              {plainText(heading[1])}
+            <Typography key={`${index}-${block.text}`} variant="bodyLarge">
+              {plainText(block.text)}
             </Typography>
           );
         }
-        if (bullet?.[1]) {
+        if (block.kind === "bullet") {
           return (
             <MarkdownRow
-              key={`${index}-${trimmed}`}
+              key={`${index}-${block.text}`}
               marker="·"
-              text={bullet[1]}
+              text={block.text}
             />
           );
         }
-        if (numbered?.[1] && numbered[2]) {
+        if (block.kind === "numbered") {
           return (
             <MarkdownRow
-              key={`${index}-${trimmed}`}
-              marker={`${numbered[1]}.`}
-              text={numbered[2]}
+              key={`${index}-${block.text}`}
+              marker={`${block.marker}.`}
+              text={block.text}
             />
           );
         }
         return (
           <Typography
             color="textSecondary"
-            key={`${index}-${trimmed}`}
+            key={`${index}-${block.text}`}
             variant="bodyMedium"
           >
-            {plainText(trimmed)}
+            {plainText(block.text)}
           </Typography>
         );
       })}
     </View>
   );
+}
+
+type MarkdownBlock =
+  | { kind: "heading" | "paragraph" | "bullet"; text: string }
+  | { kind: "numbered"; marker: string; text: string };
+
+function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
+  const blocks: MarkdownBlock[] = [];
+  let paragraphLines: string[] = [];
+
+  const addParagraph = () => {
+    if (paragraphLines.length === 0) return;
+
+    blocks.push({ kind: "paragraph", text: paragraphLines.join(" ") });
+    paragraphLines = [];
+  };
+
+  for (const line of markdown.trim().split("\n")) {
+    const trimmed = line.trim();
+    const heading = trimmed.match(/^#{1,6}\s+(.+)$/);
+    const bullet = trimmed.match(/^[-*]\s+(.+)$/);
+    const numbered = trimmed.match(/^(\d+)\.\s+(.+)$/);
+
+    if (trimmed.length === 0) {
+      addParagraph();
+    } else if (heading?.[1]) {
+      addParagraph();
+      blocks.push({ kind: "heading", text: heading[1] });
+    } else if (bullet?.[1]) {
+      addParagraph();
+      blocks.push({ kind: "bullet", text: bullet[1] });
+    } else if (numbered?.[1] && numbered[2]) {
+      addParagraph();
+      blocks.push({ kind: "numbered", marker: numbered[1], text: numbered[2] });
+    } else {
+      paragraphLines.push(trimmed);
+    }
+  }
+
+  addParagraph();
+  return blocks;
 }
 
 function MarkdownRow({ marker, text }: { marker: string; text: string }) {
