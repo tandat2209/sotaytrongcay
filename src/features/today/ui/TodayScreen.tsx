@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
+import { Alert } from "react-native";
 import { z } from "zod";
 
 import {
@@ -34,6 +35,7 @@ export function TodayScreen() {
   const queryClient = useQueryClient();
   const weather = useWeather();
   const [entry, setEntry] = useState<TodayCareCard | null>(null);
+  const alertedQueryError = useRef<unknown>(null);
   const query = useQuery({
     queryKey: ["today"],
     queryFn: async () => {
@@ -76,6 +78,22 @@ export function TodayScreen() {
     query.error instanceof z.ZodError
       ? t("common.state.invalidDeviceData")
       : t("today.error.load");
+
+  useEffect(() => {
+    if (
+      process.env.EXPO_PUBLIC_SHOW_QUERY_ERRORS !== "true" ||
+      !query.isError ||
+      alertedQueryError.current === query.error
+    ) {
+      return;
+    }
+
+    alertedQueryError.current = query.error;
+    Alert.alert(
+      t("today.error.diagnosticTitle"),
+      query.error instanceof Error ? query.error.message : String(query.error),
+    );
+  }, [query.error, query.isError]);
 
   return (
     <>

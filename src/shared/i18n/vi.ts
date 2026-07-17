@@ -541,6 +541,7 @@ export const vi = {
   "settings.row.notifications": ["Thông báo", []],
   "settings.row.plants": ["Tùy chỉnh theo cây", []],
   "shared.bottomSheet.close": ["Đóng bảng chọn", []],
+  "today.error.diagnosticTitle": ["Lỗi truy vấn (chẩn đoán)", []],
   "today.error.load": ["Chưa thể tải trang Hôm nay.", []],
   "today.greeting.afternoon": ["Chào buổi chiều", []],
   "today.greeting.evening": ["Chào buổi tối", []],
