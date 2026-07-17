@@ -3,11 +3,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { StyleSheet, Text, View } from "react-native";
 import { z } from "zod";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
-import { getPlant, resolvePlantIdentity } from "@/features/plants";
-import {
-  reconcilePlantCarePlanReminders,
-  type ReminderReconciliation,
-} from "@/features/reminders";
+import type { Plant, PlantIdentityData } from "@/features/plants";
+import type { ReminderReconciliation } from "@/features/reminders";
 import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
@@ -17,19 +14,31 @@ import { colors, spacing } from "@/shared/ui/theme";
 import { getLatestPlantPhotoUri } from "../data/plant-update-repository";
 import { savePlantUpdateWithPhotos } from "../application/save-plant-update";
 import { PlantUpdateScreen, type PlantUpdateDraft } from "./PlantUpdateScreen";
+import type { PlantIdentityComponent } from "./plant-identity-types";
 
 type Props = Readonly<{
+  getPlant: (plantId: string) => Promise<Plant | null>;
   onBack: () => void;
   onReviewReminders: () => void;
   onSaved: () => void;
+  plantIdentityComponent: PlantIdentityComponent;
   plantId: string;
+  reconcilePlantCarePlanReminders: (
+    plant: Plant,
+    previousPlant?: Plant,
+  ) => Promise<ReminderReconciliation>;
+  resolvePlantIdentity: (plant: Plant) => PlantIdentityData;
 }>;
 
 export function PlantUpdateRouteScreen({
+  getPlant,
   onBack,
   onReviewReminders,
   onSaved,
+  plantIdentityComponent,
   plantId,
+  reconcilePlantCarePlanReminders,
+  resolvePlantIdentity,
 }: Props) {
   const queryClient = useQueryClient();
   const [reconciliation, setReconciliation] =
@@ -129,6 +138,7 @@ export function PlantUpdateRouteScreen({
         initialStageId={plant.stageId}
         onBack={onBack}
         onSave={save}
+        plantIdentityComponent={plantIdentityComponent}
         plantName={plant.name}
         speciesTitle={identity.speciesTitle}
         stages={stages}

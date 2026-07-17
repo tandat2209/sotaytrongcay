@@ -3,8 +3,8 @@ import type {
   CareActivityType,
   WateringIntensity,
 } from "../models/care-activity";
+import type { FertilizerApplicationDetails } from "../models/fertilizer-application";
 import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
-import type { FertilizerApplicationDetails } from "./FertilizingApplicationsSection";
 
 export type CareEntryDetails = Readonly<{
   estimatedAmountLiters: number | null;

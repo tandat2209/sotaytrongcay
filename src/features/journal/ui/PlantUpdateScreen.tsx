@@ -12,7 +12,6 @@ import {
 import type { PlantKnowledgeStage } from "@/features/knowledge";
 import { datePickerLocale, formatDateTime, t } from "@/shared/i18n";
 import { StageIcon } from "@/features/knowledge/stage-icons";
-import { PlantIdentity } from "@/features/plants";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -24,6 +23,7 @@ import {
   type SelectedJournalPhoto,
 } from "./JournalPhotoField";
 import { PlantStagePickerSheet } from "./PlantStagePickerSheet";
+import type { PlantIdentityComponent } from "./plant-identity-types";
 
 export type PlantUpdateDraft = Readonly<{
   notes: string | null;
@@ -37,6 +37,7 @@ type Props = Readonly<{
   initialStageId: string;
   onBack: () => void;
   onSave: (draft: PlantUpdateDraft) => Promise<void>;
+  plantIdentityComponent: PlantIdentityComponent;
   plantName: string;
   speciesTitle: string;
   stages: readonly PlantKnowledgeStage[];
@@ -47,6 +48,7 @@ export function PlantUpdateScreen({
   initialStageId,
   onBack,
   onSave,
+  plantIdentityComponent: PlantIdentityComponent,
   plantName,
   speciesTitle,
   stages,
@@ -125,7 +127,7 @@ export function PlantUpdateScreen({
           title={t("journal.update.title")}
           titleIcon={NotebookPen}
         />
-        <PlantIdentity
+        <PlantIdentityComponent
           imageUri={imageUri ?? null}
           name={plantName}
           size="list"

@@ -9,12 +9,12 @@ import {
 import { createId } from "@/shared/lib/identifiers";
 import { t } from "@/shared/i18n";
 import { listFertilizerSuggestionUsages } from "../data/fertilizer-application-repository";
+import type { FertilizerApplicationDetails } from "../models/fertilizer-application";
 import {
   selectLatestFertilizerSuggestionUsages,
   toggleSuggestedFertilizerApplication,
   type FertilizerSuggestion,
 } from "../models/suggested-fertilizer-application";
-import type { FertilizerApplicationDetails } from "./FertilizingApplicationsSection";
 
 type Input = Readonly<{
   onChange: (value: readonly FertilizerApplicationDetails[]) => void;

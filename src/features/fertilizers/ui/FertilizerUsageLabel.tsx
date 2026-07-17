@@ -1,13 +1,13 @@
 import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
-import { getFertilizerUsageElapsedDays } from "../models/suggested-fertilizer-application";
+import {
+  getFertilizerUsageElapsedDays,
+  type FertilizerUsage,
+} from "../models/fertilizer-usage";
 
-type Usage = Readonly<{
-  occurredAt: string;
-  plantName: string;
-}>;
-
-export function FertilizerUsageLabel({ usage }: Readonly<{ usage: Usage }>) {
+export function FertilizerUsageLabel({
+  usage,
+}: Readonly<{ usage: FertilizerUsage }>) {
   const days = getFertilizerUsageElapsedDays(usage.occurredAt);
   return (
     <Typography color="textSecondary" variant="label">

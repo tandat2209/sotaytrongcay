@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import type {
+  FertilizerApplicationDetails,
   FertilizerAmountUnit,
   FertilizerApplicationMethod,
 } from "../models/fertilizer-application";
-import type { FertilizerApplicationDetails } from "./FertilizingApplicationsSection";
 import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { FormField } from "@/shared/ui/FormField";

@@ -1,7 +1,7 @@
 import { Check, ListFilter } from "lucide-react-native";
 import { useState, type ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import { getCareActivityLabel } from "@/features/journal";
+import { getCareActivityLabel } from "./care-activity-copy";
 import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";

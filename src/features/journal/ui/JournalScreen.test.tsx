@@ -1,5 +1,6 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { FlatList } from "react-native";
+import { PlantIdentity } from "@/features/plants";
 import { JournalScreen } from "./JournalScreen";
 
 const activity = {
@@ -22,6 +23,7 @@ describe("JournalScreen", () => {
       <JournalScreen
         activities={[activity]}
         onOpenActivity={onOpenActivity}
+        plantIdentityComponent={PlantIdentity}
         plantNames={{ [activity.plantId]: "Nho sân thượng" }}
       />,
     );
@@ -35,7 +37,12 @@ describe("JournalScreen", () => {
   it("requests the next bounded page at the end of the list", () => {
     const onLoadMore = jest.fn();
     const screen = render(
-      <JournalScreen activities={[activity]} hasMore onLoadMore={onLoadMore} />,
+      <JournalScreen
+        activities={[activity]}
+        hasMore
+        onLoadMore={onLoadMore}
+        plantIdentityComponent={PlantIdentity}
+      />,
     );
 
     fireEvent(screen.UNSAFE_getByType(FlatList), "onEndReached");
@@ -54,6 +61,7 @@ describe("JournalScreen", () => {
           recordFilter: "all",
         }}
         onCriteriaChange={onCriteriaChange}
+        plantIdentityComponent={PlantIdentity}
       />,
     );
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { getCareActivityLabel } from "@/features/journal";
+import { getCareActivityLabel } from "./care-activity-copy";
 import type { WateringIntensity } from "@/features/journal/models/care-activity";
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal/models/care-activity-icon";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";

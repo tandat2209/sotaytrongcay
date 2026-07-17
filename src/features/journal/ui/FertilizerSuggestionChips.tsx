@@ -1,4 +1,5 @@
 import { StyleSheet, View } from "react-native";
+import { FertilizerUsageLabel } from "@/features/fertilizers";
 import {
   type FertilizerSuggestion,
   type FertilizerSuggestionUsage,
@@ -6,7 +7,6 @@ import {
 import { t } from "@/shared/i18n";
 import { SelectableChip } from "@/shared/ui/SelectableChip";
 import { spacing } from "@/shared/ui/theme";
-import { FertilizerUsageLabel } from "./FertilizerUsageLabel";
 
 type Props = Readonly<{
   customNames: readonly string[];

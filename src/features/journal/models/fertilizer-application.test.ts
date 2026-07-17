@@ -1,6 +1,5 @@
 import { FertilizerApplicationSchema } from "./fertilizer-application";
 import {
-  getFertilizerUsageElapsedDays,
   selectLatestUserFertilizerUsages,
   selectLatestFertilizerSuggestionUsages,
   toggleSuggestedFertilizerApplication,
@@ -118,15 +117,6 @@ describe("selectLatestFertilizerSuggestionUsages", () => {
       occurredAt: "2026-07-14T08:00:00.000Z",
       plantName: "Cây Nho",
     });
-  });
-
-  it("reports elapsed whole days for the usage label", () => {
-    expect(
-      getFertilizerUsageElapsedDays(
-        "2026-07-14T08:00:00.000Z",
-        new Date("2026-07-16T10:00:00.000Z"),
-      ),
-    ).toBe(2);
   });
 });
 

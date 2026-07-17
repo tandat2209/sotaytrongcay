@@ -11,6 +11,7 @@ module.exports = defineConfig([
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
+      "import/no-cycle": "error",
     },
   },
 ]);

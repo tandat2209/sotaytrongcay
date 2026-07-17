@@ -6,10 +6,7 @@ import type {
   UserFertilizer,
 } from "../models/user-fertilizer";
 import { filterUserFertilizers } from "../models/filter-user-fertilizers";
-import {
-  FertilizerUsageLabel,
-  type UserFertilizerUsage,
-} from "@/features/journal";
+import type { FertilizerUsage } from "../models/fertilizer-usage";
 import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -22,6 +19,7 @@ import {
   FERTILIZER_GROUP_ICONS,
   FERTILIZER_GROUPS,
 } from "./fertilizer-group-visual";
+import { FertilizerUsageLabel } from "./FertilizerUsageLabel";
 
 type Props = Readonly<{
   fertilizers: readonly UserFertilizer[];
@@ -30,7 +28,7 @@ type Props = Readonly<{
   onOpen: (fertilizer: UserFertilizer) => void;
   onRetryUsage: () => void;
   usageLoadFailed: boolean;
-  usages: Readonly<Record<string, UserFertilizerUsage>>;
+  usages: Readonly<Record<string, FertilizerUsage>>;
 }>;
 
 export function FertilizerManagementScreen({

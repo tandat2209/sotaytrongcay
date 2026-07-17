@@ -2,6 +2,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Text } from "react-native";
+import type { Plant, PlantIdentityData } from "@/features/plants";
 import { t } from "@/shared/i18n";
 import {
   hasAnyJournalEntries,
@@ -12,11 +13,20 @@ import {
   emptyJournalCriteria,
   type JournalCursor,
 } from "../models/journal-query";
-import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
-import { listPlants } from "@/features/plants/data/plant-repository";
 import { JournalScreen } from "./JournalScreen";
+import type { PlantIdentityComponent } from "./plant-identity-types";
 
-export function JournalRouteScreen() {
+type Props = Readonly<{
+  listPlants: () => Promise<readonly Plant[]>;
+  plantIdentityComponent: PlantIdentityComponent;
+  resolvePlantIdentity: (plant: Plant) => PlantIdentityData;
+}>;
+
+export function JournalRouteScreen({
+  listPlants,
+  plantIdentityComponent,
+  resolvePlantIdentity,
+}: Props) {
   const [criteria, setCriteria] = useState(emptyJournalCriteria);
   const contextQuery = useQuery({
     queryKey: ["journal", "context"],
@@ -83,6 +93,7 @@ export function JournalRouteScreen() {
       onOpenActivity={(id) => router.push(`/entries/${id}`)}
       onOpenUpdate={(id) => router.push(`/updates/${id}`)}
       onRetryLoadMore={() => void query.fetchNextPage()}
+      plantIdentityComponent={plantIdentityComponent}
       plants={plants}
       updates={updates}
     />

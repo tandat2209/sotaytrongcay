@@ -9,14 +9,12 @@ import {
   TextInput,
   View,
 } from "react-native";
-import type { PlantIdentityData } from "@/features/plants";
-import { PlantIdentity } from "@/features/plants";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import {
   getCareActivityLabel,
   getCareActivityOriginLabel,
   getWateringIntensityLabel,
-} from "@/features/journal";
+} from "./care-activity-copy";
 import { appLocale, formatDate, formatTime, t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
 import { IconButton } from "@/shared/ui/IconButton";
@@ -34,14 +32,13 @@ import {
 } from "../models/journal-query";
 import type { PlantUpdate } from "../models/plant-update";
 import { JournalFilterSheet, type JournalFilters } from "./JournalFilterSheet";
+import type {
+  PlantIdentityComponent,
+  PlantIdentityViewProps,
+} from "./plant-identity-types";
 
-type PlantSummary = PlantIdentityData &
-  Readonly<{
-    imageUri: string | null;
-    name: string;
-    speciesId: string;
-    stageId: string;
-  }>;
+type PlantSummary = Omit<PlantIdentityViewProps, "size"> &
+  Readonly<{ speciesId: string }>;
 type Row =
   | Readonly<{ kind: "header"; label: string }>
   | Readonly<{ connectsToNext: boolean; kind: "item"; item: JournalItem }>;
@@ -58,6 +55,7 @@ type Props = Readonly<{
   onOpenActivity?: (id: string) => void;
   onOpenUpdate?: (id: string) => void;
   onRetryLoadMore?: () => void;
+  plantIdentityComponent: PlantIdentityComponent;
   plantNames?: Readonly<Record<string, string>>;
   plants?: Readonly<Record<string, PlantSummary>>;
   updates?: readonly PlantUpdate[];
@@ -76,6 +74,7 @@ export function JournalScreen({
   onOpenActivity = () => undefined,
   onOpenUpdate = () => undefined,
   onRetryLoadMore = () => undefined,
+  plantIdentityComponent: PlantIdentityComponent,
   plantNames = {},
   plants = {},
   updates = [],
@@ -221,6 +220,7 @@ export function JournalScreen({
               item={row.item}
               onOpenActivity={onOpenActivity}
               onOpenUpdate={onOpenUpdate}
+              plantIdentityComponent={PlantIdentityComponent}
             />
           )
         }
@@ -246,6 +246,7 @@ function JournalRow({
   onOpenActivity,
   onOpenUpdate,
   plant,
+  plantIdentityComponent: PlantIdentityComponent,
   plantName,
 }: Readonly<{
   connectsToNext: boolean;
@@ -254,6 +255,7 @@ function JournalRow({
   onOpenActivity: (id: string) => void;
   onOpenUpdate: (id: string) => void;
   plant?: PlantSummary;
+  plantIdentityComponent: PlantIdentityComponent;
   plantName?: string;
 }>) {
   const name = plant?.name ?? plantName ?? t("common.fallback.plant");
@@ -290,7 +292,7 @@ function JournalRow({
             </Typography>
           </View>
           {plant ? (
-            <PlantIdentity
+            <PlantIdentityComponent
               imageUri={plant.imageUri}
               name={plant.name}
               size="list"
@@ -378,7 +380,7 @@ function JournalRow({
         </View>
         <View style={styles.updateIdentity}>
           {plant ? (
-            <PlantIdentity
+            <PlantIdentityComponent
               imageUri={photoUri ?? plant.imageUri}
               name={plant.name}
               size="list"

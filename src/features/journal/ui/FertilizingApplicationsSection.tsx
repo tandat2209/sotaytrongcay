@@ -3,13 +3,9 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import {
   saveUserFertilizer,
-  type FertilizerGroup,
   type UserFertilizer,
 } from "@/features/fertilizers";
-import type {
-  FertilizerAmountUnit,
-  FertilizerApplicationMethod,
-} from "../models/fertilizer-application";
+import type { FertilizerApplicationDetails } from "../models/fertilizer-application";
 import { createId } from "@/shared/lib/identifiers";
 import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -21,17 +17,6 @@ import type { CreateFertilizerFields } from "./FertilizerPickerSheet";
 import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
 import { FertilizerSuggestionChips } from "./FertilizerSuggestionChips";
 import { useSuggestedFertilizers } from "./useSuggestedFertilizers";
-
-export type FertilizerApplicationDetails = Readonly<{
-  userFertilizerId: string | null;
-  nameSnapshot: string;
-  groupSnapshot: FertilizerGroup | null;
-  knowledgeIdSnapshot: string | null;
-  amountValue: number | null;
-  amountUnit: FertilizerAmountUnit | null;
-  applicationMethod: FertilizerApplicationMethod | null;
-  notes: string | null;
-}>;
 
 type Props = Readonly<{
   onChange: (value: readonly FertilizerApplicationDetails[]) => void;

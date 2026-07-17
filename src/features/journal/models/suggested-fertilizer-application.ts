@@ -1,5 +1,5 @@
 import type { FertilizerGroup } from "@/features/fertilizers";
-import type { FertilizerApplicationDetails } from "../ui/FertilizingApplicationsSection";
+import type { FertilizerApplicationDetails } from "./fertilizer-application";
 
 export type FertilizerSuggestion = Readonly<{
   id: string;
@@ -72,14 +72,4 @@ export function selectLatestUserFertilizerUsages(
     }
   }
   return latest;
-}
-
-export function getFertilizerUsageElapsedDays(
-  occurredAt: string,
-  now: Date = new Date(),
-): number {
-  return Math.max(
-    0,
-    Math.floor((now.getTime() - new Date(occurredAt).getTime()) / 86_400_000),
-  );
 }

@@ -10,6 +10,7 @@ export type {
   NewUserFertilizer,
   UserFertilizer,
 } from "./models/user-fertilizer";
+export { FertilizerUsageLabel } from "./ui/FertilizerUsageLabel";
 export { FertilizerManagementScreen } from "./ui/FertilizerManagementScreen";
 export { UserFertilizerEditorScreen } from "./ui/UserFertilizerEditorScreen";
 export type { UserFertilizerFields } from "./ui/UserFertilizerEditorScreen";

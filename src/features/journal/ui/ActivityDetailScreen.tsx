@@ -4,7 +4,7 @@ import {
   getCareActivityOriginLabel,
   getCareActivityUnitLabel,
   getWateringIntensityLabel,
-} from "@/features/journal";
+} from "./care-activity-copy";
 import { formatDateTime, formatNumber, t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";

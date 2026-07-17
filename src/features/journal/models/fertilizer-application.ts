@@ -56,3 +56,17 @@ export type FertilizerApplication = z.infer<typeof FertilizerApplicationSchema>;
 export type FertilizerApplicationMethod = z.infer<
   typeof FertilizerApplicationMethodSchema
 >;
+export type FertilizerSnapshotGroup = z.infer<
+  typeof FertilizerSnapshotGroupSchema
+>;
+
+export type FertilizerApplicationDetails = Readonly<{
+  userFertilizerId: string | null;
+  nameSnapshot: string;
+  groupSnapshot: FertilizerSnapshotGroup | null;
+  knowledgeIdSnapshot: string | null;
+  amountValue: number | null;
+  amountUnit: FertilizerAmountUnit | null;
+  applicationMethod: FertilizerApplicationMethod | null;
+  notes: string | null;
+}>;
