@@ -1,16 +1,8 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { CalendarDays, NotebookPen } from "lucide-react-native";
+import { NotebookPen } from "lucide-react-native";
 import { useState } from "react";
-import {
-  Alert,
-  Platform,
-  Pressable,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Pressable, StyleSheet, TextInput, View } from "react-native";
 import type { PlantKnowledgeStage } from "@/features/knowledge";
-import { datePickerLocale, formatDateTime, t } from "@/shared/i18n";
+import { t } from "@/shared/i18n";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -22,6 +14,7 @@ import {
   JournalPhotoField,
   type SelectedJournalPhoto,
 } from "./JournalPhotoField";
+import { OccurredAtField } from "./OccurredAtField";
 import { PlantStagePickerSheet } from "./PlantStagePickerSheet";
 import type { PlantIdentityComponent } from "./plant-identity-types";
 
@@ -57,7 +50,6 @@ export function PlantUpdateScreen({
   const [occurredAt, setOccurredAt] = useState(() => new Date());
   const [photos, setPhotos] = useState<readonly SelectedJournalPhoto[]>([]);
   const [stageId, setStageId] = useState(initialStageId);
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [showStagePicker, setShowStagePicker] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -144,43 +136,12 @@ export function PlantUpdateScreen({
             photos={photos}
           />
         </FormField>
-        <FormField label={t("journal.update.dateLabel")}>
-          <Pressable
-            accessibilityLabel={t("journal.update.dateAccessibility")}
-            accessibilityRole="button"
-            onPress={() => setShowDatePicker(true)}
-            style={styles.control}
-          >
-            <Typography variant="bodyLarge">
-              {formatDateTime(occurredAt)}
-            </Typography>
-            <CalendarDays color={colors.textSecondary} size={20} />
-          </Pressable>
-          {showDatePicker ? (
-            <DateTimePicker
-              locale={datePickerLocale}
-              maximumDate={new Date()}
-              mode="datetime"
-              onChange={(_, date) => {
-                if (Platform.OS !== "ios") setShowDatePicker(false);
-                if (date) setOccurredAt(date);
-              }}
-              value={occurredAt}
-            />
-          ) : null}
-          {showDatePicker && Platform.OS === "ios" ? (
-            <Pressable
-              accessibilityLabel={t("common.actions.done")}
-              accessibilityRole="button"
-              onPress={() => setShowDatePicker(false)}
-              style={styles.done}
-            >
-              <Typography color="primary" variant="bodyLarge">
-                {t("common.actions.done")}
-              </Typography>
-            </Pressable>
-          ) : null}
-        </FormField>
+        <OccurredAtField
+          accessibilityLabel={t("journal.update.dateAccessibility")}
+          label={t("journal.update.dateLabel")}
+          onChange={setOccurredAt}
+          value={occurredAt}
+        />
         <FormField label={t("journal.careEntry.notesLabel")}>
           <TextInput
             accessibilityLabel={t("journal.update.notesAccessibility")}
@@ -249,7 +210,6 @@ const styles = StyleSheet.create({
     minHeight: 52,
     paddingHorizontal: spacing.md,
   },
-  done: { alignSelf: "flex-end", padding: spacing.sm },
   notes: {
     backgroundColor: colors.surface,
     borderColor: colors.border,
