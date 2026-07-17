@@ -8,6 +8,31 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-17 — Own one process-lifetime Expo SQLite connection
+
+**Status:** Accepted
+
+**Decision:** Open the application database once per JavaScript process and
+retain that opening promise for the full app lifetime. Initialization,
+repositories, the serialized write queue, and exclusive transactions all reuse
+the same `SQLiteDatabase` wrapper. Normal application code does not close or
+reopen the connection; reads remain direct and writes retain their existing
+serialization rules.
+
+**Rationale:** Repeated concurrent calls to `openDatabaseAsync` create multiple
+short-lived JavaScript wrappers around Expo SQLite's cached native connection.
+On Android, a released wrapper can leave a later prepared statement reaching an
+invalid native binding, observed as an intermittent
+`NativeDatabase.prepareAsync` `NullPointerException`. Retaining one wrapper
+matches Expo's provider-based connection-lifetime pattern and removes garbage
+collection timing from repository reads.
+
+**Consequences:** Database opening remains lazy, while concurrent first callers
+share the same promise. A process restart creates a new connection and reruns
+normal initialization. The data layer has regression coverage requiring one
+native open across concurrent repository access; the schema and stored data do
+not change.
+
 ## 2026-07-16 — Keep the weather summary compact
 
 **Status:** Accepted

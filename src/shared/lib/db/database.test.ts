@@ -1,4 +1,11 @@
-import { DATABASE_VERSION, getMigrationStatements } from "./database";
+import * as SQLite from "expo-sqlite";
+import { DATABASE_VERSION, getDb, getMigrationStatements } from "./database";
+
+jest.mock("expo-sqlite", () => ({
+  openDatabaseAsync: jest.fn(),
+}));
+
+const mockOpenDatabaseAsync = jest.mocked(SQLite.openDatabaseAsync);
 
 describe("database migrations", () => {
   it("creates the complete unreleased schema from one V1 baseline", () => {
@@ -47,5 +54,17 @@ describe("database migrations", () => {
 
   it("does not migrate an installed V1 database", () => {
     expect(getMigrationStatements(DATABASE_VERSION)).toEqual([]);
+  });
+
+  it("reuses one database connection across concurrent repository reads", () => {
+    const opening = new Promise<SQLite.SQLiteDatabase>(() => undefined);
+    mockOpenDatabaseAsync.mockReturnValue(opening);
+
+    const first = getDb();
+    const second = getDb();
+
+    expect(mockOpenDatabaseAsync).toHaveBeenCalledTimes(1);
+    expect(first).toBe(opening);
+    expect(second).toBe(opening);
   });
 });

@@ -22,7 +22,7 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 
 **Context:** Garden connectivity may be unreliable, but entry must feel immediate.
 
-**Decision:** Use Expo SQLite as the application read/write source. Synchronize with Supabase through an outbox.
+**Decision:** Use Expo SQLite as the application read/write source. Database infrastructure owns one process-lifetime SQLite connection that initialization and every repository reuse. Synchronize with Supabase through an outbox.
 
 **Rationale:** A saved entry must not depend on network availability.
 

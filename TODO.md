@@ -97,6 +97,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Update architecture for derived care suggestions and three tracked care activities.
 - [x] Bootstrap strict TypeScript, quality gates, and test infrastructure.
 - [x] Consolidate the unreleased SQLite schema into one atomic V1 fresh-install baseline and enable WAL plus foreign keys before repository access.
+- [x] Reuse one process-lifetime Expo SQLite connection across initialization and repositories to prevent Android native-handle invalidation.
 - [x] Serialize local SQLite writes and move multi-step saves to exclusive transactions that use the transaction handle.
 - [x] Replace broad `INSERT OR IGNORE` writes with explicit idempotency handling and verify affected-row counts where a no-op is unexpected.
 - [x] Add cursor pagination or bounded reads for growing Journal and photo result sets.

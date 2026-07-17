@@ -5,6 +5,7 @@ export const DB_NAME = "sotaytrongcay.db";
 export const DATABASE_VERSION = 1;
 
 const databaseWriteQueue = createSerializedTaskQueue();
+let databasePromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
 // The app has not been released, so V1 is the complete fresh-install schema.
 // Future schema changes must use forward-only migrations from this baseline.
@@ -229,8 +230,9 @@ export function getMigrationStatements(currentVersion: number): string[] {
   return currentVersion < DATABASE_VERSION ? [V1_INITIAL_SCHEMA] : [];
 }
 
-export async function getDb(): Promise<SQLite.SQLiteDatabase> {
-  return await SQLite.openDatabaseAsync(DB_NAME);
+export function getDb(): Promise<SQLite.SQLiteDatabase> {
+  databasePromise ??= SQLite.openDatabaseAsync(DB_NAME);
+  return databasePromise;
 }
 
 export async function runDatabaseWrite<Result>(
