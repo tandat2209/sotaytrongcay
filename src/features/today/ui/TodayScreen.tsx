@@ -21,6 +21,7 @@ import { useWeather } from "@/features/weather";
 import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { Screen } from "@/shared/ui/Screen";
 import { Typography } from "@/shared/ui/Typography";
 import {
@@ -77,14 +78,11 @@ export function TodayScreen() {
       ? t("common.state.invalidDeviceData")
       : t("today.error.load");
 
+  if (query.isPending) return <LoadingScreen />;
+
   return (
     <>
       <Screen introduction={<TodayHeader />} title="">
-        {query.isPending ? (
-          <Typography color="textSecondary" variant="bodyLarge">
-            {t("common.state.loadingDeviceData")}
-          </Typography>
-        ) : null}
         {query.isError ? (
           <>
             <Typography color="textSecondary" variant="bodyLarge">

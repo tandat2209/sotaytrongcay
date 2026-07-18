@@ -7,6 +7,7 @@ import { t } from "@/shared/i18n";
 import { PlantUpdateDetailScreen } from "@/features/journal/ui/PlantUpdateDetailScreen";
 import { getPreviewPlantKnowledge } from "@/features/knowledge";
 import { getPlant, resolvePlantIdentity } from "@/features/plants";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function PlantUpdateDetailRoute() {
   const { id } = z
@@ -28,7 +29,7 @@ export default function PlantUpdateDetailRoute() {
       };
     },
   });
-  if (query.isPending) return <Text>{t("common.state.loading")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError) return <Text>{t("journal.error.loadUpdate")}</Text>;
   if (!query.data.update) return <Text>{t("journal.error.updateGone")}</Text>;
   const update = query.data.update;

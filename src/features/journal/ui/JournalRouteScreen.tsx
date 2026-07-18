@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Text } from "react-native";
 import type { Plant, PlantIdentityData } from "@/features/plants";
 import { t } from "@/shared/i18n";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import {
   hasAnyJournalEntries,
   listJournalPage,
@@ -46,8 +47,7 @@ export function JournalRouteScreen({
     initialPageParam: null as JournalCursor | null,
     getNextPageParam: (page) => page.nextCursor ?? undefined,
   });
-  if (contextQuery.isPending || query.isPending)
-    return <Text>{t("common.state.loading")}</Text>;
+  if (contextQuery.isPending || query.isPending) return <LoadingScreen />;
   if (contextQuery.isError || query.isError)
     return <Text>{t("journal.error.loadJournal")}</Text>;
   const activities = query.data.pages.flatMap((page) => page.activities);

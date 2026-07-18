@@ -11,6 +11,7 @@ import {
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function FertilizerManagementRoute() {
   const query = useQuery({
@@ -21,8 +22,7 @@ export default function FertilizerManagementRoute() {
     queryKey: ["user-fertilizer-usages"],
     queryFn: listUserFertilizerUsages,
   });
-  if (query.isPending)
-    return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError)
     return (
       <>

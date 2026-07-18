@@ -27,6 +27,7 @@ import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function PlantScheduleDetailRoute() {
   const { id } = z
@@ -46,10 +47,7 @@ export default function PlantScheduleDetailRoute() {
       return { activities, plant, plantSnapshots, stageSnapshots };
     },
   });
-  if (query.isPending)
-    return (
-      <Typography variant="bodyMedium">{t("common.state.loading")}</Typography>
-    );
+  if (query.isPending) return <LoadingScreen />;
   if (!query.data)
     return (
       <Typography variant="bodyMedium">{t("plants.error.notFound")}</Typography>

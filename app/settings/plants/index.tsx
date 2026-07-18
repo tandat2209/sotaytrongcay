@@ -9,6 +9,7 @@ import {
 } from "@/features/plants";
 import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
@@ -16,14 +17,11 @@ import { spacing } from "@/shared/ui/theme";
 
 export default function PlantScheduleListRoute() {
   const query = useQuery({ queryKey: ["plants"], queryFn: listPlants });
+  if (query.isPending) return <LoadingScreen />;
+
   return (
     <Screen title="">
       <TopBar onBack={() => router.back()} title={t("settings.plants.title")} />
-      {query.isPending ? (
-        <Typography variant="bodyMedium">
-          {t("common.state.loading")}
-        </Typography>
-      ) : null}
       {query.data?.length === 0 ? (
         <Typography color="textSecondary" variant="bodyMedium">
           {t("settings.plants.noPlants")}

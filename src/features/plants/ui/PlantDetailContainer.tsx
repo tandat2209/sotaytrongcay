@@ -12,6 +12,7 @@ import { useWeather } from "@/features/weather";
 import { getPlant } from "../data/plant-repository";
 import { createPlantDetailProjection } from "../models/plant-detail-projection";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { PlantDetailScreen } from "./PlantDetailScreen";
 
 type Props = Readonly<{
@@ -57,8 +58,7 @@ export function PlantDetailContainer({
         : null;
     },
   });
-  if (query.isPending)
-    return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError)
     return (
       <>

@@ -254,6 +254,8 @@ Use shared `PlantIdentity` for compact identity surfaces such as plant lists, To
 
 ## 10. Required visual states
 
+Use one shared treatment for initial full-screen loading: center the app logo in a circular `primarySoft` field, show the app name below it, then pair a small primary activity indicator with concise Vietnamese loading text. Keep the background quiet, preserve safe areas, and avoid skeletons when the entire screen lacks a stable content shape. Inline and incremental loading retain the visual hierarchy of their owning control or section.
+
 Every production screen considers:
 
 - populated;

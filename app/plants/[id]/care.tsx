@@ -24,6 +24,7 @@ import { getPlant, resolvePlantIdentity, type Plant } from "@/features/plants";
 import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 const CareRouteSchema = z.object({
   id: z.string().uuid(),
@@ -60,10 +61,7 @@ export default function CareEntryRoute() {
       };
     },
   });
-  if (plantQuery.isPending)
-    return <Text>{t("common.state.loadingDeviceData")}</Text>;
-  if (activityQuery.isPending)
-    return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (plantQuery.isPending || activityQuery.isPending) return <LoadingScreen />;
   if (activityId && !activityQuery.data)
     return <Text>{t("journal.error.activityGone")}</Text>;
   if (plantQuery.isError)

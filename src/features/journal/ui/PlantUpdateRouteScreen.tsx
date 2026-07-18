@@ -8,6 +8,7 @@ import type { ReminderReconciliation } from "@/features/reminders";
 import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
@@ -51,8 +52,7 @@ export function PlantUpdateRouteScreen({
     queryKey: ["plant-photos", plantId],
     queryFn: () => getLatestPlantPhotoUri(plantId),
   });
-  if (query.isPending)
-    return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError)
     return (
       <>

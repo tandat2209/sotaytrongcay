@@ -12,6 +12,7 @@ import { t } from "@/shared/i18n";
 import { getPlant } from "@/features/plants";
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import { useQuery } from "@tanstack/react-query";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 const paramsSchema = z.object({
   id: z.string().uuid(),
@@ -29,7 +30,7 @@ export default function StagePlaybookRoute() {
     queryFn: () => getPlant(id),
   });
 
-  if (query.isPending) return <Text>{t("common.state.loading")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError || !query.data)
     return <Text>{t("plants.error.notFound")}</Text>;
 

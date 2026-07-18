@@ -11,6 +11,7 @@ import {
 } from "@/features/fertilizers";
 import { t } from "@/shared/i18n";
 import { createId } from "@/shared/lib/identifiers";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function EditUserFertilizerRoute() {
   const { id } = z
@@ -21,8 +22,7 @@ export default function EditUserFertilizerRoute() {
     queryKey: ["user-fertilizer", id],
     queryFn: () => getUserFertilizer(id),
   });
-  if (query.isPending)
-    return <Text>{t("common.state.loadingDeviceData")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError) return <Text>{t("fertilizers.error.load")}</Text>;
   if (!query.data) return <Text>{t("fertilizers.error.notFound")}</Text>;
   const fertilizer = query.data;

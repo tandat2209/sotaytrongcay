@@ -813,6 +813,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** Today may show fewer than three plant cards while still showing up to three activity prompts. Group order follows the most urgent included activity, activity order remains unchanged, and no task state, evaluator behavior, persistence, reminder, or care-entry save behavior changes.
 
+## 2026-07-18 — Use one branded initial loading screen
+
+**Status:** Accepted
+
+**Decision:** Route-level queries with no usable content render one shared, centered loading screen with the app logo, app name, native activity indicator, and Vietnamese loading text. Incremental loading remains inside its owning button, weather card, list, or picker.
+
+**Rationale:** Bare text at the top of otherwise empty routes looks unfinished and shifts position between screens. A shared treatment gives initial loading a stable visual hierarchy and one accessible busy announcement without obscuring content that is already available.
+
+**Consequences:** Startup, Today, Plants, Journal, plant and activity details, care entry, plant updates, fertilizer management, and schedule routes share the same initial loading presentation. No query timing, persistence, offline behavior, or error handling changes. Screens that can render useful local content continue to do so while independent work loads.
+
 ## Decision template
 
 ```md

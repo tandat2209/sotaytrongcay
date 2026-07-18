@@ -463,6 +463,8 @@ Reminders stay secondary because users encounter them through daily care or one 
 
 Follow `docs/design/DESIGN.md` for tokens, typography, spacing, components, and mockup exceptions.
 
+For an initial route-level load with no usable screen content yet, replace the screen body with the shared full-screen loading state. Keep incremental work contextual: button saves, weather refreshes, pagination, and picker queries continue to show loading only in their owning control or section. The loading state announces itself as busy to assistive technology and never blocks already available local content merely because an independent remote section is refreshing.
+
 ## 11. Accessibility
 
 - Support Dynamic Type without clipping.

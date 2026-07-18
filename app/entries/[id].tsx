@@ -13,6 +13,7 @@ import { ActivityDetailScreen } from "@/features/journal/ui/ActivityDetailScreen
 import { resolvePlantIdentity } from "@/features/plants/models/plant-identity";
 import { getPlant } from "@/features/plants/data/plant-repository";
 import { getCareActivityLabel } from "@/features/journal";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function ActivityDetailRoute() {
   const { id } = z
@@ -37,7 +38,7 @@ export default function ActivityDetailRoute() {
     },
   });
   const queryClient = useQueryClient();
-  if (query.isPending) return <Text>{t("common.state.loading")}</Text>;
+  if (query.isPending) return <LoadingScreen />;
   if (query.isError) return <Text>{t("journal.error.loadActivity")}</Text>;
   if (!query.data.activity)
     return <Text>{t("journal.error.activityGone")}</Text>;
