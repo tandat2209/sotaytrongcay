@@ -431,11 +431,6 @@ export const vi = {
   "plants.recentJournal.title": ["Nhật ký gần đây", []],
   "plants.screen.careToday": ["Chăm sóc hôm nay", []],
   "plants.screen.currentStageAccessibility": ["{stage}, hiện tại", ["stage"]],
-  "plants.screen.customize": ["Tùy chỉnh theo cây", []],
-  "plants.screen.customizeAccessibility": [
-    "Tùy chỉnh kế hoạch chăm sóc cho cây này",
-    [],
-  ],
   "plants.screen.details": ["Chi tiết cây", []],
   "plants.screen.guideAccessibility": [
     "Mở hướng dẫn chi tiết cho giai đoạn {stage}",

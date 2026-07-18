@@ -25,9 +25,6 @@ export default function PlantDetailRoute() {
       onOpenPlaybook={() =>
         router.push({ pathname: "/plants/[id]/guide", params: { id } })
       }
-      onOpenSchedule={() =>
-        router.push({ pathname: "/settings/plants/[id]", params: { id } })
-      }
       onOpenUpdate={(updateId) => router.push(`/updates/${updateId}`)}
       onRecordCare={async (type, details) => {
         const createdAt = new Date().toISOString();

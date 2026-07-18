@@ -235,7 +235,7 @@ Optional fields include variety, location, planted date, and notes.
 Show content in this order:
 
 1. Plant identity using the latest saved journal photo as a rounded hero when available. Overlay the plant name, species, and conditional age metadata on a bottom contrast gradient; otherwise use a compact leaf identity fallback.
-2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. This is the single visible current-stage identifier: show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
+2. Compact, horizontally scrollable lifecycle journey designed for all 12 grape stages. Initially center the confirmed current stage when the journey has enough content on both sides; clamp the first and last stages to the available scroll boundaries. This is the single visible current-stage identifier: show the current position count and mark only the confirmed current stage; do not infer completed stages, percentage, countdown, or days in stage.
 3. Compact current-stage objective without repeating the stage title, followed by a labelled Stage Playbook action.
 4. “Chăm sóc hôm nay” with large watering and fertilizing cards.
 5. Weather context.

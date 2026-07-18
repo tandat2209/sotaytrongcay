@@ -1,5 +1,5 @@
 import { BookOpen, ChevronRight, Info, Leaf } from "lucide-react-native";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { formatCareEvaluationReason } from "@/features/guidance";
 import {
@@ -32,7 +32,6 @@ type Props = Readonly<{
   onAddJournal: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook?: () => void;
-  onOpenSchedule: () => void;
   onOpenUpdate: (id: string) => void;
   onRefreshWeather: () => void;
   onRecordCare: (
@@ -50,7 +49,6 @@ export function PlantDetailScreen({
   onBack,
   onOpenActivity,
   onOpenPlaybook,
-  onOpenSchedule,
   onOpenUpdate,
   onRefreshWeather,
   onRecordCare,
@@ -111,7 +109,6 @@ export function PlantDetailScreen({
         <GrowthJourney projection={projection} />
         <CurrentStage
           {...(onOpenPlaybook ? { onOpenPlaybook } : {})}
-          onOpenSchedule={onOpenSchedule}
           projection={projection}
         />
         <View style={styles.section}>
@@ -182,9 +179,29 @@ export function PlantDetailScreen({
 }
 
 function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [viewportWidth, setViewportWidth] = useState(0);
   const currentIndex = projection.lifecycleStages.findIndex(
     (stage) => stage.isCurrent,
   );
+  const stageCount = projection.lifecycleStages.length;
+
+  useEffect(() => {
+    if (currentIndex < 0 || viewportWidth === 0) return;
+
+    const contentWidth =
+      stageCount * STAGE_STEP_WIDTH +
+      Math.max(0, stageCount - 1) * STAGE_STEP_GAP;
+    const currentStageCenter =
+      currentIndex * (STAGE_STEP_WIDTH + STAGE_STEP_GAP) + STAGE_STEP_WIDTH / 2;
+    const centeredOffset = currentStageCenter - viewportWidth / 2;
+    const maximumOffset = Math.max(0, contentWidth - viewportWidth);
+
+    scrollViewRef.current?.scrollTo({
+      animated: false,
+      x: Math.min(Math.max(centeredOffset, 0), maximumOffset),
+    });
+  }, [currentIndex, stageCount, viewportWidth]);
 
   return (
     <View style={styles.compactSection}>
@@ -199,7 +216,12 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
         ) : null}
       </View>
       {projection.lifecycleStages.length ? (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal
+          onLayout={(event) => setViewportWidth(event.nativeEvent.layout.width)}
+          ref={scrollViewRef}
+          showsHorizontalScrollIndicator={false}
+        >
           <View style={styles.journey}>
             {projection.lifecycleStages.map((stage, index) => {
               return (
@@ -252,11 +274,9 @@ function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
 
 function CurrentStage({
   onOpenPlaybook,
-  onOpenSchedule,
   projection,
 }: {
   onOpenPlaybook?: () => void;
-  onOpenSchedule: () => void;
   projection: PlantDetailProjection;
 }) {
   return (
@@ -268,21 +288,6 @@ function CurrentStage({
         {projection.stagePlaybook?.primaryObjective ||
           t("plants.guide.missing")}
       </Typography>
-      <Pressable
-        accessibilityLabel={t("plants.screen.customizeAccessibility")}
-        accessibilityRole="button"
-        onPress={onOpenSchedule}
-        style={({ pressed }) => [
-          styles.playbookAction,
-          pressed && styles.playbookActionPressed,
-        ]}
-      >
-        <Leaf color={colors.primary} size={20} />
-        <Typography color="primary" style={styles.flex} variant="bodyLarge">
-          {t("plants.screen.customize")}
-        </Typography>
-        <ChevronRight color={colors.primary} size={18} />
-      </Pressable>
       {onOpenPlaybook && projection.stagePlaybook ? (
         <Pressable
           accessibilityLabel={t("plants.screen.guideAccessibility", {
@@ -306,6 +311,9 @@ function CurrentStage({
   );
 }
 
+const STAGE_STEP_WIDTH = 68;
+const STAGE_STEP_GAP = spacing.sm;
+
 const styles = StyleSheet.create({
   compactSection: { gap: spacing.sm },
   connector: {
@@ -325,7 +333,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   journeyLabel: { textAlign: "center" },
-  journeyStep: { alignItems: "center", gap: spacing.xs, width: 68 },
+  journeyStep: {
+    alignItems: "center",
+    gap: spacing.xs,
+    width: STAGE_STEP_WIDTH,
+  },
   playbookAction: {
     alignItems: "center",
     borderRadius: radius.control,
