@@ -12,22 +12,29 @@ export type SelectedJournalPhoto = Readonly<{
 }>;
 
 type Props = Readonly<{
+  description?: string;
+  maximumPhotos?: number;
   onChange: (photos: readonly SelectedJournalPhoto[]) => void;
   photos: readonly SelectedJournalPhoto[];
 }>;
 
-const MAX_PHOTOS = 5;
+const DEFAULT_MAXIMUM_PHOTOS = 5;
 
-export function JournalPhotoField({ onChange, photos }: Props) {
+export function JournalPhotoField({
+  description,
+  maximumPhotos = DEFAULT_MAXIMUM_PHOTOS,
+  onChange,
+  photos,
+}: Props) {
   const [error, setError] = useState<string | null>(null);
-  const full = photos.length >= MAX_PHOTOS;
+  const full = photos.length >= maximumPhotos;
 
   function addAssets(assets: readonly ImagePicker.ImagePickerAsset[]) {
     const existing = new Set(photos.map((photo) => photo.uri));
     const additions = assets
       .filter((asset) => !existing.has(asset.uri))
       .map((asset) => ({ fileName: asset.fileName ?? null, uri: asset.uri }));
-    onChange([...photos, ...additions].slice(0, MAX_PHOTOS));
+    onChange([...photos, ...additions].slice(0, maximumPhotos));
     setError(null);
   }
 
@@ -46,10 +53,10 @@ export function JournalPhotoField({ onChange, photos }: Props) {
 
   async function choosePhotos() {
     const result = await ImagePicker.launchImageLibraryAsync({
-      allowsMultipleSelection: true,
+      allowsMultipleSelection: maximumPhotos > 1,
       mediaTypes: ["images"],
       quality: 0.8,
-      selectionLimit: MAX_PHOTOS - photos.length,
+      selectionLimit: maximumPhotos - photos.length,
     });
     if (!result.canceled) addAssets(result.assets);
   }
@@ -104,7 +111,7 @@ export function JournalPhotoField({ onChange, photos }: Props) {
         />
       </View>
       <Typography color="textSecondary" variant="bodyMedium">
-        {t("journal.photo.limit", { count: MAX_PHOTOS })}
+        {description ?? t("journal.photo.limit", { count: maximumPhotos })}
       </Typography>
       {error ? (
         <Typography

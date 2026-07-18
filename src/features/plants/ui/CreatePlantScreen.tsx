@@ -1,10 +1,12 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { CalendarDays, Sprout } from "lucide-react-native";
+import { Sprout } from "lucide-react-native";
 import { useState } from "react";
-import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
-import { StageIcon } from "@/features/knowledge/stage-icons";
-import { datePickerLocale, formatDate, t } from "@/shared/i18n";
-import { getPreviewPlantKnowledge } from "@/features/knowledge/preview-knowledge";
+import { StyleSheet, TextInput } from "react-native";
+import {
+  JournalPhotoField,
+  type SelectedJournalPhoto,
+} from "@/features/journal";
+import { getPreviewPlantKnowledge } from "@/features/knowledge";
+import { t } from "@/shared/i18n";
 import { FormField } from "@/shared/ui/FormField";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
@@ -12,12 +14,17 @@ import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import type { Plant } from "../models/plant";
+import { GrowingMethodField } from "./GrowingMethodField";
+import { PlantStageSelectField } from "./PlantStageSelectField";
+import { PlantedAtField } from "./PlantedAtField";
 
-type PlantDraft = Omit<Plant, "id" | "createdAt">;
-type Props = {
+export type CreatePlantDraft = Omit<Plant, "id" | "createdAt"> &
+  Readonly<{ initialPhoto: SelectedJournalPhoto | null }>;
+
+type Props = Readonly<{
   onBack?: () => void;
-  onSave: (draft: PlantDraft) => Promise<void>;
-};
+  onSave: (draft: CreatePlantDraft) => Promise<void>;
+}>;
 
 export function CreatePlantScreen({ onBack, onSave }: Props) {
   const knowledge = getPreviewPlantKnowledge();
@@ -26,11 +33,12 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
     throw new Error("Preview knowledge does not contain a stage");
 
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
   const [growingMethod, setGrowingMethod] =
     useState<Plant["growingMethod"]>("container");
+  const [initialPhotos, setInitialPhotos] = useState<
+    readonly SelectedJournalPhoto[]
+  >([]);
   const [plantedAt, setPlantedAt] = useState<string | null>(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [stageId, setStageId] = useState(defaultStage.id);
   const [nameError, setNameError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -41,15 +49,17 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
       setNameError(t("plants.validation.name"));
       return;
     }
+    setSaveError(null);
     setSaving(true);
     try {
       await onSave({
+        growingMethod,
+        initialPhoto: initialPhotos[0] ?? null,
+        location: null,
         name: name.trim(),
+        plantedAt,
         speciesId: knowledge.species.id,
         stageId,
-        growingMethod,
-        location: location.trim() || null,
-        plantedAt,
         stageStartedAt: null,
       });
     } catch {
@@ -74,6 +84,15 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         </Typography>
       )}
 
+      <FormField label={t("plants.create.photo")}>
+        <JournalPhotoField
+          description={t("plants.create.photoHint")}
+          maximumPhotos={1}
+          onChange={setInitialPhotos}
+          photos={initialPhotos}
+        />
+      </FormField>
+
       <FormField error={nameError} label={t("plants.create.name")}>
         <TextInput
           accessibilityLabel={t("plants.create.name")}
@@ -89,134 +108,13 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
         />
       </FormField>
 
-      <FormField label={t("plants.create.location")}>
-        <TextInput
-          accessibilityLabel={t("plants.create.location")}
-          autoCapitalize="sentences"
-          onChangeText={setLocation}
-          placeholder={t("plants.create.locationPlaceholder")}
-          placeholderTextColor={colors.textSecondary}
-          style={styles.input}
-          value={location}
-        />
-      </FormField>
-
-      <FormField label={t("plants.create.growingMethod")}>
-        <View accessibilityRole="radiogroup" style={styles.chips}>
-          {[
-            { value: "container", label: t("plants.method.container") },
-            { value: "ground", label: t("plants.method.ground") },
-          ].map((method) => {
-            const selected = method.value === growingMethod;
-            return (
-              <Pressable
-                accessibilityLabel={t(
-                  "plants.create.growingMethodAccessibility",
-                  { method: method.label },
-                )}
-                accessibilityRole="radio"
-                accessibilityState={{ checked: selected }}
-                key={method.value}
-                onPress={() =>
-                  setGrowingMethod(method.value as Plant["growingMethod"])
-                }
-                style={({ pressed }) => [
-                  styles.chip,
-                  selected && styles.chipSelected,
-                  pressed && styles.chipPressed,
-                ]}
-              >
-                <Typography
-                  color={selected ? "surface" : "text"}
-                  variant="bodyMedium"
-                >
-                  {method.label}
-                </Typography>
-              </Pressable>
-            );
-          })}
-        </View>
-      </FormField>
-
-      <FormField label={t("plants.create.dateLabel")}>
-        <Pressable
-          accessibilityLabel={t("plants.create.dateAccessibility")}
-          accessibilityRole="button"
-          onPress={() => setShowDatePicker(true)}
-          style={styles.dateButton}
-        >
-          <Typography
-            color={plantedAt ? "text" : "textSecondary"}
-            variant="bodyLarge"
-          >
-            {plantedAt
-              ? formatDate(new Date(`${plantedAt}T00:00:00`))
-              : t("plants.create.dateEmpty")}
-          </Typography>
-          <CalendarDays color={colors.textSecondary} size={20} />
-        </Pressable>
-        {showDatePicker && (
-          <DateTimePicker
-            locale={datePickerLocale}
-            maximumDate={new Date()}
-            mode="date"
-            onChange={(_, date) => {
-              if (Platform.OS !== "ios") setShowDatePicker(false);
-              if (date) setPlantedAt(date.toISOString().split("T")[0] ?? null);
-            }}
-            value={plantedAt ? new Date(plantedAt) : new Date()}
-          />
-        )}
-        {showDatePicker && Platform.OS === "ios" && (
-          <Pressable
-            accessibilityLabel={t("common.actions.done")}
-            accessibilityRole="button"
-            onPress={() => setShowDatePicker(false)}
-            style={styles.dateDone}
-          >
-            <Typography color="primary" variant="bodyLarge">
-              {t("common.actions.done")}
-            </Typography>
-          </Pressable>
-        )}
-      </FormField>
-
-      <FormField label={t("plants.create.stage")}>
-        <View accessibilityRole="radiogroup" style={styles.chips}>
-          {knowledge.stages.map((stage) => {
-            const selected = stage.id === stageId;
-            return (
-              <Pressable
-                accessibilityLabel={t(
-                  "journal.stagePicker.selectAccessibility",
-                  { stage: stage.title },
-                )}
-                accessibilityRole="radio"
-                accessibilityState={{ checked: selected }}
-                key={stage.id}
-                onPress={() => setStageId(stage.id)}
-                style={({ pressed }) => [
-                  styles.chip,
-                  selected && styles.chipSelected,
-                  pressed && styles.chipPressed,
-                ]}
-              >
-                <StageIcon
-                  color={selected ? colors.surface : colors.primary}
-                  size={18}
-                  stageId={stage.id}
-                />
-                <Typography
-                  color={selected ? "surface" : "text"}
-                  variant="bodyMedium"
-                >
-                  {stage.title}
-                </Typography>
-              </Pressable>
-            );
-          })}
-        </View>
-      </FormField>
+      <GrowingMethodField onChange={setGrowingMethod} value={growingMethod} />
+      <PlantedAtField onChange={setPlantedAt} value={plantedAt} />
+      <PlantStageSelectField
+        onChange={setStageId}
+        stages={knowledge.stages}
+        value={stageId}
+      />
 
       {saveError ? (
         <Typography
@@ -231,13 +129,12 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
       <PrimaryButton
         label={t("plants.create.save")}
         loading={saving}
-        onPress={submit}
+        onPress={() => void submit()}
       />
-
       <Typography
         color="textSecondary"
-        variant="bodyMedium"
         style={styles.reassurance}
+        variant="bodyMedium"
       >
         {t("plants.create.reassurance")}
       </Typography>
@@ -246,36 +143,6 @@ export function CreatePlantScreen({ onBack, onSave }: Props) {
 }
 
 const styles = StyleSheet.create({
-  chip: {
-    alignItems: "center",
-    borderColor: colors.border,
-    borderRadius: radius.chip,
-    borderWidth: 1,
-    flexBasis: "48%",
-    flexDirection: "row",
-    gap: spacing.sm,
-    minHeight: 44,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-  },
-  chipPressed: { opacity: 0.82 },
-  chips: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
-  chipSelected: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  dateButton: {
-    alignItems: "center",
-    backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    minHeight: 48,
-    paddingHorizontal: spacing.md,
-  },
-  dateDone: { alignItems: "flex-end", paddingVertical: spacing.xs },
   input: {
     backgroundColor: colors.surface,
     borderColor: colors.border,

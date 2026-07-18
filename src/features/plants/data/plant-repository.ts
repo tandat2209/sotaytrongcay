@@ -52,6 +52,13 @@ export async function savePlant(plantInput: Plant): Promise<void> {
   });
 }
 
+export async function deletePlant(id: string): Promise<void> {
+  const plantId = PlantSchema.shape.id.parse(id);
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync("DELETE FROM plants WHERE id = ?", [plantId]);
+  });
+}
+
 export async function getPlant(id: string): Promise<Plant | null> {
   const db = await getDb();
   const row = await db.getFirstAsync<PlantRow>(

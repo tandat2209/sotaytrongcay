@@ -793,6 +793,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** The stage schedule route uses an authored stage ID and can display stage-matched threats without loading a plant. Plant-scoped navigation remains supported as the read-only contextual entry. Care Plan and informational-guide cards remain compact until opened, with their icon and title replacing redundant text. No Knowledge Base schema, SQLite schema, schedule snapshot, reminder, or activity-record migration is required.
 
+## 2026-07-18 — Capture an optional photo during plant setup
+
+**Status:** Accepted
+
+**Decision:** Create Plant accepts at most one optional photo. Saving creates the Plant and, when a photo was selected, a photo-only initial Plant Update at the confirmed current stage and creation time. The Plant keeps no photo field or pointer. The setup form omits the free-text plant location, presents “Chậu” and “Đất” as icon-led choices, and selects the current stage through the complete species-defined stage list.
+
+**Rationale:** A setup photo gives the new plant an immediately recognizable identity across Plant Detail, Today, Plant List, and Journal. Reusing Plant Update ownership preserves the existing single source of truth and avoids a second image lifecycle. A selector keeps all twelve grape stages reachable without turning the form into a long chip grid.
+
+**Consequences:** Failure to persist the initial photo rolls back the newly inserted Plant and preserves the UI draft for retry. A successful setup photo appears as a journal record even without a note and creates no stage-history row because it confirms the Plant's already selected stage. Existing `location` data remains readable for compatibility, but Create Plant no longer collects it. No SQLite schema migration is required.
+
 ## Decision template
 
 ```md

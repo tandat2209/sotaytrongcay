@@ -216,9 +216,9 @@ Hide care buttons that are not relevant rather than filling the page with generi
 
 **Purpose:** Create a plant with enough context for tracking and stage tips.
 
-**Components:** Optional photo; required name; species; current stage; “Lưu cây”.
+**Components:** One optional photo; required name; icon-led “Chậu” or “Đất” growing-method choices; optional planted date; a current-stage selector backed by the complete species-defined stage list; “Lưu cây”. Do not show the free-text plant location field in this flow.
 
-Optional fields include variety, location, planted date, and notes.
+An optional setup photo is saved as a photo-only initial Plant Update at the selected stage, not as a separate Plant-owned photo. If photo persistence fails, keep the form draft and do not leave a partially created plant.
 
 **Empty state:** Clean form focused on the name.
 
@@ -226,7 +226,7 @@ Optional fields include variety, location, planted date, and notes.
 
 **Error state:** Missing name shows “Hãy đặt tên cho cây”. Missing stage shows “Hãy chọn giai đoạn sinh trưởng”.
 
-**User actions:** Add photo, select species/stage, enter optional details, save, archive, or delete after confirmation.
+**User actions:** Add or remove a photo, choose the growing method, select the current stage, enter the optional planted date, and save.
 
 ### 7.5 Plant Detail
 

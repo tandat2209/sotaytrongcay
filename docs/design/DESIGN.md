@@ -143,6 +143,10 @@ Focused forms hide bottom navigation rather than showing a misleading active des
 
 The visual examples in this section do not define screen content, action availability, or data behavior; those remain in `MOBILE_UX_DESIGN.md`.
 
+### Create Plant
+
+Place the optional plant photo before the name so the selected image provides immediate identity. Present “Chậu” and “Đất” as equal-width icon-led choices with a clear selected state. Render the current stage as one bordered select control showing the selected stage icon and title; open the complete stage list in the standard native bottom sheet.
+
 ### Today
 
 Show information in this order:

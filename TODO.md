@@ -150,7 +150,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Show complete stage Care Plan details in Stage Playbook, including activity, goal, ground/container guidance, input categories, and important notes.
 - [x] Add stage-specific icons (12 stages mapped to Lucide) consistently across Plant Detail, Plant List, and Stage Playbook.
 - [x] Add one bundled review-stage illustration for each grape Stage Playbook, with a static image-ID resolver and fallback hero.
-- [x] Add location field and DateTimePicker for plantedAt to plant setup.
+- [x] Add DateTimePicker for plantedAt to plant setup; omit free-text plant location from the MVP form.
 
 ## Deferred pending reviewed contracts
 

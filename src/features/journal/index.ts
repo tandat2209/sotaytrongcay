@@ -59,3 +59,6 @@ export { CareEntryScreen } from "./ui/CareEntryScreen";
 export type { CareEntryDetails } from "./ui/care-entry-types";
 export { JournalRouteScreen as JournalScreen } from "./ui/JournalRouteScreen";
 export { PlantUpdateRouteScreen } from "./ui/PlantUpdateRouteScreen";
+export { JournalPhotoField } from "./ui/JournalPhotoField";
+export type { SelectedJournalPhoto } from "./ui/JournalPhotoField";
+export { PlantStagePickerSheet } from "./ui/PlantStagePickerSheet";
