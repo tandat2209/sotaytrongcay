@@ -23,6 +23,7 @@ const config: ExpoConfig = {
   android: {
     package: "vn.sotaytrongcay.app",
     predictiveBackGestureEnabled: false,
+    softwareKeyboardLayoutMode: "resize",
   },
   web: {
     output: "static",

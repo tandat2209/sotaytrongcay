@@ -56,7 +56,7 @@ export function BottomSheet({
       visible={visible}
     >
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.flex}
       >
         <Pressable
@@ -82,7 +82,9 @@ export function BottomSheet({
               />
             </View>
             <ScrollView
+              automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
               contentContainerStyle={styles.content}
+              keyboardShouldPersistTaps="handled"
               style={styles.scrollableContent}
             >
               {children}

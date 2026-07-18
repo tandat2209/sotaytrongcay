@@ -70,12 +70,13 @@ export function Screen({
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.frame}
       >
         <View style={styles.frame}>
           {scrollable ? (
             <ScrollView
+              automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
               contentContainerStyle={[
                 styles.content,
                 floatingAction ? styles.contentWithFloatingAction : null,
@@ -88,6 +89,7 @@ export function Screen({
                 footer ? styles.contentWithFooter : null,
               ]}
               contentInsetAdjustmentBehavior="automatic"
+              keyboardShouldPersistTaps="handled"
             >
               {content}
             </ScrollView>
