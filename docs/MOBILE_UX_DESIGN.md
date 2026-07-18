@@ -184,6 +184,8 @@ There is no standalone Task Guidance or guided-task completion screen in MVP.
 
 Each priority is compact by default: its “Vì sao”, reviewed explanation, and safe guidance expand only on request. Care prompts do not appear as completed/unchecked tasks or in a “Đã xem xét” section.
 
+Rank and limit the three most urgent activity prompts before grouping them by plant. Render one plant card with `PlantIdentity` once, followed by a separate row for each included activity. Each row keeps its own due status, expandable explanation, and care action. Pressing the plant identity opens Plant Detail; pressing an activity control affects only that activity.
+
 Each button opens a care form with the plant and activity type prefilled. Nothing is recorded until the user selects “Lưu hoạt động”.
 
 The weather card initially explains that data is unavailable and offers “Dùng vị trí hiện tại”. After foreground permission, it shows no standalone title: a semantic condition icon and label lead compact icon-and-value groups for temperature, humidity, rain chance, and wind. The overview does not show the saved location, observation time, provider, freshness wording, or an update-location action. Metric icons retain full Vietnamese accessibility labels, and stale data uses an accessible status icon. Weather never changes the cards under “Việc cần làm hôm nay”.

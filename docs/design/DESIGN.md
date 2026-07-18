@@ -160,6 +160,8 @@ Show information in this order:
 
 Each care priority shows a trackable activity and a short “Vì sao” in its compact default state. Its reviewed explanation and safe guidance expand only when requested; Today does not show “Đã xem xét” or task-review state. A direct care action opens a prefilled care form; nothing is recorded until the user selects “Lưu hoạt động”.
 
+Visually group Today priorities in one `SurfaceCard` per plant. Use the compact `PlantIdentity` as the card header with a trailing chevron, then stack activity rows vertically with hairline separators. Keep every activity's icon, status, disclosure, and full-width tinted action together; do not nest a second card inside the plant card.
+
 Show “Thêm nhật ký” as a secondary action, visually distinct from care due today. Stage changes live inside this journal flow.
 
 End Today with “Khu Vườn Của Tôi”: a horizontal rail of 160-point photo-first cards showing the latest persisted photo, plant name, species, and stage. Keep “Thêm cây” as a labelled 44-point action in the section heading instead of another placeholder card in the rail. Use the leaf fallback when a plant has no readable saved photo.

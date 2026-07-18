@@ -80,6 +80,7 @@ export function TodayOverview({
             </View>
             <TodayPriorityList
               cards={projection.careCards}
+              onOpenPlant={onOpenPlant}
               onRecordCare={onRecordCare}
             />
           </View>

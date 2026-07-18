@@ -803,6 +803,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** Failure to persist the initial photo rolls back the newly inserted Plant and preserves the UI draft for retry. A successful setup photo appears as a journal record even without a note and creates no stage-history row because it confirms the Plant's already selected stage. Existing `location` data remains readable for compatibility, but Create Plant no longer collects it. No SQLite schema migration is required.
 
+## 2026-07-18 — Group Today care prompts by plant
+
+**Status:** Accepted
+
+**Decision:** Today ranks and limits the three most urgent activity prompts before grouping them into one card per plant. The card renders plant identity once and keeps each included activity's due status, explanation, and care-entry action independent. Pressing the plant identity opens that plant's detail screen.
+
+**Rationale:** Multiple activities for one plant should read as one plant context rather than duplicate cards. Applying the existing global prompt limit before grouping fixes that repetition without expanding Today scope or changing which activities receive priority.
+
+**Consequences:** Today may show fewer than three plant cards while still showing up to three activity prompts. Group order follows the most urgent included activity, activity order remains unchanged, and no task state, evaluator behavior, persistence, reminder, or care-entry save behavior changes.
+
 ## Decision template
 
 ```md
