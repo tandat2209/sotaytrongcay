@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import {
   saveUserFertilizer,
   type UserFertilizer,
+  type UserFertilizerFields,
 } from "@/features/fertilizers";
 import type { FertilizerApplicationDetails } from "../models/fertilizer-application";
 import { createId } from "@/shared/lib/identifiers";
@@ -11,11 +12,10 @@ import { t } from "@/shared/i18n";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
 import { spacing } from "@/shared/ui/theme";
-import { FertilizerApplicationEditorSheet } from "./FertilizerApplicationEditorSheet";
-import { FertilizerPickerSheet } from "./FertilizerPickerSheet";
-import type { CreateFertilizerFields } from "./FertilizerPickerSheet";
 import type { FertilizerSuggestion } from "../models/suggested-fertilizer-application";
+import { toggleUserFertilizerApplication } from "../models/fertilizer-selection";
 import { FertilizerSuggestionChips } from "./FertilizerSuggestionChips";
+import { FertilizerSelectionSheet } from "./FertilizerSelectionSheet";
 import { useSuggestedFertilizers } from "./useSuggestedFertilizers";
 
 type Props = Readonly<{
@@ -31,31 +31,13 @@ export function FertilizingApplicationsSection({
 }: Props) {
   const queryClient = useQueryClient();
   const suggested = useSuggestedFertilizers({ onChange, value });
-  const [pickerVisible, setPickerVisible] = useState(false);
-  const [creatingFertilizer, setCreatingFertilizer] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [selectionVisible, setSelectionVisible] = useState(false);
 
-  function select(fertilizer: UserFertilizer, openDetails = true) {
-    const next = [
-      ...value,
-      {
-        userFertilizerId: fertilizer.id,
-        nameSnapshot: fertilizer.name,
-        groupSnapshot: fertilizer.group,
-        knowledgeIdSnapshot: fertilizer.knowledgeId,
-        amountValue: null,
-        amountUnit: null,
-        applicationMethod: null,
-        notes: null,
-      },
-    ];
-    onChange(next);
-    setPickerVisible(false);
-    setCreatingFertilizer(false);
-    if (openDetails) setEditingIndex(next.length - 1);
+  function toggle(fertilizer: UserFertilizer) {
+    onChange(toggleUserFertilizerApplication(value, fertilizer));
   }
 
-  async function create({ group, name }: CreateFertilizerFields) {
+  async function create({ group, name }: UserFertilizerFields) {
     const now = new Date().toISOString();
     const fertilizer: UserFertilizer = {
       id: createId(),
@@ -68,10 +50,9 @@ export function FertilizingApplicationsSection({
     };
     await saveUserFertilizer(fertilizer);
     await queryClient.invalidateQueries({ queryKey: ["user-fertilizers"] });
-    select(fertilizer, false);
+    toggle(fertilizer);
   }
 
-  const editing = editingIndex === null ? null : (value[editingIndex] ?? null);
   const detailedApplications = value.filter(
     (application) => application.knowledgeIdSnapshot === null,
   );
@@ -84,10 +65,7 @@ export function FertilizingApplicationsSection({
         customNames={detailedApplications.map(
           (application) => application.nameSnapshot,
         )}
-        onAdd={() => {
-          setCreatingFertilizer(true);
-          setPickerVisible(true);
-        }}
+        onAdd={() => setSelectionVisible(true)}
         onToggle={(suggestion) => void suggested.toggleSuggestion(suggestion)}
         onToggleCustom={(name) =>
           onChange(
@@ -127,43 +105,20 @@ export function FertilizingApplicationsSection({
           />
         </View>
       ) : null}
-      {pickerVisible ? (
-        <FertilizerPickerSheet
-          fertilizers={suggested.fertilizersQuery.data ?? []}
-          failed={suggested.fertilizersQuery.isError}
-          loading={suggested.fertilizersQuery.isPending}
-          onCreate={create}
-          onDismiss={() => {
-            setCreatingFertilizer(false);
-            setPickerVisible(false);
-          }}
-          onRetry={() => void suggested.fertilizersQuery.refetch()}
-          onSelect={select}
-          startInCreateMode={creatingFertilizer}
-          visible
-        />
-      ) : null}
-      {editing ? (
-        <FertilizerApplicationEditorSheet
-          application={editing}
-          key={editingIndex}
-          onDismiss={() => setEditingIndex(null)}
-          onRemove={() => {
-            if (editingIndex === null) return;
-            onChange(value.filter((_, index) => index !== editingIndex));
-            setEditingIndex(null);
-          }}
-          onSave={(application) => {
-            if (editingIndex === null) return;
-            onChange(
-              value.map((item, index) =>
-                index === editingIndex ? application : item,
-              ),
-            );
-            setEditingIndex(null);
-          }}
-        />
-      ) : null}
+      <FertilizerSelectionSheet
+        failed={suggested.fertilizersQuery.isError}
+        fertilizers={suggested.fertilizersQuery.data ?? []}
+        loading={suggested.fertilizersQuery.isPending}
+        onCreate={create}
+        onDismiss={() => setSelectionVisible(false)}
+        onRetry={() => void suggested.fertilizersQuery.refetch()}
+        onSelect={toggle}
+        selectedIds={value.flatMap((application) =>
+          application.userFertilizerId ? [application.userFertilizerId] : [],
+        )}
+        usages={suggested.userUsages}
+        visible={selectionVisible}
+      />
     </View>
   );
 }

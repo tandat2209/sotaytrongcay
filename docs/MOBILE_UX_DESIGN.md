@@ -99,11 +99,11 @@ Shortest watering path:
 
 `Hôm nay → Tưới nước → Lưu hoạt động`
 
-Fertilizing with optional detail:
+Fertilizing with an optional fertilizer identity:
 
-`Hôm nay hoặc Chi tiết cây → Bón phân → Thêm loại phân → Chọn hoặc thêm phân bón → Nhập cách dùng tùy chọn → Xong → Lưu hoạt động`
+`Hôm nay hoặc Chi tiết cây → Bón phân → Thêm loại phân → Chọn hoặc thêm phân bón → Lưu hoạt động`
 
-Selecting a fertilizer, “Xong”, edit, and remove actions only change the in-memory Care Entry draft. Returning from a nested editor restores the parent draft. Only “Lưu hoạt động” writes the fertilizing activity and all of its fertilizer applications.
+Selecting, adding, or removing a fertilizer only changes the in-memory Care Entry draft. Returning from the selection sheet restores the parent draft. Only “Lưu hoạt động” writes the fertilizing activity and its selected fertilizer identities.
 
 Care Entry is the first route to fertilizer selection and creation: `Bón phân → Thêm loại phân`. The persistent second route is `Mở rộng → Quản lý phân bón`. Creating or editing a reusable fertilizer from either route updates the private fertilizer catalog but does not create a Care Activity.
 
@@ -312,7 +312,7 @@ No result shows “Không tìm thấy hoạt động phù hợp” + “Xóa b�
 
 **Purpose:** Save performed watering, fertilizing, or spraying with minimal input.
 
-**Components:** Read-only or preselected activity type; plant; time; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”. Fertilizing may replace the generic collapsed area with a fertilizer-application list and nested add/edit screens when the user chooses to record products.
+**Components:** Read-only or preselected activity type; plant; time; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”. The parent fertilizing sheet shows selected fertilizer chips and “Thêm”; one focused add sheet owns recent selection, catalog search, and compact creation.
 
 Plant identity uses the latest persisted journal photo when available and falls back to the leaf treatment without blocking the form if photo loading fails.
 
@@ -320,13 +320,13 @@ Watering first shows four one-tap intensity choices: “Tưới nhẹ — làm �
 
 Optional estimated liters and notes stay hidden under collapsed “Thêm chi tiết”. The app never prefills estimated liters or derives volume from intensity. Legacy watering rows without intensity show “Chưa ghi mức tưới” rather than inferred intensity.
 
-Fertilizing requires no product detail. The parent sheet keeps plant context, occurrence time, an optional activity note, and a list of zero or more fertilizer applications. Creating an application requires a user-entered fertilizer name; fertilizer group, amount/unit, application method, and item-specific note remain optional. A repeated name from recent user history is a convenience, not approved guidance or a default selection.
+Fertilizing requires no product detail. The parent sheet keeps plant context, occurrence time, an optional activity note, and zero or more selected fertilizer identities. Selected fertilizers appear as toggleable chips beside “Thêm loại phân”. Tapping “Thêm” opens one fertilizer selection sheet. Its default view shows up to five fertilizers ordered by latest saved use so repeat selection is one tap. A search icon reveals name search across all of “Phân bón của tôi”. Search results and recent items use compact `group · name` chips when a group exists. A repeated name from recent user history is a convenience, not approved guidance or a default selection.
 
-“Thêm loại phân” opens a selector backed by “Phân bón của tôi”. The user may select an existing fertilizer or create one with the same name-and-optional-group form used by Fertilizer Management. Selecting a fertilizer then opens its application editor; “Xong” returns the application to the parent draft without saving history. Back or close preserves the parent draft and asks before discarding changed child fields. Removing an application from the draft does not delete its reusable fertilizer record.
+Inside the selection sheet, “Thêm phân bón” switches to one compact `name | group | confirm` row plus a close action. The group select initially shows “Nhóm”; tapping it reveals a vertical option menu directly below, and choosing one collapses the menu and displays the selected group in the field. Require both a non-empty name and one group before enabling the confirmation icon. Do not use the full standalone management form or a large primary button here. Saving the new catalog item selects it and returns to the parent draft. Selecting any existing fertilizer does the same. No subsequent application editor opens. The MVP does not collect quantity, unit, application method, or item-specific notes; retained nullable persistence fields exist only for backward-compatible history. Removing an item from the draft does not delete its reusable fertilizer record.
 
-When the applicable approved Care Plan contains structured fertilizer suggestions, show each suggestion as an inline selectable chip under “Đã dùng loại phân nào?”. Chips wrap naturally across lines, with approximately two or three per normal mobile row depending on label length; never use horizontal scrolling. Tapping an unselected chip creates or reuses the stable-ID-linked fertilizer in “Phân bón của tôi” and adds it to the in-memory draft without opening the nested editor. Tapping it again removes only the draft selection. Catalog persistence does not create care history; “Lưu hoạt động” remains the only history-write action. Under a suggestion, show its newest saved use as “Đã bón cho “{plant}” {days} ngày trước” or “Đã bón cho “{plant}” hôm nay”. Never derive this status from an unsaved draft. “Thêm loại phân” remains available for a fertilizer outside the suggestions or for optional usage details.
+When the applicable approved Care Plan contains structured fertilizer suggestions, show each suggestion as an inline selectable chip under “Đã dùng loại phân nào?”. Chips wrap naturally across lines, with approximately two or three per normal mobile row depending on label length; never use horizontal scrolling. Tapping an unselected chip creates or reuses the stable-ID-linked fertilizer in “Phân bón của tôi” and adds it to the in-memory draft without opening the nested editor. Tapping it again removes only the draft selection. Catalog persistence does not create care history; “Lưu hoạt động” remains the only history-write action. Under a suggestion, show its newest saved use as “Đã bón cho “{plant}” {days} ngày trước” or “Đã bón cho “{plant}” hôm nay”. Never derive this status from an unsaved draft. “Thêm loại phân” remains available for a fertilizer outside the suggestions.
 
-Use “Thêm chi tiết” for inline disclosure, “Thêm loại phân” for selecting or creating a reusable fertilizer, and an explicit edit affordance for an existing application. Focused add/edit screens do not show bottom navigation and return to the originating Care Entry. “Mở rộng” remains the fourth persistent tab and never labels a save action.
+Use “Thêm chi tiết” for the optional activity note and “Thêm loại phân” to open the single recent/search/create selection sheet. “Mở rộng” remains the fourth persistent tab and never labels a save action.
 
 Spraying shows “Vấn đề muốn xử lý (không bắt buộc)” as a species-filtered, single-select group of curated pest and disease chips when catalog entries exist. Supporting text states that the selection records the target of the spraying event and is not a diagnosis. Tapping the selected chip clears it. The selector is hidden when an older Knowledge Base bundle has no target catalog, and saving remains available.
 

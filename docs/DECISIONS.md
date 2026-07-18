@@ -8,6 +8,47 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-18 — Use one compact fertilizer selection sheet for MVP
+
+**Status:** Accepted
+
+**Decision:** The parent fertilizing Care Entry shows selected fertilizers as
+toggleable chips plus “Thêm loại phân”. Tapping “Thêm” opens one compact
+fertilizer selection sheet. Its default view shows up to five User Fertilizers
+ordered by latest saved use; a search icon reveals name search across the full
+private catalog; and “Thêm phân bón” switches the same sheet to a compact
+creator row with one name field, one collapsed required fertilizer-group
+selector, and an icon confirmation. Opening the group selector reveals the
+available groups as a vertical select menu directly below the row; selecting
+one collapses the menu and shows the selected value in the field.
+Selecting an existing or newly created fertilizer closes the selection sheet
+and adds its identity to the parent Care Entry draft immediately.
+
+Do not place catalog search or catalog creation directly in the parent Care
+Entry, do not open a subsequent application-detail sheet, and do not collect
+per-application quantity, unit, method, or item note in the MVP. Keep the
+existing nullable persisted fields so previously saved development data remains
+readable and the decision is reversible. This supersedes the nested add/edit
+interaction and optional application-detail capture in the 2026-07-16
+fertilizer decisions; it does not change the one-to-many persistence contract
+or the explicit parent save boundary.
+
+**Rationale:** The primary user job is to record which fertilizer was used.
+Recent-first selection makes the repeated path one tap, while collapsed search
+and compact creation cover less common products inside one focused add sheet.
+Quantity, method, and item notes describe how an application was performed and
+add disproportionate navigation and form weight before their value has been
+validated with growers.
+
+**Consequences:** The main Care Entry stays compact and the add sheet is the
+only catalog-selection surface in that flow. Care Entry can still record zero
+or more fertilizer identity snapshots, including reviewed suggestions, but
+every newly created application uses null detail fields. Fertilizer Management
+remains the durable place to add, edit, search, and delete private catalog
+records. Existing history detail views may continue rendering legacy
+application details when present. Reintroducing application instructions or
+measurements requires product validation and a new interaction decision.
+
 ## 2026-07-17 — Own one process-lifetime Expo SQLite connection
 
 **Status:** Accepted
@@ -366,6 +407,11 @@ Do not add the full `due`, `check`, `monitor`, `withhold`, and `not_applicable` 
 
 **Status:** Accepted
 
+**Interaction update:** The 2026-07-18 compact selection-sheet decision
+supersedes the nested add/edit screens and new quantity, unit, method, and item
+note capture below. The one-to-many aggregate and atomic parent save remain
+accepted.
+
 **Decision:** A fertilizing Care Activity may contain zero or more ordered, user-entered Fertilizer Applications. Each optional application records the fertilizer identity and may record its group, NPK, amount/unit, application method, and item note. Nested add/edit/remove screens modify only the Care Entry draft; the parent “Lưu hoạt động” action atomically saves the activity and its applications.
 
 **Rationale:** Home growers may apply more than one product at the same time, and splitting one occurrence into several Care Activities would duplicate plant, time, origin, general notes, and save work. A child-record model preserves one trustworthy event while keeping optional product detail structured.
@@ -375,6 +421,11 @@ Do not add the full `due`, `check`, `monitor`, `withhold`, and `not_applicable` 
 ## 2026-07-16 — Select reviewed fertilizer suggestions inline
 
 **Status:** Accepted
+
+**Interaction update:** The 2026-07-18 compact selection-sheet decision
+supersedes optional application details in the manual catalog path below.
+Reviewed suggestion selection and the explicit parent save boundary remain
+accepted.
 
 **Decision:** A fertilizing Care Entry may show structured fertilizer suggestions authored by its applicable Care Plan as inline, wrapping, selectable chips. Tapping a chip adds or removes a fertilizer snapshot in the in-memory draft without opening the application editor. The parent “Lưu hoạt động” action remains the only history-write boundary. “Thêm loại phân” remains the path for manual catalog selection and optional application details.
 

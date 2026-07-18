@@ -23,7 +23,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 
 - [ ] Add optional `recommendation_mode: action | check` and structured `check_before_acting` fields to authored and compiled Care Plans, compiler types, schemas, validators, fixtures, and documentation.
 - [ ] Add an explicit Knowledge Base bundle adapter that accepts `1.0.x` and `1.1.x`, defaults an omitted recommendation mode to `action`, and rejects unsupported major versions.
-- [ ] Add optional `application_method` to reviewed fertilizer suggestions and prefill it as an editable Fertilizer Application draft without selecting or saving anything automatically.
+- [ ] Reconsider optional `application_method` on reviewed fertilizer suggestions only after the post-MVP application-detail interaction is validated; do not prefill it in the current identity-only entry flow.
 - [ ] Add optional `recommended_spray_purpose: prevention | treatment` to Care Plans without changing eligibility or reminder timing.
 - [ ] Add nullable saved spraying product-name and purpose fields with a forward SQLite migration; preserve all legacy spraying rows without backfill or note parsing.
 - [x] Add an optional stable target ID plus immutable target-name snapshot to saved spraying in the unreleased SQLite V1 baseline; keep a saved target available while editing if the current catalog no longer contains it.
@@ -70,8 +70,9 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 
 - [x] Prototype Plant Detail with an informational lifecycle journey, current-stage objective, deterministic watering/fertilizing care cards, plant-scoped Quick Care, recent saved care, and weather context.
 - [x] Prototype and review fast watering and fertilizing entry flows.
-- [ ] Validate the multi-fertilizer draft and nested add/edit flow with home grape growers.
-- [ ] Validate whether growers understand both “Thêm loại phân” in Care Entry and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
+- [ ] Validate the recent-first single-sheet multi-fertilizer picker with home grape growers.
+- [ ] Validate whether growers understand the “Thêm loại phân” sheet and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
+- [ ] Validate whether per-application quantity, unit, method, or item note provides enough value to reintroduce after MVP and where that interaction belongs.
 - [ ] Validate whether inline reviewed fertilizer chips, automatic catalog reuse, and saved last-use context reduce fertilizing-entry time without being mistaken for automatic prescriptions.
 - [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [ ] Remove standalone Task Guidance and guided-completion flows.

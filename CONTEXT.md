@@ -51,7 +51,7 @@ One optional curated pest or disease the grower selects while recording a sprayi
 _Avoid_: Chẩn đoán, bệnh đã xác nhận, kết quả xử lý
 
 **Lần dùng phân bón** (Fertilizer application):
-One optional user-entered fertilizer item used during a saved fertilizing Care Activity. One activity may contain several applications; each application identifies the fertilizer by name and may record its group, application method, amount/unit, and an item-specific note. It is user history, not a curated Fertilizer Profile or a recommendation.
+One optional user-selected fertilizer item used during a saved fertilizing Care Activity. One activity may contain several applications. The MVP records the fertilizer identity and group only; nullable method, amount/unit, and item-note fields remain solely for backward-compatible history. It is user history, not a curated Fertilizer Profile or a recommendation.
 _Avoid_: Kế hoạch chăm sóc, hồ sơ phân bón đã duyệt, gợi ý bón phân
 
 **Phân bón của tôi** (User fertilizer):

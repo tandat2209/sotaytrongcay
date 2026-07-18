@@ -65,7 +65,7 @@ Users can:
 - Contextual care entry for watering, fertilizing, and spraying.
 - A reusable private fertilizer catalog reachable from fertilizing Care Entry and “Mở rộng” → “Quản lý phân bón”.
 - “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
-- Optional structured details for products, fertilizer groups, amounts, dosage, methods, notes, and photos.
+- Optional structured details for fertilizer identity/group, watering amount, spraying target, activity notes, and journal photos.
 - Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
 - Conditional planted age and current-stage age from their separate persisted dates; unknown dates remain absent.
 - Stage tips, things to avoid, warning signs, and upcoming milestone inside Plant Detail.
@@ -95,7 +95,7 @@ Users can:
 - A **Care Guide** contains generic informational techniques such as training or pruning and does not create tracked care recommendations.
 - A curated **Pest** or **Disease** target describes an issue, observable evidence, monitoring relevance, prevention, safe first response, and escalation guidance. A target relationship is not a diagnosis, treatment authorization, or executable spraying rule.
 - Review-stage content remains informational and creates no history.
-- A **Care Activity** records performed watering, fertilizing, or spraying. One fertilizing activity may contain zero or more user-entered **Fertilizer Applications** so a mixed application is still saved as one occurrence. A spraying activity may store one optional curated Pest or Disease ID with an immutable Vietnamese name snapshot; this records user intent and never establishes diagnosis, treatment success, recommendation eligibility, or reminder state.
+- A **Care Activity** records performed watering, fertilizing, or spraying. One fertilizing activity may contain zero or more identity-only **Fertilizer Applications** so a mixed application is still saved as one occurrence. The schema retains nullable amount, unit, method, and item-note fields for backward-compatible history, but the MVP entry flow does not collect them. A spraying activity may store one optional curated Pest or Disease ID with an immutable Vietnamese name snapshot; this records user intent and never establishes diagnosis, treatment success, recommendation eligibility, or reminder state.
 - A **User Fertilizer** is a reusable private catalog record. Selecting a reviewed fertilizer suggestion creates or reuses a catalog record linked by stable Knowledge Base ID; selecting any catalog item copies its identity into a Fertilizer Application. Managing the catalog does not create history, and later catalog changes do not rewrite saved applications.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
 - Saving either record adds it to the plant Timeline and global Journal.
@@ -104,7 +104,7 @@ Users can:
 - A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. A plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
 - Future reviewed Weather Rules may prioritize, delay, suppress, or annotate a suggestion; current weather is display-only.
 - User data references stable Knowledge Base IDs but never owns curated content.
-- User-entered fertilizer names, groups, quantities, methods, and notes are mutable history. They do not create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.
+- User-entered fertilizer names and groups are private catalog data copied into mutable history. Legacy quantities, methods, and item notes remain user history when present. None of these fields create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.
 
 ## Knowledge Base model
 

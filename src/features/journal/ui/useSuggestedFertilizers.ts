@@ -8,10 +8,14 @@ import {
 } from "@/features/fertilizers";
 import { createId } from "@/shared/lib/identifiers";
 import { t } from "@/shared/i18n";
-import { listFertilizerSuggestionUsages } from "../data/fertilizer-application-repository";
+import {
+  listFertilizerSuggestionUsages,
+  listUserFertilizerUsages,
+} from "../data/fertilizer-application-repository";
 import type { FertilizerApplicationDetails } from "../models/fertilizer-application";
 import {
   selectLatestFertilizerSuggestionUsages,
+  selectLatestUserFertilizerUsages,
   toggleSuggestedFertilizerApplication,
   type FertilizerSuggestion,
 } from "../models/suggested-fertilizer-application";
@@ -30,6 +34,10 @@ export function useSuggestedFertilizers({ onChange, value }: Input) {
   const usageQuery = useQuery({
     queryKey: ["fertilizer-suggestion-usages"],
     queryFn: listFertilizerSuggestionUsages,
+  });
+  const userUsageQuery = useQuery({
+    queryKey: ["user-fertilizer-usages"],
+    queryFn: listUserFertilizerUsages,
   });
   const [savingSuggestionId, setSavingSuggestionId] = useState<string | null>(
     null,
@@ -66,14 +74,19 @@ export function useSuggestedFertilizers({ onChange, value }: Input) {
     }
   }
 
+  async function retryUsage() {
+    await Promise.all([usageQuery.refetch(), userUsageQuery.refetch()]);
+  }
+
   return {
     fertilizersQuery,
     savingSuggestionId,
     suggestionError,
     toggleSuggestion,
-    usageFailed: usageQuery.isError,
-    retryUsage: usageQuery.refetch,
+    usageFailed: usageQuery.isError || userUsageQuery.isError,
+    retryUsage,
     usages: selectLatestFertilizerSuggestionUsages(usageQuery.data ?? []),
+    userUsages: selectLatestUserFertilizerUsages(userUsageQuery.data ?? []),
   };
 }
 
