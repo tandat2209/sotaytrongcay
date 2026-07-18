@@ -135,6 +135,7 @@ Bottom navigation contains four destinations:
 4. “Mở rộng”
 
 The active destination uses primary green for icon and label. Inactive destinations use a neutral color with sufficient contrast.
+Use restrained opacity feedback when pressing a destination; avoid a full-cell ripple that competes with the selected-state color.
 
 Focused forms hide bottom navigation rather than showing a misleading active destination.
 
