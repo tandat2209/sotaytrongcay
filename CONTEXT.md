@@ -8,6 +8,10 @@ The app language is Vietnamese. Canonical business terms stay in Vietnamese so p
 An individual plant whose care history and current growth stage the user tracks.
 _Avoid_: Cây nho, hồ sơ cây, gốc nho as generic entity names
 
+**Cây đã lưu trữ** (Archived plant):
+A Plant hidden from active tracking without deleting its saved care or journal history. It receives no new care, journal entries, schedule configuration, or reminders, while historical records keep the Plant's saved identity.
+_Avoid_: Cây đã xóa, cây đang hoạt động
+
 **Giai đoạn sinh trưởng** (Growth stage):
 A species-defined stage in a plant's current development. It provides relevant tips, risks, and milestones.
 _Avoid_: Trạng thái cây, vòng đời

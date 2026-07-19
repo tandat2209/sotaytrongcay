@@ -2,7 +2,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { z } from "zod";
 import { PlantUpdateRouteScreen } from "@/features/journal";
 import {
-  getPlant,
+  getActivePlant,
   PlantIdentity,
   resolvePlantIdentity,
 } from "@/features/plants";
@@ -14,7 +14,7 @@ export default function NewJournalEntryRoute() {
     .parse(useLocalSearchParams());
   return (
     <PlantUpdateRouteScreen
-      getPlant={getPlant}
+      getPlant={getActivePlant}
       onBack={() => router.back()}
       onReviewReminders={() =>
         router.replace({

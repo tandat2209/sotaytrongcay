@@ -4,6 +4,7 @@ import { listPlants, type Plant } from "@/features/plants";
 import { createId } from "@/shared/lib/identifiers";
 import {
   getNotificationState,
+  listNotificationStates,
   listPlantScheduleSnapshots,
   listStageScheduleSnapshots,
   saveNotificationState,
@@ -29,6 +30,22 @@ export async function reconcileAllCarePlanReminders(): Promise<void> {
   await Promise.all(
     plants.map((plant) => reconcilePlantCarePlanReminders(plant)),
   );
+}
+
+export async function cancelPlantCarePlanReminders(
+  plantId: string,
+): Promise<void> {
+  const states = await listNotificationStates(plantId);
+  const updatedAt = new Date().toISOString();
+  for (const state of states) {
+    await cancelReminderNotificationPair(state);
+    await saveNotificationState({
+      ...state,
+      followUpNotificationId: null,
+      mainNotificationId: null,
+      updatedAt,
+    });
+  }
 }
 
 export async function reconcilePlantsForStage(stageId: string): Promise<void> {

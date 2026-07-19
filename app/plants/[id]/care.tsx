@@ -20,7 +20,12 @@ import {
   listCarePlans,
   listSprayTargets,
 } from "@/features/knowledge";
-import { getPlant, resolvePlantIdentity, type Plant } from "@/features/plants";
+import {
+  getActivePlant,
+  getPlant,
+  resolvePlantIdentity,
+  type Plant,
+} from "@/features/plants";
 import { reconcilePlantCarePlanReminders } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
@@ -42,7 +47,7 @@ export default function CareEntryRoute() {
   } = CareRouteSchema.parse(useLocalSearchParams());
   const plantQuery = useQuery({
     queryKey: ["plant", id],
-    queryFn: () => getPlant(id),
+    queryFn: () => (activityId ? getPlant(id) : getActivePlant(id)),
   });
   const photosQuery = useQuery({
     queryKey: ["plant-photos", id],

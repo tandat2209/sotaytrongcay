@@ -11,7 +11,7 @@ describe("database migrations", () => {
   it("creates the complete unreleased schema from one V1 baseline", () => {
     const migrations = getMigrationStatements(0);
 
-    expect(DATABASE_VERSION).toBe(1);
+    expect(DATABASE_VERSION).toBe(2);
     expect(migrations).toHaveLength(1);
 
     const [sql] = migrations;
@@ -19,6 +19,7 @@ describe("database migrations", () => {
     expect(sql).toContain("location TEXT");
     expect(sql).toContain("growing_method TEXT NOT NULL");
     expect(sql).toContain("stage_started_at TEXT");
+    expect(sql).toContain("archived_at TEXT");
 
     expect(sql).toContain("CREATE TABLE care_activities");
     expect(sql).toContain("watering_intensity TEXT");
@@ -59,7 +60,13 @@ describe("database migrations", () => {
     expect(sql).not.toContain("npk_snapshot");
   });
 
-  it("does not migrate an installed V1 database", () => {
+  it("adds archive state to an installed V1 database", () => {
+    expect(getMigrationStatements(1)).toEqual([
+      "ALTER TABLE plants ADD COLUMN archived_at TEXT;",
+    ]);
+  });
+
+  it("does not migrate a current database", () => {
     expect(getMigrationStatements(DATABASE_VERSION)).toEqual([]);
   });
 

@@ -9,7 +9,7 @@ import {
   listThreatsForStage,
 } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
-import { getPlant } from "@/features/plants";
+import { getActivePlant } from "@/features/plants";
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
@@ -27,7 +27,7 @@ export default function StagePlaybookRoute() {
 
   const query = useQuery({
     queryKey: ["plant", id],
-    queryFn: () => getPlant(id),
+    queryFn: () => getActivePlant(id),
   });
 
   if (query.isPending) return <LoadingScreen />;

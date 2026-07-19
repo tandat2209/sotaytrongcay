@@ -170,6 +170,21 @@ export async function getNotificationState(
   );
 }
 
+export async function listNotificationStates(
+  plantId: string,
+): Promise<NotificationState[]> {
+  const db = await getDb();
+  return await db.getAllAsync<NotificationState>(
+    `SELECT plant_id AS plantId, care_plan_id AS carePlanId,
+      main_notification_id AS mainNotificationId,
+      follow_up_notification_id AS followUpNotificationId,
+      updated_at AS updatedAt
+     FROM plant_care_plan_notification_states
+     WHERE plant_id = ?`,
+    [plantId],
+  );
+}
+
 export async function saveNotificationState(
   input: NotificationState,
 ): Promise<void> {

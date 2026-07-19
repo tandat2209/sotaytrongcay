@@ -230,6 +230,10 @@ An optional setup photo is saved as a photo-only initial Plant Update at the sel
 
 **User actions:** Add or remove a photo, choose the growing method, select the current stage, enter the optional planted date, and save.
 
+Editing an existing Plant changes its required name, growing method, and optional planted date. The grower may clear a previously saved planted date. Stage changes remain in “Thêm nhật ký” so the confirmed transition and stage-start time stay in history; editing does not directly replace the current stage. Plant-owned photos do not exist, so a new representative photo also remains a Plant Update rather than an editable profile field.
+
+Plant Detail's overflow menu contains “Chỉnh sửa cây” and “Lưu trữ cây”. Archiving requires confirmation, hides the Plant from active lists, Today, settings, new-entry flows, and reminders, and preserves its existing care and journal records with their Plant identity. An archived Plant cannot receive new records. Existing Care Activities remain viewable and editable from Journal. Restore and permanent deletion are outside this slice.
+
 ### 7.5 Plant Detail
 
 **Purpose:** Answer where the plant is now, what care to consider today, and what was saved recently.
@@ -261,7 +265,7 @@ Plant Detail reuses the same compact app-level weather summary as Today. Setup a
 
 **Error state:** Keep manual tracking available if guidance or weather fails. Label stale weather. Return to Plants if the plant no longer exists.
 
-**User actions:** Review journey and current guidance, open Stage Playbook, open a recent care or plant-update record, record core care through Care Entry, or review recent journal history.
+**User actions:** Review journey and current guidance, open Stage Playbook, open a recent care or plant-update record, record core care through Care Entry, review recent journal history, edit profile information, or archive the Plant after confirmation.
 
 ### 7.5.1 Stage Playbook — "Hướng dẫn chi tiết"
 

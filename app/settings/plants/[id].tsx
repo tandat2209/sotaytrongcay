@@ -9,7 +9,7 @@ import {
   listCareActivities,
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
-import { getPlant } from "@/features/plants";
+import { getActivePlant } from "@/features/plants";
 import { listCarePlans } from "@/features/knowledge";
 import {
   createPlantScheduleSnapshot,
@@ -37,7 +37,7 @@ export default function PlantScheduleDetailRoute() {
   const query = useQuery({
     queryKey: ["plant-schedules", id],
     queryFn: async () => {
-      const plant = await getPlant(id);
+      const plant = await getActivePlant(id);
       if (!plant) return null;
       const [activities, plantSnapshots, stageSnapshots] = await Promise.all([
         listCareActivities(id),

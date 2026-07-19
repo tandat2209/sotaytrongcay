@@ -1,5 +1,14 @@
 import { getDb, runDatabaseWrite } from "@/shared/lib/db/database";
+import { z } from "zod";
 import { Plant, PlantSchema } from "../models/plant";
+
+export const PlantProfileFieldsSchema = PlantSchema.pick({
+  growingMethod: true,
+  name: true,
+  plantedAt: true,
+});
+
+export type PlantProfileFields = z.infer<typeof PlantProfileFieldsSchema>;
 
 export type PlantRow = {
   id: string;
@@ -10,6 +19,7 @@ export type PlantRow = {
   location: string | null;
   planted_at: string | null;
   stage_started_at: string | null;
+  archived_at: string | null;
   created_at: string;
 };
 
@@ -59,6 +69,43 @@ export async function deletePlant(id: string): Promise<void> {
   });
 }
 
+export function plantToUpdateParams(
+  id: string,
+  input: PlantProfileFields,
+): (string | null)[] {
+  const plantId = PlantSchema.shape.id.parse(id);
+  const fields = PlantProfileFieldsSchema.parse(input);
+  return [fields.name, fields.growingMethod, fields.plantedAt, plantId];
+}
+
+export async function updatePlantProfile(
+  id: string,
+  input: PlantProfileFields,
+): Promise<void> {
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync(
+      `UPDATE plants
+       SET name = ?, growing_method = ?, planted_at = ?
+       WHERE id = ? AND archived_at IS NULL`,
+      plantToUpdateParams(id, input),
+    );
+  });
+}
+
+export async function archivePlant(
+  id: string,
+  archivedAt: string,
+): Promise<void> {
+  const plantId = PlantSchema.shape.id.parse(id);
+  const timestamp = z.string().datetime().parse(archivedAt);
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync(
+      "UPDATE plants SET archived_at = ? WHERE id = ? AND archived_at IS NULL",
+      [timestamp, plantId],
+    );
+  });
+}
+
 export async function getPlant(id: string): Promise<Plant | null> {
   const db = await getDb();
   const row = await db.getFirstAsync<PlantRow>(
@@ -68,7 +115,24 @@ export async function getPlant(id: string): Promise<Plant | null> {
   return row ? plantFromRow(row) : null;
 }
 
+export async function getActivePlant(id: string): Promise<Plant | null> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<PlantRow>(
+    "SELECT * FROM plants WHERE id = ? AND archived_at IS NULL",
+    [id],
+  );
+  return row ? plantFromRow(row) : null;
+}
+
 export async function listPlants(): Promise<Plant[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<PlantRow>(
+    "SELECT * FROM plants WHERE archived_at IS NULL ORDER BY created_at DESC",
+  );
+  return rows.map(plantFromRow);
+}
+
+export async function listAllPlants(): Promise<Plant[]> {
   const db = await getDb();
   const rows = await db.getAllAsync<PlantRow>(
     "SELECT * FROM plants ORDER BY created_at DESC",

@@ -9,7 +9,7 @@ import {
 } from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { useWeather } from "@/features/weather";
-import { getPlant } from "../data/plant-repository";
+import { getActivePlant } from "../data/plant-repository";
 import { createPlantDetailProjection } from "../models/plant-detail-projection";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
@@ -17,7 +17,9 @@ import { PlantDetailScreen } from "./PlantDetailScreen";
 
 type Props = Readonly<{
   onAddJournal: () => void;
+  onArchive: () => void;
   onBack: () => void;
+  onEdit: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook: () => void;
   onOpenUpdate: (id: string) => void;
@@ -30,7 +32,9 @@ type Props = Readonly<{
 
 export function PlantDetailContainer({
   onAddJournal,
+  onArchive,
   onBack,
+  onEdit,
   onOpenActivity,
   onOpenPlaybook,
   onOpenUpdate,
@@ -42,7 +46,7 @@ export function PlantDetailContainer({
     queryKey: ["plant-detail", plantId],
     queryFn: async () => {
       const [plant, activities, latestPhotoUri, updates] = await Promise.all([
-        getPlant(plantId),
+        getActivePlant(plantId),
         listCareActivities(plantId),
         getLatestPlantPhotoUri(plantId),
         listRecentPlantUpdates(plantId, 3),
@@ -86,7 +90,9 @@ export function PlantDetailContainer({
   return (
     <PlantDetailScreen
       onAddJournal={onAddJournal}
+      onArchive={onArchive}
       onBack={onBack}
+      onEdit={onEdit}
       onOpenActivity={onOpenActivity}
       onOpenPlaybook={onOpenPlaybook}
       onOpenUpdate={onOpenUpdate}

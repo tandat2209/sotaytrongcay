@@ -10,6 +10,7 @@ export {
 } from "./data/schedule-snapshot-repository";
 export {
   createPlantScheduleSnapshot,
+  cancelPlantCarePlanReminders,
   diffCarePlanApplicability,
   findStageSnapshot,
   reconcileAllCarePlanReminders,

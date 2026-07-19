@@ -57,11 +57,24 @@ export function PlantedAtField({ onChange, value }: Props) {
           </Typography>
         </Pressable>
       ) : null}
+      {value ? (
+        <Pressable
+          accessibilityLabel={t("plants.create.dateClear")}
+          accessibilityRole="button"
+          onPress={() => onChange(null)}
+          style={styles.clear}
+        >
+          <Typography color="error" variant="bodyMedium">
+            {t("plants.create.dateClear")}
+          </Typography>
+        </Pressable>
+      ) : null}
     </FormField>
   );
 }
 
 const styles = StyleSheet.create({
+  clear: { alignItems: "flex-end", minHeight: 44, paddingVertical: spacing.sm },
   control: {
     alignItems: "center",
     backgroundColor: colors.surface,

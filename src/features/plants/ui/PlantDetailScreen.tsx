@@ -1,6 +1,6 @@
-import { BookOpen, ChevronRight, Info, Leaf } from "lucide-react-native";
-import { useEffect, useRef, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Info, Leaf } from "lucide-react-native";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { formatCareEvaluationReason } from "@/features/guidance";
 import {
   CareEntryScreen,
@@ -8,15 +8,13 @@ import {
   type CareEntryDetails,
 } from "@/features/journal";
 import { listSprayTargets } from "@/features/knowledge";
-import { StageIcon } from "@/features/knowledge/stage-icons";
 import { WeatherCard, type WeatherState } from "@/features/weather";
 import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Screen } from "@/shared/ui/Screen";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, radius, spacing } from "@/shared/ui/theme";
+import { colors, spacing } from "@/shared/ui/theme";
 import type {
   PlantDetailCareCard as CareCardModel,
   PlantDetailProjection,
@@ -24,12 +22,17 @@ import type {
 import { CareRecommendationDetails } from "./CareRecommendationDetails";
 import { PlantActionMenu } from "./PlantActionMenu";
 import { PlantDetailCareCard } from "./PlantDetailCareCard";
+import { PlantCurrentStage } from "./PlantCurrentStage";
+import { PlantGrowthJourney } from "./PlantGrowthJourney";
 import { PlantDetailHero } from "./PlantDetailHero";
+import { PlantDetailMenu } from "./PlantDetailMenu";
 import { PlantDetailRecentJournal } from "./PlantDetailRecentJournal";
 
 type Props = Readonly<{
   onBack?: () => void;
   onAddJournal: () => void;
+  onArchive: () => void;
+  onEdit: () => void;
   onOpenActivity: (id: string) => void;
   onOpenPlaybook?: () => void;
   onOpenUpdate: (id: string) => void;
@@ -46,7 +49,9 @@ type Props = Readonly<{
 
 export function PlantDetailScreen({
   onAddJournal,
+  onArchive,
   onBack,
+  onEdit,
   onOpenActivity,
   onOpenPlaybook,
   onOpenUpdate,
@@ -90,6 +95,7 @@ export function PlantDetailScreen({
       >
         {onBack ? (
           <TopBar
+            action={<PlantDetailMenu onArchive={onArchive} onEdit={onEdit} />}
             backAccessibilityLabel={t("common.actions.backToPlants")}
             onBack={onBack}
             title={t("plants.screen.details")}
@@ -102,8 +108,8 @@ export function PlantDetailScreen({
           name={projection.plant.name}
           speciesTitle={projection.speciesTitle}
         />
-        <GrowthJourney projection={projection} />
-        <CurrentStage
+        <PlantGrowthJourney projection={projection} />
+        <PlantCurrentStage
           {...(onOpenPlaybook ? { onOpenPlaybook } : {})}
           projection={projection}
         />
@@ -174,192 +180,7 @@ export function PlantDetailScreen({
   );
 }
 
-function GrowthJourney({ projection }: { projection: PlantDetailProjection }) {
-  const scrollViewRef = useRef<ScrollView>(null);
-  const [viewportWidth, setViewportWidth] = useState(0);
-  const currentIndex = projection.lifecycleStages.findIndex(
-    (stage) => stage.isCurrent,
-  );
-  const stageCount = projection.lifecycleStages.length;
-
-  useEffect(() => {
-    if (currentIndex < 0 || viewportWidth === 0) return;
-
-    const contentWidth =
-      stageCount * STAGE_STEP_WIDTH +
-      Math.max(0, stageCount - 1) * STAGE_STEP_GAP;
-    const currentStageCenter =
-      currentIndex * (STAGE_STEP_WIDTH + STAGE_STEP_GAP) + STAGE_STEP_WIDTH / 2;
-    const centeredOffset = currentStageCenter - viewportWidth / 2;
-    const maximumOffset = Math.max(0, contentWidth - viewportWidth);
-
-    scrollViewRef.current?.scrollTo({
-      animated: false,
-      x: Math.min(Math.max(centeredOffset, 0), maximumOffset),
-    });
-  }, [currentIndex, stageCount, viewportWidth]);
-
-  return (
-    <View style={styles.compactSection}>
-      <View style={styles.journeyHeading}>
-        <Typography variant="headlineSmall">
-          {t("plants.screen.lifecycle")}
-        </Typography>
-        {currentIndex >= 0 ? (
-          <Typography color="textSecondary" variant="label">
-            {currentIndex + 1}/{projection.lifecycleStages.length}
-          </Typography>
-        ) : null}
-      </View>
-      {projection.lifecycleStages.length ? (
-        <ScrollView
-          horizontal
-          onLayout={(event) => setViewportWidth(event.nativeEvent.layout.width)}
-          ref={scrollViewRef}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View style={styles.journey}>
-            {projection.lifecycleStages.map((stage, index) => {
-              return (
-                <View
-                  accessibilityLabel={
-                    stage.isCurrent
-                      ? t("plants.screen.currentStageAccessibility", {
-                          stage: stage.title,
-                        })
-                      : stage.title
-                  }
-                  key={stage.id}
-                  style={styles.journeyStep}
-                >
-                  {index ? <View style={styles.connector} /> : null}
-                  <View
-                    style={[
-                      styles.stageNode,
-                      stage.isCurrent && styles.currentNode,
-                    ]}
-                  >
-                    <StageIcon
-                      color={
-                        stage.isCurrent ? colors.surface : colors.textSecondary
-                      }
-                      size={16}
-                      stageId={stage.id}
-                    />
-                  </View>
-                  <Typography
-                    color={stage.isCurrent ? "primary" : "textSecondary"}
-                    style={styles.journeyLabel}
-                    variant="label"
-                  >
-                    {stage.title}
-                  </Typography>
-                </View>
-              );
-            })}
-          </View>
-        </ScrollView>
-      ) : (
-        <Typography color="textSecondary" variant="bodyMedium">
-          {t("plants.screen.journeyEmpty")}
-        </Typography>
-      )}
-    </View>
-  );
-}
-
-function CurrentStage({
-  onOpenPlaybook,
-  projection,
-}: {
-  onOpenPlaybook?: () => void;
-  projection: PlantDetailProjection;
-}) {
-  return (
-    <SurfaceCard style={styles.stageCard}>
-      <Typography color="secondary" variant="label">
-        {t("plants.guide.objective")}
-      </Typography>
-      <Typography color="textSecondary" variant="bodyLarge">
-        {projection.stagePlaybook?.primaryObjective ||
-          t("plants.guide.missing")}
-      </Typography>
-      {onOpenPlaybook && projection.stagePlaybook ? (
-        <Pressable
-          accessibilityLabel={t("plants.screen.guideAccessibility", {
-            stage: projection.stageTitle,
-          })}
-          accessibilityRole="button"
-          onPress={onOpenPlaybook}
-          style={({ pressed }) => [
-            styles.playbookAction,
-            pressed && styles.playbookActionPressed,
-          ]}
-        >
-          <BookOpen color={colors.primary} size={20} />
-          <Typography color="primary" style={styles.flex} variant="bodyLarge">
-            {t("plants.screen.viewGuide")}
-          </Typography>
-          <ChevronRight color={colors.primary} size={18} />
-        </Pressable>
-      ) : null}
-    </SurfaceCard>
-  );
-}
-
-const STAGE_STEP_WIDTH = 68;
-const STAGE_STEP_GAP = spacing.sm;
-
 const styles = StyleSheet.create({
-  compactSection: { gap: spacing.sm },
-  connector: {
-    backgroundColor: colors.border,
-    height: 1,
-    left: -14,
-    position: "absolute",
-    top: 16,
-    width: 20,
-  },
-  currentNode: { backgroundColor: colors.primary, borderColor: colors.primary },
-  flex: { flex: 1 },
-  journey: { flexDirection: "row", gap: spacing.sm },
-  journeyHeading: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  journeyLabel: { textAlign: "center" },
-  journeyStep: {
-    alignItems: "center",
-    gap: spacing.xs,
-    width: STAGE_STEP_WIDTH,
-  },
-  playbookAction: {
-    alignItems: "center",
-    borderRadius: radius.control,
-    flexDirection: "row",
-    gap: spacing.sm,
-    minHeight: 44,
-    paddingHorizontal: spacing.sm,
-  },
-  playbookActionPressed: { backgroundColor: colors.primarySoft },
   section: { gap: spacing.md },
   sheetTitle: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  stageCard: {
-    backgroundColor: colors.surfaceSubtle,
-    borderLeftColor: colors.primary,
-    borderLeftWidth: 3,
-    gap: spacing.sm,
-    padding: spacing.md,
-  },
-  stageNode: {
-    alignItems: "center",
-    backgroundColor: colors.surfaceSubtle,
-    borderColor: colors.border,
-    borderRadius: radius.round,
-    borderWidth: 1,
-    height: 32,
-    justifyContent: "center",
-    width: 32,
-  },
 });

@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite";
 import { createSerializedTaskQueue } from "./serialized-task-queue";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 1;
+export const DATABASE_VERSION = 2;
 
 const databaseWriteQueue = createSerializedTaskQueue();
 let databasePromise: Promise<SQLite.SQLiteDatabase> | null = null;
@@ -20,6 +20,7 @@ CREATE TABLE plants (
   location TEXT,
   planted_at TEXT,
   stage_started_at TEXT,
+  archived_at TEXT,
   created_at TEXT NOT NULL
 );
 
@@ -242,8 +243,13 @@ CREATE INDEX idx_fertilizer_applications_knowledge_time
   ON fertilizer_applications(knowledge_id_snapshot, care_activity_id);
 `;
 
+const V2_ADD_PLANT_ARCHIVE_STATE =
+  "ALTER TABLE plants ADD COLUMN archived_at TEXT;";
+
 export function getMigrationStatements(currentVersion: number): string[] {
-  return currentVersion < DATABASE_VERSION ? [V1_INITIAL_SCHEMA] : [];
+  if (currentVersion === 0) return [V1_INITIAL_SCHEMA];
+  if (currentVersion === 1) return [V2_ADD_PLANT_ARCHIVE_STATE];
+  return [];
 }
 
 export function getDb(): Promise<SQLite.SQLiteDatabase> {

@@ -1,4 +1,8 @@
-import { plantFromRow, plantToInsertParams } from "./plant-repository";
+import {
+  plantFromRow,
+  plantToInsertParams,
+  plantToUpdateParams,
+} from "./plant-repository";
 
 const plant = {
   id: "a775a7ec-fb44-4660-88ed-0f3b1933e7f1",
@@ -43,6 +47,7 @@ describe("plant repository mapping", () => {
         location: null,
         planted_at: null,
         stage_started_at: plant.stageStartedAt,
+        archived_at: null,
         created_at: plant.createdAt,
       }),
     ).toEqual(plant);
@@ -58,8 +63,29 @@ describe("plant repository mapping", () => {
       location: "Ban công hướng Đông",
       planted_at: null,
       stage_started_at: plant.stageStartedAt,
+      archived_at: null,
       created_at: plant.createdAt,
     });
     expect(result.location).toBe("Ban công hướng Đông");
+  });
+
+  it("maps editable profile fields to SQLite update parameters", () => {
+    expect(
+      plantToUpdateParams(plant.id, {
+        growingMethod: "ground",
+        name: "  Nho trước sân  ",
+        plantedAt: "2026-06-01",
+      }),
+    ).toEqual(["Nho trước sân", "ground", "2026-06-01", plant.id]);
+  });
+
+  it("rejects an empty edited plant name", () => {
+    expect(() =>
+      plantToUpdateParams(plant.id, {
+        growingMethod: "container",
+        name: "   ",
+        plantedAt: null,
+      }),
+    ).toThrow();
   });
 });

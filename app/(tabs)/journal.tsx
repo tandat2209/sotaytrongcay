@@ -1,6 +1,6 @@
 import { JournalScreen } from "@/features/journal";
 import {
-  listPlants,
+  listAllPlants,
   PlantIdentity,
   resolvePlantIdentity,
 } from "@/features/plants";
@@ -8,7 +8,7 @@ import {
 export default function JournalRoute() {
   return (
     <JournalScreen
-      listPlants={listPlants}
+      listPlants={listAllPlants}
       plantIdentityComponent={PlantIdentity}
       resolvePlantIdentity={resolvePlantIdentity}
     />

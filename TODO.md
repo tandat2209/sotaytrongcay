@@ -111,7 +111,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Build first-slice Plant Detail recent-watering summary and global Journal/Activity Detail views.
 - [x] Deliver current-data Plant Detail slice: three care types summarised and recordable, stage identity, review-guidance text, weather context, recent care history, activity detail navigation, and 'Hướng dẫn chi tiết' link to stage playbook.
 - [x] Extend the first slice with fertilizing, spraying, and full Plant Dashboard care summaries.
-- [ ] Add plant editing and archive flows.
+- [x] Add Plant Detail profile editing and confirmed archive flows that preserve history and cancel active reminders.
 - [x] Add local photo-and-note Plant Updates with user-confirmed stage history, Journal display, and derived Plant Detail photos.
 - [x] Add Care Plan schedule snapshots and local notification delivery.
 - [ ] Add a complete mixed-event Timeline.

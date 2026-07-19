@@ -843,6 +843,26 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** Today may show fewer than three plant cards while still showing up to three activity prompts. Group order follows the most urgent included activity, activity order remains unchanged, and no task state, evaluator behavior, persistence, reminder, or care-entry save behavior changes.
 
+## 2026-07-19 — Edit active Plant profiles and archive instead of deleting
+
+**Status:** Accepted
+
+**Decision:** Plant Detail exposes one overflow menu with “Chỉnh sửa cây” and “Lưu trữ cây”. Editing changes the Plant's name, growing method, and optional planted date. Current-stage changes and representative photos remain Plant Updates so their journal ownership and history are preserved. Archiving requires confirmation, removes the Plant from active tracking and cancels its scheduled reminder notifications without deleting its Care Activities, Plant Updates, photos, stage history, or schedule snapshots. Archived Plant identity remains available to historical Journal records, while new care, Plant Updates, and schedule configuration require an active Plant. Restore and permanent deletion are not included in this slice.
+
+**Rationale:** Growers need to correct profile information and stop tracking a Plant without losing the history that makes the journal trustworthy. Keeping stage changes in the journal avoids an unrecorded lifecycle transition, while archive avoids the broad cascade and photo deletion semantics of permanent deletion.
+
+**Consequences:** The unreleased SQLite V1 baseline adds nullable `plants.archived_at`; an existing development database using the older V1 baseline must be reset. Active Plant queries filter on `archived_at IS NULL`, while Journal identity lookup intentionally includes archived Plants. Archive cancellation completes before the local archive write so an OS notification failure leaves the Plant active and retryable. Profile edits reconcile Care Plan reminders because growing method changes can alter applicable schedules. The preserved schedule snapshots can support a later restore flow without redefining their ownership.
+
+## 2026-07-19 — Forward-migrate archive state for installed V1 databases
+
+**Status:** Accepted
+
+**Decision:** Keep the complete fresh-install schema as the V1 baseline content, advance the runtime database version to V2, and migrate an installed V1 database with `ALTER TABLE plants ADD COLUMN archived_at TEXT`. Fresh installations create the final table shape directly and record `user_version = 2`. This supersedes only the development-database reset requirement stated in the Plant archive decision above.
+
+**Rationale:** Plant archive queries run during reminder bootstrap. Leaving an installed database at `user_version = 1` skipped initialization while active-Plant reads referenced a missing column, causing reminder reconciliation to fail at every startup. The additive nullable column has a safe, deterministic migration that preserves all local history, so requiring a destructive reset is unnecessary.
+
+**Consequences:** Existing Plants remain active because migrated rows receive `NULL` for `archived_at`. Startup can reconcile reminders immediately after migration without losing Plant, journal, schedule, fertilizer, or weather data. The V1 consolidation decision still governs the baseline and all later schema changes continue as forward-only migrations.
+
 ## 2026-07-18 — Use one branded initial loading screen
 
 **Status:** Accepted
