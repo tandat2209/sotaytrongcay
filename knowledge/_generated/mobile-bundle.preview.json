@@ -1623,6 +1623,26 @@
   ],
   "guides": [
     {
+      "id": "grape.guide.build-fruiting-framework",
+      "type": "care_guide",
+      "title": "Tạo khung cành mang quả",
+      "goal": "Phân bố cành cấp 2 và cấp 3 thành bộ khung thông thoáng, phù hợp với sức cây và khoảng trống trên giàn.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.canopy-formation"
+      ],
+      "bodyMarkdown": "\n# Tạo khung cành mang quả\n\n## Trước khi cắt\n\n- Kiểm tra các cành cấp 1 đã được đỡ chắc và có khoảng trống để phát triển tiếp.\n- Quan sát sức cây, màu lá, tổn thương trên cành và mức độ che phủ của tán.\n- Xác định trước vị trí cần thêm cành, vị trí đang quá dày và phần khung lâu dài cần giữ.\n- Dùng dụng cụ cắt sắc, sạch; vệ sinh lại dụng cụ sau khi thao tác trên phần cành có dấu hiệu bất thường.\n\n## Cách thực hiện\n\n1. Chọn các chồi bên khỏe, có vị trí phù hợp để phát triển thành cành cấp 2.\n2. Dẫn cành vào khoảng trống trên giàn và buộc lỏng tại các điểm đỡ cần thiết.\n3. Chỉ bấm ngọn hoặc cắt lùi khi vị trí cắt phục vụ một hướng phân nhánh đã xác định.\n4. Khi chồi mới phát triển, tiếp tục chọn lọc những chồi phân bố hợp lý để tạo cành cấp 3.\n5. Giữ lại các cành khỏe đang dần hóa gỗ để làm phần khung và cành mang quả về sau.\n6. Thực hiện chọn lọc theo từng đợt để còn đủ lá khỏe và dễ quan sát phản ứng của cây.\n\n## Điều cần tránh\n\n- Không dùng cùng một chiều dài cắt, số mắt hoặc số cành cho mọi giống và mọi hệ giàn.\n- Không cắt lùi chỉ vì cành đã đạt một mốc chiều dài tham khảo.\n- Không giữ quá nhiều cành chen chúc chỉ để phủ kín mặt giàn.\n- Không loại bỏ đồng thời phần lớn tán lá khỏe.\n\n## Theo dõi sau khi tạo khung\n\n- Kiểm tra dây buộc và nới dây khi cành lớn.\n- Quan sát chồi mới có phân bố đúng khoảng trống dự kiến hay không.\n- Theo dõi phần gốc cành chuyển dần từ mô non sang mô đã hóa gỗ trước khi cân nhắc cắt tạo quả.\n\n## Dừng lại và đánh giá lại\n\nDừng cắt nếu cây đang héo, cành bị nứt hoặc dập, tán suy yếu rõ ràng, hoặc chưa phân biệt được phần khung cần giữ với phần có thể loại bỏ.\n"
+    },
+    {
       "id": "grape.guide.fertilization-flowering",
       "type": "care_guide",
       "title": "Dinh dưỡng giai đoạn ra hoa",
@@ -1662,6 +1682,47 @@
         "grape.stage.seedling"
       ],
       "bodyMarkdown": "\n## Lưu ý quan trọng\n\n**Không bón phân khi vừa trồng cây con.** Bộ rễ non chưa đủ khả năng hấp thụ dinh dưỡng đậm đặc. Ưu tiên duy nhất là giữ ẩm, thoát nước tốt và giảm sốc cho cây.\n\n## Chuẩn bị đất trước khi trồng\n\nBón phân hữu cơ hoai mục (phân bò ủ hoai, phân trùn quế, compost vỏ trấu) vào hố trồng **1–2 tuần trước khi trồng**. Đây là cách duy nhất để cung cấp dinh dưỡng an toàn cho cây con.\n\n## Điều cần tránh\n\n- **Bỏ phân hạt NPK vào hố trồng** là nguyên nhân hàng đầu gây chết cây con — phân đậm đặc đốt cháy rễ non.\n- Nếu lá vàng trong 2 tuần đầu, nguyên nhân hầu như luôn là tưới quá nhiều hoặc thoát nước kém — không phải thiếu dinh dưỡng.\n- Chờ đến khi thấy chồi mới vươn ra rõ ràng mới xem xét bón phân lần đầu.\n"
+    },
+    {
+      "id": "grape.guide.form-primary-arms",
+      "type": "care_guide",
+      "title": "Bấm ngọn và định hướng cành cấp 1",
+      "goal": "Hình thành các cành khung đầu tiên theo hệ giàn đã chọn mà không làm suy yếu thân chính.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.trellis-training"
+      ],
+      "bodyMarkdown": "\n# Bấm ngọn và định hướng cành cấp 1\n\n## Trước khi cắt\n\n- Xác nhận thân chính đã tới vị trí phân cành dự kiến trên giàn.\n- Xác định hướng tạo tán và số cành phù hợp với hệ giàn, giống nho và không gian đang có.\n- Chỉ thao tác khi cây đang sinh trưởng ổn định, thân không héo, nứt hoặc bị tổn thương rõ ràng.\n- Dùng dụng cụ cắt sắc, sạch và vật liệu buộc mềm.\n\n## Cách thực hiện\n\n1. Xác định phần thân chính cần giữ làm trục lâu dài trước khi cắt.\n2. Nếu hệ giàn đã chọn yêu cầu bấm ngọn, tạo một vết cắt gọn tại vị trí phù hợp với điểm phân cành.\n3. Khi chồi mới xuất hiện, chọn những chồi khỏe và có hướng phân bố phù hợp để làm cành cấp 1.\n4. Dẫn từng cành theo mặt giàn và buộc lỏng; kiểm tra để dây không siết vào cành khi cành lớn lên.\n5. Loại bỏ chồi cạnh tranh theo từng đợt nhỏ, đồng thời giữ đủ lá khỏe để cây tiếp tục quang hợp.\n6. Ghi ảnh vào “Thêm nhật ký” nếu muốn so sánh hướng phát triển của các cành.\n\n## Điều cần tránh\n\n- Không mặc định giữ một số cành cố định cho mọi giống hoặc mọi kiểu giàn.\n- Không bấm ngọn chỉ vì cây đạt một chiều dài theo lịch hoặc theo hình minh họa chung.\n- Không cắt nhiều chồi và lá khỏe trong cùng một lần.\n- Không uốn hoặc buộc cành đến mức nứt, dập hay để lại vết hằn.\n\n## Dừng lại và đánh giá lại\n\n- Chưa xác định được hệ giàn hoặc hướng cành cần giữ.\n- Thân chính còn yếu, bị tổn thương hoặc chưa được đỡ chắc chắn.\n- Các chồi có sức phát triển tương tự và không có cơ sở rõ ràng để chọn cành khung.\n\nTrong các trường hợp này, tiếp tục đỡ thân và quan sát thay vì cắt để chạy theo một mốc chiều dài hoặc số ngày cố định.\n"
+    },
+    {
+      "id": "grape.guide.fruiting-prune",
+      "type": "care_guide",
+      "title": "Cắt cành tạo quả",
+      "goal": "Chọn phần cành đã trưởng thành để cắt tạo quả mà vẫn bảo vệ bộ khung và sức khỏe của cây.",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning"
+      ],
+      "speciesIds": [
+        "plant.grape"
+      ],
+      "stageIds": [
+        "grape.stage.canopy-formation",
+        "grape.stage.recovery"
+      ],
+      "bodyMarkdown": "\n# Cắt cành tạo quả\n\n## Áp dụng khi\n\nHướng dẫn này dùng để chuẩn bị lần cắt tạo quả đầu tiên sau khi hoàn thiện bộ khung, hoặc lần cắt cho chu kỳ mới sau giai đoạn phục hồi. Đây là hướng dẫn tham khảo, không phải lịch cắt tự động.\n\n## Trước khi cắt\n\n- Xác nhận cây khỏe và phần cành dự kiến giữ hoặc cắt đã trưởng thành, có dấu hiệu hóa gỗ rõ ràng.\n- Nhận diện phần thân và cành khung lâu dài để tránh cắt nhầm.\n- Xác định phương pháp tạo quả phù hợp với giống và hệ giàn trước khi quyết định số mắt cần giữ.\n- Kiểm tra dự báo thời tiết và tránh bắt đầu ngay trước một đợt mưa kéo dài.\n- Dùng dụng cụ sắc, sạch để tạo vết cắt gọn.\n\n## Cách thực hiện\n\n1. Quan sát toàn bộ tán và đánh dấu phần khung phải giữ trước khi loại bỏ cành nào.\n2. Chọn cành đã trưởng thành, khỏe và có vị trí phù hợp làm phần cành tạo quả.\n3. Cắt theo phương pháp đã được xác định cho giống và hệ giàn; không suy ra số mắt chỉ từ tuổi cây hoặc số ngày sau thu hoạch.\n4. Loại bỏ có chọn lọc những chồi hoặc cành cạnh tranh rõ ràng, không dọn toàn bộ chồi trong một lần.\n5. Giữ khu vực quanh mắt cần theo dõi đủ thông thoáng mà không làm mất phần lớn lá hoặc cành khỏe còn cần thiết.\n6. Sau khi cắt, chụp ảnh và ghi lại ngày cắt trong “Thêm nhật ký” nếu muốn theo dõi phản ứng của cây.\n\n## Điều cần tránh\n\n- Không cắt tạo quả trên phần cành còn non chỉ để đúng lịch.\n- Không áp dụng một số mắt, chiều dài cắt hoặc số cành giữ lại cho mọi giống nho.\n- Không cắt mạnh khi cây đang suy yếu, héo hoặc có tổn thương chưa rõ nguyên nhân.\n- Không xem số ngày sau cắt là bằng chứng duy nhất rằng cây phải bật mầm hoặc ra hoa.\n\n## Theo dõi sau khi cắt\n\n- Quan sát vết cắt, mắt ngủ và sức căng của cành trong những ngày tiếp theo.\n- Theo dõi mầm mới bằng hình ảnh thay vì tự động kết luận cây đã chuyển giai đoạn.\n- Nếu vết cắt đổi màu bất thường, mô quanh vết cắt mềm hoặc cây suy yếu nhanh, dừng can thiệp thêm và hỏi người có chuyên môn tại địa phương.\n"
     },
     {
       "id": "grape.guide.train-main-shoot",

@@ -35,7 +35,12 @@ describe("grape knowledge pilot integration test", () => {
           group: string;
         }>[];
       }>[];
-      guides: readonly Readonly<{ id: string }>[];
+      guides: readonly Readonly<{
+        id: string;
+        status: string;
+        references: readonly string[];
+        stageIds: readonly string[];
+      }>[];
       diseases: readonly Readonly<{ id: string }>[];
       pests: readonly Readonly<{ id: string }>[];
       references: readonly Readonly<{ id: string }>[];
@@ -46,7 +51,7 @@ describe("grape knowledge pilot integration test", () => {
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.carePlans).toHaveLength(22);
-    expect(bundle.guides).toHaveLength(3);
+    expect(bundle.guides).toHaveLength(6);
     expect(bundle.diseases).toHaveLength(1);
     expect(bundle.pests).toHaveLength(5);
     expect(bundle.references).toHaveLength(15);
@@ -88,6 +93,41 @@ describe("grape knowledge pilot integration test", () => {
     const guideIds = bundle.guides.map((guide) => guide.id).sort();
     expect(guideIds).toContain("grape.guide.train-main-shoot");
     expect(guideIds).toContain("grape.guide.fertilization-seedling");
+
+    expect(
+      bundle.guides.find(
+        (guide) => guide.id === "grape.guide.form-primary-arms",
+      ),
+    ).toMatchObject({
+      status: "review",
+      references: [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning",
+      ],
+      stageIds: ["grape.stage.trellis-training"],
+    });
+    expect(
+      bundle.guides.find(
+        (guide) => guide.id === "grape.guide.build-fruiting-framework",
+      ),
+    ).toMatchObject({
+      status: "review",
+      references: [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning",
+      ],
+      stageIds: ["grape.stage.canopy-formation"],
+    });
+    expect(
+      bundle.guides.find((guide) => guide.id === "grape.guide.fruiting-prune"),
+    ).toMatchObject({
+      status: "review",
+      references: [
+        "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.young-grape-pruning",
+      ],
+      stageIds: ["grape.stage.canopy-formation", "grape.stage.recovery"],
+    });
 
     expect(bundle.diseases.map((disease) => disease.id)).toEqual([
       "disease.grape.powdery-mildew",

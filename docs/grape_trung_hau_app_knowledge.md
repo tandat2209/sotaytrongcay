@@ -15,7 +15,7 @@ source_pages: 4
 
 Tài liệu này được chuyển đổi từ tờ hướng dẫn của một nhà vườn thành kiến thức có cấu trúc để dùng trong ứng dụng.
 
-- Phù hợp trước mắt: **Stage Playbook / bài hướng dẫn tham khảo**.
+- Phù hợp trước mắt: **bối cảnh Stage Playbook và Care Guide tham khảo**.
 - Chưa phù hợp để tạo nhắc việc tự động: lịch bón phân, phun phòng và liều lượng trong tài liệu nguồn chưa được kiểm chứng độc lập.
 - Cần chuyên gia rà soát trước khi xuất bản: dinh dưỡng theo giai đoạn, tần suất tưới theo khí hậu, quy trình kích hoa và phòng trừ sâu bệnh.
 
@@ -329,10 +329,19 @@ reviewed_by
 
 ## Phân loại nội dung
 
-- **Stage Playbook:** Các mục 1-9 và 12.
-- **Care Recommendation Definition:** Các nguyên tắc kiểm tra độ ẩm, thời tiết, sức cây và điều kiện hóa gỗ.
-- **Care Plan:** Chỉ tạo sau khi đã có tần suất được chuyên gia xác nhận.
-- **Observation Guide:** Mục 11 về sâu bệnh và ghi nhận triệu chứng.
+- **Stage Playbook:** Chỉ rút mục tiêu, điều kiện quan sát và bối cảnh giai đoạn từ các mục 1-9 và 12; không đưa quy trình cắt tỉa chi tiết vào Playbook.
+- **Care Guide:** Dùng cho kỹ thuật dẫn thân và cắt tỉa ở các mục 5-9. Các hướng dẫn này chỉ cung cấp thông tin, không tạo hoạt động, nhắc việc, đề xuất chăm sóc hoặc lịch sử.
+- **Care Plan:** Chỉ dùng cho tưới nước, bón phân hoặc phun khi nội dung đã được chuyên gia xác nhận; không dùng cho cắt tỉa.
+- **Disease, Pest hoặc Troubleshooting Guide trong tương lai:** Mục 11 về sâu bệnh và ghi nhận triệu chứng vẫn cần nguồn và rà soát riêng trước khi đưa vào ứng dụng.
+
+## Ánh xạ Care Guide hiện tại
+
+- Mục 5: `grape.guide.train-main-shoot` — Định hướng thân chính.
+- Mục 6: `grape.guide.form-primary-arms` — Bấm ngọn và định hướng cành cấp 1.
+- Mục 7-8: `grape.guide.build-fruiting-framework` — Tạo khung cành mang quả.
+- Mục 9: `grape.guide.fruiting-prune` — Cắt cành tạo quả.
+
+Các mốc số lượng cành, số mắt, chiều dài và số ngày trong nguồn không được chuyển vào các Care Guide như quy tắc chung khi chưa có nguồn độc lập và chuyên gia xác nhận cho giống, hệ giàn và điều kiện trồng cụ thể.
 
 ---
 
