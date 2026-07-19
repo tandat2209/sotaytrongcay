@@ -69,13 +69,9 @@ export function PlantDetailScreen({
     ? formatCareEvaluationReason(entryCard.evaluation.reason)
     : projection.stagePlaybook?.primaryObjective;
   const entrySuggestion = entryCard?.details?.recommendedInputs
-    .flatMap((input) => input.suggestions)
     .map(({ name }) => name)
     .join(" · ");
-  const fertilizerSuggestions =
-    entryCard?.details?.recommendedInputs.flatMap(
-      (input) => input.suggestions,
-    ) ?? [];
+  const fertilizerSuggestions = entryCard?.details?.recommendedInputs ?? [];
   const recordQuickCare = (type: CareActivityType) => {
     setCareEntryType(type);
   };

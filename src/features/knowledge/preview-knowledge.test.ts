@@ -103,7 +103,7 @@ describe("preview knowledge", () => {
           {
             id: "fertilizer.potassium-sulfate",
             name: "Kali sunfat",
-            group: "single",
+            group: "potassium-rich",
           },
         ]),
       );

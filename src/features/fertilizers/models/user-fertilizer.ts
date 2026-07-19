@@ -2,9 +2,11 @@ import { z } from "zod";
 
 export const FertilizerGroupSchema = z.enum([
   "organic",
-  "npk",
-  "single",
-  "supplement",
+  "nitrogen-rich",
+  "npk-balanced",
+  "phosphorus-rich",
+  "potassium-rich",
+  "support",
   "other",
 ]);
 

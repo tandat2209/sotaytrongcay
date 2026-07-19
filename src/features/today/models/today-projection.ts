@@ -105,10 +105,7 @@ export function createTodayProjection({
           stageId: plant.stageId,
           stageTitle: identity.stageTitle,
           suggestion:
-            plan.recommendedInputs
-              ?.flatMap((input) => input.suggestions)
-              .map(({ name }) => name)
-              .join(" · ") ?? null,
+            plan.recommendedInputs?.map(({ name }) => name).join(" · ") ?? null,
           title: plan.title,
         };
         const plantSnapshot =

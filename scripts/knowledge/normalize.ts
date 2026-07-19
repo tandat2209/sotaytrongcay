@@ -145,46 +145,25 @@ export function normalizeDocument(
     case "care_plan": {
       const rawInputs = fm.recommended_inputs;
       const recommendedInputs = Array.isArray(rawInputs)
-        ? rawInputs
-            .filter(
-              (
-                item,
-              ): item is Readonly<{
-                group: unknown;
-                suggestions: unknown;
-              }> =>
-                typeof item === "object" &&
-                item !== null &&
-                "group" in item &&
-                "suggestions" in item,
-            )
-            .map((item) => {
-              const rawSuggestions =
-                "suggestions" in item && Array.isArray(item.suggestions)
-                  ? item.suggestions
-                  : undefined;
-              const suggestions = rawSuggestions?.map((suggestion) => {
-                const value = suggestion as Readonly<Record<string, unknown>>;
-                const group = value.fertilizer_group;
-                const normalizedGroup: FertilizerSuggestion["group"] =
-                  group === "organic" ||
-                  group === "npk" ||
-                  group === "single" ||
-                  group === "supplement" ||
-                  group === "other"
-                    ? group
-                    : "other";
-                return {
-                  id: String(value.id),
-                  name: String(value.name),
-                  group: normalizedGroup,
-                };
-              });
-              return {
-                group: String(item.group),
-                suggestions: suggestions ?? [],
-              };
-            })
+        ? rawInputs.map((input) => {
+            const value = input as Readonly<Record<string, unknown>>;
+            const group = value.group;
+            const normalizedGroup: FertilizerSuggestion["group"] =
+              group === "organic" ||
+              group === "nitrogen-rich" ||
+              group === "npk-balanced" ||
+              group === "phosphorus-rich" ||
+              group === "potassium-rich" ||
+              group === "support" ||
+              group === "other"
+                ? group
+                : "other";
+            return {
+              id: String(value.id),
+              name: String(value.name),
+              group: normalizedGroup,
+            };
+          })
         : undefined;
       const rawFrequency = fm.frequency as RawFrequency | undefined;
       const frequency =

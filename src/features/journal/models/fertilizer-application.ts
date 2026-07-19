@@ -18,9 +18,11 @@ export const FertilizerApplicationMethodSchema = z.enum([
 
 export const FertilizerSnapshotGroupSchema = z.enum([
   "organic",
-  "npk",
-  "single",
-  "supplement",
+  "nitrogen-rich",
+  "npk-balanced",
+  "phosphorus-rich",
+  "potassium-rich",
+  "support",
   "other",
 ]);
 

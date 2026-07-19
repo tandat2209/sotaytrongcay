@@ -16,27 +16,21 @@ goal: >-
   Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang
   phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.
 recommended_inputs:
-  - group: "Phân NPK cân đối, hơi thiên kali"
-    suggestions:
-      - id: fertilizer.npk-16-16-16
-        name: NPK 16-16-16
-        fertilizer_group: npk
-  - group: Bổ sung canxi
-    suggestions:
-      - id: fertilizer.calcium-chloride
-        name: Canxi clorua
-        fertilizer_group: supplement
-  - group: Phương án hữu cơ
-    suggestions:
-      - id: fertilizer.compost-tea
-        name: Trà phân compost
-        fertilizer_group: organic
-      - id: fertilizer.fish-emulsion
-        name: Phân cá
-        fertilizer_group: organic
-      - id: fertilizer.seaweed-extract
-        name: Rong biển
-        fertilizer_group: supplement
+  - id: fertilizer.npk-16-16-16
+    name: NPK 16-16-16
+    group: npk-balanced
+  - id: fertilizer.calcium-nitrate
+    name: Canxi nitrat
+    group: other
+  - id: fertilizer.compost
+    name: Phân compost
+    group: organic
+  - id: fertilizer.fish-emulsion
+    name: Phân cá
+    group: organic
+  - id: fertilizer.seaweed-extract
+    name: Rong biển
+    group: support
 frequency:
   ground:
     display: Mỗi 1–2 tuần — đây là giai đoạn bón nặng
@@ -62,5 +56,6 @@ references:
   - ref.osu.growing-table-grapes
   - ref.umn.growing-grapes-home-garden
   - ref.ucdavis.vineyard-nutrition
+  - ref.umn.high-tunnel-nutrient-management
 priority: 50
 ---

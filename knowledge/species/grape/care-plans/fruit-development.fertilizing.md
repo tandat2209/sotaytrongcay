@@ -17,27 +17,21 @@ goal: >-
   qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng
   nhiều nhất trong toàn bộ chu kỳ.
 recommended_inputs:
-  - group: Phân giàu kali (high-K)
-    suggestions:
-      - id: fertilizer.potassium-sulfate
-        name: Kali sunfat
-        fertilizer_group: single
-      - id: fertilizer.seaweed-extract
-        name: Rong biển
-        fertilizer_group: supplement
-      - id: fertilizer.high-potassium-npk
-        name: NPK thiên kali
-        fertilizer_group: npk
-  - group: Phun canxi qua lá
-    suggestions:
-      - id: fertilizer.calcium-chloride
-        name: Canxi clorua
-        fertilizer_group: supplement
-  - group: Bổ sung magiê (nếu thiếu)
-    suggestions:
-      - id: fertilizer.magnesium-sulfate
-        name: Magiê sunfat
-        fertilizer_group: supplement
+  - id: fertilizer.potassium-sulfate
+    name: Kali sunfat
+    group: potassium-rich
+  - id: fertilizer.seaweed-extract
+    name: Rong biển
+    group: support
+  - id: fertilizer.high-potassium-npk
+    name: NPK thiên kali
+    group: potassium-rich
+  - id: fertilizer.calcium-nitrate
+    name: Canxi nitrat
+    group: other
+  - id: fertilizer.magnesium-sulfate
+    name: Magie sunfat
+    group: other
 frequency:
   ground:
     display: Mỗi 1–2 tuần
@@ -62,5 +56,7 @@ references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
   - ref.fao.grape-production
+  - ref.umn.high-tunnel-nutrient-management
+  - ref.uc-ipm.growing-grape
 priority: 50
 ---

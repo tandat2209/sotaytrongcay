@@ -63,13 +63,17 @@ export type CarePlan = Readonly<{
 export type FertilizerSuggestion = Readonly<{
   id: string;
   name: string;
-  group: "organic" | "npk" | "single" | "supplement" | "other";
+  group:
+    | "organic"
+    | "nitrogen-rich"
+    | "npk-balanced"
+    | "phosphorus-rich"
+    | "potassium-rich"
+    | "support"
+    | "other";
 }>;
 
-export type RecommendedInput = Readonly<{
-  group: string;
-  suggestions: readonly FertilizerSuggestion[];
-}>;
+export type RecommendedInput = FertilizerSuggestion;
 
 export type SprayTarget = Readonly<{
   id: string;
@@ -150,10 +154,7 @@ type RawCarePlan = {
     ground: { display: string; intervalDays: number };
     container: { display: string; intervalDays: number };
   };
-  recommendedInputs?: {
-    group: string;
-    suggestions: FertilizerSuggestion[];
-  }[];
+  recommendedInputs?: FertilizerSuggestion[];
   notes?: string[];
   version: string;
 };
@@ -340,9 +341,7 @@ function listStageThreats(
 // ---------------------------------------------------------------------------
 
 function toCarePlan(raw: RawCarePlan): CarePlan {
-  const fertilizerSuggestions = raw.recommendedInputs?.flatMap(
-    (input) => input.suggestions,
-  );
+  const fertilizerSuggestions = raw.recommendedInputs;
   return {
     id: raw.id,
     title: raw.title,

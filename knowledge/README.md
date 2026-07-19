@@ -66,7 +66,7 @@ review status.
 
 ## Care-content ownership
 
-- A `care_plan` is the authored source for tracked watering, fertilizing, and spraying guidance: title, goal, optional growing-method frequency, recommended inputs, notes, scope, eligibility, missing-history policy, and priority. Each fertilizing recommended-input group contains structured suggestions with stable IDs, Vietnamese names, and canonical fertilizer groups for inline Care Entry selection.
+- A `care_plan` is the authored source for tracked watering, fertilizing, and spraying guidance: title, goal, optional growing-method frequency, recommended inputs, notes, scope, eligibility, missing-history policy, and priority. Fertilizing recommended inputs are a flat list of concrete suggestions with stable IDs, Vietnamese names, and one canonical group: `organic`, `nitrogen-rich`, `npk-balanced`, `phosphorus-rich`, `potassium-rich`, `support`, or `other`.
 - A `care_guide` contains generic informational techniques such as training or pruning and is not required by a Care Plan.
 - A `disease` or `pest` provides a stable reviewed target identity, affected species and monitoring stages, observable evidence, prevention context, safe first response, escalation guidance, and sources. It does not establish that a plant has the issue or that spraying is due.
 - The compiler validates Care Plan scope and emits its presentation and decision fields together.

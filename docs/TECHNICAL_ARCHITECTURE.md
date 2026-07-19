@@ -225,7 +225,7 @@ Knowledge Base data includes plant species, valid growth stages, diseases, pests
 
 User records reference stable knowledge IDs such as `speciesId`, `growthStageId`, or optional catalog IDs. A label change in knowledge must not rewrite journal history.
 
-A User Fertilizer is a private reusable catalog record with a stable ID, required user label, optional group, optional unique Knowledge Base fertilizer ID, timestamps, and sync metadata. Fertilizer Management owns create, edit, archive/delete, search, and selection. Selecting a reviewed fertilizer suggestion creates or reuses the linked catalog record without creating a Care Activity. Contextual creation and standalone management compose the same fertilizer form and validation behavior.
+A User Fertilizer is a private reusable catalog record with a stable ID, required user label, one optional canonical group, optional unique Knowledge Base fertilizer ID, timestamps, and sync metadata. The canonical group enum is shared with Knowledge Base fertilizer suggestions: `organic`, `nitrogen-rich`, `npk-balanced`, `phosphorus-rich`, `potassium-rich`, `support`, or `other`. Fertilizer Management owns create, edit, archive/delete, search, and selection. Selecting a reviewed fertilizer suggestion creates or reuses the linked catalog record without creating a Care Activity. Contextual creation and standalone management compose the same fertilizer form and validation behavior.
 
 Stage playbooks are review-stage guidance contracts, not user data. Each playbook defines concise stage context: objective, entry and exit observations, estimated duration, knowledge topics, and sources. They do not define reminders, tasks, automatic transitions, or executable agronomic rules.
 

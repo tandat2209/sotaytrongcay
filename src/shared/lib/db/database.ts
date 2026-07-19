@@ -142,7 +142,15 @@ CREATE TABLE user_fertilizers (
   fertilizer_group TEXT
     CHECK (
       fertilizer_group IS NULL OR
-      fertilizer_group IN ('organic', 'npk', 'single', 'supplement', 'other')
+      fertilizer_group IN (
+        'organic',
+        'nitrogen-rich',
+        'npk-balanced',
+        'phosphorus-rich',
+        'potassium-rich',
+        'support',
+        'other'
+      )
     ),
   knowledge_id TEXT,
   created_at TEXT NOT NULL,
@@ -158,7 +166,15 @@ CREATE TABLE fertilizer_applications (
   group_snapshot TEXT
     CHECK (
       group_snapshot IS NULL OR
-      group_snapshot IN ('organic', 'npk', 'single', 'supplement', 'other')
+      group_snapshot IN (
+        'organic',
+        'nitrogen-rich',
+        'npk-balanced',
+        'phosphorus-rich',
+        'potassium-rich',
+        'support',
+        'other'
+      )
     ),
   knowledge_id_snapshot TEXT,
   amount_value REAL CHECK (amount_value IS NULL OR amount_value > 0),

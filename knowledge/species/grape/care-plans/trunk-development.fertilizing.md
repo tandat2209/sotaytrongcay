@@ -16,22 +16,18 @@ goal: >-
   Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai
   đoạn nhu cầu đạm (N) bắt đầu tăng.
 recommended_inputs:
-  - group: Phân giàu đạm (high-N)
-    suggestions:
-      - id: fertilizer.urea
-        name: Urê
-        fertilizer_group: single
-      - id: fertilizer.fish-emulsion
-        name: Phân cá
-        fertilizer_group: organic
-  - group: Phân NPK cân đối
-    suggestions:
-      - id: fertilizer.npk-16-16-16
-        name: NPK 16-16-16
-        fertilizer_group: npk
-      - id: fertilizer.compost
-        name: Phân compost
-        fertilizer_group: organic
+  - id: fertilizer.urea
+    name: Urê
+    group: nitrogen-rich
+  - id: fertilizer.fish-emulsion
+    name: Phân cá
+    group: organic
+  - id: fertilizer.npk-16-16-16
+    name: NPK 16-16-16
+    group: npk-balanced
+  - id: fertilizer.compost
+    name: Phân compost
+    group: organic
 frequency:
   ground:
     display: Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh
@@ -50,5 +46,7 @@ status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
+  - ref.umn.fertilizer-urea
+  - ref.umn.high-tunnel-nutrient-management
 priority: 50
 ---

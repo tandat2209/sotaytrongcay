@@ -45,4 +45,30 @@ describe("UserFertilizerSchema", () => {
       UserFertilizerSchema.parse({ ...fertilizer, group: "chemical" }),
     ).toThrow();
   });
+
+  it("accepts the unified fertilizer taxonomy", () => {
+    const groups = [
+      "organic",
+      "nitrogen-rich",
+      "npk-balanced",
+      "phosphorus-rich",
+      "potassium-rich",
+      "support",
+      "other",
+    ] as const;
+
+    for (const group of groups) {
+      expect(UserFertilizerSchema.parse({ ...fertilizer, group }).group).toBe(
+        group,
+      );
+    }
+  });
+
+  it("rejects superseded fertilizer groups", () => {
+    for (const group of ["npk", "single", "supplement"]) {
+      expect(() =>
+        UserFertilizerSchema.parse({ ...fertilizer, group }),
+      ).toThrow();
+    }
+  });
 });

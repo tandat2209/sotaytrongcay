@@ -9,7 +9,7 @@ describe("FertilizerSuggestionChips", () => {
       {
         id: "fertilizer.potassium-sulfate",
         name: "Kali sunfat",
-        group: "single" as const,
+        group: "nitrogen-rich" as const,
       },
       {
         id: "fertilizer.compost",

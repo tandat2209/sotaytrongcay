@@ -123,8 +123,7 @@ function CareEntry({
   }).find((candidate) => candidate.activityType === type);
   const reason = getStagePlaybook(plant.stageId)?.primaryObjective;
   const suggestion = plan?.recommendedInputs
-    ?.flatMap((input) => input.suggestions)
-    .map(({ name }) => name)
+    ?.map(({ name }) => name)
     .join(" · ");
   return (
     <CareEntryScreen

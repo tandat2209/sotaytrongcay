@@ -16,19 +16,15 @@ goal: >-
   Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành.
   Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.
 recommended_inputs:
-  - group: Phân NPK cân đối
-    suggestions:
-      - id: fertilizer.npk-16-16-16
-        name: NPK 16-16-16
-        fertilizer_group: npk
-  - group: Phân lót hữu cơ
-    suggestions:
-      - id: fertilizer.composted-cow-manure
-        name: Phân bò ủ hoai
-        fertilizer_group: organic
-      - id: fertilizer.vermicompost
-        name: Phân trùn quế
-        fertilizer_group: organic
+  - id: fertilizer.npk-16-16-16
+    name: NPK 16-16-16
+    group: npk-balanced
+  - id: fertilizer.composted-cow-manure
+    name: Phân bò hoai mục
+    group: organic
+  - id: fertilizer.vermicompost
+    name: Phân trùn quế
+    group: organic
 frequency:
   ground:
     display: Một lần duy nhất trong tuần đầu sau cắt cành
@@ -49,5 +45,6 @@ status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
+  - ref.umn.high-tunnel-nutrient-management
 priority: 50
 ---

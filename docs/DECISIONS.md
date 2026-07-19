@@ -8,6 +8,36 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-19 — Use one fertilizer-group taxonomy across app and Knowledge Base
+
+**Status:** Accepted
+
+**Decision:** Replace the separate free-text recommended-input grouping and
+the former `organic | npk | single | supplement | other` fertilizer taxonomy
+with one shared seven-value taxonomy: `organic`, `nitrogen-rich`,
+`npk-balanced`, `phosphorus-rich`, `potassium-rich`, `support`, and `other`.
+Their Vietnamese labels are “Phân hữu cơ”, “Phân giàu đạm”, “NPK cân bằng”,
+“Phân giàu lân”, “Phân giàu kali”, “Chế phẩm hỗ trợ”, and “Phân khác”. A
+fertilizing Care Plan stores a flat list of concrete fertilizer suggestions;
+each suggestion owns one stable ID, Vietnamese name, and group. It does not
+wrap suggestions in a second authored group.
+
+This supersedes only the fertilizer-group portions of the 2026-07-16
+fertilizer decisions. It does not add a user-entered NPK-ratio field or change
+the explicit Care Entry save boundary.
+
+**Rationale:** “Phân đơn” and “Bổ sung” describe product form or usage but do
+not help a grower understand the main selection intent. A second free-text
+group around already-grouped fertilizer items duplicates meaning and creates
+inconsistent labels between reviewed suggestions and the private catalog.
+
+**Consequences:** Fertilizer creation, management filters, saved application
+snapshots, suggestion chips, Care Plan authoring, compiler output, and detail
+UI use the same stable group values. Because the app is unreleased, the V1
+SQLite baseline is updated directly; no migration or heuristic reclassification
+of installed user data is required. Specific formulas remain fertilizer names
+or curated content, not separate groups.
+
 ## 2026-07-18 — Use one compact fertilizer selection sheet for MVP
 
 **Status:** Accepted

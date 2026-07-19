@@ -41,10 +41,10 @@ export function StageCarePlanDetails({
       {plan.recommendedInputs?.length ? (
         <PlanDetail label={t("plants.guide.inputs")}>
           {plan.recommendedInputs.map((input) => (
-            <View key={input.group} style={styles.detailItem}>
-              <Typography variant="bodyLarge">{input.group}</Typography>
+            <View key={input.id} style={styles.detailItem}>
+              <Typography variant="bodyLarge">{input.name}</Typography>
               <Typography color="textSecondary" variant="bodyMedium">
-                {input.suggestions.map(({ name }) => name).join(" · ")}
+                {t(`fertilizers.group.${input.group}`)}
               </Typography>
             </View>
           ))}

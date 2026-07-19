@@ -104,7 +104,7 @@ Users can:
 - A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. A plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
 - Future reviewed Weather Rules may prioritize, delay, suppress, or annotate a suggestion; current weather is display-only.
 - User data references stable Knowledge Base IDs but never owns curated content.
-- User-entered fertilizer names and groups are private catalog data copied into mutable history. Legacy quantities, methods, and item notes remain user history when present. None of these fields create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.
+- User-entered fertilizer names and their single canonical group are private catalog data copied into mutable history. The shared group taxonomy is organic, nitrogen-rich, balanced NPK, phosphorus-rich, potassium-rich, support product, or other. Legacy quantities, methods, and item notes remain user history when present. None of these fields create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.
 
 ## Knowledge Base model
 

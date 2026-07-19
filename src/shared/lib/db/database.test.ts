@@ -40,6 +40,13 @@ describe("database migrations", () => {
     expect(sql).toContain("knowledge_id TEXT");
     expect(sql).toContain("CREATE TABLE fertilizer_applications");
     expect(sql).toContain("knowledge_id_snapshot TEXT");
+    expect(sql).toContain("'nitrogen-rich'");
+    expect(sql).toContain("'npk-balanced'");
+    expect(sql).toContain("'phosphorus-rich'");
+    expect(sql).toContain("'potassium-rich'");
+    expect(sql).toContain("'support'");
+    expect(sql).not.toContain("'single'");
+    expect(sql).not.toContain("'supplement'");
     expect(sql).toContain("CREATE TABLE weather_locations");
     expect(sql).toContain("CREATE TABLE weather_cache");
     expect(sql).toContain("CREATE INDEX idx_care_activities_time");

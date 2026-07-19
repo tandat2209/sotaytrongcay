@@ -16,25 +16,18 @@ goal: >-
   Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang
   tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.
 recommended_inputs:
-  - group: Phân NPK cân đối
-    suggestions:
-      - id: fertilizer.npk-16-16-16
-        name: NPK 16-16-16
-        fertilizer_group: npk
-      - id: fertilizer.compost
-        name: Phân compost
-        fertilizer_group: organic
-  - group: Phân hữu cơ bón phụ
-    suggestions:
-      - id: fertilizer.fish-emulsion
-        name: Phân cá
-        fertilizer_group: organic
-      - id: fertilizer.seaweed-extract
-        name: Rong biển
-        fertilizer_group: supplement
-      - id: fertilizer.compost
-        name: Phân compost
-        fertilizer_group: organic
+  - id: fertilizer.npk-16-16-16
+    name: NPK 16-16-16
+    group: npk-balanced
+  - id: fertilizer.compost
+    name: Phân compost
+    group: organic
+  - id: fertilizer.fish-emulsion
+    name: Phân cá
+    group: organic
+  - id: fertilizer.seaweed-extract
+    name: Rong biển
+    group: support
 frequency:
   ground:
     display: Mỗi 2–4 tuần
@@ -54,5 +47,6 @@ status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.umn.growing-grapes-home-garden
+  - ref.umn.high-tunnel-nutrient-management
 priority: 50
 ---

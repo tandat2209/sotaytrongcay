@@ -123,7 +123,7 @@ flowchart LR
 
 **Required fields:** ID, Vietnamese title and goal, activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
 
-**Optional fields:** Growing-method frequency, recommended inputs, notes, and Markdown instructions. Each fertilizing recommended-input group contains structured suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection; fertilizer examples are not stored as free text.
+**Optional fields:** Growing-method frequency, recommended inputs, notes, and Markdown instructions. A fertilizing Care Plan stores recommended inputs as a flat list of concrete suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection. It does not add a second free-text grouping layer around those suggestions.
 
 **Relationships:** A Care Plan may be evaluated directly into an informational recommendation. It does not require a Care Guide and remains informational until a user explicitly saves a related care activity.
 
@@ -171,9 +171,11 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 
 **Purpose:** Describes an agronomic fertilizer category or composition without requiring a commercial brand.
 
-**Required fields:** ID, Vietnamese name, fertilizer type, nutrient composition, intended purpose, applicable species/stages, application methods, cautions, status, version, references.
+**Required fields:** ID, Vietnamese name, one canonical fertilizer group, nutrient composition, intended purpose, applicable species/stages, application methods, cautions, status, version, references.
 
-**Optional fields:** NPK range, amount range with unit and assumptions, organic/synthetic classification, compatibility, example product names.
+**Canonical groups:** `organic`, `nitrogen-rich`, `npk-balanced`, `phosphorus-rich`, `potassium-rich`, `support`, and `other`. A concrete formula such as NPK 20-10-10 is an item name within a group, not another type axis.
+
+**Optional fields:** Standard formulations, amount range with unit and assumptions, organic/synthetic classification, and compatibility. Commercial brand names are excluded.
 
 **Relationships:** Composes Nutrients; referenced by stages, fertilizing recommendations, troubleshooting, and weather rules.
 

@@ -38,12 +38,11 @@ const plan: CarePlan = {
     ground: { display: "Mỗi 3 ngày", intervalDays: 3 },
     container: { display: "Mỗi 3 ngày", intervalDays: 3 },
   },
-  fertilizerSuggestions: [{ id: "fertilizer.npk", name: "NPK", group: "npk" }],
+  fertilizerSuggestions: [
+    { id: "fertilizer.npk", name: "NPK", group: "npk-balanced" },
+  ],
   recommendedInputs: [
-    {
-      group: "Phân NPK",
-      suggestions: [{ id: "fertilizer.npk", name: "NPK", group: "npk" }],
-    },
+    { id: "fertilizer.npk", name: "NPK", group: "npk-balanced" },
   ],
   version: "1.0.0",
 };

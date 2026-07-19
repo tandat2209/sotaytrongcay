@@ -17,17 +17,15 @@ goal: >-
   đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân
   lá không mong muốn và làm chậm chín.
 recommended_inputs:
-  - group: Phân giàu kali (high-K)
-    suggestions:
-      - id: fertilizer.potassium-sulfate
-        name: Kali sunfat
-        fertilizer_group: single
-      - id: fertilizer.seaweed-extract
-        name: Rong biển
-        fertilizer_group: supplement
-      - id: fertilizer.monopotassium-phosphate
-        name: Mono kali photphat
-        fertilizer_group: single
+  - id: fertilizer.potassium-sulfate
+    name: Kali sunfat
+    group: potassium-rich
+  - id: fertilizer.seaweed-extract
+    name: Rong biển
+    group: support
+  - id: fertilizer.monopotassium-phosphate
+    name: MKP – monopotassium phosphate
+    group: potassium-rich
 frequency:
   ground:
     display: "Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch"
@@ -52,5 +50,6 @@ references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
   - ref.fao.grape-production
+  - ref.uc-ipm.growing-grape
 priority: 50
 ---

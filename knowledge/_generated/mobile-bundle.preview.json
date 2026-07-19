@@ -486,7 +486,8 @@
       "references": [
         "ref.fao.grape-production",
         "ref.osu.growing-table-grapes",
-        "ref.ucdavis.vineyard-nutrition"
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.fertilizer-urea"
       ],
       "priority": 50,
       "speciesIds": [
@@ -503,34 +504,24 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân giàu đạm (high-N)",
-          "suggestions": [
-            {
-              "id": "fertilizer.urea",
-              "name": "Urê",
-              "group": "single"
-            },
-            {
-              "id": "fertilizer.fish-emulsion",
-              "name": "Phân cá",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.npk-20-10-10",
-              "name": "NPK 20-10-10",
-              "group": "npk"
-            }
-          ]
+          "id": "fertilizer.urea",
+          "name": "Urê",
+          "group": "nitrogen-rich"
         },
         {
-          "group": "Vi lượng bổ sung (Zn, B, Fe)",
-          "suggestions": [
-            {
-              "id": "fertilizer.trace-elements",
-              "name": "Vi lượng Zn, B, Fe",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.fish-emulsion",
+          "name": "Phân cá",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.npk-20-10-10",
+          "name": "NPK 20-10-10",
+          "group": "nitrogen-rich"
+        },
+        {
+          "id": "fertilizer.trace-elements",
+          "name": "Vi lượng Zn, B, Fe",
+          "group": "other"
         }
       ],
       "frequency": {
@@ -602,7 +593,9 @@
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
-        "ref.ucdavis.vineyard-nutrition"
+        "ref.uc-ipm.growing-grape",
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -619,34 +612,24 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân giàu kali (high-K)",
-          "suggestions": [
-            {
-              "id": "fertilizer.potassium-sulfate",
-              "name": "Kali sunfat",
-              "group": "single"
-            },
-            {
-              "id": "fertilizer.seaweed-extract",
-              "name": "Rong biển",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.potassium-sulfate",
+          "name": "Kali sunfat",
+          "group": "potassium-rich"
         },
         {
-          "group": "Phân NPK thiên kali",
-          "suggestions": [
-            {
-              "id": "fertilizer.npk-12-12-17",
-              "name": "NPK 12-12-17",
-              "group": "npk"
-            },
-            {
-              "id": "fertilizer.compost",
-              "name": "Phân compost",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.seaweed-extract",
+          "name": "Rong biển",
+          "group": "support"
+        },
+        {
+          "id": "fertilizer.npk-12-12-17",
+          "name": "NPK 12-12-17 + TE",
+          "group": "potassium-rich"
+        },
+        {
+          "id": "fertilizer.compost",
+          "name": "Phân compost",
+          "group": "organic"
         }
       ],
       "frequency": {
@@ -762,7 +745,9 @@
       "references": [
         "ref.fao.grape-production",
         "ref.osu.growing-table-grapes",
-        "ref.ucdavis.vineyard-nutrition"
+        "ref.uc-ipm.growing-grape",
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -779,44 +764,29 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân giàu kali (high-K)",
-          "suggestions": [
-            {
-              "id": "fertilizer.potassium-sulfate",
-              "name": "Kali sunfat",
-              "group": "single"
-            },
-            {
-              "id": "fertilizer.seaweed-extract",
-              "name": "Rong biển",
-              "group": "supplement"
-            },
-            {
-              "id": "fertilizer.high-potassium-npk",
-              "name": "NPK thiên kali",
-              "group": "npk"
-            }
-          ]
+          "id": "fertilizer.potassium-sulfate",
+          "name": "Kali sunfat",
+          "group": "potassium-rich"
         },
         {
-          "group": "Phun canxi qua lá",
-          "suggestions": [
-            {
-              "id": "fertilizer.calcium-chloride",
-              "name": "Canxi clorua",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.seaweed-extract",
+          "name": "Rong biển",
+          "group": "support"
         },
         {
-          "group": "Bổ sung magiê (nếu thiếu)",
-          "suggestions": [
-            {
-              "id": "fertilizer.magnesium-sulfate",
-              "name": "Magiê sunfat",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.high-potassium-npk",
+          "name": "NPK thiên kali",
+          "group": "potassium-rich"
+        },
+        {
+          "id": "fertilizer.calcium-nitrate",
+          "name": "Canxi nitrat",
+          "group": "other"
+        },
+        {
+          "id": "fertilizer.magnesium-sulfate",
+          "name": "Magie sunfat",
+          "group": "other"
         }
       ],
       "frequency": {
@@ -892,7 +862,8 @@
       "references": [
         "ref.osu.growing-table-grapes",
         "ref.ucdavis.vineyard-nutrition",
-        "ref.umn.growing-grapes-home-garden"
+        "ref.umn.growing-grapes-home-garden",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -909,44 +880,29 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân NPK cân đối, hơi thiên kali",
-          "suggestions": [
-            {
-              "id": "fertilizer.npk-16-16-16",
-              "name": "NPK 16-16-16",
-              "group": "npk"
-            }
-          ]
+          "id": "fertilizer.npk-16-16-16",
+          "name": "NPK 16-16-16",
+          "group": "npk-balanced"
         },
         {
-          "group": "Bổ sung canxi",
-          "suggestions": [
-            {
-              "id": "fertilizer.calcium-chloride",
-              "name": "Canxi clorua",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.calcium-nitrate",
+          "name": "Canxi nitrat",
+          "group": "other"
         },
         {
-          "group": "Phương án hữu cơ",
-          "suggestions": [
-            {
-              "id": "fertilizer.compost-tea",
-              "name": "Trà phân compost",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.fish-emulsion",
-              "name": "Phân cá",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.seaweed-extract",
-              "name": "Rong biển",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.compost",
+          "name": "Phân compost",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.fish-emulsion",
+          "name": "Phân cá",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.seaweed-extract",
+          "name": "Rong biển",
+          "group": "support"
         }
       ],
       "frequency": {
@@ -1060,7 +1016,8 @@
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
-        "ref.ucdavis.vineyard-nutrition"
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -1077,29 +1034,19 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân NPK cân đối",
-          "suggestions": [
-            {
-              "id": "fertilizer.npk-16-16-16",
-              "name": "NPK 16-16-16",
-              "group": "npk"
-            }
-          ]
+          "id": "fertilizer.npk-16-16-16",
+          "name": "NPK 16-16-16",
+          "group": "npk-balanced"
         },
         {
-          "group": "Phân lót hữu cơ",
-          "suggestions": [
-            {
-              "id": "fertilizer.composted-cow-manure",
-              "name": "Phân bò ủ hoai",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.vermicompost",
-              "name": "Phân trùn quế",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.composted-cow-manure",
+          "name": "Phân bò hoai mục",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.vermicompost",
+          "name": "Phân trùn quế",
+          "group": "organic"
         }
       ],
       "frequency": {
@@ -1171,8 +1118,10 @@
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.growing-grape",
         "ref.ucdavis.vineyard-nutrition",
-        "ref.umn.growing-grapes-home-garden"
+        "ref.umn.growing-grapes-home-garden",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -1189,64 +1138,39 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân NPK cân đối",
-          "suggestions": [
-            {
-              "id": "fertilizer.npk-16-16-16",
-              "name": "NPK 16-16-16",
-              "group": "npk"
-            }
-          ]
+          "id": "fertilizer.npk-16-16-16",
+          "name": "NPK 16-16-16",
+          "group": "npk-balanced"
         },
         {
-          "group": "Phân hữu cơ bón nặng",
-          "suggestions": [
-            {
-              "id": "fertilizer.composted-cow-manure",
-              "name": "Phân bò ủ hoai",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.vermicompost",
-              "name": "Phân trùn quế",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.rice-husk-compost",
-              "name": "Phân vỏ trấu compost",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.composted-cow-manure",
+          "name": "Phân bò hoai mục",
+          "group": "organic"
         },
         {
-          "group": "Bón lót lân và kali",
-          "suggestions": [
-            {
-              "id": "fertilizer.bone-meal",
-              "name": "Bột xương",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.rock-phosphate",
-              "name": "Lân tự nhiên",
-              "group": "single"
-            },
-            {
-              "id": "fertilizer.potassium-sulfate",
-              "name": "Kali sunfat",
-              "group": "single"
-            }
-          ]
+          "id": "fertilizer.vermicompost",
+          "name": "Phân trùn quế",
+          "group": "organic"
         },
         {
-          "group": "Vôi điều chỉnh pH (nếu cần)",
-          "suggestions": [
-            {
-              "id": "fertilizer.dolomitic-lime",
-              "name": "Vôi dolomite",
-              "group": "supplement"
-            }
-          ]
+          "id": "fertilizer.compost",
+          "name": "Phân compost",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.superphosphate",
+          "name": "Super lân",
+          "group": "phosphorus-rich"
+        },
+        {
+          "id": "fertilizer.potassium-sulfate",
+          "name": "Kali sunfat",
+          "group": "potassium-rich"
+        },
+        {
+          "id": "fertilizer.dolomitic-lime",
+          "name": "Vôi dolomite",
+          "group": "other"
         }
       ],
       "frequency": {
@@ -1320,6 +1244,7 @@
       "references": [
         "ref.fao.grape-production",
         "ref.osu.growing-table-grapes",
+        "ref.uc-ipm.growing-grape",
         "ref.ucdavis.vineyard-nutrition"
       ],
       "priority": 50,
@@ -1337,24 +1262,19 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân giàu kali (high-K)",
-          "suggestions": [
-            {
-              "id": "fertilizer.potassium-sulfate",
-              "name": "Kali sunfat",
-              "group": "single"
-            },
-            {
-              "id": "fertilizer.seaweed-extract",
-              "name": "Rong biển",
-              "group": "supplement"
-            },
-            {
-              "id": "fertilizer.monopotassium-phosphate",
-              "name": "Mono kali photphat",
-              "group": "single"
-            }
-          ]
+          "id": "fertilizer.potassium-sulfate",
+          "name": "Kali sunfat",
+          "group": "potassium-rich"
+        },
+        {
+          "id": "fertilizer.seaweed-extract",
+          "name": "Rong biển",
+          "group": "support"
+        },
+        {
+          "id": "fertilizer.monopotassium-phosphate",
+          "name": "MKP – monopotassium phosphate",
+          "group": "potassium-rich"
         }
       ],
       "frequency": {
@@ -1472,7 +1392,8 @@
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
-        "ref.umn.growing-grapes-home-garden"
+        "ref.umn.growing-grapes-home-garden",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -1489,39 +1410,24 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân NPK cân đối",
-          "suggestions": [
-            {
-              "id": "fertilizer.npk-16-16-16",
-              "name": "NPK 16-16-16",
-              "group": "npk"
-            },
-            {
-              "id": "fertilizer.compost",
-              "name": "Phân compost",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.npk-16-16-16",
+          "name": "NPK 16-16-16",
+          "group": "npk-balanced"
         },
         {
-          "group": "Phân hữu cơ bón phụ",
-          "suggestions": [
-            {
-              "id": "fertilizer.fish-emulsion",
-              "name": "Phân cá",
-              "group": "organic"
-            },
-            {
-              "id": "fertilizer.seaweed-extract",
-              "name": "Rong biển",
-              "group": "supplement"
-            },
-            {
-              "id": "fertilizer.compost",
-              "name": "Phân compost",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.compost",
+          "name": "Phân compost",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.fish-emulsion",
+          "name": "Phân cá",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.seaweed-extract",
+          "name": "Rong biển",
+          "group": "support"
         }
       ],
       "frequency": {
@@ -1592,7 +1498,9 @@
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
-        "ref.ucdavis.vineyard-nutrition"
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.fertilizer-urea",
+        "ref.umn.high-tunnel-nutrient-management"
       ],
       "priority": 50,
       "speciesIds": [
@@ -1609,34 +1517,24 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "group": "Phân giàu đạm (high-N)",
-          "suggestions": [
-            {
-              "id": "fertilizer.urea",
-              "name": "Urê",
-              "group": "single"
-            },
-            {
-              "id": "fertilizer.fish-emulsion",
-              "name": "Phân cá",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.urea",
+          "name": "Urê",
+          "group": "nitrogen-rich"
         },
         {
-          "group": "Phân NPK cân đối",
-          "suggestions": [
-            {
-              "id": "fertilizer.npk-16-16-16",
-              "name": "NPK 16-16-16",
-              "group": "npk"
-            },
-            {
-              "id": "fertilizer.compost",
-              "name": "Phân compost",
-              "group": "organic"
-            }
-          ]
+          "id": "fertilizer.fish-emulsion",
+          "name": "Phân cá",
+          "group": "organic"
+        },
+        {
+          "id": "fertilizer.npk-16-16-16",
+          "name": "NPK 16-16-16",
+          "group": "npk-balanced"
+        },
+        {
+          "id": "fertilizer.compost",
+          "name": "Phân compost",
+          "group": "organic"
         }
       ],
       "frequency": {
@@ -2017,6 +1915,18 @@
       "bodyMarkdown": "\n# Review notes\n\nUsed to support review-stage observation of vine mealybug's waxy appearance,\nits occurrence on grapevine parts including clusters, honeydew and sooty-mold\ncontext, and the value of checking ant activity and collecting a sample when\nidentification is uncertain.\n\nThe source serves commercial California vineyards. It does not establish a\nVietnamese home-growing treatment threshold, pesticide selection, dose, or\nschedule. Its treatment tables and region-specific timing are excluded.\n"
     },
     {
+      "id": "ref.uc-ipm.growing-grape",
+      "type": "reference_source",
+      "title": "Cultural Tips for Growing Grape",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "UC Statewide Integrated Pest Management Program",
+      "sourceType": "extension_guide",
+      "url": "https://ipm.ucanr.edu/home-and-landscape/cultural-tips-for-growing-grape/",
+      "accessed": "2026-07-19",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to verify potassium sulfate as a grape-relevant potassium source while preserving the requirement to assess symptoms and growing conditions before acting.\n\nThe source does not justify a universal dose, schedule, or automatic stage prescription.\n"
+    },
+    {
       "id": "ref.uc-ipm.young-grape-pruning",
       "type": "reference_source",
       "title": "First- and Second-Year Pruning for Grapes",
@@ -2041,6 +1951,18 @@
       "bodyMarkdown": "\n# Review notes\n\nUsed for stage-specific nitrogen and potassium guidance, the N-to-K transition across the production cycle, nitrogen cessation before véraison, foliar nutrition timing, and the relationship between nutrient balance and berry quality.\n\nRegional fertilizer rates and soil-test thresholds are not transferred as universal guidance because local soil, climate, and cultivar conditions vary.\n"
     },
     {
+      "id": "ref.umn.fertilizer-urea",
+      "type": "reference_source",
+      "title": "Fertilizer urea",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "University of Minnesota Extension",
+      "sourceType": "extension_guide",
+      "url": "https://extension.umn.edu/nitrogen/fertilizer-urea",
+      "accessed": "2026-07-19",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to verify that urea is commonly labelled 46-0-0 and should be handled as a concentrated nitrogen source rather than a general fertilizer type.\n\nRates and schedules are not transferred into the app because they depend on crop need, soil, weather, and application conditions.\n"
+    },
+    {
       "id": "ref.umn.growing-grapes-home-garden",
       "type": "reference_source",
       "title": "Growing grapes in the home garden",
@@ -2051,6 +1973,18 @@
       "url": "https://extension.umn.edu/gardening-minnesota/growing-grapes-home-garden",
       "accessed": "2026-07-11",
       "bodyMarkdown": "\n# Review notes\n\nUsed for the need to support young vines, establish roots before relying on shoot growth, apply water to the root zone, avoid unnecessary wetting of foliage, and adapt watering to rainfall and growing conditions.\n\nRegional volumes and seasonal timing are not transferred into the pilot as universal Vietnamese guidance.\n"
+    },
+    {
+      "id": "ref.umn.high-tunnel-nutrient-management",
+      "type": "reference_source",
+      "title": "Soil health and nutrient management in high tunnels",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "University of Minnesota Extension",
+      "sourceType": "extension_guide",
+      "url": "https://extension.umn.edu/nutrient-management-specialty-crops/soil-health-and-nutrient-management-high-tunnels",
+      "accessed": "2026-07-19",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to verify generic, brand-free fertilizer sources including compost and manure, calcium nitrate, potassium nitrate, potassium sulfate, magnesium sulfate, and dolomitic lime.\n\nProduct analysis varies. Lime and dolomite remain conditional soil amendments rather than routine fertilizer recommendations, and no regional rate is transferred into the app.\n"
     },
     {
       "id": "ref.vaas.grape-nh01-48",

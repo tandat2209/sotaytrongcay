@@ -27,7 +27,14 @@ describe("grape knowledge pilot integration test", () => {
       schemaVersion: string;
       species: readonly Readonly<{ id: string }>[];
       stagePlaybooks: readonly Readonly<{ id: string }>[];
-      carePlans: readonly Readonly<{ id: string }>[];
+      carePlans: readonly Readonly<{
+        id: string;
+        recommendedInputs?: readonly Readonly<{
+          id: string;
+          name: string;
+          group: string;
+        }>[];
+      }>[];
       guides: readonly Readonly<{ id: string }>[];
       diseases: readonly Readonly<{ id: string }>[];
       pests: readonly Readonly<{ id: string }>[];
@@ -42,7 +49,7 @@ describe("grape knowledge pilot integration test", () => {
     expect(bundle.guides).toHaveLength(3);
     expect(bundle.diseases).toHaveLength(1);
     expect(bundle.pests).toHaveLength(5);
-    expect(bundle.references).toHaveLength(12);
+    expect(bundle.references).toHaveLength(15);
 
     // Verify IDs
     expect(bundle.species[0]?.id).toBe("plant.grape");
@@ -56,6 +63,26 @@ describe("grape knowledge pilot integration test", () => {
     );
     expect(recIds).toContain(
       "grape.recommendation.bud-break.powdery-mildew-prevention",
+    );
+    const budBreakFertilizing = bundle.carePlans.find(
+      (plan) => plan.id === "grape.recommendation.bud-break.fertilizing",
+    );
+    expect(budBreakFertilizing?.recommendedInputs).toEqual(
+      expect.arrayContaining([
+        {
+          id: "fertilizer.urea",
+          name: "Urê",
+          group: "nitrogen-rich",
+        },
+        {
+          id: "fertilizer.npk-20-10-10",
+          name: "NPK 20-10-10",
+          group: "nitrogen-rich",
+        },
+      ]),
+    );
+    expect(budBreakFertilizing?.recommendedInputs?.[0]).not.toHaveProperty(
+      "suggestions",
     );
 
     const guideIds = bundle.guides.map((guide) => guide.id).sort();
@@ -82,9 +109,12 @@ describe("grape knowledge pilot integration test", () => {
       "ref.uc-ipm.grape-phylloxera",
       "ref.uc-ipm.grape-powdery-mildew",
       "ref.uc-ipm.grape-vine-mealybug",
+      "ref.uc-ipm.growing-grape",
       "ref.uc-ipm.young-grape-pruning",
       "ref.ucdavis.vineyard-nutrition",
+      "ref.umn.fertilizer-urea",
       "ref.umn.growing-grapes-home-garden",
+      "ref.umn.high-tunnel-nutrient-management",
       "ref.vaas.grape-nh01-48",
       "ref.vusta.grape-thrips",
     ]);

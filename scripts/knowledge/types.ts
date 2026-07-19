@@ -170,14 +170,24 @@ export interface NormalizedCarePlan extends NormalizedUserFacingBaseDocument {
 }
 
 export interface RecommendedInput {
-  readonly group: string;
-  readonly suggestions: readonly FertilizerSuggestion[];
+  readonly id: string;
+  readonly name: string;
+  readonly group: FertilizerGroup;
 }
+
+export type FertilizerGroup =
+  | "organic"
+  | "nitrogen-rich"
+  | "npk-balanced"
+  | "phosphorus-rich"
+  | "potassium-rich"
+  | "support"
+  | "other";
 
 export interface FertilizerSuggestion {
   readonly id: string;
   readonly name: string;
-  readonly group: "organic" | "npk" | "single" | "supplement" | "other";
+  readonly group: FertilizerGroup;
 }
 
 export interface CareFrequency {

@@ -16,22 +16,18 @@ goal: >-
   Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh,
   bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.
 recommended_inputs:
-  - group: Phân giàu đạm (high-N)
-    suggestions:
-      - id: fertilizer.urea
-        name: Urê
-        fertilizer_group: single
-      - id: fertilizer.fish-emulsion
-        name: Phân cá
-        fertilizer_group: organic
-      - id: fertilizer.npk-20-10-10
-        name: NPK 20-10-10
-        fertilizer_group: npk
-  - group: "Vi lượng bổ sung (Zn, B, Fe)"
-    suggestions:
-      - id: fertilizer.trace-elements
-        name: Vi lượng Zn, B, Fe
-        fertilizer_group: supplement
+  - id: fertilizer.urea
+    name: Urê
+    group: nitrogen-rich
+  - id: fertilizer.fish-emulsion
+    name: Phân cá
+    group: organic
+  - id: fertilizer.npk-20-10-10
+    name: NPK 20-10-10
+    group: nitrogen-rich
+  - id: fertilizer.trace-elements
+    name: Vi lượng Zn, B, Fe
+    group: other
 frequency:
   ground:
     display: Mỗi 1–2 tuần trong giai đoạn chồi đang phát triển mạnh
@@ -55,5 +51,6 @@ references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
   - ref.fao.grape-production
+  - ref.umn.fertilizer-urea
 priority: 50
 ---

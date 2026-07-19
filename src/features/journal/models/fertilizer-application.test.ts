@@ -57,7 +57,7 @@ describe("toggleSuggestedFertilizerApplication", () => {
   const suggestion = {
     id: "fertilizer.potassium-sulfate",
     name: "Kali sunfat",
-    group: "single" as const,
+    group: "phosphorus-rich" as const,
   };
 
   it("adds a knowledge suggestion to the unsaved application draft", () => {
@@ -67,7 +67,7 @@ describe("toggleSuggestedFertilizerApplication", () => {
       {
         userFertilizerId,
         nameSnapshot: "Kali sunfat",
-        groupSnapshot: "single",
+        groupSnapshot: "phosphorus-rich",
         knowledgeIdSnapshot: suggestion.id,
         amountValue: null,
         amountUnit: null,
@@ -86,7 +86,7 @@ describe("toggleSuggestedFertilizerApplication", () => {
             ...application,
             userFertilizerId: null,
             nameSnapshot: "Kali sunfat",
-            groupSnapshot: "single",
+            groupSnapshot: "phosphorus-rich",
             knowledgeIdSnapshot: suggestion.id,
           },
         ],

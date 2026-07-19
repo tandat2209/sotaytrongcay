@@ -24,10 +24,10 @@ export function CareRecommendationDetails({
       {details.recommendedInputs.length ? (
         <DetailSection label={t("plants.guide.recommendedInputs")}>
           {details.recommendedInputs.map((input) => (
-            <View key={input.group} style={styles.item}>
-              <Typography variant="bodyLarge">{input.group}</Typography>
+            <View key={input.id} style={styles.item}>
+              <Typography variant="bodyLarge">{input.name}</Typography>
               <Typography color="textSecondary" variant="bodyMedium">
-                {input.suggestions.map(({ name }) => name).join(" · ")}
+                {t(`fertilizers.group.${input.group}`)}
               </Typography>
             </View>
           ))}
