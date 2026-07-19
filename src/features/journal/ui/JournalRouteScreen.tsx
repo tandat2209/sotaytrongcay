@@ -1,10 +1,10 @@
+import type { Plant, PlantIdentityData } from "@/features/plants";
+import { t } from "@/shared/i18n";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Text } from "react-native";
-import type { Plant, PlantIdentityData } from "@/features/plants";
-import { t } from "@/shared/i18n";
-import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import {
   hasAnyJournalEntries,
   listJournalPage,

@@ -180,7 +180,7 @@ There is no standalone Task Guidance or guided-task completion screen in MVP.
 - Compact weather summary.
 - “Việc cần làm hôm nay” with contextual “Tưới nước”, “Bón phân”, and “Phun thuốc” actions when applicable.
 - “Vừa ghi gần đây”.
-- “Khu Vườn Của Tôi” as horizontally scrollable photo cards with name, species, and current stage; “Thêm cây” stays in the section heading.
+- “Cây của tôi” as horizontally scrollable photo cards with name, species, and current stage; “Thêm cây” stays in the section heading.
 
 Each priority is compact by default: its “Vì sao”, reviewed explanation, and safe guidance expand only on request. Care prompts do not appear as completed/unchecked tasks or in a “Đã xem xét” section.
 
@@ -304,9 +304,9 @@ Filters support record type, core care type, plant, date range, and clear/apply 
 
 Care-origin labels are “Từ hôm nay”, “Từ lời nhắc”, and “Ghi thủ công”. Origin describes how Care Entry opened; every care record still represents a user-saved activity.
 
-**Empty state:** “Nhật ký của bạn chưa có nội dung” + “Thêm nhật ký”.
+**Empty state:** “Nhật ký của bạn đang trống” + “Thêm nhật ký”.
 
-No result shows “Không tìm thấy hoạt động phù hợp” + “Xóa bộ lọc”.
+No result shows “Không tìm thấy nội dung phù hợp” + “Xóa bộ lọc”.
 
 **Loading state:** Render local entries immediately; skeleton only uncached pagination.
 
@@ -396,7 +396,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Empty state:** A stage without Care Plans shows “Chưa có kế hoạch chăm sóc đã duyệt cho giai đoạn này.” A user with no plants sees the existing add-plant path.
 
-**Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Dữ liệu đã nhập vẫn được giữ lại.” Permission denial still preserves in-app schedule behavior.
+**Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Thông tin bạn đã nhập vẫn còn nguyên.” Permission denial still preserves in-app schedule behavior.
 
 ### 7.11 More — “Mở rộng”
 

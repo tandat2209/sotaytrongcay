@@ -32,7 +32,7 @@ export const PlantUpdateSchema = PlantUpdateFieldsSchema.extend({
   if (positions.size !== update.photos.length) {
     context.addIssue({
       code: "custom",
-      message: "Vị trí ảnh không được trùng nhau.",
+      message: t("journal.update.validationPhotos"),
       path: ["photos"],
     });
   }

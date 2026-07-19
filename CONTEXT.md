@@ -74,9 +74,9 @@ _Avoid_: Kế hoạch chăm sóc, quy tắc gợi ý, hoạt động đã làm
 Stage-scoped guidance for one tracked watering, fertilizing, or spraying activity. It owns the goal, optional growing-method frequency, recommended inputs, important notes, and deterministic eligibility fields.
 _Avoid_: Hướng dẫn chung, hoạt động đã làm, lời nhắc
 
-**Cập nhật cây** (Plant update):
-A journal note and optional photo about growth, pruning, condition, or other work. It may confirm a stage change but is not a dedicated care activity.
-_Avoid_: Hoạt động quan sát, nhiệm vụ
+**Ghi chép về cây** (Plant update):
+A journal note and optional photo about growth, pruning, condition, or other work. It may confirm a stage change but is not a dedicated care activity. Use the short label “Ghi chép” where space is limited.
+_Avoid_: Cập nhật cây, hoạt động quan sát, nhiệm vụ
 
 The latest displayed plant photo is derived from the first photo of the newest photo-bearing saved Plant Update by occurrence time. An optional photo selected during plant setup is saved as a photo-only initial Plant Update at the confirmed stage. It is not a separate Plant-owned photo pointer.
 

@@ -1,5 +1,6 @@
 import type { WeatherLocation } from "../models/weather";
 import { WeatherPermissionDeniedError } from "../models/weather-errors";
+import { t } from "@/shared/i18n";
 
 type Dependencies = Readonly<{
   getCurrentPosition: () => Promise<{
@@ -33,7 +34,7 @@ export async function captureGrowingLocation(
 
   return {
     ...coordinates,
-    label: label || "Vị trí trồng cây",
+    label: label || t("weather.location.fallback"),
     updatedAt: dependencies.now().toISOString(),
   };
 }

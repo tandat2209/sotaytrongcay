@@ -40,7 +40,7 @@ describe("PlantUpdateSchema", () => {
 
   it("rejects an update without a photo or note", () => {
     expect(() => PlantUpdateSchema.parse({ ...update, photos: [] })).toThrow(
-      "Thêm ảnh hoặc ghi chú trước khi lưu.",
+      "Hãy thêm ảnh hoặc ghi chú trước khi lưu.",
     );
   });
 
@@ -53,7 +53,7 @@ describe("PlantUpdateSchema", () => {
           { ...photo, id: "8a41defa-4dab-4983-a83b-326c730dd907" },
         ],
       }),
-    ).toThrow("Vị trí ảnh không được trùng nhau.");
+    ).toThrow("Ảnh trong nhật ký không hợp lệ.");
   });
 
   it("selects the first photo from the newest photo-bearing update", () => {

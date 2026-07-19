@@ -164,7 +164,7 @@ Visually group Today priorities in one `SurfaceCard` per plant. Use the compact 
 
 Show “Thêm nhật ký” as a secondary action, visually distinct from care due today. Stage changes live inside this journal flow.
 
-End Today with “Khu Vườn Của Tôi”: a horizontal rail of 160-point photo-first cards showing the latest persisted photo, plant name, species, and stage. Keep “Thêm cây” as a labelled 44-point action in the section heading instead of another placeholder card in the rail. Use the leaf fallback when a plant has no readable saved photo.
+End Today with “Cây của tôi”: a horizontal rail of 160-point photo-first cards showing the latest persisted photo, plant name, species, and stage. Keep “Thêm cây” as a labelled 44-point action in the section heading instead of another placeholder card in the rail. Use the leaf fallback when a plant has no readable saved photo.
 
 ### Plant Detail
 

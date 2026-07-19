@@ -59,7 +59,9 @@ export function FertilizerSuggestionChips({
       })}
       {customNames.map((name) => (
         <SelectableChip
-          accessibilityLabel={`${name}, đã chọn`}
+          accessibilityLabel={t("journal.fertilizing.suggestion.selected", {
+            name,
+          })}
           key={name}
           label={name}
           onPress={() => onToggleCustom(name)}

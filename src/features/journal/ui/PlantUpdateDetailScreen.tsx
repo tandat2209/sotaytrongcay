@@ -1,18 +1,20 @@
+import { Camera, FileText, Leaf } from "lucide-react-native";
 import {
-  CalendarDays,
-  FileText,
-  Leaf,
-  type LucideIcon,
-} from "lucide-react-native";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
-import { PlantIdentity } from "@/features/plants";
-import { formatDateTime, t } from "@/shared/i18n";
+  Image,
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
+import { t } from "@/shared/i18n";
 import type { PlantUpdate } from "../models/plant-update";
 import { Screen } from "@/shared/ui/Screen";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
+import { JournalDetailHero } from "./JournalDetailHero";
+import { JournalDetailPlantCard } from "./JournalDetailPlantCard";
+import { JournalDetailRow, JournalDetailSection } from "./JournalDetailSection";
 
 type Props = Readonly<{
   imageUri?: string | null;
@@ -31,89 +33,107 @@ export function PlantUpdateDetailScreen({
   stageTitle,
   update,
 }: Props) {
+  const { width } = useWindowDimensions();
+  const photoWidth = Math.max(width - spacing.md * 2, 240);
+  const photos = update.photos
+    .slice()
+    .sort((left, right) => left.position - right.position);
+
   return (
     <Screen title="">
       <TopBar
         backAccessibilityLabel={t("common.actions.backToJournal")}
         onBack={onBack}
         title={t("journal.update.detailTitle")}
-        titleIcon={FileText}
       />
-      <PlantIdentity
+      <JournalDetailHero
+        accentColor={colors.primary}
+        backgroundColor={colors.primarySoft}
+        badge={t("journal.update.recordType")}
+        icon={Camera}
+        occurredAt={update.occurredAt}
+        title={t("journal.update.recordTitle")}
+      />
+      <JournalDetailPlantCard
         imageUri={imageUri ?? null}
         name={plantName}
-        size="list"
         speciesTitle={speciesTitle}
         stageId={update.stageId}
         stageTitle={stageTitle}
       />
-      {update.photos.length ? (
-        <ScrollView
-          contentContainerStyle={styles.photos}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-        >
-          {update.photos
-            .slice()
-            .sort((left, right) => left.position - right.position)
-            .map((photo, index) => (
-              <Image
-                accessibilityLabel={t("journal.photo.imageAccessibility", {
-                  index: index + 1,
-                })}
+      {photos.length ? (
+        <View style={styles.photoSection}>
+          <Typography variant="headlineSmall">
+            {t("journal.update.recordedPhotos")}
+          </Typography>
+          <ScrollView
+            contentContainerStyle={styles.photos}
+            decelerationRate="fast"
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={photoWidth + spacing.md}
+            snapToAlignment="start"
+          >
+            {photos.map((photo, index) => (
+              <View
                 key={photo.id}
-                source={{ uri: photo.localUri }}
-                style={styles.photo}
-              />
+                style={[styles.photoFrame, { width: photoWidth }]}
+              >
+                <Image
+                  accessibilityLabel={t("journal.photo.imageAccessibility", {
+                    index: index + 1,
+                  })}
+                  source={{ uri: photo.localUri }}
+                  style={styles.photo}
+                />
+                <View style={styles.photoCount}>
+                  <Typography color="surface" variant="label">
+                    {`${index + 1} / ${photos.length}`}
+                  </Typography>
+                </View>
+              </View>
             ))}
-        </ScrollView>
+          </ScrollView>
+        </View>
       ) : null}
-      <SurfaceCard style={styles.card}>
-        <Detail
-          icon={CalendarDays}
-          label={t("journal.filter.date")}
-          value={formatDateTime(new Date(update.occurredAt))}
-        />
-        <Detail
+      <JournalDetailSection title={t("journal.activityDetail.details")}>
+        <JournalDetailRow
           icon={Leaf}
           label={t("journal.update.savedStage")}
           value={stageTitle}
         />
-        {update.notes ? (
-          <Detail
-            icon={FileText}
-            label={t("journal.activityDetail.notes")}
-            value={update.notes}
-          />
-        ) : null}
-      </SurfaceCard>
+        <JournalDetailRow
+          icon={FileText}
+          label={t("journal.activityDetail.notes")}
+          value={update.notes ?? t("journal.activityDetail.noNotes")}
+        />
+        <JournalDetailRow
+          icon={Camera}
+          label={t("journal.update.images")}
+          last
+          value={t("journal.update.photoCount", { count: photos.length })}
+        />
+      </JournalDetailSection>
     </Screen>
   );
 }
 
-function Detail({
-  icon: Icon,
-  label,
-  value,
-}: Readonly<{ icon: LucideIcon; label: string; value: string }>) {
-  return (
-    <View style={styles.detail}>
-      <Icon color={colors.primary} size={20} />
-      <View style={styles.copy}>
-        <Typography color="textSecondary" variant="label">
-          {label}
-        </Typography>
-        <Typography variant="bodyLarge">{value}</Typography>
-      </View>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  card: { gap: spacing.md },
-  copy: { flex: 1, gap: spacing.xs },
-  detail: { alignItems: "flex-start", flexDirection: "row", gap: spacing.md },
-  photo: { borderRadius: radius.card, height: 280, width: 320 },
+  photo: { height: "100%", width: "100%" },
+  photoCount: {
+    backgroundColor: "rgba(28, 27, 27, 0.72)",
+    borderRadius: radius.chip,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    position: "absolute",
+    right: spacing.md,
+    top: spacing.md,
+  },
+  photoFrame: {
+    aspectRatio: 4 / 3,
+    borderRadius: radius.card,
+    overflow: "hidden",
+  },
+  photoSection: { gap: spacing.sm },
   photos: { gap: spacing.md, paddingRight: spacing.md },
 });

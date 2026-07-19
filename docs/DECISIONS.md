@@ -873,6 +873,16 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** Startup, Today, Plants, Journal, plant and activity details, care entry, plant updates, fertilizer management, and schedule routes share the same initial loading presentation. No query timing, persistence, offline behavior, or error handling changes. Screens that can render useful local content continue to do so while independent work loads.
 
+## 2026-07-19 — Use conversational Vietnamese for application copy
+
+**Status:** Accepted
+
+**Decision:** Keep established care vocabulary, but write application-owned Vietnamese in a direct, warm, and concise voice rather than exposing internal data or system terminology. Present a Plant Update as “Ghi chép về cây”, shortened to “Ghi chép” where space is limited, and label Today’s plant rail “Cây của tôi”. Prefer active phrasing that tells growers what happened or what they can do. This supersedes only older user-facing labels such as “Cập nhật cây” and “Khu Vườn Của Tôi”; internal English model names remain unchanged.
+
+**Rationale:** Literal translations such as “Cập nhật cây”, passive system messages, and title-cased Vietnamese make the app feel technical and distant. Growers should be able to scan the interface without learning implementation vocabulary.
+
+**Consequences:** Application chrome, accessibility labels, validation, empty states, and error recovery use the same conversational voice. Curated Knowledge Base content and user-entered notes remain unchanged, and no navigation, persistence, schema, or synchronization behavior changes.
+
 ## Decision template
 
 ```md

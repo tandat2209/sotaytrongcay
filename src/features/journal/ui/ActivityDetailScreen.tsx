@@ -1,22 +1,23 @@
-import { StyleSheet, View } from "react-native";
+import { Pencil } from "lucide-react-native";
+import { Pressable, StyleSheet } from "react-native";
 import {
   getCareActivityLabel,
   getCareActivityOriginLabel,
-  getCareActivityUnitLabel,
   getWateringIntensityLabel,
 } from "./care-activity-copy";
-import { formatDateTime, formatNumber, t } from "@/shared/i18n";
+import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, spacing } from "@/shared/ui/theme";
+import { colors, radius, spacing } from "@/shared/ui/theme";
 import { CARE_ACTIVITY_VISUALS } from "../models/care-activity-icon";
-import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
 import { type CareActivity } from "../models/care-activity";
 import type { FertilizerApplication } from "../models/fertilizer-application";
 import { FertilizerApplicationDetailsList } from "./FertilizerApplicationDetailsList";
 import { ActivityDetailMenu } from "./ActivityDetailMenu";
+import { ActivityDetailInformation } from "./ActivityDetailInformation";
+import { JournalDetailHero } from "./JournalDetailHero";
+import { JournalDetailPlantCard } from "./JournalDetailPlantCard";
 
 type Props = {
   activity: CareActivity;
@@ -44,7 +45,6 @@ export function ActivityDetailScreen({
   stageTitle,
 }: Props) {
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
-  const ActivityIcon = visual.icon;
   const intensity =
     activity.type === "watering"
       ? activity.intensity
@@ -65,111 +65,53 @@ export function ActivityDetailScreen({
           {t("journal.activityDetail.pageTitle")}
         </Typography>
       )}
-      <PlantIdentity
+      <JournalDetailHero
+        accentColor={visual.color}
+        backgroundColor={visual.backgroundColor}
+        badge={getCareActivityOriginLabel(activity.origin)}
+        icon={visual.icon}
+        occurredAt={activity.occurredAt}
+        title={getCareActivityLabel(activity.type)}
+      />
+      <JournalDetailPlantCard
         imageUri={imageUri ?? null}
         name={plantName}
-        size="list"
         speciesTitle={speciesTitle}
         stageId={stageId}
         stageTitle={stageTitle}
-        style={styles.plantIdentity}
         testID="activity-detail-plant-identity"
       />
-      <View style={styles.summary}>
-        <View
-          style={[styles.icon, { backgroundColor: visual.backgroundColor }]}
-        >
-          <ActivityIcon color={visual.color} size={32} />
-        </View>
-        <View style={styles.summaryCopy}>
-          <Typography variant="headlineMedium">
-            {getCareActivityLabel(activity.type)}
-          </Typography>
-          {intensity ? (
-            <Typography color="textSecondary" variant="bodyLarge">
-              {`${intensity} · ${getCareActivityOriginLabel(activity.origin)}`}
-            </Typography>
-          ) : (
-            <Typography color="textSecondary" variant="bodyLarge">
-              {getCareActivityOriginLabel(activity.origin)}
-            </Typography>
-          )}
-          <Typography color="textSecondary" variant="bodyMedium">
-            {formatDateTime(new Date(activity.occurredAt))}
-          </Typography>
-        </View>
-      </View>
       <FertilizerApplicationDetailsList applications={fertilizerApplications} />
-      <SurfaceCard style={styles.card}>
-        <Typography variant="headlineSmall">
-          {t("journal.activityDetail.details")}
+      <ActivityDetailInformation activity={activity} intensity={intensity} />
+      <Pressable
+        accessibilityLabel={t("common.actions.edit")}
+        accessibilityRole="button"
+        onPress={onEdit}
+        style={({ pressed }) => [
+          styles.editButton,
+          pressed ? styles.editButtonPressed : null,
+        ]}
+      >
+        <Pencil color={colors.primary} size={20} />
+        <Typography color="primary" variant="headlineSmall">
+          {t("common.actions.edit")}
         </Typography>
-        <Detail
-          label={t("journal.activityDetail.origin")}
-          value={getCareActivityOriginLabel(activity.origin)}
-        />
-        {activity.type === "watering" ? (
-          <>
-            <Detail
-              label={t("journal.activityDetail.intensity")}
-              value={intensity ?? ""}
-            />
-            {activity.estimatedAmountLiters !== null ? (
-              <Detail
-                label={t("journal.activityDetail.amount")}
-                value={`${formatNumber(activity.estimatedAmountLiters)} ${getCareActivityUnitLabel("liter")}`}
-              />
-            ) : null}
-          </>
-        ) : null}
-        {activity.type === "spraying" && activity.sprayTargetNameSnapshot ? (
-          <Detail
-            label={t("journal.activityDetail.sprayTarget")}
-            value={activity.sprayTargetNameSnapshot}
-          />
-        ) : null}
-      </SurfaceCard>
-      <SurfaceCard style={styles.card}>
-        <Typography variant="headlineSmall">
-          {t("journal.activityDetail.notes")}
-        </Typography>
-        <Typography
-          color={activity.notes ? "text" : "textSecondary"}
-          variant="bodyLarge"
-        >
-          {activity.notes ?? t("journal.activityDetail.noNotes")}
-        </Typography>
-      </SurfaceCard>
+      </Pressable>
     </Screen>
   );
 }
 
-function Detail({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.row}>
-      <Typography color="textSecondary" variant="label">
-        {label}
-      </Typography>
-      <Typography style={styles.value} variant="bodyLarge">
-        {value}
-      </Typography>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  card: { gap: spacing.md },
-  icon: {
+  editButton: {
     alignItems: "center",
-    backgroundColor: colors.primarySoft,
-    borderRadius: 32,
-    height: 64,
+    borderColor: colors.primary,
+    borderRadius: radius.control,
+    borderWidth: 1,
+    flexDirection: "row",
+    gap: spacing.sm,
     justifyContent: "center",
-    width: 64,
+    minHeight: 52,
+    paddingHorizontal: spacing.md,
   },
-  plantIdentity: { flex: 0 },
-  row: { alignItems: "flex-start", flexDirection: "row", gap: spacing.md },
-  summary: { alignItems: "center", flexDirection: "row", gap: spacing.md },
-  summaryCopy: { flex: 1, gap: spacing.xs },
-  value: { flex: 1, textAlign: "right" },
+  editButtonPressed: { backgroundColor: colors.primarySoft },
 });
