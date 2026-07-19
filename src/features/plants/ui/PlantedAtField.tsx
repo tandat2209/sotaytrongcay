@@ -38,9 +38,10 @@ export function PlantedAtField({ onChange, value }: Props) {
           locale={datePickerLocale}
           maximumDate={new Date()}
           mode="date"
-          onChange={(_, date) => {
+          onDismiss={() => setPickerVisible(false)}
+          onValueChange={(_, date) => {
             if (Platform.OS !== "ios") setPickerVisible(false);
-            if (date) onChange(date.toISOString().split("T")[0] ?? null);
+            onChange(date.toISOString().split("T")[0] ?? null);
           }}
           value={value ? new Date(value) : new Date()}
         />
