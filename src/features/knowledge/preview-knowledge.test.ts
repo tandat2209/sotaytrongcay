@@ -122,6 +122,23 @@ describe("preview knowledge", () => {
       ]);
     });
 
+    it("exposes stage-specific fertilizer-group guidance", () => {
+      const plan = getCarePlansForStage("grape.stage.trunk-development").find(
+        (candidate) => candidate.activityType === "fertilizing",
+      );
+
+      expect(plan?.fertilizerGroupGuidance).toEqual([
+        {
+          group: "nitrogen-rich",
+          description: expect.stringContaining("thân và lá"),
+        },
+        {
+          group: "npk-balanced",
+          description: expect.stringContaining("đạm, lân và kali"),
+        },
+      ]);
+    });
+
     it("returns an empty array for a stage with no plans", () => {
       expect(getCarePlansForStage("grape.stage.nonexistent")).toHaveLength(0);
     });

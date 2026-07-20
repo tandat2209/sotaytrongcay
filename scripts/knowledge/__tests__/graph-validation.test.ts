@@ -6,7 +6,11 @@ import { normalizeDocument } from "../normalize";
 import { validateRelationships } from "../relationship-validator";
 import { validateStageGraphs } from "../stage-graph-validator";
 import { validateContentQuality } from "../content-quality-validator";
-import type { NormalizedDisease, ValidatedSourceDocument } from "../types";
+import type {
+  NormalizedCarePlan,
+  NormalizedDisease,
+  ValidatedSourceDocument,
+} from "../types";
 
 describe("graph validation and normalization", () => {
   describe("normalization", () => {
@@ -108,6 +112,83 @@ describe("graph validation and normalization", () => {
   });
 
   describe("relationship validation", () => {
+    const fertilizerPlan = (
+      overrides: Partial<NormalizedCarePlan>,
+    ): NormalizedCarePlan => ({
+      id: "care.grape.test.fertilizing",
+      type: "care_plan",
+      path: "care-plan.md",
+      title: "Bón phân thử nghiệm",
+      version: "1.0.0",
+      bodyMarkdown: "Nội dung thử nghiệm.",
+      locale: "vi-VN",
+      status: "review",
+      references: [],
+      priority: 1,
+      goal: "Kiểm tra hướng dẫn nhóm phân bón.",
+      speciesIds: [],
+      stageIds: [],
+      activityType: "fertilizing",
+      eligibility: {
+        kind: "elapsed_days_since_activity",
+        suggestAfterDays: 7,
+      },
+      onMissingHistory: "withhold",
+      ...overrides,
+    });
+
+    it("rejects fertilizer guidance for a group not present in recommended inputs", () => {
+      const diagnostics = validateRelationships([
+        fertilizerPlan({
+          recommendedInputs: [
+            {
+              id: "fertilizer.npk-balanced",
+              name: "NPK cân đối",
+              group: "npk-balanced",
+            },
+          ],
+          fertilizerGroupGuidance: [
+            {
+              group: "potassium-rich",
+              description: "Hỗ trợ mục tiêu dinh dưỡng của giai đoạn.",
+            },
+          ],
+        }),
+      ]);
+
+      expect(diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID",
+          field: "fertilizerGroupGuidance",
+        }),
+      );
+    });
+
+    it("rejects duplicate fertilizer-group guidance", () => {
+      const diagnostics = validateRelationships([
+        fertilizerPlan({
+          recommendedInputs: [
+            {
+              id: "fertilizer.npk-balanced",
+              name: "NPK cân đối",
+              group: "npk-balanced",
+            },
+          ],
+          fertilizerGroupGuidance: [
+            { group: "npk-balanced", description: "Mô tả thứ nhất." },
+            { group: "npk-balanced", description: "Mô tả thứ hai." },
+          ],
+        }),
+      ]);
+
+      expect(diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID",
+          message: expect.stringContaining("more than once"),
+        }),
+      );
+    });
+
     it("detects duplicate global IDs", () => {
       const docs = [
         {

@@ -25,6 +25,7 @@ export type KnowledgeDiagnosticCode =
   | "KNOWLEDGE_STAGE_CHAIN_INVALID"
   | "KNOWLEDGE_ACTIVITY_TYPE_UNSUPPORTED"
   | "KNOWLEDGE_RECOMMENDATION_SCOPE_DUPLICATE"
+  | "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID"
   | "KNOWLEDGE_REASON_MISSING"
   | "KNOWLEDGE_REFERENCE_REQUIRED"
   | "KNOWLEDGE_DEPENDENCY_INELIGIBLE"
@@ -159,6 +160,7 @@ export interface NormalizedCarePlan extends NormalizedUserFacingBaseDocument {
   readonly recommendedInputs?: readonly RecommendedInput[];
   readonly frequency?: CareFrequency;
   readonly notes?: readonly string[];
+  readonly fertilizerGroupGuidance?: readonly FertilizerGroupGuidance[];
   readonly speciesIds: readonly string[];
   readonly stageIds: readonly string[];
   readonly activityType: "watering" | "fertilizing" | "spraying";
@@ -167,6 +169,11 @@ export interface NormalizedCarePlan extends NormalizedUserFacingBaseDocument {
     readonly suggestAfterDays: number;
   }>;
   readonly onMissingHistory: "suggest" | "withhold";
+}
+
+export interface FertilizerGroupGuidance {
+  readonly group: FertilizerGroup;
+  readonly description: string;
 }
 
 export interface RecommendedInput {

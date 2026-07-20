@@ -50,7 +50,14 @@ notes:
     Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa
     mùa.
   - "Nếu dùng túi bọc trái, phun canxi trước khi bọc."
-version: 1.0.0
+fertilizer_group_guidance:
+  - group: potassium-rich
+    description: >-
+      Có vai trò trong vận chuyển đường, điều tiết nước và phát triển quả nho.
+      Công thức NPK thiên kali vẫn phải được đọc theo nhãn; thiếu hoặc thừa kali
+      đều có thể ảnh hưởng chất lượng, nên không bổ sung chỉ dựa trên một dấu
+      hiệu đơn lẻ.
+version: 1.1.0
 status: review
 references:
   - ref.osu.growing-table-grapes
@@ -58,5 +65,6 @@ references:
   - ref.fao.grape-production
   - ref.umn.high-tunnel-nutrient-management
   - ref.uc-ipm.growing-grape
+  - ref.uc-ipm.grape-fertilization
 priority: 50
 ---

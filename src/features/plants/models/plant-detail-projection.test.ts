@@ -139,6 +139,16 @@ describe("createPlantDetailProjection", () => {
         frequencyDisplay: "Mỗi 1–2 tuần ở nửa liều so với trồng đất",
         goal: expect.stringContaining("Thúc đẩy sinh trưởng mạnh"),
         notes: expect.arrayContaining([expect.stringContaining("Thừa đạm")]),
+        fertilizerGroupGuidance: [
+          {
+            group: "nitrogen-rich",
+            description: expect.stringContaining("thân và lá"),
+          },
+          {
+            group: "npk-balanced",
+            description: expect.stringContaining("đạm, lân và kali"),
+          },
+        ],
         recommendedInputs: expect.arrayContaining([
           expect.objectContaining({
             group: "nitrogen-rich",

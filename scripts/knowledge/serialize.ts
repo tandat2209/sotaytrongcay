@@ -13,7 +13,7 @@ import type {
 } from "./types";
 
 export const PRODUCTION_BUNDLE_SCHEMA_VERSION = "1.0.0";
-export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.0.0";
+export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.1.0";
 export const KNOWLEDGE_CONTENT_VERSION = "1.0.0";
 
 function sortArray(arr: readonly string[]): readonly string[] {
@@ -171,6 +171,9 @@ export function serializeBundle(
     }),
     ...(r.frequency !== undefined && { frequency: r.frequency }),
     ...(r.notes !== undefined && { notes: r.notes }),
+    ...(r.fertilizerGroupGuidance !== undefined && {
+      fertilizerGroupGuidance: r.fertilizerGroupGuidance,
+    }),
     bodyMarkdown: r.bodyMarkdown,
   }));
 

@@ -5,6 +5,7 @@ import type { CarePlan } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
+import { FertilizerGroupGuidanceList } from "./FertilizerGroupGuidanceList";
 
 export function StageCarePlanDetails({
   plan,
@@ -48,6 +49,18 @@ export function StageCarePlanDetails({
               </Typography>
             </View>
           ))}
+        </PlanDetail>
+      ) : null}
+
+      {plan.fertilizerGroupGuidance?.length ? (
+        <PlanDetail label={t("plants.guide.fertilizerGroupGuidance")}>
+          <Typography color="textSecondary" variant="bodyMedium">
+            {t("plants.guide.fertilizerGroupGuidanceDisclaimer")}
+          </Typography>
+          <FertilizerGroupGuidanceList
+            guidance={plan.fertilizerGroupGuidance}
+            toneColor={toneColor}
+          />
         </PlanDetail>
       ) : null}
 

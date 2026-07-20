@@ -8,6 +8,28 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-20 — Describe fertilizer groups within stage Care Plans
+
+**Status:** Accepted
+
+**Decision:** A fertilizing Care Plan may define ordered, stage-scoped
+`fertilizer_group_guidance` entries containing one existing canonical `group`
+and a Vietnamese `description`. The app derives the group label from the shared
+fertilizer taxonomy; authors do not repeat a fertilizer or group name. Every
+described group must occur in that Care Plan's `recommended_inputs`, and a group
+may be described only once. The optional section appears in expanded Stage
+Playbook Care Plans and the Plant Detail care-details sheet, but not on Today.
+
+**Rationale:** Concrete fertilizer names answer “what may be selected”; the
+group explains the stage-specific nutritional purpose. Reusing the canonical
+group avoids a second naming system while allowing the same group to have
+different safe context across stages and species.
+
+**Consequences:** The preview bundle advances to `2.1.0`. Existing Care Plans
+may omit the field. Guidance does not alter eligibility, suggestions, schedules,
+reminders, Care Entry, or saved history, and it never establishes deficiency or
+an immediate need to fertilize.
+
 ## 2026-07-19 — Use one fertilizer-group taxonomy across app and Knowledge Base
 
 **Status:** Accepted

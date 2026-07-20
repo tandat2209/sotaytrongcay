@@ -46,12 +46,19 @@ notes:
   - >-
     Ở Việt Nam (không có mùa đông tự nhiên), người trồng cần chủ động giảm nước
     và dinh dưỡng để cây nghỉ ngắn trước khi cắt cành.
-version: 1.0.0
+fertilizer_group_guidance:
+  - group: potassium-rich
+    description: >-
+      Tham gia điều tiết nước và vận chuyển carbohydrate trong cây, có liên quan
+      đến quá trình trưởng thành của cành. Bổ sung quá mức cũng có thể làm mất
+      cân đối dinh dưỡng.
+version: 1.1.0
 status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.ucdavis.vineyard-nutrition
   - ref.umn.high-tunnel-nutrient-management
   - ref.uc-ipm.growing-grape
+  - ref.uc-ipm.grape-fertilization
 priority: 50
 ---

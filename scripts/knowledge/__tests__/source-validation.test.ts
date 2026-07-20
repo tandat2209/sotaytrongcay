@@ -359,6 +359,33 @@ describe("knowledge source schema validation", () => {
     ]);
   });
 
+  it("accepts fertilizer-group guidance on a fertilizing Care Plan", async () => {
+    await workspace.writeKnowledgeFile(
+      "species/grape/care-plans/check-soil.md",
+      validDocuments.recommendation
+        .replace("activity_type: watering", "activity_type: fertilizing")
+        .replace(
+          "references: [ref.example]",
+          `recommended_inputs:
+  - id: fertilizer.npk-balanced
+    name: "NPK cân đối"
+    group: npk-balanced
+fertilizer_group_guidance:
+  - group: npk-balanced
+    description: "Hỗ trợ dinh dưỡng cân đối theo mục tiêu của giai đoạn."
+references: [ref.example]`,
+        ),
+    );
+
+    const result = await validateKnowledgeSources({
+      repositoryRoot: workspace.repositoryRoot,
+      knowledgeRoot: workspace.knowledgeRoot,
+    });
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.documents).toHaveLength(1);
+  });
+
   it.each([
     ["missing", null],
     ["invalid JSON", "{ invalid json"],

@@ -106,6 +106,36 @@ export function validateRelationships(
           validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
         }
 
+        if (doc.fertilizerGroupGuidance) {
+          const recommendedGroups = new Set(
+            doc.recommendedInputs?.map((input) => input.group) ?? [],
+          );
+          const describedGroups = new Set<string>();
+
+          for (const guidance of doc.fertilizerGroupGuidance) {
+            if (describedGroups.has(guidance.group)) {
+              diagnostics.push({
+                code: "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID",
+                path: doc.path,
+                documentId: doc.id,
+                field: "fertilizerGroupGuidance",
+                message: `Care Plan ${doc.id} describes fertilizer group ${guidance.group} more than once.`,
+              });
+            }
+            describedGroups.add(guidance.group);
+
+            if (!recommendedGroups.has(guidance.group)) {
+              diagnostics.push({
+                code: "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID",
+                path: doc.path,
+                documentId: doc.id,
+                field: "fertilizerGroupGuidance",
+                message: `Care Plan ${doc.id} describes fertilizer group ${guidance.group}, but no recommended input uses that group.`,
+              });
+            }
+          }
+        }
+
         break;
       }
 

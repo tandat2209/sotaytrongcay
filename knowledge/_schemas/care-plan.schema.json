@@ -4,6 +4,17 @@
   "title": "Care Plan",
   "type": "object",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "fertilizer_group_guidance": true },
+        "required": ["fertilizer_group_guidance"]
+      },
+      "then": {
+        "properties": { "activity_type": { "const": "fertilizing" } }
+      }
+    }
+  ],
   "required": [
     "id",
     "type",
@@ -169,6 +180,30 @@
       "items": {
         "type": "string",
         "minLength": 1
+      }
+    },
+    "fertilizer_group_guidance": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group", "description"],
+        "properties": {
+          "group": {
+            "enum": [
+              "organic",
+              "nitrogen-rich",
+              "npk-balanced",
+              "phosphorus-rich",
+              "potassium-rich",
+              "support",
+              "other"
+            ]
+          },
+          "description": { "type": "string", "minLength": 1 }
+        }
       }
     }
   }

@@ -13,6 +13,7 @@ import {
   getPreviewPlantKnowledge,
   getStagePlaybook,
   listCarePlans,
+  type FertilizerGroupGuidance,
   type RecommendedInput,
   type StagePlaybook,
 } from "@/features/knowledge/preview-knowledge";
@@ -32,6 +33,7 @@ export type PlantDetailCareDetails = Readonly<{
   frequencyDisplay: string | null;
   goal: string;
   notes: readonly string[];
+  fertilizerGroupGuidance: readonly FertilizerGroupGuidance[];
   recommendedInputs: readonly RecommendedInput[];
 }>;
 
@@ -117,6 +119,7 @@ export function createPlantDetailProjection({
               frequencyDisplay,
               goal: plan.goal,
               notes: plan.notes ?? [],
+              fertilizerGroupGuidance: plan.fertilizerGroupGuidance ?? [],
               recommendedInputs: plan.recommendedInputs ?? [],
             }
           : null,

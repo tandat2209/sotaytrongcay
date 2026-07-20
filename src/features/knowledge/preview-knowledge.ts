@@ -57,8 +57,16 @@ export type CarePlan = Readonly<{
   recommendedInputs?: readonly RecommendedInput[];
   fertilizerSuggestions?: readonly FertilizerSuggestion[];
   notes?: readonly string[];
+  fertilizerGroupGuidance?: readonly FertilizerGroupGuidance[];
   version: string;
 }>;
+
+export type FertilizerGroupGuidance = Readonly<{
+  group: FertilizerGroup;
+  description: string;
+}>;
+
+export type FertilizerGroup = FertilizerSuggestion["group"];
 
 export type FertilizerSuggestion = Readonly<{
   id: string;
@@ -156,6 +164,7 @@ type RawCarePlan = {
   };
   recommendedInputs?: FertilizerSuggestion[];
   notes?: string[];
+  fertilizerGroupGuidance?: FertilizerGroupGuidance[];
   version: string;
 };
 
@@ -357,6 +366,9 @@ function toCarePlan(raw: RawCarePlan): CarePlan {
     }),
     ...(fertilizerSuggestions?.length && { fertilizerSuggestions }),
     ...(raw.notes !== undefined && { notes: raw.notes }),
+    ...(raw.fertilizerGroupGuidance !== undefined && {
+      fertilizerGroupGuidance: raw.fertilizerGroupGuidance,
+    }),
     version: raw.version,
   };
 }

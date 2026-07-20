@@ -415,6 +415,11 @@ export const vi = {
   ],
   "plants.guide.nextStage": ["Giai đoạn: {stage}", ["stage"]],
   "plants.guide.notes": ["LƯU Ý QUAN TRỌNG", []],
+  "plants.guide.fertilizerGroupGuidance": ["VAI TRÒ NHÓM PHÂN BÓN", []],
+  "plants.guide.fertilizerGroupGuidanceDisclaimer": [
+    "Thông tin giải thích mục tiêu dinh dưỡng, không xác nhận cây đang thiếu chất hoặc cần bón ngay.",
+    [],
+  ],
   "plants.guide.objective": ["MỤC TIÊU", []],
   "plants.guide.recommendedInputs": ["VẬT TƯ GỢI Ý", []],
   "plants.guide.reference": ["Hướng dẫn bổ sung", []],

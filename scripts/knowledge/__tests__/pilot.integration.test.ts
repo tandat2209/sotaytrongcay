@@ -29,6 +29,10 @@ describe("grape knowledge pilot integration test", () => {
       stagePlaybooks: readonly Readonly<{ id: string }>[];
       carePlans: readonly Readonly<{
         id: string;
+        fertilizerGroupGuidance?: readonly Readonly<{
+          group: string;
+          description: string;
+        }>[];
         recommendedInputs?: readonly Readonly<{
           id: string;
           name: string;
@@ -47,14 +51,14 @@ describe("grape knowledge pilot integration test", () => {
     }>;
 
     // Check sizes
-    expect(bundle.schemaVersion).toBe("2.0.0");
+    expect(bundle.schemaVersion).toBe("2.1.0");
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.carePlans).toHaveLength(22);
     expect(bundle.guides).toHaveLength(6);
     expect(bundle.diseases).toHaveLength(1);
     expect(bundle.pests).toHaveLength(5);
-    expect(bundle.references).toHaveLength(15);
+    expect(bundle.references).toHaveLength(17);
 
     // Verify IDs
     expect(bundle.species[0]?.id).toBe("plant.grape");
@@ -89,6 +93,20 @@ describe("grape knowledge pilot integration test", () => {
     expect(budBreakFertilizing?.recommendedInputs?.[0]).not.toHaveProperty(
       "suggestions",
     );
+    const trunkFertilizing = bundle.carePlans.find(
+      (plan) =>
+        plan.id === "grape.recommendation.trunk-development.fertilizing",
+    );
+    expect(trunkFertilizing?.fertilizerGroupGuidance).toEqual([
+      {
+        group: "nitrogen-rich",
+        description: expect.stringContaining("thân và lá"),
+      },
+      {
+        group: "npk-balanced",
+        description: expect.stringContaining("đạm, lân và kali"),
+      },
+    ]);
 
     const guideIds = bundle.guides.map((guide) => guide.id).sort();
     expect(guideIds).toContain("grape.guide.train-main-shoot");
@@ -146,6 +164,7 @@ describe("grape knowledge pilot integration test", () => {
       "ref.osu.growing-table-grapes",
       "ref.uc-ipm.grape-aphids",
       "ref.uc-ipm.grape-european-fruit-lecanium-scale",
+      "ref.uc-ipm.grape-fertilization",
       "ref.uc-ipm.grape-phylloxera",
       "ref.uc-ipm.grape-powdery-mildew",
       "ref.uc-ipm.grape-vine-mealybug",
@@ -155,6 +174,7 @@ describe("grape knowledge pilot integration test", () => {
       "ref.umn.fertilizer-urea",
       "ref.umn.growing-grapes-home-garden",
       "ref.umn.high-tunnel-nutrient-management",
+      "ref.umn.phosphorus-fertilizers",
       "ref.vaas.grape-nh01-48",
       "ref.vusta.grape-thrips",
     ]);

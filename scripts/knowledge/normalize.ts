@@ -1,4 +1,5 @@
 import type {
+  FertilizerGroup,
   FertilizerSuggestion,
   NormalizedKnowledgeDocument,
   StageJourneyItem,
@@ -180,6 +181,16 @@ export function normalizeDocument(
             }
           : undefined;
       const notes = Array.isArray(fm.notes) ? stringList(fm.notes) : undefined;
+      const rawFertilizerGroupGuidance = fm.fertilizer_group_guidance;
+      const fertilizerGroupGuidance = Array.isArray(rawFertilizerGroupGuidance)
+        ? rawFertilizerGroupGuidance.map((item) => {
+            const value = item as Readonly<Record<string, unknown>>;
+            return {
+              group: String(value.group) as FertilizerGroup,
+              description: String(value.description),
+            };
+          })
+        : undefined;
       return {
         id: doc.id,
         type: "care_plan",
@@ -217,6 +228,9 @@ export function normalizeDocument(
         ...(recommendedInputs !== undefined && { recommendedInputs }),
         ...(frequency !== undefined && { frequency }),
         ...(notes !== undefined && { notes }),
+        ...(fertilizerGroupGuidance !== undefined && {
+          fertilizerGroupGuidance,
+        }),
       };
     }
 

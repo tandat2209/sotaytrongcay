@@ -41,7 +41,16 @@ notes:
     giảm hoặc ngừng bón.
   - Giữ phân cách gốc thân ít nhất 5 cm để tránh thối gốc.
   - "Lá xanh đậm bất thường kèm lóng dài = dư đạm, cần giảm liều."
-version: 1.0.0
+fertilizer_group_guidance:
+  - group: nitrogen-rich
+    description: >-
+      Hỗ trợ sinh trưởng thân và lá ở giai đoạn nuôi thân. Nếu cây đã mọc khỏe,
+      lá xanh đậm hoặc lóng dài, cần giảm thay vì tiếp tục tăng đạm.
+  - group: npk-balanced
+    description: >-
+      Cung cấp phối hợp đạm, lân và kali cho mục tiêu nuôi thân và lá. Thành phần
+      thực tế phụ thuộc công thức trên nhãn và nguồn dinh dưỡng cây đã nhận.
+version: 1.1.0
 status: review
 references:
   - ref.osu.growing-table-grapes

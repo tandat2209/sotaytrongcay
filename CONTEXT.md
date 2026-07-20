@@ -126,6 +126,10 @@ _Avoid_: Gợi ý chăm sóc, lịch sử chăm sóc.
 A reviewed part of a Care Plan that decides when its tracked care guidance is shown, using species, stage, activity history, missing-history policy, and priority. MVP supports elapsed-days history only.
 _Avoid_: Lời khuyên AI, mã tùy ý
 
+**Hướng dẫn nhóm phân bón** (Fertilizer-group guidance):
+An optional stage-scoped explanation in a fertilizing Care Plan for why one canonical recommended fertilizer group may fit that stage. It reuses the existing group label and does not establish deficiency, dosage, or an immediate need to fertilize.
+_Avoid_: Tên phân bón, chẩn đoán thiếu chất
+
 **Thời tiết hôm nay** (Today's weather):
 Current local weather context shown for awareness. In the current scope it does not change care suggestions, schedules, reminders, or history, and it is not a standalone forecast destination.
 _Avoid_: Dự báo thời tiết as the feature name

@@ -123,7 +123,7 @@ flowchart LR
 
 **Required fields:** ID, Vietnamese title and goal, activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
 
-**Optional fields:** Growing-method frequency, recommended inputs, notes, and Markdown instructions. A fertilizing Care Plan stores recommended inputs as a flat list of concrete suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection. It does not add a second free-text grouping layer around those suggestions.
+**Optional fields:** Growing-method frequency, recommended inputs, fertilizer-group guidance, notes, and Markdown instructions. A fertilizing Care Plan stores recommended inputs as a flat list of concrete suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection. Its optional `fertilizer_group_guidance` describes the stage-specific purpose of an existing recommended group without repeating its label. Each described group must occur in `recommended_inputs` and may appear only once. This explanatory field does not add a second taxonomy or affect recommendation eligibility.
 
 **Relationships:** A Care Plan may be evaluated directly into an informational recommendation. It does not require a Care Guide and remains informational until a user explicitly saves a related care activity.
 

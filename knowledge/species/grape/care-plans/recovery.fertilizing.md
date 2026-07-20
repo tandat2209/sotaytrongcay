@@ -59,13 +59,28 @@ notes:
   - >-
     Sau khi bón phân phục hồi xong, giảm dần tưới nước để khuyến khích lá rụng
     và cây nghỉ ngắn trước khi cắt cành vụ mới.
-version: 1.0.0
+fertilizer_group_guidance:
+  - group: organic
+    description: >-
+      Bổ sung vật chất hữu cơ và hỗ trợ cải thiện đất trong thời gian phục hồi;
+      ưu tiên nguồn đã hoai mục và tránh để vật liệu chưa phân hủy sát gốc.
+  - group: phosphorus-rich
+    description: >-
+      Cung cấp lân, một dưỡng chất liên quan đến chuyển hóa năng lượng và phát
+      triển rễ. Chỉ cân nhắc theo điều kiện đất và cây, không xem là xử lý rễ bắt
+      buộc sau thu hoạch.
+  - group: npk-balanced
+    description: >-
+      Cung cấp phối hợp đạm, lân và kali để hỗ trợ mục tiêu phục hồi nguồn dự trữ.
+      Việc có cần bổ sung hay không vẫn phụ thuộc sức cây và dinh dưỡng sẵn có.
+version: 1.1.0
 status: review
 references:
   - ref.osu.growing-table-grapes
   - ref.umn.growing-grapes-home-garden
   - ref.ucdavis.vineyard-nutrition
   - ref.umn.high-tunnel-nutrient-management
+  - ref.umn.phosphorus-fertilizers
   - ref.uc-ipm.growing-grape
 priority: 50
 ---

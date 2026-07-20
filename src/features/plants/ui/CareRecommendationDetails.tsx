@@ -5,6 +5,7 @@ import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import type { PlantDetailCareDetails } from "../models/plant-detail-projection";
+import { FertilizerGroupGuidanceList } from "./FertilizerGroupGuidanceList";
 
 export function CareRecommendationDetails({
   details,
@@ -31,6 +32,17 @@ export function CareRecommendationDetails({
               </Typography>
             </View>
           ))}
+        </DetailSection>
+      ) : null}
+      {details.fertilizerGroupGuidance.length ? (
+        <DetailSection label={t("plants.guide.fertilizerGroupGuidance")}>
+          <Typography color="textSecondary" variant="bodyMedium">
+            {t("plants.guide.fertilizerGroupGuidanceDisclaimer")}
+          </Typography>
+          <FertilizerGroupGuidanceList
+            guidance={details.fertilizerGroupGuidance}
+            toneColor={colors.activityFertilizing}
+          />
         </DetailSection>
       ) : null}
       {details.notes.length ? (
