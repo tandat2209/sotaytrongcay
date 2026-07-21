@@ -1,39 +1,45 @@
 import { router } from "expo-router";
 import {
   Bell,
-  ChevronRight,
   Ellipsis,
   ListTree,
   PackageOpen,
   Sprout,
 } from "lucide-react-native";
-import { Pressable, StyleSheet, View } from "react-native";
 import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
-import { Typography } from "@/shared/ui/Typography";
-import { colors, spacing } from "@/shared/ui/theme";
+import {
+  MoreNavigationGroup,
+  type MoreDestination,
+} from "./MoreNavigationGroup";
 
-const destinations = [
+const managementDestinations: readonly MoreDestination[] = [
   {
+    description: t("more.row.fertilizersDescription"),
     icon: PackageOpen,
     label: t("more.row.fertilizers"),
-    path: "/more/fertilizers" as const,
+    path: "/more/fertilizers",
   },
+];
+
+const settingsDestinations: readonly MoreDestination[] = [
   {
+    description: t("more.row.notificationsDescription"),
     icon: Bell,
     label: t("settings.row.notifications"),
-    path: "/settings/notifications" as const,
+    path: "/settings/notifications",
   },
   {
+    description: t("more.row.carePlansDescription"),
     icon: ListTree,
     label: t("settings.row.carePlans"),
-    path: "/settings/care-plans" as const,
+    path: "/settings/care-plans",
   },
   {
+    description: t("more.row.plantsDescription"),
     icon: Sprout,
     label: t("settings.row.plants"),
-    path: "/settings/plants" as const,
+    path: "/settings/plants",
   },
 ];
 
@@ -44,35 +50,16 @@ export function MoreScreen() {
       title={t("navigation.tabs.more")}
       titleIcon={Ellipsis}
     >
-      <View style={styles.list}>
-        {destinations.map(({ icon: Icon, label, path }) => (
-          <Pressable
-            accessibilityLabel={label}
-            accessibilityRole="button"
-            key={path}
-            onPress={() => router.push(path)}
-          >
-            <SurfaceCard style={styles.row}>
-              <Icon color={colors.primary} size={20} />
-              <Typography style={styles.fill} variant="bodyLarge">
-                {label}
-              </Typography>
-              <ChevronRight color={colors.textSecondary} size={20} />
-            </SurfaceCard>
-          </Pressable>
-        ))}
-      </View>
+      <MoreNavigationGroup
+        destinations={managementDestinations}
+        onOpen={(path) => router.push(path)}
+        title={t("more.section.management")}
+      />
+      <MoreNavigationGroup
+        destinations={settingsDestinations}
+        onOpen={(path) => router.push(path)}
+        title={t("more.section.settings")}
+      />
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  fill: { flex: 1 },
-  list: { gap: spacing.sm },
-  row: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: spacing.sm,
-    minHeight: 56,
-  },
-});

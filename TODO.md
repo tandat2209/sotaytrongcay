@@ -9,7 +9,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Migrate Plant Detail to the shared visual system.
 - [x] Migrate Journal to the shared visual system.
 - [ ] Migrate Care Entry flows to the shared visual system.
-- [ ] Migrate Mở rộng to the shared visual system.
+- [x] Migrate Mở rộng to the shared visual system.
 - [ ] Complete a remaining-screen visual consistency sweep.
 
 ## Knowledge model and UI follow-up

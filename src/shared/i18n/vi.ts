@@ -312,8 +312,29 @@ export const vi = {
   "fertilizers.management.search": ["Tìm phân bón", []],
   "fertilizers.management.title": ["Quản lý phân bón", []],
   "fertilizers.validation.name": ["Hãy nhập tên phân bón", []],
-  "more.introduction": ["Các công cụ và cài đặt khác.", []],
+  "more.introduction": [
+    "Quản lý vật tư và điều chỉnh cách ứng dụng hỗ trợ bạn.",
+    [],
+  ],
+  "more.row.carePlansDescription": [
+    "Xem hướng dẫn và điều chỉnh lịch theo từng giai đoạn.",
+    [],
+  ],
   "more.row.fertilizers": ["Quản lý phân bón", []],
+  "more.row.fertilizersDescription": [
+    "Lưu các loại phân thường dùng để chọn nhanh khi ghi chăm sóc.",
+    [],
+  ],
+  "more.row.notificationsDescription": [
+    "Kiểm tra quyền và cài đặt thông báo trên thiết bị.",
+    [],
+  ],
+  "more.row.plantsDescription": [
+    "Điều chỉnh lịch chăm sóc riêng cho từng cây.",
+    [],
+  ],
+  "more.section.management": ["Quản lý chăm sóc", []],
+  "more.section.settings": ["Cài đặt", []],
   "navigation.tabs.journal": ["Nhật ký", []],
   "navigation.tabs.more": ["Mở rộng", []],
   "navigation.tabs.plants": ["Cây trồng", []],
