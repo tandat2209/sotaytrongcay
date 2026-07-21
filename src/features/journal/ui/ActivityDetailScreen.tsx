@@ -61,7 +61,7 @@ export function ActivityDetailScreen({
           title={t("journal.activityDetail.pageTitle")}
         />
       ) : (
-        <Typography variant="headlineLarge">
+        <Typography variant="screenTitle">
           {t("journal.activityDetail.pageTitle")}
         </Typography>
       )}
@@ -93,7 +93,7 @@ export function ActivityDetailScreen({
         ]}
       >
         <Pencil color={colors.primary} size={20} />
-        <Typography color="primary" variant="headlineSmall">
+        <Typography color="primary" variant="bodyStrong">
           {t("common.actions.edit")}
         </Typography>
       </Pressable>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   editButton: {
     alignItems: "center",
     borderColor: colors.primary,
-    borderRadius: radius.control,
+    borderRadius: radius.medium,
     borderWidth: 1,
     flexDirection: "row",
     gap: spacing.sm,

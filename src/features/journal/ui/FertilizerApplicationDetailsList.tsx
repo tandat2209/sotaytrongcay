@@ -1,9 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import type { FertilizerApplication } from "../models/fertilizer-application";
 import { formatNumber, t } from "@/shared/i18n";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
-import { spacing } from "@/shared/ui/theme";
+import { colors, radius, spacing } from "@/shared/ui/theme";
 
 export function FertilizerApplicationDetailsList({
   applications,
@@ -15,8 +14,8 @@ export function FertilizerApplicationDetailsList({
         {t("journal.activityDetail.fertilizers")}
       </Typography>
       {applications.map((application) => (
-        <SurfaceCard key={application.id} style={styles.card}>
-          <Typography variant="bodyLarge">
+        <View key={application.id} style={styles.card}>
+          <Typography variant="cardTitle">
             {application.nameSnapshot}
           </Typography>
           {application.applicationMethod ? (
@@ -41,7 +40,7 @@ export function FertilizerApplicationDetailsList({
               value={application.notes}
             />
           ) : null}
-        </SurfaceCard>
+        </View>
       ))}
     </View>
   );
@@ -53,13 +52,18 @@ function Detail({ label, value }: Readonly<{ label: string; value: string }>) {
       <Typography color="textSecondary" variant="label">
         {label}
       </Typography>
-      <Typography variant="bodyMedium">{value}</Typography>
+      <Typography variant="secondary">{value}</Typography>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { gap: spacing.sm },
+  card: {
+    backgroundColor: colors.activityFertilizingSoft,
+    borderRadius: radius.card,
+    gap: spacing.sm,
+    padding: spacing.base,
+  },
   detail: { gap: spacing.xs },
-  section: { gap: spacing.sm },
+  section: { gap: spacing.md },
 });

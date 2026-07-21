@@ -1,7 +1,6 @@
 import type { LucideIcon } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -11,7 +10,7 @@ export function JournalDetailSection({ children, title }: SectionProps) {
   return (
     <View style={styles.section}>
       <Typography variant="headlineSmall">{title}</Typography>
-      <SurfaceCard style={styles.card}>{children}</SurfaceCard>
+      <View style={styles.details}>{children}</View>
     </View>
   );
 }
@@ -32,14 +31,10 @@ export function JournalDetailRow({
       <View accessibilityElementsHidden style={styles.detailIcon}>
         <Icon color={colors.primary} size={20} />
       </View>
-      <Typography
-        color="textSecondary"
-        style={styles.label}
-        variant="bodyLarge"
-      >
+      <Typography color="textSecondary" style={styles.label} variant="body">
         {label}
       </Typography>
-      <Typography style={styles.value} variant="bodyLarge">
+      <Typography style={styles.value} variant="bodyStrong">
         {value}
       </Typography>
     </View>
@@ -47,26 +42,26 @@ export function JournalDetailRow({
 }
 
 const styles = StyleSheet.create({
-  card: { paddingVertical: 0 },
   detail: {
-    alignItems: "center",
-    borderBottomColor: colors.border,
+    alignItems: "flex-start",
+    borderBottomColor: colors.divider,
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexDirection: "row",
     gap: spacing.sm,
-    minHeight: 72,
+    minHeight: 68,
     paddingVertical: spacing.base,
   },
   detailIcon: {
     alignItems: "center",
-    backgroundColor: colors.primarySoft,
-    borderRadius: radius.control,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.small,
     height: 40,
     justifyContent: "center",
     width: 40,
   },
   label: { flex: 1 },
   lastDetail: { borderBottomWidth: 0 },
-  section: { gap: spacing.sm },
+  details: { paddingHorizontal: spacing.xs },
+  section: { gap: spacing.md },
   value: { flex: 1.4, textAlign: "right" },
 });

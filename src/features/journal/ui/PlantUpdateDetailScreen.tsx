@@ -34,7 +34,7 @@ export function PlantUpdateDetailScreen({
   update,
 }: Props) {
   const { width } = useWindowDimensions();
-  const photoWidth = Math.max(width - spacing.base * 2, 240);
+  const photoWidth = Math.max(width - spacing.screen * 2, 240);
   const photos = update.photos
     .slice()
     .sort((left, right) => left.position - right.position);
@@ -63,7 +63,7 @@ export function PlantUpdateDetailScreen({
       />
       {photos.length ? (
         <View style={styles.photoSection}>
-          <Typography variant="headlineSmall">
+          <Typography variant="sectionTitle">
             {t("journal.update.recordedPhotos")}
           </Typography>
           <ScrollView
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   photo: { height: "100%", width: "100%" },
   photoCount: {
     backgroundColor: "rgba(28, 27, 27, 0.72)",
-    borderRadius: radius.chip,
+    borderRadius: radius.pill,
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
     position: "absolute",
@@ -134,6 +134,6 @@ const styles = StyleSheet.create({
     borderRadius: radius.card,
     overflow: "hidden",
   },
-  photoSection: { gap: spacing.sm },
-  photos: { gap: spacing.base, paddingRight: spacing.base },
+  photoSection: { gap: spacing.md },
+  photos: { gap: spacing.base, paddingRight: spacing.screen },
 });

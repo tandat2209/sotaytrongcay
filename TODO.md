@@ -7,7 +7,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Establish the warm light palette, semantic activity colors, Nunito Sans hierarchy, spacing/radius/elevation tokens, and refined shared surfaces without changing product behavior.
 - [x] Migrate Hôm nay to the shared visual system while preserving grouped care prompts, recent history, weather boundaries, and the plant rail.
 - [x] Migrate Plant Detail to the shared visual system.
-- [ ] Migrate Journal to the shared visual system.
+- [x] Migrate Journal to the shared visual system.
 - [ ] Migrate Care Entry flows to the shared visual system.
 - [ ] Migrate Mở rộng to the shared visual system.
 - [ ] Complete a remaining-screen visual consistency sweep.

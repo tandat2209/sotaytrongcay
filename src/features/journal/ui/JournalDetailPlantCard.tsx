@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
-import { spacing } from "@/shared/ui/theme";
+import { colors, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
   imageUri: string | null;
@@ -21,7 +20,7 @@ export function JournalDetailPlantCard({
   testID,
 }: Props) {
   return (
-    <SurfaceCard style={styles.card}>
+    <View style={styles.card}>
       <PlantIdentity
         imageUri={imageUri}
         name={name}
@@ -32,11 +31,15 @@ export function JournalDetailPlantCard({
         style={styles.identity}
         {...(testID === undefined ? {} : { testID })}
       />
-    </SurfaceCard>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { padding: spacing.base },
+  card: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.card,
+    padding: spacing.base,
+  },
   identity: { flex: 0 },
 });
