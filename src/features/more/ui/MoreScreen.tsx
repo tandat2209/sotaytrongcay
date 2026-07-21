@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import {
   Bell,
   Ellipsis,
+  Info,
   ListTree,
   PackageOpen,
   Sprout,
@@ -20,15 +21,6 @@ const managementDestinations: readonly MoreDestination[] = [
     label: t("more.row.fertilizers"),
     path: "/more/fertilizers",
   },
-];
-
-const settingsDestinations: readonly MoreDestination[] = [
-  {
-    description: t("more.row.notificationsDescription"),
-    icon: Bell,
-    label: t("settings.row.notifications"),
-    path: "/settings/notifications",
-  },
   {
     description: t("more.row.carePlansDescription"),
     icon: ListTree,
@@ -40,6 +32,21 @@ const settingsDestinations: readonly MoreDestination[] = [
     icon: Sprout,
     label: t("settings.row.plants"),
     path: "/settings/plants",
+  },
+];
+
+const settingsDestinations: readonly MoreDestination[] = [
+  {
+    description: t("more.row.notificationsDescription"),
+    icon: Bell,
+    label: t("settings.row.notifications"),
+    path: "/settings/notifications",
+  },
+  {
+    description: t("more.row.usageNoticeDescription"),
+    icon: Info,
+    label: t("usageNotice.title"),
+    path: "/settings/usage-notice",
   },
 ];
 

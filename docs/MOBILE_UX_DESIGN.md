@@ -408,6 +408,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 - “Thông báo”
 - “Chăm sóc theo giai đoạn”
 - “Tùy chỉnh theo cây”
+- “Lưu ý sử dụng”
 
 “Quản lý phân bón” lists reusable private fertilizers with their optional group icon and label plus newest saved use. It supports search, an accessible wrapping group filter with “Tất cả”, add, edit, and delete, and does not display curated recommendations. The saved-use line uses the same “Đã bón cho “{plant}”…” wording as Care Entry and never reflects an unsaved draft. Deleting a reusable fertilizer requires confirmation and leaves saved Fertilizer Applications unchanged. The same management screen is also reachable contextually from fertilizing Care Entry, which returns the selected fertilizer to the existing draft.
 
@@ -417,7 +418,9 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Error state:** Keep errors inside the affected row.
 
-**User actions:** Manage saved fertilizers, review notification permission, browse read-only stage guidance, customize stage schedules, or customize one plant schedule.
+“Lưu ý sử dụng” is a read-only, scrollable explanation of the app's scope, schedule and weather limitations, product-label priority, symptom uncertainty, and user responsibility. It requires no acknowledgement and stores no state.
+
+**User actions:** Manage saved fertilizers, review notification permission, browse read-only stage guidance, customize stage schedules, customize one plant schedule, or read the usage notice.
 
 ## 8. Shared interaction patterns
 

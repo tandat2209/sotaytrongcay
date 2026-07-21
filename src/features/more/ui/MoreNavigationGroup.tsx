@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: radius.card,
     overflow: "hidden",
-    paddingHorizontal: spacing.base,
   },
   icon: {
     alignItems: "center",
@@ -78,6 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.md,
     minHeight: 84,
+    paddingHorizontal: spacing.base,
     paddingVertical: spacing.md,
   },
   section: { gap: spacing.md },

@@ -333,8 +333,12 @@ export const vi = {
     "Điều chỉnh lịch chăm sóc riêng cho từng cây.",
     [],
   ],
+  "more.row.usageNoticeDescription": [
+    "Hiểu phạm vi hỗ trợ và cách sử dụng thông tin an toàn.",
+    [],
+  ],
   "more.section.management": ["Quản lý chăm sóc", []],
-  "more.section.settings": ["Cài đặt", []],
+  "more.section.settings": ["Cài đặt và thông tin", []],
   "navigation.tabs.journal": ["Nhật ký", []],
   "navigation.tabs.more": ["Mở rộng", []],
   "navigation.tabs.plants": ["Cây trồng", []],
@@ -601,6 +605,59 @@ export const vi = {
   "settings.row.carePlans": ["Chăm sóc theo giai đoạn", []],
   "settings.row.notifications": ["Thông báo", []],
   "settings.row.plants": ["Tùy chỉnh theo cây", []],
+  "usageNotice.introduction.paragraph1": [
+    "Ứng dụng hỗ trợ người dùng ghi lại hoạt động chăm sóc cây, theo dõi quá trình phát triển và tham khảo lịch chăm sóc cây nho.",
+    [],
+  ],
+  "usageNotice.introduction.paragraph2": [
+    "Thông tin trong ứng dụng được xây dựng từ kiến thức chăm sóc cây trồng phổ biến và dữ liệu do người dùng hoặc các dịch vụ bên thứ ba cung cấp. Kết quả thực tế có thể khác nhau tùy theo giống cây, tuổi cây, môi trường trồng, loại đất, kích thước chậu, thời tiết và điều kiện chăm sóc thực tế.",
+    [],
+  ],
+  "usageNotice.products.paragraph1": [
+    "Trước khi sử dụng phân bón, thuốc bảo vệ thực vật hoặc bất kỳ sản phẩm chăm sóc cây nào, người dùng cần đọc và tuân thủ hướng dẫn trên nhãn sản phẩm.",
+    [],
+  ],
+  "usageNotice.products.paragraph2": [
+    "Người dùng có trách nhiệm kiểm tra sản phẩm có phù hợp với cây trồng, được phép sử dụng tại địa phương và đáp ứng các yêu cầu về liều lượng, bảo hộ, bảo quản và thời gian cách ly.",
+    [],
+  ],
+  "usageNotice.products.paragraph3": [
+    "Khi thông tin trong ứng dụng khác với hướng dẫn của nhà sản xuất, hãy ưu tiên hướng dẫn trên nhãn sản phẩm.",
+    [],
+  ],
+  "usageNotice.products.title": ["Phân bón và sản phẩm chăm sóc cây", []],
+  "usageNotice.responsibility.paragraph1": [
+    "Người dùng chịu trách nhiệm xem xét tình trạng thực tế của cây và quyết định phương pháp chăm sóc phù hợp.",
+    [],
+  ],
+  "usageNotice.responsibility.paragraph2": [
+    "Ứng dụng không bảo đảm cây sẽ phát triển, hết sâu bệnh, đạt năng suất hoặc cho kết quả giống nhau trong mọi điều kiện.",
+    [],
+  ],
+  "usageNotice.responsibility.paragraph3": [
+    "Nội dung này không loại trừ hoặc hạn chế các quyền của người dùng theo quy định pháp luật hiện hành.",
+    [],
+  ],
+  "usageNotice.responsibility.title": ["Trách nhiệm của người dùng", []],
+  "usageNotice.schedule.paragraph1": [
+    "Lịch tưới nước, bón phân, phun phòng và các nhắc việc trong ứng dụng được sử dụng để hỗ trợ lập kế hoạch chăm sóc. Người dùng cần quan sát tình trạng thực tế của cây và điều chỉnh khi cần thiết.",
+    [],
+  ],
+  "usageNotice.schedule.paragraph2": [
+    "Dữ liệu thời tiết có thể không phản ánh chính xác điều kiện tại vị trí đặt cây.",
+    [],
+  ],
+  "usageNotice.schedule.title": ["Lịch chăm sóc và nhắc việc", []],
+  "usageNotice.symptoms.paragraph1": [
+    "Thông tin về sâu bệnh, thiếu dinh dưỡng hoặc triệu chứng của cây không phải là kết luận chuyên môn chắc chắn. Nhiều vấn đề khác nhau có thể tạo ra các biểu hiện giống nhau.",
+    [],
+  ],
+  "usageNotice.symptoms.paragraph2": [
+    "Người dùng không nên dựa vào ứng dụng làm căn cứ duy nhất để thực hiện các biện pháp có nguy cơ gây ảnh hưởng đến cây trồng, con người, vật nuôi hoặc môi trường.",
+    [],
+  ],
+  "usageNotice.symptoms.title": ["Nhận diện triệu chứng", []],
+  "usageNotice.title": ["Lưu ý sử dụng", []],
   "shared.bottomSheet.close": ["Đóng bảng chọn", []],
   "today.error.load": ["Chưa thể tải trang Hôm nay.", []],
   "today.greeting.afternoon": ["Chào buổi chiều", []],
