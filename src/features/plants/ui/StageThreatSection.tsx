@@ -70,7 +70,7 @@ function ThreatCard({ threat }: { threat: StageThreat }) {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: spacing.md },
+  card: { gap: spacing.base },
   copy: { flex: 1, gap: spacing.xs },
   heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   icon: {
@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
     width: 40,
   },
   pressed: { opacity: 0.72 },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
   trigger: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 44,
   },
 });

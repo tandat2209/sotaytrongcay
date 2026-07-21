@@ -165,11 +165,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     height: control.iconTarget,
     justifyContent: "center",
-    marginHorizontal: spacing.md,
+    marginHorizontal: spacing.base,
     width: control.iconTarget,
     zIndex: 1,
   },
-  fallback: { alignItems: "center", flexDirection: "row", gap: spacing.md },
+  fallback: { alignItems: "center", flexDirection: "row", gap: spacing.base },
   fallbackCopy: { flex: 1, gap: spacing.xs, minWidth: 0 },
   fallbackImage: {
     alignItems: "center",
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: spacing.sm,
   },
-  overlayIdentity: { gap: spacing.xs, padding: spacing.md },
+  overlayIdentity: { gap: spacing.xs, padding: spacing.base },
   pressed: { opacity: 0.9 },
   viewer: { backgroundColor: "rgba(0, 0, 0, 0.96)", flex: 1 },
   viewerPressed: {

@@ -16,7 +16,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconButton } from "./IconButton";
 import { Typography } from "./Typography";
-import { colors, radius, spacing } from "./theme";
+import { colors, elevation, radius, spacing } from "./theme";
 
 type BottomSheetProps = PropsWithChildren<{
   footer?: ReactNode;
@@ -71,7 +71,7 @@ export function BottomSheet({
             <View style={styles.handle} />
             <View style={styles.header}>
               {typeof title === "string" ? (
-                <Typography variant="headlineSmall">{title}</Typography>
+                <Typography variant="cardTitle">{title}</Typography>
               ) : (
                 title
               )}
@@ -106,12 +106,18 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
   },
-  content: { gap: spacing.md, padding: spacing.md },
+  content: {
+    gap: spacing.base,
+    paddingBottom: spacing.lg,
+    paddingHorizontal: spacing.screen,
+    paddingTop: spacing.base,
+  },
   flex: { flex: 1, justifyContent: "flex-end" },
   footer: {
     borderTopColor: colors.border,
     borderTopWidth: StyleSheet.hairlineWidth,
-    padding: spacing.md,
+    paddingHorizontal: spacing.screen,
+    paddingVertical: spacing.base,
   },
   handle: {
     alignSelf: "center",
@@ -125,22 +131,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.screen,
     paddingTop: spacing.xs,
   },
   sheet: {
     backgroundColor: colors.surface,
     borderTopColor: colors.border,
-    borderTopLeftRadius: radius.sheet,
-    borderTopRightRadius: radius.sheet,
+    borderTopLeftRadius: radius.large,
+    borderTopRightRadius: radius.large,
     borderTopWidth: StyleSheet.hairlineWidth,
-    elevation: 16,
+    ...elevation.sheet,
     maxHeight: "100%",
     overflow: "hidden",
-    shadowColor: colors.text,
-    shadowOffset: { height: -4, width: 0 },
-    shadowOpacity: 0.16,
-    shadowRadius: 14,
   },
   scrollableContent: { flexShrink: 1 },
   sheetContainer: { maxHeight: "85%", width: "100%" },

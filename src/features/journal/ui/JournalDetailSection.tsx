@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.sm,
     minHeight: 72,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.base,
   },
   detailIcon: {
     alignItems: "center",

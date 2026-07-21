@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,
-    gap: spacing.md,
+    gap: spacing.base,
     padding: spacing.lg,
   },
   title: { color: colors.text, fontSize: 24, fontWeight: "700" },

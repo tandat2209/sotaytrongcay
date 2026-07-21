@@ -30,7 +30,7 @@ export function TopBar({
       />
       <View style={styles.titleWrap}>
         {TitleIcon ? <TitleIcon color={colors.primary} size={20} /> : null}
-        <Typography style={styles.title} variant="headlineSmall">
+        <Typography style={styles.title} variant="cardTitle">
           {title}
         </Typography>
       </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     gap: spacing.sm,
-    minHeight: 52,
+    minHeight: 56,
   },
   title: { flex: 1 },
   titleWrap: {

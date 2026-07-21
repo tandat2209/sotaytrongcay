@@ -1,5 +1,5 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text } from "react-native";
-import { colors, radius, spacing } from "./theme";
+import { colors, control, radius, spacing, typography } from "./theme";
 
 type PrimaryButtonProps = {
   backgroundColor?: string;
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     backgroundColor: colors.primary,
-    borderRadius: radius.control,
+    borderRadius: radius.medium,
     justifyContent: "center",
-    minHeight: 48,
-    paddingHorizontal: spacing.md,
+    minHeight: control.primaryHeight,
+    paddingHorizontal: spacing.base,
   },
-  label: { color: colors.surface, fontSize: 16, fontWeight: "600" },
+  label: { ...typography.bodyStrong, color: colors.surface },
   disabled: { opacity: 0.45 },
   pressed: { opacity: 0.82 },
 });

@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     justifyContent: "flex-end",
     padding: spacing.lg,
-    paddingBottom: spacing.md,
+    paddingBottom: spacing.base,
   },
   heroDuration: {
     alignItems: "center",

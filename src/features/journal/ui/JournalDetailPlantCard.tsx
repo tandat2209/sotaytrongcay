@@ -37,6 +37,6 @@ export function JournalDetailPlantCard({
 }
 
 const styles = StyleSheet.create({
-  card: { padding: spacing.md },
+  card: { padding: spacing.base },
   identity: { flex: 0 },
 });

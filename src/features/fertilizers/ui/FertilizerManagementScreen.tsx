@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.sm,
     minHeight: 48,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   searchInput: { color: colors.text, flex: 1, fontSize: 16 },
   usageError: { gap: spacing.sm },

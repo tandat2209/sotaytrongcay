@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceSubtle,
     borderRadius: radius.control,
     gap: spacing.xs,
-    padding: spacing.md,
+    padding: spacing.base,
   },
   contextTitle: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });

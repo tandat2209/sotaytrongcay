@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
   frame: { flex: 1 },
   content: {
     flexGrow: 1,
-    gap: spacing.lg,
+    gap: spacing.xl,
     paddingBottom: spacing.xl,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.screen,
   },
   contentWithFloatingAction: {
     paddingBottom: FLOATING_ACTION_CONTENT_BOTTOM_SPACE,
@@ -142,14 +142,14 @@ const styles = StyleSheet.create({
   footer: {
     borderTopColor: colors.border,
     borderTopWidth: StyleSheet.hairlineWidth,
-    padding: spacing.md,
+    padding: spacing.base,
   },
   footerSafeArea: { backgroundColor: colors.surface },
   floatingAction: {
     position: "absolute",
-    right: spacing.md,
+    right: spacing.screen,
   },
-  heading: { gap: spacing.sm, paddingTop: spacing.md },
+  heading: { gap: spacing.sm, paddingTop: spacing.base },
   title: { color: colors.text, flex: 1 },
   titleRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });

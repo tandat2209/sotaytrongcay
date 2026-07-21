@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   hero: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     paddingVertical: spacing.sm,
   },
   icon: {

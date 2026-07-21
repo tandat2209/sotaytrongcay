@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
     paddingHorizontal: spacing.sm,
   },
-  content: { gap: spacing.md, paddingBottom: 1, paddingRight: spacing.md },
+  content: { gap: spacing.base, paddingBottom: 1, paddingRight: spacing.base },
   count: {
     alignItems: "center",
     backgroundColor: colors.primarySoft,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   pressed: { opacity: 0.7 },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
   title: {
     alignItems: "center",
     flexDirection: "row",

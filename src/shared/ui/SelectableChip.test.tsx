@@ -1,6 +1,7 @@
 import { fireEvent, render } from "@testing-library/react-native";
 import { Leaf } from "lucide-react-native";
 import { SelectableChip } from "./SelectableChip";
+import { colors } from "./theme";
 
 describe("SelectableChip", () => {
   it("renders an accessible selected option and invokes its action", () => {
@@ -34,7 +35,7 @@ describe("SelectableChip", () => {
 
     expect(
       screen.getByRole("button", { name: "Kali sunfat, đã chọn" }),
-    ).toHaveStyle({ backgroundColor: "#154212" });
+    ).toHaveStyle({ backgroundColor: colors.primary });
     expect(screen.getByText("✓ Kali sunfat")).toBeTruthy();
   });
 });

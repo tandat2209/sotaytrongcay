@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     justifyContent: "center",
     minHeight: 52,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   editButtonPressed: { backgroundColor: colors.primarySoft },
 });

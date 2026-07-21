@@ -87,7 +87,7 @@ export function CareEntryDetailsSection({
 
 const styles = StyleSheet.create({
   amountRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  fields: { gap: spacing.md },
+  fields: { gap: spacing.base },
   input: {
     backgroundColor: colors.surface,
     borderColor: colors.border,
@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     minHeight: 48,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
-  notes: { minHeight: 112, paddingTop: spacing.md, textAlignVertical: "top" },
-  section: { gap: spacing.md },
+  notes: { minHeight: 112, paddingTop: spacing.base, textAlignVertical: "top" },
+  section: { gap: spacing.base },
   toggle: {
     alignItems: "center",
     flexDirection: "row",

@@ -181,6 +181,6 @@ export function PlantDetailScreen({
 }
 
 const styles = StyleSheet.create({
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
   sheetTitle: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });

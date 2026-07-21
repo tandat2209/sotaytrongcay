@@ -14,7 +14,7 @@ export function PlantDetailMenu({ onArchive, onEdit }: Props) {
   const buttonRef = useRef<View>(null);
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState<{ right: number; top: number }>({
-    right: spacing.md,
+    right: spacing.base,
     top: 0,
   });
 

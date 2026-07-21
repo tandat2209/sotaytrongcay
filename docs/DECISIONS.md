@@ -8,6 +8,31 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-21 — Adopt a warm plant-focused visual foundation
+
+**Status:** Accepted
+
+**Decision:** Use Nunito Sans throughout application-owned UI with dedicated
+Regular 400, Medium 500, SemiBold 600, Bold 700, and ExtraBold 800 assets.
+Centralize a warm light palette, semantic watering/fertilizing/spraying/
+observation colors, a `4 / 8 / 12 / 16 / 24 / 32 / 40 / 48` spacing scale,
+20-point screen margins, restrained 12–28 point radii, and soft elevation in
+`src/shared/ui`. Existing product behavior, navigation, data, and Knowledge
+Base content remain unchanged.
+
+**Rationale:** The previous foundation mixed system typography, local weight
+overrides, incomplete activity colors, and tighter surfaces. A shared rounded
+typeface and semantic tokens create a warmer, more scannable grape-journal
+identity while preserving established mobile interactions and accessibility.
+
+**Consequences:** The app loads five bundled font weights before revealing the
+root layout. Shared primitives adopt the new foundation, while compatibility
+aliases let feature screens migrate one at a time without changing their
+meaning or layout accidentally. Spraying uses teal and journal observations use
+purple. Foreground activity and danger colors are darker than their decorative
+accents to retain text and icon contrast. No ADR, persistence migration, route
+change, or runtime network font request is required.
+
 ## 2026-07-20 — Describe fertilizer groups within stage Care Plans
 
 **Status:** Accepted

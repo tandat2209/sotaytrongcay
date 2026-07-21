@@ -168,11 +168,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: radius.control,
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 64,
     paddingVertical: spacing.sm,
   },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
   thumbnail: { borderRadius: radius.control, height: 40, width: 40 },
   updateIcon: { backgroundColor: colors.primarySoft },
 });

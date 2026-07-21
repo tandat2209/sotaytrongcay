@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   card: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 76,
   },
-  list: { gap: spacing.md },
+  list: { gap: spacing.base },
 });

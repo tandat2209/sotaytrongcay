@@ -144,6 +144,6 @@ const styles = StyleSheet.create({
   stateRow: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
   },
 });

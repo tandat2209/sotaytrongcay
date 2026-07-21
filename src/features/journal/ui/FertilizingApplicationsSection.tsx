@@ -125,5 +125,5 @@ export function FertilizingApplicationsSection({
 
 const styles = StyleSheet.create({
   error: { gap: spacing.sm },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
 });

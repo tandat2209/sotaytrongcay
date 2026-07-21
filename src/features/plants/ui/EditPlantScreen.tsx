@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     minHeight: 48,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
 });

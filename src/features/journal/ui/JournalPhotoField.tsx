@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   field: { gap: spacing.sm },
   pressed: { backgroundColor: colors.primarySoft },
   preview: { borderRadius: radius.control, height: 104, width: 104 },
-  previews: { gap: spacing.sm, paddingRight: spacing.md },
+  previews: { gap: spacing.sm, paddingRight: spacing.base },
   previewWrap: { position: "relative" },
   remove: {
     alignItems: "center",

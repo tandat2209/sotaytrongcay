@@ -43,5 +43,5 @@ const styles = StyleSheet.create({
     width: control.iconTarget,
   },
   disabled: { opacity: 0.45 },
-  pressed: { backgroundColor: colors.surfaceSubtle },
+  pressed: { backgroundColor: colors.surfaceMuted },
 });

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   emptyCard: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 72,
   },
   fill: { flex: 1 },

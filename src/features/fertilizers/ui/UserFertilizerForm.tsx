@@ -115,7 +115,7 @@ export function UserFertilizerForm({ form }: Readonly<{ form: FormState }>) {
 }
 
 const styles = StyleSheet.create({
-  form: { gap: spacing.md },
+  form: { gap: spacing.base },
   groups: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   input: {
     backgroundColor: colors.surface,
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 16,
     minHeight: 48,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
 });

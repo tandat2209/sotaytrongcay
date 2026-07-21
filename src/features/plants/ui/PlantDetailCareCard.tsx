@@ -139,7 +139,7 @@ function formatRelativeActivity(occurredAt: string): string {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: spacing.md, padding: spacing.lg },
+  card: { gap: spacing.base, padding: spacing.lg },
   header: {
     alignItems: "center",
     flexDirection: "row",
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   information: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     justifyContent: "space-between",
   },
   latest: { flex: 1 },

@@ -284,7 +284,7 @@ function isValidInterval(value: number): boolean {
 }
 
 const styles = StyleSheet.create({
-  content: { gap: spacing.md },
+  content: { gap: spacing.base },
   error: { gap: spacing.xs },
   heading: {
     alignItems: "center",

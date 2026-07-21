@@ -142,15 +142,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 40,
   },
-  card: { gap: spacing.md },
+  card: { gap: spacing.base },
   heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
   headingCopy: { flex: 1, gap: spacing.xs },
   planHeading: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 44,
   },
   pressed: { opacity: 0.72 },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
 });

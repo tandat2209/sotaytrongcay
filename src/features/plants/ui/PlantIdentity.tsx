@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minWidth: 0,
   },
   copy: { flex: 1, gap: spacing.xs, minWidth: 0 },
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     width: 160,
   },
-  railCopy: { gap: spacing.sm, padding: spacing.md, paddingTop: spacing.sm },
+  railCopy: { gap: spacing.sm, padding: spacing.base, paddingTop: spacing.sm },
   railImage: { borderRadius: 0 },
   railMetadata: { alignItems: "flex-start" },
   railName: { textAlign: "left" },

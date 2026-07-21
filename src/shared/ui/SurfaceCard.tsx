@@ -13,9 +13,9 @@ export function SurfaceCard({ children, style }: SurfaceCardProps) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.surface,
-    borderColor: colors.border,
+    borderColor: colors.divider,
     borderRadius: radius.card,
     borderWidth: StyleSheet.hairlineWidth,
-    padding: spacing.md,
+    padding: spacing.base,
   },
 });

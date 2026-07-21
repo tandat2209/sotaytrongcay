@@ -1,12 +1,6 @@
 import { useRef, useState } from "react";
 import { Ellipsis, Pencil, Trash2, type LucideIcon } from "lucide-react-native";
-import {
-  Dimensions,
-  Modal,
-  Pressable,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Dimensions, Modal, Pressable, StyleSheet, View } from "react-native";
 import { t } from "@/shared/i18n";
 import { IconButton } from "@/shared/ui/IconButton";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
@@ -21,7 +15,7 @@ type Props = Readonly<{
 export function ActivityDetailMenu({ onDelete, onEdit }: Props) {
   const buttonRef = useRef<View>(null);
   const [position, setPosition] = useState<{ right: number; top: number }>({
-    right: spacing.md,
+    right: spacing.base,
     top: 0,
   });
   const [visible, setVisible] = useState(false);
@@ -57,7 +51,10 @@ export function ActivityDetailMenu({ onDelete, onEdit }: Props) {
               style={StyleSheet.absoluteFill}
             />
             <View
-              style={[styles.menu, { right: position.right, top: position.top }]}
+              style={[
+                styles.menu,
+                { right: position.right, top: position.top },
+              ]}
               testID="activity-detail-menu"
             >
               <SurfaceCard style={styles.menuCard}>

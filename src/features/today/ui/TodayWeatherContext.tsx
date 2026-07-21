@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   context: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     justifyContent: "space-between",
   },
   date: { flexShrink: 1, fontWeight: "500" },

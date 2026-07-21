@@ -2,6 +2,12 @@
 
 Prioritize care-tracking usefulness and entry speed before expanding guidance.
 
+## Visual-system migration
+
+- [x] Establish the warm light palette, semantic activity colors, Nunito Sans hierarchy, spacing/radius/elevation tokens, and refined shared surfaces without changing product behavior.
+- [ ] Migrate Hôm nay to the shared visual system while preserving grouped care prompts, recent history, weather boundaries, and the plant rail.
+- [ ] Migrate Plant Detail, Journal, Care Entry, and Mở rộng in separate reviewed slices, then complete a remaining-screen consistency sweep.
+
 ## Knowledge model and UI follow-up
 
 Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact audit](./docs/research/2026-07-16-knowledge-model-ui-impact.md). Keep content corrections, optional model fields, and recommendation-state UI in separate phases.

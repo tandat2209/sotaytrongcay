@@ -1,8 +1,7 @@
 import type { LucideIcon } from "lucide-react-native";
 import { StyleSheet, View } from "react-native";
-import { SurfaceCard } from "./SurfaceCard";
 import { Typography } from "./Typography";
-import { colors, spacing } from "./theme";
+import { colors, radius, spacing } from "./theme";
 
 type EmptyStateProps = {
   description: string;
@@ -16,7 +15,7 @@ export function EmptyState({
   title,
 }: EmptyStateProps) {
   return (
-    <SurfaceCard style={styles.container}>
+    <View style={styles.container}>
       <View accessibilityElementsHidden style={styles.icon}>
         <Icon color={colors.primary} size={24} />
       </View>
@@ -30,24 +29,24 @@ export function EmptyState({
       >
         {description}
       </Typography>
-    </SurfaceCard>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    gap: spacing.sm,
+    gap: spacing.md,
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.xl,
+    paddingVertical: spacing.section,
   },
   icon: {
     alignItems: "center",
-    backgroundColor: "#E7F0E4",
-    borderRadius: 24,
-    height: 48,
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.large,
+    height: 56,
     justifyContent: "center",
-    width: 48,
+    width: 56,
   },
   title: { textAlign: "center" },
   description: { textAlign: "center" },

@@ -34,7 +34,7 @@ export function PlantUpdateDetailScreen({
   update,
 }: Props) {
   const { width } = useWindowDimensions();
-  const photoWidth = Math.max(width - spacing.md * 2, 240);
+  const photoWidth = Math.max(width - spacing.base * 2, 240);
   const photos = update.photos
     .slice()
     .sort((left, right) => left.position - right.position);
@@ -71,7 +71,7 @@ export function PlantUpdateDetailScreen({
             decelerationRate="fast"
             horizontal
             showsHorizontalScrollIndicator={false}
-            snapToInterval={photoWidth + spacing.md}
+            snapToInterval={photoWidth + spacing.base}
             snapToAlignment="start"
           >
             {photos.map((photo, index) => (
@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
     position: "absolute",
-    right: spacing.md,
-    top: spacing.md,
+    right: spacing.base,
+    top: spacing.base,
   },
   photoFrame: {
     aspectRatio: 4 / 3,
@@ -135,5 +135,5 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   photoSection: { gap: spacing.sm },
-  photos: { gap: spacing.md, paddingRight: spacing.md },
+  photos: { gap: spacing.base, paddingRight: spacing.base },
 });

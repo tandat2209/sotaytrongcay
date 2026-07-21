@@ -65,5 +65,5 @@ export function UserFertilizerEditorScreen({
 }
 
 const styles = StyleSheet.create({
-  delete: { alignItems: "center", minHeight: 48, padding: spacing.md },
+  delete: { alignItems: "center", minHeight: 48, padding: spacing.base },
 });

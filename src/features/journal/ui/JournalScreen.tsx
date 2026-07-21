@@ -106,7 +106,7 @@ export function JournalScreen({
 
   return (
     <Screen
-      contentGap={spacing.md}
+      contentGap={spacing.base}
       headerAction={
         <View style={styles.headerActions}>
           <IconButton
@@ -462,7 +462,7 @@ const styles = StyleSheet.create({
   dateHeading: { paddingTop: spacing.sm, textTransform: "uppercase" },
   headerActions: { alignItems: "center", flexDirection: "row" },
   journalList: { flex: 1 },
-  list: { gap: spacing.md, paddingBottom: 96, paddingTop: spacing.md },
+  list: { gap: spacing.base, paddingBottom: 96, paddingTop: spacing.base },
   photo: { borderRadius: radius.chip, height: 64, width: 64 },
   photoOnly: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
   row: { flexDirection: "row", gap: spacing.sm },
@@ -474,8 +474,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     minHeight: 48,
-    paddingLeft: spacing.md,
-    marginTop: spacing.md,
+    paddingLeft: spacing.base,
+    marginTop: spacing.base,
   },
   searchInput: {
     color: colors.text,
@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     height: 40,
     justifyContent: "center",
-    marginTop: spacing.md,
+    marginTop: spacing.base,
     width: 40,
     zIndex: 1,
   },
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.border,
     bottom: -spacing.lg,
     position: "absolute",
-    top: spacing.md + 40,
+    top: spacing.base + 40,
     width: StyleSheet.hairlineWidth,
   },
   updateIdentity: {

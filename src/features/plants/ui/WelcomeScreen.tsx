@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   benefitTitle: { fontWeight: "600" },
   benefits: { gap: spacing.sm },
-  content: { gap: spacing.md },
+  content: { gap: spacing.base },
   duration: {
     alignItems: "center",
     flexDirection: "row",

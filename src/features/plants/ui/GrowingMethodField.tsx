@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.sm,
     minHeight: 48,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   options: { flexDirection: "row", gap: spacing.sm },
   pressed: { opacity: 0.82 },

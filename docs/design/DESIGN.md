@@ -79,48 +79,51 @@ Last core care, contextual entry, reminders, and trustworthy history are primary
 
 Use semantic roles rather than copying raw colors into components.
 
-| Role              | Reference value | Use                                |
-| ----------------- | --------------- | ---------------------------------- |
-| Background        | `#FCF9F8`       | Warm application background        |
-| Surface           | `#FFFFFF`       | Cards, sheets, inputs              |
-| Primary           | `#154212`       | Primary actions, active navigation |
-| Primary container | `#2D5A27`       | Strong branded surfaces            |
-| Secondary         | `#65558F`       | Stage or milestone emphasis only   |
-| Text              | `#1C1B1B`       | Primary content                    |
-| Text secondary    | `#42493E`       | Supporting information             |
-| Border            | `#C2C9BB`       | Structural separation              |
-| Error             | `#BA1A1A`       | Validated warning/error states     |
+| Role           | Reference value | Use                                |
+| -------------- | --------------- | ---------------------------------- |
+| Background     | `#F6F4EE`       | Warm application background        |
+| Surface        | `#FFFFFF`       | Cards, sheets, inputs              |
+| Surface muted  | `#ECEAE3`       | Quiet grouped or pressed surfaces  |
+| Primary        | `#536B3E`       | Primary actions, active navigation |
+| Primary soft   | `#DDE8CC`       | Selected and supportive treatment  |
+| Text           | `#24251F`       | Primary content                    |
+| Text secondary | `#6E7066`       | Supporting information             |
+| Text muted     | `#929489`       | Low-emphasis metadata              |
+| Divider        | `#DEDDD5`       | Restrained structural separation   |
+| Danger         | `#A8453D`       | Accessible warning/error content   |
 
-Hydration may use soft blue, sunlight amber, and urgent plant-health states muted red. Color must always be paired with text or a Lucide icon.
+Watering uses blue, fertilizing amber, spraying teal, and observations purple. Each activity owns a soft background, a brighter accent, and a darker accessible foreground for icons and text. Healthy or completed states use primary green; destructive and overdue states use danger red. Activity colors are semantic, not decorative, and must always be paired with text or a Lucide icon.
 
 ### Typography
 
-- Use Inter or the approved cross-platform sans-serif fallback.
+- Use Nunito Sans throughout the application. Load dedicated Regular 400, Medium 500, SemiBold 600, Bold 700, and ExtraBold 800 font assets at the app root so Vietnamese text renders consistently on iOS, Android, and web.
 - Do not mix serif and sans-serif typography between destinations.
-- Headline large: 28/34, weight 600.
-- Headline medium: 22/28, weight 600.
-- Headline small: 18/24, weight 600.
-- Body large: 16/24, weight 400.
-- Body medium: 14/20, weight 400.
-- Labels: 12/16 or larger when interaction-critical.
+- Display: 32/38, weight 800.
+- Screen title: 28/34, weight 800.
+- Section title: 22/28, weight 700.
+- Card title: 18/24, weight 700.
+- Body: 16/24, weight 500.
+- Secondary: 14/20, weight 400.
+- Label: 13/17, weight 700.
+- Use a same-size 16/24 SemiBold body variant only when inline emphasis or a control label requires it; do not invent another font size.
 - Support Dynamic Type and avoid fixed-height text containers.
 
 ### Spacing and shape
 
 - Use a 4-point spacing grid.
-- Default horizontal margin: 16 points.
-- Related vertical spacing: 16 points.
-- Section spacing: 24 points.
-- Cards and inputs: 12–16 point radius.
-- Bottom sheets: 24 point top radius.
-- Chips: 8 point radius or pill shape.
+- Use the shared `4 / 8 / 12 / 16 / 24 / 32 / 40 / 48` spacing scale.
+- Default horizontal screen margin: 20 points.
+- Related vertical spacing: 12–16 points.
+- Major section spacing: 32–48 points.
+- Use 12 points for small controls, 16 for medium surfaces, 20 for cards, and 28 for large image or sheet surfaces.
+- Chips and compact statuses use a pill shape.
 - Minimum touch target: 44 × 44 points.
 
 ### Elevation
 
-- Prefer tonal surfaces and one-pixel borders.
+- Prefer tonal surfaces and restrained dividers over borders around every group.
 - Avoid heavy shadows and nested cards.
-- Reserve a subtle ambient shadow for bottom sheets.
+- Reserve one subtle ambient shadow token for bottom sheets and genuinely floating controls.
 - Do not use glass effects as a default surface treatment.
 
 ## 6. Navigation

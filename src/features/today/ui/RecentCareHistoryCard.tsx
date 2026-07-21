@@ -103,7 +103,7 @@ function formatOccurredAt(occurredAt: string): string {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: spacing.md },
+  card: { gap: spacing.base },
   copy: { flex: 1, gap: spacing.xs },
   divider: { backgroundColor: colors.border, height: StyleSheet.hairlineWidth },
   journalAction: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   row: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 64,
     paddingVertical: spacing.sm,
   },

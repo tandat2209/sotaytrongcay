@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     minHeight: 44,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   groupOptionBorder: {
     borderBottomColor: colors.border,
@@ -189,6 +189,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     minHeight: 48,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
 });

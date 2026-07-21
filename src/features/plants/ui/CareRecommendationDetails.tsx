@@ -80,7 +80,7 @@ function DetailSection({
 }
 
 const styles = StyleSheet.create({
-  content: { gap: spacing.lg, paddingBottom: spacing.md },
+  content: { gap: spacing.lg, paddingBottom: spacing.base },
   item: { gap: spacing.xs },
   note: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   noteCopy: { flex: 1 },

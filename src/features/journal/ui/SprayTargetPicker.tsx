@@ -51,5 +51,5 @@ export function SprayTargetPicker({ onChange, targets, value }: Props) {
 const styles = StyleSheet.create({
   chips: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   copy: { gap: spacing.xs },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
 });

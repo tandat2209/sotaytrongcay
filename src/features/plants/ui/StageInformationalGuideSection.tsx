@@ -78,12 +78,12 @@ function withoutRepeatedTitle(guide: CareGuide): string {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: spacing.md },
-  content: { gap: spacing.md },
+  card: { gap: spacing.base },
+  content: { gap: spacing.base },
   guideHeading: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 44,
   },
   heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
     width: 40,
   },
   pressed: { opacity: 0.72 },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
   title: { flex: 1 },
 });

@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   nextStageCard: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.md,
+    gap: spacing.base,
     minHeight: 72,
   },
   nextStageIcon: {
@@ -147,5 +147,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 48,
   },
-  section: { gap: spacing.md },
+  section: { gap: spacing.base },
 });

@@ -157,7 +157,7 @@ export function ScheduleSnapshotEditor({
 }
 
 const styles = StyleSheet.create({
-  content: { gap: spacing.md },
+  content: { gap: spacing.base },
   input: {
     borderColor: colors.border,
     borderRadius: radius.control,

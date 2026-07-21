@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     minHeight: 52,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   pressed: { backgroundColor: colors.primarySoft },
   selection: { alignItems: "center", flexDirection: "row", gap: spacing.sm },

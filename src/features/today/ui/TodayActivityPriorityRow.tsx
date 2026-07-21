@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     justifyContent: "center",
     minHeight: control.primaryHeight,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   careActionLabel: { fontWeight: "600" },
   container: {

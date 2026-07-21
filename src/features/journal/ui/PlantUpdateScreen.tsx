@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     minHeight: 52,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.base,
   },
   notes: {
     backgroundColor: colors.surface,
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     minHeight: 120,
-    padding: spacing.md,
+    padding: spacing.base,
     textAlignVertical: "top",
   },
   stage: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
