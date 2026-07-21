@@ -176,7 +176,7 @@ Prioritize:
 1. Plant identity presented over the latest persisted photo hero when available, with a compact leaf fallback when absent.
 2. Compact, horizontally scrollable 12-stage lifecycle journey as the single current-stage identifier.
 3. Compact current-stage objective without repeating the stage title.
-4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Use the Plant Detail floating action menu as the single record entry point.
+4. Large watering and fertilizing care cards with sourced frequency, last activity, deterministic status, and guide action. Pressing the activity identity opens its prefilled Care Entry; the bottom-centered radial action menu remains the complete entry point for all record types.
 5. Weather context.
 6. Three most recent saved journal entries, interleaving care activities and plant updates.
 
@@ -187,6 +187,8 @@ When a latest persisted photo exists, use a 16:9 rounded hero and place the plan
 The age pill keeps a stable width. When both current-stage and planted ages exist, switch the text every ten seconds using a restrained vertical slide and crossfade. Show current-stage age first. Respect reduced motion by presenting both values statically, and let the metadata row wrap for narrow screens or larger text.
 
 Within each care card, keep the activity icon compact and align it with the title. Frequency is supporting text rather than a filled chip, the info action has secondary emphasis while retaining its touch target, and last activity and status share one section without a divider.
+
+Keep the Plant Detail radial action button centered above the bottom navigation. While closed, cycle through the four semantic action icons and colors with restrained motion. On open, pause cycling, dim the page, animate all four labelled actions outward from the center onto a balanced upward arc, and replace the center button with a fixed close state at the same anchor. Use semantic activity colors and soft action surfaces; the close button and backdrop both dismiss the menu. Reduced motion uses a static green create icon and a static open state.
 
 Label the compact mixed-history section “Nhật ký gần đây”. Care rows use their activity visual; Plant Update rows use the first photo thumbnail when present or a note icon otherwise. Keep both row types visually equivalent and route each to its own detail screen.
 

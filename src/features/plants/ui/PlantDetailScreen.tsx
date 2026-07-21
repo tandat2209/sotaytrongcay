@@ -1,4 +1,4 @@
-import { Info, Leaf } from "lucide-react-native";
+import { HandHeart, Info, Leaf } from "lucide-react-native";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { formatCareEvaluationReason } from "@/features/guidance";
@@ -12,6 +12,7 @@ import { WeatherCard, type WeatherState } from "@/features/weather";
 import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { Screen } from "@/shared/ui/Screen";
+import { SectionHeader } from "@/shared/ui/SectionHeader";
 import { TopBar } from "@/shared/ui/TopBar";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
@@ -90,6 +91,7 @@ export function PlantDetailScreen({
             onRecordCare={recordQuickCare}
           />
         }
+        floatingActionAlignment="center"
         introduction={null}
         title=""
       >
@@ -114,15 +116,17 @@ export function PlantDetailScreen({
           projection={projection}
         />
         <View style={styles.section}>
-          <Typography variant="headlineSmall">
-            {t("plants.screen.careToday")}
-          </Typography>
+          <SectionHeader
+            icon={HandHeart}
+            title={t("plants.screen.careToday")}
+          />
           {projection.careCards.map((card) => (
             <PlantDetailCareCard
               card={card}
               key={card.activityType}
               onOpenActivity={onOpenActivity}
               onOpenDetails={setSelectedCareCard}
+              onStartCare={() => recordQuickCare(card.activityType)}
             />
           ))}
         </View>
@@ -143,7 +147,7 @@ export function PlantDetailScreen({
         title={
           <View style={styles.sheetTitle}>
             <Info color={colors.primary} size={20} />
-            <Typography variant="headlineSmall">
+            <Typography variant="cardTitle">
               {selectedCareCard?.title ?? t("plants.screen.recommendation")}
             </Typography>
           </View>
@@ -181,6 +185,6 @@ export function PlantDetailScreen({
 }
 
 const styles = StyleSheet.create({
-  section: { gap: spacing.base },
+  section: { gap: spacing.lg },
   sheetTitle: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
 });

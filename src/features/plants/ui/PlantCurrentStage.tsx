@@ -1,7 +1,7 @@
-import { BookOpen, ChevronRight } from "lucide-react-native";
-import { Pressable, StyleSheet } from "react-native";
+import { BookOpen, ChevronRight, Target } from "lucide-react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+
 import { t } from "@/shared/i18n";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import type { PlantDetailProjection } from "../models/plant-detail-projection";
@@ -13,11 +13,16 @@ type Props = Readonly<{
 
 export function PlantCurrentStage({ onOpenPlaybook, projection }: Props) {
   return (
-    <SurfaceCard style={styles.card}>
-      <Typography color="secondary" variant="label">
-        {t("plants.guide.objective")}
-      </Typography>
-      <Typography color="textSecondary" variant="bodyLarge">
+    <View style={styles.section}>
+      <View style={styles.heading}>
+        <View accessibilityElementsHidden style={styles.icon}>
+          <Target color={colors.primary} size={20} />
+        </View>
+        <Typography color="primary" variant="label">
+          {t("plants.guide.objective")}
+        </Typography>
+      </View>
+      <Typography variant="body">
         {projection.stagePlaybook?.primaryObjective ||
           t("plants.guide.missing")}
       </Typography>
@@ -28,38 +33,44 @@ export function PlantCurrentStage({ onOpenPlaybook, projection }: Props) {
           })}
           accessibilityRole="button"
           onPress={onOpenPlaybook}
-          style={({ pressed }) => [
-            styles.action,
-            pressed && styles.actionPressed,
-          ]}
+          style={({ pressed }) => [styles.action, pressed && styles.pressed]}
         >
           <BookOpen color={colors.primary} size={20} />
-          <Typography color="primary" style={styles.flex} variant="bodyLarge">
+          <Typography color="primary" style={styles.flex} variant="bodyStrong">
             {t("plants.screen.viewGuide")}
           </Typography>
           <ChevronRight color={colors.primary} size={18} />
         </Pressable>
       ) : null}
-    </SurfaceCard>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   action: {
     alignItems: "center",
-    borderRadius: radius.control,
+    backgroundColor: colors.surface,
+    borderRadius: radius.medium,
     flexDirection: "row",
     gap: spacing.sm,
-    minHeight: 44,
-    paddingHorizontal: spacing.sm,
-  },
-  actionPressed: { backgroundColor: colors.primarySoft },
-  card: {
-    backgroundColor: colors.surfaceSubtle,
-    borderLeftColor: colors.primary,
-    borderLeftWidth: 3,
-    gap: spacing.sm,
-    padding: spacing.base,
+    minHeight: 48,
+    paddingHorizontal: spacing.md,
   },
   flex: { flex: 1 },
+  heading: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  icon: {
+    alignItems: "center",
+    backgroundColor: colors.surface,
+    borderRadius: radius.small,
+    height: 36,
+    justifyContent: "center",
+    width: 36,
+  },
+  pressed: { opacity: 0.7 },
+  section: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.card,
+    gap: spacing.md,
+    padding: spacing.screen,
+  },
 });

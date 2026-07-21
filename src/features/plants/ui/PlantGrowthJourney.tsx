@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { StageIcon } from "@/features/knowledge/stage-icons";
 import { t } from "@/shared/i18n";
+import { SectionHeader } from "@/shared/ui/SectionHeader";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import type { PlantDetailProjection } from "../models/plant-detail-projection";
@@ -36,16 +37,18 @@ export function PlantGrowthJourney({
 
   return (
     <View style={styles.section}>
-      <View style={styles.heading}>
-        <Typography variant="headlineSmall">
-          {t("plants.screen.lifecycle")}
-        </Typography>
-        {currentIndex >= 0 ? (
-          <Typography color="textSecondary" variant="label">
-            {currentIndex + 1}/{stageCount}
-          </Typography>
-        ) : null}
-      </View>
+      <SectionHeader
+        action={
+          currentIndex >= 0 ? (
+            <View style={styles.position}>
+              <Typography color="primary" variant="label">
+                {currentIndex + 1}/{stageCount}
+              </Typography>
+            </View>
+          ) : null
+        }
+        title={t("plants.screen.lifecycle")}
+      />
       {stageCount ? (
         <ScrollView
           horizontal
@@ -88,7 +91,7 @@ export function PlantGrowthJourney({
           </View>
         </ScrollView>
       ) : (
-        <Typography color="textSecondary" variant="bodyMedium">
+        <Typography color="textSecondary" variant="secondary">
           {t("plants.screen.journeyEmpty")}
         </Typography>
       )}
@@ -98,31 +101,32 @@ export function PlantGrowthJourney({
 
 const styles = StyleSheet.create({
   connector: {
-    backgroundColor: colors.border,
+    backgroundColor: colors.divider,
     height: 1,
     left: -14,
     position: "absolute",
-    top: 16,
+    top: 18,
     width: 20,
   },
   current: { backgroundColor: colors.primary, borderColor: colors.primary },
-  heading: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   journey: { flexDirection: "row", gap: STEP_GAP },
   label: { textAlign: "center" },
   node: {
     alignItems: "center",
-    backgroundColor: colors.surfaceSubtle,
-    borderColor: colors.border,
-    borderRadius: radius.round,
+    backgroundColor: colors.surfaceMuted,
+    borderColor: colors.divider,
+    borderRadius: radius.pill,
     borderWidth: 1,
-    height: 32,
+    height: 36,
     justifyContent: "center",
-    width: 32,
+    width: 36,
   },
-  section: { gap: spacing.sm },
+  position: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+  section: { gap: spacing.base },
   step: { alignItems: "center", gap: spacing.xs, width: STEP_WIDTH },
 });

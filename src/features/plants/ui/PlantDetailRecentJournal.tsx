@@ -1,5 +1,6 @@
-import { ChevronRight, FileText } from "lucide-react-native";
+import { ChevronRight, FileText, NotebookPen } from "lucide-react-native";
 import { Image, Pressable, StyleSheet, View } from "react-native";
+
 import {
   CARE_ACTIVITY_VISUALS,
   getCareActivityLabel,
@@ -8,7 +9,7 @@ import {
   type PlantUpdate,
 } from "@/features/journal";
 import { formatDateTime, formatNumber, t } from "@/shared/i18n";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
+import { SectionHeader } from "@/shared/ui/SectionHeader";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -25,31 +26,35 @@ export function PlantDetailRecentJournal({
 }: Props) {
   return (
     <View style={styles.section}>
-      <Typography variant="headlineSmall">
-        {t("plants.recentJournal.title")}
-      </Typography>
+      <SectionHeader
+        icon={NotebookPen}
+        title={t("plants.recentJournal.title")}
+      />
       {items.length ? (
-        <SurfaceCard style={styles.list}>
-          {items.map((item) =>
-            item.kind === "care" ? (
-              <CareRow
-                activity={item.record}
-                key={`care:${item.id}`}
-                onPress={() => onOpenActivity(item.id)}
-              />
-            ) : (
-              <UpdateRow
-                key={`update:${item.id}`}
-                onPress={() => onOpenUpdate(item.id)}
-                update={item.record}
-              />
-            ),
-          )}
-        </SurfaceCard>
+        <View style={styles.list}>
+          {items.map((item, index) => (
+            <View key={`${item.kind}:${item.id}`}>
+              {index > 0 ? <View style={styles.divider} /> : null}
+              {item.kind === "care" ? (
+                <CareRow
+                  activity={item.record}
+                  onPress={() => onOpenActivity(item.id)}
+                />
+              ) : (
+                <UpdateRow
+                  onPress={() => onOpenUpdate(item.id)}
+                  update={item.record}
+                />
+              )}
+            </View>
+          ))}
+        </View>
       ) : (
-        <Typography color="textSecondary" variant="bodyMedium">
-          {t("plants.recentJournal.empty")}
-        </Typography>
+        <View style={[styles.list, styles.empty]}>
+          <Typography color="textSecondary" variant="secondary">
+            {t("plants.recentJournal.empty")}
+          </Typography>
+        </View>
       )}
     </View>
   );
@@ -66,6 +71,13 @@ function CareRow({
   const visual = CARE_ACTIVITY_VISUALS[activity.type];
   const ActivityIcon = visual.icon;
   const occurredAt = formatDateTime(new Date(activity.occurredAt));
+  const context =
+    activity.type === "watering" && activity.intensity
+      ? getWateringIntensityLabel(activity.intensity)
+      : activity.type === "spraying" && activity.sprayTargetNameSnapshot
+        ? activity.sprayTargetNameSnapshot
+        : null;
+
   return (
     <Pressable
       accessibilityLabel={t("plants.recentJournal.open", {
@@ -76,26 +88,24 @@ function CareRow({
       onPress={onPress}
       style={({ pressed }) => [styles.row, pressed && styles.pressed]}
     >
-      <View style={[styles.icon, { backgroundColor: visual.backgroundColor }]}>
-        <ActivityIcon color={visual.color} size={20} />
+      <View
+        accessibilityElementsHidden
+        style={[styles.icon, { backgroundColor: visual.backgroundColor }]}
+      >
+        <ActivityIcon color={visual.color} size={21} />
       </View>
       <View style={styles.copy}>
-        <Typography variant="bodyLarge">{label}</Typography>
-        {activity.type === "watering" && activity.intensity ? (
-          <Typography color="textSecondary" variant="bodyMedium">
-            {getWateringIntensityLabel(activity.intensity)}
+        <Typography variant="bodyStrong">{label}</Typography>
+        {context ? (
+          <Typography color="textSecondary" variant="secondary">
+            {context}
           </Typography>
         ) : null}
-        {activity.type === "spraying" && activity.sprayTargetNameSnapshot ? (
-          <Typography color="textSecondary" variant="bodyMedium">
-            {activity.sprayTargetNameSnapshot}
-          </Typography>
-        ) : null}
-        <Typography color="textSecondary" variant="bodyMedium">
+        <Typography color="textSecondary" variant="secondary">
           {occurredAt}
         </Typography>
       </View>
-      <ChevronRight color={colors.textSecondary} size={18} />
+      <ChevronRight color={colors.textMuted} size={18} />
     </Pressable>
   );
 }
@@ -108,11 +118,6 @@ function UpdateRow({
     .slice()
     .sort((left, right) => left.position - right.position)[0]?.localUri;
   const occurredAt = formatDateTime(new Date(update.occurredAt));
-  const summary =
-    update.notes ??
-    t("plants.recentJournal.photoCount", {
-      count: formatNumber(update.photos.length),
-    });
   return (
     <Pressable
       accessibilityLabel={t("journal.update.openAccessibility", {
@@ -129,50 +134,65 @@ function UpdateRow({
           style={styles.thumbnail}
         />
       ) : (
-        <View style={[styles.icon, styles.updateIcon]}>
-          <FileText color={colors.primary} size={20} />
+        <View
+          accessibilityElementsHidden
+          style={[styles.icon, styles.updateIcon]}
+        >
+          <FileText color={colors.primary} size={21} />
         </View>
       )}
       <View style={styles.copy}>
-        <Typography variant="bodyLarge">
+        <Typography variant="bodyStrong">
           {t("journal.filter.update")}
         </Typography>
-        <Typography
-          color="textSecondary"
-          numberOfLines={1}
-          variant="bodyMedium"
-        >
-          {summary}
+        <Typography color="textSecondary" numberOfLines={1} variant="secondary">
+          {update.notes ??
+            t("plants.recentJournal.photoCount", {
+              count: formatNumber(update.photos.length),
+            })}
         </Typography>
-        <Typography color="textSecondary" variant="label">
+        <Typography color="textSecondary" variant="secondary">
           {occurredAt}
         </Typography>
       </View>
-      <ChevronRight color={colors.textSecondary} size={18} />
+      <ChevronRight color={colors.textMuted} size={18} />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  copy: { flex: 1, minWidth: 0 },
+  copy: { flex: 1, gap: spacing.xs, minWidth: 0 },
+  divider: {
+    backgroundColor: colors.divider,
+    height: StyleSheet.hairlineWidth,
+    marginLeft: 44 + spacing.base,
+  },
+  empty: {
+    backgroundColor: colors.surfaceMuted,
+    paddingVertical: spacing.base,
+  },
   icon: {
     alignItems: "center",
-    borderRadius: radius.control,
-    height: 40,
+    borderRadius: radius.small,
+    height: 44,
     justifyContent: "center",
-    width: 40,
+    width: 44,
   },
-  list: { paddingVertical: 0 },
-  pressed: { backgroundColor: colors.surfaceSubtle },
+  list: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.card,
+    overflow: "hidden",
+    paddingHorizontal: spacing.base,
+  },
+  pressed: { opacity: 0.68 },
   row: {
     alignItems: "center",
-    borderRadius: radius.control,
     flexDirection: "row",
     gap: spacing.base,
-    minHeight: 64,
+    minHeight: 76,
     paddingVertical: spacing.sm,
   },
   section: { gap: spacing.base },
-  thumbnail: { borderRadius: radius.control, height: 40, width: 40 },
+  thumbnail: { borderRadius: radius.small, height: 44, width: 44 },
   updateIcon: { backgroundColor: colors.primarySoft },
 });

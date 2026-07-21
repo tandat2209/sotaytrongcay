@@ -109,7 +109,7 @@ export function PlantAgeTicker({
 
 const styles = StyleSheet.create({
   chip: {
-    borderRadius: radius.round,
+    borderRadius: radius.pill,
     justifyContent: "center",
     maxWidth: "100%",
     minHeight: 28,
@@ -119,5 +119,5 @@ const styles = StyleSheet.create({
   },
   fallbackChip: { backgroundColor: colors.primarySoft },
   heroChip: { backgroundColor: "rgba(255, 255, 255, 0.86)" },
-  label: { color: colors.primary },
+  label: { color: colors.primaryStrong },
 });

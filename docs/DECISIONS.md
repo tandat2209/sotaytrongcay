@@ -930,6 +930,24 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** Application chrome, accessibility labels, validation, empty states, and error recovery use the same conversational voice. Curated Knowledge Base content and user-entered notes remain unchanged, and no navigation, persistence, schema, or synchronization behavior changes.
 
+## 2026-07-21 — Open Care Entry from Plant Detail care cards
+
+**Status:** Accepted
+
+**Decision:** Pressing the activity identity and frequency on a Plant Detail watering or fertilizing card opens Care Entry with that plant and activity type prefilled. The guide action remains read-only, and the last-activity value continues to open the saved activity detail. The plant-scoped Quick Care menu remains available as the complete entry point for watering, fertilizing, spraying, and journal updates. No entry point writes history before explicit Save.
+
+**Rationale:** The care card already provides the strongest context for the activity being considered. Making that identity actionable reduces the steps needed to record care without duplicating a prominent record button or weakening the explicit-save boundary.
+
+## 2026-07-21 — Use a bottom-centered radial action menu on Plant Detail
+
+**Status:** Accepted
+
+**Decision:** Move the Plant Detail Quick Care control from the bottom right to the bottom center while retaining its cycling action preview. About every three seconds, the closed button cycles through watering, fertilizing, spraying, and journal icons with matching semantic colors, a short horizontal slide, and a restrained bounce. Opening it pauses cycling, dims the screen, moves the four labelled actions outward from the center onto a rounded upward arc, and replaces the center control with a fixed close button at the same anchor. Tapping outside also dismisses the menu. Reduced motion uses a static green create icon and a static open state. The menu remains plant-scoped and no action writes history before explicit Save.
+
+**Rationale:** Keeping the expressive cycling preview makes the main action discoverable, while the centered anchor and fixed close state prevent the alignment problem in the previous bottom-right vertical menu. A rounded arc gives all four actions balanced visual weight without permanently adding four buttons to the screen.
+
+**Consequences:** This supersedes only the bottom-right alignment and vertical expansion presentation accepted on 2026-07-13; the cycling preview remains. Plant Detail remains the only screen with this menu; Today and Journal remain FAB-free, and all existing entry flows and persistence boundaries stay unchanged.
+
 ## Decision template
 
 ```md

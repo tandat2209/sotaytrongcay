@@ -1,12 +1,13 @@
-import { Leaf, X } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Leaf } from "lucide-react-native";
 import { useState } from "react";
-import { Image, Modal, Pressable, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Image, Pressable, StyleSheet, View } from "react-native";
+
 import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, control, radius, spacing } from "@/shared/ui/theme";
+import { colors, radius, spacing } from "@/shared/ui/theme";
 import { PlantAgeTicker } from "./PlantAgeTicker";
+import { PlantPhotoViewer } from "./PlantPhotoViewer";
 
 type Props = Readonly<{
   ageLabels: readonly string[];
@@ -59,15 +60,15 @@ export function PlantDetailHero({
           style={StyleSheet.absoluteFill}
         />
         <LinearGradient
-          colors={["transparent", "rgba(11, 24, 10, 0.82)"]}
-          locations={[0.32, 1]}
+          colors={["transparent", "rgba(17, 24, 14, 0.9)"]}
+          locations={[0.28, 1]}
           style={StyleSheet.absoluteFill}
         />
         <View style={styles.overlayIdentity}>
           <Typography
             numberOfLines={2}
             style={styles.heroName}
-            variant="headlineLarge"
+            variant="display"
           >
             {name}
           </Typography>
@@ -91,41 +92,13 @@ export function PlantDetailHero({
           </View>
         </View>
       </Pressable>
-      <Modal
-        animationType="fade"
-        onRequestClose={() => setViewerOpen(false)}
-        presentationStyle="overFullScreen"
-        transparent
+      <PlantPhotoViewer
+        imageUri={imageUri}
+        onDismiss={() => setViewerOpen(false)}
+        onImageError={handleImageError}
+        plantName={name}
         visible={viewerOpen}
-      >
-        <SafeAreaView
-          accessibilityViewIsModal
-          edges={["top", "bottom"]}
-          style={styles.viewer}
-        >
-          <Pressable
-            accessibilityLabel={t("plants.photo.close")}
-            accessibilityRole="button"
-            hitSlop={6}
-            onPress={() => setViewerOpen(false)}
-            style={({ pressed }) => [
-              styles.closeButton,
-              pressed && styles.viewerPressed,
-            ]}
-          >
-            <X color={colors.surface} size={28} />
-          </Pressable>
-          <Image
-            accessibilityLabel={t("plants.photo.latest", { plant: name })}
-            accessible
-            accessibilityIgnoresInvertColors
-            onError={handleImageError}
-            resizeMode="contain"
-            source={{ uri: imageUri }}
-            style={styles.fullImage}
-          />
-        </SafeAreaView>
-      </Modal>
+      />
     </>
   );
 }
@@ -141,7 +114,7 @@ function PlantIdentityFallback({
         <Leaf color={colors.primary} size={34} />
       </View>
       <View style={styles.fallbackCopy}>
-        <Typography numberOfLines={2} variant="headlineLarge">
+        <Typography numberOfLines={2} variant="screenTitle">
           {name}
         </Typography>
         <View style={styles.metadataRow}>
@@ -160,21 +133,19 @@ function PlantIdentityFallback({
 }
 
 const styles = StyleSheet.create({
-  closeButton: {
+  fallback: {
     alignItems: "center",
-    alignSelf: "flex-end",
-    height: control.iconTarget,
-    justifyContent: "center",
-    marginHorizontal: spacing.base,
-    width: control.iconTarget,
-    zIndex: 1,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.card,
+    flexDirection: "row",
+    gap: spacing.base,
+    padding: spacing.base,
   },
-  fallback: { alignItems: "center", flexDirection: "row", gap: spacing.base },
-  fallbackCopy: { flex: 1, gap: spacing.xs, minWidth: 0 },
+  fallbackCopy: { flex: 1, gap: spacing.sm, minWidth: 0 },
   fallbackImage: {
     alignItems: "center",
     backgroundColor: colors.primarySoft,
-    borderRadius: radius.card,
+    borderRadius: radius.large,
     height: 72,
     justifyContent: "center",
     width: 72,
@@ -182,16 +153,15 @@ const styles = StyleSheet.create({
   fallbackSpeciesChip: {
     alignSelf: "flex-start",
     backgroundColor: colors.primarySoft,
-    borderRadius: radius.round,
+    borderRadius: radius.pill,
     maxWidth: "100%",
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
   },
-  fullImage: { flex: 1, width: "100%" },
   hero: {
     aspectRatio: 16 / 9,
     backgroundColor: colors.primarySoft,
-    borderRadius: 20,
+    borderRadius: radius.large,
     justifyContent: "flex-end",
     overflow: "hidden",
     width: "100%",
@@ -200,23 +170,18 @@ const styles = StyleSheet.create({
   heroSpeciesChip: {
     alignSelf: "flex-start",
     backgroundColor: "rgba(255, 255, 255, 0.92)",
-    borderRadius: radius.round,
+    borderRadius: radius.pill,
     maxWidth: "100%",
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
   },
-  heroSpeciesLabel: { color: colors.primary },
+  heroSpeciesLabel: { color: colors.primaryStrong },
   metadataRow: {
     alignItems: "center",
     flexDirection: "row",
     flexWrap: "wrap",
     gap: spacing.sm,
   },
-  overlayIdentity: { gap: spacing.xs, padding: spacing.base },
+  overlayIdentity: { gap: spacing.sm, padding: spacing.lg },
   pressed: { opacity: 0.9 },
-  viewer: { backgroundColor: "rgba(0, 0, 0, 0.96)", flex: 1 },
-  viewerPressed: {
-    backgroundColor: "rgba(255, 255, 255, 0.16)",
-    borderRadius: radius.round,
-  },
 });

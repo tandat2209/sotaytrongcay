@@ -19,6 +19,7 @@ const FLOATING_ACTION_CONTENT_BOTTOM_SPACE = 104;
 
 type ScreenProps = PropsWithChildren<{
   floatingAction?: ReactNode;
+  floatingActionAlignment?: "center" | "end";
   footer?: ReactNode;
   headerAction?: ReactNode;
   contentGap?: number;
@@ -32,6 +33,7 @@ export function Screen({
   children,
   contentGap,
   floatingAction,
+  floatingActionAlignment = "end",
   footer,
   headerAction,
   introduction,
@@ -113,6 +115,9 @@ export function Screen({
             <View
               style={[
                 styles.floatingAction,
+                floatingActionAlignment === "center"
+                  ? styles.floatingActionCentered
+                  : null,
                 { bottom: spacing.lg + insets.bottom },
               ]}
             >
@@ -149,6 +154,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: spacing.screen,
   },
+  floatingActionCentered: { alignItems: "center", left: 0, right: 0 },
   heading: { gap: spacing.sm, paddingTop: spacing.base },
   title: { color: colors.text, flex: 1 },
   titleRow: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
