@@ -16,7 +16,7 @@ export function TodayHeader() {
         source={logoSource}
         style={styles.logo}
       />
-      <Typography color="primary" variant="headlineSmall">
+      <Typography color="primary" variant="cardTitle">
         {t("app.name")}
       </Typography>
     </View>
@@ -24,6 +24,12 @@ export function TodayHeader() {
 }
 
 const styles = StyleSheet.create({
-  brand: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  logo: { height: 32, width: 32 },
+  brand: {
+    alignItems: "center",
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    gap: spacing.sm,
+    minHeight: 44,
+  },
+  logo: { height: 30, width: 30 },
 });

@@ -32,7 +32,10 @@ export function TodayPlantPriorityCard({
         })}
         accessibilityRole="button"
         onPress={() => onOpenPlant(group.plantId)}
-        style={styles.identityButton}
+        style={({ pressed }) => [
+          styles.identityButton,
+          pressed && styles.pressed,
+        ]}
       >
         <PlantIdentity
           imageUri={group.imageUri}
@@ -60,12 +63,13 @@ export function TodayPlantPriorityCard({
 }
 
 const styles = StyleSheet.create({
-  activities: { gap: spacing.sm },
-  card: { gap: spacing.sm },
+  activities: { gap: 0 },
+  card: { gap: spacing.base, padding: spacing.screen },
   identityButton: {
     alignItems: "center",
     flexDirection: "row",
     gap: spacing.sm,
     minHeight: control.iconTarget,
   },
+  pressed: { opacity: 0.7 },
 });

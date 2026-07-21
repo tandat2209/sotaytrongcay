@@ -29,12 +29,28 @@ export function TodayActivityPriorityRow({
   return (
     <View style={styles.container}>
       {card.dueStatus ? (
-        <Typography color="textSecondary" variant="bodyMedium">
-          {card.dueStatus === "overdue"
-            ? t("today.priority.overdue")
-            : t("today.priority.due")}{" "}
-          · {t("today.priority.plan")}
-        </Typography>
+        <View style={styles.metaRow}>
+          <View
+            style={[
+              styles.statusPill,
+              card.dueStatus === "overdue"
+                ? styles.overduePill
+                : styles.duePill,
+            ]}
+          >
+            <Typography
+              color={card.dueStatus === "overdue" ? "danger" : "primary"}
+              variant="label"
+            >
+              {card.dueStatus === "overdue"
+                ? t("today.priority.overdue")
+                : t("today.priority.due")}
+            </Typography>
+          </View>
+          <Typography color="textMuted" variant="secondary">
+            {t("today.priority.plan")}
+          </Typography>
+        </View>
       ) : null}
       <Pressable
         accessibilityLabel={t("today.priority.explanationAccessibility", {
@@ -47,10 +63,18 @@ export function TodayActivityPriorityRow({
         accessibilityRole="button"
         accessibilityState={{ expanded }}
         onPress={() => onToggle(card.id)}
-        style={styles.titleRow}
+        style={({ pressed }) => [styles.titleRow, pressed && styles.pressed]}
       >
-        <ActivityIcon color={visual.color} size={18} />
-        <Typography style={styles.fill} variant="bodyMedium">
+        <View
+          accessibilityElementsHidden
+          style={[
+            styles.activityIcon,
+            { backgroundColor: visual.backgroundColor },
+          ]}
+        >
+          <ActivityIcon color={visual.color} size={20} />
+        </View>
+        <Typography style={styles.fill} variant="bodyStrong">
           {card.title}
         </Typography>
         {expanded ? (
@@ -61,29 +85,34 @@ export function TodayActivityPriorityRow({
       </Pressable>
       {expanded ? (
         <View style={styles.explanation}>
-          <CircleHelp color={colors.textSecondary} size={16} />
-          <Typography style={styles.fill} variant="bodyMedium">
-            <Typography style={styles.bold} variant="bodyMedium">
+          <CircleHelp color={colors.primary} size={18} />
+          <View style={styles.explanationCopy}>
+            <Typography color="primary" variant="label">
               {t("today.priority.why")}
             </Typography>
-            {card.explanation}
-          </Typography>
+            <Typography color="textSecondary" variant="secondary">
+              {card.explanation}
+            </Typography>
+          </View>
         </View>
       ) : null}
       <Pressable
-        accessibilityLabel={t("today.priority.explanationAccessibility", {
+        accessibilityLabel={t("today.priority.recordAccessibility", {
           action: getCareActivityLabel(card.activityType),
           plant: card.plantName,
-          title: card.title,
         })}
         accessibilityRole="button"
         onPress={() => onRecordCare(card)}
-        style={[styles.careAction, { backgroundColor: visual.backgroundColor }]}
+        style={({ pressed }) => [
+          styles.careAction,
+          { backgroundColor: visual.backgroundColor },
+          pressed && styles.pressed,
+        ]}
       >
         <ActivityIcon color={visual.color} size={20} />
         <Typography
           style={[styles.careActionLabel, { color: visual.color }]}
-          variant="bodyMedium"
+          variant="bodyStrong"
         >
           {getCareActivityLabel(card.activityType)}
         </Typography>
@@ -93,35 +122,56 @@ export function TodayActivityPriorityRow({
 }
 
 const styles = StyleSheet.create({
-  bold: { fontWeight: "600" },
+  activityIcon: {
+    alignItems: "center",
+    borderRadius: radius.small,
+    height: 36,
+    justifyContent: "center",
+    width: 36,
+  },
   careAction: {
     alignItems: "center",
-    borderRadius: radius.control,
+    borderRadius: radius.medium,
     flexDirection: "row",
     gap: spacing.sm,
     justifyContent: "center",
     minHeight: control.primaryHeight,
     paddingHorizontal: spacing.base,
   },
-  careActionLabel: { fontWeight: "600" },
+  careActionLabel: { flexShrink: 1 },
   container: {
-    borderTopColor: colors.border,
+    borderTopColor: colors.divider,
     borderTopWidth: StyleSheet.hairlineWidth,
-    gap: spacing.sm,
-    paddingTop: spacing.sm,
+    gap: spacing.md,
+    paddingTop: spacing.base,
   },
+  duePill: { backgroundColor: colors.primarySoft },
   explanation: {
-    backgroundColor: colors.surfaceSubtle,
-    borderRadius: radius.chip,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.small,
     flexDirection: "row",
-    gap: spacing.sm,
-    padding: spacing.sm,
+    gap: spacing.md,
+    padding: spacing.md,
   },
+  explanationCopy: { flex: 1, gap: spacing.xs },
   fill: { flex: 1 },
+  metaRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.sm,
+  },
+  overduePill: { backgroundColor: colors.dangerSoft },
+  pressed: { opacity: 0.72 },
+  statusPill: {
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+  },
   titleRow: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.sm,
+    gap: spacing.md,
     minHeight: control.iconTarget,
   },
 });

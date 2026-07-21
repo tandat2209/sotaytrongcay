@@ -1,10 +1,11 @@
+import { ChevronRight, History } from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { CARE_ACTIVITY_VISUALS } from "@/features/journal";
 import { formatDateTime, t } from "@/shared/i18n";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
+import { SectionHeader } from "@/shared/ui/SectionHeader";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, control, spacing } from "@/shared/ui/theme";
+import { colors, control, radius, spacing } from "@/shared/ui/theme";
 import type { TodayActivity } from "../models/today-projection";
 
 type Props = {
@@ -18,17 +19,35 @@ export function RecentCareHistoryCard({
   onOpenActivity,
   onOpenJournal,
 }: Props) {
-  return (
-    <SurfaceCard style={styles.card}>
-      <Typography variant="headlineSmall">
-        {t("today.history.title")}
+  const action = (
+    <Pressable
+      accessibilityLabel={t("today.history.viewAll")}
+      accessibilityRole="button"
+      onPress={onOpenJournal}
+      style={({ pressed }) => [styles.journalAction, pressed && styles.pressed]}
+    >
+      <Typography color="primary" variant="label">
+        {t("today.history.viewAll")}
       </Typography>
+      <ChevronRight color={colors.primary} size={18} />
+    </Pressable>
+  );
+
+  return (
+    <View style={styles.section}>
+      <SectionHeader
+        action={action}
+        icon={History}
+        title={t("today.history.title")}
+      />
       {activities.length === 0 ? (
-        <Typography color="textSecondary" variant="bodyMedium">
-          {t("today.history.empty")}
-        </Typography>
+        <View style={styles.empty}>
+          <Typography color="textSecondary" variant="secondary">
+            {t("today.history.empty")}
+          </Typography>
+        </View>
       ) : (
-        <View>
+        <View style={styles.list}>
           {activities.map((activity, index) => (
             <View key={activity.id}>
               {index > 0 ? <View style={styles.divider} /> : null}
@@ -40,17 +59,7 @@ export function RecentCareHistoryCard({
           ))}
         </View>
       )}
-      <Pressable
-        accessibilityLabel={t("today.history.viewAll")}
-        accessibilityRole="button"
-        onPress={onOpenJournal}
-        style={styles.journalAction}
-      >
-        <Typography color="primary" variant="bodyMedium">
-          {t("today.history.viewAll")}
-        </Typography>
-      </Pressable>
-    </SurfaceCard>
+    </View>
   );
 }
 
@@ -71,15 +80,24 @@ function HistoryRow({
       })}
       accessibilityRole="button"
       onPress={onPress}
-      style={styles.row}
+      style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
     >
-      <ActivityIcon color={visual.color} size={22} />
+      <View
+        accessibilityElementsHidden
+        style={[
+          styles.activityIcon,
+          { backgroundColor: visual.backgroundColor },
+        ]}
+      >
+        <ActivityIcon color={visual.color} size={21} />
+      </View>
       <View style={styles.copy}>
-        <Typography variant="bodyLarge">{activityLabel(activity)}</Typography>
-        <Typography color="textSecondary" variant="bodyMedium">
+        <Typography variant="bodyStrong">{activityLabel(activity)}</Typography>
+        <Typography color="textSecondary" variant="secondary">
           {formatOccurredAt(activity.occurredAt)}
         </Typography>
       </View>
+      <ChevronRight color={colors.textMuted} size={18} />
     </Pressable>
   );
 }
@@ -103,22 +121,48 @@ function formatOccurredAt(occurredAt: string): string {
 }
 
 const styles = StyleSheet.create({
-  card: { gap: spacing.base },
+  activityIcon: {
+    alignItems: "center",
+    borderRadius: radius.small,
+    height: 44,
+    justifyContent: "center",
+    width: 44,
+  },
   copy: { flex: 1, gap: spacing.xs },
-  divider: { backgroundColor: colors.border, height: StyleSheet.hairlineWidth },
+  divider: {
+    backgroundColor: colors.divider,
+    height: StyleSheet.hairlineWidth,
+    marginLeft: 44 + spacing.base,
+  },
+  empty: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.card,
+    padding: spacing.base,
+  },
   journalAction: {
     alignItems: "center",
-    borderTopColor: colors.border,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    justifyContent: "center",
+    borderRadius: radius.small,
+    flexDirection: "row",
+    gap: spacing.xs,
     minHeight: control.iconTarget,
-    paddingTop: spacing.sm,
+    paddingHorizontal: spacing.sm,
   },
+  list: {
+    backgroundColor: colors.surface,
+    borderColor: colors.divider,
+    borderRadius: radius.card,
+    borderWidth: StyleSheet.hairlineWidth,
+    overflow: "hidden",
+    paddingHorizontal: spacing.base,
+  },
+  pressed: { opacity: 0.7 },
   row: {
     alignItems: "center",
     flexDirection: "row",
     gap: spacing.base,
-    minHeight: 64,
+    minHeight: 76,
     paddingVertical: spacing.sm,
   },
+  rowPressed: { opacity: 0.68 },
+  section: { gap: spacing.base },
 });

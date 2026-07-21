@@ -1,10 +1,11 @@
 import { CalendarDays, Sprout } from "lucide-react-native";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
-import { Typography } from "@/shared/ui/Typography";
-import { colors, control, radius, spacing } from "@/shared/ui/theme";
+import { PrimaryButton } from "@/shared/ui/PrimaryButton";
+import { SectionHeader } from "@/shared/ui/SectionHeader";
+import { spacing } from "@/shared/ui/theme";
 import { WeatherCard, type WeatherState } from "@/features/weather";
 import type {
   TodayCareCard,
@@ -58,26 +59,18 @@ export function TodayOverview({
             icon={Sprout}
             title={t("today.overview.emptyTitle")}
           />
-          <Pressable
-            accessibilityLabel={t("today.overview.addPlant")}
-            accessibilityRole="button"
+          <PrimaryButton
+            label={t("today.overview.addPlant")}
             onPress={onAddPlant}
-            style={styles.addPlantButton}
-          >
-            <Typography style={styles.addPlantLabel} variant="bodyLarge">
-              {t("today.overview.addPlant")}
-            </Typography>
-          </Pressable>
+          />
         </View>
       ) : (
         <>
           <View style={styles.section}>
-            <View style={styles.sectionHeading}>
-              <CalendarDays color={colors.primary} size={20} />
-              <Typography variant="headlineSmall">
-                {t("today.overview.tasks")}
-              </Typography>
-            </View>
+            <SectionHeader
+              icon={CalendarDays}
+              title={t("today.overview.tasks")}
+            />
             <TodayPriorityList
               cards={projection.careCards}
               onOpenPlant={onOpenPlant}
@@ -102,21 +95,7 @@ export function TodayOverview({
 }
 
 const styles = StyleSheet.create({
-  addPlantButton: {
-    alignItems: "center",
-    backgroundColor: colors.primary,
-    borderRadius: radius.control,
-    justifyContent: "center",
-    minHeight: control.primaryHeight,
-    paddingHorizontal: spacing.base,
-  },
-  addPlantLabel: { color: colors.surface, fontWeight: "600" },
-  content: { gap: spacing.lg },
+  content: { gap: spacing.section },
   emptyState: { gap: spacing.base },
   section: { gap: spacing.base },
-  sectionHeading: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: spacing.sm,
-  },
 });

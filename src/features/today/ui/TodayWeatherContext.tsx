@@ -24,14 +24,14 @@ export function TodayWeatherContext({ date = new Date() }: Props) {
         <Typography
           color="textSecondary"
           style={styles.date}
-          variant="bodyMedium"
+          variant="secondary"
         >
           {formatTodayDate(date)}
         </Typography>
       </View>
       <View style={styles.greeting}>
         <GreetingIcon color={colors.primary} size={18} />
-        <Typography style={styles.greetingText} variant="bodyMedium">
+        <Typography style={styles.greetingText} variant="bodyStrong">
           {greeting}
         </Typography>
       </View>
@@ -43,11 +43,17 @@ const styles = StyleSheet.create({
   context: {
     alignItems: "center",
     flexDirection: "row",
-    gap: spacing.base,
+    flexWrap: "wrap",
+    gap: spacing.sm,
     justifyContent: "space-between",
   },
-  date: { flexShrink: 1, fontWeight: "500" },
+  date: { flexShrink: 1 },
   dateGroup: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
-  greeting: { alignItems: "center", flexDirection: "row", gap: spacing.xs },
-  greetingText: { color: colors.primary, fontWeight: "600" },
+  greeting: {
+    alignItems: "center",
+    flexDirection: "row",
+    flexShrink: 1,
+    gap: spacing.xs,
+  },
+  greetingText: { color: colors.primary, flexShrink: 1 },
 });

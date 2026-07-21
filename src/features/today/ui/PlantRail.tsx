@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react-native";
+import { Plus, Sprout } from "lucide-react-native";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import {
   PlantIdentity,
@@ -6,6 +6,7 @@ import {
   type Plant,
 } from "@/features/plants";
 import { t } from "@/shared/i18n";
+import { SectionHeader } from "@/shared/ui/SectionHeader";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
@@ -24,29 +25,26 @@ export function PlantRail({
 }: Props) {
   return (
     <View style={styles.section}>
-      <View style={styles.heading}>
-        <View style={styles.title}>
-          <Typography variant="headlineSmall">
-            {t("today.overview.myGarden")}
-          </Typography>
-          <View style={styles.count}>
+      <SectionHeader
+        action={
+          <Pressable
+            accessibilityLabel={t("today.overview.addPlant")}
+            accessibilityRole="button"
+            onPress={onAddPlant}
+            style={({ pressed }) => [
+              styles.addButton,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Plus color={colors.primary} size={18} />
             <Typography color="primary" variant="label">
-              {plants.length}
+              {t("today.overview.addPlant")}
             </Typography>
-          </View>
-        </View>
-        <Pressable
-          accessibilityLabel={t("today.overview.addPlant")}
-          accessibilityRole="button"
-          onPress={onAddPlant}
-          style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
-        >
-          <Plus color={colors.primary} size={18} />
-          <Typography color="primary" variant="label">
-            {t("today.overview.addPlant")}
-          </Typography>
-        </Pressable>
-      </View>
+          </Pressable>
+        }
+        icon={Sprout}
+        title={t("today.overview.myGarden")}
+      />
       <ScrollView
         contentContainerStyle={styles.content}
         horizontal
@@ -90,28 +88,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
   },
   content: { gap: spacing.base, paddingBottom: 1, paddingRight: spacing.base },
-  count: {
-    alignItems: "center",
-    backgroundColor: colors.primarySoft,
-    borderRadius: radius.round,
-    justifyContent: "center",
-    minHeight: 24,
-    minWidth: 24,
-    paddingHorizontal: spacing.xs,
-  },
-  heading: {
-    alignItems: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.sm,
-    justifyContent: "space-between",
-  },
   pressed: { opacity: 0.7 },
   section: { gap: spacing.base },
-  title: {
-    alignItems: "center",
-    flexDirection: "row",
-    flexShrink: 1,
-    gap: spacing.sm,
-  },
 });

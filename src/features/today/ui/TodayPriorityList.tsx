@@ -3,7 +3,6 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { t } from "@/shared/i18n";
-import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import { groupTodayCareCards } from "../models/today-care-groups";
@@ -20,18 +19,14 @@ export function TodayPriorityList({ cards, onOpenPlant, onRecordCare }: Props) {
   const [expandedIds, setExpandedIds] = useState<readonly string[]>([]);
   if (cards.length === 0)
     return (
-      <SurfaceCard style={styles.emptyCard}>
+      <View style={styles.emptyCard}>
         <View accessibilityElementsHidden style={styles.plantIcon}>
           <Leaf color={colors.primary} size={22} />
         </View>
-        <Typography
-          color="textSecondary"
-          style={styles.fill}
-          variant="bodyMedium"
-        >
+        <Typography color="textSecondary" style={styles.fill} variant="body">
           {t("today.priority.empty")}
         </Typography>
-      </SurfaceCard>
+      </View>
     );
 
   const groups = groupTodayCareCards(cards);
@@ -55,15 +50,18 @@ export function TodayPriorityList({ cards, onOpenPlant, onRecordCare }: Props) {
 const styles = StyleSheet.create({
   emptyCard: {
     alignItems: "center",
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.card,
     flexDirection: "row",
     gap: spacing.base,
-    minHeight: 72,
+    minHeight: 80,
+    padding: spacing.base,
   },
   fill: { flex: 1 },
   plantIcon: {
     alignItems: "center",
     backgroundColor: colors.primarySoft,
-    borderRadius: radius.control,
+    borderRadius: radius.medium,
     height: 48,
     justifyContent: "center",
     width: 48,

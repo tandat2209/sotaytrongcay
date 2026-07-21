@@ -590,7 +590,7 @@ export const vi = {
     ["activity", "time"],
   ],
   "today.history.sprayed": ["Đã phun thuốc", []],
-  "today.history.title": ["Chăm sóc gần đây", []],
+  "today.history.title": ["Vừa ghi gần đây", []],
   "today.history.viewAll": ["Xem toàn bộ nhật ký", []],
   "today.history.watered": ["Đã tưới", []],
   "today.overview.addPlant": ["Thêm cây", []],
@@ -611,7 +611,11 @@ export const vi = {
   ],
   "today.priority.overdue": ["Quá hạn", []],
   "today.priority.plan": ["Kế hoạch chăm sóc", []],
-  "today.priority.why": ["Vì sao:", []],
+  "today.priority.recordAccessibility": [
+    "Mở biểu mẫu {action} cho {plant}",
+    ["action", "plant"],
+  ],
+  "today.priority.why": ["Vì sao", []],
   "weather.detail.error": ["Chưa thể tải dữ liệu thời tiết.", []],
   "weather.detail.loading": ["Đang tải dữ liệu thời tiết…", []],
   "weather.detail.offline": [
