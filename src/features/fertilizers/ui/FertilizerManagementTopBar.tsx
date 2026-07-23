@@ -1,7 +1,8 @@
-import { ListFilter, Search, type LucideIcon } from "lucide-react-native";
+import { ListFilter, Search } from "lucide-react-native";
 import { useState } from "react";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { t } from "@/shared/i18n";
+import { IconButton } from "@/shared/ui/IconButton";
 import { TopBar } from "@/shared/ui/TopBar";
 import { colors, control, radius, spacing } from "@/shared/ui/theme";
 import type { FertilizerGroup } from "../models/user-fertilizer";
@@ -40,13 +41,13 @@ export function FertilizerManagementTopBar({
         action={
           <View style={styles.actions}>
             {!searching ? (
-              <HeaderIconButton
+              <IconButton
                 accessibilityLabel={t("fertilizers.management.openSearch")}
                 icon={Search}
                 onPress={() => setSearching(true)}
               />
             ) : null}
-            <HeaderIconButton
+            <IconButton
               accessibilityLabel={filterAccessibilityLabel}
               icon={ListFilter}
               onPress={() => setFilterVisible(true)}
@@ -89,57 +90,8 @@ export function FertilizerManagementTopBar({
   );
 }
 
-function HeaderIconButton({
-  accessibilityLabel,
-  icon: Icon,
-  onPress,
-  selected = false,
-}: Readonly<{
-  accessibilityLabel: string;
-  icon: LucideIcon;
-  onPress: () => void;
-  selected?: boolean;
-}>) {
-  return (
-    <Pressable
-      accessibilityLabel={accessibilityLabel}
-      accessibilityRole="button"
-      accessibilityState={{ selected }}
-      hitSlop={6}
-      onPress={onPress}
-      style={({ pressed }) => [
-        styles.iconButton,
-        selected && styles.selectedIconButton,
-        pressed && styles.pressed,
-      ]}
-    >
-      <Icon color={selected ? colors.primary : colors.text} size={22} />
-      {selected ? <View style={styles.activeDot} /> : null}
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
   actions: { alignItems: "center", flexDirection: "row" },
-  activeDot: {
-    backgroundColor: colors.primary,
-    borderColor: colors.surface,
-    borderRadius: radius.round,
-    borderWidth: 2,
-    height: 9,
-    position: "absolute",
-    right: 7,
-    top: 7,
-    width: 9,
-  },
-  iconButton: {
-    alignItems: "center",
-    borderRadius: radius.round,
-    height: control.iconTarget,
-    justifyContent: "center",
-    width: control.iconTarget,
-  },
-  pressed: { backgroundColor: colors.surfaceMuted },
   search: {
     alignItems: "center",
     backgroundColor: colors.surface,
@@ -153,5 +105,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
   },
   searchInput: { color: colors.text, flex: 1, fontSize: 16, minWidth: 0 },
-  selectedIconButton: { backgroundColor: colors.primarySoft },
 });

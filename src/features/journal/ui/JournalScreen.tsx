@@ -1,20 +1,12 @@
-import { Filter, NotebookPen, Search, X } from "lucide-react-native";
+import { NotebookPen, Search } from "lucide-react-native";
 import { useMemo, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import { appLocale, formatDate, t } from "@/shared/i18n";
 import { EmptyState } from "@/shared/ui/EmptyState";
-import { IconButton } from "@/shared/ui/IconButton";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Screen } from "@/shared/ui/Screen";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, radius, spacing } from "@/shared/ui/theme";
+import { colors, spacing } from "@/shared/ui/theme";
 import { type CareActivity } from "../models/care-activity";
 import { createJournalItems, type JournalItem } from "../models/journal-item";
 import {
@@ -23,6 +15,10 @@ import {
 } from "../models/journal-query";
 import type { PlantUpdate } from "../models/plant-update";
 import { JournalFilterSheet, type JournalFilters } from "./JournalFilterSheet";
+import {
+  JournalHeaderActions,
+  JournalSearchField,
+} from "./JournalManagementHeader";
 import { JournalEntryRow, type JournalPlantSummary } from "./JournalEntryRow";
 import type {
   PlantIdentityComponent,
@@ -98,59 +94,30 @@ export function JournalScreen({
     <Screen
       contentGap={spacing.base}
       headerAction={
-        <View style={styles.headerActions}>
-          <IconButton
-            accessibilityLabel={t("journal.list.search")}
-            icon={Search}
-            onPress={() => setSearchVisible((visible) => !visible)}
-          />
-          <IconButton
-            accessibilityLabel={t("journal.filter.open")}
-            icon={Filter}
-            onPress={() => setShowFilters(true)}
-          />
-        </View>
+        <JournalHeaderActions
+          filtersActive={hasFilters}
+          onFilterPress={() => setShowFilters(true)}
+          onSearchPress={() => setSearchVisible(true)}
+          searching={searchVisible}
+        />
       }
       scrollable={false}
-      title={t("journal.list.title")}
-      titleIcon={NotebookPen}
-    >
-      {searchVisible ? (
-        <View style={styles.search}>
-          <Search color={colors.textSecondary} size={20} />
-          <TextInput
-            accessibilityLabel={t("journal.list.search")}
-            autoCorrect
-            autoFocus
-            onChangeText={(query) => onCriteriaChange({ ...criteria, query })}
-            placeholder={t("journal.list.search")}
-            placeholderTextColor={colors.textSecondary}
-            style={styles.searchInput}
-            value={criteria.query}
-          />
-          <IconButton
-            accessibilityLabel={t("common.actions.close")}
-            icon={X}
-            onPress={() => {
+      title={
+        searchVisible ? (
+          <JournalSearchField
+            onChange={(query) => onCriteriaChange({ ...criteria, query })}
+            onClose={() => {
               onCriteriaChange({ ...criteria, query: "" });
               setSearchVisible(false);
             }}
+            query={criteria.query}
           />
-        </View>
-      ) : null}
-      {hasFilters ? (
-        <Pressable
-          accessibilityLabel={t("journal.filter.openActive")}
-          accessibilityRole="button"
-          onPress={() => setShowFilters(true)}
-          style={styles.activeFilter}
-        >
-          <Filter color={colors.surface} size={16} />
-          <Typography color="surface" variant="label">
-            {t("journal.filter.active")}
-          </Typography>
-        </Pressable>
-      ) : null}
+        ) : (
+          t("journal.list.title")
+        )
+      }
+      {...(!searchVisible ? { titleIcon: NotebookPen } : {})}
+    >
       <FlatList
         contentContainerStyle={styles.list}
         data={rows}
@@ -258,42 +225,12 @@ function formatDateHeading(occurredAt: string) {
 }
 
 const styles = StyleSheet.create({
-  activeFilter: {
-    alignItems: "center",
-    alignSelf: "flex-start",
-    backgroundColor: colors.primary,
-    borderRadius: radius.round,
-    flexDirection: "row",
-    gap: spacing.xs,
-    minHeight: 32,
-    paddingHorizontal: spacing.sm,
-  },
   dateHeading: {
     borderBottomColor: colors.divider,
     borderBottomWidth: StyleSheet.hairlineWidth,
     paddingBottom: spacing.sm,
     paddingTop: spacing.lg,
   },
-  headerActions: { alignItems: "center", flexDirection: "row" },
   journalList: { flex: 1 },
   list: { paddingBottom: 96 },
-  search: {
-    alignItems: "center",
-    backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
-    flexDirection: "row",
-    minHeight: 48,
-    paddingLeft: spacing.base,
-    marginTop: spacing.base,
-  },
-  searchInput: {
-    color: colors.text,
-    flex: 1,
-    fontSize: 16,
-    lineHeight: 24,
-    minHeight: 48,
-    paddingHorizontal: spacing.sm,
-  },
 });

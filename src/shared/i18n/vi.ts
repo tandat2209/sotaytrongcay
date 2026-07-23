@@ -195,7 +195,6 @@ export const vi = {
     "Chưa cần {activity} — lần gần nhất là {days} ngày trước.",
     ["activity", "days"],
   ],
-  "journal.filter.active": ["Đang lọc", []],
   "journal.filter.allDates": ["Tất cả thời gian", []],
   "journal.filter.allPlants": ["Tất cả cây", []],
   "journal.filter.allRecords": ["Tất cả", []],

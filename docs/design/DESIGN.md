@@ -227,6 +227,7 @@ Care and journal behavior, persistence, fields, and safety boundaries belong to 
 - Do not use cards to simulate unavailable data.
 - In Fertilizer Management, visually separate “Phân bón của tôi” from “Gợi ý từ hướng dẫn”. Keep each suggestion row compact with its name, group, and one labelled add action; explanatory copy carries the no-immediate-need boundary.
 - Keep Fertilizer Management search and group filtering in the top bar as adjacent search and filter icons. Let search replace the title with a focused field, retain the filter icon in search mode, place the complete group list in the standard bottom sheet, and show an active indicator on the filter icon while a group is selected.
+- Use the same compact top-bar treatment for Journal: replace its title and icon with the focused search field, keep the filter icon available, and use the shared active indicator instead of adding a separate filter chip above the list.
 
 ### Bottom sheets
 

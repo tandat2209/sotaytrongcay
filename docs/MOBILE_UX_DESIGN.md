@@ -312,9 +312,11 @@ All content is sourced from authored fields in the preview bundle and remains vi
 
 **Purpose:** Show saved care and photo/note plant updates across all plants.
 
-**Components:** “Tìm trong ghi chú”; chronological list; filter button; active chips; plant; activity or update details; origin label.
+**Components:** Transforming top-bar search; chronological list; filter button with active indicator; plant; activity or update details; origin label.
 
 Filters support record type, core care type, plant, date range, and clear/apply actions.
+
+Keep search and filtering in the top bar rather than in the scrolling page. In the default state, show the Journal title and icon followed by the search icon and filter icon. Pressing search replaces the title and Journal icon with an auto-focused “Tìm trong ghi chú” field; the filter icon remains available. Closing search clears its query and restores the title. The filter icon opens the complete filter sheet and shows a persistent active indicator while any filter is applied.
 
 Care-origin labels are “Từ hôm nay”, “Từ lời nhắc”, and “Ghi thủ công”. Origin describes how Care Entry opened; every care record still represents a user-saved activity.
 

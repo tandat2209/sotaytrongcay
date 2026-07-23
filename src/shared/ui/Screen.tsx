@@ -23,7 +23,7 @@ type ScreenProps = PropsWithChildren<{
   footer?: ReactNode;
   headerAction?: ReactNode;
   contentGap?: number;
-  title: string;
+  title: ReactNode;
   introduction?: ReactNode;
   titleIcon?: LucideIcon;
   scrollable?: boolean;
@@ -51,9 +51,13 @@ export function Screen({
               {TitleIcon ? (
                 <TitleIcon color={colors.primary} size={28} />
               ) : null}
-              <Typography style={styles.title} variant="headlineLarge">
-                {title}
-              </Typography>
+              {typeof title === "string" ? (
+                <Typography style={styles.title} variant="headlineLarge">
+                  {title}
+                </Typography>
+              ) : (
+                <View style={styles.customTitle}>{title}</View>
+              )}
               {headerAction}
             </View>
           ) : null}
@@ -143,6 +147,7 @@ const styles = StyleSheet.create({
     paddingBottom: FLOATING_ACTION_CONTENT_BOTTOM_SPACE,
   },
   contentWithFooter: { paddingBottom: spacing.lg },
+  customTitle: { flex: 1 },
   unscrollableContent: { flex: 1, paddingBottom: 0 },
   footer: {
     borderTopColor: colors.border,

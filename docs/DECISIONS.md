@@ -8,6 +8,26 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-23 — Keep Journal search and filters in the top bar
+
+**Status:** Accepted
+
+**Decision:** Journal shows adjacent search and filter icons in its default top
+bar. Pressing search replaces the Journal title and icon with an auto-focused
+note-search field while leaving the filter icon available. Closing search
+clears the query and restores the title. Applied filters appear as a persistent
+indicator on the filter icon rather than as a separate chip above the history.
+The complete filter controls remain in the existing bottom sheet.
+
+**Rationale:** Search and filter controls should remain quickly reachable
+without consuming vertical space needed for chronological history. Matching
+the Fertilizer Management interaction also makes collection screens more
+predictable.
+
+**Consequences:** Journal's filtering criteria, bounded data reads, empty and
+no-result states, and filter-sheet apply/clear behavior do not change. Only the
+control placement and active-filter presentation change.
+
 ## 2026-07-23 — Surface Knowledge Base fertilizer suggestions in catalog management
 
 **Status:** Accepted
