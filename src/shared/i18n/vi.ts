@@ -646,9 +646,15 @@ export const vi = {
   "settings.carePlans.title": ["Chăm sóc theo giai đoạn", []],
   "settings.introduction": ["Điều chỉnh ứng dụng theo cách bạn chăm cây.", []],
   "settings.notifications.checking": ["Đang kiểm tra quyền thông báo…", []],
-  "settings.notifications.disabled": ["Thông báo hệ thống đang tắt.", []],
-  "settings.notifications.enable": ["Bật thông báo", []],
-  "settings.notifications.enabled": ["Đã bật thông báo hệ thống.", []],
+  "settings.notifications.disabled": [
+    "Chưa cấp quyền thông báo trên thiết bị. Lịch chăm sóc trong ứng dụng vẫn hoạt động.",
+    [],
+  ],
+  "settings.notifications.enable": ["Cấp quyền thông báo", []],
+  "settings.notifications.enabled": [
+    "Đã cấp quyền thông báo. Để nhận lời nhắc, hãy bật “Gửi thông báo” trong lịch chăm sóc theo giai đoạn hoặc tùy chỉnh theo cây.",
+    [],
+  ],
   "settings.notifications.title": ["Thông báo", []],
   "settings.plants.activeCustom": ["Đang dùng tùy chỉnh theo cây.", []],
   "settings.plants.inactive": [

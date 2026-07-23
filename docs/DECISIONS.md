@@ -8,6 +8,33 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-23 — Register enabled Care Plan notifications before they are due
+
+**Status:** Accepted
+
+**Decision:** Reconciliation registers every enabled, applicable Care Plan's
+future main and next-day follow-up notification with the operating system as
+soon as its due date can be derived. It no longer waits for the schedule to
+become due. Notifications received while the app is open remain visible in the
+system banner and notification list. Enabling delivery from a stage or Plant
+schedule requests OS permission, while the standalone notification screen only
+reports and requests that device permission and explains that delivery remains
+a per-schedule choice.
+
+**Rationale:** Local notifications must already be registered for the operating
+system to deliver them while the app is closed. Waiting until the user opened
+the app on or after the due date defeated that purpose, and describing OS
+permission as “enabled notifications” obscured the separate Care Plan delivery
+setting.
+
+**Consequences:** Existing schedule snapshots and their default-off delivery
+policy do not change, and no data migration is required. Normal startup
+reconciliation repairs future OS schedules for existing enabled snapshots.
+Permission denial still preserves the in-app schedule and saved delivery
+preference, so a later permission grant can activate it during reconciliation.
+Foreground presentation shows no badge and plays no additional sound. Care
+history still changes only after an explicit save.
+
 ## 2026-07-23 — Keep Journal search and filters in the top bar
 
 **Status:** Accepted

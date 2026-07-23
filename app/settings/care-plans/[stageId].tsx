@@ -13,6 +13,7 @@ import {
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import {
   deleteStageScheduleSnapshot,
+  ensureReminderNotificationPermission,
   listStageScheduleSnapshots,
   reconcilePlantsForStage,
   saveStageScheduleSnapshot,
@@ -92,6 +93,9 @@ export default function StageCarePlanDetailRoute() {
                   }
                 : {})}
               onSave={async (value) => {
+                if (value.notificationEnabled) {
+                  await ensureReminderNotificationPermission();
+                }
                 const now = new Date().toISOString();
                 await saveStageScheduleSnapshot({
                   id: snapshot?.id ?? createId(),

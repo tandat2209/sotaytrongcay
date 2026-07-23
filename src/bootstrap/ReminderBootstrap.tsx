@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import type { PropsWithChildren } from "react";
 
 import {
-  configureReminderNotificationChannel,
+  configureReminderNotifications,
   reconcileAllCarePlanReminders,
 } from "@/features/reminders";
 
 export function ReminderBootstrap({ children }: PropsWithChildren) {
   useEffect(() => {
-    void configureReminderNotificationChannel()
+    void configureReminderNotifications()
       .then(reconcileAllCarePlanReminders)
       .catch(() => console.warn("Reminder reconciliation failed."));
   }, []);

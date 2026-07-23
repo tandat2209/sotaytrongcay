@@ -29,7 +29,7 @@ export type {
   StageCarePlanScheduleSnapshot,
 } from "./models/schedule-snapshot";
 export {
-  configureReminderNotificationChannel,
+  configureReminderNotifications,
   ensureReminderNotificationPermission,
 } from "./notifications/reminder-notification";
 export { ScheduleSnapshotEditor } from "./ui/ScheduleSnapshotEditor";

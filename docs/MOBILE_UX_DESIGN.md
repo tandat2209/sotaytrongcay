@@ -410,7 +410,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Plant settings:** Select a plant first. Active current-stage Care Plans show their effective source. Saving copies a complete effective schedule into a plant snapshot. “Dùng tất cả cài đặt theo giai đoạn” deletes that snapshot. Inactive retained snapshots appear under “Giai đoạn khác”.
 
-**Notification behavior:** Delivery defaults off. Enabling delivery requests OS permission and uses 08:00 when no time exists. Disabled delivery never hides due care from Today. A main notification and at most one next-day follow-up may be delivered; neither writes care history.
+**Notification behavior:** Delivery defaults off. Enabling delivery requests OS permission and uses 08:00 when no time exists. Every enabled applicable schedule registers its future main notification and at most one next-day follow-up as soon as the due date can be derived, so the OS can deliver them while the app is closed. A received notification remains visible in the banner and notification list while the app is open. Disabled delivery never hides due care from Today, and neither notification writes care history. The standalone “Thông báo” screen reports device permission only and explains that “Gửi thông báo” remains a per-schedule choice.
 
 **Empty state:** A stage without Care Plans shows “Chưa có kế hoạch chăm sóc đã duyệt cho giai đoạn này.” A user with no plants sees the existing add-plant path.
 

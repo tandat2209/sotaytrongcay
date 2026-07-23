@@ -131,6 +131,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Add Plant Detail profile editing and confirmed archive flows that preserve history and cancel active reminders.
 - [x] Add local photo-and-note Plant Updates with user-confirmed stage history, Journal display, and derived Plant Detail photos.
 - [x] Add Care Plan schedule snapshots and local notification delivery.
+- [x] Register enabled Care Plan notifications before their due date, request permission from schedule settings, and present them while the app is open.
 - [ ] Add a complete mixed-event Timeline.
 - [x] Implement the reviewed one-to-many fertilizer-application contract.
 - [x] Replace the Settings tab with More and add reusable User Fertilizer management with contextual selection from Care Entry.

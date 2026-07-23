@@ -14,6 +14,7 @@ import { listCarePlans } from "@/features/knowledge";
 import {
   createPlantScheduleSnapshot,
   deletePlantScheduleSnapshot,
+  ensureReminderNotificationPermission,
   findStageSnapshot,
   listPlantScheduleSnapshots,
   listStageScheduleSnapshots,
@@ -125,6 +126,9 @@ export default function PlantScheduleDetailRoute() {
                   }
                 : {})}
               onSave={async (value) => {
+                if (value.notificationEnabled) {
+                  await ensureReminderNotificationPermission();
+                }
                 const now = new Date().toISOString();
                 const base =
                   snapshot ??

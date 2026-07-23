@@ -21,7 +21,15 @@ export async function ensureReminderNotificationPermission(): Promise<boolean> {
   return (await Notifications.requestPermissionsAsync()).granted;
 }
 
-export async function configureReminderNotificationChannel(): Promise<void> {
+export async function configureReminderNotifications(): Promise<void> {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      shouldShowBanner: true,
+      shouldShowList: true,
+    }),
+  });
   if (Platform.OS !== "android") return;
   await Notifications.setNotificationChannelAsync("care-reminders", {
     importance: Notifications.AndroidImportance.DEFAULT,

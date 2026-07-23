@@ -126,22 +126,21 @@ export async function reconcilePlantCarePlanReminders(
     });
     const previous = await getNotificationState(plant.id, plan.id);
     if (previous) await cancelReminderNotificationPair(previous);
-    const notificationIds =
-      schedule && schedule.status !== "upcoming"
-        ? await scheduleReminderNotificationPair({
-            body: plant.name,
-            dueOn: schedule.dueOn,
-            notificationEnabled: schedule.notificationEnabled,
-            notificationTime: schedule.notificationTime,
-            now,
-            payload: {
-              activityType: plan.activityType,
-              plantId: plant.id,
-              reminderId: plantSnapshot?.id ?? plant.id,
-            },
-            title: plan.title,
-          })
-        : { followUpNotificationId: null, mainNotificationId: null };
+    const notificationIds = schedule
+      ? await scheduleReminderNotificationPair({
+          body: plant.name,
+          dueOn: schedule.dueOn,
+          notificationEnabled: schedule.notificationEnabled,
+          notificationTime: schedule.notificationTime,
+          now,
+          payload: {
+            activityType: plan.activityType,
+            plantId: plant.id,
+            reminderId: plantSnapshot?.id ?? plant.id,
+          },
+          title: plan.title,
+        })
+      : { followUpNotificationId: null, mainNotificationId: null };
     await saveNotificationState({
       carePlanId: plan.id,
       plantId: plant.id,
