@@ -1,6 +1,7 @@
 export {
   getCarePlansForStage,
   listAllCarePlanStages,
+  listFertilizerSuggestions,
   listInformationalGuidesForStage,
   listSprayTargets,
   getNextStagePlaybook,
@@ -12,6 +13,7 @@ export { StageIcon } from "./stage-icons";
 export type {
   CareGuide,
   CarePlan,
+  FertilizerSuggestion,
   PlantKnowledgeStage,
   PreviewPlantKnowledge,
   StagePlaybook,

@@ -1,12 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
-  getUserFertilizerByKnowledgeId,
+  findOrCreateSuggestedUserFertilizer,
   listUserFertilizers,
-  saveUserFertilizer,
-  type UserFertilizer,
 } from "@/features/fertilizers";
-import { createId } from "@/shared/lib/identifiers";
 import { t } from "@/shared/i18n";
 import {
   listFertilizerSuggestionUsages,
@@ -62,7 +59,7 @@ export function useSuggestedFertilizers({ onChange, value }: Input) {
     setSavingSuggestionId(suggestion.id);
     setSuggestionError(null);
     try {
-      const fertilizer = await findOrCreateSuggestedFertilizer(suggestion);
+      const fertilizer = await findOrCreateSuggestedUserFertilizer(suggestion);
       onChange(
         toggleSuggestedFertilizerApplication(value, suggestion, fertilizer.id),
       );
@@ -88,23 +85,4 @@ export function useSuggestedFertilizers({ onChange, value }: Input) {
     usages: selectLatestFertilizerSuggestionUsages(usageQuery.data ?? []),
     userUsages: selectLatestUserFertilizerUsages(userUsageQuery.data ?? []),
   };
-}
-
-async function findOrCreateSuggestedFertilizer(
-  suggestion: FertilizerSuggestion,
-): Promise<UserFertilizer> {
-  const existing = await getUserFertilizerByKnowledgeId(suggestion.id);
-  if (existing) return existing;
-  const now = new Date().toISOString();
-  const fertilizer: UserFertilizer = {
-    id: createId(),
-    mutationId: createId(),
-    name: suggestion.name,
-    group: suggestion.group,
-    knowledgeId: suggestion.id,
-    createdAt: now,
-    updatedAt: now,
-  };
-  await saveUserFertilizer(fertilizer);
-  return fertilizer;
 }

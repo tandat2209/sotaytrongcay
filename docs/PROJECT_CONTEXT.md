@@ -65,7 +65,7 @@ Users can:
 - Grape plant profiles with current growth stage.
 - Contextual care entry for watering, fertilizing, and spraying.
 - Multi-plant care entry that atomically creates one normal activity per selected Plant.
-- A reusable private fertilizer catalog reachable from fertilizing Care Entry and “Mở rộng” → “Quản lý phân bón”.
+- A reusable private fertilizer catalog reachable from fertilizing Care Entry and “Mở rộng” → “Quản lý phân bón”, where growers may also save structured Knowledge Base suggestions for later purchase or use without creating care history.
 - “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
 - Optional structured details for fertilizer identity/group, watering amount, spraying target, activity notes, and journal photos.
 - Plant Dashboard with last watering, fertilizing, spraying, next reminder, weather, stage, and recent journal entries.
@@ -98,7 +98,7 @@ Users can:
 - A curated **Pest** or **Disease** target describes an issue, observable evidence, monitoring relevance, prevention, safe first response, and escalation guidance. A target relationship is not a diagnosis, treatment authorization, or executable spraying rule.
 - Review-stage content remains informational and creates no history.
 - A **Care Activity** records performed watering, fertilizing, or spraying. One fertilizing activity may contain zero or more identity-only **Fertilizer Applications** so a mixed application is still saved as one occurrence. The schema retains nullable amount, unit, method, and item-note fields for backward-compatible history, but the MVP entry flow does not collect them. A spraying activity may store one optional curated Pest or Disease ID with an immutable Vietnamese name snapshot; this records user intent and never establishes diagnosis, treatment success, recommendation eligibility, or reminder state.
-- A **User Fertilizer** is a reusable private catalog record. Selecting a reviewed fertilizer suggestion creates or reuses a catalog record linked by stable Knowledge Base ID; selecting any catalog item copies its identity into a Fertilizer Application. Managing the catalog does not create history, and later catalog changes do not rewrite saved applications.
+- A **User Fertilizer** is a reusable private catalog record. Selecting a reviewed fertilizer suggestion in Care Entry or Fertilizer Management creates or reuses a catalog record linked by stable Knowledge Base ID; selecting any catalog item in Care Entry copies its identity into a Fertilizer Application. Managing the catalog does not create history, and later catalog changes do not rewrite saved applications.
 - A **Plant Update** records a dated photo and optional note for pruning, observations, growth, or other changes. It may confirm a new growth stage.
 - Saving either record adds it to the plant Timeline and global Journal.
 - A care record may store its origin as Today, reminder, or manual entry.

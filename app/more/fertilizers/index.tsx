@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { Text } from "react-native";
 import {
   FertilizerManagementScreen,
+  findOrCreateSuggestedUserFertilizer,
   listUserFertilizers,
 } from "@/features/fertilizers";
+import { listFertilizerSuggestions } from "@/features/knowledge";
 import {
   listUserFertilizerUsages,
   selectLatestUserFertilizerUsages,
@@ -14,6 +16,7 @@ import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 
 export default function FertilizerManagementRoute() {
+  const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["user-fertilizers"],
     queryFn: listUserFertilizers,
@@ -21,6 +24,12 @@ export default function FertilizerManagementRoute() {
   const usagesQuery = useQuery({
     queryKey: ["user-fertilizer-usages"],
     queryFn: listUserFertilizerUsages,
+  });
+  const addSuggestionMutation = useMutation({
+    mutationFn: findOrCreateSuggestedUserFertilizer,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user-fertilizers"] });
+    },
   });
   if (query.isPending) return <LoadingScreen />;
   if (query.isError)
@@ -35,8 +44,19 @@ export default function FertilizerManagementRoute() {
     );
   return (
     <FertilizerManagementScreen
+      addSuggestionFailed={addSuggestionMutation.isError}
+      addingSuggestionId={
+        addSuggestionMutation.isPending
+          ? (addSuggestionMutation.variables?.id ?? null)
+          : null
+      }
       fertilizers={query.data}
+      fertilizerSuggestions={listFertilizerSuggestions()}
       onAdd={() => router.push("/more/fertilizers/new")}
+      onAddSuggestion={(suggestion) => {
+        addSuggestionMutation.reset();
+        addSuggestionMutation.mutate(suggestion);
+      }}
       onBack={() => router.back()}
       onOpen={(fertilizer) =>
         router.push({

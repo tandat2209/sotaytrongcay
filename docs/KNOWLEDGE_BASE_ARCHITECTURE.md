@@ -31,7 +31,7 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
-User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Selecting a reviewed suggestion may copy its stable fertilizer ID into a private catalog record and later application snapshot for provenance and saved-usage lookup; this does not make user data curated knowledge. The Knowledge Base may supply a reviewed prefill only through a versioned Care Plan contract; user catalog records remain separate and have no guidance status.
+User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Fertilizer Management may list the deduplicated structured suggestions from current Care Plans for preparation; selecting one copies its stable fertilizer ID into a private catalog record, and a later Care Entry may copy that identity into an application snapshot for provenance and saved-usage lookup. This does not make user data curated knowledge or establish an immediate need to fertilize. The Knowledge Base may supply a reviewed prefill only through a versioned Care Plan contract; user catalog records remain separate and have no guidance status.
 
 ## 4. Domain relationship map
 

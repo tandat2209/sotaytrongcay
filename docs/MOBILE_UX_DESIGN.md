@@ -426,13 +426,17 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 - “Tùy chỉnh theo cây”
 - “Lưu ý sử dụng”
 
-“Quản lý phân bón” lists reusable private fertilizers with their optional group icon and label plus newest saved use. It supports search, an accessible wrapping group filter with “Tất cả”, add, edit, and delete, and does not display curated recommendations. The saved-use line uses the same “Đã bón cho “{plant}”…” wording as Care Entry and never reflects an unsaved draft. Deleting a reusable fertilizer requires confirmation and leaves saved Fertilizer Applications unchanged. The same management screen is also reachable contextually from fertilizing Care Entry, which returns the selected fertilizer to the existing draft.
+“Quản lý phân bón” separates “Phân bón của tôi” from “Gợi ý từ hướng dẫn”. The private section lists reusable fertilizers with their optional group icon and label plus newest saved use; it supports add, edit, and delete. The suggestion section deduplicates every structured fertilizer suggestion in the current Knowledge Base Care Plans and omits suggestions already linked to the private catalog. Each remaining row shows the curated name and canonical group with one “Thêm” action. Adding creates or reuses a stable-ID-linked User Fertilizer, then moves it into “Phân bón của tôi”; it never creates a Care Activity or saved-use status.
+
+Keep search and filtering in the top bar rather than in the scrolling page. In the default state, show the search icon first and the filter icon second. Pressing search replaces the title with an auto-focused search field; pressing back while searching clears the query and restores the title before a later back press navigates away. The filter icon remains available while searching and opens the canonical fertilizer groups in a bottom sheet. Choosing a group closes the sheet, and the filter icon shows a persistent active indicator until “Tất cả” clears it. Search and the selected group apply to both sections.
+
+Supporting text explains that suggestions may help the grower remember inputs when purchasing or using fertilizer, but do not mean a Plant needs fertilizer now. The saved-use line uses the same “Đã bón cho “{plant}”…” wording as Care Entry and never reflects an unsaved draft or catalog-only add. Deleting a reusable fertilizer requires confirmation and leaves saved Fertilizer Applications unchanged. The same management screen is also reachable contextually from fertilizing Care Entry, which returns the selected fertilizer to the existing draft.
 
 **Empty state:** The More index always shows its shipped destinations. Fertilizer Management shows “Chưa có phân bón đã lưu” with “Thêm phân bón”.
 
 **Loading state:** Render the local More index immediately. Fertilizer Management renders its local catalog before remote synchronization.
 
-**Error state:** Keep errors inside the affected row.
+**Error state:** Keep errors inside the affected row or section. A failed suggestion add remains available to retry and does not create a partial private record.
 
 “Lưu ý sử dụng” is a read-only, scrollable explanation of the app's scope, schedule and weather limitations, product-label priority, symptom uncertainty, and user responsibility. It requires no acknowledgement and stores no state.
 

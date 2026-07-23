@@ -295,6 +295,21 @@ export function listCarePlans(
     .map(toCarePlan);
 }
 
+export function listFertilizerSuggestions(): readonly FertilizerSuggestion[] {
+  const suggestions = new Map<string, FertilizerSuggestion>();
+  for (const plan of bundle.carePlans) {
+    if (plan.activityType !== "fertilizing") continue;
+    for (const suggestion of plan.recommendedInputs ?? []) {
+      if (!suggestions.has(suggestion.id)) {
+        suggestions.set(suggestion.id, suggestion);
+      }
+    }
+  }
+  return [...suggestions.values()].sort((left, right) =>
+    left.name.localeCompare(right.name, "vi-VN"),
+  );
+}
+
 export function listSprayTargets(speciesId: string): readonly SprayTarget[] {
   return [...(bundle.diseases ?? []), ...(bundle.pests ?? [])]
     .filter((target) => target.speciesIds.includes(speciesId))

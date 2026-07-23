@@ -89,6 +89,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Validate whether growers understand the “Thêm loại phân” sheet and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
 - [ ] Validate whether per-application quantity, unit, method, or item note provides enough value to reintroduce after MVP and where that interaction belongs.
 - [ ] Validate whether inline reviewed fertilizer chips, automatic catalog reuse, and saved last-use context reduce fertilizing-entry time without being mistaken for automatic prescriptions.
+- [x] List deduplicated Knowledge Base fertilizer suggestions in Fertilizer Management and let growers add a stable-ID-linked suggestion to “Phân bón của tôi” without creating care history.
 - [x] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [x] Remove standalone Task Guidance and guided-completion flows.
 - [x] Add “Thêm nhật ký” with photos, notes, and optional stage change to Plant Detail.

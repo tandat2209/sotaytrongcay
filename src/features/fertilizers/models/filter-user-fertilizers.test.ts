@@ -1,4 +1,7 @@
-import { filterUserFertilizers } from "./filter-user-fertilizers";
+import {
+  filterAvailableFertilizerSuggestions,
+  filterUserFertilizers,
+} from "./filter-user-fertilizers";
 
 const fertilizers = [
   {
@@ -30,5 +33,39 @@ describe("filterUserFertilizers", () => {
 
   it("keeps every fertilizer when no group filter is selected", () => {
     expect(filterUserFertilizers(fertilizers, "", null)).toEqual(fertilizers);
+  });
+
+  it("keeps only curated suggestions not already linked to the private catalog", () => {
+    expect(
+      filterAvailableFertilizerSuggestions(
+        [
+          {
+            id: "fertilizer.compost",
+            name: "Phân compost",
+            group: "organic",
+          },
+          {
+            id: "fertilizer.urea",
+            name: "Urê",
+            group: "nitrogen-rich",
+          },
+        ],
+        [
+          fertilizers[0],
+          {
+            ...fertilizers[1],
+            knowledgeId: "fertilizer.compost",
+          },
+        ],
+        "",
+        null,
+      ),
+    ).toEqual([
+      {
+        id: "fertilizer.urea",
+        name: "Urê",
+        group: "nitrogen-rich",
+      },
+    ]);
   });
 });

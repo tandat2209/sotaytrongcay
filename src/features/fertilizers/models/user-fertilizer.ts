@@ -24,5 +24,10 @@ export const UserFertilizerSchema = UserFertilizerFieldsSchema;
 export const NewUserFertilizerSchema = UserFertilizerFieldsSchema;
 
 export type FertilizerGroup = z.infer<typeof FertilizerGroupSchema>;
+export type FertilizerSuggestionIdentity = Readonly<{
+  id: string;
+  name: string;
+  group: FertilizerGroup;
+}>;
 export type NewUserFertilizer = z.infer<typeof NewUserFertilizerSchema>;
 export type UserFertilizer = z.infer<typeof UserFertilizerSchema>;

@@ -3,6 +3,7 @@ import {
   getNextStagePlaybook,
   getPreviewPlantKnowledge,
   getStagePlaybook,
+  listFertilizerSuggestions,
   listInformationalGuidesForStage,
   listThreatsForStageId,
 } from "./preview-knowledge";
@@ -223,5 +224,26 @@ describe("preview knowledge", () => {
         stageId: "grape.stage.nonexistent",
       }),
     ).toEqual([]);
+  });
+
+  it("lists every unique fertilizer suggestion across Care Plans", () => {
+    const suggestions = listFertilizerSuggestions();
+    expect(suggestions).toEqual(
+      expect.arrayContaining([
+        {
+          id: "fertilizer.potassium-sulfate",
+          name: "Kali sunfat",
+          group: "potassium-rich",
+        },
+        {
+          id: "fertilizer.urea",
+          name: "Urê",
+          group: "nitrogen-rich",
+        },
+      ]),
+    );
+    expect(new Set(suggestions.map(({ id }) => id)).size).toBe(
+      suggestions.length,
+    );
   });
 });

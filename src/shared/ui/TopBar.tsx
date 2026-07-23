@@ -10,7 +10,7 @@ type TopBarProps = {
   action?: ReactNode;
   backAccessibilityLabel?: string;
   onBack: () => void;
-  title: string;
+  title: ReactNode;
   titleIcon?: LucideIcon;
 };
 
@@ -30,9 +30,13 @@ export function TopBar({
       />
       <View style={styles.titleWrap}>
         {TitleIcon ? <TitleIcon color={colors.primary} size={20} /> : null}
-        <Typography style={styles.title} variant="cardTitle">
-          {title}
-        </Typography>
+        {typeof title === "string" ? (
+          <Typography style={styles.title} variant="cardTitle">
+            {title}
+          </Typography>
+        ) : (
+          title
+        )}
       </View>
       <View style={styles.action}>{action}</View>
     </View>

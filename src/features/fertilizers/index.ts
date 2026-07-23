@@ -1,3 +1,4 @@
+export { findOrCreateSuggestedUserFertilizer } from "./application/find-or-create-suggested-user-fertilizer";
 export {
   deleteUserFertilizer,
   getUserFertilizer,
@@ -5,9 +6,13 @@ export {
   listUserFertilizers,
   saveUserFertilizer,
 } from "./data/user-fertilizer-repository";
-export { filterUserFertilizers } from "./models/filter-user-fertilizers";
+export {
+  filterAvailableFertilizerSuggestions,
+  filterUserFertilizers,
+} from "./models/filter-user-fertilizers";
 export type {
   FertilizerGroup,
+  FertilizerSuggestionIdentity,
   NewUserFertilizer,
   UserFertilizer,
 } from "./models/user-fertilizer";

@@ -8,6 +8,39 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-23 — Surface Knowledge Base fertilizer suggestions in catalog management
+
+**Status:** Accepted
+
+**Decision:** “Quản lý phân bón” shows one deduplicated list of the structured
+fertilizer suggestions found across the current Knowledge Base Care Plans.
+Suggestions already linked to “Phân bón của tôi” stay in the private catalog
+and are omitted from the suggestion section. Search and group filters apply to
+both sections. Selecting “Thêm” creates or reuses one private User Fertilizer
+linked by the stable Knowledge Base fertilizer ID; it does not create a Care
+Activity or add anything to care history.
+
+The suggestion section explains that these inputs appear in general care
+guidance and may be saved to remember when purchasing or using fertilizer. It
+must not imply that a particular Plant needs fertilizer now, that the grower
+should purchase every listed input, or that a dosage or application method has
+been reviewed.
+
+**Rationale:** Growers can prepare a reusable fertilizer list before recording
+care instead of discovering each curated identity only inside a stage-specific
+Care Entry. Stable IDs preserve the existing knowledge-to-private-catalog
+boundary and prevent matching names from becoming identity.
+
+**Consequences:** Fertilizer Management now displays curated identities as a
+separate reference section, superseding only the 2026-07-11 screen rule that it
+does not display curated recommendations. The private catalog remains
+user-owned and editable, Knowledge Base content remains read-only, and saving a
+suggestion still has no “Đã bón…” state until an actual fertilizing activity is
+saved. Search and group filtering remain in the top bar as adjacent icons so
+the catalog content stays above the fold. Search temporarily replaces the title
+with a focused field, and the complete group list appears only in a bottom
+sheet.
+
 ## 2026-07-21 — Adopt a warm plant-focused visual foundation
 
 **Status:** Accepted

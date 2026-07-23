@@ -59,7 +59,7 @@ One optional user-selected fertilizer item used during a saved fertilizing Care 
 _Avoid_: Kế hoạch chăm sóc, hồ sơ phân bón đã duyệt, gợi ý bón phân
 
 **Phân bón của tôi** (User fertilizer):
-A reusable, private fertilizer record managed by the grower and selectable while recording fertilizing. It stores identity and exactly one optional canonical group for reuse and may retain the stable ID of a reviewed suggestion, but creates no care history by itself. The canonical groups are “Phân hữu cơ”, “Phân giàu đạm”, “NPK cân bằng”, “Phân giàu lân”, “Phân giàu kali”, “Chế phẩm hỗ trợ”, and “Phân khác”. Editing or deleting it never rewrites saved Fertilizer Applications.
+A reusable, private fertilizer record managed by the grower and selectable while recording fertilizing. It stores identity and exactly one optional canonical group for reuse and may retain the stable ID of a reviewed suggestion selected in Care Entry or Fertilizer Management, but creates no care history by itself. The canonical groups are “Phân hữu cơ”, “Phân giàu đạm”, “NPK cân bằng”, “Phân giàu lân”, “Phân giàu kali”, “Chế phẩm hỗ trợ”, and “Phân khác”. Editing or deleting it never rewrites saved Fertilizer Applications.
 _Avoid_: Hồ sơ phân bón đã duyệt, gợi ý bón phân, lần bón phân
 
 **Gợi ý chăm sóc** (Care recommendation):

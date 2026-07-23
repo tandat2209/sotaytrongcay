@@ -303,6 +303,10 @@ export const vi = {
   "fertilizers.editor.save": ["Lưu phân bón", []],
   "fertilizers.error.delete": ["Chưa thể xóa phân bón. Hãy thử lại.", []],
   "fertilizers.error.load": ["Chưa thể tải danh sách phân bón.", []],
+  "fertilizers.error.addSuggestion": [
+    "Chưa thể thêm phân bón gợi ý. Hãy chọn lại để thử lại.",
+    [],
+  ],
   "fertilizers.error.usageLoad": ["Chưa thể tải lịch sử sử dụng phân bón.", []],
   "fertilizers.error.notFound": ["Không tìm thấy phân bón này.", []],
   "fertilizers.error.save": [
@@ -324,9 +328,33 @@ export const vi = {
   ],
   "fertilizers.management.filterAll": ["Tất cả", []],
   "fertilizers.management.filterGroup": ["Lọc nhóm {group}", ["group"]],
+  "fertilizers.management.filterTitle": ["Lọc theo nhóm", []],
+  "fertilizers.management.mine": ["Phân bón của tôi", []],
   "fertilizers.management.noMatch": ["Không tìm thấy phân bón phù hợp", []],
+  "fertilizers.management.openFilter": ["Mở bộ lọc phân bón", []],
+  "fertilizers.management.openSearch": ["Mở tìm kiếm phân bón", []],
+  "fertilizers.management.openSelectedFilter": [
+    "Mở bộ lọc phân bón, đang chọn {group}",
+    ["group"],
+  ],
   "fertilizers.management.open": ["Mở phân bón {name}", ["name"]],
   "fertilizers.management.search": ["Tìm phân bón", []],
+  "fertilizers.management.closeSearch": ["Đóng tìm kiếm phân bón", []],
+  "fertilizers.management.suggestionAdd": [
+    "Thêm {name} vào Phân bón của tôi",
+    ["name"],
+  ],
+  "fertilizers.management.suggestionAddLabel": ["Thêm", []],
+  "fertilizers.management.suggestionAddingLabel": ["Đang thêm…", []],
+  "fertilizers.management.suggestionAdding": [
+    "Đang thêm {name} vào Phân bón của tôi",
+    ["name"],
+  ],
+  "fertilizers.management.suggestionsDescription": [
+    "Các loại phân xuất hiện trong hướng dẫn chăm sóc. Thêm vào danh sách để ghi nhớ khi mua hoặc sử dụng; không có nghĩa cây cần bón ngay.",
+    [],
+  ],
+  "fertilizers.management.suggestionsTitle": ["Gợi ý từ hướng dẫn", []],
   "fertilizers.management.title": ["Quản lý phân bón", []],
   "fertilizers.validation.name": ["Hãy nhập tên phân bón", []],
   "more.introduction": [
