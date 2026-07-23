@@ -5,7 +5,7 @@ import { listLatestPlantPhotoUris } from "@/features/journal";
 import { t } from "@/shared/i18n";
 import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { listPlants } from "@/features/plants/data/plant-repository";
-import { PlantsScreen } from "@/features/plants/ui/PlantsScreen";
+import { serializeBatchCarePlantIds, PlantsScreen } from "@/features/plants";
 
 export default function PlantsRoute() {
   const plantsQuery = useQuery({ queryKey: ["plants"], queryFn: listPlants });
@@ -21,6 +21,12 @@ export default function PlantsRoute() {
     <PlantsScreen
       onOpenPlant={(id) =>
         router.push({ pathname: "/plants/[id]", params: { id } })
+      }
+      onStartBatchCare={(plantIds) =>
+        router.push({
+          pathname: "/plants/batch-care",
+          params: { plantIds: serializeBatchCarePlantIds(plantIds) },
+        })
       }
       photoUris={photosQuery.data ?? {}}
       plants={plantsQuery.data}

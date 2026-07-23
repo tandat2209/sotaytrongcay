@@ -1,4 +1,5 @@
 import type { SprayTarget } from "@/features/knowledge";
+import type { ReactNode } from "react";
 import type {
   CareActivityType,
   WateringIntensity,
@@ -16,22 +17,43 @@ export type CareEntryDetails = Readonly<{
   sprayTargetNameSnapshot: string | null;
 }>;
 
-export type CareEntryScreenProps = Readonly<{
-  imageUri?: string | null;
+type CareEntryBaseProps = Readonly<{
+  amountAccessibilityLabel?: string;
+  amountLabel?: string;
   fertilizerSuggestions?: readonly FertilizerSuggestion[];
   initialDetails?: CareEntryDetails;
   onDismiss: () => void;
   onSave: (details: CareEntryDetails) => Promise<void>;
   reason?: string;
-  plantName: string;
-  speciesTitle: string;
+  saveLabel?: string;
   sprayTargets?: readonly SprayTarget[];
   suggestion?: string;
-  stageId: string;
-  stageTitle: string;
   type: CareActivityType;
   visible: boolean;
 }>;
+
+type SinglePlantCareEntryProps = Readonly<{
+  context?: never;
+  contextKind?: "single";
+  imageUri?: string | null;
+  plantName: string;
+  speciesTitle: string;
+  stageId: string;
+  stageTitle: string;
+}>;
+
+type CustomCareEntryProps = Readonly<{
+  context: ReactNode;
+  contextKind: "custom";
+  imageUri?: never;
+  plantName?: never;
+  speciesTitle?: never;
+  stageId?: never;
+  stageTitle?: never;
+}>;
+
+export type CareEntryScreenProps = CareEntryBaseProps &
+  (SinglePlantCareEntryProps | CustomCareEntryProps);
 
 export function mergeInitialSprayTarget(
   props: CareEntryScreenProps,

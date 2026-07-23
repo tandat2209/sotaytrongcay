@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Trang duyệt bundle kiến thức Sổ Tay Trồng Cây"><title>Cẩm nang duyệt kiến thức</title>
+<style>
+:root{--bg:#f4f6f1;--surface:#fff;--ink:#172019;--muted:#647067;--line:#dbe3d7;--brand:#315d3a;--brand-soft:#e6f0e5;--warn:#85560f;--warn-soft:#fff3d8;--code:#f1f3ef;--shadow:0 12px 36px rgba(28,48,31,.07)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--brand)}code{padding:.15em .38em;border-radius:6px;background:var(--code);font-size:.86em;overflow-wrap:anywhere}.topbar{position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line);background:rgba(244,246,241,.94);backdrop-filter:blur(14px)}.topbar-inner{max-width:1440px;margin:auto;padding:12px 24px;display:flex;align-items:center;gap:20px}.brand{font-weight:800;color:var(--ink);text-decoration:none}.topbar nav{display:flex;gap:14px;overflow:auto;margin-left:auto}.topbar nav a{color:var(--muted);font-size:14px;font-weight:650;text-decoration:none;white-space:nowrap}.page{max-width:1440px;margin:auto;padding:30px 24px 80px}.hero{padding:42px;border-radius:28px;color:#fff;background:linear-gradient(135deg,#244b2d,#47704c 72%,#6f4d75);box-shadow:var(--shadow)}.hero h1{max-width:850px;margin:4px 0 12px;font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.045em}.hero p{max-width:850px;color:rgba(255,255,255,.84)}.hero .eyebrow{color:#d9edd7}.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.stat{padding:10px 14px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(255,255,255,.1)}.review-banner{margin:20px 0 40px;padding:18px 20px;border:1px solid #edcf91;border-radius:18px;background:var(--warn-soft);color:#6f470a}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}.search{min-width:min(100%,360px);flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit}.filter{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font:inherit;cursor:pointer}.filter.active{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}.page-section{scroll-margin-top:70px;margin:0 0 54px}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px}.section-heading h2{margin:0;font-size:34px;letter-spacing:-.025em}.eyebrow{margin:0 0 5px;color:var(--brand);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.count-pill,.status{padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:12px;font-weight:750;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{min-width:0;padding:24px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow);scroll-margin-top:80px}.card-heading,.subheading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.card h3{margin:0;font-size:23px;line-height:1.25}.card h4{margin:20px 0 7px;color:var(--brand);font-size:13px;letter-spacing:.07em;text-transform:uppercase}.lead{font-size:17px;color:#344138}.duration,.scope{color:var(--muted)}.criteria,.lifecycle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.lifecycle{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fafbf9}.subheading h3{font-size:17px}.subheading span{color:var(--muted);font-size:13px}.journey{padding-left:22px}.journey li{margin:10px 0}.journey a{display:flex;flex-direction:column;text-decoration:none}.journey span{display:block;color:var(--muted);font-size:12px}.markdown h2,.markdown h3,.markdown h4,.markdown h5{margin:22px 0 8px;font-size:18px}.markdown p{margin:8px 0}.markdown li{margin:5px 0}.sources{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:20px}.ref-chip{padding:3px 7px;border-radius:7px;background:var(--code);font:12px/1.5 ui-monospace,SFMono-Regular,monospace;text-decoration:none}.review-block{margin-top:16px;padding:1px 14px 12px;border-left:3px solid var(--line);background:#fafbf9}.review-block p{margin:7px 0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.technical{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}.technical summary{cursor:pointer;color:var(--muted);font-weight:650}.technical dl>div{display:grid;grid-template-columns:100px 1fr;gap:10px}.technical dt{color:var(--muted)}.technical dd{margin:0}.reference h3{font-size:20px}.source-link{display:inline-block;margin-top:12px;font-weight:700}.missing{color:var(--warn)}.empty-section{grid-column:1/-1;color:var(--muted)}.searchable.hidden{display:none}.no-results{display:none;padding:30px;text-align:center;color:var(--muted)}.no-results.show{display:block}.footer{padding:28px;text-align:center;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:850px){.topbar nav{display:none}.page{padding:20px 14px 60px}.hero{padding:28px}.grid,.criteria,.lifecycle-grid{grid-template-columns:1fr}.section-heading{align-items:flex-start}.section-heading h2{font-size:29px}.card{padding:19px}}
+</style></head><body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="#top">Sổ Tay Trồng Cây · Knowledge Review</a><nav><a href="#species">Loài</a><a href="#stages">Giai đoạn</a><a href="#care-plans">Chăm sóc</a><a href="#guides">Hướng dẫn</a><a href="#threats">Sâu bệnh</a><a href="#references">Nguồn</a></nav></div></header>
+<main class="page" id="top"><section class="hero"><p class="eyebrow">Bản xem trước</p><h1>Cẩm nang duyệt kiến thức</h1><p>Trang này được tạo trực tiếp từ bundle JSON để kiểm tra nội dung hiển thị, metadata kiểm duyệt, quan hệ nguồn và các giá trị thực thi.</p><div class="stats"><span class="stat">Schema 2.1.0</span><span class="stat">Nội dung 1.0.0</span><span class="stat">12 giai đoạn</span><span class="stat">22 kế hoạch chăm sóc</span><span class="stat">6 mục sâu bệnh</span></div></section>
+<aside class="review-banner"><strong>Chỉ dành cho biên tập và duyệt nội dung.</strong> Tài liệu trạng thái <code>review</code> chưa được phê duyệt để phát hành trong ứng dụng. Các giá trị như <code>suggestAfterDays</code> và <code>intervalDays</code> là hành vi máy đọc được; hãy đối chiếu chúng với câu chữ hiển thị.</aside>
+<div class="toolbar"><input class="search" id="search" type="search" placeholder="Tìm theo tiêu đề, ID hoặc nội dung…" aria-label="Tìm nội dung"><button class="filter active" data-filter="all">Tất cả</button><button class="filter" data-filter="watering">Tưới nước</button><button class="filter" data-filter="fertilizing">Bón phân</button><button class="filter" data-filter="spraying">Phun/xịt</button></div>
+<section class="page-section" id="species"><div class="section-heading"><div><p class="eyebrow">Danh mục</p><h2>Loài cây</h2></div><span class="count-pill">1 loài</span></div><div class="grid"><article class="card searchable" data-search="plant.grape Nho # Nho
+
+## Phạm vi
+
+Gói thí điểm hỗ trợ người trồng nho tại nhà và thiết lập toàn bộ vòng đời của cây nho thông qua 12 giai đoạn.
+
+Tên khoa học dùng `Vitis spp.` vì “Nho” trong sản phẩm là nhóm cây chung. Giống cụ thể có thể được bổ sung vào dữ liệu cây trồng mà không thay đổi ID loài.
+
+## Hành trình sinh trưởng
+
+Toàn bộ 12 giai đoạn tạo thành một mô hình lifecycles (vòng đời).
+
+- **Giai đoạn kiến thiết (Development):** Diễn ra một lần duy nhất từ lúc trồng (Cây con) đến khi hoàn thiện khung giàn (Hình thành tán).
+- **Chu kỳ sản xuất (Production):** Lặp lại hàng năm, bắt đầu từ Sau cắt cành và kết thúc ở Sau thu hoạch để bắt đầu vụ mới. Việc chuyển tiếp từ giai đoạn kiến thiết (Hình thành tán) sẽ dẫn thẳng tới chu kỳ sản xuất (Sau cắt cành).
+
+## Giới hạn
+
+Gói này không quy định giống nho cụ thể, hệ giàn, khí hậu, loại đất, kích thước chậu, lượng nước, công thức phân bón hoặc chương trình phun thuốc. Đây là mô hình tổng quan đóng vai trò làm khung xương cho các ứng dụng chăm sóc.">
+<div class="card-heading"><div><p class="eyebrow">Vitis spp.</p><h3>Nho</h3></div><span class="status">review</span></div>
+<div class="markdown"><h2>Nho</h2>
+<h3>Phạm vi</h3>
+<p>Gói thí điểm hỗ trợ người trồng nho tại nhà và thiết lập toàn bộ vòng đời của cây nho thông qua 12 giai đoạn.</p>
+<p>Tên khoa học dùng <code>Vitis spp.</code> vì “Nho” trong sản phẩm là nhóm cây chung. Giống cụ thể có thể được bổ sung vào dữ liệu cây trồng mà không thay đổi ID loài.</p>
+<h3>Hành trình sinh trưởng</h3>
+<p>Toàn bộ 12 giai đoạn tạo thành một mô hình lifecycles (vòng đời).</p>
+<ul>
+<li><strong>Giai đoạn kiến thiết (Development):</strong> Diễn ra một lần duy nhất từ lúc trồng (Cây con) đến khi hoàn thiện khung giàn (Hình thành tán).</li>
+<li><strong>Chu kỳ sản xuất (Production):</strong> Lặp lại hàng năm, bắt đầu từ Sau cắt cành và kết thúc ở Sau thu hoạch để bắt đầu vụ mới. Việc chuyển tiếp từ giai đoạn kiến thiết (Hình thành tán) sẽ dẫn thẳng tới chu kỳ sản xuất (Sau cắt cành).</li>
+</ul>
+<h3>Giới hạn</h3>
+<p>Gói này không quy định giống nho cụ thể, hệ giàn, khí hậu, loại đất, kích thước chậu, lượng nước, công thức phân bón hoặc chương trình phun thuốc. Đây là mô hình tổng quan đóng vai trò làm khung xương cho các ứng dụng chăm sóc.</p></div>
+<div class="lifecycle-grid"><section class="lifecycle"><div class="subheading"><h3>Sinh trưởng kiến thiết</h3><span>4 giai đoạn · một lần</span></div>
+<ol class="journey"><li><a href="#grape.stage.seedling"><strong>Cây con</strong><code>grape.stage.seedling</code></a><span>→ grape.stage.trunk-development</span></li><li><a href="#grape.stage.trunk-development"><strong>Phát triển thân</strong><code>grape.stage.trunk-development</code></a><span>→ grape.stage.trellis-training</span></li><li><a href="#grape.stage.trellis-training"><strong>Leo giàn</strong><code>grape.stage.trellis-training</code></a><span>→ grape.stage.canopy-formation</span></li><li><a href="#grape.stage.canopy-formation"><strong>Hình thành tán</strong><code>grape.stage.canopy-formation</code></a><span>→ grape.stage.pruning</span></li></ol></section><section class="lifecycle"><div class="subheading"><h3>Chu kỳ sản xuất</h3><span>8 giai đoạn · lặp lại</span></div>
+<ol class="journey"><li><a href="#grape.stage.pruning"><strong>Sau cắt cành</strong><code>grape.stage.pruning</code></a><span>→ grape.stage.bud-break</span></li><li><a href="#grape.stage.bud-break"><strong>Bật mầm</strong><code>grape.stage.bud-break</code></a><span>→ grape.stage.flowering</span></li><li><a href="#grape.stage.flowering"><strong>Ra hoa</strong><code>grape.stage.flowering</code></a><span>→ grape.stage.fruit-set</span></li><li><a href="#grape.stage.fruit-set"><strong>Đậu quả</strong><code>grape.stage.fruit-set</code></a><span>→ grape.stage.fruit-development</span></li><li><a href="#grape.stage.fruit-development"><strong>Nuôi quả</strong><code>grape.stage.fruit-development</code></a><span>→ grape.stage.ripening</span></li><li><a href="#grape.stage.ripening"><strong>Quả chín</strong><code>grape.stage.ripening</code></a><span>→ grape.stage.harvest</span></li><li><a href="#grape.stage.harvest"><strong>Sẵn sàng thu hoạch</strong><code>grape.stage.harvest</code></a><span>→ grape.stage.recovery</span></li><li><a href="#grape.stage.recovery"><strong>Sau thu hoạch</strong><code>grape.stage.recovery</code></a><span>→ grape.stage.pruning</span></li></ol></section></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.young-grape-pruning">ref.uc-ipm.young-grape-pruning</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>plant.grape</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article></div></section>
+<section class="page-section" id="stages"><div class="section-heading"><div><p class="eyebrow">Vòng đời</p><h2>Giai đoạn sinh trưởng</h2></div><span class="count-pill">12 giai đoạn</span></div><div class="grid"><article class="card searchable" data-search="grape.stage.bud-break Bật mầm Theo dõi sự phát triển của mầm và bảo vệ khỏi côn trùng, nấm bệnh. Mầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ." id="grape.stage.bud-break">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 2</p><h3>Bật mầm</h3></div><span class="status">review</span></div>
+<p class="lead">Theo dõi sự phát triển của mầm và bảo vệ khỏi côn trùng, nấm bệnh.</p>
+<p class="duration">Thời lượng ước tính: <strong>2-3 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Mắt ngủ sưng to và nứt xanh</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Chồi vươn dài</li><li>Nụ hoa (bông gió) xuất hiện rõ rệt</li></ul></div></div>
+<div class="markdown"><p>Mầm bắt đầu nứt ra khỏi vỏ và phát triển thành chồi non mang theo nụ hoa nhỏ.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.bud-break</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.canopy-formation Hình thành tán Hoàn thiện bộ tán lá quang hợp và tích lũy dinh dưỡng vào cành mẹ. Nuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh." id="grape.stage.canopy-formation">
+<div class="card-heading"><div><p class="eyebrow">development · thứ tự 4</p><h3>Hình thành tán</h3></div><span class="status">review</span></div>
+<p class="lead">Hoàn thiện bộ tán lá quang hợp và tích lũy dinh dưỡng vào cành mẹ.</p>
+<p class="duration">Thời lượng ước tính: <strong>2-3 tháng</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Cành cấp 1 đã hoàn thiện</li><li>Mầm nách cấp 1 nảy thành cành cấp 2</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Cành hóa gỗ (chuyển màu nâu)</li><li>Tán lá phủ kín mặt giàn</li></ul></div></div>
+<div class="markdown"><p>Nuôi dưỡng cành cấp 2, cấp 3 để tạo độ che phủ và chuẩn bị những cành mang quả (cành mẹ) khỏe mạnh.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.canopy-formation</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.flowering Ra hoa Đảm bảo tỉ lệ thụ phấn cao nhất, tránh rụng bông. Hoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất." id="grape.stage.flowering">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 3</p><h3>Ra hoa</h3></div><span class="status">review</span></div>
+<p class="lead">Đảm bảo tỉ lệ thụ phấn cao nhất, tránh rụng bông.</p>
+<p class="duration">Thời lượng ước tính: <strong>1-2 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Nụ hoa bắt đầu hé mở cánh</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Hoa tàn</li><li>Bầu nhụy phình to thành hạt xanh nhỏ (đậu trái)</li></ul></div></div>
+<div class="markdown"><p>Hoa nở đồng loạt để thụ phấn. Giai đoạn cực kỳ nhạy cảm với nước và hóa chất.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.flowering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.fruit-development Nuôi quả Tối đa hóa kích thước trái và giữ chùm nho sạch bệnh. Trái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ." id="grape.stage.fruit-development">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 5</p><h3>Nuôi quả</h3></div><span class="status">review</span></div>
+<p class="lead">Tối đa hóa kích thước trái và giữ chùm nho sạch bệnh.</p>
+<p class="duration">Thời lượng ước tính: <strong>4-6 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Đã tỉa trái xong</li><li>Trái bắt đầu lớn nhanh</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Trái ngừng lớn</li><li>Trái bắt đầu chuyển màu (Veraison)</li></ul></div></div>
+<div class="markdown"><p>Trái nho phình to nhanh chóng. Cây cần một lượng nước và dinh dưỡng khổng lồ.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.fruit-development</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.fruit-set Đậu quả Tuyển chọn và định hình chùm nho, bổ sung dinh dưỡng ngay lập tức. Hoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu)." id="grape.stage.fruit-set">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 4</p><h3>Đậu quả</h3></div><span class="status">review</span></div>
+<p class="lead">Tuyển chọn và định hình chùm nho, bổ sung dinh dưỡng ngay lập tức.</p>
+<p class="duration">Thời lượng ước tính: <strong>2-3 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Hoa rụng hết cánh</li><li>Trái non hình thành kích thước 2-3mm</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Trái đạt kích thước bằng đầu ngón tay</li><li>Đã tỉa xong chùm</li></ul></div></div>
+<div class="markdown"><p>Hoa đã thụ phấn thành công và hình thành những trái nho xanh nhỏ nhắn (cỡ hạt đậu).</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.fruit-set</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.harvest Sẵn sàng thu hoạch Sẵn sàng thu hoạch an toàn, bảo quản đúng cách. Khoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất." id="grape.stage.harvest">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 7</p><h3>Sẵn sàng thu hoạch</h3></div><span class="status">review</span></div>
+<p class="lead">Sẵn sàng thu hoạch an toàn, bảo quản đúng cách.</p>
+<p class="duration">Thời lượng ước tính: <strong>1-2 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Kiểm tra độ ngọt đạt yêu cầu</li><li>Hạt bên trong đã đen lõi</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Cắt hết trái trên cây</li></ul></div></div>
+<div class="markdown"><p>Khoảnh khắc tận hưởng thành quả. Cắt những chùm nho ngon ngọt nhất.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.harvest</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.pruning Sau cắt cành Tạo vết cắt kích thích mầm ngủ nảy nở đồng loạt. Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới." id="grape.stage.pruning">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 1</p><h3>Sau cắt cành</h3></div><span class="status">review</span></div>
+<p class="lead">Tạo vết cắt kích thích mầm ngủ nảy nở đồng loạt.</p>
+<p class="duration">Thời lượng ước tính: <strong>1-2 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Từ trạng thái Trưởng thành hoặc Phục hồi</li><li>Người dùng thực hiện cắt cành</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Mắt ngủ bắt đầu sưng to</li><li>Nứt nanh (mầm xanh xuất hiện)</li></ul></div></div>
+<div class="markdown"><p>Cắt bỏ các cành thừa, lá cũ để kích thích cây ngủ đông ngắn và dồn lực bật mầm mới.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.pruning</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.recovery Sau thu hoạch Sau thu hoạch sức khỏe toàn diện cho cây, cải tạo đất. Cây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau." id="grape.stage.recovery">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 8</p><h3>Sau thu hoạch</h3></div><span class="status">review</span></div>
+<p class="lead">Sau thu hoạch sức khỏe toàn diện cho cây, cải tạo đất.</p>
+<p class="duration">Thời lượng ước tính: <strong>1-2 tháng</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Vừa thu hoạch xong toàn bộ trái</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Lá bắt đầu già úa</li><li>Cây sẵn sàng cho chu kỳ cắt cành mới</li></ul></div></div>
+<div class="markdown"><p>Cây kiệt sức sau khi mang trái. Cần thời gian để tĩnh dưỡng, tích lũy năng lượng xuống bộ rễ chuẩn bị cho vụ sau.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.recovery</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.ripening Quả chín Tăng độ ngọt, lên màu đẹp và chống chim chóc. Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống." id="grape.stage.ripening">
+<div class="card-heading"><div><p class="eyebrow">production · thứ tự 6</p><h3>Quả chín</h3></div><span class="status">review</span></div>
+<p class="lead">Tăng độ ngọt, lên màu đẹp và chống chim chóc.</p>
+<p class="duration">Thời lượng ước tính: <strong>2-4 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Trái bắt đầu đổi màu (Veraison)</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Cuống trái hơi héo</li><li>Đạt độ ngọt mong muốn</li><li>Hạt chuyển màu đen</li></ul></div></div>
+<div class="markdown"><p>Trái chuyển màu (đỏ, tím, đen) và tích lũy lượng đường. Độ axit giảm xuống.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.ripening</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.seedling Cây con Giúp cây bén rễ, sống khỏe và bắt đầu đâm chồi mới. Giai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu." id="grape.stage.seedling">
+<div class="card-heading"><div><p class="eyebrow">development · thứ tự 1</p><h3>Cây con</h3></div><span class="status">review</span></div>
+<p class="lead">Giúp cây bén rễ, sống khỏe và bắt đầu đâm chồi mới.</p>
+<p class="duration">Thời lượng ước tính: <strong>2-4 tuần</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Cây giống được trồng xuống đất hoặc chậu lớn</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Mầm chính vươn dài trên 30-50cm</li><li>Bắt đầu bám giàn/cọc</li></ul></div></div>
+<div class="markdown"><p>Giai đoạn cây mới được trồng, tập trung vào việc thích nghi môi trường đất mới và phát triển bộ rễ ban đầu.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.seedling</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.trellis-training Leo giàn Phân nhánh cành cấp 1 đều khắp mặt giàn. Chuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn." id="grape.stage.trellis-training">
+<div class="card-heading"><div><p class="eyebrow">development · thứ tự 3</p><h3>Leo giàn</h3></div><span class="status">review</span></div>
+<p class="lead">Phân nhánh cành cấp 1 đều khắp mặt giàn.</p>
+<p class="duration">Thời lượng ước tính: <strong>2-4 tháng</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Đã bấm ngọn thân chính tại mặt giàn</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Cành cấp 1 đạt độ dài tiêu chuẩn</li><li>Bấm ngọn cành cấp 1</li></ul></div></div>
+<div class="markdown"><p>Chuyển hướng phát triển từ dọc sang ngang, tạo các cành cấp 1 (cành xương cá) tỏa ra mặt giàn.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.trellis-training</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.stage.trunk-development Phát triển thân Tạo ra một thân chính khỏe mạnh, mập mạp và vươn tới mặt giàn. Tập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn." id="grape.stage.trunk-development">
+<div class="card-heading"><div><p class="eyebrow">development · thứ tự 2</p><h3>Phát triển thân</h3></div><span class="status">review</span></div>
+<p class="lead">Tạo ra một thân chính khỏe mạnh, mập mạp và vươn tới mặt giàn.</p>
+<p class="duration">Thời lượng ước tính: <strong>1-3 tháng</strong></p>
+<div class="criteria"><div><h4>Dấu hiệu bắt đầu</h4><ul><li>Mầm chính khỏe mạnh, bắt đầu vươn cao</li></ul></div><div><h4>Dấu hiệu kết thúc</h4><ul><li>Thân chính chạm dây kẽm mặt giàn</li><li>Đã bấm ngọn thân chính</li></ul></div></div>
+<div class="markdown"><p>Tập trung toàn bộ dinh dưỡng để nuôi một thân duy nhất vươn thẳng lên giàn.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.stage.trunk-development</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article></div></section>
+<section class="page-section" id="care-plans"><div class="section-heading"><div><p class="eyebrow">Theo dõi được</p><h2>Kế hoạch chăm sóc</h2></div><span class="count-pill">22 kế hoạch</span></div><div class="grid"><article class="card searchable" data-search="grape.recommendation.bud-break.fertilizing Bón phân giai đoạn bật mầm Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh, bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn bật mầm</h3></div><span class="status">review</span></div>
+<p class="lead">Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh, bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 7</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 1–2 tuần trong giai đoạn chồi đang phát triển mạnh</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Hàng tuần ở liều pha loãng (50–75% liều trồng đất)</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>Urê</strong> <code>fertilizer.urea</code> <span>nitrogen-rich</span></li><li><strong>Phân cá</strong> <code>fertilizer.fish-emulsion</code> <span>organic</span></li><li><strong>NPK 20-10-10</strong> <code>fertilizer.npk-20-10-10</code> <span>nitrogen-rich</span></li><li><strong>Vi lượng Zn, B, Fe</strong> <code>fertilizer.trace-elements</code> <span>other</span></li></ul></div>
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Giai đoạn này rất ngắn (2–3 tuần) — bón trễ sẽ lỡ thời điểm quan trọng cho năng suất vụ.</li><li>Trong thời tiết nóng, luôn tưới nước ngay sau khi rải urê lên đất, nếu không urê sẽ bốc hơi mất tác dụng.</li><li>Không bón bo &quot;phòng ngừa.&quot; Bo giúp thụ phấn nhưng ngưỡng ngộ độc rất hẹp — chỉ dùng khi có bằng chứng thiếu bo.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.bud-break</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.fertilizer-urea">ref.umn.fertilizer-urea</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.bud-break.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.bud-break.watering Tưới nước giai đoạn bật mầm Chồi non đang phát triển rất nhanh và cần nước đều đặn. Nhu cầu nước tăng mạnh so với giai đoạn cắt cành — nhưng đất vẫn cần thoát nước tốt để rễ không bị úng." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn bật mầm</h3></div><span class="status">review</span></div>
+<p class="lead">Chồi non đang phát triển rất nhanh và cần nước đều đặn. Nhu cầu nước tăng mạnh so với giai đoạn cắt cành — nhưng đất vẫn cần thoát nước tốt để rễ không bị úng.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 3</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 3–4 ngày hoặc khi thấy lớp đất mặt khô</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 2–3 ngày — chồi non cần ẩm đều</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tưới đều và đủ ngay từ đầu giai đoạn — thiếu nước trong lúc bật mầm làm chồi bật không đều.</li><li>Không để đất khô hẳn: chồi non mất nước rất nhanh trong thời tiết nóng.</li><li>Tưới vào gốc, tránh tưới lên chồi non đang bung — dễ gây bệnh nấm ở điểm tăng trưởng.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.bud-break</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.bud-break.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.canopy-formation.fertilizing Bón phân giai đoạn hình thành tán Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu kỳ mang trái đầu tiên." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn hình thành tán</h3></div><span class="status">review</span></div>
+<p class="lead">Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu kỳ mang trái đầu tiên.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 21</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 3–4 tuần, giảm dần khi cành bắt đầu chuyển nâu. Ngừng bón 2–3 tuần trước khi cắt cành</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 2–3 tuần ở liều vừa phải. Ngừng bón 2–3 tuần trước khi cắt cành</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>Kali sunfat</strong> <code>fertilizer.potassium-sulfate</code> <span>potassium-rich</span></li><li><strong>Rong biển</strong> <code>fertilizer.seaweed-extract</code> <span>support</span></li><li><strong>NPK 12-12-17 + TE</strong> <code>fertilizer.npk-12-12-17</code> <span>potassium-rich</span></li><li><strong>Phân compost</strong> <code>fertilizer.compost</code> <span>organic</span></li></ul></div>
+<div class="review-block"><h4>Hướng dẫn theo nhóm phân bón</h4><p><strong>potassium-rich:</strong> Tham gia điều tiết nước và vận chuyển carbohydrate trong cây, có liên quan đến quá trình trưởng thành của cành. Bổ sung quá mức cũng có thể làm mất cân đối dinh dưỡng.</p></div>
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tiếp tục bón đạm cao ở giai đoạn này là lỗi phổ biến — cây ra nhiều lá nhưng cành yếu, không có khả năng mang trái tốt.</li><li>Cành chuyển nâu từ gốc lên là dấu hiệu hóa gỗ tốt, không phải bệnh.</li><li>Ở Việt Nam (không có mùa đông tự nhiên), người trồng cần chủ động giảm nước và dinh dưỡng để cây nghỉ ngắn trước khi cắt cành.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.canopy-formation</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.grape-fertilization">ref.uc-ipm.grape-fertilization</a><a class="ref-chip" href="#ref.uc-ipm.growing-grape">ref.uc-ipm.growing-grape</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.canopy-formation.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.1.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.canopy-formation.watering Tưới nước giai đoạn hình thành tán Tán lá lớn tăng thoát hơi nước đáng kể. Cần tưới đều và đủ, nhưng bắt đầu giảm dần ở cuối giai đoạn để chuẩn bị cho cây hóa gỗ và nghỉ ngắn." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn hình thành tán</h3></div><span class="status">review</span></div>
+<p class="lead">Tán lá lớn tăng thoát hơi nước đáng kể. Cần tưới đều và đủ, nhưng bắt đầu giảm dần ở cuối giai đoạn để chuẩn bị cho cây hóa gỗ và nghỉ ngắn.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 3</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 3–4 ngày, giảm dần ở 2–3 tuần cuối giai đoạn</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 2–3 ngày, giảm tần suất khi cành bắt đầu hóa gỗ</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tán lá rộng che mặt đất — kiểm tra độ ẩm đất dưới tán, không chỉ nhìn mặt đất bên ngoài.</li><li>Giảm tưới ở cuối giai đoạn kích thích hóa gỗ tự nhiên của cành.</li><li>Đất không bao giờ để khô hẳn trong giai đoạn này — cây đang tích lũy năng lượng.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.canopy-formation</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.canopy-formation.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.flowering.watering Tưới nước giai đoạn ra hoa Giai đoạn ra hoa rất nhạy cảm với nước. Cần duy trì độ ẩm đất ổn định nhưng tuyệt đối không để nước chạm vào hoa — tưới overhead làm rửa trôi phấn hoa và gây thối bông." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn ra hoa</h3></div><span class="status">review</span></div>
+<p class="lead">Giai đoạn ra hoa rất nhạy cảm với nước. Cần duy trì độ ẩm đất ổn định nhưng tuyệt đối không để nước chạm vào hoa — tưới overhead làm rửa trôi phấn hoa và gây thối bông.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 3</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 3–4 ngày, chỉ tưới vào vùng rễ (tưới gốc hoặc nhỏ giọt)</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 2–3 ngày, đổ nước vào đĩa lót hoặc tưới gốc nhẹ nhàng</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tuyệt đối không tưới phun từ trên xuống khi cây đang nở hoa — rửa trôi phấn hoa là nguyên nhân hàng đầu gây thất thu.</li><li>Hạn chế tưới quá nhiều — stress khô nhẹ trong giai đoạn ra hoa giúp thụ phấn tốt hơn.</li><li>Mưa lớn khi ra hoa gây hại lớn và không kiểm soát được — không bù đắp bằng tưới thêm.</li><li>Sau khi hoa rụng và trái bắt đầu hình thành, có thể trở lại tưới bình thường.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.flowering</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.flowering.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.fruit-development.fertilizing Bón phân giai đoạn nuôi quả Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng nhiều nhất trong toàn bộ chu kỳ." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn nuôi quả</h3></div><span class="status">review</span></div>
+<p class="lead">Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng nhiều nhất trong toàn bộ chu kỳ.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 7</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 1–2 tuần</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Hàng tuần — đây là giai đoạn nho trồng chậu dễ thiếu dinh dưỡng nhất</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>Kali sunfat</strong> <code>fertilizer.potassium-sulfate</code> <span>potassium-rich</span></li><li><strong>Rong biển</strong> <code>fertilizer.seaweed-extract</code> <span>support</span></li><li><strong>NPK thiên kali</strong> <code>fertilizer.high-potassium-npk</code> <span>potassium-rich</span></li><li><strong>Canxi nitrat</strong> <code>fertilizer.calcium-nitrate</code> <span>other</span></li><li><strong>Magie sunfat</strong> <code>fertilizer.magnesium-sulfate</code> <span>other</span></li></ul></div>
+<div class="review-block"><h4>Hướng dẫn theo nhóm phân bón</h4><p><strong>potassium-rich:</strong> Có vai trò trong vận chuyển đường, điều tiết nước và phát triển quả nho. Công thức NPK thiên kali vẫn phải được đọc theo nhãn; thiếu hoặc thừa kali đều có thể ảnh hưởng chất lượng, nên không bổ sung chỉ dựa trên một dấu hiệu đơn lẻ.</p></div>
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Nứt trái là vấn đề chất lượng #1 — do tưới không đều kết hợp thiếu canxi và kali. Tưới đều + phun canxi giảm rủi ro.</li><li>Bắt đầu giảm đạm so với kali khi trái gần chuyển màu (véraison). Dư đạm lúc này làm chậm chín và giảm độ ngọt.</li><li>Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa mùa.</li><li>Nếu dùng túi bọc trái, phun canxi trước khi bọc.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.fruit-development</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.grape-fertilization">ref.uc-ipm.grape-fertilization</a><a class="ref-chip" href="#ref.uc-ipm.growing-grape">ref.uc-ipm.growing-grape</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.fruit-development.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.1.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.fruit-development.watering Tưới nước giai đoạn nuôi quả Trái đang tăng kích thước nhanh và tích lũy nước. Đây là giai đoạn tiêu thụ nước nhiều nhất trong chu kỳ — thiếu nước trực tiếp làm giảm kích thước trái và tăng nguy cơ nứt trái khi tưới trở lại." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn nuôi quả</h3></div><span class="status">review</span></div>
+<p class="lead">Trái đang tăng kích thước nhanh và tích lũy nước. Đây là giai đoạn tiêu thụ nước nhiều nhất trong chu kỳ — thiếu nước trực tiếp làm giảm kích thước trái và tăng nguy cơ nứt trái khi tưới trở lại.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 2</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 2–3 ngày trong thời tiết nóng, 3–4 ngày khi mát hơn</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 1–2 ngày — chậu thoát nước nhanh và trái cần nhiều nước</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tưới không đều là nguyên nhân chính gây nứt trái — tưới ít lâu rồi tưới nhiều đột ngột làm trái căng và nứt.</li><li>Mưa lớn sau khô hạn kéo dài = nguy cơ nứt trái cao. Nếu có thể, phủ mặt đất (mulch) để giảm dao động ẩm.</li><li>Trái teo nhỏ hoặc nhăn mà đất không khô = vấn đề rễ, không phải thiếu nước mặt.</li><li>Giai đoạn này không giảm tưới trừ khi sắp thu hoạch.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.fruit-development</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.fruit-development.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.fruit-set.fertilizing Bón phân giai đoạn đậu quả Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn đậu quả</h3></div><span class="status">review</span></div>
+<p class="lead">Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 7</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 1–2 tuần — đây là giai đoạn bón nặng</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Hàng tuần ở liều vừa phải — nho trồng chậu mất dinh dưỡng rất nhanh do tưới thường xuyên</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>NPK 16-16-16</strong> <code>fertilizer.npk-16-16-16</code> <span>npk-balanced</span></li><li><strong>Canxi nitrat</strong> <code>fertilizer.calcium-nitrate</code> <span>other</span></li><li><strong>Phân compost</strong> <code>fertilizer.compost</code> <span>organic</span></li><li><strong>Phân cá</strong> <code>fertilizer.fish-emulsion</code> <span>organic</span></li><li><strong>Rong biển</strong> <code>fertilizer.seaweed-extract</code> <span>support</span></li></ul></div>
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Bón trễ sau đậu quả là nguyên nhân phổ biến gây rụng trái non. Tiếp tục bón phân ngay khi thấy trái hình thành.</li><li>Phun canxi qua lá rất hiệu quả — canxi di chuyển kém trong cây nên phun trực tiếp đưa canxi đến trái đang phát triển.</li><li>Nếu đã tỉa bớt chùm, các trái còn lại được chia phần dinh dưỡng lớn hơn — có thể không cần tăng liều.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.fruit-set</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.fruit-set.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.fruit-set.watering Tưới nước giai đoạn đậu quả Sau khi hoa rụng và trái nhỏ hình thành, cây cần nước đều đặn và ổn định. Thiếu nước đột ngột ngay sau đậu quả là nguyên nhân phổ biến gây rụng trái non." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn đậu quả</h3></div><span class="status">review</span></div>
+<p class="lead">Sau khi hoa rụng và trái nhỏ hình thành, cây cần nước đều đặn và ổn định. Thiếu nước đột ngột ngay sau đậu quả là nguyên nhân phổ biến gây rụng trái non.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 3</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 3–4 ngày — duy trì ẩm đều, không để khô đột ngột</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 2–3 ngày — theo dõi sát vì trái non rất nhạy cảm với stress nước</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tưới không đều (lúc nhiều lúc ít) ngay sau đậu quả là nguyên nhân hàng đầu gây rụng trái non và nứt trái về sau.</li><li>Tưới đủ và đều để trái phân chia tế bào đồng đều — ảnh hưởng trực tiếp đến kích thước trái cuối cùng.</li><li>Trở lại tưới bình thường sau giai đoạn ra hoa — không còn hạn chế overhead watering nữa.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.fruit-set</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.fruit-set.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.harvest.watering Kiểm tra nước giai đoạn thu hoạch Trong khi thu hoạch, cây vẫn cần ẩm nhất định để trái không héo trước khi hái. Không tưới nhiều trong ngày thu hoạch — trái ướt dễ bị dập và nhanh thối hơn." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Kiểm tra nước giai đoạn thu hoạch</h3></div><span class="status">review</span></div>
+<p class="lead">Trong khi thu hoạch, cây vẫn cần ẩm nhất định để trái không héo trước khi hái. Không tưới nhiều trong ngày thu hoạch — trái ướt dễ bị dập và nhanh thối hơn.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 5</code> <code>onMissingHistory: withhold</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Không tưới trong ngày thu hoạch. Sau khi thu hoạch xong, tưới bình thường để phục hồi cây</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Tương tự — tránh tưới trong 1–2 ngày quanh thời điểm thu hoạch</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Thu hoạch vào buổi sáng sớm khi trời mát — trái giữ chất lượng tốt hơn.</li><li>Không tưới ngay trước thu hoạch — trái ướt dập nhanh hơn và làm giảm thời gian bảo quản.</li><li>Sau khi thu hoạch xong toàn bộ, tưới lại bình thường ngay để hỗ trợ giai đoạn phục hồi.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.harvest</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.harvest.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.pruning.fertilizing Bón phân sau cắt cành Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân sau cắt cành</h3></div><span class="status">review</span></div>
+<p class="lead">Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 14</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Một lần duy nhất trong tuần đầu sau cắt cành</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Một lần duy nhất trong tuần đầu sau cắt cành</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>NPK 16-16-16</strong> <code>fertilizer.npk-16-16-16</code> <span>npk-balanced</span></li><li><strong>Phân bò hoai mục</strong> <code>fertilizer.composted-cow-manure</code> <span>organic</span></li><li><strong>Phân trùn quế</strong> <code>fertilizer.vermicompost</code> <span>organic</span></li></ul></div>
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Cây chưa có lá, không thể quang hợp — bón quá nhiều phân sẽ nằm thừa trong đất, gây nguy cơ mặn đất hoặc rửa trôi.</li><li>Nếu đã bón phân hữu cơ nặng trong giai đoạn phục hồi, bỏ qua phân hóa học ở đây.</li><li>Tưới nước trở lại từ từ — rễ cần ẩm để hấp thụ dinh dưỡng đã bón.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.pruning</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.pruning.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.pruning.watering Tưới nước sau cắt cành Cây vừa bị cắt cành lớn và đang ở trạng thái nghỉ ngắn. Cần tưới đủ ẩm để rễ hoạt động trở lại và hỗ trợ hấp thụ dinh dưỡng sau cắt, nhưng tránh tưới quá nhiều khi cây chưa có lá." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước sau cắt cành</h3></div><span class="status">review</span></div>
+<p class="lead">Cây vừa bị cắt cành lớn và đang ở trạng thái nghỉ ngắn. Cần tưới đủ ẩm để rễ hoạt động trở lại và hỗ trợ hấp thụ dinh dưỡng sau cắt, nhưng tránh tưới quá nhiều khi cây chưa có lá.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 5</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 5–7 ngày — cây không có lá nên mất nước rất ít</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 4–5 ngày — kiểm tra đất trước mỗi lần tưới</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Cây không có lá nên nhu cầu nước thấp hơn nhiều so với các giai đoạn sinh trưởng. Tưới quá nhiều gây úng rễ.</li><li>Tưới một lần sau cắt cành để giúp rễ hồi phục và hỗ trợ hấp thụ phân bón.</li><li>Vết cắt tươi — tránh phun nước lên thân và vết cắt, chỉ tưới vào vùng rễ.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.pruning</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.young-grape-pruning">ref.uc-ipm.young-grape-pruning</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.pruning.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.recovery.fertilizing Bón phân giai đoạn sau thu hoạch Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ, cung cấp năng lượng cho vụ sau." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn sau thu hoạch</h3></div><span class="status">review</span></div>
+<p class="lead">Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ, cung cấp năng lượng cho vụ sau.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 14</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>1–2 lần bón nặng (lần đầu trong vòng một tuần sau thu hoạch, lần hai sau 2–4 tuần)</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>1–2 lần bón nặng. Cân nhắc thay 20–30% giá thể phía trên bằng phân compost mới</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>NPK 16-16-16</strong> <code>fertilizer.npk-16-16-16</code> <span>npk-balanced</span></li><li><strong>Phân bò hoai mục</strong> <code>fertilizer.composted-cow-manure</code> <span>organic</span></li><li><strong>Phân trùn quế</strong> <code>fertilizer.vermicompost</code> <span>organic</span></li><li><strong>Phân compost</strong> <code>fertilizer.compost</code> <span>organic</span></li><li><strong>Super lân</strong> <code>fertilizer.superphosphate</code> <span>phosphorus-rich</span></li><li><strong>Kali sunfat</strong> <code>fertilizer.potassium-sulfate</code> <span>potassium-rich</span></li><li><strong>Vôi dolomite</strong> <code>fertilizer.dolomitic-lime</code> <span>other</span></li></ul></div>
+<div class="review-block"><h4>Hướng dẫn theo nhóm phân bón</h4><p><strong>organic:</strong> Bổ sung vật chất hữu cơ và hỗ trợ cải thiện đất trong thời gian phục hồi; ưu tiên nguồn đã hoai mục và tránh để vật liệu chưa phân hủy sát gốc.</p><p><strong>phosphorus-rich:</strong> Cung cấp lân, một dưỡng chất liên quan đến chuyển hóa năng lượng và phát triển rễ. Chỉ cân nhắc theo điều kiện đất và cây, không xem là xử lý rễ bắt buộc sau thu hoạch.</p><p><strong>npk-balanced:</strong> Cung cấp phối hợp đạm, lân và kali để hỗ trợ mục tiêu phục hồi nguồn dự trữ. Việc có cần bổ sung hay không vẫn phụ thuộc sức cây và dinh dưỡng sẵn có.</p></div>
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Không bỏ qua bón phân sau thu hoạch. Cây kiệt sức bước vào vụ mới sẽ cho năng suất kém.</li><li>Đây là thời điểm tốt nhất để cải tạo đất bằng phân hữu cơ — phân có nhiều tuần để phân hủy và hòa nhập trước vụ sau.</li><li>Sau khi bón phân phục hồi xong, giảm dần tưới nước để khuyến khích lá rụng và cây nghỉ ngắn trước khi cắt cành vụ mới.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.recovery</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.growing-grape">ref.uc-ipm.growing-grape</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a><a class="ref-chip" href="#ref.umn.phosphorus-fertilizers">ref.umn.phosphorus-fertilizers</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.recovery.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.1.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.recovery.watering Tưới nước giai đoạn phục hồi sau thu hoạch Sau thu hoạch, cây cần tiếp tục quang hợp để tích lũy năng lượng cho vụ sau. Duy trì tưới đủ để lá hoạt động, sau đó giảm dần để chuẩn bị cho giai đoạn nghỉ ngắn trước khi cắt cành." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn phục hồi sau thu hoạch</h3></div><span class="status">review</span></div>
+<p class="lead">Sau thu hoạch, cây cần tiếp tục quang hợp để tích lũy năng lượng cho vụ sau. Duy trì tưới đủ để lá hoạt động, sau đó giảm dần để chuẩn bị cho giai đoạn nghỉ ngắn trước khi cắt cành.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 4</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 4–5 ngày ngay sau thu hoạch, giảm dần xuống 7–10 ngày khi lá bắt đầu già</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 3–4 ngày ban đầu, giảm dần để kích thích lá rụng</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Không ngừng tưới đột ngột ngay sau thu hoạch — cây cần nước để tiếp tục quang hợp và tích lũy năng lượng dự trữ.</li><li>Giảm tưới từ từ trong 3–4 tuần cuối để kích thích lá già và rụng tự nhiên trước khi cắt cành.</li><li>Lá vàng đều và rụng là dấu hiệu tốt cuối giai đoạn phục hồi — cây đang chuyển về trạng thái nghỉ ngắn.</li><li>Ở Việt Nam không có mùa đông tự nhiên — giảm nước chủ động là cách duy nhất để cây nghỉ ngắn trước vụ mới.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.recovery</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.recovery.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.ripening.fertilizing Bón phân giai đoạn quả chín Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân lá không mong muốn và làm chậm chín." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn quả chín</h3></div><span class="status">review</span></div>
+<p class="lead">Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân lá không mong muốn và làm chậm chín.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 14</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 1–2 tuần ở liều nhẹ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>Kali sunfat</strong> <code>fertilizer.potassium-sulfate</code> <span>potassium-rich</span></li><li><strong>Rong biển</strong> <code>fertilizer.seaweed-extract</code> <span>support</span></li><li><strong>MKP – monopotassium phosphate</strong> <code>fertilizer.monopotassium-phosphate</code> <span>potassium-rich</span></li></ul></div>
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Đạm trong giai đoạn chín = nho kém chất lượng. Trái sẽ to nhưng nhiều nước, ít đường, màu sắc kém và dễ thối.</li><li>Giảm tưới nhẹ (không phải để héo) giúp cô đặc đường và cải thiện hương vị.</li><li>Nho không lên màu? Kiểm tra kali trước — đây là nguyên nhân dinh dưỡng phổ biến nhất gây lên màu kém.</li><li>Nhiệt độ đêm liên tục trên 30°C cản trở phát triển màu (anthocyanin) ở giống nho đỏ/đen, bất kể dinh dưỡng có tốt đến đâu.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.ripening</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.growing-grape">ref.uc-ipm.growing-grape</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.ripening.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.ripening.watering Tưới nước giai đoạn quả chín Bắt đầu giảm tưới có kiểm soát khi trái chuyển màu (véraison). Stress nước nhẹ trong giai đoạn này tập trung đường, cải thiện hương vị và màu sắc. Nhưng không để khô hẳn — trái sẽ teo và nứt khi tưới lại." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn quả chín</h3></div><span class="status">review</span></div>
+<p class="lead">Bắt đầu giảm tưới có kiểm soát khi trái chuyển màu (véraison). Stress nước nhẹ trong giai đoạn này tập trung đường, cải thiện hương vị và màu sắc. Nhưng không để khô hẳn — trái sẽ teo và nứt khi tưới lại.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 4</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 4–5 ngày, giảm dần so với giai đoạn nuôi quả. Ngừng tưới 5–7 ngày trước thu hoạch</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 3–4 ngày ở liều giảm. Ngừng tưới 3–5 ngày trước thu hoạch</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Giảm tưới đột ngột khi trái đã bắt đầu chín sẽ gây nứt trái — giảm từ từ là cách đúng.</li><li>Trái nho tăng độ ngọt khi stress nước nhẹ — nhưng quá khô sẽ làm trái teo và mất chất lượng.</li><li>Ngừng tưới 5–7 ngày trước thu hoạch để trái cô đặc hương vị và dễ bảo quản hơn.</li><li>Nhiệt độ đêm cao liên tục cản trở phát triển màu ở nho đỏ — không phải do thiếu tưới.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.ripening</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.ripening.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.seedling.watering Tưới cây con Cây con chưa có bộ rễ phát triển để tích trữ nước. Ưu tiên duy trì ẩm đều và thoát nước tốt — không để đất khô hẳn cũng không để úng ngập." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới cây con</h3></div><span class="status">review</span></div>
+<p class="lead">Cây con chưa có bộ rễ phát triển để tích trữ nước. Ưu tiên duy trì ẩm đều và thoát nước tốt — không để đất khô hẳn cũng không để úng ngập.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 2</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 2–3 ngày trong mùa khô, giảm xuống khi mưa nhiều</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 1–2 ngày — chậu thoát nước nhanh hơn đất trồng</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tưới nhẹ và đều quanh gốc, không tưới mạnh gây bật gốc cây con.</li><li>Lá héo buổi sáng sớm = thiếu nước. Lá vàng + đất ẩm liên tục = tưới thừa.</li><li>Không phun nước lên lá non — dễ gây nấm và cháy lá dưới nắng.</li><li>Giai đoạn này cây dễ chết do úng rễ hơn do khô hạn.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.seedling</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.seedling.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.trellis-training.fertilizing Bón phân giai đoạn leo giàn Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn leo giàn</h3></div><span class="status">review</span></div>
+<p class="lead">Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 14</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 2–4 tuần</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 1–2 tuần ở liều giảm</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>NPK 16-16-16</strong> <code>fertilizer.npk-16-16-16</code> <span>npk-balanced</span></li><li><strong>Phân compost</strong> <code>fertilizer.compost</code> <span>organic</span></li><li><strong>Phân cá</strong> <code>fertilizer.fish-emulsion</code> <span>organic</span></li><li><strong>Rong biển</strong> <code>fertilizer.seaweed-extract</code> <span>support</span></li></ul></div>
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Ngừng dùng phân giàu đạm thuần. Quá nhiều đạm mà thiếu kali tạo cành mềm, dễ bệnh và khó hóa gỗ.</li><li>Bắt đầu chú ý đến kali — rất quan trọng cho quá trình hóa gỗ cần thiết trước khi cây có thể ra trái.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.trellis-training</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.trellis-training.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.trellis-training.watering Tưới nước giai đoạn leo giàn Cây đang sinh trưởng mạnh với nhiều lá và chồi mới. Nhu cầu nước tăng đáng kể so với giai đoạn cây con, nhưng vẫn cần kiểm tra đất trước khi tưới để tránh úng." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Tưới nước giai đoạn leo giàn</h3></div><span class="status">review</span></div>
+<p class="lead">Cây đang sinh trưởng mạnh với nhiều lá và chồi mới. Nhu cầu nước tăng đáng kể so với giai đoạn cây con, nhưng vẫn cần kiểm tra đất trước khi tưới để tránh úng.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 3</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 3–4 ngày, tăng lên nếu thời tiết nóng và khô</td><td><code>intervalDays: 3</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 2–3 ngày — kiểm tra độ ẩm đất trước mỗi lần tưới</td><td><code>intervalDays: 2</code></td></tr></tbody></table></div></div>
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Tưới sâu và đều để khuyến khích rễ ăn sâu — rễ sâu giúp cây chịu hạn tốt hơn về sau.</li><li>Không tưới nhỏ giọt liên tục trên mặt đất — rễ sẽ chỉ phát triển gần mặt và dễ tổn thương.</li><li>Tưới vào buổi sáng sớm hoặc chiều mát, tránh tưới giữa trưa nắng gắt.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.trellis-training</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.trellis-training.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.trunk-development.fertilizing Bón phân giai đoạn phát triển thân Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai đoạn nhu cầu đạm (N) bắt đầu tăng." data-activity="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">🌱 Bón phân</p><h3>Bón phân giai đoạn phát triển thân</h3></div><span class="status">review</span></div>
+<p class="lead">Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai đoạn nhu cầu đạm (N) bắt đầu tăng.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 14</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody><tr><th>Trồng đất</th><td>Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh</td><td><code>intervalDays: 21</code></td></tr><tr><th>Trồng chậu</th><td>Mỗi 1–2 tuần ở nửa liều so với trồng đất</td><td><code>intervalDays: 20</code></td></tr></tbody></table></div></div>
+<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul><li><strong>Urê</strong> <code>fertilizer.urea</code> <span>nitrogen-rich</span></li><li><strong>Phân cá</strong> <code>fertilizer.fish-emulsion</code> <span>organic</span></li><li><strong>NPK 16-16-16</strong> <code>fertilizer.npk-16-16-16</code> <span>npk-balanced</span></li><li><strong>Phân compost</strong> <code>fertilizer.compost</code> <span>organic</span></li></ul></div>
+<div class="review-block"><h4>Hướng dẫn theo nhóm phân bón</h4><p><strong>nitrogen-rich:</strong> Hỗ trợ sinh trưởng thân và lá ở giai đoạn nuôi thân. Nếu cây đã mọc khỏe, lá xanh đậm hoặc lóng dài, cần giảm thay vì tiếp tục tăng đạm.</p><p><strong>npk-balanced:</strong> Cung cấp phối hợp đạm, lân và kali cho mục tiêu nuôi thân và lá. Thành phần thực tế phụ thuộc công thức trên nhãn và nguồn dinh dưỡng cây đã nhận.</p></div>
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Thừa đạm tạo ra thân mềm, dễ bệnh và chậm hóa gỗ. Nếu cây đã tự mọc khỏe, giảm hoặc ngừng bón.</li><li>Giữ phân cách gốc thân ít nhất 5 cm để tránh thối gốc.</li><li>Lá xanh đậm bất thường kèm lóng dài = dư đạm, cần giảm liều.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.trunk-development</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a><a class="ref-chip" href="#ref.umn.fertilizer-urea">ref.umn.fertilizer-urea</a><a class="ref-chip" href="#ref.umn.high-tunnel-nutrient-management">ref.umn.high-tunnel-nutrient-management</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.trunk-development.fertilizing</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.1.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.trunk-development.watering Kiểm tra đất trước khi tưới Nhu cầu nước của cây thay đổi theo điều kiện trồng và tình trạng sinh trưởng thực tế. Kiểm tra trực tiếp trước khi tưới giúp tránh tưới thừa gây úng rễ." data-activity="watering">
+<div class="card-heading"><div><p class="eyebrow">💧 Tưới nước</p><h3>Kiểm tra đất trước khi tưới</h3></div><span class="status">review</span></div>
+<p class="lead">Nhu cầu nước của cây thay đổi theo điều kiện trồng và tình trạng sinh trưởng thực tế. Kiểm tra trực tiếp trước khi tưới giúp tránh tưới thừa gây úng rễ.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 3</code> <code>onMissingHistory: suggest</code> <code>priority: 50</code></p></div>
+
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Kiểm tra đất quanh vùng rễ trước khi tưới; chỉ tưới khi đất bắt đầu khô, không tưới theo lịch cố định.</li><li>Tưới chậm vào vùng gốc để đất ẩm đều; không để nước đọng quanh gốc hoặc trong chậu.</li><li>Điều chỉnh lần tưới theo nắng, mưa, loại chậu và khả năng thoát nước của đất.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.trunk-development</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.trunk-development.watering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.recommendation.bud-break.powdery-mildew-prevention Rà soát phun phòng phấn trắng khi bật mầm Giúp người trồng kiểm tra lại nguy cơ phấn trắng và kế hoạch phun phòng đã được xác nhận khi chồi non bắt đầu phát triển; đây không phải chỉ định phải phun theo lịch cố định." data-activity="spraying">
+<div class="card-heading"><div><p class="eyebrow">🛡️ Phun/xịt</p><h3>Rà soát phun phòng phấn trắng khi bật mầm</h3></div><span class="status">review</span></div>
+<p class="lead">Giúp người trồng kiểm tra lại nguy cơ phấn trắng và kế hoạch phun phòng đã được xác nhận khi chồi non bắt đầu phát triển; đây không phải chỉ định phải phun theo lịch cố định.</p>
+<div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: elapsed_days_since_activity</code> <code>suggestAfterDays: 7</code> <code>onMissingHistory: withhold</code> <code>priority: 40</code></p></div>
+
+
+
+<div class="review-block"><h4>Ghi chú</h4><ul><li>Mốc 7 ngày chỉ dùng để rà soát lại kế hoạch phòng đã được xác nhận; đủ 7 ngày không đồng nghĩa là cây bắt buộc phải được phun.</li><li>Thời điểm và khoảng lặp phụ thuộc vào giai đoạn cây, nguy cơ bệnh, thời tiết và sản phẩm được chọn. Không sao chép lịch phun từ tài liệu tham khảo thành lịch dùng tại nhà.</li><li>Mảng trắng dạng bột trên chồi hoặc lá non có thể phù hợp với dấu hiệu phấn trắng nhưng không đủ để tự khẳng định bệnh. Khi dấu hiệu chưa rõ, cần hỏi người có chuyên môn trước khi xử lý.</li><li>Chỉ dùng sản phẩm có nhãn cho cây nho và mục tiêu cần phòng tại nơi trồng; tuân thủ nhãn về liều, khoảng cách lần phun, bảo hộ và thời gian cách ly.</li></ul></div>
+<div class="markdown"></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.bud-break</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.uc-ipm.grape-powdery-mildew">ref.uc-ipm.grape-powdery-mildew</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a><a class="ref-chip" href="#ref.vaas.grape-nh01-48">ref.vaas.grape-nh01-48</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.recommendation.bud-break.powdery-mildew-prevention</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article></div></section>
+<section class="page-section" id="guides"><div class="section-heading"><div><p class="eyebrow">Thông tin</p><h2>Hướng dẫn kỹ thuật</h2></div><span class="count-pill">6 hướng dẫn</span></div><div class="grid"><article class="card searchable" data-search="grape.guide.build-fruiting-framework Tạo khung cành mang quả Phân bố cành cấp 2 và cấp 3 thành bộ khung thông thoáng, phù hợp với sức cây và khoảng trống trên giàn. # Tạo khung cành mang quả
+
+## Trước khi cắt
+
+- Kiểm tra các cành cấp 1 đã được đỡ chắc và có khoảng trống để phát triển tiếp.
+- Quan sát sức cây, màu lá, tổn thương trên cành và mức độ che phủ của tán.
+- Xác định trước vị trí cần thêm cành, vị trí đang quá dày và phần khung lâu dài cần giữ.
+- Dùng dụng cụ cắt sắc, sạch; vệ sinh lại dụng cụ sau khi thao tác trên phần cành có dấu hiệu bất thường.
+
+## Cách thực hiện
+
+1. Chọn các chồi bên khỏe, có vị trí phù hợp để phát triển thành cành cấp 2.
+2. Dẫn cành vào khoảng trống trên giàn và buộc lỏng tại các điểm đỡ cần thiết.
+3. Chỉ bấm ngọn hoặc cắt lùi khi vị trí cắt phục vụ một hướng phân nhánh đã xác định.
+4. Khi chồi mới phát triển, tiếp tục chọn lọc những chồi phân bố hợp lý để tạo cành cấp 3.
+5. Giữ lại các cành khỏe đang dần hóa gỗ để làm phần khung và cành mang quả về sau.
+6. Thực hiện chọn lọc theo từng đợt để còn đủ lá khỏe và dễ quan sát phản ứng của cây.
+
+## Điều cần tránh
+
+- Không dùng cùng một chiều dài cắt, số mắt hoặc số cành cho mọi giống và mọi hệ giàn.
+- Không cắt lùi chỉ vì cành đã đạt một mốc chiều dài tham khảo.
+- Không giữ quá nhiều cành chen chúc chỉ để phủ kín mặt giàn.
+- Không loại bỏ đồng thời phần lớn tán lá khỏe.
+
+## Theo dõi sau khi tạo khung
+
+- Kiểm tra dây buộc và nới dây khi cành lớn.
+- Quan sát chồi mới có phân bố đúng khoảng trống dự kiến hay không.
+- Theo dõi phần gốc cành chuyển dần từ mô non sang mô đã hóa gỗ trước khi cân nhắc cắt tạo quả.
+
+## Dừng lại và đánh giá lại
+
+Dừng cắt nếu cây đang héo, cành bị nứt hoặc dập, tán suy yếu rõ ràng, hoặc chưa phân biệt được phần khung cần giữ với phần có thể loại bỏ.">
+<div class="card-heading"><div><p class="eyebrow">Hướng dẫn kỹ thuật</p><h3>Tạo khung cành mang quả</h3></div><span class="status">review</span></div>
+<p class="lead">Phân bố cành cấp 2 và cấp 3 thành bộ khung thông thoáng, phù hợp với sức cây và khoảng trống trên giàn.</p>
+<div class="markdown"><h2>Tạo khung cành mang quả</h2>
+<h3>Trước khi cắt</h3>
+<ul>
+<li>Kiểm tra các cành cấp 1 đã được đỡ chắc và có khoảng trống để phát triển tiếp.</li>
+<li>Quan sát sức cây, màu lá, tổn thương trên cành và mức độ che phủ của tán.</li>
+<li>Xác định trước vị trí cần thêm cành, vị trí đang quá dày và phần khung lâu dài cần giữ.</li>
+<li>Dùng dụng cụ cắt sắc, sạch; vệ sinh lại dụng cụ sau khi thao tác trên phần cành có dấu hiệu bất thường.</li>
+</ul>
+<h3>Cách thực hiện</h3>
+<ol>
+<li>Chọn các chồi bên khỏe, có vị trí phù hợp để phát triển thành cành cấp 2.</li>
+<li>Dẫn cành vào khoảng trống trên giàn và buộc lỏng tại các điểm đỡ cần thiết.</li>
+<li>Chỉ bấm ngọn hoặc cắt lùi khi vị trí cắt phục vụ một hướng phân nhánh đã xác định.</li>
+<li>Khi chồi mới phát triển, tiếp tục chọn lọc những chồi phân bố hợp lý để tạo cành cấp 3.</li>
+<li>Giữ lại các cành khỏe đang dần hóa gỗ để làm phần khung và cành mang quả về sau.</li>
+<li>Thực hiện chọn lọc theo từng đợt để còn đủ lá khỏe và dễ quan sát phản ứng của cây.</li>
+</ol>
+<h3>Điều cần tránh</h3>
+<ul>
+<li>Không dùng cùng một chiều dài cắt, số mắt hoặc số cành cho mọi giống và mọi hệ giàn.</li>
+<li>Không cắt lùi chỉ vì cành đã đạt một mốc chiều dài tham khảo.</li>
+<li>Không giữ quá nhiều cành chen chúc chỉ để phủ kín mặt giàn.</li>
+<li>Không loại bỏ đồng thời phần lớn tán lá khỏe.</li>
+</ul>
+<h3>Theo dõi sau khi tạo khung</h3>
+<ul>
+<li>Kiểm tra dây buộc và nới dây khi cành lớn.</li>
+<li>Quan sát chồi mới có phân bố đúng khoảng trống dự kiến hay không.</li>
+<li>Theo dõi phần gốc cành chuyển dần từ mô non sang mô đã hóa gỗ trước khi cân nhắc cắt tạo quả.</li>
+</ul>
+<h3>Dừng lại và đánh giá lại</h3>
+<p>Dừng cắt nếu cây đang héo, cành bị nứt hoặc dập, tán suy yếu rõ ràng, hoặc chưa phân biệt được phần khung cần giữ với phần có thể loại bỏ.</p></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.canopy-formation</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.young-grape-pruning">ref.uc-ipm.young-grape-pruning</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.guide.build-fruiting-framework</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.guide.fertilization-flowering Dinh dưỡng giai đoạn ra hoa Dinh dưỡng giai đoạn ra hoa ## Lưu ý quan trọng
+
+**Giảm hoặc ngừng bón phân trong giai đoạn ra hoa.** Ra hoa là giai đoạn nhạy cảm nhất trong chu kỳ sản xuất — năng lượng của cây cần tập trung cho thụ phấn, không phải sinh trưởng thân lá.
+
+## Điều được phép
+
+Phun canxi clorua (CaCl₂) pha loãng qua lá một lần ở đầu giai đoạn nở hoa có thể hỗ trợ ống phấn và giảm rụng hoa. Đây là lựa chọn, không bắt buộc.
+
+## Điều cần tránh
+
+- **Bón phân đạm trong lúc ra hoa** là sai lầm phổ biến nhất — đây là nguyên nhân hàng đầu gây rụng bông và thất thu.
+- Không bón phân hạt vào đất trong giai đoạn này.
+- Chỉ tưới ở vùng rễ — tưới phun từ trên xuống rửa trôi phấn hoa và gây thối.
+- Mưa trong lúc ra hoa gây hại lớn và không kiểm soát được — đừng làm tình hình tệ hơn bằng việc bón phân không đúng lúc.">
+<div class="card-heading"><div><p class="eyebrow">Hướng dẫn kỹ thuật</p><h3>Dinh dưỡng giai đoạn ra hoa</h3></div><span class="status">review</span></div>
+<p class="lead">Dinh dưỡng giai đoạn ra hoa</p>
+<div class="markdown"><h3>Lưu ý quan trọng</h3>
+<p><strong>Giảm hoặc ngừng bón phân trong giai đoạn ra hoa.</strong> Ra hoa là giai đoạn nhạy cảm nhất trong chu kỳ sản xuất — năng lượng của cây cần tập trung cho thụ phấn, không phải sinh trưởng thân lá.</p>
+<h3>Điều được phép</h3>
+<p>Phun canxi clorua (CaCl₂) pha loãng qua lá một lần ở đầu giai đoạn nở hoa có thể hỗ trợ ống phấn và giảm rụng hoa. Đây là lựa chọn, không bắt buộc.</p>
+<h3>Điều cần tránh</h3>
+<ul>
+<li><strong>Bón phân đạm trong lúc ra hoa</strong> là sai lầm phổ biến nhất — đây là nguyên nhân hàng đầu gây rụng bông và thất thu.</li>
+<li>Không bón phân hạt vào đất trong giai đoạn này.</li>
+<li>Chỉ tưới ở vùng rễ — tưới phun từ trên xuống rửa trôi phấn hoa và gây thối.</li>
+<li>Mưa trong lúc ra hoa gây hại lớn và không kiểm soát được — đừng làm tình hình tệ hơn bằng việc bón phân không đúng lúc.</li>
+</ul></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.flowering</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.fao.grape-production">ref.fao.grape-production</a><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.ucdavis.vineyard-nutrition">ref.ucdavis.vineyard-nutrition</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.guide.fertilization-flowering</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.guide.fertilization-seedling Bón phân giai đoạn cây con Bón phân giai đoạn cây con ## Lưu ý quan trọng
+
+**Không bón phân khi vừa trồng cây con.** Bộ rễ non chưa đủ khả năng hấp thụ dinh dưỡng đậm đặc. Ưu tiên duy nhất là giữ ẩm, thoát nước tốt và giảm sốc cho cây.
+
+## Chuẩn bị đất trước khi trồng
+
+Bón phân hữu cơ hoai mục (phân bò ủ hoai, phân trùn quế, compost vỏ trấu) vào hố trồng **1–2 tuần trước khi trồng**. Đây là cách duy nhất để cung cấp dinh dưỡng an toàn cho cây con.
+
+## Điều cần tránh
+
+- **Bỏ phân hạt NPK vào hố trồng** là nguyên nhân hàng đầu gây chết cây con — phân đậm đặc đốt cháy rễ non.
+- Nếu lá vàng trong 2 tuần đầu, nguyên nhân hầu như luôn là tưới quá nhiều hoặc thoát nước kém — không phải thiếu dinh dưỡng.
+- Chờ đến khi thấy chồi mới vươn ra rõ ràng mới xem xét bón phân lần đầu.">
+<div class="card-heading"><div><p class="eyebrow">Hướng dẫn kỹ thuật</p><h3>Bón phân giai đoạn cây con</h3></div><span class="status">review</span></div>
+<p class="lead">Bón phân giai đoạn cây con</p>
+<div class="markdown"><h3>Lưu ý quan trọng</h3>
+<p><strong>Không bón phân khi vừa trồng cây con.</strong> Bộ rễ non chưa đủ khả năng hấp thụ dinh dưỡng đậm đặc. Ưu tiên duy nhất là giữ ẩm, thoát nước tốt và giảm sốc cho cây.</p>
+<h3>Chuẩn bị đất trước khi trồng</h3>
+<p>Bón phân hữu cơ hoai mục (phân bò ủ hoai, phân trùn quế, compost vỏ trấu) vào hố trồng <strong>1–2 tuần trước khi trồng</strong>. Đây là cách duy nhất để cung cấp dinh dưỡng an toàn cho cây con.</p>
+<h3>Điều cần tránh</h3>
+<ul>
+<li><strong>Bỏ phân hạt NPK vào hố trồng</strong> là nguyên nhân hàng đầu gây chết cây con — phân đậm đặc đốt cháy rễ non.</li>
+<li>Nếu lá vàng trong 2 tuần đầu, nguyên nhân hầu như luôn là tưới quá nhiều hoặc thoát nước kém — không phải thiếu dinh dưỡng.</li>
+<li>Chờ đến khi thấy chồi mới vươn ra rõ ràng mới xem xét bón phân lần đầu.</li>
+</ul></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.seedling</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.umn.growing-grapes-home-garden">ref.umn.growing-grapes-home-garden</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.guide.fertilization-seedling</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.guide.form-primary-arms Bấm ngọn và định hướng cành cấp 1 Hình thành các cành khung đầu tiên theo hệ giàn đã chọn mà không làm suy yếu thân chính. # Bấm ngọn và định hướng cành cấp 1
+
+## Trước khi cắt
+
+- Xác nhận thân chính đã tới vị trí phân cành dự kiến trên giàn.
+- Xác định hướng tạo tán và số cành phù hợp với hệ giàn, giống nho và không gian đang có.
+- Chỉ thao tác khi cây đang sinh trưởng ổn định, thân không héo, nứt hoặc bị tổn thương rõ ràng.
+- Dùng dụng cụ cắt sắc, sạch và vật liệu buộc mềm.
+
+## Cách thực hiện
+
+1. Xác định phần thân chính cần giữ làm trục lâu dài trước khi cắt.
+2. Nếu hệ giàn đã chọn yêu cầu bấm ngọn, tạo một vết cắt gọn tại vị trí phù hợp với điểm phân cành.
+3. Khi chồi mới xuất hiện, chọn những chồi khỏe và có hướng phân bố phù hợp để làm cành cấp 1.
+4. Dẫn từng cành theo mặt giàn và buộc lỏng; kiểm tra để dây không siết vào cành khi cành lớn lên.
+5. Loại bỏ chồi cạnh tranh theo từng đợt nhỏ, đồng thời giữ đủ lá khỏe để cây tiếp tục quang hợp.
+6. Ghi ảnh vào “Thêm nhật ký” nếu muốn so sánh hướng phát triển của các cành.
+
+## Điều cần tránh
+
+- Không mặc định giữ một số cành cố định cho mọi giống hoặc mọi kiểu giàn.
+- Không bấm ngọn chỉ vì cây đạt một chiều dài theo lịch hoặc theo hình minh họa chung.
+- Không cắt nhiều chồi và lá khỏe trong cùng một lần.
+- Không uốn hoặc buộc cành đến mức nứt, dập hay để lại vết hằn.
+
+## Dừng lại và đánh giá lại
+
+- Chưa xác định được hệ giàn hoặc hướng cành cần giữ.
+- Thân chính còn yếu, bị tổn thương hoặc chưa được đỡ chắc chắn.
+- Các chồi có sức phát triển tương tự và không có cơ sở rõ ràng để chọn cành khung.
+
+Trong các trường hợp này, tiếp tục đỡ thân và quan sát thay vì cắt để chạy theo một mốc chiều dài hoặc số ngày cố định.">
+<div class="card-heading"><div><p class="eyebrow">Hướng dẫn kỹ thuật</p><h3>Bấm ngọn và định hướng cành cấp 1</h3></div><span class="status">review</span></div>
+<p class="lead">Hình thành các cành khung đầu tiên theo hệ giàn đã chọn mà không làm suy yếu thân chính.</p>
+<div class="markdown"><h2>Bấm ngọn và định hướng cành cấp 1</h2>
+<h3>Trước khi cắt</h3>
+<ul>
+<li>Xác nhận thân chính đã tới vị trí phân cành dự kiến trên giàn.</li>
+<li>Xác định hướng tạo tán và số cành phù hợp với hệ giàn, giống nho và không gian đang có.</li>
+<li>Chỉ thao tác khi cây đang sinh trưởng ổn định, thân không héo, nứt hoặc bị tổn thương rõ ràng.</li>
+<li>Dùng dụng cụ cắt sắc, sạch và vật liệu buộc mềm.</li>
+</ul>
+<h3>Cách thực hiện</h3>
+<ol>
+<li>Xác định phần thân chính cần giữ làm trục lâu dài trước khi cắt.</li>
+<li>Nếu hệ giàn đã chọn yêu cầu bấm ngọn, tạo một vết cắt gọn tại vị trí phù hợp với điểm phân cành.</li>
+<li>Khi chồi mới xuất hiện, chọn những chồi khỏe và có hướng phân bố phù hợp để làm cành cấp 1.</li>
+<li>Dẫn từng cành theo mặt giàn và buộc lỏng; kiểm tra để dây không siết vào cành khi cành lớn lên.</li>
+<li>Loại bỏ chồi cạnh tranh theo từng đợt nhỏ, đồng thời giữ đủ lá khỏe để cây tiếp tục quang hợp.</li>
+<li>Ghi ảnh vào “Thêm nhật ký” nếu muốn so sánh hướng phát triển của các cành.</li>
+</ol>
+<h3>Điều cần tránh</h3>
+<ul>
+<li>Không mặc định giữ một số cành cố định cho mọi giống hoặc mọi kiểu giàn.</li>
+<li>Không bấm ngọn chỉ vì cây đạt một chiều dài theo lịch hoặc theo hình minh họa chung.</li>
+<li>Không cắt nhiều chồi và lá khỏe trong cùng một lần.</li>
+<li>Không uốn hoặc buộc cành đến mức nứt, dập hay để lại vết hằn.</li>
+</ul>
+<h3>Dừng lại và đánh giá lại</h3>
+<ul>
+<li>Chưa xác định được hệ giàn hoặc hướng cành cần giữ.</li>
+<li>Thân chính còn yếu, bị tổn thương hoặc chưa được đỡ chắc chắn.</li>
+<li>Các chồi có sức phát triển tương tự và không có cơ sở rõ ràng để chọn cành khung.</li>
+</ul>
+<p>Trong các trường hợp này, tiếp tục đỡ thân và quan sát thay vì cắt để chạy theo một mốc chiều dài hoặc số ngày cố định.</p></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.trellis-training</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.young-grape-pruning">ref.uc-ipm.young-grape-pruning</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.guide.form-primary-arms</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.guide.fruiting-prune Cắt cành tạo quả Chọn phần cành đã trưởng thành để cắt tạo quả mà vẫn bảo vệ bộ khung và sức khỏe của cây. # Cắt cành tạo quả
+
+## Áp dụng khi
+
+Hướng dẫn này dùng để chuẩn bị lần cắt tạo quả đầu tiên sau khi hoàn thiện bộ khung, hoặc lần cắt cho chu kỳ mới sau giai đoạn phục hồi. Đây là hướng dẫn tham khảo, không phải lịch cắt tự động.
+
+## Trước khi cắt
+
+- Xác nhận cây khỏe và phần cành dự kiến giữ hoặc cắt đã trưởng thành, có dấu hiệu hóa gỗ rõ ràng.
+- Nhận diện phần thân và cành khung lâu dài để tránh cắt nhầm.
+- Xác định phương pháp tạo quả phù hợp với giống và hệ giàn trước khi quyết định số mắt cần giữ.
+- Kiểm tra dự báo thời tiết và tránh bắt đầu ngay trước một đợt mưa kéo dài.
+- Dùng dụng cụ sắc, sạch để tạo vết cắt gọn.
+
+## Cách thực hiện
+
+1. Quan sát toàn bộ tán và đánh dấu phần khung phải giữ trước khi loại bỏ cành nào.
+2. Chọn cành đã trưởng thành, khỏe và có vị trí phù hợp làm phần cành tạo quả.
+3. Cắt theo phương pháp đã được xác định cho giống và hệ giàn; không suy ra số mắt chỉ từ tuổi cây hoặc số ngày sau thu hoạch.
+4. Loại bỏ có chọn lọc những chồi hoặc cành cạnh tranh rõ ràng, không dọn toàn bộ chồi trong một lần.
+5. Giữ khu vực quanh mắt cần theo dõi đủ thông thoáng mà không làm mất phần lớn lá hoặc cành khỏe còn cần thiết.
+6. Sau khi cắt, chụp ảnh và ghi lại ngày cắt trong “Thêm nhật ký” nếu muốn theo dõi phản ứng của cây.
+
+## Điều cần tránh
+
+- Không cắt tạo quả trên phần cành còn non chỉ để đúng lịch.
+- Không áp dụng một số mắt, chiều dài cắt hoặc số cành giữ lại cho mọi giống nho.
+- Không cắt mạnh khi cây đang suy yếu, héo hoặc có tổn thương chưa rõ nguyên nhân.
+- Không xem số ngày sau cắt là bằng chứng duy nhất rằng cây phải bật mầm hoặc ra hoa.
+
+## Theo dõi sau khi cắt
+
+- Quan sát vết cắt, mắt ngủ và sức căng của cành trong những ngày tiếp theo.
+- Theo dõi mầm mới bằng hình ảnh thay vì tự động kết luận cây đã chuyển giai đoạn.
+- Nếu vết cắt đổi màu bất thường, mô quanh vết cắt mềm hoặc cây suy yếu nhanh, dừng can thiệp thêm và hỏi người có chuyên môn tại địa phương.">
+<div class="card-heading"><div><p class="eyebrow">Hướng dẫn kỹ thuật</p><h3>Cắt cành tạo quả</h3></div><span class="status">review</span></div>
+<p class="lead">Chọn phần cành đã trưởng thành để cắt tạo quả mà vẫn bảo vệ bộ khung và sức khỏe của cây.</p>
+<div class="markdown"><h2>Cắt cành tạo quả</h2>
+<h3>Áp dụng khi</h3>
+<p>Hướng dẫn này dùng để chuẩn bị lần cắt tạo quả đầu tiên sau khi hoàn thiện bộ khung, hoặc lần cắt cho chu kỳ mới sau giai đoạn phục hồi. Đây là hướng dẫn tham khảo, không phải lịch cắt tự động.</p>
+<h3>Trước khi cắt</h3>
+<ul>
+<li>Xác nhận cây khỏe và phần cành dự kiến giữ hoặc cắt đã trưởng thành, có dấu hiệu hóa gỗ rõ ràng.</li>
+<li>Nhận diện phần thân và cành khung lâu dài để tránh cắt nhầm.</li>
+<li>Xác định phương pháp tạo quả phù hợp với giống và hệ giàn trước khi quyết định số mắt cần giữ.</li>
+<li>Kiểm tra dự báo thời tiết và tránh bắt đầu ngay trước một đợt mưa kéo dài.</li>
+<li>Dùng dụng cụ sắc, sạch để tạo vết cắt gọn.</li>
+</ul>
+<h3>Cách thực hiện</h3>
+<ol>
+<li>Quan sát toàn bộ tán và đánh dấu phần khung phải giữ trước khi loại bỏ cành nào.</li>
+<li>Chọn cành đã trưởng thành, khỏe và có vị trí phù hợp làm phần cành tạo quả.</li>
+<li>Cắt theo phương pháp đã được xác định cho giống và hệ giàn; không suy ra số mắt chỉ từ tuổi cây hoặc số ngày sau thu hoạch.</li>
+<li>Loại bỏ có chọn lọc những chồi hoặc cành cạnh tranh rõ ràng, không dọn toàn bộ chồi trong một lần.</li>
+<li>Giữ khu vực quanh mắt cần theo dõi đủ thông thoáng mà không làm mất phần lớn lá hoặc cành khỏe còn cần thiết.</li>
+<li>Sau khi cắt, chụp ảnh và ghi lại ngày cắt trong “Thêm nhật ký” nếu muốn theo dõi phản ứng của cây.</li>
+</ol>
+<h3>Điều cần tránh</h3>
+<ul>
+<li>Không cắt tạo quả trên phần cành còn non chỉ để đúng lịch.</li>
+<li>Không áp dụng một số mắt, chiều dài cắt hoặc số cành giữ lại cho mọi giống nho.</li>
+<li>Không cắt mạnh khi cây đang suy yếu, héo hoặc có tổn thương chưa rõ nguyên nhân.</li>
+<li>Không xem số ngày sau cắt là bằng chứng duy nhất rằng cây phải bật mầm hoặc ra hoa.</li>
+</ul>
+<h3>Theo dõi sau khi cắt</h3>
+<ul>
+<li>Quan sát vết cắt, mắt ngủ và sức căng của cành trong những ngày tiếp theo.</li>
+<li>Theo dõi mầm mới bằng hình ảnh thay vì tự động kết luận cây đã chuyển giai đoạn.</li>
+<li>Nếu vết cắt đổi màu bất thường, mô quanh vết cắt mềm hoặc cây suy yếu nhanh, dừng can thiệp thêm và hỏi người có chuyên môn tại địa phương.</li>
+</ul></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.canopy-formation, grape.stage.recovery</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.young-grape-pruning">ref.uc-ipm.young-grape-pruning</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.guide.fruiting-prune</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="grape.guide.train-main-shoot Định hướng thân chính Định hướng thân chính # Định hướng thân chính
+
+## Mục đích
+
+Giúp một chồi khỏe phát triển thành thân chính theo hệ cọc hoặc giàn mà người trồng đã chọn.
+
+Đây là hướng dẫn tham khảo, không phải hoạt động có trạng thái hoàn thành và không tự tạo lịch sử.
+
+## Trước khi làm
+
+- Xác định hệ đỡ đủ chắc cho cây khi lớn hơn.
+- Quan sát các chồi hiện có và chọn chồi phù hợp với hướng tạo thân.
+- Chuẩn bị vật liệu buộc mềm, không có cạnh sắc.
+
+## Cách thực hiện an toàn
+
+1. Đưa chồi chính về gần cọc hoặc điểm đỡ mà không bẻ gập.
+2. Buộc lỏng để thân còn khoảng phát triển và có thể chuyển động nhẹ.
+3. Đặt thêm điểm buộc khi cần thay vì siết một điểm quá chặt.
+4. Kiểm tra định kỳ và nới hoặc thay dây khi thân lớn.
+5. Ghi ảnh vào “Thêm nhật ký” nếu muốn theo dõi thay đổi của thân.
+
+## Dừng lại và đánh giá lại
+
+- Chồi bị nứt, dập hoặc phải uốn mạnh mới chạm điểm đỡ.
+- Dây để lại vết hằn trên thân.
+- Không xác định được chồi nào nên giữ theo hệ giàn hoặc giống đang trồng.
+
+Trong các trường hợp này, không tiếp tục cắt hoặc buộc chỉ để khớp với hình minh họa chung.">
+<div class="card-heading"><div><p class="eyebrow">Hướng dẫn kỹ thuật</p><h3>Định hướng thân chính</h3></div><span class="status">review</span></div>
+<p class="lead">Định hướng thân chính</p>
+<div class="markdown"><h2>Định hướng thân chính</h2>
+<h3>Mục đích</h3>
+<p>Giúp một chồi khỏe phát triển thành thân chính theo hệ cọc hoặc giàn mà người trồng đã chọn.</p>
+<p>Đây là hướng dẫn tham khảo, không phải hoạt động có trạng thái hoàn thành và không tự tạo lịch sử.</p>
+<h3>Trước khi làm</h3>
+<ul>
+<li>Xác định hệ đỡ đủ chắc cho cây khi lớn hơn.</li>
+<li>Quan sát các chồi hiện có và chọn chồi phù hợp với hướng tạo thân.</li>
+<li>Chuẩn bị vật liệu buộc mềm, không có cạnh sắc.</li>
+</ul>
+<h3>Cách thực hiện an toàn</h3>
+<ol>
+<li>Đưa chồi chính về gần cọc hoặc điểm đỡ mà không bẻ gập.</li>
+<li>Buộc lỏng để thân còn khoảng phát triển và có thể chuyển động nhẹ.</li>
+<li>Đặt thêm điểm buộc khi cần thay vì siết một điểm quá chặt.</li>
+<li>Kiểm tra định kỳ và nới hoặc thay dây khi thân lớn.</li>
+<li>Ghi ảnh vào “Thêm nhật ký” nếu muốn theo dõi thay đổi của thân.</li>
+</ol>
+<h3>Dừng lại và đánh giá lại</h3>
+<ul>
+<li>Chồi bị nứt, dập hoặc phải uốn mạnh mới chạm điểm đỡ.</li>
+<li>Dây để lại vết hằn trên thân.</li>
+<li>Không xác định được chồi nào nên giữ theo hệ giàn hoặc giống đang trồng.</li>
+</ul>
+<p>Trong các trường hợp này, không tiếp tục cắt hoặc buộc chỉ để khớp với hình minh họa chung.</p></div>
+<p class="scope"><strong>Giai đoạn:</strong> grape.stage.trunk-development</p>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.osu.growing-table-grapes">ref.osu.growing-table-grapes</a><a class="ref-chip" href="#ref.uc-ipm.young-grape-pruning">ref.uc-ipm.young-grape-pruning</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>grape.guide.train-main-shoot</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article></div></section>
+<section class="page-section" id="threats"><div class="section-heading"><div><p class="eyebrow">Quan sát</p><h2>Sâu bệnh</h2></div><span class="count-pill">6 mục</span></div><div class="grid"><article class="card searchable" data-search="disease.grape.powdery-mildew Bệnh phấn trắng trên nho ## Dấu hiệu có thể quan sát
+
+Mảng trắng hoặc xám dạng bột trên lá, chồi non hay bộ phận của chùm nho có thể
+phù hợp với dấu hiệu phấn trắng. Cần kiểm tra nhiều vị trí trên cây; một biểu
+hiện đơn lẻ không đủ để khẳng định bệnh.
+
+## Điều kiện rủi ro
+
+Các mô xanh của cây nho có thể bị ảnh hưởng trong mùa sinh trưởng. Tán quá dày
+và vệ sinh vườn kém là bối cảnh cần lưu ý, nhưng không tự chứng minh cây đang
+bị bệnh.
+
+## Phòng ngừa
+
+Giữ tán ở mật độ phù hợp để thông thoáng, vệ sinh khu vực trồng, thu gom tàn dư
+cây bị ảnh hưởng khi phù hợp, và duy trì tưới nước cùng dinh dưỡng cân đối.
+
+## Hành động an toàn ban đầu
+
+Quan sát kỹ mặt trên và mặt dưới lá, chồi và chùm; ghi lại vị trí cùng mức độ
+lan rộng. Ưu tiên vệ sinh và cải thiện độ thông thoáng. Không tự động phun chỉ
+vì tên bệnh xuất hiện trong ứng dụng.
+
+Nếu cân nhắc sản phẩm bảo vệ thực vật, chỉ dùng sản phẩm có nhãn phù hợp cho
+cây nho và mục tiêu tại nơi trồng, đồng thời tuân thủ đầy đủ nhãn và nguyên tắc
+“4 đúng”. Tài liệu này không chỉ định sản phẩm, liều hoặc lịch phun.
+
+## Khi nào cần chuyên gia
+
+Hỏi người có chuyên môn khi dấu hiệu lan nhanh, ảnh hưởng đến chùm, không thể
+phân biệt với nguyên nhân khác, hoặc trước khi chọn một biện pháp hóa học.">
+<div class="card-heading"><div><p class="eyebrow">Bệnh hại</p><h3>Bệnh phấn trắng trên nho</h3></div><span class="status">review</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> grape.stage.bud-break, grape.stage.flowering, grape.stage.fruit-development, grape.stage.fruit-set, grape.stage.ripening</p>
+<div class="markdown"><h3>Dấu hiệu có thể quan sát</h3>
+<p>Mảng trắng hoặc xám dạng bột trên lá, chồi non hay bộ phận của chùm nho có thể phù hợp với dấu hiệu phấn trắng. Cần kiểm tra nhiều vị trí trên cây; một biểu hiện đơn lẻ không đủ để khẳng định bệnh.</p>
+<h3>Điều kiện rủi ro</h3>
+<p>Các mô xanh của cây nho có thể bị ảnh hưởng trong mùa sinh trưởng. Tán quá dày và vệ sinh vườn kém là bối cảnh cần lưu ý, nhưng không tự chứng minh cây đang bị bệnh.</p>
+<h3>Phòng ngừa</h3>
+<p>Giữ tán ở mật độ phù hợp để thông thoáng, vệ sinh khu vực trồng, thu gom tàn dư cây bị ảnh hưởng khi phù hợp, và duy trì tưới nước cùng dinh dưỡng cân đối.</p>
+<h3>Hành động an toàn ban đầu</h3>
+<p>Quan sát kỹ mặt trên và mặt dưới lá, chồi và chùm; ghi lại vị trí cùng mức độ lan rộng. Ưu tiên vệ sinh và cải thiện độ thông thoáng. Không tự động phun chỉ vì tên bệnh xuất hiện trong ứng dụng.</p>
+<p>Nếu cân nhắc sản phẩm bảo vệ thực vật, chỉ dùng sản phẩm có nhãn phù hợp cho cây nho và mục tiêu tại nơi trồng, đồng thời tuân thủ đầy đủ nhãn và nguyên tắc “4 đúng”. Tài liệu này không chỉ định sản phẩm, liều hoặc lịch phun.</p>
+<h3>Khi nào cần chuyên gia</h3>
+<p>Hỏi người có chuyên môn khi dấu hiệu lan nhanh, ảnh hưởng đến chùm, không thể phân biệt với nguyên nhân khác, hoặc trước khi chọn một biện pháp hóa học.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.uc-ipm.grape-powdery-mildew">ref.uc-ipm.grape-powdery-mildew</a><a class="ref-chip" href="#ref.vaas.grape-nh01-48">ref.vaas.grape-nh01-48</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>disease.grape.powdery-mildew</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="pest.grape.aphids Rệp muội trên nho ## Dấu hiệu có thể quan sát
+
+Kiểm tra chồi, lá non và mặt dưới lá để tìm côn trùng thân mềm nhỏ, thường
+tập trung thành nhóm. Mật ngọt dính, da lột trắng hoặc lá non biến dạng là các
+dấu hiệu cần kiểm tra thêm, không đủ để kết luận loài hay nguyên nhân.
+
+## Dạng gây hại
+
+Rệp muội chích hút; khi mật độ cao, lá và chồi non có thể vàng hoặc biến dạng.
+Mật ngọt có thể làm bẩn bộ phận cây và tạo điều kiện cho nấm bồ hóng. Không suy
+ra bệnh virus hoặc kết quả xử lý từ những biểu hiện này.
+
+## Giai đoạn cần lưu ý
+
+Theo dõi khi cây bật mầm, ra hoa và đậu quả vì đây là các giai đoạn có nhiều
+mô non để kiểm tra. Các liên kết giai đoạn không phải lịch phun và không xác
+nhận cây đang có rệp muội.
+
+## Phòng ngừa
+
+Quan sát sớm chồi và lá non, giữ khu vực trồng sạch, và tránh làm ảnh hưởng
+không cần thiết đến thiên địch. Đây là bối cảnh quản lý tổng hợp, không thay
+thế cho việc xác nhận tác nhân.
+
+## Hành động an toàn ban đầu
+
+Ghi lại vị trí, bộ phận bị ảnh hưởng và mức độ xuất hiện trước khi quyết định.
+Không phun chỉ vì tên rệp xuất hiện trong ứng dụng. Nếu biện pháp bảo vệ thực
+vật được xác nhận là cần thiết, chỉ dùng sản phẩm có nhãn phù hợp và tuân thủ
+nhãn, bảo hộ cùng thời gian cách ly.
+
+## Khi nào cần chuyên gia
+
+Hỏi người có chuyên môn khi rệp tăng nhanh, chồi hoặc hoa bị ảnh hưởng rõ,
+không thể phân biệt với sâu hại khác, hoặc trước khi chọn biện pháp hóa học.">
+<div class="card-heading"><div><p class="eyebrow">Sâu hại</p><h3>Rệp muội trên nho</h3></div><span class="status">review</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> grape.stage.bud-break, grape.stage.flowering, grape.stage.fruit-set</p>
+<div class="markdown"><h3>Dấu hiệu có thể quan sát</h3>
+<p>Kiểm tra chồi, lá non và mặt dưới lá để tìm côn trùng thân mềm nhỏ, thường tập trung thành nhóm. Mật ngọt dính, da lột trắng hoặc lá non biến dạng là các dấu hiệu cần kiểm tra thêm, không đủ để kết luận loài hay nguyên nhân.</p>
+<h3>Dạng gây hại</h3>
+<p>Rệp muội chích hút; khi mật độ cao, lá và chồi non có thể vàng hoặc biến dạng. Mật ngọt có thể làm bẩn bộ phận cây và tạo điều kiện cho nấm bồ hóng. Không suy ra bệnh virus hoặc kết quả xử lý từ những biểu hiện này.</p>
+<h3>Giai đoạn cần lưu ý</h3>
+<p>Theo dõi khi cây bật mầm, ra hoa và đậu quả vì đây là các giai đoạn có nhiều mô non để kiểm tra. Các liên kết giai đoạn không phải lịch phun và không xác nhận cây đang có rệp muội.</p>
+<h3>Phòng ngừa</h3>
+<p>Quan sát sớm chồi và lá non, giữ khu vực trồng sạch, và tránh làm ảnh hưởng không cần thiết đến thiên địch. Đây là bối cảnh quản lý tổng hợp, không thay thế cho việc xác nhận tác nhân.</p>
+<h3>Hành động an toàn ban đầu</h3>
+<p>Ghi lại vị trí, bộ phận bị ảnh hưởng và mức độ xuất hiện trước khi quyết định. Không phun chỉ vì tên rệp xuất hiện trong ứng dụng. Nếu biện pháp bảo vệ thực vật được xác nhận là cần thiết, chỉ dùng sản phẩm có nhãn phù hợp và tuân thủ nhãn, bảo hộ cùng thời gian cách ly.</p>
+<h3>Khi nào cần chuyên gia</h3>
+<p>Hỏi người có chuyên môn khi rệp tăng nhanh, chồi hoặc hoa bị ảnh hưởng rõ, không thể phân biệt với sâu hại khác, hoặc trước khi chọn biện pháp hóa học.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.uc-ipm.grape-aphids">ref.uc-ipm.grape-aphids</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>pest.grape.aphids</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="pest.grape.mealybugs Rệp sáp trên nho ## Dấu hiệu có thể quan sát
+
+Quan sát kỹ kẽ vỏ, cành, lá và chùm để tìm côn trùng thân mềm hình bầu dục có
+lớp sáp trắng. Mật ngọt dính, kiến hoạt động, hoặc mảng đen bồ hóng có thể giúp
+chỉ ra vị trí cần kiểm tra thêm, nhưng từng dấu hiệu riêng lẻ không đủ để xác
+định loài rệp.
+
+## Dạng gây hại
+
+Rệp sáp chích hút và tiết mật ngọt; mật ngọt có thể là nền cho nấm bồ hóng và
+làm bẩn bộ phận của chùm. Khi xuất hiện nhiều trên chùm, cần đánh giá thực tế
+vì mức ảnh hưởng phụ thuộc mật độ, vị trí và điều kiện trồng.
+
+## Giai đoạn cần lưu ý
+
+Theo dõi từ sau cắt cành đến thu hoạch, đặc biệt khi có chồi, tán và chùm để
+kiểm tra. Các liên kết giai đoạn chỉ cho biết lúc quan sát có thể hữu ích,
+không tạo lịch phun hoặc kết luận cây có rệp.
+
+## Phòng ngừa
+
+Kiểm tra cây giống và dụng cụ trước khi đưa vào khu vực trồng; giữ khu vực sạch
+và quan sát kiến hoặc mật ngọt để định vị nơi cần kiểm tra. Tránh xem các biện
+pháp này là bằng chứng đã loại trừ rệp.
+
+## Hành động an toàn ban đầu
+
+Ghi lại vị trí, bộ phận bị ảnh hưởng và mức độ; kiểm tra mặt dưới lá, cành và
+chùm trước khi quyết định. Không phun chỉ vì tên rệp xuất hiện trong ứng dụng.
+Khi cân nhắc một biện pháp bảo vệ thực vật, chỉ dùng sản phẩm có nhãn phù hợp
+và tuân thủ nhãn, bảo hộ cùng thời gian cách ly.
+
+## Khi nào cần chuyên gia
+
+Hỏi người có chuyên môn khi rệp hoặc mật ngọt xuất hiện nhiều, chùm bị ảnh
+hưởng, không thể phân biệt với rệp khác, hoặc trước khi chọn biện pháp hóa học.">
+<div class="card-heading"><div><p class="eyebrow">Sâu hại</p><h3>Rệp sáp trên nho</h3></div><span class="status">review</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> grape.stage.bud-break, grape.stage.flowering, grape.stage.fruit-development, grape.stage.fruit-set, grape.stage.harvest, grape.stage.pruning, grape.stage.ripening</p>
+<div class="markdown"><h3>Dấu hiệu có thể quan sát</h3>
+<p>Quan sát kỹ kẽ vỏ, cành, lá và chùm để tìm côn trùng thân mềm hình bầu dục có lớp sáp trắng. Mật ngọt dính, kiến hoạt động, hoặc mảng đen bồ hóng có thể giúp chỉ ra vị trí cần kiểm tra thêm, nhưng từng dấu hiệu riêng lẻ không đủ để xác định loài rệp.</p>
+<h3>Dạng gây hại</h3>
+<p>Rệp sáp chích hút và tiết mật ngọt; mật ngọt có thể là nền cho nấm bồ hóng và làm bẩn bộ phận của chùm. Khi xuất hiện nhiều trên chùm, cần đánh giá thực tế vì mức ảnh hưởng phụ thuộc mật độ, vị trí và điều kiện trồng.</p>
+<h3>Giai đoạn cần lưu ý</h3>
+<p>Theo dõi từ sau cắt cành đến thu hoạch, đặc biệt khi có chồi, tán và chùm để kiểm tra. Các liên kết giai đoạn chỉ cho biết lúc quan sát có thể hữu ích, không tạo lịch phun hoặc kết luận cây có rệp.</p>
+<h3>Phòng ngừa</h3>
+<p>Kiểm tra cây giống và dụng cụ trước khi đưa vào khu vực trồng; giữ khu vực sạch và quan sát kiến hoặc mật ngọt để định vị nơi cần kiểm tra. Tránh xem các biện pháp này là bằng chứng đã loại trừ rệp.</p>
+<h3>Hành động an toàn ban đầu</h3>
+<p>Ghi lại vị trí, bộ phận bị ảnh hưởng và mức độ; kiểm tra mặt dưới lá, cành và chùm trước khi quyết định. Không phun chỉ vì tên rệp xuất hiện trong ứng dụng. Khi cân nhắc một biện pháp bảo vệ thực vật, chỉ dùng sản phẩm có nhãn phù hợp và tuân thủ nhãn, bảo hộ cùng thời gian cách ly.</p>
+<h3>Khi nào cần chuyên gia</h3>
+<p>Hỏi người có chuyên môn khi rệp hoặc mật ngọt xuất hiện nhiều, chùm bị ảnh hưởng, không thể phân biệt với rệp khác, hoặc trước khi chọn biện pháp hóa học.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.uc-ipm.grape-vine-mealybug">ref.uc-ipm.grape-vine-mealybug</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>pest.grape.mealybugs</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="pest.grape.phylloxera Rệp hại rễ nho (Phylloxera) ## Dấu hiệu có thể quan sát
+
+Rệp hại rễ nho rất nhỏ và thường ẩn dưới đất. Khi nghi ngờ, chỉ kiểm tra rễ
+nhẹ nhàng khi phù hợp để tìm rễ tơ bị cong hoặc phình; cây sinh trưởng kém hay
+lá đổi màu không đủ để kết luận nguyên nhân là phylloxera.
+
+## Dạng gây hại
+
+Loài này chích hút rễ. Tổn thương rễ có thể làm cây còi cọc và giảm khả năng
+sinh trưởng; điều kiện đất, thoát nước, tuyến trùng và bệnh rễ cũng có thể tạo
+ra biểu hiện tương tự.
+
+## Giai đoạn cần lưu ý
+
+Theo dõi ở cây non, giai đoạn xây dựng thân và khi cây suy yếu bất thường. Các
+liên kết giai đoạn chỉ mô tả bối cảnh theo dõi; chúng không tạo lịch đào rễ,
+lịch phun, hoặc kết luận có rệp.
+
+## Phòng ngừa
+
+Khi trồng mới, ưu tiên vật liệu nhân giống sạch và hỏi người có chuyên môn về
+gốc ghép hoặc điều kiện đất nếu khu vực từng có vấn đề. Đây là quyết định ở
+mức thiết lập vườn, không phải biện pháp khẩn cấp cho một lần ghi nhận.
+
+## Hành động an toàn ban đầu
+
+Ghi lại khu vực cây suy yếu và điều kiện đất; tránh làm tổn thương rễ chỉ để
+tìm côn trùng. Không tự chọn thuốc hoặc phun lên tán vì nghi ngờ rệp hại rễ.
+Ưu tiên xác nhận với người có chuyên môn trước khi áp dụng bất kỳ biện pháp
+nào.
+
+## Khi nào cần chuyên gia
+
+Hỏi người có chuyên môn khi có nhiều cây suy yếu, thấy rễ bất thường, không
+phân biệt được với vấn đề đất hoặc bệnh rễ, hoặc trước khi quyết định trồng lại.">
+<div class="card-heading"><div><p class="eyebrow">Sâu hại</p><h3>Rệp hại rễ nho (Phylloxera)</h3></div><span class="status">review</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> grape.stage.canopy-formation, grape.stage.pruning, grape.stage.seedling, grape.stage.trellis-training, grape.stage.trunk-development</p>
+<div class="markdown"><h3>Dấu hiệu có thể quan sát</h3>
+<p>Rệp hại rễ nho rất nhỏ và thường ẩn dưới đất. Khi nghi ngờ, chỉ kiểm tra rễ nhẹ nhàng khi phù hợp để tìm rễ tơ bị cong hoặc phình; cây sinh trưởng kém hay lá đổi màu không đủ để kết luận nguyên nhân là phylloxera.</p>
+<h3>Dạng gây hại</h3>
+<p>Loài này chích hút rễ. Tổn thương rễ có thể làm cây còi cọc và giảm khả năng sinh trưởng; điều kiện đất, thoát nước, tuyến trùng và bệnh rễ cũng có thể tạo ra biểu hiện tương tự.</p>
+<h3>Giai đoạn cần lưu ý</h3>
+<p>Theo dõi ở cây non, giai đoạn xây dựng thân và khi cây suy yếu bất thường. Các liên kết giai đoạn chỉ mô tả bối cảnh theo dõi; chúng không tạo lịch đào rễ, lịch phun, hoặc kết luận có rệp.</p>
+<h3>Phòng ngừa</h3>
+<p>Khi trồng mới, ưu tiên vật liệu nhân giống sạch và hỏi người có chuyên môn về gốc ghép hoặc điều kiện đất nếu khu vực từng có vấn đề. Đây là quyết định ở mức thiết lập vườn, không phải biện pháp khẩn cấp cho một lần ghi nhận.</p>
+<h3>Hành động an toàn ban đầu</h3>
+<p>Ghi lại khu vực cây suy yếu và điều kiện đất; tránh làm tổn thương rễ chỉ để tìm côn trùng. Không tự chọn thuốc hoặc phun lên tán vì nghi ngờ rệp hại rễ. Ưu tiên xác nhận với người có chuyên môn trước khi áp dụng bất kỳ biện pháp nào.</p>
+<h3>Khi nào cần chuyên gia</h3>
+<p>Hỏi người có chuyên môn khi có nhiều cây suy yếu, thấy rễ bất thường, không phân biệt được với vấn đề đất hoặc bệnh rễ, hoặc trước khi quyết định trồng lại.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.uc-ipm.grape-phylloxera">ref.uc-ipm.grape-phylloxera</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>pest.grape.phylloxera</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="pest.grape.scale-insects Rệp vảy trên nho ## Dấu hiệu có thể quan sát
+
+Kiểm tra cành gỗ, cành mang quả và mặt dưới phần thân gỗ để tìm các thể nhỏ
+màu nâu, hình vòm hoặc bầu dục bám chặt. Chúng có thể trông giống một phần của
+vỏ cây; cần quan sát kỹ hơn thay vì kết luận chỉ từ một vết gồ.
+
+## Dạng gây hại
+
+Rệp vảy hút nhựa và có thể tiết mật ngọt. Mật ngọt có thể đi cùng kiến hoặc
+nấm bồ hóng trên lá và quả; quần thể cao có thể làm cây sinh trưởng kém. Những
+biểu hiện này có nhiều nguyên nhân khác nên không dùng để tự chẩn đoán.
+
+## Giai đoạn cần lưu ý
+
+Ưu tiên kiểm tra các phần gỗ khi cây đang phát triển thân, leo giàn, sau cắt
+cành và bật mầm. Các liên kết này chỉ là thời điểm theo dõi; chúng không xác
+định giai đoạn nào cần phun.
+
+## Phòng ngừa
+
+Giữ cây thông thoáng, theo dõi kiến và hạn chế làm lan truyền vật liệu hoặc
+dụng cụ nghi có rệp. Bảo tồn các thiên địch phù hợp là bối cảnh quản lý, không
+phải một chỉ dẫn xử lý hay bảo đảm hết rệp.
+
+## Hành động an toàn ban đầu
+
+Ghi lại vị trí trên cành, mật độ nhìn thấy và sự hiện diện của kiến hoặc mật
+ngọt. Không phun chỉ vì thấy một dấu hiệu. Nếu cần cân nhắc sản phẩm bảo vệ
+thực vật, chỉ dùng sản phẩm có nhãn phù hợp và tuân thủ nhãn, bảo hộ cùng thời
+gian cách ly.
+
+## Khi nào cần chuyên gia
+
+Hỏi người có chuyên môn khi rệp xuất hiện dày, cành suy yếu, chưa chắc chắn về
+loài rệp, hoặc trước khi chọn một biện pháp hóa học.">
+<div class="card-heading"><div><p class="eyebrow">Sâu hại</p><h3>Rệp vảy trên nho</h3></div><span class="status">review</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> grape.stage.bud-break, grape.stage.pruning, grape.stage.trellis-training, grape.stage.trunk-development</p>
+<div class="markdown"><h3>Dấu hiệu có thể quan sát</h3>
+<p>Kiểm tra cành gỗ, cành mang quả và mặt dưới phần thân gỗ để tìm các thể nhỏ màu nâu, hình vòm hoặc bầu dục bám chặt. Chúng có thể trông giống một phần của vỏ cây; cần quan sát kỹ hơn thay vì kết luận chỉ từ một vết gồ.</p>
+<h3>Dạng gây hại</h3>
+<p>Rệp vảy hút nhựa và có thể tiết mật ngọt. Mật ngọt có thể đi cùng kiến hoặc nấm bồ hóng trên lá và quả; quần thể cao có thể làm cây sinh trưởng kém. Những biểu hiện này có nhiều nguyên nhân khác nên không dùng để tự chẩn đoán.</p>
+<h3>Giai đoạn cần lưu ý</h3>
+<p>Ưu tiên kiểm tra các phần gỗ khi cây đang phát triển thân, leo giàn, sau cắt cành và bật mầm. Các liên kết này chỉ là thời điểm theo dõi; chúng không xác định giai đoạn nào cần phun.</p>
+<h3>Phòng ngừa</h3>
+<p>Giữ cây thông thoáng, theo dõi kiến và hạn chế làm lan truyền vật liệu hoặc dụng cụ nghi có rệp. Bảo tồn các thiên địch phù hợp là bối cảnh quản lý, không phải một chỉ dẫn xử lý hay bảo đảm hết rệp.</p>
+<h3>Hành động an toàn ban đầu</h3>
+<p>Ghi lại vị trí trên cành, mật độ nhìn thấy và sự hiện diện của kiến hoặc mật ngọt. Không phun chỉ vì thấy một dấu hiệu. Nếu cần cân nhắc sản phẩm bảo vệ thực vật, chỉ dùng sản phẩm có nhãn phù hợp và tuân thủ nhãn, bảo hộ cùng thời gian cách ly.</p>
+<h3>Khi nào cần chuyên gia</h3>
+<p>Hỏi người có chuyên môn khi rệp xuất hiện dày, cành suy yếu, chưa chắc chắn về loài rệp, hoặc trước khi chọn một biện pháp hóa học.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.uc-ipm.grape-european-fruit-lecanium-scale">ref.uc-ipm.grape-european-fruit-lecanium-scale</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>pest.grape.scale-insects</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article><article class="card searchable" data-search="pest.grape.thrips Bọ trĩ hại nho ## Dấu hiệu có thể quan sát
+
+Kiểm tra chồi, hoa và quả non để tìm bằng chứng bọ trĩ hiện diện và ghi lại vị
+trí cùng mức độ xuất hiện. Tổn thương trên cây nếu đứng riêng lẻ không đủ để
+kết luận nguyên nhân là bọ trĩ.
+
+## Dạng gây hại
+
+Nguồn Việt Nam ghi nhận bọ trĩ gây hại đáng kể khi cây đang ra hoa và phát
+triển quả non. Mức độ ảnh hưởng phụ thuộc mật độ và giai đoạn, vì vậy tên loài
+gây hại không được dùng thay cho việc kiểm tra thực tế.
+
+## Giai đoạn cần lưu ý
+
+Theo dõi từ bật mầm, ra hoa, đậu quả đến giai đoạn quả đang phát triển. Các liên
+kết giai đoạn này chỉ mô tả thời kỳ cần quan sát, không tạo lịch phun. Nguồn
+Việt Nam được lưu trữ khuyến cáo ngừng phun bọ trĩ khi quả bắt đầu chín; cần
+người có chuyên môn xác nhận hướng dẫn hiện hành trước khi áp dụng.
+
+## Phòng ngừa
+
+Giữ khu vực trồng sạch, chăm sóc tưới tiêu cân đối và tránh bón thừa đạm. Đây
+là bối cảnh quản lý tổng hợp, không phải bằng chứng rằng cây đã hết hoặc đang
+có bọ trĩ.
+
+## Hành động an toàn ban đầu
+
+Ghi lại bằng chứng quan sát được và xác nhận mức độ với người có chuyên môn khi
+chưa rõ. Không phun chỉ vì đã đến một giai đoạn được liệt kê. Nếu biện pháp hóa
+học được xác nhận là cần thiết, chỉ dùng sản phẩm có đăng ký và nhãn phù hợp,
+tuân thủ nhãn, bảo hộ và thời gian cách ly.
+
+## Khi nào cần chuyên gia
+
+Hỏi người có chuyên môn khi số lượng bọ trĩ tăng, hoa hoặc quả non bị ảnh hưởng
+rõ, không thể xác định tác nhân, hoặc trước khi chọn sản phẩm và ngưỡng xử lý.">
+<div class="card-heading"><div><p class="eyebrow">Sâu hại</p><h3>Bọ trĩ hại nho</h3></div><span class="status">review</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> grape.stage.bud-break, grape.stage.flowering, grape.stage.fruit-development, grape.stage.fruit-set</p>
+<div class="markdown"><h3>Dấu hiệu có thể quan sát</h3>
+<p>Kiểm tra chồi, hoa và quả non để tìm bằng chứng bọ trĩ hiện diện và ghi lại vị trí cùng mức độ xuất hiện. Tổn thương trên cây nếu đứng riêng lẻ không đủ để kết luận nguyên nhân là bọ trĩ.</p>
+<h3>Dạng gây hại</h3>
+<p>Nguồn Việt Nam ghi nhận bọ trĩ gây hại đáng kể khi cây đang ra hoa và phát triển quả non. Mức độ ảnh hưởng phụ thuộc mật độ và giai đoạn, vì vậy tên loài gây hại không được dùng thay cho việc kiểm tra thực tế.</p>
+<h3>Giai đoạn cần lưu ý</h3>
+<p>Theo dõi từ bật mầm, ra hoa, đậu quả đến giai đoạn quả đang phát triển. Các liên kết giai đoạn này chỉ mô tả thời kỳ cần quan sát, không tạo lịch phun. Nguồn Việt Nam được lưu trữ khuyến cáo ngừng phun bọ trĩ khi quả bắt đầu chín; cần người có chuyên môn xác nhận hướng dẫn hiện hành trước khi áp dụng.</p>
+<h3>Phòng ngừa</h3>
+<p>Giữ khu vực trồng sạch, chăm sóc tưới tiêu cân đối và tránh bón thừa đạm. Đây là bối cảnh quản lý tổng hợp, không phải bằng chứng rằng cây đã hết hoặc đang có bọ trĩ.</p>
+<h3>Hành động an toàn ban đầu</h3>
+<p>Ghi lại bằng chứng quan sát được và xác nhận mức độ với người có chuyên môn khi chưa rõ. Không phun chỉ vì đã đến một giai đoạn được liệt kê. Nếu biện pháp hóa học được xác nhận là cần thiết, chỉ dùng sản phẩm có đăng ký và nhãn phù hợp, tuân thủ nhãn, bảo hộ và thời gian cách ly.</p>
+<h3>Khi nào cần chuyên gia</h3>
+<p>Hỏi người có chuyên môn khi số lượng bọ trĩ tăng, hoa hoặc quả non bị ảnh hưởng rõ, không thể xác định tác nhân, hoặc trước khi chọn sản phẩm và ngưỡng xử lý.</p></div>
+<div class="sources"><strong>Nguồn:</strong><a class="ref-chip" href="#ref.vaas.grape-nh01-48">ref.vaas.grape-nh01-48</a><a class="ref-chip" href="#ref.vusta.grape-thrips">ref.vusta.grape-thrips</a></div><details class="technical"><summary>Thông tin kiểm duyệt</summary><dl>
+<div><dt>ID</dt><dd><code>pest.grape.thrips</code></dd></div>
+<div><dt>Trạng thái</dt><dd>review</dd></div>
+<div><dt>Phiên bản</dt><dd>1.0.0</dd></div>
+<div><dt>Ngôn ngữ</dt><dd>vi-VN</dd></div>
+</dl></details></article></div></section>
+<section class="page-section" id="references"><div class="section-heading"><div><p class="eyebrow">Bằng chứng</p><h2>Nguồn tham khảo</h2></div><span class="count-pill">17 nguồn</span></div><div class="grid"><article class="card reference searchable" id="ref.fao.grape-production" data-search="Grape Production — Tropical and Subtropical Viticulture Food and Agriculture Organization of the United Nations (FAO)">
+<p class="eyebrow">Food and Agriculture Organization of the United Nations (FAO)</p><h3>Grape Production — Tropical and Subtropical Viticulture</h3>
+<p><code>ref.fao.grape-production</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-12 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used for calcium and boron roles in grape pollination and fruit set, potassium and sugar accumulation during ripening, and tropical viticulture adaptations including forced dormancy and multiple production cycles per year.</p>
+<p>FAO production volumes and regional spray schedules are not transferred as universal home-grower guidance.</p></div>
+<a class="source-link" href="https://www.fao.org/3/x6897e/x6897e00.htm" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.osu.growing-table-grapes" data-search="Growing table grapes Oregon State University Extension Service">
+<p class="eyebrow">Oregon State University Extension Service</p><h3>Growing table grapes</h3>
+<p><code>ref.osu.growing-table-grapes</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-11 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used for young-vine establishment, selecting a vigorous shoot for a straight trunk, keeping soil adequately moist without saturation, weed competition, and the dependence of irrigation on soil and growing conditions.</p>
+<p>The source includes region-specific rates and fertilizer examples. Those values are not transferred into the pilot because the app does not yet know enough about local climate, soil, container, cultivar, or nutrient status.</p></div>
+<a class="source-link" href="https://extension.oregonstate.edu/catalog/ec-1639-growing-table-grapes" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.grape-aphids" data-search="Aphids / Floriculture and Ornamental Nurseries / Agriculture: Pest Management Guidelines University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>Aphids / Floriculture and Ornamental Nurseries / Agriculture: Pest Management Guidelines</h3>
+<p><code>ref.uc-ipm.grape-aphids</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used only for general, review-stage aphid observation context: soft-bodied sap-feeders may leave honeydew, and abundant feeding can distort young foliage. The associated UC IPM home grape index lists aphids among grape pests but does not establish a grape-specific Vietnamese treatment threshold.</p>
+<p>This reference does not support diagnosis, virus attribution, products, doses, or a spray schedule. A qualified local reviewer must establish any such claim.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/agriculture/floriculture-and-ornamental-nurseries/aphids/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.grape-european-fruit-lecanium-scale" data-search="European Fruit Lecanium Scale / Grape / Agriculture: Pest Management Guidelines University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>European Fruit Lecanium Scale / Grape / Agriculture: Pest Management Guidelines</h3>
+<p><code>ref.uc-ipm.grape-european-fruit-lecanium-scale</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to support review-stage observation of brown domed scale insects on woody grape parts, honeydew and sooty-mold context, and the need to monitor rather than infer a need to spray from one observation.</p>
+<p>The source serves commercial California vineyards. Its calendar timing, threshold interpretation, products, rates, and regional restrictions are not transferred into Vietnamese home-growing guidance.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/agriculture/grape/european-fruit-lecanium-scale/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.grape-fertilization" data-search="Grape Fertilization Guide University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>Grape Fertilization Guide</h3>
+<p><code>ref.uc-ipm.grape-fertilization</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-20 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to support the need for adequate but non-excessive grape nutrition and the conditional use of potassium sulfate when potassium deficiency is established.</p>
+<p>The source&#39;s regional rates are not transferred into the app. Fertilizer-group guidance does not establish deficiency, dosage, timing, or fertilizer eligibility by itself.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/home-and-landscape/grape-fertilization-guide/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.grape-phylloxera" data-search="Grape Phylloxera / Home and Landscape University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>Grape Phylloxera / Home and Landscape</h3>
+<p><code>ref.uc-ipm.grape-phylloxera</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to support review-stage context that grape phylloxera is a tiny root-feeding insect, possible root swelling and vine decline require closer inspection, and rootstock choice is a planting-level decision rather than a quick spraying task.</p>
+<p>The source is not a diagnosis protocol for Vietnamese home growers. It does not justify an in-app product, dose, rootstock recommendation, or treatment claim; those require qualified local advice.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/home-and-landscape/grape-phylloxera/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.grape-powdery-mildew" data-search="Powdery Mildew / Grape / Agriculture: Pest Management Guidelines University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>Powdery Mildew / Grape / Agriculture: Pest Management Guidelines</h3>
+<p><code>ref.uc-ipm.grape-powdery-mildew</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to support that powdery-mildew prevention begins with early-season risk review and that treatment timing depends on vine growth stage, infection risk, weather, and the selected fungicide.</p>
+<p>The source targets commercial California vineyards. Its products, rates, fixed spray intervals, risk thresholds, and registrations are not transferred into Vietnamese home-grower guidance. A local reviewer must confirm applicability, and any pesticide use must follow the product label and local requirements.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/agriculture/grape/powdery-mildew/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.grape-vine-mealybug" data-search="Vine Mealybug / Grape / Agriculture: Pest Management Guidelines University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>Vine Mealybug / Grape / Agriculture: Pest Management Guidelines</h3>
+<p><code>ref.uc-ipm.grape-vine-mealybug</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to support review-stage observation of vine mealybug&#39;s waxy appearance, its occurrence on grapevine parts including clusters, honeydew and sooty-mold context, and the value of checking ant activity and collecting a sample when identification is uncertain.</p>
+<p>The source serves commercial California vineyards. It does not establish a Vietnamese home-growing treatment threshold, pesticide selection, dose, or schedule. Its treatment tables and region-specific timing are excluded.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/agriculture/grape/vine-mealybug/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.growing-grape" data-search="Cultural Tips for Growing Grape UC Statewide Integrated Pest Management Program">
+<p class="eyebrow">UC Statewide Integrated Pest Management Program</p><h3>Cultural Tips for Growing Grape</h3>
+<p><code>ref.uc-ipm.growing-grape</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-19 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to verify potassium sulfate as a grape-relevant potassium source while preserving the requirement to assess symptoms and growing conditions before acting.</p>
+<p>The source does not justify a universal dose, schedule, or automatic stage prescription.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/home-and-landscape/cultural-tips-for-growing-grape/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.uc-ipm.young-grape-pruning" data-search="First- and Second-Year Pruning for Grapes University of California Statewide Integrated Pest Management Program">
+<p class="eyebrow">University of California Statewide Integrated Pest Management Program</p><h3>First- and Second-Year Pruning for Grapes</h3>
+<p><code>ref.uc-ipm.young-grape-pruning</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-11 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used for the young-vine goal of developing a main trunk, supporting new growth with loose ties, and avoiding automatic pruning decisions that ignore vine vigor and the chosen training system.</p>
+<p>The source&#39;s training details are not converted into universal completion thresholds for the app.</p></div>
+<a class="source-link" href="https://ipm.ucanr.edu/home-and-landscape/first-and-second-year-pruning-for-grapes/" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.ucdavis.vineyard-nutrition" data-search="Vineyard Nutrient Management University of California, Davis — Viticulture &amp; Enology">
+<p class="eyebrow">University of California, Davis — Viticulture &amp; Enology</p><h3>Vineyard Nutrient Management</h3>
+<p><code>ref.ucdavis.vineyard-nutrition</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-12 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used for stage-specific nitrogen and potassium guidance, the N-to-K transition across the production cycle, nitrogen cessation before véraison, foliar nutrition timing, and the relationship between nutrient balance and berry quality.</p>
+<p>Regional fertilizer rates and soil-test thresholds are not transferred as universal guidance because local soil, climate, and cultivar conditions vary.</p></div>
+<a class="source-link" href="https://wineserver.ucdavis.edu/industry-info/enology/methods-and-techniques/vineyard-nutrient-management" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.umn.fertilizer-urea" data-search="Fertilizer urea University of Minnesota Extension">
+<p class="eyebrow">University of Minnesota Extension</p><h3>Fertilizer urea</h3>
+<p><code>ref.umn.fertilizer-urea</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-19 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to verify that urea is commonly labelled 46-0-0 and should be handled as a concentrated nitrogen source rather than a general fertilizer type.</p>
+<p>Rates and schedules are not transferred into the app because they depend on crop need, soil, weather, and application conditions.</p></div>
+<a class="source-link" href="https://extension.umn.edu/nitrogen/fertilizer-urea" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.umn.growing-grapes-home-garden" data-search="Growing grapes in the home garden University of Minnesota Extension">
+<p class="eyebrow">University of Minnesota Extension</p><h3>Growing grapes in the home garden</h3>
+<p><code>ref.umn.growing-grapes-home-garden</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-11 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used for the need to support young vines, establish roots before relying on shoot growth, apply water to the root zone, avoid unnecessary wetting of foliage, and adapt watering to rainfall and growing conditions.</p>
+<p>Regional volumes and seasonal timing are not transferred into the pilot as universal Vietnamese guidance.</p></div>
+<a class="source-link" href="https://extension.umn.edu/gardening-minnesota/growing-grapes-home-garden" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.umn.high-tunnel-nutrient-management" data-search="Soil health and nutrient management in high tunnels University of Minnesota Extension">
+<p class="eyebrow">University of Minnesota Extension</p><h3>Soil health and nutrient management in high tunnels</h3>
+<p><code>ref.umn.high-tunnel-nutrient-management</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-19 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to verify generic, brand-free fertilizer sources including compost and manure, calcium nitrate, potassium nitrate, potassium sulfate, magnesium sulfate, and dolomitic lime.</p>
+<p>Product analysis varies. Lime and dolomite remain conditional soil amendments rather than routine fertilizer recommendations, and no regional rate is transferred into the app.</p></div>
+<a class="source-link" href="https://extension.umn.edu/nutrient-management-specialty-crops/soil-health-and-nutrient-management-high-tunnels" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.umn.phosphorus-fertilizers" data-search="Understanding phosphorus fertilizers University of Minnesota Extension">
+<p class="eyebrow">University of Minnesota Extension</p><h3>Understanding phosphorus fertilizers</h3>
+<p><code>ref.umn.phosphorus-fertilizers</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-20 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to support the role of phosphorus in plant energy transfer and root growth and the requirement that phosphorus decisions depend on crop, soil properties, environmental conditions, nutrient analysis, and soil testing. The source also identifies diammonium phosphate (DAP) as a fertilizer containing nitrogen and phosphorus.</p>
+<p>The source is not grape-specific. It does not justify recommending DAP by default or transferring a dosage, placement, or schedule into the app.</p></div>
+<a class="source-link" href="https://extension.umn.edu/phosphorus-and-potassium/understanding-phosphorus-fertilizers" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.vaas.grape-nh01-48" data-search="Giống nho NH01-48 Viện Khoa học Nông nghiệp Việt Nam">
+<p class="eyebrow">Viện Khoa học Nông nghiệp Việt Nam</p><h3>Giống nho NH01-48</h3>
+<p><code>ref.vaas.grape-nh01-48</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Used to confirm that powdery mildew is among the diseases documented for the Vietnamese grape cultivar NH01-48 and to support integrated prevention through field sanitation, appropriate canopy density, balanced nutrition, suitable watering, removal of crop residue, and the Vietnamese “4 đúng” principle when chemical control is used.</p>
+<p>This cultivar profile does not establish a universal bud-break treatment, product, dosage, or repeat interval, and it is not generalized to every grape cultivar. Those decisions remain subject to qualified local review and the label and registration applicable where the plant is grown.</p></div>
+<a class="source-link" href="https://vaas.vn/vi/giong/giong-nho-nh01-48" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article><article class="card reference searchable" id="ref.vusta.grape-thrips" data-search="Cách phòng trừ bọ trĩ hại nho Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam">
+<p class="eyebrow">Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam</p><h3>Cách phòng trừ bọ trĩ hại nho</h3>
+<p><code>ref.vusta.grape-thrips</code></p>
+<p class="scope">extension_guide · truy cập 2026-07-16 · active</p>
+<div class="markdown"><h2>Review notes</h2>
+<p>Vietnamese public technical article republished in 2006 from Báo Ninh Thuận and attributed to research from the Cotton Research and Development Institute. It supports the monitoring relevance of thrips from bud break through flowering and fruit growth, sanitation and balanced care as preventive context, treatment only after a threshold is reached, and stopping thrips spraying when berries begin to ripen.</p>
+<p>The material is old and does not define a current home-growing threshold, registered product, dosage, protective equipment, or label instruction. It may support review-stage monitoring and safety boundaries, but any current chemical control claim requires qualified local review and current Vietnamese registration and label evidence.</p></div>
+<a class="source-link" href="https://vusta.vn/cach-phong-tru-bo-tri-hai-nho-p84013.html" target="_blank" rel="noopener noreferrer">Mở nguồn gốc ↗</a>
+</article></div></section>
+<p class="no-results" id="no-results">Không tìm thấy nội dung phù hợp.</p></main>
+<footer class="footer">Bundle preview · schema 2.1.0 · nội dung 1.0.0</footer>
+<script>
+const search=document.getElementById("search");const cards=[...document.querySelectorAll(".searchable")];const empty=document.getElementById("no-results");let filter="all";function normalize(value){return(value||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}function apply(){const query=normalize(search.value);let visible=0;for(const card of cards){const activity=card.dataset.activity;const show=(!query||normalize(card.dataset.search+" "+card.textContent).includes(query))&&(filter==="all"||!activity||activity===filter);card.classList.toggle("hidden",!show);if(show)visible++}empty.classList.toggle("show",visible===0)}search.addEventListener("input",apply);for(const button of document.querySelectorAll(".filter")){button.addEventListener("click",()=>{for(const item of document.querySelectorAll(".filter"))item.classList.remove("active");button.classList.add("active");filter=button.dataset.filter;apply()})}
+</script></body></html>

@@ -1988,7 +1988,7 @@
       "sourceType": "extension_guide",
       "url": "https://ipm.ucanr.edu/home-and-landscape/grape-fertilization-guide/",
       "accessed": "2026-07-20",
-      "bodyMarkdown": "\n# Review notes\n\nUsed to support the need for adequate but non-excessive grape nutrition and the conditional use of potassium sulfate when potassium deficiency is established.\n\nThe source's regional rates are not transferred into the app. Nutrient-role explanations do not establish deficiency, dosage, timing, or fertilizer eligibility by themselves.\n"
+      "bodyMarkdown": "\n# Review notes\n\nUsed to support the need for adequate but non-excessive grape nutrition and the conditional use of potassium sulfate when potassium deficiency is established.\n\nThe source's regional rates are not transferred into the app. Fertilizer-group guidance does not establish deficiency, dosage, timing, or fertilizer eligibility by itself.\n"
     },
     {
       "id": "ref.uc-ipm.grape-phylloxera",
@@ -2108,7 +2108,7 @@
       "sourceType": "extension_guide",
       "url": "https://extension.umn.edu/phosphorus-and-potassium/understanding-phosphorus-fertilizers",
       "accessed": "2026-07-20",
-      "bodyMarkdown": "\n# Review notes\n\nUsed to identify diammonium phosphate (DAP) as a fertilizer containing nitrogen and phosphorus and to support the requirement that phosphorus decisions depend on crop, soil properties, environmental conditions, nutrient analysis, and soil testing.\n\nThe source is not grape-specific. It does not justify recommending DAP by default or transferring a dosage, placement, or schedule into the app.\n"
+      "bodyMarkdown": "\n# Review notes\n\nUsed to support the role of phosphorus in plant energy transfer and root growth and the requirement that phosphorus decisions depend on crop, soil properties, environmental conditions, nutrient analysis, and soil testing. The source also identifies diammonium phosphate (DAP) as a fertilizer containing nitrogen and phosphorus.\n\nThe source is not grape-specific. It does not justify recommending DAP by default or transferring a dosage, placement, or schedule into the app.\n"
     },
     {
       "id": "ref.vaas.grape-nh01-48",

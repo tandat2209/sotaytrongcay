@@ -91,7 +91,7 @@ export function CareEntryScreen(props: CareEntryScreenProps) {
       footer={
         <PrimaryButton
           backgroundColor={visual.backgroundColor}
-          label={t("journal.careEntry.save")}
+          label={props.saveLabel ?? t("journal.careEntry.save")}
           loading={saving}
           onPress={submit}
           textColor={visual.color}
@@ -108,14 +108,18 @@ export function CareEntryScreen(props: CareEntryScreenProps) {
       }
       visible={props.visible}
     >
-      <PlantIdentity
-        imageUri={props.imageUri ?? null}
-        name={props.plantName}
-        size="list"
-        speciesTitle={props.speciesTitle}
-        stageId={props.stageId}
-        stageTitle={props.stageTitle}
-      />
+      {props.contextKind === "custom" ? (
+        props.context
+      ) : (
+        <PlantIdentity
+          imageUri={props.imageUri ?? null}
+          name={props.plantName}
+          size="list"
+          speciesTitle={props.speciesTitle}
+          stageId={props.stageId}
+          stageTitle={props.stageTitle}
+        />
+      )}
       <CareEntryContextFields
         dateError={
           error === t("journal.validation.futureActivity") ? error : null
@@ -149,11 +153,15 @@ export function CareEntryScreen(props: CareEntryScreenProps) {
         />
       ) : null}
       <CareEntryDetailsSection
+        {...(props.amountAccessibilityLabel
+          ? { amountAccessibilityLabel: props.amountAccessibilityLabel }
+          : {})}
         amount={amount}
         amountError={
           error === t("journal.validation.waterAmount") ? error : null
         }
         notes={notes}
+        {...(props.amountLabel ? { amountLabel: props.amountLabel } : {})}
         onAmountChange={setAmount}
         onNotesChange={setNotes}
         type={props.type}

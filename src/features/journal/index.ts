@@ -16,6 +16,11 @@ export {
   saveCareActivityWithApplications,
   updateCareActivityWithApplications,
 } from "./application/save-care-activity-with-applications";
+export {
+  createCareActivityBatchCommands,
+  saveCareActivityBatch,
+} from "./application/save-care-activity-batch";
+export type { CareActivityBatchCommand } from "./application/save-care-activity-batch";
 export type { SavePlantUpdateCommand } from "./application/save-plant-update";
 export {
   CARE_ACTIVITY_ICONS,
@@ -23,6 +28,7 @@ export {
 } from "./models/care-activity-icon";
 export type { CareActivityVisual } from "./models/care-activity-icon";
 export { findLatestCareActivity } from "./models/care-activity";
+export { intersectSharedSprayTargets } from "./models/shared-spray-targets";
 export type {
   CareActivity,
   CareActivityOrigin,
@@ -56,6 +62,7 @@ export {
 } from "./models/plant-update";
 export type { PlantUpdate, PlantUpdatePhoto } from "./models/plant-update";
 export { CareEntryScreen } from "./ui/CareEntryScreen";
+export { BatchCareFlowScreen } from "./ui/BatchCareFlowScreen";
 export type { CareEntryDetails } from "./ui/care-entry-types";
 export { JournalRouteScreen as JournalScreen } from "./ui/JournalRouteScreen";
 export { PlantUpdateRouteScreen } from "./ui/PlantUpdateRouteScreen";

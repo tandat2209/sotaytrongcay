@@ -31,6 +31,7 @@ They may be a beginner, but the product should not require them to follow or com
 Users can:
 
 - record watering or fertilizing in seconds;
+- record the same performed care for several plants without repeating the form;
 - see the last important care for each plant;
 - remember products, amounts, methods, notes, and photos;
 - receive reminders for future care;
@@ -63,6 +64,7 @@ Users can:
 
 - Grape plant profiles with current growth stage.
 - Contextual care entry for watering, fertilizing, and spraying.
+- Multi-plant care entry that atomically creates one normal activity per selected Plant.
 - A reusable private fertilizer catalog reachable from fertilizing Care Entry and “Mở rộng” → “Quản lý phân bón”.
 - “Thêm nhật ký” for plant photos and notes, including pruning or observations, with an optional stage change in the same save.
 - Optional structured details for fertilizer identity/group, watering amount, spraying target, activity notes, and journal photos.

@@ -169,6 +169,10 @@ Show “Thêm nhật ký” as a secondary action, visually distinct from care d
 
 End Today with “Cây của tôi”: a horizontal rail of 160-point photo-first cards showing the latest persisted photo, plant name, species, and stage. Keep “Thêm cây” as a labelled 44-point action in the section heading instead of another placeholder card in the rail. Use the leaf fallback when a plant has no readable saved photo.
 
+### Plant List and multi-plant care
+
+Keep “Chọn nhiều” as a compact labelled header action rather than a floating control. In selection mode, preserve each compact `PlantIdentity`, replace the trailing chevron with a high-contrast check control, and give the full row accessible selected state. Pin one full-width “Tiếp tục ({count})” action above the safe area. The activity choice uses three large labelled rows with the existing watering, fertilizing, and spraying semantic visuals. Batch Care Entry uses a compact selected-count summary with wrapping Plant names; confirmation keeps the complete name list readable before the final save.
+
 ### Plant Detail
 
 Prioritize:

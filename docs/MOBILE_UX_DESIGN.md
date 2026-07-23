@@ -36,7 +36,8 @@ Stage guidance supports care tracking through concise tips. It does not create a
 
 - Bottom navigation contains places users revisit.
 - The app has no global FAB or Quick Action menu.
-- Today and Plant Detail expose the relevant care, journal, and stage actions.
+- Today and Plant Detail expose single-plant care, journal, and stage actions.
+- Plant List exposes one explicit multi-select action for care that was performed for several Plants.
 - Reminders remain secondary to Today, Plant Detail, and “Mở rộng”.
 
 ### Mobile-first
@@ -61,6 +62,7 @@ Stage guidance supports care tracking through concise tips. It does not create a
 - Create and edit plants.
 - Set the current species-defined growth stage.
 - Track watering, fertilizing, and spraying.
+- Record one shared watering, fertilizing, or spraying event for several selected Plants.
 - Add photo-and-note journal entries for pruning, observations, growth, and other updates.
 - Attach optional structured details, notes, and photos.
 - View last care and next reminder for each plant.
@@ -106,6 +108,16 @@ Fertilizing with an optional fertilizer identity:
 Selecting, adding, or removing a fertilizer only changes the in-memory Care Entry draft. Returning from the selection sheet restores the parent draft. Only “Lưu hoạt động” writes the fertilizing activity and its selected fertilizer identities.
 
 Care Entry is the first route to fertilizer selection and creation: `Bón phân → Thêm loại phân`. The persistent second route is `Mở rộng → Quản lý phân bón`. Creating or editing a reusable fertilizer from either route updates the private fertilizer catalog but does not create a Care Activity.
+
+### Record care for several plants
+
+`Cây trồng → Chọn nhiều → Chọn ít nhất hai cây → Tiếp tục → Tưới nước, Bón phân hoặc Phun thuốc → Nhập chi tiết chung → Xác nhận → Lưu cho {count} cây`
+
+“Chọn nhiều” enters a temporary selection mode local to Plant List. Plant rows expose accessible selected state, tapping a row toggles it instead of opening Plant Detail, and the pinned “Tiếp tục ({count})” action remains disabled until two active Plants are selected. Cancel exits selection mode without changing history.
+
+The activity choice opens a focused batch Care Entry outside the persistent tabs. Occurrence time, watering intensity, optional per-Plant estimated liters, fertilizer identities, spraying target, and notes apply independently to every selected Plant. The amount label states “Lượng nước ước tính mỗi cây”; the app never treats the entered value as a total or divides it. Batch fertilizing retains access to “Phân bón của tôi” but omits stage-specific Knowledge Base suggestions. A spraying target is available only when it applies to every selected Plant species.
+
+Confirmation shows the activity, time, shared details, selected count, and every Plant name. “Lưu cho {count} cây” atomically creates one ordinary Care Activity per Plant with independent IDs and copied Fertilizer Applications where applicable. A failure creates no partial journal history and preserves the draft. The saved records remain independently editable and visible in each Plant's history and the global Journal. No persistent batch entity is created.
 
 ### Add a plant update or change stage
 
@@ -213,6 +225,8 @@ Hide care buttons that are not relevant rather than filling the page with generi
 **Error state:** “Chưa thể tải danh sách cây” + “Thử lại”; local data remains visible when available.
 
 **User actions:** Search, open a plant, or add a plant.
+
+When at least two active Plants exist, “Chọn nhiều” is also available. Selection mode replaces open affordances with check controls and adds the pinned “Tiếp tục ({count})” action. Archived Plants never appear or receive batch care.
 
 ### 7.4 Create or Edit Plant
 
@@ -340,6 +354,8 @@ The saved target name may appear as secondary context in Journal, Today recent h
 
 When opened from Today, Plant Detail, or a reminder, relevant fields are prefilled and clearly editable. Saving remains required.
 
+When opened for several Plants, Care Entry uses a selected-Plant summary instead of one Plant identity and omits Plant- or stage-specific recommendation context. The final confirmation, not opening or completing the form, is the history-write boundary.
+
 **Empty state:** Without a plant, show “Hãy thêm cây trước khi ghi hoạt động” + “Thêm cây”.
 
 **Loading state:** Show “Đang lưu…” only in Save. Upload photos independently.
@@ -458,7 +474,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 ## 9. Navigation rationale
 
-Today, Plants, Journal, and More remain persistent destinations. Care actions live on Today and Plant Detail, where the plant and care context are visible; More owns secondary management destinations such as Fertilizer Management and settings.
+Today, Plants, Journal, and More remain persistent destinations. Single-plant care actions live on Today and Plant Detail, where one Plant's context is visible. Plant List owns the explicit multi-select care path because all affected Plants are visible before details are shared. More owns secondary management destinations such as Fertilizer Management and settings.
 
 No global FAB avoids duplicating Today actions. Plant Detail alone may use one plant-scoped floating action menu because plant context is already fixed; it opens Care Entry or “Thêm nhật ký” and never writes history directly.
 

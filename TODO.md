@@ -84,6 +84,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 
 - [x] Prototype Plant Detail with an informational lifecycle journey, current-stage objective, deterministic watering/fertilizing care cards, plant-scoped Quick Care, recent saved care, and weather context.
 - [x] Prototype and review fast watering and fertilizing entry flows.
+- [x] Add explicit multi-Plant watering, fertilizing, and spraying from Plant List with shared details, confirmation, and atomic per-Plant journal records.
 - [ ] Validate the recent-first single-sheet multi-fertilizer picker with home grape growers.
 - [ ] Validate whether growers understand the “Thêm loại phân” sheet and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
 - [ ] Validate whether per-application quantity, unit, method, or item note provides enough value to reintroduce after MVP and where that interaction belongs.
@@ -118,6 +119,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Add cursor pagination or bounded reads for growing Journal and photo result sets.
 - [x] Add an Android fresh-install database smoke command for the first production release.
 - [ ] Run the database smoke command on the first Android release-candidate APK and record the result.
+- [ ] Remove the temporary `expo-modules-jsi@57.0.4` Swift compatibility patch after an Expo release builds on Xcode 26.3 without it; verify with a clean iOS Simulator build.
 - [ ] Add the schema-validated Markdown Knowledge Repository.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.

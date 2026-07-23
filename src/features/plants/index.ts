@@ -8,6 +8,10 @@ export {
 } from "./data/plant-repository";
 export type { PlantProfileFields } from "./data/plant-repository";
 export { resolvePlantIdentity } from "./models/plant-identity";
+export {
+  parseBatchCarePlantIds,
+  serializeBatchCarePlantIds,
+} from "./models/batch-care-selection";
 export type { PlantIdentity as PlantIdentityData } from "./models/plant-identity";
 export { createPlantDetailProjection } from "./models/plant-detail-projection";
 export type { PlantDetailProjection } from "./models/plant-detail-projection";

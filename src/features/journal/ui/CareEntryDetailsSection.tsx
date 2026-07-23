@@ -8,8 +8,10 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
+  amountAccessibilityLabel?: string;
   amount: string;
   amountError?: string | null;
+  amountLabel?: string;
   notes: string;
   onAmountChange: (value: string) => void;
   onNotesChange: (value: string) => void;
@@ -17,8 +19,10 @@ type Props = Readonly<{
 }>;
 
 export function CareEntryDetailsSection({
+  amountAccessibilityLabel = t("journal.careEntry.amountAccessibility"),
   amount,
   amountError,
+  amountLabel = t("journal.careEntry.amountLabel"),
   notes,
   onAmountChange,
   onNotesChange,
@@ -48,13 +52,11 @@ export function CareEntryDetailsSection({
           {type === "watering" ? (
             <FormField
               {...(amountError !== undefined ? { error: amountError } : {})}
-              label={t("journal.careEntry.amountLabel")}
+              label={amountLabel}
             >
               <View style={styles.amountRow}>
                 <TextInput
-                  accessibilityLabel={t(
-                    "journal.careEntry.amountAccessibility",
-                  )}
+                  accessibilityLabel={amountAccessibilityLabel}
                   inputMode="decimal"
                   onChangeText={onAmountChange}
                   placeholder="0"

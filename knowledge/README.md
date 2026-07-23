@@ -32,6 +32,20 @@ Today and Plant Detail
 
 The generated directory is build output and must not be edited by hand.
 
+For editorial review, compile the preview bundle and its human-readable HTML
+page together:
+
+```sh
+pnpm knowledge:compile:preview
+```
+
+This writes `knowledge/_generated/mobile-bundle.preview.json` and renders
+`knowledge/_generated/preview.html` directly from that JSON. To re-render an
+unchanged bundle without compiling Markdown again, run
+`pnpm knowledge:render:preview`. The HTML intentionally shows both editorial
+wording and machine-readable Care Plan values so reviewers can catch contract
+or scheduling mismatches before approval.
+
 ## Pilot scope
 
 The grape species registry defines the canonical development and production lifecycles. All 12 grape stage playbooks are review-stage material, not approved production guidance.

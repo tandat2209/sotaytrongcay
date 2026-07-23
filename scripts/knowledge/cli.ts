@@ -1,4 +1,5 @@
 import { join, resolve } from "node:path";
+import { readFile } from "node:fs/promises";
 import { compileKnowledge } from "./compiler";
 import { checkKnowledgeFreshness } from "./freshness";
 import { validateKnowledgeSources } from "./schema-validator";
@@ -7,6 +8,8 @@ import { validateRelationships } from "./relationship-validator";
 import { validateStageGraphs } from "./stage-graph-validator";
 import { validateContentQuality } from "./content-quality-validator";
 import { sortKnowledgeDiagnostics } from "./diagnostics";
+import { writeAtomic } from "./atomic-write";
+import { renderKnowledgePreview } from "./preview-renderer";
 import type {
   CompilationMode,
   KnowledgeDiagnostic,
@@ -46,10 +49,18 @@ async function run() {
   const args = process.argv.slice(2);
   const command = args[0];
 
-  if (!command || !["validate", "compile", "check"].includes(command)) {
-    console.error("Usage: tsx cli.ts <validate|compile|check> [options]");
+  if (
+    !command ||
+    !["validate", "compile", "render-preview", "check"].includes(command)
+  ) {
+    console.error(
+      "Usage: tsx cli.ts <validate|compile|render-preview|check> [options]",
+    );
     console.error(
       "Options for compile: --mode <production|preview> --output <path>",
+    );
+    console.error(
+      "Options for render-preview: --input <bundle-path> --output <html-path>",
     );
     process.exit(2);
   }
@@ -145,6 +156,29 @@ async function run() {
     }
 
     console.log(`Compilation successful. Written to ${output}`);
+    process.exit(0);
+  }
+
+  if (command === "render-preview") {
+    const options = parseArgs(args.slice(1));
+    const input = options.input;
+    const output = options.output;
+
+    if (!input || !output) {
+      console.error(
+        "Error: render-preview requires --input and --output paths.",
+      );
+      process.exit(2);
+    }
+
+    const resolvedInput = resolve(REPOSITORY_ROOT, input);
+    const resolvedOutput = resolve(REPOSITORY_ROOT, output);
+    const serializedBundle = await readFile(resolvedInput, "utf8");
+    const bundle: unknown = JSON.parse(serializedBundle);
+    const html = renderKnowledgePreview(bundle);
+    await writeAtomic(resolvedOutput, html);
+
+    console.log(`Preview rendering successful. Written to ${output}`);
     process.exit(0);
   }
 

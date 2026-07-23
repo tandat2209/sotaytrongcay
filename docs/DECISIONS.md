@@ -948,6 +948,18 @@ Journal photos remain owned by Plant Updates. Plant Detail derives its displayed
 
 **Consequences:** This supersedes only the bottom-right alignment and vertical expansion presentation accepted on 2026-07-13; the cycling preview remains. Plant Detail remains the only screen with this menu; Today and Journal remain FAB-free, and all existing entry flows and persistence boundaries stay unchanged.
 
+## 2026-07-22 — Record one shared care event for several Plants
+
+**Status:** Accepted
+
+**Decision:** Plant List exposes “Chọn nhiều” when at least two active Plants exist. The grower selects at least two Plants, chooses watering, fertilizing, or spraying, enters details that apply to each Plant, reviews the complete selection, and explicitly confirms “Lưu cho {count} cây”. The save atomically creates one ordinary Care Activity per Plant with its own activity and mutation IDs and, for fertilizing, independent copies of the selected Fertilizer Applications. No persistent batch activity or batch identifier is created. Existing Today and Plant Detail single-Plant entry flows remain unchanged.
+
+Shared watering amount means estimated liters per Plant and is labelled accordingly; it is never treated as a total or divided. Batch entry omits stage-specific fertilizer suggestions because selected Plants may have different stage context. A curated spraying target appears only when it is applicable to every selected Plant species.
+
+**Rationale:** Growers commonly perform the same care across several Plants at once, while repeating the complete form makes trustworthy tracking unnecessarily slow. Keeping one Care Activity per Plant preserves existing Journal, editing, reminder, schedule, synchronization, and ownership semantics. One local transaction prevents a failed batch from leaving partial history.
+
+**Consequences:** This narrowly expands contextual care actions to Plant List without adding a global FAB or changing the explicit-save boundary. Batch records are edited or deleted independently after saving. The first implementation needs no SQLite migration; batch-wide editing or long-lived grouping would require a separately validated model change. Reminder reconciliation runs for each affected Plant after the history transaction commits.
+
 ## Decision template
 
 ```md
