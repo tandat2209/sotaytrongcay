@@ -89,12 +89,12 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Validate whether growers understand the “Thêm loại phân” sheet and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
 - [ ] Validate whether per-application quantity, unit, method, or item note provides enough value to reintroduce after MVP and where that interaction belongs.
 - [ ] Validate whether inline reviewed fertilizer chips, automatic catalog reuse, and saved last-use context reduce fertilizing-entry time without being mistaken for automatic prescriptions.
-- [ ] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
-- [ ] Remove standalone Task Guidance and guided-completion flows.
+- [x] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
+- [x] Remove standalone Task Guidance and guided-completion flows.
 - [x] Add “Thêm nhật ký” with photos, notes, and optional stage change to Plant Detail.
 - [ ] Add “Thêm nhật ký” to Today.
-- [ ] Remove the global FAB and Quick Action menu.
-- [ ] Add Journal source labels and filters.
+- [x] Remove the global FAB and Quick Action menu.
+- [x] Add Journal source labels and filters.
 - [ ] Verify loading, empty, error, stale-weather, permission-denied, and offline states on physical iOS and Android devices.
 - [x] Derive the Plant Detail photo from persisted user-captured Plant Update photos.
 - [x] Present the latest persisted Plant Detail photo as a tappable identity hero with a compact no-photo fallback.
@@ -120,7 +120,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [x] Add an Android fresh-install database smoke command for the first production release.
 - [ ] Run the database smoke command on the first Android release-candidate APK and record the result.
 - [ ] Remove the temporary `expo-modules-jsi@57.0.4` Swift compatibility patch after an Expo release builds on Xcode 26.3 without it; verify with a clean iOS Simulator build.
-- [ ] Add the schema-validated Markdown Knowledge Repository.
+- [x] Add the schema-validated Markdown Knowledge Repository.
 - [x] Build first-slice plants with species-defined stages and a truthful pending-guidance state.
 - [x] Build first-slice manual watering entry and activity history.
 - [x] Replace visible exact-liter watering entry with stable one-tap intensity and hidden optional estimated liters.
