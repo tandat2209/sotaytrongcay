@@ -103,7 +103,7 @@ Users can:
 - Saving either record adds it to the plant Timeline and global Journal.
 - A care record may store its origin as Today, reminder, or manual entry.
 - A **Care Plan Schedule** derives future care timing from one Care Plan and saved activity history. It is distinct from suggestions and history; saving care remains required.
-- A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. A plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
+- A stage schedule snapshot may override one exact Care Plan's ground and container intervals independently while sharing one notification policy. Notification delivery inherits the app-level master-on default unless the grower explicitly changes that Care Plan; a plant schedule snapshot copies a complete effective schedule and overrides stage/default values until reset.
 - Future reviewed Weather Rules may prioritize, delay, suppress, or annotate a suggestion; current weather is display-only.
 - User data references stable Knowledge Base IDs but never owns curated content.
 - User-entered fertilizer names and their single canonical group are private catalog data copied into mutable history. The shared group taxonomy is organic, nitrogen-rich, balanced NPK, phosphorus-rich, potassium-rich, support product, or other. Legacy quantities, methods, and item notes remain user history when present. None of these fields create or modify curated Fertilizer Profiles, and repeated names do not imply reviewed recommendations.

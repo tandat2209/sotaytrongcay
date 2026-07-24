@@ -11,11 +11,13 @@ type ScheduleValues = Readonly<{
   containerIntervalDays: number;
   groundIntervalDays: number;
   notificationEnabled: boolean;
+  notificationOverridden: boolean;
   notificationTime: string | null;
 }>;
 
 type Props = Readonly<{
   initial: ScheduleValues;
+  notificationControlEnabled: boolean;
   onReset?: () => Promise<void>;
   onSave: (value: ScheduleValues) => Promise<void>;
   resetValues: ScheduleValues;
@@ -23,6 +25,7 @@ type Props = Readonly<{
 
 export function StageScheduleSnapshotEditor({
   initial,
+  notificationControlEnabled,
   onReset,
   onSave,
   resetValues,
@@ -35,6 +38,9 @@ export function StageScheduleSnapshotEditor({
   );
   const [notificationEnabled, setNotificationEnabled] = useState(
     initial.notificationEnabled,
+  );
+  const [notificationOverridden, setNotificationOverridden] = useState(
+    initial.notificationOverridden,
   );
   const [notificationTime, setNotificationTime] = useState(
     initial.notificationTime ?? "08:00",
@@ -53,6 +59,7 @@ export function StageScheduleSnapshotEditor({
     containerInterval,
     groundInterval,
     notificationEnabled,
+    notificationOverridden,
     notificationTime,
     disabledNotificationTime,
   });
@@ -100,6 +107,7 @@ export function StageScheduleSnapshotEditor({
       setGroundInterval(String(resetValues.groundIntervalDays));
       setContainerInterval(String(resetValues.containerIntervalDays));
       setNotificationEnabled(resetValues.notificationEnabled);
+      setNotificationOverridden(resetValues.notificationOverridden);
       setNotificationTime(resetValues.notificationTime ?? "08:00");
       setDisabledNotificationTime(resetValues.notificationTime);
       setLastSaved(resetValues);
@@ -145,63 +153,29 @@ export function StageScheduleSnapshotEditor({
         onSubmitEditing={() => void save()}
         value={containerInterval}
       />
-      <View style={styles.toggleRow}>
-        <Typography variant="bodyLarge">
-          {t("reminders.schedule.notification")}
-        </Typography>
-        <Switch
-          accessibilityLabel={t("reminders.schedule.notification")}
-          onValueChange={(value) => {
-            if (!value) setDisabledNotificationTime(notificationTime);
-            setNotificationEnabled(value);
-            setError(null);
-            setSaveState("idle");
-          }}
-          value={notificationEnabled}
-        />
-      </View>
-      {notificationEnabled ? (
-        <TextInput
-          accessibilityLabel={t("reminders.schedule.notificationTime")}
-          onChangeText={(value) => {
-            setNotificationTime(value);
-            setError(null);
-            setSaveState("idle");
-          }}
-          onSubmitEditing={() => void save()}
-          placeholder="08:00"
-          placeholderTextColor={colors.textSecondary}
-          returnKeyType="done"
-          style={styles.timeInput}
-          value={notificationTime}
-        />
-      ) : null}
-      {saveState === "saving" ? (
-        <Typography color="textSecondary" variant="bodyMedium">
-          {t("common.actions.saving")}
-        </Typography>
-      ) : null}
-      {saveState === "saved" ? (
-        <Typography color="primary" variant="bodyMedium">
-          {t("settings.carePlans.scheduleSaved")}
-        </Typography>
-      ) : null}
-      {error ? (
-        <View style={styles.error}>
-          <Typography
-            accessibilityRole="alert"
-            color="error"
-            variant="bodyMedium"
-          >
-            {error}
-          </Typography>
-          <Pressable accessibilityRole="button" onPress={() => void save()}>
-            <Typography color="primary" variant="bodyMedium">
-              {t("common.actions.retry")}
-            </Typography>
-          </Pressable>
-        </View>
-      ) : null}
+      <NotificationPreferenceControl
+        controlEnabled={notificationControlEnabled}
+        enabled={notificationEnabled}
+        onEnabledChange={(value) => {
+          if (!value) setDisabledNotificationTime(notificationTime);
+          setNotificationEnabled(value);
+          setNotificationOverridden(true);
+          setError(null);
+          setSaveState("idle");
+        }}
+        onSubmit={() => void save()}
+        onTimeChange={(value) => {
+          setNotificationTime(value);
+          setError(null);
+          setSaveState("idle");
+        }}
+        time={notificationTime}
+      />
+      <SaveFeedback
+        error={error}
+        onRetry={() => void save()}
+        state={saveState}
+      />
       {onReset ? (
         <Pressable accessibilityRole="button" onPress={() => void reset()}>
           <Typography color="primary" variant="bodyMedium">
@@ -209,6 +183,42 @@ export function StageScheduleSnapshotEditor({
           </Typography>
         </Pressable>
       ) : null}
+    </View>
+  );
+}
+
+function SaveFeedback({
+  error,
+  onRetry,
+  state,
+}: Readonly<{
+  error: string | null;
+  onRetry: () => void;
+  state: "idle" | "saving" | "saved";
+}>) {
+  if (state === "saving")
+    return (
+      <Typography color="textSecondary" variant="bodyMedium">
+        {t("common.actions.saving")}
+      </Typography>
+    );
+  if (state === "saved")
+    return (
+      <Typography color="primary" variant="bodyMedium">
+        {t("settings.carePlans.scheduleSaved")}
+      </Typography>
+    );
+  if (!error) return null;
+  return (
+    <View style={styles.error}>
+      <Typography accessibilityRole="alert" color="error" variant="bodyMedium">
+        {error}
+      </Typography>
+      <Pressable accessibilityRole="button" onPress={onRetry}>
+        <Typography color="primary" variant="bodyMedium">
+          {t("common.actions.retry")}
+        </Typography>
+      </Pressable>
     </View>
   );
 }
@@ -253,10 +263,61 @@ function IntervalRow({
   );
 }
 
+function NotificationPreferenceControl({
+  controlEnabled,
+  enabled,
+  onEnabledChange,
+  onSubmit,
+  onTimeChange,
+  time,
+}: Readonly<{
+  controlEnabled: boolean;
+  enabled: boolean;
+  onEnabledChange: (value: boolean) => void;
+  onSubmit: () => void;
+  onTimeChange: (value: string) => void;
+  time: string;
+}>) {
+  return (
+    <>
+      <View style={styles.toggleRow}>
+        <Typography variant="bodyLarge">
+          {t("reminders.schedule.notification")}
+        </Typography>
+        <Switch
+          accessibilityLabel={t("reminders.schedule.notification")}
+          disabled={!controlEnabled}
+          onValueChange={onEnabledChange}
+          value={enabled}
+        />
+      </View>
+      {!controlEnabled ? (
+        <Typography color="textSecondary" variant="bodyMedium">
+          {t("reminders.schedule.globalDisabled")}
+        </Typography>
+      ) : null}
+      {enabled ? (
+        <TextInput
+          accessibilityLabel={t("reminders.schedule.notificationTime")}
+          editable={controlEnabled}
+          onChangeText={onTimeChange}
+          onSubmitEditing={onSubmit}
+          placeholder="08:00"
+          placeholderTextColor={colors.textSecondary}
+          returnKeyType="done"
+          style={styles.timeInput}
+          value={time}
+        />
+      ) : null}
+    </>
+  );
+}
+
 function getDraft(input: {
   containerInterval: string;
   groundInterval: string;
   notificationEnabled: boolean;
+  notificationOverridden: boolean;
   notificationTime: string;
   disabledNotificationTime: string | null;
 }): ScheduleValues {
@@ -264,6 +325,7 @@ function getDraft(input: {
     containerIntervalDays: Number(input.containerInterval),
     groundIntervalDays: Number(input.groundInterval),
     notificationEnabled: input.notificationEnabled,
+    notificationOverridden: input.notificationOverridden,
     notificationTime: input.notificationEnabled
       ? input.notificationTime
       : input.disabledNotificationTime,
@@ -275,6 +337,7 @@ function sameSchedule(left: ScheduleValues, right: ScheduleValues): boolean {
     left.containerIntervalDays === right.containerIntervalDays &&
     left.groundIntervalDays === right.groundIntervalDays &&
     left.notificationEnabled === right.notificationEnabled &&
+    left.notificationOverridden === right.notificationOverridden &&
     left.notificationTime === right.notificationTime
   );
 }

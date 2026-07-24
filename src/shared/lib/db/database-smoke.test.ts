@@ -30,6 +30,7 @@ const validSnapshot: DatabaseSmokeSnapshot = {
     "plant_update_photos",
     "plant_updates",
     "plants",
+    "reminder_preferences",
     "stage_care_plan_schedule_snapshots",
     "user_fertilizers",
     "weather_cache",

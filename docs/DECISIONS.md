@@ -8,6 +8,37 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-24 — Make notification delivery a master default with per-plan opt-outs
+
+**Status:** Accepted
+
+**Decision:** “Mở rộng → Thông báo” owns one persisted master preference,
+“Nhận lời nhắc chăm sóc”. Turning it on requests OS permission and enables
+notification delivery by default for every applicable Care Plan at 08:00.
+Stage and Plant schedule switches inherit that default until the grower changes
+one manually; the nearest explicit stage or Plant choice then wins. Turning the
+master preference off suppresses all delivery without deleting manual opt-outs,
+so turning it back on restores the inherited-on default while keeping those
+plans disabled.
+
+This supersedes the default-off and permission-only clauses in the 2026-07-14
+Care Plan schedule decision and the 2026-07-23 notification-registration
+decision. Future registration, foreground presentation, next-day follow-up,
+and explicit-save history boundaries remain unchanged.
+
+**Rationale:** Granting notification permission while leaving every Care Plan
+off made the master action appear ineffective and required repetitive setup.
+An inherited default matches the grower's global intent while preserving
+precise opt-out control without bulk updates that would erase manual choices.
+
+**Consequences:** SQLite V3 adds one global reminder-preference row and an
+explicit-override marker to stage and Plant schedule snapshots. Existing
+enabled snapshot values migrate as explicit choices; existing false values
+become inherited because the previous schema could not distinguish a manual
+off from its default false. A migrated installation enables the master only
+when at least one existing snapshot was enabled. No Knowledge Base, care
+history, or notification-state migration is required.
+
 ## 2026-07-23 — Register enabled Care Plan notifications before they are due
 
 **Status:** Accepted

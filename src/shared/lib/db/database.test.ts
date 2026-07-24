@@ -11,7 +11,7 @@ describe("database migrations", () => {
   it("creates the complete unreleased schema from one V1 baseline", () => {
     const migrations = getMigrationStatements(0);
 
-    expect(DATABASE_VERSION).toBe(2);
+    expect(DATABASE_VERSION).toBe(3);
     expect(migrations).toHaveLength(1);
 
     const [sql] = migrations;
@@ -35,7 +35,9 @@ describe("database migrations", () => {
     expect(sql).toContain("CREATE TABLE stage_care_plan_schedule_snapshots");
     expect(sql).toContain("ground_frequency_override_days INTEGER");
     expect(sql).toContain("container_frequency_override_days INTEGER");
+    expect(sql).toContain("notification_overridden INTEGER");
     expect(sql).toContain("CREATE TABLE plant_care_plan_schedule_snapshots");
+    expect(sql).toContain("CREATE TABLE reminder_preferences");
     expect(sql).toContain("CREATE TABLE plant_care_plan_notification_states");
     expect(sql).toContain("CREATE TABLE user_fertilizers");
     expect(sql).toContain("knowledge_id TEXT");
@@ -61,9 +63,29 @@ describe("database migrations", () => {
   });
 
   it("adds archive state to an installed V1 database", () => {
-    expect(getMigrationStatements(1)).toEqual([
+    const migrations = getMigrationStatements(1);
+
+    expect(migrations).toHaveLength(2);
+    expect(migrations[0]).toBe(
       "ALTER TABLE plants ADD COLUMN archived_at TEXT;",
-    ]);
+    );
+    expect(migrations[1]).toContain("CREATE TABLE reminder_preferences");
+  });
+
+  it("adds inherited notification preferences to an installed V2 database", () => {
+    const migrations = getMigrationStatements(2);
+
+    expect(migrations).toHaveLength(1);
+    expect(migrations[0]).toContain("CREATE TABLE reminder_preferences");
+    expect(migrations[0]).toMatch(
+      /ALTER TABLE stage_care_plan_schedule_snapshots\s+ADD COLUMN notification_overridden/,
+    );
+    expect(migrations[0]).toMatch(
+      /ALTER TABLE plant_care_plan_schedule_snapshots\s+ADD COLUMN notification_overridden/,
+    );
+    expect(migrations[0]).toContain(
+      "SET notification_overridden = notification_enabled",
+    );
   });
 
   it("does not migrate a current database", () => {

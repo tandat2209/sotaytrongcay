@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite";
 import { createSerializedTaskQueue } from "./serialized-task-queue";
 
 export const DB_NAME = "sotaytrongcay.db";
-export const DATABASE_VERSION = 2;
+export const DATABASE_VERSION = 3;
 
 const databaseWriteQueue = createSerializedTaskQueue();
 let databasePromise: Promise<SQLite.SQLiteDatabase> | null = null;
@@ -104,6 +104,8 @@ CREATE TABLE stage_care_plan_schedule_snapshots (
     ),
   notification_enabled INTEGER NOT NULL DEFAULT 0
     CHECK (notification_enabled IN (0, 1)),
+  notification_overridden INTEGER NOT NULL DEFAULT 0
+    CHECK (notification_overridden IN (0, 1)),
   notification_time TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
@@ -118,6 +120,8 @@ CREATE TABLE plant_care_plan_schedule_snapshots (
   interval_days INTEGER NOT NULL CHECK (interval_days > 0),
   notification_enabled INTEGER NOT NULL DEFAULT 0
     CHECK (notification_enabled IN (0, 1)),
+  notification_overridden INTEGER NOT NULL DEFAULT 0
+    CHECK (notification_overridden IN (0, 1)),
   notification_time TEXT,
   is_active INTEGER NOT NULL DEFAULT 1 CHECK (is_active IN (0, 1)),
   created_at TEXT NOT NULL,
@@ -134,6 +138,13 @@ CREATE TABLE plant_care_plan_notification_states (
   updated_at TEXT NOT NULL,
   PRIMARY KEY (plant_id, care_plan_id),
   FOREIGN KEY (plant_id) REFERENCES plants(id) ON DELETE CASCADE
+);
+
+CREATE TABLE reminder_preferences (
+  id TEXT PRIMARY KEY NOT NULL CHECK (id = 'global'),
+  notification_enabled INTEGER NOT NULL DEFAULT 0
+    CHECK (notification_enabled IN (0, 1)),
+  updated_at TEXT NOT NULL
 );
 
 CREATE TABLE user_fertilizers (
@@ -246,9 +257,47 @@ CREATE INDEX idx_fertilizer_applications_knowledge_time
 const V2_ADD_PLANT_ARCHIVE_STATE =
   "ALTER TABLE plants ADD COLUMN archived_at TEXT;";
 
+const V3_ADD_INHERITED_NOTIFICATION_PREFERENCES = `
+ALTER TABLE stage_care_plan_schedule_snapshots
+  ADD COLUMN notification_overridden INTEGER NOT NULL DEFAULT 0
+  CHECK (notification_overridden IN (0, 1));
+ALTER TABLE plant_care_plan_schedule_snapshots
+  ADD COLUMN notification_overridden INTEGER NOT NULL DEFAULT 0
+  CHECK (notification_overridden IN (0, 1));
+UPDATE stage_care_plan_schedule_snapshots
+  SET notification_overridden = notification_enabled;
+UPDATE plant_care_plan_schedule_snapshots
+  SET notification_overridden = notification_enabled;
+CREATE TABLE reminder_preferences (
+  id TEXT PRIMARY KEY NOT NULL CHECK (id = 'global'),
+  notification_enabled INTEGER NOT NULL DEFAULT 0
+    CHECK (notification_enabled IN (0, 1)),
+  updated_at TEXT NOT NULL
+);
+INSERT INTO reminder_preferences (id, notification_enabled, updated_at)
+SELECT
+  'global',
+  CASE WHEN
+    EXISTS (
+      SELECT 1 FROM stage_care_plan_schedule_snapshots
+      WHERE notification_enabled = 1
+    )
+    OR EXISTS (
+      SELECT 1 FROM plant_care_plan_schedule_snapshots
+      WHERE notification_enabled = 1
+    )
+  THEN 1 ELSE 0 END,
+  strftime('%Y-%m-%dT%H:%M:%fZ', 'now');
+`;
+
 export function getMigrationStatements(currentVersion: number): string[] {
   if (currentVersion === 0) return [V1_INITIAL_SCHEMA];
-  if (currentVersion === 1) return [V2_ADD_PLANT_ARCHIVE_STATE];
+  if (currentVersion === 1)
+    return [
+      V2_ADD_PLANT_ARCHIVE_STATE,
+      V3_ADD_INHERITED_NOTIFICATION_PREFERENCES,
+    ];
+  if (currentVersion === 2) return [V3_ADD_INHERITED_NOTIFICATION_PREFERENCES];
   return [];
 }
 
@@ -287,11 +336,13 @@ export async function initializeDatabase(): Promise<void> {
       );
     }
 
-    const [migration] = getMigrationStatements(currentVersion);
-    if (!migration) return;
+    const migrations = getMigrationStatements(currentVersion);
+    if (migrations.length === 0) return;
 
     await db.withExclusiveTransactionAsync(async (transaction) => {
-      await transaction.execAsync(migration);
+      for (const migration of migrations) {
+        await transaction.execAsync(migration);
+      }
       await transaction.execAsync(`PRAGMA user_version = ${DATABASE_VERSION};`);
     });
   });
@@ -307,6 +358,7 @@ export async function resetDatabase(): Promise<void> {
       DROP TABLE IF EXISTS plant_care_plan_notification_states;
       DROP TABLE IF EXISTS plant_care_plan_schedule_snapshots;
       DROP TABLE IF EXISTS stage_care_plan_schedule_snapshots;
+      DROP TABLE IF EXISTS reminder_preferences;
       DROP TABLE IF EXISTS care_plan_reminder_preferences;
       DROP TABLE IF EXISTS plant_stage_history;
       DROP TABLE IF EXISTS plant_update_photos;

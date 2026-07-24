@@ -16,9 +16,11 @@ import {
   deletePlantScheduleSnapshot,
   ensureReminderNotificationPermission,
   findStageSnapshot,
+  getReminderPreferences,
   listPlantScheduleSnapshots,
   listStageScheduleSnapshots,
   reconcilePlantCarePlanReminders,
+  resolveCarePlanNotificationPreference,
   resolveCarePlanSchedule,
   savePlantScheduleSnapshot,
   ScheduleSnapshotEditor,
@@ -40,12 +42,20 @@ export default function PlantScheduleDetailRoute() {
     queryFn: async () => {
       const plant = await getActivePlant(id);
       if (!plant) return null;
-      const [activities, plantSnapshots, stageSnapshots] = await Promise.all([
-        listCareActivities(id),
-        listPlantScheduleSnapshots(id),
-        listStageScheduleSnapshots(),
-      ]);
-      return { activities, plant, plantSnapshots, stageSnapshots };
+      const [activities, plantSnapshots, reminderPreferences, stageSnapshots] =
+        await Promise.all([
+          listCareActivities(id),
+          listPlantScheduleSnapshots(id),
+          getReminderPreferences(),
+          listStageScheduleSnapshots(),
+        ]);
+      return {
+        activities,
+        plant,
+        plantSnapshots,
+        reminderPreferences,
+        stageSnapshots,
+      };
     },
   });
   if (query.isPending) return <LoadingScreen />;
@@ -54,7 +64,13 @@ export default function PlantScheduleDetailRoute() {
       <Typography variant="bodyMedium">{t("plants.error.notFound")}</Typography>
     );
 
-  const { activities, plant, plantSnapshots, stageSnapshots } = query.data;
+  const {
+    activities,
+    plant,
+    plantSnapshots,
+    reminderPreferences,
+    stageSnapshots,
+  } = query.data;
   const activePlans = listCarePlans({
     speciesId: plant.speciesId,
     stageId: plant.stageId,
@@ -76,7 +92,13 @@ export default function PlantScheduleDetailRoute() {
           plantSnapshots.find(
             (item) => item.carePlanId === plan.id && item.isActive,
           ) ?? null;
+        const stageSnapshot = findStageSnapshot(stageSnapshots, plant, plan.id);
+        const notificationPreference = resolveCarePlanNotificationPreference({
+          plantSnapshot: snapshot,
+          stageSnapshot,
+        });
         const resolved = resolveCarePlanSchedule({
+          defaultNotificationEnabled: reminderPreferences.notificationEnabled,
           evaluatedAt: new Date(),
           latestActivityAt:
             findLatestCareActivity(activities, plant.id, plan.activityType)
@@ -84,7 +106,7 @@ export default function PlantScheduleDetailRoute() {
           plan,
           plant,
           plantSnapshot: snapshot,
-          stageSnapshot: findStageSnapshot(stageSnapshots, plant, plan.id),
+          stageSnapshot,
         });
         if (!resolved) return null;
         const visual = CARE_ACTIVITY_VISUALS[plan.activityType];
@@ -106,10 +128,14 @@ export default function PlantScheduleDetailRoute() {
             </Typography>
             <ScheduleSnapshotEditor
               allowInheritedFrequency={false}
+              notificationControlEnabled={
+                reminderPreferences.notificationEnabled
+              }
               initial={{
                 intervalDays: resolved.intervalDays,
-                notificationEnabled: resolved.notificationEnabled,
-                notificationTime: resolved.notificationTime,
+                notificationEnabled: notificationPreference.enabled,
+                notificationOverridden: notificationPreference.overridden,
+                notificationTime: notificationPreference.time,
               }}
               {...(snapshot
                 ? {
@@ -142,6 +168,7 @@ export default function PlantScheduleDetailRoute() {
                   ...base,
                   intervalDays: value.intervalDays ?? resolved.intervalDays,
                   notificationEnabled: value.notificationEnabled,
+                  notificationOverridden: value.notificationOverridden,
                   notificationTime: value.notificationTime,
                   updatedAt: now,
                 });
@@ -155,22 +182,31 @@ export default function PlantScheduleDetailRoute() {
           </SurfaceCard>
         );
       })}
-      {inactive.length > 0 ? (
-        <>
-          <Typography variant="headlineSmall">
-            {t("settings.plants.otherStage")}
-          </Typography>
-          {inactive.map((snapshot) => (
-            <SurfaceCard key={snapshot.id}>
-              <Typography variant="bodyLarge">{snapshot.carePlanId}</Typography>
-              <Typography color="textSecondary" variant="bodyMedium">
-                {t("settings.plants.inactive")}
-              </Typography>
-            </SurfaceCard>
-          ))}
-        </>
-      ) : null}
+      <InactiveScheduleSnapshots snapshots={inactive} />
     </Screen>
+  );
+}
+
+function InactiveScheduleSnapshots({
+  snapshots,
+}: Readonly<{
+  snapshots: readonly Readonly<{ carePlanId: string; id: string }>[];
+}>) {
+  if (snapshots.length === 0) return null;
+  return (
+    <>
+      <Typography variant="headlineSmall">
+        {t("settings.plants.otherStage")}
+      </Typography>
+      {snapshots.map((snapshot) => (
+        <SurfaceCard key={snapshot.id}>
+          <Typography variant="bodyLarge">{snapshot.carePlanId}</Typography>
+          <Typography color="textSecondary" variant="bodyMedium">
+            {t("settings.plants.inactive")}
+          </Typography>
+        </SurfaceCard>
+      ))}
+    </>
   );
 }
 

@@ -5,8 +5,13 @@ import type { Plant } from "@/features/plants";
 
 const NotificationTimeSchema = z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/);
 
+export const ReminderPreferencesSchema = z.object({
+  notificationEnabled: z.boolean(),
+});
+
 const SnapshotFieldsSchema = z.object({
   notificationEnabled: z.boolean(),
+  notificationOverridden: z.boolean().default(false),
   notificationTime: NotificationTimeSchema.nullable(),
 });
 
@@ -38,6 +43,7 @@ export type StageCarePlanScheduleSnapshot = z.infer<
 export type PlantCarePlanScheduleSnapshot = z.infer<
   typeof PlantCarePlanScheduleSnapshotSchema
 >;
+export type ReminderPreferences = z.infer<typeof ReminderPreferencesSchema>;
 
 export type ResolvedCarePlanSchedule = Readonly<{
   dueOn: string;
@@ -48,8 +54,36 @@ export type ResolvedCarePlanSchedule = Readonly<{
   status: "due" | "overdue" | "upcoming";
 }>;
 
+export type CarePlanNotificationPreference = Readonly<{
+  enabled: boolean;
+  overridden: boolean;
+  time: string;
+}>;
+
+export function resolveCarePlanNotificationPreference(
+  input: Readonly<{
+    plantSnapshot: PlantCarePlanScheduleSnapshot | null;
+    stageSnapshot: StageCarePlanScheduleSnapshot | null;
+  }>,
+): CarePlanNotificationPreference {
+  const notificationOverride = input.plantSnapshot?.notificationOverridden
+    ? input.plantSnapshot
+    : input.stageSnapshot?.notificationOverridden
+      ? input.stageSnapshot
+      : null;
+  return {
+    enabled: notificationOverride?.notificationEnabled ?? true,
+    overridden: notificationOverride !== null,
+    time:
+      input.plantSnapshot?.notificationTime ??
+      input.stageSnapshot?.notificationTime ??
+      "08:00",
+  };
+}
+
 export function resolveCarePlanSchedule(
   input: Readonly<{
+    defaultNotificationEnabled: boolean;
     evaluatedAt: Date;
     latestActivityAt: string | null;
     plan: CarePlan;
@@ -75,14 +109,10 @@ export function resolveCarePlanSchedule(
     input.plantSnapshot?.intervalDays ??
     stageIntervalDays ??
     authoredIntervalDays;
+  const notificationPreference = resolveCarePlanNotificationPreference(input);
   const notificationEnabled =
-    input.plantSnapshot?.notificationEnabled ??
-    input.stageSnapshot?.notificationEnabled ??
-    false;
-  const notificationTime =
-    input.plantSnapshot?.notificationTime ??
-    input.stageSnapshot?.notificationTime ??
-    null;
+    input.defaultNotificationEnabled && notificationPreference.enabled;
+  const notificationTime = notificationPreference.time;
   const today = localDateKey(input.evaluatedAt);
 
   if (input.latestActivityAt === null) {

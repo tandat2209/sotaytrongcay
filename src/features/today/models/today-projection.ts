@@ -127,6 +127,7 @@ export function createTodayProjection({
           plan.activityType,
         );
         const schedule = resolveCarePlanSchedule({
+          defaultNotificationEnabled: false,
           evaluatedAt,
           latestActivityAt: latestActivity?.occurredAt ?? null,
           plan,

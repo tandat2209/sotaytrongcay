@@ -612,6 +612,10 @@ export const vi = {
     "Để trống để dùng tần suất trong kế hoạch chăm sóc.",
     [],
   ],
+  "reminders.schedule.globalDisabled": [
+    "Bật lời nhắc chung trong Mở rộng → Thông báo để dùng lựa chọn này.",
+    [],
+  ],
   "reminders.schedule.frequencyByMethodAccessibility": [
     "Tần suất {method}",
     ["method"],
@@ -634,6 +638,10 @@ export const vi = {
     "Xem hướng dẫn và đặt lịch nhắc chăm sóc cho từng giai đoạn.",
     [],
   ],
+  "settings.carePlans.loadError": [
+    "Chưa thể tải lịch chăm sóc. Vui lòng thử lại.",
+    [],
+  ],
   "settings.carePlans.openStageAccessibility": [
     "Mở chăm sóc giai đoạn {stage}",
     ["stage"],
@@ -645,14 +653,31 @@ export const vi = {
   "settings.carePlans.scheduleSaved": ["Đã lưu", []],
   "settings.carePlans.title": ["Chăm sóc theo giai đoạn", []],
   "settings.introduction": ["Điều chỉnh ứng dụng theo cách bạn chăm cây.", []],
-  "settings.notifications.checking": ["Đang kiểm tra quyền thông báo…", []],
   "settings.notifications.disabled": [
-    "Chưa cấp quyền thông báo trên thiết bị. Lịch chăm sóc trong ứng dụng vẫn hoạt động.",
+    "Đang tắt cho tất cả lịch chăm sóc. Các lựa chọn bạn đã tắt riêng vẫn được giữ nguyên.",
     [],
   ],
   "settings.notifications.enable": ["Cấp quyền thông báo", []],
   "settings.notifications.enabled": [
-    "Đã cấp quyền thông báo. Để nhận lời nhắc, hãy bật “Gửi thông báo” trong lịch chăm sóc theo giai đoạn hoặc tùy chỉnh theo cây.",
+    "Mặc định gửi lúc 08:00 cho mọi lịch chăm sóc, trừ những lịch bạn đã tắt riêng.",
+    [],
+  ],
+  "settings.notifications.loadError": ["Chưa thể tải cài đặt thông báo.", []],
+  "settings.notifications.masterLabel": ["Nhận lời nhắc chăm sóc", []],
+  "settings.notifications.permissionDenied": [
+    "Chưa được cấp quyền thông báo trên thiết bị.",
+    [],
+  ],
+  "settings.notifications.permissionOff": [
+    "Lời nhắc đang bật nhưng thiết bị chưa cấp quyền thông báo.",
+    [],
+  ],
+  "settings.notifications.reconcileError": [
+    "Đã lưu cài đặt nhưng chưa thể cập nhật các lời nhắc trên thiết bị. Ứng dụng sẽ thử lại khi mở lần sau.",
+    [],
+  ],
+  "settings.notifications.saveError": [
+    "Chưa thể lưu cài đặt thông báo. Vui lòng thử lại.",
     [],
   ],
   "settings.notifications.title": ["Thông báo", []],

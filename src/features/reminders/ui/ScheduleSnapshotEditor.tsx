@@ -9,10 +9,12 @@ import { colors, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
   allowInheritedFrequency: boolean;
+  notificationControlEnabled: boolean;
   inheritedIntervalDays?: number | null;
   initial: Readonly<{
     intervalDays: number | null;
     notificationEnabled: boolean;
+    notificationOverridden: boolean;
     notificationTime: string | null;
   }>;
   onReset?: () => Promise<void>;
@@ -20,6 +22,7 @@ type Props = Readonly<{
     value: Readonly<{
       intervalDays: number | null;
       notificationEnabled: boolean;
+      notificationOverridden: boolean;
       notificationTime: string | null;
     }>,
   ) => Promise<void>;
@@ -29,6 +32,7 @@ export function ScheduleSnapshotEditor({
   allowInheritedFrequency,
   inheritedIntervalDays,
   initial,
+  notificationControlEnabled,
   onReset,
   onSave,
 }: Props) {
@@ -41,6 +45,9 @@ export function ScheduleSnapshotEditor({
   );
   const [notificationEnabled, setNotificationEnabled] = useState(
     initial.notificationEnabled,
+  );
+  const [notificationOverridden, setNotificationOverridden] = useState(
+    initial.notificationOverridden,
   );
   const [notificationTime, setNotificationTime] = useState(
     initial.notificationTime ?? "08:00",
@@ -71,6 +78,7 @@ export function ScheduleSnapshotEditor({
       await onSave({
         intervalDays,
         notificationEnabled,
+        notificationOverridden,
         notificationTime: notificationEnabled
           ? notificationTime
           : initial.notificationTime,
@@ -117,14 +125,24 @@ export function ScheduleSnapshotEditor({
         </Typography>
         <Switch
           accessibilityLabel={t("reminders.schedule.notification")}
-          onValueChange={setNotificationEnabled}
+          disabled={!notificationControlEnabled}
+          onValueChange={(value) => {
+            setNotificationEnabled(value);
+            setNotificationOverridden(true);
+          }}
           value={notificationEnabled}
         />
       </View>
+      {!notificationControlEnabled ? (
+        <Typography color="textSecondary" variant="bodyMedium">
+          {t("reminders.schedule.globalDisabled")}
+        </Typography>
+      ) : null}
       {notificationEnabled ? (
         <FormField label={t("reminders.schedule.notificationTime")}>
           <TextInput
             accessibilityLabel={t("reminders.schedule.notificationTime")}
+            editable={notificationControlEnabled}
             onChangeText={setNotificationTime}
             placeholder="08:00"
             placeholderTextColor={colors.textSecondary}

@@ -2,6 +2,8 @@ import { getDb, runDatabaseWrite } from "@/shared/lib/db/database";
 import {
   PlantCarePlanScheduleSnapshotSchema,
   type PlantCarePlanScheduleSnapshot,
+  type ReminderPreferences,
+  ReminderPreferencesSchema,
   StageCarePlanScheduleSnapshotSchema,
   type StageCarePlanScheduleSnapshot,
 } from "../models/schedule-snapshot";
@@ -14,6 +16,7 @@ type StageRow = Readonly<{
   ground_frequency_override_days: number | null;
   container_frequency_override_days: number | null;
   notification_enabled: number;
+  notification_overridden: number;
   notification_time: string | null;
   created_at: string;
   updated_at: string;
@@ -26,6 +29,7 @@ type PlantRow = Readonly<{
   care_plan_id: string;
   interval_days: number;
   notification_enabled: number;
+  notification_overridden: number;
   notification_time: string | null;
   is_active: number;
   created_at: string;
@@ -39,6 +43,36 @@ export type NotificationState = Readonly<{
   followUpNotificationId: string | null;
   updatedAt: string;
 }>;
+
+type ReminderPreferencesRow = Readonly<{
+  notification_enabled: number;
+}>;
+
+export async function getReminderPreferences(): Promise<ReminderPreferences> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<ReminderPreferencesRow>(
+    "SELECT notification_enabled FROM reminder_preferences WHERE id = 'global'",
+  );
+  return ReminderPreferencesSchema.parse({
+    notificationEnabled: row?.notification_enabled === 1,
+  });
+}
+
+export async function saveReminderPreferences(
+  input: ReminderPreferences,
+): Promise<void> {
+  const preferences = ReminderPreferencesSchema.parse(input);
+  await runDatabaseWrite(async (db) => {
+    await db.runAsync(
+      `INSERT INTO reminder_preferences (id, notification_enabled, updated_at)
+       VALUES ('global', ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+         notification_enabled = excluded.notification_enabled,
+         updated_at = excluded.updated_at`,
+      [preferences.notificationEnabled ? 1 : 0, new Date().toISOString()],
+    );
+  });
+}
 
 export async function listStageScheduleSnapshots(): Promise<
   StageCarePlanScheduleSnapshot[]
@@ -59,13 +93,15 @@ export async function saveStageScheduleSnapshot(
       `INSERT INTO stage_care_plan_schedule_snapshots
         (id, mutation_id, stage_id, care_plan_id,
          ground_frequency_override_days, container_frequency_override_days,
-         notification_enabled, notification_time, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         notification_enabled, notification_overridden, notification_time,
+         created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(stage_id, care_plan_id) DO UPDATE SET
          mutation_id = excluded.mutation_id,
          ground_frequency_override_days = excluded.ground_frequency_override_days,
          container_frequency_override_days = excluded.container_frequency_override_days,
          notification_enabled = excluded.notification_enabled,
+         notification_overridden = excluded.notification_overridden,
          notification_time = excluded.notification_time,
          updated_at = excluded.updated_at`,
       [
@@ -76,6 +112,7 @@ export async function saveStageScheduleSnapshot(
         snapshot.groundFrequencyOverrideDays,
         snapshot.containerFrequencyOverrideDays,
         snapshot.notificationEnabled ? 1 : 0,
+        snapshot.notificationOverridden ? 1 : 0,
         snapshot.notificationTime,
         snapshot.createdAt,
         snapshot.updatedAt,
@@ -117,12 +154,14 @@ export async function savePlantScheduleSnapshot(
     await db.runAsync(
       `INSERT INTO plant_care_plan_schedule_snapshots
         (id, mutation_id, plant_id, care_plan_id, interval_days,
-         notification_enabled, notification_time, is_active, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         notification_enabled, notification_overridden, notification_time,
+         is_active, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(plant_id, care_plan_id) DO UPDATE SET
          mutation_id = excluded.mutation_id,
          interval_days = excluded.interval_days,
          notification_enabled = excluded.notification_enabled,
+         notification_overridden = excluded.notification_overridden,
          notification_time = excluded.notification_time,
          is_active = excluded.is_active,
          updated_at = excluded.updated_at`,
@@ -133,6 +172,7 @@ export async function savePlantScheduleSnapshot(
         snapshot.carePlanId,
         snapshot.intervalDays,
         snapshot.notificationEnabled ? 1 : 0,
+        snapshot.notificationOverridden ? 1 : 0,
         snapshot.notificationTime,
         snapshot.isActive ? 1 : 0,
         snapshot.createdAt,
@@ -217,6 +257,7 @@ function stageFromRow(row: StageRow): StageCarePlanScheduleSnapshot {
     groundFrequencyOverrideDays: row.ground_frequency_override_days,
     containerFrequencyOverrideDays: row.container_frequency_override_days,
     notificationEnabled: row.notification_enabled === 1,
+    notificationOverridden: row.notification_overridden === 1,
     notificationTime: row.notification_time,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -231,6 +272,7 @@ function plantFromRow(row: PlantRow): PlantCarePlanScheduleSnapshot {
     carePlanId: row.care_plan_id,
     intervalDays: row.interval_days,
     notificationEnabled: row.notification_enabled === 1,
+    notificationOverridden: row.notification_overridden === 1,
     notificationTime: row.notification_time,
     isActive: row.is_active === 1,
     createdAt: row.created_at,

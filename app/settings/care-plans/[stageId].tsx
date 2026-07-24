@@ -14,14 +14,17 @@ import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import {
   deleteStageScheduleSnapshot,
   ensureReminderNotificationPermission,
+  getReminderPreferences,
   listStageScheduleSnapshots,
   reconcilePlantsForStage,
+  resolveCarePlanNotificationPreference,
   saveStageScheduleSnapshot,
   StageScheduleSnapshotEditor,
 } from "@/features/reminders";
 import { createId } from "@/shared/lib/identifiers";
 import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
+import { LoadingScreen } from "@/shared/ui/LoadingScreen";
 import { spacing } from "@/shared/ui/theme";
 
 const paramsSchema = z.object({ stageId: z.string().min(1) });
@@ -31,10 +34,23 @@ export default function StageCarePlanDetailRoute() {
   const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["stage-schedule-snapshots"],
-    queryFn: listStageScheduleSnapshots,
+    queryFn: async () => {
+      const [reminderPreferences, snapshots] = await Promise.all([
+        getReminderPreferences(),
+        listStageScheduleSnapshots(),
+      ]);
+      return { reminderPreferences, snapshots };
+    },
   });
   const playbook = getStagePlaybook(stageId);
 
+  if (query.isPending) return <LoadingScreen />;
+  if (!query.data)
+    return (
+      <Typography variant="bodyMedium">
+        {t("settings.carePlans.loadError")}
+      </Typography>
+    );
   if (!playbook) return <Text>{t("plants.guide.missing")}</Text>;
 
   const carePlans = getCarePlansForStage(stageId);
@@ -68,12 +84,19 @@ export default function StageCarePlanDetailRoute() {
             </Typography>
           );
         }
-        const snapshot = query.data?.find(
+        const snapshot = query.data.snapshots.find(
           (item) => item.stageId === stageId && item.carePlanId === plan.id,
         );
+        const notificationPreference = resolveCarePlanNotificationPreference({
+          plantSnapshot: null,
+          stageSnapshot: snapshot ?? null,
+        });
         return (
           <View style={styles.schedule}>
             <StageScheduleSnapshotEditor
+              notificationControlEnabled={
+                query.data.reminderPreferences.notificationEnabled
+              }
               initial={{
                 groundIntervalDays:
                   snapshot?.groundFrequencyOverrideDays ??
@@ -81,8 +104,9 @@ export default function StageCarePlanDetailRoute() {
                 containerIntervalDays:
                   snapshot?.containerFrequencyOverrideDays ??
                   plan.frequency.container.intervalDays,
-                notificationEnabled: snapshot?.notificationEnabled ?? false,
-                notificationTime: snapshot?.notificationTime ?? null,
+                notificationEnabled: notificationPreference.enabled,
+                notificationOverridden: notificationPreference.overridden,
+                notificationTime: notificationPreference.time,
               }}
               {...(snapshot
                 ? {
@@ -105,6 +129,7 @@ export default function StageCarePlanDetailRoute() {
                   groundFrequencyOverrideDays: value.groundIntervalDays,
                   containerFrequencyOverrideDays: value.containerIntervalDays,
                   notificationEnabled: value.notificationEnabled,
+                  notificationOverridden: value.notificationOverridden,
                   notificationTime: value.notificationTime,
                   createdAt: snapshot?.createdAt ?? now,
                   updatedAt: now,
@@ -114,8 +139,9 @@ export default function StageCarePlanDetailRoute() {
               resetValues={{
                 groundIntervalDays: plan.frequency.ground.intervalDays,
                 containerIntervalDays: plan.frequency.container.intervalDays,
-                notificationEnabled: false,
-                notificationTime: null,
+                notificationEnabled: true,
+                notificationOverridden: false,
+                notificationTime: "08:00",
               }}
             />
           </View>

@@ -3,6 +3,7 @@ import { listCarePlans, type CarePlan } from "@/features/knowledge";
 import type { Plant } from "@/features/plants";
 import {
   getNotificationState,
+  getReminderPreferences,
   listPlantScheduleSnapshots,
   listStageScheduleSnapshots,
   saveNotificationState,
@@ -25,6 +26,7 @@ jest.mock("@/features/plants", () => ({
 }));
 jest.mock("../data/schedule-snapshot-repository", () => ({
   getNotificationState: jest.fn(),
+  getReminderPreferences: jest.fn(),
   listNotificationStates: jest.fn(),
   listPlantScheduleSnapshots: jest.fn(),
   listStageScheduleSnapshots: jest.fn(),
@@ -69,6 +71,9 @@ describe("reconcilePlantCarePlanReminders notification scheduling", () => {
     jest.clearAllMocks();
     jest.useFakeTimers().setSystemTime(new Date("2026-07-23T09:00:00.000Z"));
     jest.mocked(listCareActivities).mockResolvedValue([]);
+    jest
+      .mocked(getReminderPreferences)
+      .mockResolvedValue({ notificationEnabled: true });
     jest.mocked(findLatestCareActivity).mockReturnValue({
       id: "22222222-2222-4222-8222-222222222222",
       mutationId: "33333333-3333-4333-8333-333333333333",
@@ -89,7 +94,8 @@ describe("reconcilePlantCarePlanReminders notification scheduling", () => {
         plantId: plant.id,
         carePlanId: plan.id,
         intervalDays: 7,
-        notificationEnabled: true,
+        notificationEnabled: false,
+        notificationOverridden: false,
         notificationTime: "08:00",
         isActive: true,
         createdAt: "2026-07-14T00:00:00.000Z",

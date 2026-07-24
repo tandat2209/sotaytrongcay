@@ -114,8 +114,12 @@ _Avoid_: Gợi ý chăm sóc, bài viết
 A user-owned schedule derived from one curated Care Plan and saved care history. It is distinct from a recommendation and from completed history. Stage and plant snapshots may customize timing and OS delivery without editing curated Care Plan knowledge.
 _Avoid_: Gợi ý chăm sóc, lịch sử đã hoàn thành
 
+**Nhận lời nhắc chăm sóc** (Care reminder delivery):
+The app-level master preference for local Care Plan notifications. When enabled, applicable schedules inherit delivery at 08:00 unless the grower explicitly disables the nearest stage or Plant schedule. Turning it off suppresses delivery without erasing those opt-outs.
+_Avoid_: Quyền thông báo hệ thống, hoàn thành hoạt động
+
 **Tùy chỉnh theo giai đoạn** (Stage schedule snapshot):
-A user-owned schedule overlay for one exact Care Plan in one stage. Ground and container timing may be customized independently, while notification delivery and time remain shared.
+A user-owned schedule overlay for one exact Care Plan in one stage. Ground and container timing may be customized independently, while notification delivery and time remain shared. Its notification choice inherits the app-level master default until explicitly changed.
 _Avoid_: Chỉnh sửa Care Plan, thiết lập theo cây
 
 **Tùy chỉnh theo cây** (Plant schedule snapshot):

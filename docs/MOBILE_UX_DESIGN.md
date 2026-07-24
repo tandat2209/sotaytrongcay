@@ -410,11 +410,11 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Plant settings:** Select a plant first. Active current-stage Care Plans show their effective source. Saving copies a complete effective schedule into a plant snapshot. “Dùng tất cả cài đặt theo giai đoạn” deletes that snapshot. Inactive retained snapshots appear under “Giai đoạn khác”.
 
-**Notification behavior:** Delivery defaults off. Enabling delivery requests OS permission and uses 08:00 when no time exists. Every enabled applicable schedule registers its future main notification and at most one next-day follow-up as soon as the due date can be derived, so the OS can deliver them while the app is closed. A received notification remains visible in the banner and notification list while the app is open. Disabled delivery never hides due care from Today, and neither notification writes care history. The standalone “Thông báo” screen reports device permission only and explains that “Gửi thông báo” remains a per-schedule choice.
+**Notification behavior:** “Mở rộng → Thông báo” provides the master “Nhận lời nhắc chăm sóc” switch. Turning it on requests OS permission and enables every applicable Care Plan by default at 08:00. Stage and Plant schedule switches inherit on until the grower changes one manually; the nearest explicit stage or Plant choice then wins. Turning the master off suppresses all delivery without deleting those opt-outs, and schedule switches remain visible but unavailable until the master is on again. Every effectively enabled schedule registers its future main notification and at most one next-day follow-up as soon as the due date can be derived, so the OS can deliver them while the app is closed. A received notification remains visible in the banner and notification list while the app is open. Disabled delivery never hides due care from Today, and neither notification writes care history.
 
 **Empty state:** A stage without Care Plans shows “Chưa có kế hoạch chăm sóc đã duyệt cho giai đoạn này.” A user with no plants sees the existing add-plant path.
 
-**Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Thông tin bạn đã nhập vẫn còn nguyên.” Permission denial still preserves in-app schedule behavior.
+**Error state:** Preserve local drafts and show “Chưa thể lưu tùy chỉnh. Thông tin bạn đã nhập vẫn còn nguyên.” Permission denial leaves the master preference off and preserves in-app schedule behavior and saved per-plan choices.
 
 ### 7.11 More — “Mở rộng”
 

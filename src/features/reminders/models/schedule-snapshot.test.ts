@@ -42,6 +42,7 @@ const stageSnapshot = StageCarePlanScheduleSnapshotSchema.parse({
   groundFrequencyOverrideDays: 4,
   containerFrequencyOverrideDays: 5,
   notificationEnabled: true,
+  notificationOverridden: true,
   notificationTime: "08:00",
   createdAt: "2026-07-14T00:00:00.000Z",
   updatedAt: "2026-07-14T00:00:00.000Z",
@@ -54,16 +55,29 @@ const plantSnapshot = PlantCarePlanScheduleSnapshotSchema.parse({
   carePlanId: plan.id,
   intervalDays: 1,
   notificationEnabled: false,
+  notificationOverridden: true,
   notificationTime: "08:00",
   isActive: true,
   createdAt: "2026-07-14T00:00:00.000Z",
   updatedAt: "2026-07-14T00:00:00.000Z",
 });
 
+describe("schedule snapshot notification overrides", () => {
+  it("preserves an explicit stage notification override", () => {
+    expect(
+      StageCarePlanScheduleSnapshotSchema.parse({
+        ...stageSnapshot,
+        notificationOverridden: true,
+      }),
+    ).toMatchObject({ notificationOverridden: true });
+  });
+});
+
 describe("resolveCarePlanSchedule", () => {
   it("uses authored frequency for the plant growing method", () => {
     expect(
       resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
         evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
         latestActivityAt: "2026-07-13T10:00:00.000Z",
         plan,
@@ -78,9 +92,103 @@ describe("resolveCarePlanSchedule", () => {
     });
   });
 
+  it("inherits enabled global delivery at the default notification time", () => {
+    expect(
+      resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
+        evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
+        latestActivityAt: "2026-07-13T10:00:00.000Z",
+        plan,
+        plant,
+        plantSnapshot: null,
+        stageSnapshot: null,
+      }),
+    ).toMatchObject({
+      notificationEnabled: true,
+      notificationTime: "08:00",
+    });
+  });
+
+  it("ignores a snapshot notification value that was not manually overridden", () => {
+    expect(
+      resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
+        evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
+        latestActivityAt: "2026-07-13T10:00:00.000Z",
+        plan,
+        plant,
+        plantSnapshot: null,
+        stageSnapshot: {
+          ...stageSnapshot,
+          notificationEnabled: false,
+          notificationOverridden: false,
+        },
+      }),
+    ).toMatchObject({ notificationEnabled: true });
+  });
+
+  it("respects a manually disabled stage notification", () => {
+    expect(
+      resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
+        evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
+        latestActivityAt: "2026-07-13T10:00:00.000Z",
+        plan,
+        plant,
+        plantSnapshot: null,
+        stageSnapshot: {
+          ...stageSnapshot,
+          notificationEnabled: false,
+          notificationOverridden: true,
+        },
+      }),
+    ).toMatchObject({ notificationEnabled: false });
+  });
+
+  it("uses the nearest manual override instead of the nearest frequency snapshot", () => {
+    expect(
+      resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
+        evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
+        latestActivityAt: "2026-07-13T10:00:00.000Z",
+        plan,
+        plant,
+        plantSnapshot: {
+          ...plantSnapshot,
+          notificationEnabled: true,
+          notificationOverridden: false,
+        },
+        stageSnapshot: {
+          ...stageSnapshot,
+          notificationEnabled: false,
+          notificationOverridden: true,
+        },
+      }),
+    ).toMatchObject({ notificationEnabled: false, source: "plant" });
+  });
+
+  it("suppresses all delivery when the global preference is off", () => {
+    expect(
+      resolveCarePlanSchedule({
+        defaultNotificationEnabled: false,
+        evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
+        latestActivityAt: "2026-07-13T10:00:00.000Z",
+        plan,
+        plant,
+        plantSnapshot: {
+          ...plantSnapshot,
+          notificationEnabled: true,
+          notificationOverridden: true,
+        },
+        stageSnapshot,
+      }),
+    ).toMatchObject({ notificationEnabled: false });
+  });
+
   it("uses the stage frequency for the selected growing method", () => {
     expect(
       resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
         evaluatedAt: new Date("2026-07-16T12:00:00.000Z"),
         latestActivityAt: "2026-07-13T10:00:00.000Z",
         plan,
@@ -94,6 +202,7 @@ describe("resolveCarePlanSchedule", () => {
   it("uses container frequency with shared stage notifications", () => {
     expect(
       resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
         evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
         latestActivityAt: "2026-07-13T10:00:00.000Z",
         plan,
@@ -112,6 +221,7 @@ describe("resolveCarePlanSchedule", () => {
   it("lets copied plant snapshot win over later stage changes", () => {
     expect(
       resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
         evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
         latestActivityAt: "2026-07-13T10:00:00.000Z",
         plan,
@@ -133,6 +243,7 @@ describe("resolveCarePlanSchedule", () => {
   it("keeps notification-disabled care visible when due", () => {
     expect(
       resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
         evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
         latestActivityAt: "2026-07-13T10:00:00.000Z",
         plan,

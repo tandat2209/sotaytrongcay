@@ -54,6 +54,7 @@ const plantSnapshot: PlantCarePlanScheduleSnapshot = {
   intervalDays: 5,
   notificationTime: null,
   notificationEnabled: false,
+  notificationOverridden: false,
   isActive: true,
   createdAt: "2026-07-11T00:00:00.000Z",
   updatedAt: "2026-07-11T00:00:00.000Z",

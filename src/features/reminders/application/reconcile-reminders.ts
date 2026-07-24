@@ -4,6 +4,7 @@ import { listPlants, type Plant } from "@/features/plants";
 import { createId } from "@/shared/lib/identifiers";
 import {
   getNotificationState,
+  getReminderPreferences,
   listNotificationStates,
   listPlantScheduleSnapshots,
   listStageScheduleSnapshots,
@@ -61,11 +62,13 @@ export async function reconcilePlantCarePlanReminders(
   plant: Plant,
   previousPlant?: Plant,
 ): Promise<ScheduleReconciliation> {
-  const [activities, allPlantSnapshots, stageSnapshots] = await Promise.all([
-    listCareActivities(plant.id),
-    listPlantScheduleSnapshots(plant.id),
-    listStageScheduleSnapshots(),
-  ]);
+  const [activities, allPlantSnapshots, stageSnapshots, reminderPreferences] =
+    await Promise.all([
+      listCareActivities(plant.id),
+      listPlantScheduleSnapshots(plant.id),
+      listStageScheduleSnapshots(),
+      getReminderPreferences(),
+    ]);
   const plans = listApplicableCarePlans(plant);
   const previousPlans = previousPlant
     ? listApplicableCarePlans(previousPlant)
@@ -115,6 +118,7 @@ export async function reconcilePlantCarePlanReminders(
       ? { ...existingSnapshot, isActive: true }
       : null;
     const schedule = resolveCarePlanSchedule({
+      defaultNotificationEnabled: reminderPreferences.notificationEnabled,
       evaluatedAt: now,
       latestActivityAt:
         findLatestCareActivity(activities, plant.id, plan.activityType)
@@ -203,6 +207,7 @@ export function createPlantScheduleSnapshot(
     carePlanId: input.carePlanId,
     intervalDays: input.resolved.intervalDays,
     notificationEnabled: input.resolved.notificationEnabled,
+    notificationOverridden: false,
     notificationTime: input.resolved.notificationTime,
     isActive: true,
     createdAt: input.now,
