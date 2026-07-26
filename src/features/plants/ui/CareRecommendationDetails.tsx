@@ -6,6 +6,7 @@ import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import type { PlantDetailCareDetails } from "../models/plant-detail-projection";
 import { FertilizerGroupGuidanceList } from "./FertilizerGroupGuidanceList";
+import { FertilizerRoleRecommendations } from "./FertilizerRoleRecommendations";
 
 export function CareRecommendationDetails({
   details,
@@ -24,14 +25,9 @@ export function CareRecommendationDetails({
       </DetailSection>
       {details.recommendedInputs.length ? (
         <DetailSection label={t("plants.guide.recommendedInputs")}>
-          {details.recommendedInputs.map((input) => (
-            <View key={input.id} style={styles.item}>
-              <Typography variant="bodyLarge">{input.name}</Typography>
-              <Typography color="textSecondary" variant="bodyMedium">
-                {t(`fertilizers.group.${input.group}`)}
-              </Typography>
-            </View>
-          ))}
+          <FertilizerRoleRecommendations
+            recommendations={details.recommendedInputs}
+          />
         </DetailSection>
       ) : null}
       {details.fertilizerGroupGuidance.length ? (
@@ -81,7 +77,6 @@ function DetailSection({
 
 const styles = StyleSheet.create({
   content: { gap: spacing.lg, paddingBottom: spacing.base },
-  item: { gap: spacing.xs },
   note: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   noteCopy: { flex: 1 },
   section: { gap: spacing.sm },

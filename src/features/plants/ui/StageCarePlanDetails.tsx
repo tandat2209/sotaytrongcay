@@ -6,6 +6,7 @@ import { t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
 import { FertilizerGroupGuidanceList } from "./FertilizerGroupGuidanceList";
+import { FertilizerRoleRecommendations } from "./FertilizerRoleRecommendations";
 
 export function StageCarePlanDetails({
   plan,
@@ -41,14 +42,9 @@ export function StageCarePlanDetails({
 
       {plan.recommendedInputs?.length ? (
         <PlanDetail label={t("plants.guide.inputs")}>
-          {plan.recommendedInputs.map((input) => (
-            <View key={input.id} style={styles.detailItem}>
-              <Typography variant="bodyLarge">{input.name}</Typography>
-              <Typography color="textSecondary" variant="bodyMedium">
-                {t(`fertilizers.group.${input.group}`)}
-              </Typography>
-            </View>
-          ))}
+          <FertilizerRoleRecommendations
+            recommendations={plan.recommendedInputs}
+          />
         </PlanDetail>
       ) : null}
 
@@ -119,7 +115,6 @@ function FrequencyRow({
 
 const styles = StyleSheet.create({
   detail: { gap: spacing.sm },
-  detailItem: { gap: spacing.xs },
   details: { gap: spacing.lg },
   frequencyCopy: { flex: 1, gap: spacing.xs },
   frequencyRow: {

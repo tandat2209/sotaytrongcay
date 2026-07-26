@@ -17,15 +17,10 @@ goal: >-
   đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân
   lá không mong muốn và làm chậm chín.
 recommended_inputs:
-  - id: fertilizer.potassium-sulfate
-    name: Kali sunfat
-    group: potassium-rich
-  - id: fertilizer.seaweed-extract
-    name: Rong biển
-    group: support
-  - id: fertilizer.monopotassium-phosphate
-    name: MKP – monopotassium phosphate
-    group: potassium-rich
+  - catalog_id: fertilizer-role.high-potassium
+    priority: primary
+  - catalog_id: fertilizer-role.potassium-only
+    priority: alternative
 frequency:
   ground:
     display: "Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch"
@@ -44,7 +39,7 @@ notes:
   - >-
     Nhiệt độ đêm liên tục trên 30°C cản trở phát triển màu (anthocyanin) ở giống
     nho đỏ/đen, bất kể dinh dưỡng có tốt đến đâu.
-version: 1.0.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

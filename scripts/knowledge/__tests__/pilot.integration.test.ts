@@ -58,7 +58,7 @@ describe("grape knowledge pilot integration test", () => {
     }>;
 
     // Check sizes
-    expect(bundle.schemaVersion).toBe("2.2.0");
+    expect(bundle.schemaVersion).toBe("2.3.0");
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.carePlans).toHaveLength(22);
@@ -91,14 +91,12 @@ describe("grape knowledge pilot integration test", () => {
     expect(budBreakFertilizing?.recommendedInputs).toEqual(
       expect.arrayContaining([
         {
-          id: "fertilizer.urea",
-          name: "Urê",
-          group: "nitrogen-rich",
+          catalogId: "fertilizer-role.high-nitrogen",
+          priority: "primary",
         },
         {
-          id: "fertilizer.npk-20-10-10",
-          name: "NPK 20-10-10",
-          group: "nitrogen-rich",
+          catalogId: "fertilizer-role.organic-foundation",
+          priority: "alternative",
         },
       ]),
     );

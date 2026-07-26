@@ -151,8 +151,10 @@ describe("createPlantDetailProjection", () => {
         ],
         recommendedInputs: expect.arrayContaining([
           expect.objectContaining({
+            catalogId: "fertilizer-role.high-nitrogen",
             group: "nitrogen-rich",
-            name: "Urê",
+            name: "Phân giàu đạm",
+            priority: "primary",
           }),
         ]),
       }),

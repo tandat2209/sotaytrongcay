@@ -9,6 +9,7 @@ import { validateContentQuality } from "../content-quality-validator";
 import type {
   NormalizedCarePlan,
   NormalizedDisease,
+  NormalizedFertilizerGuide,
   ValidatedSourceDocument,
 } from "../types";
 
@@ -109,6 +110,56 @@ describe("graph validation and normalization", () => {
         warningSignIds: [],
       });
     });
+
+    it("normalizes Care Plan catalogue-role references without product details", () => {
+      const mockDoc: ValidatedSourceDocument = {
+        id: "grape.recommendation.test.fertilizing",
+        type: "care_plan",
+        path: "knowledge/species/grape/care-plans/test.fertilizing.md",
+        absolutePath: "/path/to/test.fertilizing.md",
+        body: "",
+        frontmatter: {
+          title: "Bón phân thử nghiệm",
+          version: "2.0.0",
+          locale: "vi-VN",
+          status: "review",
+          references: ["ref.example"],
+          priority: 50,
+          goal: "Chọn vai trò phân bón phù hợp.",
+          species_ids: ["plant.grape"],
+          stage_ids: ["grape.stage.test"],
+          activity_type: "fertilizing",
+          eligibility: {
+            kind: "elapsed_days_since_activity",
+            suggest_after_days: 7,
+          },
+          on_missing_history: "suggest",
+          recommended_inputs: [
+            {
+              catalog_id: "fertilizer-role.high-nitrogen",
+              priority: "primary",
+            },
+            {
+              catalog_id: "fertilizer-role.organic-foundation",
+              priority: "alternative",
+            },
+          ],
+        },
+      };
+
+      expect(normalizeDocument(mockDoc)).toMatchObject({
+        recommendedInputs: [
+          {
+            catalogId: "fertilizer-role.high-nitrogen",
+            priority: "primary",
+          },
+          {
+            catalogId: "fertilizer-role.organic-foundation",
+            priority: "alternative",
+          },
+        ],
+      });
+    });
   });
 
   describe("relationship validation", () => {
@@ -137,14 +188,40 @@ describe("graph validation and normalization", () => {
       ...overrides,
     });
 
+    const fertilizerGuide: NormalizedFertilizerGuide = {
+      id: "fertilizer-guide.focused",
+      type: "fertilizer_guide",
+      path: "fertilizer-guide.md",
+      title: "Vai trò phân bón thử nghiệm",
+      version: "1.0.0",
+      bodyMarkdown: "Nội dung thử nghiệm.",
+      locale: "vi-VN",
+      status: "review",
+      references: [],
+      sections: [
+        {
+          id: "test",
+          title: "Nhóm thử nghiệm",
+          items: [
+            {
+              id: "fertilizer-role.balanced-nutrition",
+              name: "NPK cân đối",
+              group: "npk-balanced",
+              description: "Vai trò dinh dưỡng cân đối.",
+            },
+          ],
+        },
+      ],
+    };
+
     it("rejects fertilizer guidance for a group not present in recommended inputs", () => {
       const diagnostics = validateRelationships([
+        fertilizerGuide,
         fertilizerPlan({
           recommendedInputs: [
             {
-              id: "fertilizer.npk-balanced",
-              name: "NPK cân đối",
-              group: "npk-balanced",
+              catalogId: "fertilizer-role.balanced-nutrition",
+              priority: "primary",
             },
           ],
           fertilizerGroupGuidance: [
@@ -166,12 +243,12 @@ describe("graph validation and normalization", () => {
 
     it("rejects duplicate fertilizer-group guidance", () => {
       const diagnostics = validateRelationships([
+        fertilizerGuide,
         fertilizerPlan({
           recommendedInputs: [
             {
-              id: "fertilizer.npk-balanced",
-              name: "NPK cân đối",
-              group: "npk-balanced",
+              catalogId: "fertilizer-role.balanced-nutrition",
+              priority: "primary",
             },
           ],
           fertilizerGroupGuidance: [
@@ -185,6 +262,48 @@ describe("graph validation and normalization", () => {
         expect.objectContaining({
           code: "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID",
           message: expect.stringContaining("more than once"),
+        }),
+      );
+    });
+
+    it("rejects a Care Plan reference to a missing fertilizer role", () => {
+      const diagnostics = validateRelationships([
+        fertilizerGuide,
+        fertilizerPlan({
+          recommendedInputs: [
+            {
+              catalogId: "fertilizer-role.missing",
+              priority: "primary",
+            },
+          ],
+        }),
+      ]);
+
+      expect(diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_FERTILIZER_ROLE_REFERENCE_INVALID",
+          message: expect.stringContaining("missing fertilizer role"),
+        }),
+      );
+    });
+
+    it("requires exactly one primary fertilizer role", () => {
+      const diagnostics = validateRelationships([
+        fertilizerGuide,
+        fertilizerPlan({
+          recommendedInputs: [
+            {
+              catalogId: "fertilizer-role.balanced-nutrition",
+              priority: "alternative",
+            },
+          ],
+        }),
+      ]);
+
+      expect(diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_FERTILIZER_ROLE_REFERENCE_INVALID",
+          message: expect.stringContaining("exactly one primary"),
         }),
       );
     });

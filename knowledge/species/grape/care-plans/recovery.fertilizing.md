@@ -17,34 +17,21 @@ goal: >-
   trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ,
   cung cấp năng lượng cho vụ sau.
 recommended_inputs:
-  - id: fertilizer.npk-16-16-16
-    name: NPK 16-16-16
-    group: npk-balanced
-  - id: fertilizer.composted-cow-manure
-    name: Phân bò hoai mục
-    group: organic
-  - id: fertilizer.vermicompost
-    name: Phân trùn quế
-    group: organic
-  - id: fertilizer.compost
-    name: Phân compost
-    group: organic
-  - id: fertilizer.superphosphate
-    name: Super lân
-    group: phosphorus-rich
-  - id: fertilizer.potassium-sulfate
-    name: Kali sunfat
-    group: potassium-rich
-  - id: fertilizer.dolomitic-lime
-    name: Vôi dolomite
-    group: other
+  - catalog_id: fertilizer-role.organic-foundation
+    priority: primary
+  - catalog_id: fertilizer-role.balanced-nutrition
+    priority: alternative
+  - catalog_id: fertilizer-role.high-phosphorus
+    priority: alternative
+  - catalog_id: fertilizer-role.potassium-only
+    priority: alternative
 notes:
   - >-
     Trồng đất: bón 1–2 lần; lần đầu trong vòng một tuần sau thu hoạch và lần hai
     sau 2–4 tuần.
   - >-
-    Trồng chậu: bón 1–2 lần và cân nhắc thay 20–30% giá thể phía trên bằng phân
-    compost mới.
+    Trồng chậu: bón 1–2 lần và cân nhắc thay 20–30% giá thể phía trên bằng vật
+    liệu hữu cơ đã hoai mục.
   - >-
     Không bỏ qua bón phân sau thu hoạch. Cây kiệt sức bước vào vụ mới sẽ cho
     năng suất kém.
@@ -68,7 +55,7 @@ fertilizer_group_guidance:
     description: >-
       Cung cấp phối hợp đạm, lân và kali để hỗ trợ mục tiêu phục hồi nguồn dự trữ.
       Việc có cần bổ sung hay không vẫn phụ thuộc sức cây và dinh dưỡng sẵn có.
-version: 1.1.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

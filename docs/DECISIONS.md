@@ -8,6 +8,39 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-26 — Reference fertilizer roles from Care Plans
+
+**Status:** Accepted
+
+**Decision:** The focused Fertilizer Guide is the single catalogue of reviewed
+fertilizer roles. A fertilizing Care Plan may recommend only catalogue roles by
+stable `fertilizer-role.*` ID and priority (`primary` or `alternative`); it does
+not embed an individual product, formula, display name, or group. Each plan has
+exactly one primary role. The compiler validates every reference and resolves
+the role's Vietnamese name and canonical group from the guide for display and
+Care Entry. Stage guidance labels the primary role “Ưu tiên” and each fallback
+“Có thể thay thế”.
+
+This supersedes the concrete-item and independent stage-chip clauses in the
+2026-07-26 focused-guide decision, the concrete fertilizer suggestion contract
+in the 2026-07-23 catalogue-management decision, and the 2026-07-16 Care Entry
+decision where those clauses conflict. The seven canonical groups and the
+explicit-save history boundary remain unchanged.
+
+**Rationale:** Seventeen product identities in Care Plans and nine independently
+curated catalogue entries formed competing vocabularies with only three direct
+matches. Role references keep stage intent concise and make the focused guide
+the sole naming and grouping authority without implying a specific product or
+formula is required.
+
+**Consequences:** The preview bundle advances to `2.3.0`; Care Plan
+`recommendedInputs` contains only `catalogId` and `priority`. The nine guide
+items adopt `fertilizer-role.*` identities. Existing user-created fertilizers
+and immutable activity snapshots keep their stored identities; no user-data
+migration or history rewrite occurs. Selecting a resolved role in Care Entry
+may still create or reuse a private User Fertilizer linked to that role ID, and
+manual fertilizer entry remains available.
+
 ## 2026-07-24 — Make notification delivery a master default with per-plan opt-outs
 
 **Status:** Accepted

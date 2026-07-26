@@ -8,6 +8,7 @@ interface PreviewBundle {
   readonly stagePlaybooks: readonly JsonRecord[];
   readonly carePlans: readonly JsonRecord[];
   readonly guides: readonly JsonRecord[];
+  readonly fertilizerGuides: readonly JsonRecord[];
   readonly diseases: readonly JsonRecord[];
   readonly pests: readonly JsonRecord[];
   readonly references: readonly JsonRecord[];
@@ -83,7 +84,9 @@ function parseBundle(value: unknown): PreviewBundle {
     );
   }
 
-  const optionalCollection = (key: "diseases" | "pests") => {
+  const optionalCollection = (
+    key: "diseases" | "pests" | "fertilizerGuides",
+  ) => {
     const collection = value[key];
     if (collection === undefined) {
       return [];
@@ -104,6 +107,7 @@ function parseBundle(value: unknown): PreviewBundle {
     stagePlaybooks,
     carePlans,
     guides,
+    fertilizerGuides: optionalCollection("fertilizerGuides"),
     diseases: optionalCollection("diseases"),
     pests: optionalCollection("pests"),
     references,
@@ -281,7 +285,10 @@ function renderFrequency(plan: JsonRecord): string {
   return `<div class="review-block"><h4>Tần suất hiển thị và giá trị thực thi</h4><div class="table-wrap"><table><thead><tr><th>Điều kiện</th><th>Nội dung hiển thị</th><th>Giá trị</th></tr></thead><tbody>${row("Trồng đất", "ground")}${row("Trồng chậu", "container")}</tbody></table></div></div>`;
 }
 
-function renderCarePlan(plan: JsonRecord): string {
+function renderCarePlan(
+  plan: JsonRecord,
+  fertilizerRoles: ReadonlyMap<string, JsonRecord>,
+): string {
   const eligibility = recordValue(plan, "eligibility");
   const inputs = recordArray(plan, "recommendedInputs");
   const guidance = recordArray(plan, "fertilizerGroupGuidance");
@@ -298,7 +305,18 @@ function renderCarePlan(plan: JsonRecord): string {
     `<p class="lead">${renderInline(stringValue(plan, "goal"))}</p>
 <div class="review-block"><h4>Quy tắc đề xuất</h4><p><code>kind: ${escapeHtml(eligibility ? stringValue(eligibility, "kind") : "—")}</code> <code>suggestAfterDays: ${eligibility ? (numberValue(eligibility, "suggestAfterDays") ?? "—") : "—"}</code> <code>onMissingHistory: ${escapeHtml(stringValue(plan, "onMissingHistory"))}</code> <code>priority: ${numberValue(plan, "priority") ?? "—"}</code></p></div>
 ${renderFrequency(plan)}
-${inputs.length > 0 ? `<div class="review-block"><h4>Đầu vào được đề xuất</h4><ul>${inputs.map((input) => `<li><strong>${escapeHtml(stringValue(input, "name"))}</strong> <code>${escapeHtml(stringValue(input, "id"))}</code> <span>${escapeHtml(stringValue(input, "group"))}</span></li>`).join("")}</ul></div>` : ""}
+${
+  inputs.length > 0
+    ? `<div class="review-block"><h4>Vai trò phân bón được đề xuất</h4><ul>${inputs
+        .map((input) => {
+          const catalogId = stringValue(input, "catalogId");
+          const role = fertilizerRoles.get(catalogId);
+          const priority = stringValue(input, "priority");
+          return `<li><strong>${priority === "primary" ? "Ưu tiên" : "Có thể thay thế"}: ${escapeHtml(role ? stringValue(role, "name") : "Vai trò không tồn tại")}</strong> <code>${escapeHtml(catalogId)}</code>${role ? ` <span>${escapeHtml(stringValue(role, "group"))}</span>` : ""}</li>`;
+        })
+        .join("")}</ul></div>`
+    : ""
+}
 ${guidance.length > 0 ? `<div class="review-block"><h4>Hướng dẫn theo nhóm phân bón</h4>${guidance.map((item) => `<p><strong>${escapeHtml(stringValue(item, "group"))}:</strong> ${renderInline(stringValue(item, "description"))}</p>`).join("")}</div>` : ""}
 ${notes.length > 0 ? `<div class="review-block"><h4>Ghi chú</h4>${list(notes)}</div>` : ""}
 <div class="markdown">${renderMarkdown(stringValue(plan, "bodyMarkdown"))}</div>
@@ -363,6 +381,16 @@ function section(
 
 export function renderKnowledgePreview(input: unknown): string {
   const bundle = parseBundle(input);
+  const fertilizerRoles = new Map<string, JsonRecord>();
+  for (const guide of bundle.fertilizerGuides.filter(
+    (candidate) => stringValue(candidate, "id") === "fertilizer-guide.focused",
+  )) {
+    for (const guideSection of recordArray(guide, "sections")) {
+      for (const role of recordArray(guideSection, "items")) {
+        fertilizerRoles.set(stringValue(role, "id"), role);
+      }
+    }
+  }
   const threatCount = bundle.diseases.length + bundle.pests.length;
   const modeLabel =
     bundle.mode === "preview" ? "Bản xem trước" : "Bản sản xuất";
@@ -379,7 +407,7 @@ export function renderKnowledgePreview(input: unknown): string {
 <div class="toolbar"><input class="search" id="search" type="search" placeholder="Tìm theo tiêu đề, ID hoặc nội dung…" aria-label="Tìm nội dung"><button class="filter active" data-filter="all">Tất cả</button><button class="filter" data-filter="watering">Tưới nước</button><button class="filter" data-filter="fertilizing">Bón phân</button><button class="filter" data-filter="spraying">Phun/xịt</button></div>
 ${section("species", "Danh mục", "Loài cây", plural(bundle.species.length, "loài"), bundle.species.map(renderSpecies).join(""))}
 ${section("stages", "Vòng đời", "Giai đoạn sinh trưởng", plural(bundle.stagePlaybooks.length, "giai đoạn"), bundle.stagePlaybooks.map(renderStage).join(""))}
-${section("care-plans", "Theo dõi được", "Kế hoạch chăm sóc", plural(bundle.carePlans.length, "kế hoạch"), bundle.carePlans.map(renderCarePlan).join(""))}
+${section("care-plans", "Theo dõi được", "Kế hoạch chăm sóc", plural(bundle.carePlans.length, "kế hoạch"), bundle.carePlans.map((plan) => renderCarePlan(plan, fertilizerRoles)).join(""))}
 ${section("guides", "Thông tin", "Hướng dẫn kỹ thuật", plural(bundle.guides.length, "hướng dẫn"), bundle.guides.map(renderGuide).join(""))}
 ${section("threats", "Quan sát", "Sâu bệnh", plural(threatCount, "mục"), [...bundle.diseases, ...bundle.pests].map(renderThreat).join(""))}
 ${section("references", "Bằng chứng", "Nguồn tham khảo", plural(bundle.references.length, "nguồn"), bundle.references.map(renderReference).join(""))}

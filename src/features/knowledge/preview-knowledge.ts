@@ -68,8 +68,8 @@ export type FertilizerGroupGuidance = Readonly<{
 
 export type FertilizerGroup = FertilizerSuggestion["group"];
 
-export type FertilizerSuggestion = Readonly<{
-  id: string;
+type FertilizerRole = Readonly<{
+  catalogId: string;
   name: string;
   group:
     | "organic"
@@ -81,13 +81,25 @@ export type FertilizerSuggestion = Readonly<{
     | "other";
 }>;
 
-export type FocusedFertilizerSuggestion = FertilizerSuggestion &
-  Readonly<{
-    description: string;
-    section: Readonly<{ id: string; title: string }>;
-  }>;
+export type FertilizerSuggestion = Readonly<{
+  id: string;
+  name: string;
+  group: FertilizerRole["group"];
+  priority: FertilizerRecommendationPriority;
+}>;
 
-export type RecommendedInput = FertilizerSuggestion;
+export type FertilizerRecommendationPriority = "primary" | "alternative";
+
+export type FocusedFertilizerSuggestion = Readonly<{
+  id: string;
+  name: string;
+  group: FertilizerRole["group"];
+  description: string;
+  section: Readonly<{ id: string; title: string }>;
+}>;
+
+export type RecommendedInput = FertilizerRole &
+  Readonly<{ priority: FertilizerRecommendationPriority }>;
 
 export type SprayTarget = Readonly<{
   id: string;
@@ -168,7 +180,10 @@ type RawCarePlan = {
     ground: { display: string; intervalDays: number };
     container: { display: string; intervalDays: number };
   };
-  recommendedInputs?: FertilizerSuggestion[];
+  recommendedInputs?: {
+    catalogId: string;
+    priority: FertilizerRecommendationPriority;
+  }[];
   notes?: string[];
   fertilizerGroupGuidance?: FertilizerGroupGuidance[];
   version: string;
@@ -184,10 +199,16 @@ type RawSprayTarget = {
 };
 
 type RawFertilizerGuide = {
+  id: string;
   sections: {
     id: string;
     title: string;
-    items: (FertilizerSuggestion & { description: string })[];
+    items: {
+      id: string;
+      name: string;
+      group: FertilizerRole["group"];
+      description: string;
+    }[];
   }[];
 };
 
@@ -311,11 +332,16 @@ export function listCarePlans(
 }
 
 export function listFertilizerSuggestions(): readonly FocusedFertilizerSuggestion[] {
-  const guide = bundle.fertilizerGuides?.[0];
+  const guide = bundle.fertilizerGuides?.find(
+    (candidate) => candidate.id === "fertilizer-guide.focused",
+  );
   if (!guide) return [];
   return guide.sections.flatMap((section) =>
     section.items.map((item) => ({
-      ...item,
+      id: item.id,
+      name: item.name,
+      group: item.group,
+      description: item.description,
       section: { id: section.id, title: section.title },
     })),
   );
@@ -376,7 +402,16 @@ function listStageThreats(
 // ---------------------------------------------------------------------------
 
 function toCarePlan(raw: RawCarePlan): CarePlan {
-  const fertilizerSuggestions = raw.recommendedInputs;
+  const recommendedInputs = raw.recommendedInputs?.flatMap((input) => {
+    const role = findFertilizerRole(input.catalogId);
+    return role ? [{ ...role, priority: input.priority }] : [];
+  });
+  const fertilizerSuggestions = recommendedInputs?.map((input) => ({
+    id: input.catalogId,
+    name: input.name,
+    group: input.group,
+    priority: input.priority,
+  }));
   return {
     id: raw.id,
     title: raw.title,
@@ -387,8 +422,8 @@ function toCarePlan(raw: RawCarePlan): CarePlan {
     eligibility: raw.eligibility,
     onMissingHistory: raw.onMissingHistory,
     ...(raw.frequency !== undefined && { frequency: raw.frequency }),
-    ...(raw.recommendedInputs !== undefined && {
-      recommendedInputs: raw.recommendedInputs,
+    ...(recommendedInputs !== undefined && {
+      recommendedInputs,
     }),
     ...(fertilizerSuggestions?.length && { fertilizerSuggestions }),
     ...(raw.notes !== undefined && { notes: raw.notes }),
@@ -397,6 +432,19 @@ function toCarePlan(raw: RawCarePlan): CarePlan {
     }),
     version: raw.version,
   };
+}
+
+function findFertilizerRole(catalogId: string): FertilizerRole | null {
+  const guide = bundle.fertilizerGuides?.find(
+    (candidate) => candidate.id === "fertilizer-guide.focused",
+  );
+  for (const section of guide?.sections ?? []) {
+    const role = section.items.find((item) => item.id === catalogId);
+    if (role) {
+      return { catalogId: role.id, name: role.name, group: role.group };
+    }
+  }
+  return null;
 }
 
 function toCareGuide(raw: RawGuide): CareGuide {

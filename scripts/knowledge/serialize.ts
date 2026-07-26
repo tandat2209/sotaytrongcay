@@ -14,7 +14,7 @@ import type {
 } from "./types";
 
 export const PRODUCTION_BUNDLE_SCHEMA_VERSION = "1.0.0";
-export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.2.0";
+export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.3.0";
 export const KNOWLEDGE_CONTENT_VERSION = "1.0.0";
 
 function sortArray(arr: readonly string[]): readonly string[] {

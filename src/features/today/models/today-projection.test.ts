@@ -39,10 +39,20 @@ const plan: CarePlan = {
     container: { display: "Mỗi 3 ngày", intervalDays: 3 },
   },
   fertilizerSuggestions: [
-    { id: "fertilizer.npk", name: "NPK", group: "npk-balanced" },
+    {
+      id: "fertilizer-role.balanced-nutrition",
+      name: "NPK cân đối",
+      group: "npk-balanced",
+      priority: "primary",
+    },
   ],
   recommendedInputs: [
-    { id: "fertilizer.npk", name: "NPK", group: "npk-balanced" },
+    {
+      catalogId: "fertilizer-role.balanced-nutrition",
+      name: "NPK cân đối",
+      group: "npk-balanced",
+      priority: "primary",
+    },
   ],
   version: "1.0.0",
 };
@@ -105,7 +115,7 @@ describe("createTodayProjection", () => {
         carePlanId: plan.id,
         dueStatus: "due",
         fertilizerSuggestions: plan.fertilizerSuggestions,
-        suggestion: "NPK",
+        suggestion: "NPK cân đối",
       }),
     ]);
   });

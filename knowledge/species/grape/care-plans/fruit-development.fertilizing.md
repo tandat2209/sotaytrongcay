@@ -17,21 +17,12 @@ goal: >-
   qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng
   nhiều nhất trong toàn bộ chu kỳ.
 recommended_inputs:
-  - id: fertilizer.potassium-sulfate
-    name: Kali sunfat
-    group: potassium-rich
-  - id: fertilizer.seaweed-extract
-    name: Rong biển
-    group: support
-  - id: fertilizer.high-potassium-npk
-    name: NPK thiên kali
-    group: potassium-rich
-  - id: fertilizer.calcium-nitrate
-    name: Canxi nitrat
-    group: other
-  - id: fertilizer.magnesium-sulfate
-    name: Magie sunfat
-    group: other
+  - catalog_id: fertilizer-role.high-potassium
+    priority: primary
+  - catalog_id: fertilizer-role.potassium-only
+    priority: alternative
+  - catalog_id: fertilizer-role.organic-foundation
+    priority: alternative
 frequency:
   ground:
     display: Mỗi 1–2 tuần
@@ -41,15 +32,14 @@ frequency:
     interval_days: 7
 notes:
   - >-
-    Nứt trái là vấn đề chất lượng #1 — do tưới không đều kết hợp thiếu canxi và
-    kali. Tưới đều + phun canxi giảm rủi ro.
+    Tưới không đều làm tăng rủi ro nứt trái. Duy trì độ ẩm ổn định và chỉ bổ
+    sung dinh dưỡng khi có căn cứ phù hợp.
   - >-
     Bắt đầu giảm đạm so với kali khi trái gần chuyển màu (véraison). Dư đạm lúc
     này làm chậm chín và giảm độ ngọt.
   - >-
     Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa
     mùa.
-  - "Nếu dùng túi bọc trái, phun canxi trước khi bọc."
 fertilizer_group_guidance:
   - group: potassium-rich
     description: >-
@@ -57,7 +47,7 @@ fertilizer_group_guidance:
       Công thức NPK thiên kali vẫn phải được đọc theo nhãn; thiếu hoặc thừa kali
       đều có thể ảnh hưởng chất lượng, nên không bổ sung chỉ dựa trên một dấu
       hiệu đơn lẻ.
-version: 1.1.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

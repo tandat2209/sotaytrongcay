@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.2.0",
+  "schemaVersion": "2.3.0",
   "contentVersion": "1.0.0",
   "mode": "preview",
   "species": [
@@ -481,7 +481,7 @@
       "title": "Bón phân giai đoạn bật mầm",
       "goal": "Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh, bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.",
       "locale": "vi-VN",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.fao.grape-production",
@@ -504,24 +504,12 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.urea",
-          "name": "Urê",
-          "group": "nitrogen-rich"
+          "catalogId": "fertilizer-role.high-nitrogen",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.fish-emulsion",
-          "name": "Phân cá",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.npk-20-10-10",
-          "name": "NPK 20-10-10",
-          "group": "nitrogen-rich"
-        },
-        {
-          "id": "fertilizer.trace-elements",
-          "name": "Vi lượng Zn, B, Fe",
-          "group": "other"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -536,7 +524,7 @@
       },
       "notes": [
         "Giai đoạn này rất ngắn (2–3 tuần) — bón trễ sẽ lỡ thời điểm quan trọng cho năng suất vụ.",
-        "Trong thời tiết nóng, luôn tưới nước ngay sau khi rải urê lên đất, nếu không urê sẽ bốc hơi mất tác dụng.",
+        "Đọc nhãn của loại phân đã chọn và tưới theo hướng dẫn sử dụng; không tự suy ra liều từ tên vai trò phân bón.",
         "Không bón bo \"phòng ngừa.\" Bo giúp thụ phấn nhưng ngưỡng ngộ độc rất hẹp — chỉ dùng khi có bằng chứng thiếu bo."
       ],
       "bodyMarkdown": ""
@@ -589,7 +577,7 @@
       "title": "Bón phân giai đoạn hình thành tán",
       "goal": "Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu kỳ mang trái đầu tiên.",
       "locale": "vi-VN",
-      "version": "1.1.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -613,24 +601,16 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.potassium-sulfate",
-          "name": "Kali sunfat",
-          "group": "potassium-rich"
+          "catalogId": "fertilizer-role.high-potassium",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.seaweed-extract",
-          "name": "Rong biển",
-          "group": "support"
+          "catalogId": "fertilizer-role.potassium-only",
+          "priority": "alternative"
         },
         {
-          "id": "fertilizer.npk-12-12-17",
-          "name": "NPK 12-12-17 + TE",
-          "group": "potassium-rich"
-        },
-        {
-          "id": "fertilizer.compost",
-          "name": "Phân compost",
-          "group": "organic"
+          "catalogId": "fertilizer-role.magnesium",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -747,7 +727,7 @@
       "title": "Bón phân giai đoạn nuôi quả",
       "goal": "Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng nhiều nhất trong toàn bộ chu kỳ.",
       "locale": "vi-VN",
-      "version": "1.1.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.fao.grape-production",
@@ -772,29 +752,16 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.potassium-sulfate",
-          "name": "Kali sunfat",
-          "group": "potassium-rich"
+          "catalogId": "fertilizer-role.high-potassium",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.seaweed-extract",
-          "name": "Rong biển",
-          "group": "support"
+          "catalogId": "fertilizer-role.potassium-only",
+          "priority": "alternative"
         },
         {
-          "id": "fertilizer.high-potassium-npk",
-          "name": "NPK thiên kali",
-          "group": "potassium-rich"
-        },
-        {
-          "id": "fertilizer.calcium-nitrate",
-          "name": "Canxi nitrat",
-          "group": "other"
-        },
-        {
-          "id": "fertilizer.magnesium-sulfate",
-          "name": "Magie sunfat",
-          "group": "other"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -808,10 +775,9 @@
         }
       },
       "notes": [
-        "Nứt trái là vấn đề chất lượng #1 — do tưới không đều kết hợp thiếu canxi và kali. Tưới đều + phun canxi giảm rủi ro.",
+        "Tưới không đều làm tăng rủi ro nứt trái. Duy trì độ ẩm ổn định và chỉ bổ sung dinh dưỡng khi có căn cứ phù hợp.",
         "Bắt đầu giảm đạm so với kali khi trái gần chuyển màu (véraison). Dư đạm lúc này làm chậm chín và giảm độ ngọt.",
-        "Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa mùa.",
-        "Nếu dùng túi bọc trái, phun canxi trước khi bọc."
+        "Mưa lớn rửa trôi dinh dưỡng nhanh — bón sớm hơn dự kiến sau những trận mưa mùa."
       ],
       "fertilizerGroupGuidance": [
         {
@@ -871,7 +837,7 @@
       "title": "Bón phân giai đoạn đậu quả",
       "goal": "Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.",
       "locale": "vi-VN",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -894,29 +860,12 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.npk-16-16-16",
-          "name": "NPK 16-16-16",
-          "group": "npk-balanced"
+          "catalogId": "fertilizer-role.balanced-nutrition",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.calcium-nitrate",
-          "name": "Canxi nitrat",
-          "group": "other"
-        },
-        {
-          "id": "fertilizer.compost",
-          "name": "Phân compost",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.fish-emulsion",
-          "name": "Phân cá",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.seaweed-extract",
-          "name": "Rong biển",
-          "group": "support"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -931,7 +880,6 @@
       },
       "notes": [
         "Bón trễ sau đậu quả là nguyên nhân phổ biến gây rụng trái non. Tiếp tục bón phân ngay khi thấy trái hình thành.",
-        "Phun canxi qua lá rất hiệu quả — canxi di chuyển kém trong cây nên phun trực tiếp đưa canxi đến trái đang phát triển.",
         "Nếu đã tỉa bớt chùm, các trái còn lại được chia phần dinh dưỡng lớn hơn — có thể không cần tăng liều."
       ],
       "bodyMarkdown": ""
@@ -1018,7 +966,7 @@
       "title": "Bón phân sau cắt cành",
       "goal": "Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.",
       "locale": "vi-VN",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1040,19 +988,12 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.npk-16-16-16",
-          "name": "NPK 16-16-16",
-          "group": "npk-balanced"
+          "catalogId": "fertilizer-role.balanced-nutrition",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.composted-cow-manure",
-          "name": "Phân bò hoai mục",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.vermicompost",
-          "name": "Phân trùn quế",
-          "group": "organic"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "alternative"
         }
       ],
       "notes": [
@@ -1111,7 +1052,7 @@
       "title": "Bón phân giai đoạn sau thu hoạch",
       "goal": "Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ, cung cấp năng lượng cho vụ sau.",
       "locale": "vi-VN",
-      "version": "1.1.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1136,44 +1077,25 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.npk-16-16-16",
-          "name": "NPK 16-16-16",
-          "group": "npk-balanced"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.composted-cow-manure",
-          "name": "Phân bò hoai mục",
-          "group": "organic"
+          "catalogId": "fertilizer-role.balanced-nutrition",
+          "priority": "alternative"
         },
         {
-          "id": "fertilizer.vermicompost",
-          "name": "Phân trùn quế",
-          "group": "organic"
+          "catalogId": "fertilizer-role.high-phosphorus",
+          "priority": "alternative"
         },
         {
-          "id": "fertilizer.compost",
-          "name": "Phân compost",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.superphosphate",
-          "name": "Super lân",
-          "group": "phosphorus-rich"
-        },
-        {
-          "id": "fertilizer.potassium-sulfate",
-          "name": "Kali sunfat",
-          "group": "potassium-rich"
-        },
-        {
-          "id": "fertilizer.dolomitic-lime",
-          "name": "Vôi dolomite",
-          "group": "other"
+          "catalogId": "fertilizer-role.potassium-only",
+          "priority": "alternative"
         }
       ],
       "notes": [
         "Trồng đất: bón 1–2 lần; lần đầu trong vòng một tuần sau thu hoạch và lần hai sau 2–4 tuần.",
-        "Trồng chậu: bón 1–2 lần và cân nhắc thay 20–30% giá thể phía trên bằng phân compost mới.",
+        "Trồng chậu: bón 1–2 lần và cân nhắc thay 20–30% giá thể phía trên bằng vật liệu hữu cơ đã hoai mục.",
         "Không bỏ qua bón phân sau thu hoạch. Cây kiệt sức bước vào vụ mới sẽ cho năng suất kém.",
         "Đây là thời điểm tốt nhất để cải tạo đất bằng phân hữu cơ — phân có nhiều tuần để phân hủy và hòa nhập trước vụ sau.",
         "Sau khi bón phân phục hồi xong, giảm dần tưới nước để khuyến khích lá rụng và cây nghỉ ngắn trước khi cắt cành vụ mới."
@@ -1243,7 +1165,7 @@
       "title": "Bón phân giai đoạn quả chín",
       "goal": "Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân lá không mong muốn và làm chậm chín.",
       "locale": "vi-VN",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.fao.grape-production",
@@ -1266,19 +1188,12 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.potassium-sulfate",
-          "name": "Kali sunfat",
-          "group": "potassium-rich"
+          "catalogId": "fertilizer-role.high-potassium",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.seaweed-extract",
-          "name": "Rong biển",
-          "group": "support"
-        },
-        {
-          "id": "fertilizer.monopotassium-phosphate",
-          "name": "MKP – monopotassium phosphate",
-          "group": "potassium-rich"
+          "catalogId": "fertilizer-role.potassium-only",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -1392,7 +1307,7 @@
       "title": "Bón phân giai đoạn leo giàn",
       "goal": "Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.",
       "locale": "vi-VN",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1414,24 +1329,12 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.npk-16-16-16",
-          "name": "NPK 16-16-16",
-          "group": "npk-balanced"
+          "catalogId": "fertilizer-role.balanced-nutrition",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.compost",
-          "name": "Phân compost",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.fish-emulsion",
-          "name": "Phân cá",
-          "group": "organic"
-        },
-        {
-          "id": "fertilizer.seaweed-extract",
-          "name": "Rong biển",
-          "group": "support"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -1498,7 +1401,7 @@
       "title": "Bón phân giai đoạn phát triển thân",
       "goal": "Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai đoạn nhu cầu đạm (N) bắt đầu tăng.",
       "locale": "vi-VN",
-      "version": "1.1.1",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1521,24 +1424,16 @@
       "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
-          "id": "fertilizer.urea",
-          "name": "Urê",
-          "group": "nitrogen-rich"
+          "catalogId": "fertilizer-role.high-nitrogen",
+          "priority": "primary"
         },
         {
-          "id": "fertilizer.fish-emulsion",
-          "name": "Phân cá",
-          "group": "organic"
+          "catalogId": "fertilizer-role.balanced-nutrition",
+          "priority": "alternative"
         },
         {
-          "id": "fertilizer.npk-16-16-16",
-          "name": "NPK 16-16-16",
-          "group": "npk-balanced"
-        },
-        {
-          "id": "fertilizer.compost",
-          "name": "Phân compost",
-          "group": "organic"
+          "catalogId": "fertilizer-role.organic-foundation",
+          "priority": "alternative"
         }
       ],
       "frequency": {
@@ -1765,7 +1660,7 @@
       "type": "fertilizer_guide",
       "title": "Gợi ý phân bón trọng tâm",
       "locale": "vi-VN",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "status": "review",
       "references": [
         "ref.ncsu.winegrape-vine-nutrition",
@@ -1780,19 +1675,19 @@
           "title": "Nhóm nền tảng",
           "items": [
             {
-              "id": "fertilizer.organic-foundation",
+              "id": "fertilizer-role.organic-foundation",
               "name": "Phân hữu cơ",
               "group": "organic",
               "description": "Ví dụ: phân trùn quế, phân chuồng hoai mục."
             },
             {
-              "id": "fertilizer.humic",
-              "name": "Humic",
+              "id": "fertilizer-role.soil-support",
+              "name": "Chế phẩm hỗ trợ đất",
               "group": "support",
               "description": "Dùng để hỗ trợ đất; hiệu quả đối với rễ và khả năng giữ, hấp thu dinh dưỡng phụ thuộc đất và sản phẩm."
             },
             {
-              "id": "fertilizer.balanced-npk",
+              "id": "fertilizer-role.balanced-nutrition",
               "name": "NPK cân đối",
               "group": "npk-balanced",
               "description": "Lựa chọn sử dụng chung khi cây phát triển ổn định; đọc thành phần trên nhãn để tránh bổ sung dinh dưỡng đã có đủ."
@@ -1804,14 +1699,14 @@
           "title": "Nhóm phát triển thân lá và bộ rễ",
           "items": [
             {
-              "id": "fertilizer.high-nitrogen-npk",
-              "name": "NPK giàu đạm",
+              "id": "fertilizer-role.high-nitrogen",
+              "name": "Phân giàu đạm",
               "group": "nitrogen-rich",
               "description": "Dùng trong giai đoạn kiến thiết, nuôi thân lá; giảm khi cây đã sinh trưởng mạnh để tránh dư đạm."
             },
             {
-              "id": "fertilizer.dap",
-              "name": "DAP",
+              "id": "fertilizer-role.high-phosphorus",
+              "name": "Phân giàu lân",
               "group": "phosphorus-rich",
               "description": "Một lựa chọn thuộc nhóm phân giàu lân. Không cần đồng thời thêm một loại phân lân khác chỉ để trùng cùng mục đích bổ sung lân."
             }
@@ -1822,20 +1717,20 @@
           "title": "Nhóm ra hoa và nuôi quả",
           "items": [
             {
-              "id": "fertilizer.calcium-boron",
-              "name": "Canxi–Bo",
+              "id": "fertilizer-role.calcium-boron",
+              "name": "Bổ sung canxi–bo",
               "group": "other",
               "description": "Lựa chọn kết hợp canxi và bo phổ biến; chỉ dùng khi nhu cầu phù hợp vì thừa bo có thể gây độc cho cây."
             },
             {
-              "id": "fertilizer.high-potassium-npk",
-              "name": "NPK giàu kali",
+              "id": "fertilizer-role.high-potassium",
+              "name": "Phân giàu kali",
               "group": "potassium-rich",
               "description": "Lựa chọn chính trong nhóm phân hỗn hợp cho giai đoạn nuôi quả; vẫn cần cân đối với dinh dưỡng cây đã nhận."
             },
             {
-              "id": "fertilizer.potassium-sulfate",
-              "name": "Kali sunfat",
+              "id": "fertilizer-role.potassium-only",
+              "name": "Bổ sung kali đơn",
               "group": "potassium-rich",
               "description": "Lựa chọn kali đơn khi cần tăng kali mà không muốn bổ sung thêm nhiều đạm hoặc lân."
             }
@@ -1846,8 +1741,8 @@
           "title": "Nhóm bổ sung khi cần",
           "items": [
             {
-              "id": "fertilizer.magnesium-sulfate",
-              "name": "Magie sunfat",
+              "id": "fertilizer-role.magnesium",
+              "name": "Bổ sung magie",
               "group": "other",
               "description": "Chỉ cân nhắc khi có nhu cầu bổ sung magie hoặc dấu hiệu thiếu hụt phù hợp; nên xác nhận vì các mất cân đối khác có thể cho biểu hiện tương tự."
             }

@@ -94,7 +94,7 @@ describe("preview knowledge", () => {
       expect(recs[0]!.goal.length).toBeGreaterThan(0);
     });
 
-    it("exposes structured fertilizer suggestions from a fertilizing plan", () => {
+    it("resolves Care Plan catalogue roles into prioritized fertilizer suggestions", () => {
       const plan = getCarePlansForStage("grape.stage.canopy-formation").find(
         (candidate) => candidate.activityType === "fertilizing",
       );
@@ -102,9 +102,10 @@ describe("preview knowledge", () => {
       expect(plan?.fertilizerSuggestions).toEqual(
         expect.arrayContaining([
           {
-            id: "fertilizer.potassium-sulfate",
-            name: "Kali sunfat",
+            id: "fertilizer-role.high-potassium",
+            name: "Phân giàu kali",
             group: "potassium-rich",
+            priority: "primary",
           },
         ]),
       );
@@ -115,11 +116,25 @@ describe("preview knowledge", () => {
         (candidate) => candidate.activityType === "fertilizing",
       );
 
-      expect(plan?.fertilizerSuggestions?.map(({ name }) => name)).toEqual([
-        "Urê",
-        "Phân cá",
-        "NPK 16-16-16",
-        "Phân compost",
+      expect(plan?.fertilizerSuggestions).toEqual([
+        {
+          id: "fertilizer-role.high-nitrogen",
+          name: "Phân giàu đạm",
+          group: "nitrogen-rich",
+          priority: "primary",
+        },
+        {
+          id: "fertilizer-role.balanced-nutrition",
+          name: "NPK cân đối",
+          group: "npk-balanced",
+          priority: "alternative",
+        },
+        {
+          id: "fertilizer-role.organic-foundation",
+          name: "Phân hữu cơ",
+          group: "organic",
+          priority: "alternative",
+        },
       ]);
     });
 
@@ -230,7 +245,7 @@ describe("preview knowledge", () => {
     const suggestions = listFertilizerSuggestions();
     expect(suggestions).toHaveLength(9);
     expect(suggestions[0]).toEqual({
-      id: "fertilizer.organic-foundation",
+      id: "fertilizer-role.organic-foundation",
       name: "Phân hữu cơ",
       group: "organic",
       description: "Ví dụ: phân trùn quế, phân chuồng hoai mục.",
@@ -240,15 +255,15 @@ describe("preview knowledge", () => {
       },
     });
     expect(suggestions.map(({ id }) => id)).toEqual([
-      "fertilizer.organic-foundation",
-      "fertilizer.humic",
-      "fertilizer.balanced-npk",
-      "fertilizer.high-nitrogen-npk",
-      "fertilizer.dap",
-      "fertilizer.calcium-boron",
-      "fertilizer.high-potassium-npk",
-      "fertilizer.potassium-sulfate",
-      "fertilizer.magnesium-sulfate",
+      "fertilizer-role.organic-foundation",
+      "fertilizer-role.soil-support",
+      "fertilizer-role.balanced-nutrition",
+      "fertilizer-role.high-nitrogen",
+      "fertilizer-role.high-phosphorus",
+      "fertilizer-role.calcium-boron",
+      "fertilizer-role.high-potassium",
+      "fertilizer-role.potassium-only",
+      "fertilizer-role.magnesium",
     ]);
   });
 });

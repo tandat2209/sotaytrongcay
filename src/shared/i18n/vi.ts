@@ -477,7 +477,7 @@ export const vi = {
   "plants.guide.frequency": ["TẦN SUẤT THAM KHẢO", []],
   "plants.guide.ground": ["Trồng đất", []],
   "plants.guide.container": ["Trồng chậu", []],
-  "plants.guide.inputs": ["VẬT TƯ THAM KHẢO", []],
+  "plants.guide.inputs": ["VAI TRÒ PHÂN BÓN GỢI Ý", []],
   "plants.guide.missing": ["Chưa có hướng dẫn cho giai đoạn này.", []],
   "plants.guide.next": ["SẮP TỚI", []],
   "plants.guide.nextAccessibility": [
@@ -492,7 +492,9 @@ export const vi = {
     [],
   ],
   "plants.guide.objective": ["MỤC TIÊU", []],
-  "plants.guide.recommendedInputs": ["VẬT TƯ GỢI Ý", []],
+  "plants.guide.recommendedInputs": ["VAI TRÒ PHÂN BÓN GỢI Ý", []],
+  "plants.guide.fertilizerPriority.primary": ["Ưu tiên", []],
+  "plants.guide.fertilizerPriority.alternative": ["Có thể thay thế", []],
   "plants.guide.reference": ["Hướng dẫn bổ sung", []],
   "plants.guide.referenceToggleAccessibility": [
     "Mở hoặc thu gọn hướng dẫn bổ sung {title}",

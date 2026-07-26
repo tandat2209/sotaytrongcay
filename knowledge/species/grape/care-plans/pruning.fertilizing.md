@@ -16,15 +16,10 @@ goal: >-
   Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành.
   Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.
 recommended_inputs:
-  - id: fertilizer.npk-16-16-16
-    name: NPK 16-16-16
-    group: npk-balanced
-  - id: fertilizer.composted-cow-manure
-    name: Phân bò hoai mục
-    group: organic
-  - id: fertilizer.vermicompost
-    name: Phân trùn quế
-    group: organic
+  - catalog_id: fertilizer-role.balanced-nutrition
+    priority: primary
+  - catalog_id: fertilizer-role.organic-foundation
+    priority: alternative
 notes:
   - Chỉ bón một lần trong tuần đầu sau cắt cành.
   - >-
@@ -34,7 +29,7 @@ notes:
     Nếu đã bón phân hữu cơ nặng trong giai đoạn phục hồi, bỏ qua phân hóa học ở
     đây.
   - Tưới nước trở lại từ từ — rễ cần ẩm để hấp thụ dinh dưỡng đã bón.
-version: 1.0.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

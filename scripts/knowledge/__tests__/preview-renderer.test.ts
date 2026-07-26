@@ -130,6 +130,55 @@ describe("knowledge preview renderer", () => {
     expect(html).not.toContain("Grape <Guide>");
   });
 
+  it("resolves Care Plan fertilizer roles from the focused catalogue", () => {
+    const html = renderKnowledgePreview({
+      ...bundle,
+      schemaVersion: "2.3.0",
+      carePlans: [
+        {
+          ...bundle.carePlans[0],
+          activityType: "fertilizing",
+          recommendedInputs: [
+            {
+              catalogId: "fertilizer-role.high-nitrogen",
+              priority: "primary",
+            },
+            {
+              catalogId: "fertilizer-role.organic-foundation",
+              priority: "alternative",
+            },
+          ],
+        },
+      ],
+      fertilizerGuides: [
+        {
+          id: "fertilizer-guide.focused",
+          sections: [
+            {
+              id: "test",
+              title: "Nhóm thử nghiệm",
+              items: [
+                {
+                  id: "fertilizer-role.high-nitrogen",
+                  name: "Phân giàu đạm",
+                  group: "nitrogen-rich",
+                },
+                {
+                  id: "fertilizer-role.organic-foundation",
+                  name: "Phân hữu cơ",
+                  group: "organic",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(html).toContain("Ưu tiên: Phân giàu đạm");
+    expect(html).toContain("Có thể thay thế: Phân hữu cơ");
+  });
+
   it("produces deterministic output", () => {
     expect(renderKnowledgePreview(bundle)).toBe(renderKnowledgePreview(bundle));
   });

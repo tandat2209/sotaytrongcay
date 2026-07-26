@@ -359,7 +359,7 @@ describe("knowledge source schema validation", () => {
     ]);
   });
 
-  it("accepts fertilizer-group guidance on a fertilizing Care Plan", async () => {
+  it("accepts catalogue-role recommendations on a fertilizing Care Plan", async () => {
     await workspace.writeKnowledgeFile(
       "species/grape/care-plans/check-soil.md",
       validDocuments.recommendation
@@ -367,9 +367,8 @@ describe("knowledge source schema validation", () => {
         .replace(
           "references: [ref.example]",
           `recommended_inputs:
-  - id: fertilizer.npk-balanced
-    name: "NPK cân đối"
-    group: npk-balanced
+  - catalog_id: fertilizer-role.balanced-nutrition
+    priority: primary
 fertilizer_group_guidance:
   - group: npk-balanced
     description: "Hỗ trợ dinh dưỡng cân đối theo mục tiêu của giai đoạn."

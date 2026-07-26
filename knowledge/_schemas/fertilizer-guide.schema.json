@@ -39,7 +39,7 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "pattern": "^fertilizer\\.[a-z0-9-]+$"
+                  "pattern": "^fertilizer-role\\.[a-z0-9-]+$"
                 },
                 "name": { "type": "string", "minLength": 1 },
                 "group": {

@@ -7,8 +7,16 @@
   "allOf": [
     {
       "if": {
-        "properties": { "fertilizer_group_guidance": true },
-        "required": ["fertilizer_group_guidance"]
+        "anyOf": [
+          {
+            "properties": { "fertilizer_group_guidance": {} },
+            "required": ["fertilizer_group_guidance"]
+          },
+          {
+            "properties": { "recommended_inputs": {} },
+            "required": ["recommended_inputs"]
+          }
+        ]
       },
       "then": {
         "properties": { "activity_type": { "const": "fertilizing" } }
@@ -153,24 +161,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "name", "group"],
+        "required": ["catalog_id", "priority"],
         "properties": {
-          "id": {
+          "catalog_id": {
             "type": "string",
-            "pattern": "^fertilizer\\.[a-z0-9-]+$"
+            "pattern": "^fertilizer-role\\.[a-z0-9-]+$"
           },
-          "name": { "type": "string", "minLength": 1 },
-          "group": {
-            "enum": [
-              "organic",
-              "nitrogen-rich",
-              "npk-balanced",
-              "phosphorus-rich",
-              "potassium-rich",
-              "support",
-              "other"
-            ]
-          }
+          "priority": { "enum": ["primary", "alternative"] }
         }
       }
     },

@@ -71,7 +71,7 @@ Generic curated knowledge for informational techniques such as training or pruni
 _Avoid_: Kế hoạch chăm sóc, quy tắc gợi ý, hoạt động đã làm
 
 **Kế hoạch chăm sóc** (Care plan):
-Stage-scoped guidance for one tracked watering, fertilizing, or spraying activity. It owns the goal, optional growing-method frequency, recommended inputs, important notes, and deterministic eligibility fields.
+Stage-scoped guidance for one tracked watering, fertilizing, or spraying activity. It owns the goal, optional growing-method frequency, important notes, and deterministic eligibility fields. A fertilizing plan references one primary Fertilizer Role and optional alternatives from the focused catalogue.
 _Avoid_: Hướng dẫn chung, hoạt động đã làm, lời nhắc
 
 **Ghi chép về cây** (Plant update):
@@ -131,11 +131,15 @@ A reviewed part of a Care Plan that decides when its tracked care guidance is sh
 _Avoid_: Lời khuyên AI, mã tùy ý
 
 **Hướng dẫn nhóm phân bón** (Fertilizer-group guidance):
-An optional stage-scoped explanation in a fertilizing Care Plan for why one canonical recommended fertilizer group may fit that stage. It reuses the existing group label and does not establish deficiency, dosage, or an immediate need to fertilize.
+An optional stage-scoped explanation in a fertilizing Care Plan for why the canonical group of one referenced fertilizer role may fit that stage. The group resolves from the focused catalogue and does not establish deficiency, dosage, or an immediate need to fertilize.
 _Avoid_: Tên phân bón, chẩn đoán thiếu chất
 
+**Vai trò phân bón** (Fertilizer role):
+A reviewed, product-independent choice in the focused fertilizer catalogue, identified by `fertilizer-role.*`, with one Vietnamese name and one canonical group. A fertilizing Care Plan references one primary role and may reference alternatives; it never copies product identities, formulas, role names, or groups into its recommendation.
+_Avoid_: Sản phẩm phân bón, công thức cụ thể, chẩn đoán thiếu chất
+
 **Bộ gợi ý phân bón trọng tâm** (Focused fertilizer guide):
-An ordered, curated selection aid shown only in Fertilizer Management. Its
+The single ordered catalogue of reviewed Fertilizer Roles, shown in Fertilizer Management and resolved by fertilizing Care Plans. Its
 section headings support scanning and are not fertilizer types. Each item keeps
 one canonical fertilizer group and may be saved into “Phân bón của tôi”, but
 the guide is not a shopping requirement, deficiency diagnosis, dosage, or

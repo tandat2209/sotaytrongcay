@@ -31,7 +31,7 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
-User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Fertilizer Management may list an ordered focused Fertilizer Guide for preparation; selecting one item copies its stable fertilizer ID into a private catalog record, and a later Care Entry may copy that identity into an application snapshot for provenance and saved-usage lookup. This does not make user data curated knowledge or establish an immediate need to fertilize. Stage-specific Care Plan suggestions remain a separate flat contract. User catalog records remain separate and have no guidance status.
+User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Fertilizer Management lists the ordered focused Fertilizer Role Catalogue for preparation; selecting one role copies its stable ID into a private catalog record, and a later Care Entry may copy that identity into an application snapshot for provenance and saved-usage lookup. This does not make user data curated knowledge or establish an immediate need to fertilize. Stage-specific Care Plans reference this same catalogue by role ID and priority. User catalog records remain separate and have no guidance status.
 
 ## 4. Domain relationship map
 
@@ -123,7 +123,7 @@ flowchart LR
 
 **Required fields:** ID, Vietnamese title and goal, activity type, applicable species/stages, eligibility, missing-history policy, priority, status, version, and references.
 
-**Optional fields:** Growing-method frequency, recommended inputs, fertilizer-group guidance, notes, and Markdown instructions. A fertilizing Care Plan stores recommended inputs as a flat list of concrete suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection. Its optional `fertilizer_group_guidance` describes the stage-specific purpose of an existing recommended group without repeating its label. Each described group must occur in `recommended_inputs` and may appear only once. This explanatory field does not add a second taxonomy or affect recommendation eligibility.
+**Optional fields:** Growing-method frequency, recommended inputs, fertilizer-group guidance, notes, and Markdown instructions. A fertilizing Care Plan stores each recommendation only as a focused-catalogue role reference (`catalog_id`) and priority (`primary` or `alternative`). It has exactly one primary role and never embeds a product, formula, display name, or canonical group. The compiler resolves names and groups from the catalogue. Optional `fertilizer_group_guidance` describes the stage-specific purpose of a resolved recommended group without repeating its label. Each described group must occur among the resolved roles and may appear only once. This explanatory field does not add a second taxonomy or affect recommendation eligibility.
 
 Growing-method frequency is an executable recurring schedule, not presentation-only metadata. Each display value must begin with a daily or weekly cadence, and `interval_days` must equal the earliest cadence shown. One-time, finite, or conditional timing stays in the Care Plan goal or notes and must not define frequency, because the reminder engine repeats every serialized interval.
 
@@ -185,20 +185,22 @@ It is neither a User Fertilizer nor the record of what a grower used. A saved fe
 
 **Example:** `fertilizer.nitrogen-forward-balanced` for vegetative growth, with over-fertilization cautions.
 
-### 5.8a Focused Fertilizer Guide
+### 5.8a Focused Fertilizer Role Catalogue
 
-**Purpose:** Defines the compact, ordered selection aid shown in Fertilizer
-Management without replacing stage-scoped Care Plan suggestions.
+**Purpose:** Defines the single compact catalogue of product-independent roles
+used by fertilizing Care Plans and shown as an ordered selection aid in
+Fertilizer Management.
 
 **Required fields:** ID, Vietnamese title, ordered presentation sections,
-concrete fertilizer items, status, version, and references. Each section owns a
-stable ID and Vietnamese heading. Each item owns a stable fertilizer ID,
+fertilizer roles, status, version, and references. Each section owns a
+stable ID and Vietnamese heading. Each role owns a stable `fertilizer-role.*` ID,
 Vietnamese name, canonical fertilizer group, and concise description.
 
-**Relationships:** Selecting an item may copy only its identity and canonical
+**Relationships:** A Care Plan references each role by ID and recommendation
+priority; the compiler validates and resolves its name and group. Selecting a role may copy only its identity and canonical
 group into a User Fertilizer. Section and description metadata remain curated
 knowledge and are not copied into user history. Presentation sections are not
-another fertilizer taxonomy and do not appear around Care Entry chips.
+another fertilizer taxonomy.
 
 **Safety boundary:** The guide is not a shopping requirement, deficiency
 diagnosis, dosage, application method, or immediate recommendation to

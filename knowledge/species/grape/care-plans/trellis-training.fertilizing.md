@@ -16,18 +16,10 @@ goal: >-
   Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang
   tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.
 recommended_inputs:
-  - id: fertilizer.npk-16-16-16
-    name: NPK 16-16-16
-    group: npk-balanced
-  - id: fertilizer.compost
-    name: Phân compost
-    group: organic
-  - id: fertilizer.fish-emulsion
-    name: Phân cá
-    group: organic
-  - id: fertilizer.seaweed-extract
-    name: Rong biển
-    group: support
+  - catalog_id: fertilizer-role.balanced-nutrition
+    priority: primary
+  - catalog_id: fertilizer-role.organic-foundation
+    priority: alternative
 frequency:
   ground:
     display: Mỗi 2–4 tuần
@@ -42,7 +34,7 @@ notes:
   - >-
     Bắt đầu chú ý đến kali — rất quan trọng cho quá trình hóa gỗ cần thiết trước
     khi cây có thể ra trái.
-version: 1.0.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

@@ -16,18 +16,10 @@ goal: >-
   Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh,
   bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.
 recommended_inputs:
-  - id: fertilizer.urea
-    name: Urê
-    group: nitrogen-rich
-  - id: fertilizer.fish-emulsion
-    name: Phân cá
-    group: organic
-  - id: fertilizer.npk-20-10-10
-    name: NPK 20-10-10
-    group: nitrogen-rich
-  - id: fertilizer.trace-elements
-    name: Vi lượng Zn, B, Fe
-    group: other
+  - catalog_id: fertilizer-role.high-nitrogen
+    priority: primary
+  - catalog_id: fertilizer-role.organic-foundation
+    priority: alternative
 frequency:
   ground:
     display: Mỗi 1–2 tuần trong giai đoạn chồi đang phát triển mạnh
@@ -40,12 +32,12 @@ notes:
     Giai đoạn này rất ngắn (2–3 tuần) — bón trễ sẽ lỡ thời điểm quan trọng cho
     năng suất vụ.
   - >-
-    Trong thời tiết nóng, luôn tưới nước ngay sau khi rải urê lên đất, nếu không
-    urê sẽ bốc hơi mất tác dụng.
+    Đọc nhãn của loại phân đã chọn và tưới theo hướng dẫn sử dụng; không tự suy
+    ra liều từ tên vai trò phân bón.
   - >-
     Không bón bo "phòng ngừa." Bo giúp thụ phấn nhưng ngưỡng ngộ độc rất hẹp —
     chỉ dùng khi có bằng chứng thiếu bo.
-version: 1.0.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

@@ -10,6 +10,10 @@ export function validateRelationships(
   const diagnostics: KnowledgeDiagnostic[] = [];
   const idMap = new Map<string, NormalizedKnowledgeDocument>();
   const idToDocPath = new Map<string, string>();
+  const fertilizerRoles = new Map<
+    string,
+    Readonly<{ group: string; guideId: string; path: string }>
+  >();
 
   // 1. Check duplicate IDs
   for (const doc of documents) {
@@ -24,6 +28,32 @@ export function validateRelationships(
     } else {
       idMap.set(doc.id, doc);
       idToDocPath.set(doc.id, doc.path);
+    }
+
+    if (
+      doc.type === "fertilizer_guide" &&
+      doc.id === "fertilizer-guide.focused"
+    ) {
+      for (const section of doc.sections) {
+        for (const item of section.items) {
+          const existing = fertilizerRoles.get(item.id);
+          if (existing && existing.guideId !== doc.id) {
+            diagnostics.push({
+              code: "KNOWLEDGE_FERTILIZER_GUIDE_INVALID",
+              path: doc.path,
+              documentId: doc.id,
+              field: "sections.items",
+              message: `Fertilizer role ${item.id} is already declared by ${existing.guideId} in ${existing.path}.`,
+            });
+          } else if (!existing) {
+            fertilizerRoles.set(item.id, {
+              group: item.group,
+              guideId: doc.id,
+              path: doc.path,
+            });
+          }
+        }
+      }
     }
   }
 
@@ -106,10 +136,51 @@ export function validateRelationships(
           validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
         }
 
+        const recommendedGroups = new Set<string>();
+        if (doc.recommendedInputs) {
+          const catalogIds = new Set<string>();
+          let primaryCount = 0;
+          for (const input of doc.recommendedInputs) {
+            if (input.priority === "primary") {
+              primaryCount += 1;
+            }
+            if (catalogIds.has(input.catalogId)) {
+              diagnostics.push({
+                code: "KNOWLEDGE_FERTILIZER_ROLE_REFERENCE_INVALID",
+                path: doc.path,
+                documentId: doc.id,
+                field: "recommendedInputs",
+                message: `Care Plan ${doc.id} references fertilizer role ${input.catalogId} more than once.`,
+              });
+            }
+            catalogIds.add(input.catalogId);
+
+            const role = fertilizerRoles.get(input.catalogId);
+            if (!role) {
+              diagnostics.push({
+                code: "KNOWLEDGE_FERTILIZER_ROLE_REFERENCE_INVALID",
+                path: doc.path,
+                documentId: doc.id,
+                field: "recommendedInputs",
+                message: `Care Plan ${doc.id} references missing fertilizer role ${input.catalogId}.`,
+              });
+            } else {
+              recommendedGroups.add(role.group);
+            }
+          }
+
+          if (primaryCount !== 1) {
+            diagnostics.push({
+              code: "KNOWLEDGE_FERTILIZER_ROLE_REFERENCE_INVALID",
+              path: doc.path,
+              documentId: doc.id,
+              field: "recommendedInputs",
+              message: `Care Plan ${doc.id} must reference exactly one primary fertilizer role, but found ${primaryCount}.`,
+            });
+          }
+        }
+
         if (doc.fertilizerGroupGuidance) {
-          const recommendedGroups = new Set(
-            doc.recommendedInputs?.map((input) => input.group) ?? [],
-          );
           const describedGroups = new Set<string>();
 
           for (const guidance of doc.fertilizerGroupGuidance) {

@@ -7,17 +7,17 @@ sections:
   - id: foundation
     title: Nhóm nền tảng
     items:
-      - id: fertilizer.organic-foundation
+      - id: fertilizer-role.organic-foundation
         name: Phân hữu cơ
         group: organic
         description: "Ví dụ: phân trùn quế, phân chuồng hoai mục."
-      - id: fertilizer.humic
-        name: Humic
+      - id: fertilizer-role.soil-support
+        name: Chế phẩm hỗ trợ đất
         group: support
         description: >-
           Dùng để hỗ trợ đất; hiệu quả đối với rễ và khả năng giữ, hấp thu dinh
           dưỡng phụ thuộc đất và sản phẩm.
-      - id: fertilizer.balanced-npk
+      - id: fertilizer-role.balanced-nutrition
         name: NPK cân đối
         group: npk-balanced
         description: >-
@@ -26,14 +26,14 @@ sections:
   - id: vegetative-and-roots
     title: Nhóm phát triển thân lá và bộ rễ
     items:
-      - id: fertilizer.high-nitrogen-npk
-        name: NPK giàu đạm
+      - id: fertilizer-role.high-nitrogen
+        name: Phân giàu đạm
         group: nitrogen-rich
         description: >-
           Dùng trong giai đoạn kiến thiết, nuôi thân lá; giảm khi cây đã sinh
           trưởng mạnh để tránh dư đạm.
-      - id: fertilizer.dap
-        name: DAP
+      - id: fertilizer-role.high-phosphorus
+        name: Phân giàu lân
         group: phosphorus-rich
         description: >-
           Một lựa chọn thuộc nhóm phân giàu lân. Không cần đồng thời thêm một
@@ -41,20 +41,20 @@ sections:
   - id: flowering-and-fruit
     title: Nhóm ra hoa và nuôi quả
     items:
-      - id: fertilizer.calcium-boron
-        name: Canxi–Bo
+      - id: fertilizer-role.calcium-boron
+        name: Bổ sung canxi–bo
         group: other
         description: >-
           Lựa chọn kết hợp canxi và bo phổ biến; chỉ dùng khi nhu cầu phù hợp vì
           thừa bo có thể gây độc cho cây.
-      - id: fertilizer.high-potassium-npk
-        name: NPK giàu kali
+      - id: fertilizer-role.high-potassium
+        name: Phân giàu kali
         group: potassium-rich
         description: >-
           Lựa chọn chính trong nhóm phân hỗn hợp cho giai đoạn nuôi quả; vẫn cần
           cân đối với dinh dưỡng cây đã nhận.
-      - id: fertilizer.potassium-sulfate
-        name: Kali sunfat
+      - id: fertilizer-role.potassium-only
+        name: Bổ sung kali đơn
         group: potassium-rich
         description: >-
           Lựa chọn kali đơn khi cần tăng kali mà không muốn bổ sung thêm nhiều
@@ -62,13 +62,13 @@ sections:
   - id: conditional-supplements
     title: Nhóm bổ sung khi cần
     items:
-      - id: fertilizer.magnesium-sulfate
-        name: Magie sunfat
+      - id: fertilizer-role.magnesium
+        name: Bổ sung magie
         group: other
         description: >-
           Chỉ cân nhắc khi có nhu cầu bổ sung magie hoặc dấu hiệu thiếu hụt phù
           hợp; nên xác nhận vì các mất cân đối khác có thể cho biểu hiện tương tự.
-version: 1.0.0
+version: 2.0.0
 status: review
 references:
   - ref.usu.organic-amendments

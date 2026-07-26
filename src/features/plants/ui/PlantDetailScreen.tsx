@@ -77,7 +77,12 @@ export function PlantDetailScreen({
   const entrySuggestion = entryCard?.details?.recommendedInputs
     .map(({ name }) => name)
     .join(" · ");
-  const fertilizerSuggestions = entryCard?.details?.recommendedInputs ?? [];
+  const fertilizerSuggestions =
+    entryCard?.details?.recommendedInputs.map((input) => ({
+      id: input.catalogId,
+      name: input.name,
+      group: input.group,
+    })) ?? [];
   const recordQuickCare = (type: CareActivityType) => {
     setCareEntryType(type);
   };

@@ -17,18 +17,12 @@ goal: >-
   trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu
   kỳ mang trái đầu tiên.
 recommended_inputs:
-  - id: fertilizer.potassium-sulfate
-    name: Kali sunfat
-    group: potassium-rich
-  - id: fertilizer.seaweed-extract
-    name: Rong biển
-    group: support
-  - id: fertilizer.npk-12-12-17
-    name: NPK 12-12-17 + TE
-    group: potassium-rich
-  - id: fertilizer.compost
-    name: Phân compost
-    group: organic
+  - catalog_id: fertilizer-role.high-potassium
+    priority: primary
+  - catalog_id: fertilizer-role.potassium-only
+    priority: alternative
+  - catalog_id: fertilizer-role.magnesium
+    priority: alternative
 frequency:
   ground:
     display: >-
@@ -52,7 +46,7 @@ fertilizer_group_guidance:
       Tham gia điều tiết nước và vận chuyển carbohydrate trong cây, có liên quan
       đến quá trình trưởng thành của cành. Bổ sung quá mức cũng có thể làm mất
       cân đối dinh dưỡng.
-version: 1.1.1
+version: 2.0.0
 status: review
 references:
   - ref.osu.growing-table-grapes

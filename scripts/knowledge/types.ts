@@ -27,6 +27,7 @@ export type KnowledgeDiagnosticCode =
   | "KNOWLEDGE_ACTIVITY_TYPE_UNSUPPORTED"
   | "KNOWLEDGE_RECOMMENDATION_SCOPE_DUPLICATE"
   | "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID"
+  | "KNOWLEDGE_FERTILIZER_ROLE_REFERENCE_INVALID"
   | "KNOWLEDGE_FERTILIZER_GUIDE_INVALID"
   | "KNOWLEDGE_REASON_MISSING"
   | "KNOWLEDGE_REFERENCE_REQUIRED"
@@ -180,10 +181,11 @@ export interface FertilizerGroupGuidance {
 }
 
 export interface RecommendedInput {
-  readonly id: string;
-  readonly name: string;
-  readonly group: FertilizerGroup;
+  readonly catalogId: string;
+  readonly priority: FertilizerRecommendationPriority;
 }
+
+export type FertilizerRecommendationPriority = "primary" | "alternative";
 
 export type FertilizerGroup =
   | "organic"
@@ -194,13 +196,13 @@ export type FertilizerGroup =
   | "support"
   | "other";
 
-export interface FertilizerSuggestion {
+export interface FertilizerRole {
   readonly id: string;
   readonly name: string;
   readonly group: FertilizerGroup;
 }
 
-export interface FertilizerGuideItem extends FertilizerSuggestion {
+export interface FertilizerGuideItem extends FertilizerRole {
   readonly description: string;
 }
 

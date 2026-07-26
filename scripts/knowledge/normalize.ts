@@ -1,6 +1,6 @@
 import type {
   FertilizerGroup,
-  FertilizerSuggestion,
+  FertilizerRecommendationPriority,
   NormalizedKnowledgeDocument,
   StageJourneyItem,
   ValidatedSourceDocument,
@@ -148,21 +148,11 @@ export function normalizeDocument(
       const recommendedInputs = Array.isArray(rawInputs)
         ? rawInputs.map((input) => {
             const value = input as Readonly<Record<string, unknown>>;
-            const group = value.group;
-            const normalizedGroup: FertilizerSuggestion["group"] =
-              group === "organic" ||
-              group === "nitrogen-rich" ||
-              group === "npk-balanced" ||
-              group === "phosphorus-rich" ||
-              group === "potassium-rich" ||
-              group === "support" ||
-              group === "other"
-                ? group
-                : "other";
+            const priority: FertilizerRecommendationPriority =
+              value.priority === "primary" ? "primary" : "alternative";
             return {
-              id: String(value.id),
-              name: String(value.name),
-              group: normalizedGroup,
+              catalogId: String(value.catalog_id),
+              priority,
             };
           })
         : undefined;
