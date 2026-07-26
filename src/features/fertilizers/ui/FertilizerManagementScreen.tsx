@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import type { FocusedFertilizerSuggestion } from "@/features/knowledge";
 import type {
   FertilizerGroup,
   FertilizerSuggestionIdentity,
@@ -23,7 +24,7 @@ type Props = Readonly<{
   addSuggestionFailed: boolean;
   addingSuggestionId: string | null;
   fertilizers: readonly UserFertilizer[];
-  fertilizerSuggestions: readonly FertilizerSuggestionIdentity[];
+  fertilizerSuggestions: readonly FocusedFertilizerSuggestion[];
   onAdd: () => void;
   onAddSuggestion: (suggestion: FertilizerSuggestionIdentity) => void;
   onBack: () => void;

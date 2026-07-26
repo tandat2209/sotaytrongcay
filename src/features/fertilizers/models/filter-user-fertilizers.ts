@@ -17,12 +17,14 @@ export function filterUserFertilizers(
   );
 }
 
-export function filterAvailableFertilizerSuggestions(
-  suggestions: readonly FertilizerSuggestionIdentity[],
+export function filterAvailableFertilizerSuggestions<
+  Suggestion extends FertilizerSuggestionIdentity,
+>(
+  suggestions: readonly Suggestion[],
   fertilizers: readonly UserFertilizer[],
   search: string,
   group: FertilizerGroup | null,
-): readonly FertilizerSuggestionIdentity[] {
+): readonly Suggestion[] {
   const savedKnowledgeIds = new Set(
     fertilizers.flatMap(({ knowledgeId }) =>
       knowledgeId ? [knowledgeId] : [],

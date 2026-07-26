@@ -226,24 +226,29 @@ describe("preview knowledge", () => {
     ).toEqual([]);
   });
 
-  it("lists every unique fertilizer suggestion across Care Plans", () => {
+  it("lists the focused fertilizer guide in authored section order", () => {
     const suggestions = listFertilizerSuggestions();
-    expect(suggestions).toEqual(
-      expect.arrayContaining([
-        {
-          id: "fertilizer.potassium-sulfate",
-          name: "Kali sunfat",
-          group: "potassium-rich",
-        },
-        {
-          id: "fertilizer.urea",
-          name: "Urê",
-          group: "nitrogen-rich",
-        },
-      ]),
-    );
-    expect(new Set(suggestions.map(({ id }) => id)).size).toBe(
-      suggestions.length,
-    );
+    expect(suggestions).toHaveLength(9);
+    expect(suggestions[0]).toEqual({
+      id: "fertilizer.organic-foundation",
+      name: "Phân hữu cơ",
+      group: "organic",
+      description: "Ví dụ: phân trùn quế, phân chuồng hoai mục.",
+      section: {
+        id: "foundation",
+        title: "Nhóm nền tảng",
+      },
+    });
+    expect(suggestions.map(({ id }) => id)).toEqual([
+      "fertilizer.organic-foundation",
+      "fertilizer.humic",
+      "fertilizer.balanced-npk",
+      "fertilizer.high-nitrogen-npk",
+      "fertilizer.dap",
+      "fertilizer.calcium-boron",
+      "fertilizer.high-potassium-npk",
+      "fertilizer.potassium-sulfate",
+      "fertilizer.magnesium-sulfate",
+    ]);
   });
 });

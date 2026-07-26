@@ -9,11 +9,12 @@ import type {
   NormalizedPest,
   NormalizedThreatBase,
   NormalizedReferenceSource,
+  NormalizedFertilizerGuide,
   StageJourneyItem,
 } from "./types";
 
 export const PRODUCTION_BUNDLE_SCHEMA_VERSION = "1.0.0";
-export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.1.0";
+export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.2.0";
 export const KNOWLEDGE_CONTENT_VERSION = "1.0.0";
 
 function sortArray(arr: readonly string[]): readonly string[] {
@@ -43,6 +44,12 @@ export function serializeBundle(
 
   const guideDocs = (
     documents.filter((d) => d.type === "care_guide") as NormalizedCareGuide[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
+
+  const fertilizerGuideDocs = (
+    documents.filter(
+      (d) => d.type === "fertilizer_guide",
+    ) as NormalizedFertilizerGuide[]
   ).sort((a, b) => a.id.localeCompare(b.id));
 
   const diseaseDocs = (
@@ -196,6 +203,18 @@ export function serializeBundle(
     bodyMarkdown: g.bodyMarkdown,
   }));
 
+  const compiledFertilizerGuides = fertilizerGuideDocs.map((guide) => ({
+    id: guide.id,
+    type: guide.type,
+    title: guide.title,
+    locale: guide.locale,
+    version: guide.version,
+    status: guide.status,
+    references: sortArray(guide.references),
+    sections: guide.sections,
+    bodyMarkdown: guide.bodyMarkdown,
+  }));
+
   const compileThreat = (threat: NormalizedThreatBase) => ({
     id: threat.id,
     type: threat.type,
@@ -242,6 +261,7 @@ export function serializeBundle(
     carePlans: compiledCarePlans,
     guides: compiledGuides,
     ...(mode === "preview" && {
+      fertilizerGuides: compiledFertilizerGuides,
       diseases: compiledDiseases,
       pests: compiledPests,
     }),

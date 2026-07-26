@@ -125,6 +125,9 @@ export function selectEligibleContent(
         break;
       }
 
+      case "fertilizer_guide":
+        break;
+
       case "disease":
       case "pest": {
         const threat = doc as NormalizedThreatBase;

@@ -84,7 +84,7 @@ review status.
 - A `care_guide` contains generic informational techniques such as training or pruning and is not required by a Care Plan.
 - A `disease` or `pest` provides a stable reviewed target identity, affected species and monitoring stages, observable evidence, prevention context, safe first response, escalation guidance, and sources. It does not establish that a plant has the issue or that spraying is due.
 - The compiler validates Care Plan scope and emits its presentation and decision fields together.
-- Fertilizer Management may deduplicate structured fertilizer suggestions across current Care Plans and copy a selected stable identity into the private user catalog. Listing or saving that identity is preparation only and creates no care history or immediate fertilizing recommendation.
+- Fertilizer Management reads the ordered review-stage `fertilizer_guide` under `knowledge/catalogs/fertilizers/`. Its presentation sections are management-only and each concrete item still owns one canonical fertilizer group. Listing or saving a stable identity is preparation only and creates no care history or immediate fertilizing recommendation. Care Entry continues to use flat, stage-scoped Care Plan suggestions.
 - Informational guides, including pruning or training techniques, do not create activities, recommendations, reminders, or history.
 
 ## Documentation ownership

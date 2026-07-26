@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.1.0",
+  "schemaVersion": "2.2.0",
   "contentVersion": "1.0.0",
   "mode": "preview",
   "species": [
@@ -1784,6 +1784,104 @@
       "bodyMarkdown": "\n# Định hướng thân chính\n\n## Mục đích\n\nGiúp một chồi khỏe phát triển thành thân chính theo hệ cọc hoặc giàn mà người trồng đã chọn.\n\nĐây là hướng dẫn tham khảo, không phải hoạt động có trạng thái hoàn thành và không tự tạo lịch sử.\n\n## Trước khi làm\n\n- Xác định hệ đỡ đủ chắc cho cây khi lớn hơn.\n- Quan sát các chồi hiện có và chọn chồi phù hợp với hướng tạo thân.\n- Chuẩn bị vật liệu buộc mềm, không có cạnh sắc.\n\n## Cách thực hiện an toàn\n\n1. Đưa chồi chính về gần cọc hoặc điểm đỡ mà không bẻ gập.\n2. Buộc lỏng để thân còn khoảng phát triển và có thể chuyển động nhẹ.\n3. Đặt thêm điểm buộc khi cần thay vì siết một điểm quá chặt.\n4. Kiểm tra định kỳ và nới hoặc thay dây khi thân lớn.\n5. Ghi ảnh vào “Thêm nhật ký” nếu muốn theo dõi thay đổi của thân.\n\n## Dừng lại và đánh giá lại\n\n- Chồi bị nứt, dập hoặc phải uốn mạnh mới chạm điểm đỡ.\n- Dây để lại vết hằn trên thân.\n- Không xác định được chồi nào nên giữ theo hệ giàn hoặc giống đang trồng.\n\nTrong các trường hợp này, không tiếp tục cắt hoặc buộc chỉ để khớp với hình minh họa chung.\n"
     }
   ],
+  "fertilizerGuides": [
+    {
+      "id": "fertilizer-guide.focused",
+      "type": "fertilizer_guide",
+      "title": "Gợi ý phân bón trọng tâm",
+      "locale": "vi-VN",
+      "version": "1.0.0",
+      "status": "review",
+      "references": [
+        "ref.ncsu.winegrape-vine-nutrition",
+        "ref.ucdavis.vineyard-nutrition",
+        "ref.umn.high-tunnel-nutrient-management",
+        "ref.umn.phosphorus-fertilizers",
+        "ref.usu.organic-amendments"
+      ],
+      "sections": [
+        {
+          "id": "foundation",
+          "title": "Nhóm nền tảng",
+          "items": [
+            {
+              "id": "fertilizer.organic-foundation",
+              "name": "Phân hữu cơ",
+              "group": "organic",
+              "description": "Ví dụ: phân trùn quế, phân chuồng hoai mục."
+            },
+            {
+              "id": "fertilizer.humic",
+              "name": "Humic",
+              "group": "support",
+              "description": "Dùng để hỗ trợ đất; hiệu quả đối với rễ và khả năng giữ, hấp thu dinh dưỡng phụ thuộc đất và sản phẩm."
+            },
+            {
+              "id": "fertilizer.balanced-npk",
+              "name": "NPK cân đối",
+              "group": "npk-balanced",
+              "description": "Lựa chọn sử dụng chung khi cây phát triển ổn định; đọc thành phần trên nhãn để tránh bổ sung dinh dưỡng đã có đủ."
+            }
+          ]
+        },
+        {
+          "id": "vegetative-and-roots",
+          "title": "Nhóm phát triển thân lá và bộ rễ",
+          "items": [
+            {
+              "id": "fertilizer.high-nitrogen-npk",
+              "name": "NPK giàu đạm",
+              "group": "nitrogen-rich",
+              "description": "Dùng trong giai đoạn kiến thiết, nuôi thân lá; giảm khi cây đã sinh trưởng mạnh để tránh dư đạm."
+            },
+            {
+              "id": "fertilizer.dap",
+              "name": "DAP",
+              "group": "phosphorus-rich",
+              "description": "Một lựa chọn thuộc nhóm phân giàu lân. Không cần đồng thời thêm một loại phân lân khác chỉ để trùng cùng mục đích bổ sung lân."
+            }
+          ]
+        },
+        {
+          "id": "flowering-and-fruit",
+          "title": "Nhóm ra hoa và nuôi quả",
+          "items": [
+            {
+              "id": "fertilizer.calcium-boron",
+              "name": "Canxi–Bo",
+              "group": "other",
+              "description": "Lựa chọn kết hợp canxi và bo phổ biến; chỉ dùng khi nhu cầu phù hợp vì thừa bo có thể gây độc cho cây."
+            },
+            {
+              "id": "fertilizer.high-potassium-npk",
+              "name": "NPK giàu kali",
+              "group": "potassium-rich",
+              "description": "Lựa chọn chính trong nhóm phân hỗn hợp cho giai đoạn nuôi quả; vẫn cần cân đối với dinh dưỡng cây đã nhận."
+            },
+            {
+              "id": "fertilizer.potassium-sulfate",
+              "name": "Kali sunfat",
+              "group": "potassium-rich",
+              "description": "Lựa chọn kali đơn khi cần tăng kali mà không muốn bổ sung thêm nhiều đạm hoặc lân."
+            }
+          ]
+        },
+        {
+          "id": "conditional-supplements",
+          "title": "Nhóm bổ sung khi cần",
+          "items": [
+            {
+              "id": "fertilizer.magnesium-sulfate",
+              "name": "Magie sunfat",
+              "group": "other",
+              "description": "Chỉ cân nhắc khi có nhu cầu bổ sung magie hoặc dấu hiệu thiếu hụt phù hợp; nên xác nhận vì các mất cân đối khác có thể cho biểu hiện tương tự."
+            }
+          ]
+        }
+      ],
+      "bodyMarkdown": "\nDanh sách này là hướng dẫn chọn lựa gọn cho quản lý phân bón. Đây không phải\nđơn mua hàng, chẩn đoán thiếu chất, liều dùng hay xác nhận cây cần bón ngay.\n"
+    }
+  ],
   "diseases": [
     {
       "id": "disease.grape.powdery-mildew",
@@ -1941,6 +2039,18 @@
       "url": "https://www.fao.org/3/x6897e/x6897e00.htm",
       "accessed": "2026-07-12",
       "bodyMarkdown": "\n# Review notes\n\nUsed for calcium and boron roles in grape pollination and fruit set, potassium and sugar accumulation during ripening, and tropical viticulture adaptations including forced dormancy and multiple production cycles per year.\n\nFAO production volumes and regional spray schedules are not transferred as universal home-grower guidance.\n"
+    },
+    {
+      "id": "ref.ncsu.winegrape-vine-nutrition",
+      "type": "reference_source",
+      "title": "Chapter 9. Vine Nutrition",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "North Carolina State University Extension",
+      "sourceType": "extension_guide",
+      "url": "https://content.ces.ncsu.edu/north-carolina-winegrape-growers-guide/chapter-9-vine-nutrition",
+      "accessed": "2026-07-26",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to support grape-specific context for nitrogen, potassium, magnesium, and\nboron and the requirement to confirm suspected deficiencies with plant and soil\nevidence rather than a single visible sign.\n\nThe source warns that poor fruit set has causes other than boron deficiency and\nthat excess boron can be phytotoxic. No regional rate or deficiency threshold\nis transferred into the app.\n"
     },
     {
       "id": "ref.osu.growing-table-grapes",
@@ -2109,6 +2219,18 @@
       "url": "https://extension.umn.edu/phosphorus-and-potassium/understanding-phosphorus-fertilizers",
       "accessed": "2026-07-20",
       "bodyMarkdown": "\n# Review notes\n\nUsed to support the role of phosphorus in plant energy transfer and root growth and the requirement that phosphorus decisions depend on crop, soil properties, environmental conditions, nutrient analysis, and soil testing. The source also identifies diammonium phosphate (DAP) as a fertilizer containing nitrogen and phosphorus.\n\nThe source is not grape-specific. It does not justify recommending DAP by default or transferring a dosage, placement, or schedule into the app.\n"
+    },
+    {
+      "id": "ref.usu.organic-amendments",
+      "type": "reference_source",
+      "title": "Are Organic Matter Soil Amendments Created Equal?",
+      "version": "1.0.0",
+      "status": "active",
+      "publisher": "Utah State University Extension",
+      "sourceType": "extension_guide",
+      "url": "https://extension.usu.edu/yardandgarden/research/are-organic-matter-soil-ammendments-created-equal",
+      "accessed": "2026-07-26",
+      "bodyMarkdown": "\n# Review notes\n\nUsed to identify compost, manure, and humic or fulvic products as distinct\norganic-matter amendments and to bound claims about their effects on soil,\nwater, and nutrient retention.\n\nThe source cautions that humic-product effects may be small or masked by the\nexisting soil. The app therefore describes Humic only as optional soil support,\nnot as a guaranteed root treatment or replacement for fertilizer.\n"
     },
     {
       "id": "ref.vaas.grape-nh01-48",

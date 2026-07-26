@@ -3,6 +3,7 @@ export const KNOWLEDGE_DOCUMENT_TYPES = [
   "growth_stage_playbook",
   "care_plan",
   "care_guide",
+  "fertilizer_guide",
   "disease",
   "pest",
   "reference_source",
@@ -26,6 +27,7 @@ export type KnowledgeDiagnosticCode =
   | "KNOWLEDGE_ACTIVITY_TYPE_UNSUPPORTED"
   | "KNOWLEDGE_RECOMMENDATION_SCOPE_DUPLICATE"
   | "KNOWLEDGE_FERTILIZER_GROUP_GUIDANCE_INVALID"
+  | "KNOWLEDGE_FERTILIZER_GUIDE_INVALID"
   | "KNOWLEDGE_REASON_MISSING"
   | "KNOWLEDGE_REFERENCE_REQUIRED"
   | "KNOWLEDGE_DEPENDENCY_INELIGIBLE"
@@ -197,6 +199,21 @@ export interface FertilizerSuggestion {
   readonly group: FertilizerGroup;
 }
 
+export interface FertilizerGuideItem extends FertilizerSuggestion {
+  readonly description: string;
+}
+
+export interface FertilizerGuideSection {
+  readonly id: string;
+  readonly title: string;
+  readonly items: readonly FertilizerGuideItem[];
+}
+
+export interface NormalizedFertilizerGuide extends NormalizedUserFacingBaseDocument {
+  readonly type: "fertilizer_guide";
+  readonly sections: readonly FertilizerGuideSection[];
+}
+
 export interface CareFrequency {
   readonly ground: Readonly<{ display: string; intervalDays: number }>;
   readonly container: Readonly<{ display: string; intervalDays: number }>;
@@ -253,4 +270,5 @@ export type NormalizedKnowledgeDocument =
   | NormalizedCareGuide
   | NormalizedDisease
   | NormalizedPest
-  | NormalizedReferenceSource;
+  | NormalizedReferenceSource
+  | NormalizedFertilizerGuide;

@@ -31,7 +31,7 @@ The same domain model must work with Markdown in MVP, PostgreSQL or a CMS later,
 
 Rules consume runtime context but are themselves curated knowledge. Derived suggestions are transient read models; only explicitly saved care becomes user history.
 
-User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Fertilizer Management may list the deduplicated structured suggestions from current Care Plans for preparation; selecting one copies its stable fertilizer ID into a private catalog record, and a later Care Entry may copy that identity into an application snapshot for provenance and saved-usage lookup. This does not make user data curated knowledge or establish an immediate need to fertilize. The Knowledge Base may supply a reviewed prefill only through a versioned Care Plan contract; user catalog records remain separate and have no guidance status.
+User Fertilizers managed through Care Entry or “Mở rộng” are private reusable user data. Fertilizer applications entered inside Care Entry are user history. Neither creates, updates, or approves Fertilizer Profiles, even when names resemble curated content. Fertilizer Management may list an ordered focused Fertilizer Guide for preparation; selecting one item copies its stable fertilizer ID into a private catalog record, and a later Care Entry may copy that identity into an application snapshot for provenance and saved-usage lookup. This does not make user data curated knowledge or establish an immediate need to fertilize. Stage-specific Care Plan suggestions remain a separate flat contract. User catalog records remain separate and have no guidance status.
 
 ## 4. Domain relationship map
 
@@ -182,6 +182,25 @@ For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and
 It is neither a User Fertilizer nor the record of what a grower used. A saved fertilizing Care Activity owns its fertilizer-application snapshots; no user catalog record or application is linked to a profile by name alone.
 
 **Example:** `fertilizer.nitrogen-forward-balanced` for vegetative growth, with over-fertilization cautions.
+
+### 5.8a Focused Fertilizer Guide
+
+**Purpose:** Defines the compact, ordered selection aid shown in Fertilizer
+Management without replacing stage-scoped Care Plan suggestions.
+
+**Required fields:** ID, Vietnamese title, ordered presentation sections,
+concrete fertilizer items, status, version, and references. Each section owns a
+stable ID and Vietnamese heading. Each item owns a stable fertilizer ID,
+Vietnamese name, canonical fertilizer group, and concise description.
+
+**Relationships:** Selecting an item may copy only its identity and canonical
+group into a User Fertilizer. Section and description metadata remain curated
+knowledge and are not copied into user history. Presentation sections are not
+another fertilizer taxonomy and do not appear around Care Entry chips.
+
+**Safety boundary:** The guide is not a shopping requirement, deficiency
+diagnosis, dosage, application method, or immediate recommendation to
+fertilize. Conditional supplements remain explicitly conditional.
 
 ### 5.9 Nutrient
 

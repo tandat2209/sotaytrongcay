@@ -280,6 +280,35 @@ export function normalizeDocument(
       };
     }
 
+    case "fertilizer_guide": {
+      const rawSections = fm.sections as readonly {
+        id: unknown;
+        title: unknown;
+        items: readonly Readonly<Record<string, unknown>>[];
+      }[];
+      return {
+        id: doc.id,
+        type: "fertilizer_guide",
+        path: doc.path,
+        title: String(fm.title),
+        version: String(fm.version),
+        bodyMarkdown: doc.body,
+        locale: String(fm.locale),
+        status: userFacingStatus(fm.status),
+        references: stringList(fm.references),
+        sections: rawSections.map((section) => ({
+          id: String(section.id),
+          title: String(section.title),
+          items: section.items.map((item) => ({
+            id: String(item.id),
+            name: String(item.name),
+            group: String(item.group) as FertilizerGroup,
+            description: String(item.description),
+          })),
+        })),
+      };
+    }
+
     case "disease":
     case "pest": {
       const scientificName =

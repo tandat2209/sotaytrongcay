@@ -134,6 +134,14 @@ _Avoid_: Lời khuyên AI, mã tùy ý
 An optional stage-scoped explanation in a fertilizing Care Plan for why one canonical recommended fertilizer group may fit that stage. It reuses the existing group label and does not establish deficiency, dosage, or an immediate need to fertilize.
 _Avoid_: Tên phân bón, chẩn đoán thiếu chất
 
+**Bộ gợi ý phân bón trọng tâm** (Focused fertilizer guide):
+An ordered, curated selection aid shown only in Fertilizer Management. Its
+section headings support scanning and are not fertilizer types. Each item keeps
+one canonical fertilizer group and may be saved into “Phân bón của tôi”, but
+the guide is not a shopping requirement, deficiency diagnosis, dosage, or
+immediate recommendation to fertilize.
+_Avoid_: Kế hoạch chăm sóc, đơn mua phân, nhóm phân bón mới
+
 **Thời tiết hôm nay** (Today's weather):
 Current local weather context shown for awareness. In the current scope it does not change care suggestions, schedules, reminders, or history, and it is not a standalone forecast destination.
 _Avoid_: Dự báo thời tiết as the feature name

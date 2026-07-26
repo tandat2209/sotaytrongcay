@@ -86,6 +86,35 @@ predictable.
 no-result states, and filter-sheet apply/clear behavior do not change. Only the
 control placement and active-filter presentation change.
 
+## 2026-07-26 — Use a focused fertilizer guide in catalog management
+
+**Status:** Accepted
+
+**Decision:** “Quản lý phân bón” shows one ordered, Knowledge Base-authored
+focused guide instead of deduplicating every stage Care Plan input. The guide
+contains four management-only presentation sections: foundation, vegetative
+and roots, flowering and fruit, and conditional supplements. Its nine concrete
+choices retain the canonical seven-value fertilizer group for filtering and
+for copying into “Phân bón của tôi”. Each choice also carries concise,
+source-bounded Vietnamese context.
+
+The presentation sections are not fertilizer types and do not change the flat,
+stage-scoped suggestion chips in Care Entry. Search, canonical-group filtering,
+stable-ID catalog reuse, and the explicit boundary that a catalog suggestion is
+not an immediate fertilizing recommendation remain unchanged.
+
+**Rationale:** Aggregating every stage input produced a broad 17-item shopping
+list without helping a home grower identify a small foundational set. A
+separate focused guide can be reviewed as one coherent selection aid while
+Care Plans continue to answer the different question of what may fit one plant
+stage.
+
+**Consequences:** The preview Knowledge Base bundle advances to `2.2.0` and
+adds `fertilizerGuides`. The focused guide is review-stage content and is absent
+from production compilation until approved. This supersedes only the
+2026-07-23 requirement to derive the management list from every Care Plan; all
+other catalog-management behavior in that decision remains accepted.
+
 ## 2026-07-23 — Surface Knowledge Base fertilizer suggestions in catalog management
 
 **Status:** Accepted

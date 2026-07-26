@@ -14,6 +14,7 @@ export type {
   CareGuide,
   CarePlan,
   FertilizerSuggestion,
+  FocusedFertilizerSuggestion,
   PlantKnowledgeStage,
   PreviewPlantKnowledge,
   StagePlaybook,

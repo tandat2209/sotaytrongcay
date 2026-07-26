@@ -350,10 +350,10 @@ export const vi = {
     ["name"],
   ],
   "fertilizers.management.suggestionsDescription": [
-    "Các loại phân xuất hiện trong hướng dẫn chăm sóc. Thêm vào danh sách để ghi nhớ khi mua hoặc sử dụng; không có nghĩa cây cần bón ngay.",
+    "Danh sách gọn để tham khảo khi chọn, mua hoặc sử dụng phân bón. Bạn không cần mua tất cả và danh sách không có nghĩa cây cần bón ngay.",
     [],
   ],
-  "fertilizers.management.suggestionsTitle": ["Gợi ý từ hướng dẫn", []],
+  "fertilizers.management.suggestionsTitle": ["Gợi ý trọng tâm", []],
   "fertilizers.management.title": ["Quản lý phân bón", []],
   "fertilizers.validation.name": ["Hãy nhập tên phân bón", []],
   "more.introduction": [

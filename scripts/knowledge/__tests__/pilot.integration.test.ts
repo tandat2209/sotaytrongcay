@@ -45,26 +45,38 @@ describe("grape knowledge pilot integration test", () => {
         references: readonly string[];
         stageIds: readonly string[];
       }>[];
+      fertilizerGuides: readonly Readonly<{
+        id: string;
+        sections: readonly Readonly<{
+          id: string;
+          items: readonly Readonly<{ id: string }>[];
+        }>[];
+      }>[];
       diseases: readonly Readonly<{ id: string }>[];
       pests: readonly Readonly<{ id: string }>[];
       references: readonly Readonly<{ id: string }>[];
     }>;
 
     // Check sizes
-    expect(bundle.schemaVersion).toBe("2.1.0");
+    expect(bundle.schemaVersion).toBe("2.2.0");
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.carePlans).toHaveLength(22);
     expect(bundle.guides).toHaveLength(6);
+    expect(bundle.fertilizerGuides).toHaveLength(1);
     expect(bundle.diseases).toHaveLength(1);
     expect(bundle.pests).toHaveLength(5);
-    expect(bundle.references).toHaveLength(17);
+    expect(bundle.references).toHaveLength(19);
 
     // Verify IDs
     expect(bundle.species[0]?.id).toBe("plant.grape");
     expect(bundle.stagePlaybooks.map((stage) => stage.id)).toContain(
       "grape.stage.trunk-development",
     );
+    expect(bundle.fertilizerGuides[0]?.sections).toHaveLength(4);
+    expect(
+      bundle.fertilizerGuides[0]?.sections.flatMap((section) => section.items),
+    ).toHaveLength(9);
     const recIds = bundle.carePlans.map((plan) => plan.id);
     expect(recIds).toContain("grape.recommendation.trunk-development.watering");
     expect(recIds).toContain(
@@ -161,6 +173,7 @@ describe("grape knowledge pilot integration test", () => {
     const refIds = bundle.references.map((reference) => reference.id).sort();
     expect(refIds).toEqual([
       "ref.fao.grape-production",
+      "ref.ncsu.winegrape-vine-nutrition",
       "ref.osu.growing-table-grapes",
       "ref.uc-ipm.grape-aphids",
       "ref.uc-ipm.grape-european-fruit-lecanium-scale",
@@ -175,6 +188,7 @@ describe("grape knowledge pilot integration test", () => {
       "ref.umn.growing-grapes-home-garden",
       "ref.umn.high-tunnel-nutrient-management",
       "ref.umn.phosphorus-fertilizers",
+      "ref.usu.organic-amendments",
       "ref.vaas.grape-nh01-48",
       "ref.vusta.grape-thrips",
     ]);

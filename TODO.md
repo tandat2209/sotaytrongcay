@@ -29,7 +29,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Obtain qualified review of both target documents, including observable evidence, monitoring stages, prevention, escalation, and the age and limitations of the Vietnamese thrips source.
 - [ ] Obtain qualified review of the added grape pest targets, including local applicability, identity limits, monitoring stages, and safe escalation; do not promote them from `review` based on foreign extension sources alone.
 - [ ] Obtain qualified Vietnamese grape-growing review of the pruning guides, including cultivar and trellis applicability, tool hygiene, mature-wood criteria, cutting positions, retained bud counts, and the unverified measurements in `docs/grape_trung_hau_app_knowledge.md` before approval.
-- [ ] Obtain qualified review of the grape fertilizer-group descriptions and decide whether Humic or DAP should become concrete reviewed inputs before giving either product-specific guidance.
+- [ ] Obtain qualified review of the focused fertilizer guide, including the bounded Humic and DAP descriptions, before approving it for production.
 - [ ] Audit every review-stage Care Plan for contradictions among `frequency.display`, `frequency.interval_days`, and `eligibility.suggest_after_days`; correct content without changing the schema.
 - [ ] Move generic techniques and event-specific guidance that the elapsed-time engine cannot evaluate into Care Guides without creating Today cards, reminders, or history.
 
@@ -89,7 +89,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Validate whether growers understand the “Thêm loại phân” sheet and `Mở rộng → Quản lý phân bón` as access to the same private catalog.
 - [ ] Validate whether per-application quantity, unit, method, or item note provides enough value to reintroduce after MVP and where that interaction belongs.
 - [ ] Validate whether inline reviewed fertilizer chips, automatic catalog reuse, and saved last-use context reduce fertilizing-entry time without being mistaken for automatic prescriptions.
-- [x] List deduplicated Knowledge Base fertilizer suggestions in Fertilizer Management and let growers add a stable-ID-linked suggestion to “Phân bón của tôi” without creating care history.
+- [x] Replace the deduplicated all-stage fertilizer list with a four-section, nine-item focused Knowledge Base guide while preserving stable-ID catalog adds and no-history behavior.
 - [x] Prototype Today care buttons that open prefilled care entry after recommendation behavior is approved.
 - [x] Remove standalone Task Guidance and guided-completion flows.
 - [x] Add “Thêm nhật ký” with photos, notes, and optional stage change to Plant Detail.

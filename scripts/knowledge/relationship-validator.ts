@@ -149,6 +149,36 @@ export function validateRelationships(
         break;
       }
 
+      case "fertilizer_guide": {
+        const sectionIds = new Set<string>();
+        const fertilizerIds = new Set<string>();
+        for (const section of doc.sections) {
+          if (sectionIds.has(section.id)) {
+            diagnostics.push({
+              code: "KNOWLEDGE_FERTILIZER_GUIDE_INVALID",
+              path: doc.path,
+              documentId: doc.id,
+              field: "sections",
+              message: `Fertilizer guide ${doc.id} repeats section ${section.id}.`,
+            });
+          }
+          sectionIds.add(section.id);
+          for (const item of section.items) {
+            if (fertilizerIds.has(item.id)) {
+              diagnostics.push({
+                code: "KNOWLEDGE_FERTILIZER_GUIDE_INVALID",
+                path: doc.path,
+                documentId: doc.id,
+                field: "sections.items",
+                message: `Fertilizer guide ${doc.id} repeats fertilizer ${item.id}.`,
+              });
+            }
+            fertilizerIds.add(item.id);
+          }
+        }
+        break;
+      }
+
       case "disease":
       case "pest": {
         for (const spId of doc.speciesIds) {

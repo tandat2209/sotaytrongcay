@@ -81,6 +81,12 @@ export type FertilizerSuggestion = Readonly<{
     | "other";
 }>;
 
+export type FocusedFertilizerSuggestion = FertilizerSuggestion &
+  Readonly<{
+    description: string;
+    section: Readonly<{ id: string; title: string }>;
+  }>;
+
 export type RecommendedInput = FertilizerSuggestion;
 
 export type SprayTarget = Readonly<{
@@ -177,11 +183,20 @@ type RawSprayTarget = {
   bodyMarkdown: string;
 };
 
+type RawFertilizerGuide = {
+  sections: {
+    id: string;
+    title: string;
+    items: (FertilizerSuggestion & { description: string })[];
+  }[];
+};
+
 type PreviewBundle = {
   species: RawSpecies[];
   stagePlaybooks: RawPlaybook[];
   guides: RawGuide[];
   carePlans: RawCarePlan[];
+  fertilizerGuides?: RawFertilizerGuide[];
   diseases?: RawSprayTarget[];
   pests?: RawSprayTarget[];
 };
@@ -295,18 +310,14 @@ export function listCarePlans(
     .map(toCarePlan);
 }
 
-export function listFertilizerSuggestions(): readonly FertilizerSuggestion[] {
-  const suggestions = new Map<string, FertilizerSuggestion>();
-  for (const plan of bundle.carePlans) {
-    if (plan.activityType !== "fertilizing") continue;
-    for (const suggestion of plan.recommendedInputs ?? []) {
-      if (!suggestions.has(suggestion.id)) {
-        suggestions.set(suggestion.id, suggestion);
-      }
-    }
-  }
-  return [...suggestions.values()].sort((left, right) =>
-    left.name.localeCompare(right.name, "vi-VN"),
+export function listFertilizerSuggestions(): readonly FocusedFertilizerSuggestion[] {
+  const guide = bundle.fertilizerGuides?.[0];
+  if (!guide) return [];
+  return guide.sections.flatMap((section) =>
+    section.items.map((item) => ({
+      ...item,
+      section: { id: section.id, title: section.title },
+    })),
   );
 }
 
