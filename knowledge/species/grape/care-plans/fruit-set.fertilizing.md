@@ -34,12 +34,12 @@ recommended_inputs:
 frequency:
   ground:
     display: Mỗi 1–2 tuần — đây là giai đoạn bón nặng
-    interval_days: 21
+    interval_days: 7
   container:
     display: >-
       Hàng tuần ở liều vừa phải — nho trồng chậu mất dinh dưỡng rất nhanh do
       tưới thường xuyên
-    interval_days: 20
+    interval_days: 7
 notes:
   - >-
     Bón trễ sau đậu quả là nguyên nhân phổ biến gây rụng trái non. Tiếp tục bón
@@ -50,7 +50,7 @@ notes:
   - >-
     Nếu đã tỉa bớt chùm, các trái còn lại được chia phần dinh dưỡng lớn hơn — có
     thể không cần tăng liều.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

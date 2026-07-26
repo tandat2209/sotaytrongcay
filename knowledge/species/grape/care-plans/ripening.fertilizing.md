@@ -29,10 +29,10 @@ recommended_inputs:
 frequency:
   ground:
     display: "Mỗi 2–3 tuần, giảm cường độ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch"
-    interval_days: 21
+    interval_days: 14
   container:
     display: Mỗi 1–2 tuần ở liều nhẹ. Ngừng hoàn toàn 1–2 tuần trước thu hoạch
-    interval_days: 20
+    interval_days: 7
 notes:
   - >-
     Đạm trong giai đoạn chín = nho kém chất lượng. Trái sẽ to nhưng nhiều nước,
@@ -44,7 +44,7 @@ notes:
   - >-
     Nhiệt độ đêm liên tục trên 30°C cản trở phát triển màu (anthocyanin) ở giống
     nho đỏ/đen, bất kể dinh dưỡng có tốt đến đâu.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

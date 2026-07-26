@@ -31,10 +31,10 @@ recommended_inputs:
 frequency:
   ground:
     display: Mỗi 1–2 tuần trong giai đoạn chồi đang phát triển mạnh
-    interval_days: 21
+    interval_days: 7
   container:
     display: Hàng tuần ở liều pha loãng (50–75% liều trồng đất)
-    interval_days: 20
+    interval_days: 7
 notes:
   - >-
     Giai đoạn này rất ngắn (2–3 tuần) — bón trễ sẽ lỡ thời điểm quan trọng cho
@@ -45,7 +45,7 @@ notes:
   - >-
     Không bón bo "phòng ngừa." Bo giúp thụ phấn nhưng ngưỡng ngộ độc rất hẹp —
     chỉ dùng khi có bằng chứng thiếu bo.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

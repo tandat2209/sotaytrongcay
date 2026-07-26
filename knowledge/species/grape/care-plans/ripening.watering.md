@@ -21,10 +21,10 @@ frequency:
     display: >-
       Mỗi 4–5 ngày, giảm dần so với giai đoạn nuôi quả. Ngừng tưới 5–7 ngày
       trước thu hoạch
-    interval_days: 3
+    interval_days: 4
   container:
     display: Mỗi 3–4 ngày ở liều giảm. Ngừng tưới 3–5 ngày trước thu hoạch
-    interval_days: 2
+    interval_days: 3
 notes:
   - >-
     Giảm tưới đột ngột khi trái đã bắt đầu chín sẽ gây nứt trái — giảm từ từ là
@@ -38,7 +38,7 @@ notes:
   - >-
     Nhiệt độ đêm cao liên tục cản trở phát triển màu ở nho đỏ — không phải do
     thiếu tưới.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

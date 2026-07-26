@@ -18,16 +18,16 @@ on_missing_history: suggest
 frequency:
   ground:
     display: "Mỗi 2–3 ngày trong mùa khô, giảm xuống khi mưa nhiều"
-    interval_days: 3
+    interval_days: 2
   container:
     display: Mỗi 1–2 ngày — chậu thoát nước nhanh hơn đất trồng
-    interval_days: 2
+    interval_days: 1
 notes:
   - "Tưới nhẹ và đều quanh gốc, không tưới mạnh gây bật gốc cây con."
   - Lá héo buổi sáng sớm = thiếu nước. Lá vàng + đất ẩm liên tục = tưới thừa.
   - Không phun nước lên lá non — dễ gây nấm và cháy lá dưới nắng.
   - Giai đoạn này cây dễ chết do úng rễ hơn do khô hạn.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

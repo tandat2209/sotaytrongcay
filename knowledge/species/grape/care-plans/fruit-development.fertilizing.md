@@ -35,10 +35,10 @@ recommended_inputs:
 frequency:
   ground:
     display: Mỗi 1–2 tuần
-    interval_days: 21
+    interval_days: 7
   container:
     display: Hàng tuần — đây là giai đoạn nho trồng chậu dễ thiếu dinh dưỡng nhất
-    interval_days: 20
+    interval_days: 7
 notes:
   - >-
     Nứt trái là vấn đề chất lượng #1 — do tưới không đều kết hợp thiếu canxi và
@@ -57,7 +57,7 @@ fertilizer_group_guidance:
       Công thức NPK thiên kali vẫn phải được đọc theo nhãn; thiếu hoặc thừa kali
       đều có thể ảnh hưởng chất lượng, nên không bổ sung chỉ dựa trên một dấu
       hiệu đơn lẻ.
-version: 1.1.0
+version: 1.1.1
 status: review
 references:
   - ref.osu.growing-table-grapes

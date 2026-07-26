@@ -125,6 +125,8 @@ flowchart LR
 
 **Optional fields:** Growing-method frequency, recommended inputs, fertilizer-group guidance, notes, and Markdown instructions. A fertilizing Care Plan stores recommended inputs as a flat list of concrete suggestions (`id`, Vietnamese name, canonical fertilizer group) for draft selection. Its optional `fertilizer_group_guidance` describes the stage-specific purpose of an existing recommended group without repeating its label. Each described group must occur in `recommended_inputs` and may appear only once. This explanatory field does not add a second taxonomy or affect recommendation eligibility.
 
+Growing-method frequency is an executable recurring schedule, not presentation-only metadata. Each display value must begin with a daily or weekly cadence, and `interval_days` must equal the earliest cadence shown. One-time, finite, or conditional timing stays in the Care Plan goal or notes and must not define frequency, because the reminder engine repeats every serialized interval.
+
 **Relationships:** A Care Plan may be evaluated directly into an informational recommendation. It does not require a Care Guide and remains informational until a user explicitly saves a related care activity.
 
 For MVP, `activity type` must be watering, fertilizing, or spraying. Pruning and observation content belongs in Stage Tips or Care Guides.

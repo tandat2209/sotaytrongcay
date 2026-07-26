@@ -25,14 +25,8 @@ recommended_inputs:
   - id: fertilizer.vermicompost
     name: Phân trùn quế
     group: organic
-frequency:
-  ground:
-    display: Một lần duy nhất trong tuần đầu sau cắt cành
-    interval_days: 21
-  container:
-    display: Một lần duy nhất trong tuần đầu sau cắt cành
-    interval_days: 20
 notes:
+  - Chỉ bón một lần trong tuần đầu sau cắt cành.
   - >-
     Cây chưa có lá, không thể quang hợp — bón quá nhiều phân sẽ nằm thừa trong
     đất, gây nguy cơ mặn đất hoặc rửa trôi.
@@ -40,7 +34,7 @@ notes:
     Nếu đã bón phân hữu cơ nặng trong giai đoạn phục hồi, bỏ qua phân hóa học ở
     đây.
   - Tưới nước trở lại từ từ — rễ cần ẩm để hấp thụ dinh dưỡng đã bón.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

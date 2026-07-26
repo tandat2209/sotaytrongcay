@@ -26,6 +26,25 @@ const PEST_REQUIRED_SECTIONS = [
   "## Khi nào cần chuyên gia",
 ] as const;
 
+function earliestDisplayedIntervalDays(display: string): number | null {
+  if (/^Hàng tuần(?:\s|$)/i.test(display.trim())) {
+    return 7;
+  }
+
+  const cadence =
+    /^Mỗi\s+(\d+)(?:\s*[–-]\s*(\d+))?\s+(ngày|tuần)(?=$|[\s,.;:—–-])/i.exec(
+      display.trim(),
+    );
+  if (!cadence) {
+    return null;
+  }
+
+  const amount = Number(cadence[1]);
+  return cadence[3]?.toLocaleLowerCase("vi-VN") === "tuần"
+    ? amount * 7
+    : amount;
+}
+
 export function extractMarkdownSection(body: string, heading: string): string {
   const lines = body.split("\n");
   const headingIndex = lines.findIndex(
@@ -71,7 +90,32 @@ export function validateContentQuality(
     }
 
     // 2. Specific validations by type
-    if (doc.type === "care_guide") {
+    if (doc.type === "care_plan" && doc.frequency) {
+      for (const growingMethod of ["ground", "container"] as const) {
+        const frequency = doc.frequency[growingMethod];
+        const expectedIntervalDays = earliestDisplayedIntervalDays(
+          frequency.display,
+        );
+
+        if (expectedIntervalDays === null) {
+          diagnostics.push({
+            code: "KNOWLEDGE_CARE_PLAN_FREQUENCY_INVALID",
+            path: doc.path,
+            documentId: doc.id,
+            field: `frequency.${growingMethod}.display`,
+            message: `Care Plan ${doc.id} has a recurring frequency whose ${growingMethod} display does not begin with a supported daily or weekly cadence.`,
+          });
+        } else if (frequency.intervalDays !== expectedIntervalDays) {
+          diagnostics.push({
+            code: "KNOWLEDGE_CARE_PLAN_FREQUENCY_INVALID",
+            path: doc.path,
+            documentId: doc.id,
+            field: `frequency.${growingMethod}.intervalDays`,
+            message: `Care Plan ${doc.id} displays an earliest ${growingMethod} cadence of ${expectedIntervalDays} days but serializes ${frequency.intervalDays} days.`,
+          });
+        }
+      }
+    } else if (doc.type === "care_guide") {
       const guide = doc as NormalizedCareGuide;
       if (!guide.goal.trim()) {
         diagnostics.push({

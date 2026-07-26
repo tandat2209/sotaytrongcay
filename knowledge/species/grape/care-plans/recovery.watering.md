@@ -21,10 +21,10 @@ frequency:
     display: >-
       Mỗi 4–5 ngày ngay sau thu hoạch, giảm dần xuống 7–10 ngày khi lá bắt đầu
       già
-    interval_days: 3
+    interval_days: 4
   container:
     display: "Mỗi 3–4 ngày ban đầu, giảm dần để kích thích lá rụng"
-    interval_days: 2
+    interval_days: 3
 notes:
   - >-
     Không ngừng tưới đột ngột ngay sau thu hoạch — cây cần nước để tiếp tục
@@ -38,7 +38,7 @@ notes:
   - >-
     Ở Việt Nam không có mùa đông tự nhiên — giảm nước chủ động là cách duy nhất
     để cây nghỉ ngắn trước vụ mới.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

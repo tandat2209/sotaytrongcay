@@ -31,10 +31,10 @@ recommended_inputs:
 frequency:
   ground:
     display: Mỗi 2–4 tuần trong giai đoạn sinh trưởng mạnh
-    interval_days: 21
+    interval_days: 14
   container:
     display: Mỗi 1–2 tuần ở nửa liều so với trồng đất
-    interval_days: 20
+    interval_days: 7
 notes:
   - >-
     Thừa đạm tạo ra thân mềm, dễ bệnh và chậm hóa gỗ. Nếu cây đã tự mọc khỏe,
@@ -50,7 +50,7 @@ fertilizer_group_guidance:
     description: >-
       Cung cấp phối hợp đạm, lân và kali cho mục tiêu nuôi thân và lá. Thành phần
       thực tế phụ thuộc công thức trên nhãn và nguồn dinh dưỡng cây đã nhận.
-version: 1.1.0
+version: 1.1.1
 status: review
 references:
   - ref.osu.growing-table-grapes

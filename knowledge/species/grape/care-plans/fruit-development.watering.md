@@ -19,10 +19,10 @@ on_missing_history: suggest
 frequency:
   ground:
     display: "Mỗi 2–3 ngày trong thời tiết nóng, 3–4 ngày khi mát hơn"
-    interval_days: 3
+    interval_days: 2
   container:
     display: Mỗi 1–2 ngày — chậu thoát nước nhanh và trái cần nhiều nước
-    interval_days: 2
+    interval_days: 1
 notes:
   - >-
     Tưới không đều là nguyên nhân chính gây nứt trái — tưới ít lâu rồi tưới
@@ -34,7 +34,7 @@ notes:
     Trái teo nhỏ hoặc nhăn mà đất không khô = vấn đề rễ, không phải thiếu nước
     mặt.
   - Giai đoạn này không giảm tưới trừ khi sắp thu hoạch.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

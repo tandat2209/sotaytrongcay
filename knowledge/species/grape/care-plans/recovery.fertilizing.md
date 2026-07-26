@@ -38,18 +38,13 @@ recommended_inputs:
   - id: fertilizer.dolomitic-lime
     name: Vôi dolomite
     group: other
-frequency:
-  ground:
-    display: >-
-      1–2 lần bón nặng (lần đầu trong vòng một tuần sau thu hoạch, lần hai sau
-      2–4 tuần)
-    interval_days: 21
-  container:
-    display: >-
-      1–2 lần bón nặng. Cân nhắc thay 20–30% giá thể phía trên bằng phân compost
-      mới
-    interval_days: 20
 notes:
+  - >-
+    Trồng đất: bón 1–2 lần; lần đầu trong vòng một tuần sau thu hoạch và lần hai
+    sau 2–4 tuần.
+  - >-
+    Trồng chậu: bón 1–2 lần và cân nhắc thay 20–30% giá thể phía trên bằng phân
+    compost mới.
   - >-
     Không bỏ qua bón phân sau thu hoạch. Cây kiệt sức bước vào vụ mới sẽ cho
     năng suất kém.
@@ -73,7 +68,7 @@ fertilizer_group_guidance:
     description: >-
       Cung cấp phối hợp đạm, lân và kali để hỗ trợ mục tiêu phục hồi nguồn dự trữ.
       Việc có cần bổ sung hay không vẫn phụ thuộc sức cây và dinh dưỡng sẵn có.
-version: 1.1.0
+version: 1.1.1
 status: review
 references:
   - ref.osu.growing-table-grapes

@@ -438,6 +438,106 @@ describe("graph validation and normalization", () => {
   });
 
   describe("content quality validation", () => {
+    const carePlan = {
+      id: "grape.recommendation.test.watering",
+      type: "care_plan" as const,
+      path: "knowledge/species/grape/care-plans/test.watering.md",
+      title: "Kiểm tra lịch tưới",
+      goal: "Kiểm tra cây trước khi tưới.",
+      version: "1.0.0",
+      bodyMarkdown: "",
+      locale: "vi-VN",
+      status: "review" as const,
+      priority: 50,
+      speciesIds: ["plant.grape"],
+      stageIds: ["grape.stage.test"],
+      activityType: "watering" as const,
+      eligibility: {
+        kind: "elapsed_days_since_activity" as const,
+        suggestAfterDays: 5,
+      },
+      onMissingHistory: "suggest" as const,
+      references: ["ref.example"],
+    };
+
+    it("reports a Care Plan interval that differs from its earliest displayed cadence", () => {
+      const diagnostics = validateContentQuality([
+        {
+          ...carePlan,
+          frequency: {
+            ground: { display: "Mỗi 5–7 ngày", intervalDays: 3 },
+            container: { display: "Hàng tuần", intervalDays: 20 },
+          },
+        },
+      ]);
+
+      expect(diagnostics).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            code: "KNOWLEDGE_CARE_PLAN_FREQUENCY_INVALID",
+            documentId: carePlan.id,
+            field: "frequency.ground.intervalDays",
+          }),
+          expect.objectContaining({
+            code: "KNOWLEDGE_CARE_PLAN_FREQUENCY_INVALID",
+            documentId: carePlan.id,
+            field: "frequency.container.intervalDays",
+          }),
+        ]),
+      );
+    });
+
+    it("rejects a recurring Care Plan frequency for one-time display guidance", () => {
+      const diagnostics = validateContentQuality([
+        {
+          ...carePlan,
+          frequency: {
+            ground: {
+              display: "Một lần duy nhất trong tuần đầu",
+              intervalDays: 7,
+            },
+            container: {
+              display: "Một lần duy nhất trong tuần đầu",
+              intervalDays: 7,
+            },
+          },
+        },
+      ]);
+
+      expect(diagnostics).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            code: "KNOWLEDGE_CARE_PLAN_FREQUENCY_INVALID",
+            field: "frequency.ground.display",
+          }),
+          expect.objectContaining({
+            code: "KNOWLEDGE_CARE_PLAN_FREQUENCY_INVALID",
+            field: "frequency.container.display",
+          }),
+        ]),
+      );
+    });
+
+    it("accepts aligned Care Plan cadences followed by explanatory punctuation", () => {
+      const diagnostics = validateContentQuality([
+        {
+          ...carePlan,
+          frequency: {
+            ground: {
+              display: "Mỗi 5–7 ngày — kiểm tra đất trước khi tưới",
+              intervalDays: 5,
+            },
+            container: {
+              display: "Mỗi 1–2 tuần, giảm khi cây sinh trưởng chậm",
+              intervalDays: 7,
+            },
+          },
+        },
+      ]);
+
+      expect(diagnostics).toEqual([]);
+    });
+
     it("reports missing goal in care guides", () => {
       const docs = [
         {

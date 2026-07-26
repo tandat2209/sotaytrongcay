@@ -37,7 +37,7 @@ frequency:
     interval_days: 21
   container:
     display: Mỗi 2–3 tuần ở liều vừa phải. Ngừng bón 2–3 tuần trước khi cắt cành
-    interval_days: 20
+    interval_days: 14
 notes:
   - >-
     Tiếp tục bón đạm cao ở giai đoạn này là lỗi phổ biến — cây ra nhiều lá nhưng
@@ -52,7 +52,7 @@ fertilizer_group_guidance:
       Tham gia điều tiết nước và vận chuyển carbohydrate trong cây, có liên quan
       đến quá trình trưởng thành của cành. Bổ sung quá mức cũng có thể làm mất
       cân đối dinh dưỡng.
-version: 1.1.0
+version: 1.1.1
 status: review
 references:
   - ref.osu.growing-table-grapes

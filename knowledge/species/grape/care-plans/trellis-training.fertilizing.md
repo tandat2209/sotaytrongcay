@@ -31,10 +31,10 @@ recommended_inputs:
 frequency:
   ground:
     display: Mỗi 2–4 tuần
-    interval_days: 21
+    interval_days: 14
   container:
     display: Mỗi 1–2 tuần ở liều giảm
-    interval_days: 20
+    interval_days: 7
 notes:
   - >-
     Ngừng dùng phân giàu đạm thuần. Quá nhiều đạm mà thiếu kali tạo cành mềm, dễ
@@ -42,7 +42,7 @@ notes:
   - >-
     Bắt đầu chú ý đến kali — rất quan trọng cho quá trình hóa gỗ cần thiết trước
     khi cây có thể ra trái.
-version: 1.0.0
+version: 1.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes
