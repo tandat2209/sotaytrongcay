@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây
   đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân
@@ -39,7 +39,7 @@ notes:
   - >-
     Nhiệt độ đêm liên tục trên 30°C cản trở phát triển màu (anthocyanin) ở giống
     nho đỏ/đen, bất kể dinh dưỡng có tốt đến đâu.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

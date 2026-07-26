@@ -136,6 +136,19 @@ export function validateRelationships(
           validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
         }
 
+        if (
+          doc.activityType === "fertilizing" &&
+          doc.onMissingHistory !== "withhold"
+        ) {
+          diagnostics.push({
+            code: "KNOWLEDGE_FERTILIZER_MISSING_HISTORY_INVALID",
+            path: doc.path,
+            documentId: doc.id,
+            field: "onMissingHistory",
+            message: `Fertilizing Care Plan ${doc.id} must withhold suggestions when fertilizing history is missing.`,
+          });
+        }
+
         const recommendedGroups = new Set<string>();
         if (doc.recommendedInputs) {
           const catalogIds = new Set<string>();

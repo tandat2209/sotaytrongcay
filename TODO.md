@@ -18,6 +18,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 
 ### Phase 1 — content and review
 
+- [x] Review missing-history behavior for every fertilizing Care Plan: withhold automatic due cards and reminders when no fertilizing history exists, and ask “Bạn đã bón phân gần đây chưa?” when the grower explicitly opens fertilizing entry from Plant Detail.
 - [x] Author one narrow, source-backed grape `spraying` Care Plan at `review` status for bud-break powdery-mildew prevention; it names no commercial product, prescribes no dosage, and is excluded from the production bundle.
 - [x] Add schema-validated `pest` and `disease` Knowledge Base catalogs with stable review-only grape targets for bọ trĩ and bệnh phấn trắng; compile them only into preview bundle `1.1.0`.
 - [x] Extend the review-only grape pest catalog with rệp sáp, rệp vảy, rệp hại rễ nho (phylloxera), and rệp muội using source-bounded observation, prevention context, safe first response, and escalation guidance only.

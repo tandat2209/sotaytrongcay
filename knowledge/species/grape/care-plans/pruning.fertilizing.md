@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành.
   Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.
@@ -29,7 +29,7 @@ notes:
     Nếu đã bón phân hữu cơ nặng trong giai đoạn phục hồi, bỏ qua phân hóa học ở
     đây.
   - Tưới nước trở lại từ từ — rễ cần ẩm để hấp thụ dinh dưỡng đã bón.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

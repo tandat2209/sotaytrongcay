@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 7
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh,
   bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.
@@ -37,7 +37,7 @@ notes:
   - >-
     Không bón bo "phòng ngừa." Bo giúp thụ phấn nhưng ngưỡng ngộ độc rất hẹp —
     chỉ dùng khi có bằng chứng thiếu bo.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

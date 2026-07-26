@@ -481,7 +481,7 @@
       "title": "Bón phân giai đoạn bật mầm",
       "goal": "Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh, bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.fao.grape-production",
@@ -501,7 +501,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 7
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-nitrogen",
@@ -577,7 +577,7 @@
       "title": "Bón phân giai đoạn hình thành tán",
       "goal": "Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu kỳ mang trái đầu tiên.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -598,7 +598,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 21
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-potassium",
@@ -727,7 +727,7 @@
       "title": "Bón phân giai đoạn nuôi quả",
       "goal": "Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng nhiều nhất trong toàn bộ chu kỳ.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.fao.grape-production",
@@ -749,7 +749,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 7
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-potassium",
@@ -837,7 +837,7 @@
       "title": "Bón phân giai đoạn đậu quả",
       "goal": "Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -857,7 +857,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 7
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.balanced-nutrition",
@@ -966,7 +966,7 @@
       "title": "Bón phân sau cắt cành",
       "goal": "Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành. Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -985,7 +985,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.balanced-nutrition",
@@ -1052,7 +1052,7 @@
       "title": "Bón phân giai đoạn sau thu hoạch",
       "goal": "Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ, cung cấp năng lượng cho vụ sau.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1074,7 +1074,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.organic-foundation",
@@ -1165,7 +1165,7 @@
       "title": "Bón phân giai đoạn quả chín",
       "goal": "Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân lá không mong muốn và làm chậm chín.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.fao.grape-production",
@@ -1185,7 +1185,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-potassium",
@@ -1307,7 +1307,7 @@
       "title": "Bón phân giai đoạn leo giàn",
       "goal": "Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1326,7 +1326,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.balanced-nutrition",
@@ -1401,7 +1401,7 @@
       "title": "Bón phân giai đoạn phát triển thân",
       "goal": "Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai đoạn nhu cầu đạm (N) bắt đầu tăng.",
       "locale": "vi-VN",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "status": "review",
       "references": [
         "ref.osu.growing-table-grapes",
@@ -1421,7 +1421,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "suggest",
+      "onMissingHistory": "withhold",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-nitrogen",

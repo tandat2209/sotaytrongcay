@@ -214,6 +214,19 @@ describe("graph validation and normalization", () => {
       ],
     };
 
+    it("requires fertilizing Care Plans to withhold when history is missing", () => {
+      const diagnostics = validateRelationships([
+        fertilizerPlan({ onMissingHistory: "suggest" }),
+      ]);
+
+      expect(diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_FERTILIZER_MISSING_HISTORY_INVALID",
+          field: "onMissingHistory",
+        }),
+      );
+    });
+
     it("rejects fertilizer guidance for a group not present in recommended inputs", () => {
       const diagnostics = validateRelationships([
         fertilizerGuide,

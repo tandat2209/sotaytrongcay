@@ -61,7 +61,7 @@ function evaluateCarePlan(
       plan.activityType,
       identity,
       plan.title,
-      { kind: "missing_history" },
+      { activityType: plan.activityType, kind: "missing_history" },
     );
   }
 

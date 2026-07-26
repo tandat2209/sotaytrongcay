@@ -74,6 +74,24 @@ describe("schedule snapshot notification overrides", () => {
 });
 
 describe("resolveCarePlanSchedule", () => {
+  it("does not create a schedule when missing history is withheld", () => {
+    expect(
+      resolveCarePlanSchedule({
+        defaultNotificationEnabled: true,
+        evaluatedAt: new Date("2026-07-14T12:00:00.000Z"),
+        latestActivityAt: null,
+        plan: {
+          ...plan,
+          activityType: "fertilizing",
+          onMissingHistory: "withhold",
+        },
+        plant,
+        plantSnapshot: null,
+        stageSnapshot: null,
+      }),
+    ).toBeNull();
+  });
+
   it("uses authored frequency for the plant growing method", () => {
     expect(
       resolveCarePlanSchedule({

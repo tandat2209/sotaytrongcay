@@ -16,7 +16,9 @@ export function formatCareEvaluationReason(
     case "invalid_history":
       return t("guidance.reason.invalidHistory");
     case "missing_history":
-      return t("guidance.reason.missingHistory");
+      return reason.activityType === "fertilizing"
+        ? t("guidance.reason.missingFertilizingHistory")
+        : t("guidance.reason.missingHistory");
     case "recent_history":
       return t("guidance.reason.recentHistory", {
         activity: getCareActivityLabel(reason.activityType).toLocaleLowerCase(),

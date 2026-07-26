@@ -151,6 +151,28 @@ describe("createTodayProjection", () => {
     });
   });
 
+  it("omits fertilizing when missing history is withheld", () => {
+    const projection = createTodayProjection({
+      activities: [],
+      evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
+      plansByPlant: new Map([
+        [
+          plant.id,
+          [
+            {
+              ...plan,
+              activityType: "fertilizing",
+              onMissingHistory: "withhold",
+            },
+          ],
+        ],
+      ]),
+      plants: [plant],
+    });
+
+    expect(projection.careCards).toEqual([]);
+  });
+
   it("attaches the latest persisted photo to canonical cards", () => {
     const projection = createTodayProjection({
       activities: [activity],

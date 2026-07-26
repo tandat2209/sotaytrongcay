@@ -16,7 +16,10 @@ export type CareEvaluationReason =
       daysSinceLastActivity: number;
       kind: "recent_history";
     }>
-  | Readonly<{ kind: "missing_history" }>
+  | Readonly<{
+      activityType: CareActivityType;
+      kind: "missing_history";
+    }>
   | Readonly<{ kind: "invalid_history" }>;
 
 export type CareEvaluation = Readonly<{

@@ -123,6 +123,10 @@ describe("createPlantDetailProjection", () => {
       }),
     );
     expect(projection.careCards[1]?.title).toEqual(expect.any(String));
+    expect(projection.careCards[1]?.evaluation).toMatchObject({
+      reason: { activityType: "fertilizing", kind: "missing_history" },
+      status: "unavailable",
+    });
   });
 
   it("selects frequency for the plant growing method when the plan defines it", () => {

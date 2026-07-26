@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai
   đoạn nhu cầu đạm (N) bắt đầu tăng.
@@ -44,7 +44,7 @@ fertilizer_group_guidance:
     description: >-
       Cung cấp phối hợp đạm, lân và kali cho mục tiêu nuôi thân và lá. Thành phần
       thực tế phụ thuộc công thức trên nhãn và nguồn dinh dưỡng cây đã nhận.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

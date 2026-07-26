@@ -167,8 +167,17 @@ describe("evaluateCarePlans", () => {
         activities: [],
         evaluatedAt,
         plant,
-        plans: [{ ...plan, onMissingHistory: "withhold" }],
+        plans: [
+          {
+            ...plan,
+            activityType: "fertilizing",
+            onMissingHistory: "withhold",
+          },
+        ],
       })[0],
-    ).toMatchObject({ status: "unavailable" });
+    ).toMatchObject({
+      reason: { activityType: "fertilizing", kind: "missing_history" },
+      status: "unavailable",
+    });
   });
 });

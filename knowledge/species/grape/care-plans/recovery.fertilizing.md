@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang
   trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ,
@@ -55,7 +55,7 @@ fertilizer_group_guidance:
     description: >-
       Cung cấp phối hợp đạm, lân và kali để hỗ trợ mục tiêu phục hồi nguồn dự trữ.
       Việc có cần bổ sung hay không vẫn phụ thuộc sức cây và dinh dưỡng sẵn có.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

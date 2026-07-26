@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 7
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang
   phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.
@@ -36,7 +36,7 @@ notes:
   - >-
     Nếu đã tỉa bớt chùm, các trái còn lại được chia phần dinh dưỡng lớn hơn — có
     thể không cần tăng liều.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

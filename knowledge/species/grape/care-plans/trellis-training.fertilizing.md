@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: suggest
+on_missing_history: withhold
 goal: >-
   Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang
   tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.
@@ -34,7 +34,7 @@ notes:
   - >-
     Bắt đầu chú ý đến kali — rất quan trọng cho quá trình hóa gỗ cần thiết trước
     khi cây có thể ra trái.
-version: 2.0.0
+version: 2.0.1
 status: review
 references:
   - ref.osu.growing-table-grapes

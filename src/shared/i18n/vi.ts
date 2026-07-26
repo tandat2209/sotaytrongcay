@@ -191,6 +191,10 @@ export const vi = {
     "Chưa đủ lịch sử chăm sóc để đưa ra gợi ý.",
     [],
   ],
+  "guidance.reason.missingFertilizingHistory": [
+    "Bạn đã bón phân gần đây chưa?",
+    [],
+  ],
   "guidance.reason.recentHistory": [
     "Chưa cần {activity} — lần gần nhất là {days} ngày trước.",
     ["activity", "days"],
