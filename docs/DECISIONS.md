@@ -1133,15 +1133,15 @@ Shared watering amount means estimated liters per Plant and is labelled accordin
 
 **Consequences:** This narrowly expands contextual care actions to Plant List without adding a global FAB or changing the explicit-save boundary. Batch records are edited or deleted independently after saving. The first implementation needs no SQLite migration; batch-wide editing or long-lived grouping would require a separately validated model change. Reminder reconciliation runs for each affected Plant after the history transaction commits.
 
-## 2026-07-26 — Withhold fertilizing when history is missing
+## 2026-07-27 — Show fertilizing backfill when history is missing
 
 **Status:** Accepted
 
-**Decision:** Every fertilizing Care Plan uses `on_missing_history: withhold`. When a Plant has no saved fertilizing history, the app creates neither an automatic fertilizing recommendation nor a due reminder. Plant Detail keeps manual fertilizing entry available; opening it explicitly from the fertilizing card shows “Bạn đã bón phân gần đây chưa?” as contextual review copy. Watering retains its independently reviewed missing-history policy.
+**Decision:** Fertilizing Care Plans use `on_missing_history: suggest` when their reviewed stage guidance is suitable for a first-record backfill. When a Plant has no saved fertilizing history, Today shows a contextual fertilizing prompt so the grower can backfill what already happened or record current care. Opening the prompt never creates history; the grower must explicitly save the Care Entry. Plant Detail keeps the fertilizing card available and may show “Bạn đã bón phân gần đây chưa?” as contextual review copy. Watering retains its independently reviewed missing-history policy.
 
-**Rationale:** Stage and elapsed-time context alone cannot establish what was recently applied, existing soil or substrate fertility, plant vigour, nutrient symptoms, or fertilizer already mixed into the growing medium. An immediate fertilizing prompt can therefore encourage unnecessary application, while withholding automation preserves fast manual tracking without asserting a need.
+**Rationale:** Missing history is an important onboarding and backfill state: hiding the prompt prevents the care plan from becoming useful for plants whose prior care happened outside the app. The prompt must remain contextual rather than a claim that fertilization is definitely needed, and explicit Save preserves user-controlled history. Stage guidance, product-label instructions, and the plant's actual condition still take precedence.
 
-**Consequences:** Knowledge validation rejects fertilizing Care Plans that use `suggest` for missing history. Existing fertilizing plan versions advance, Today omits those cards until saved history makes them evaluable, and reminder reconciliation creates no schedule from unknown fertilizing history. No new persistence, one-time stage-entry workflow, or user-profile fields are introduced.
+**Consequences:** Existing fertilizing plan versions advance to the reviewed `suggest` policy. Today shows a backfill prompt when no fertilizing history exists, while reminder reconciliation still follows the plan's explicit schedule behavior and never creates history. No new persistence, one-time stage-entry workflow, or user-profile fields are introduced.
 
 ## Decision template
 

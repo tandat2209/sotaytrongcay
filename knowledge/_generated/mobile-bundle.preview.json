@@ -501,7 +501,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 7
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-nitrogen",
@@ -598,7 +598,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 21
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-potassium",
@@ -749,7 +749,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 7
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-potassium",
@@ -857,7 +857,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 7
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.balanced-nutrition",
@@ -985,7 +985,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.balanced-nutrition",
@@ -1074,7 +1074,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.organic-foundation",
@@ -1185,7 +1185,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-potassium",
@@ -1326,7 +1326,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.balanced-nutrition",
@@ -1421,7 +1421,7 @@
         "kind": "elapsed_days_since_activity",
         "suggestAfterDays": 14
       },
-      "onMissingHistory": "withhold",
+      "onMissingHistory": "suggest",
       "recommendedInputs": [
         {
           "catalogId": "fertilizer-role.high-nitrogen",

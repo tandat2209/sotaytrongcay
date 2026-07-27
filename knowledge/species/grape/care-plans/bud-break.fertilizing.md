@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 7
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Đây là giai đoạn nhu cầu đạm (N) cao nhất. Chồi non đang phát triển nhanh,
   bung lá và hình thành các chùm hoa nhỏ sẽ trở thành trái.

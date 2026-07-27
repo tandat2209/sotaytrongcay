@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 7
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Tiếp tục bón phân ngay sau khi đậu trái được xác nhận. Các trái nho nhỏ đang
   phân chia tế bào nhanh chóng và cây cần đầy đủ dinh dưỡng.

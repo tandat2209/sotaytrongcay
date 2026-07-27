@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Chuyển sang bón kali thuần hoặc chủ đạo kali. Ngừng hoàn toàn phân đạm. Cây
   đang vận chuyển đường từ lá vào trái — đạm lúc này kích thích sinh trưởng thân

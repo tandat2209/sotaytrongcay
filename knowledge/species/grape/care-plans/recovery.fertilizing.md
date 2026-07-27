@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Bổ sung lại nguồn dự trữ dinh dưỡng và carbohydrate cho cây. Sau khi mang
   trái, cây kiệt sức. Dinh dưỡng bón lúc này được tích lũy vào phần gỗ và bộ rễ,

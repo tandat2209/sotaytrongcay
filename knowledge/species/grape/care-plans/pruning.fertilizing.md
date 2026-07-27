@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Cung cấp dinh dưỡng nhẹ nhàng để đánh thức cây sau giai đoạn nghỉ và cắt cành.
   Mắt ngủ bắt đầu sưng to nhưng bộ rễ chưa hoạt động hoàn toàn.

@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Nuôi các cành cấp 1 đang tỏa ra mặt giàn. Chuyển từ phân giàu đạm thuần sang
   tỉ lệ cân bằng hơn vì cây cần kali cho sự cứng cáp của cành.

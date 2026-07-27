@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 7
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Duy trì bón nặng với trọng tâm kali ngày càng tăng. Trái đang phình to nhanh
   qua quá trình tích lũy nước và đường. Đây là giai đoạn tiêu hao dinh dưỡng

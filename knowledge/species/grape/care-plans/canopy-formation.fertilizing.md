@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 21
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Chuyển trọng tâm sang kali và lân. Cành cần hóa gỗ và tích lũy năng lượng dự
   trữ. Dư đạm ở giai đoạn này làm chậm hóa gỗ và khiến cây yếu khi bước vào chu

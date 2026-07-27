@@ -151,7 +151,7 @@ describe("createTodayProjection", () => {
     });
   });
 
-  it("omits fertilizing when missing history is withheld", () => {
+  it("shows fertilizing for backfill when history is missing", () => {
     const projection = createTodayProjection({
       activities: [],
       evaluatedAt: new Date("2026-07-17T12:00:00.000Z"),
@@ -162,7 +162,7 @@ describe("createTodayProjection", () => {
             {
               ...plan,
               activityType: "fertilizing",
-              onMissingHistory: "withhold",
+              onMissingHistory: "suggest",
             },
           ],
         ],
@@ -170,7 +170,13 @@ describe("createTodayProjection", () => {
       plants: [plant],
     });
 
-    expect(projection.careCards).toEqual([]);
+    expect(projection.careCards).toEqual([
+      expect.objectContaining({
+        activityType: "fertilizing",
+        carePlanId: plan.id,
+        dueStatus: "due",
+      }),
+    ]);
   });
 
   it("attaches the latest persisted photo to canonical cards", () => {

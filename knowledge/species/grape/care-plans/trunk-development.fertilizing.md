@@ -11,7 +11,7 @@ activity_type: fertilizing
 eligibility:
   kind: elapsed_days_since_activity
   suggest_after_days: 14
-on_missing_history: withhold
+on_missing_history: suggest
 goal: >-
   Thúc đẩy sinh trưởng mạnh để một chồi chính vươn nhanh lên giàn. Đây là giai
   đoạn nhu cầu đạm (N) bắt đầu tăng.
