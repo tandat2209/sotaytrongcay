@@ -35,16 +35,18 @@ export function WarningSignDetailScreen({
         </Typography>
       </View>
       {image && !imageFailed ? (
-        <Image
-          accessibilityLabel={t("warningSigns.imageAccessibility", {
-            title: sign.title,
-          })}
-          accessibilityRole="image"
-          onError={() => setImageFailed(true)}
-          resizeMode="cover"
-          source={image}
-          style={styles.image}
-        />
+        <View style={styles.imageFrame}>
+          <Image
+            accessibilityLabel={t("warningSigns.imageAccessibility", {
+              title: sign.title,
+            })}
+            accessibilityRole="image"
+            onError={() => setImageFailed(true)}
+            resizeMode="contain"
+            source={image}
+            style={styles.image}
+          />
+        </View>
       ) : null}
       <SurfaceCard style={styles.notice}>
         <AlertTriangle color={colors.secondary} size={20} />
@@ -63,7 +65,14 @@ export function WarningSignDetailScreen({
 
 const styles = StyleSheet.create({
   heading: { gap: spacing.sm },
-  image: { aspectRatio: 4 / 3, borderRadius: 16, width: "100%" },
+  image: { height: "100%", width: "100%" },
+  imageFrame: {
+    aspectRatio: 1,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 16,
+    overflow: "hidden",
+    width: "100%",
+  },
   notice: { alignItems: "flex-start", flexDirection: "row", gap: spacing.sm },
   noticeCopy: { flex: 1 },
 });

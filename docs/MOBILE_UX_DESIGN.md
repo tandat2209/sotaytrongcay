@@ -316,7 +316,7 @@ All content is sourced from authored fields in the preview bundle and remains vi
 
 **Entry point:** `Mở rộng → Dấu hiệu thường gặp` or “Xem cách nhận biết” from a Stage Playbook warning-sign item.
 
-The library lists each available Warning Sign by title and short observation summary. Selecting one opens a read-only article with its optional authored illustration followed by “Bạn có thể quan sát thấy”, “Nguyên nhân có thể”, “Hãy kiểm tra”, and “Nên làm gì”. The illustration is omitted when absent or unreadable and never confirms a cause. Possible causes remain plural and conditional; the article does not assert diagnosis or authorize treatment. Missing or unsupported IDs show an explicit unavailable state. All content is local and remains visibly review-stage.
+The library lists each available Warning Sign by title and short observation summary. Selecting one opens a read-only article with its optional authored illustration, contained at its source aspect ratio without cropping, followed by “Bạn có thể quan sát thấy”, “Nguyên nhân có thể”, “Hãy kiểm tra”, and “Nên làm gì”. The illustration is omitted when absent or unreadable and never confirms a cause. Possible causes remain plural and conditional; the article does not assert diagnosis or authorize treatment. Missing or unsupported IDs show an explicit unavailable state. All content is local and remains visibly review-stage.
 
 ### 7.6 Journal — “Nhật ký”
 
