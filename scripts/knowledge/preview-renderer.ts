@@ -20,6 +20,25 @@ const ACTIVITY_LABELS: Readonly<Record<string, string>> = {
   spraying: "🛡️ Phun/xịt",
 };
 
+const STAGE_IMAGE_PATHS: Readonly<Record<string, string>> = {
+  "image.grape.stage.bud-break": "../assets/images/grape/stages/bud-break.webp",
+  "image.grape.stage.canopy-formation":
+    "../assets/images/grape/stages/canopy-formation.webp",
+  "image.grape.stage.flowering": "../assets/images/grape/stages/flowering.webp",
+  "image.grape.stage.fruit-development":
+    "../assets/images/grape/stages/fruit-development.webp",
+  "image.grape.stage.fruit-set": "../assets/images/grape/stages/fruit-set.webp",
+  "image.grape.stage.harvest": "../assets/images/grape/stages/harvest.webp",
+  "image.grape.stage.pruning": "../assets/images/grape/stages/pruning.webp",
+  "image.grape.stage.recovery": "../assets/images/grape/stages/recovery.webp",
+  "image.grape.stage.ripening": "../assets/images/grape/stages/ripening.webp",
+  "image.grape.stage.seedling": "../assets/images/grape/stages/seedling.webp",
+  "image.grape.stage.trellis-training":
+    "../assets/images/grape/stages/trellis-training.webp",
+  "image.grape.stage.trunk-development":
+    "../assets/images/grape/stages/trunk-development.webp",
+};
+
 function isRecord(value: unknown): value is JsonRecord {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -86,11 +105,9 @@ function parseBundle(value: unknown): PreviewBundle {
 
   const optionalCollection = (
     key: "diseases" | "pests" | "fertilizerGuides",
-  ) => {
+  ): readonly JsonRecord[] => {
     const collection = value[key];
-    if (collection === undefined) {
-      return [];
-    }
+    if (collection === undefined) return [];
     if (!isRecordArray(collection)) {
       throw new Error(
         `Invalid compiled knowledge bundle: ${key} must be an array.`,
@@ -187,6 +204,19 @@ function plural(count: number, singular: string): string {
   return `${count} ${singular}`;
 }
 
+function documentSearchText(document: JsonRecord): string {
+  return [
+    stringValue(document, "id"),
+    stringValue(document, "title"),
+    stringValue(document, "goal"),
+    stringValue(document, "primaryObjective"),
+    stringValue(document, "bodyMarkdown"),
+  ]
+    .map((value) => value.trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
 function renderReferences(ids: readonly string[]): string {
   if (ids.length === 0) {
     return '<span class="missing">Không có nguồn tham khảo</span>';
@@ -208,24 +238,14 @@ function renderMeta(document: JsonRecord): string {
 </dl></details>`;
 }
 
-function searchableCard(
+function documentCard(
   document: JsonRecord,
   eyebrow: string,
   body: string,
   extraAttributes = "",
 ): string {
-  const searchText = [
-    stringValue(document, "id"),
-    stringValue(document, "title"),
-    stringValue(document, "goal"),
-    stringValue(document, "primaryObjective"),
-    stringValue(document, "bodyMarkdown"),
-  ]
-    .map((value) => value.trim())
-    .filter(Boolean)
-    .join(" ");
   const attributes = extraAttributes ? ` ${extraAttributes}` : "";
-  return `<article class="card searchable" data-search="${escapeHtml(searchText)}"${attributes}>
+  return `<article class="content-card"${attributes}>
 <div class="card-heading"><div><p class="eyebrow">${escapeHtml(eyebrow)}</p><h3>${escapeHtml(stringValue(document, "title"))}</h3></div><span class="status">${escapeHtml(stringValue(document, "status"))}</span></div>
 ${body}${renderMeta(document)}</article>`;
 }
@@ -238,45 +258,31 @@ function renderLifecycle(name: string, lifecycle: JsonRecord): string {
       const transitions = recordArray(stage, "transitions")
         .map((transition) => stringValue(transition, "to"))
         .filter(Boolean);
-      return `<li><a href="#${escapeHtml(stringValue(stage, "id"))}"><strong>${escapeHtml(stringValue(stage, "title"))}</strong><code>${escapeHtml(stringValue(stage, "id"))}</code></a>${transitions.length > 0 ? `<span>→ ${transitions.map(escapeHtml).join(", ")}</span>` : ""}</li>`;
+      return `<li><a href="#${escapeHtml(stringValue(stage, "id"))}"><strong>${escapeHtml(stringValue(stage, "title"))}</strong><span>Chương ${numberValue(stage, "sequence") ?? "—"}</span></a>${transitions.length > 0 ? `<small>Tiếp theo → ${transitions.map(escapeHtml).join(", ")}</small>` : ""}</li>`;
     })
     .join("")}</ol></section>`;
 }
 
 function renderSpecies(species: JsonRecord): string {
   const lifecycles = recordValue(species, "lifecycles");
-  const body = renderMarkdown(stringValue(species, "bodyMarkdown"));
-  return searchableCard(
-    species,
-    stringValue(species, "scientificName"),
-    `<div class="markdown">${body}</div>
+  return `<section class="species-opening searchable" id="species-${escapeHtml(stringValue(species, "id"))}" data-search="${escapeHtml(documentSearchText(species))}" data-activities="">
+<div class="part-label">Phần mở đầu</div><p class="eyebrow">${escapeHtml(stringValue(species, "scientificName"))}</p><h2>${escapeHtml(stringValue(species, "title"))}</h2>
+<div class="markdown prose">${renderMarkdown(stringValue(species, "bodyMarkdown"))}</div>
 <div class="lifecycle-grid">${lifecycles ? renderLifecycle("development", recordValue(lifecycles, "development") ?? {}) : ""}${lifecycles ? renderLifecycle("production", recordValue(lifecycles, "production") ?? {}) : ""}</div>
-<div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(species, "references"))}</div>`,
-  );
+<div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(species, "references"))}</div>${renderMeta(species)}</section>`;
 }
 
-function renderStage(stage: JsonRecord): string {
-  const criteria = (label: string, key: string) =>
-    `<div><h4>${label}</h4><ul>${stringArray(stage, key)
-      .map((item) => `<li>${renderInline(item)}</li>`)
-      .join("")}</ul></div>`;
-  return searchableCard(
-    stage,
-    `${stringValue(stage, "lifecycleId")} · thứ tự ${numberValue(stage, "sequence") ?? "—"}`,
-    `<p class="lead">${renderInline(stringValue(stage, "primaryObjective"))}</p>
-<p class="duration">Thời lượng ước tính: <strong>${escapeHtml(stringValue(stage, "estimatedDuration"))}</strong></p>
-<div class="criteria">${criteria("Dấu hiệu bắt đầu", "entryCriteria")}${criteria("Dấu hiệu kết thúc", "exitCriteria")}</div>
-<div class="markdown">${renderMarkdown(stringValue(stage, "bodyMarkdown"))}</div>
-<div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(stage, "references"))}</div>`,
-    `id="${escapeHtml(stringValue(stage, "id"))}"`,
-  );
+function renderStageImage(stage: JsonRecord): string {
+  const imageId = stringValue(stage, "imageId");
+  const source = STAGE_IMAGE_PATHS[imageId];
+  if (!source) return "";
+  const title = stringValue(stage, "title");
+  return `<figure class="stage-figure"><img src="${escapeHtml(source)}" alt="Minh họa giai đoạn ${escapeHtml(title)}" loading="lazy" decoding="async"><figcaption>Minh họa tham chiếu · <code>${escapeHtml(imageId)}</code></figcaption></figure>`;
 }
 
 function renderFrequency(plan: JsonRecord): string {
   const frequency = recordValue(plan, "frequency");
-  if (!frequency) {
-    return "";
-  }
+  if (!frequency) return "";
   const row = (label: string, key: string) => {
     const value = recordValue(frequency, key);
     if (!value) return "";
@@ -299,7 +305,7 @@ function renderCarePlan(
       ? `<ul>${items.map((item) => `<li>${renderInline(item)}</li>`).join("")}</ul>`
       : "";
 
-  return searchableCard(
+  return documentCard(
     plan,
     ACTIVITY_LABELS[activityType] ?? activityType,
     `<p class="lead">${renderInline(stringValue(plan, "goal"))}</p>
@@ -320,31 +326,92 @@ ${
 ${guidance.length > 0 ? `<div class="review-block"><h4>Hướng dẫn theo nhóm phân bón</h4>${guidance.map((item) => `<p><strong>${escapeHtml(stringValue(item, "group"))}:</strong> ${renderInline(stringValue(item, "description"))}</p>`).join("")}</div>` : ""}
 ${notes.length > 0 ? `<div class="review-block"><h4>Ghi chú</h4>${list(notes)}</div>` : ""}
 <div class="markdown">${renderMarkdown(stringValue(plan, "bodyMarkdown"))}</div>
-<p class="scope"><strong>Giai đoạn:</strong> ${stringArray(plan, "stageIds").map(escapeHtml).join(", ")}</p>
 <div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(plan, "references"))}</div>`,
     `data-activity="${escapeHtml(activityType)}"`,
   );
 }
 
 function renderGuide(guide: JsonRecord): string {
-  return searchableCard(
+  return documentCard(
     guide,
     "Hướng dẫn kỹ thuật",
     `<p class="lead">${renderInline(stringValue(guide, "goal"))}</p>
 <div class="markdown">${renderMarkdown(stringValue(guide, "bodyMarkdown"))}</div>
-<p class="scope"><strong>Giai đoạn:</strong> ${stringArray(guide, "stageIds").map(escapeHtml).join(", ")}</p>
+<p class="scope"><strong>Áp dụng cho:</strong> ${stringArray(guide, "stageIds").map(escapeHtml).join(", ")}</p>
 <div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(guide, "references"))}</div>`,
   );
 }
 
+function renderThreatLinks(threats: readonly JsonRecord[]): string {
+  if (threats.length === 0) return "";
+  return `<aside class="related"><h3>Sâu bệnh cần quan sát ở giai đoạn này</h3><ul>${threats
+    .map(
+      (threat) =>
+        `<li><a href="#${escapeHtml(stringValue(threat, "id"))}">${escapeHtml(stringValue(threat, "title"))}</a></li>`,
+    )
+    .join("")}</ul></aside>`;
+}
+
+function renderStageChapter(
+  stage: JsonRecord,
+  chapterNumber: number,
+  plans: readonly JsonRecord[],
+  guides: readonly JsonRecord[],
+  threats: readonly JsonRecord[],
+  fertilizerRoles: ReadonlyMap<string, JsonRecord>,
+): string {
+  const criteria = (label: string, key: string) =>
+    `<div><h3>${label}</h3><ul>${stringArray(stage, key)
+      .map((item) => `<li>${renderInline(item)}</li>`)
+      .join("")}</ul></div>`;
+  const activities = [
+    ...new Set(plans.map((plan) => stringValue(plan, "activityType"))),
+  ].filter(Boolean);
+  const searchText = [
+    documentSearchText(stage),
+    ...plans.map(documentSearchText),
+    ...guides.map(documentSearchText),
+    ...threats.map(documentSearchText),
+  ].join(" ");
+
+  return `<article class="chapter searchable" id="${escapeHtml(stringValue(stage, "id"))}" data-search="${escapeHtml(searchText)}" data-activities="${escapeHtml(activities.join(" "))}">
+<header class="chapter-heading"><div><p class="chapter-number">Chương ${chapterNumber}</p><p class="eyebrow">${escapeHtml(stringValue(stage, "lifecycleId"))} · thứ tự ${numberValue(stage, "sequence") ?? "—"}</p><h2>${escapeHtml(stringValue(stage, "title"))}</h2></div><span class="status">${escapeHtml(stringValue(stage, "status"))}</span></header>
+<div class="stage-intro">${renderStageImage(stage)}<div class="stage-summary"><p class="lead">${renderInline(stringValue(stage, "primaryObjective"))}</p><p class="duration">Thời lượng ước tính: <strong>${escapeHtml(stringValue(stage, "estimatedDuration"))}</strong></p><div class="criteria">${criteria("Dấu hiệu bắt đầu", "entryCriteria")}${criteria("Dấu hiệu kết thúc", "exitCriteria")}</div></div></div>
+<div class="markdown prose">${renderMarkdown(stringValue(stage, "bodyMarkdown"))}</div>
+<div class="sources"><strong>Nguồn chương:</strong>${renderReferences(stringArray(stage, "references"))}</div>
+${plans.length > 0 ? `<section class="chapter-section"><div class="minor-heading"><p class="eyebrow">Thực hành theo dõi</p><h3>Kế hoạch chăm sóc</h3></div><div class="card-grid">${plans.map((plan) => renderCarePlan(plan, fertilizerRoles)).join("")}</div></section>` : ""}
+${guides.length > 0 ? `<section class="chapter-section"><div class="minor-heading"><p class="eyebrow">Đọc thêm</p><h3>Hướng dẫn kỹ thuật</h3></div><div class="card-grid">${guides.map(renderGuide).join("")}</div></section>` : ""}
+${renderThreatLinks(threats)}${renderMeta(stage)}</article>`;
+}
+
 function renderThreat(threat: JsonRecord): string {
-  return searchableCard(
-    threat,
-    stringValue(threat, "type") === "disease" ? "Bệnh hại" : "Sâu hại",
-    `<p class="scope"><strong>Giai đoạn theo dõi:</strong> ${stringArray(threat, "stageIds").map(escapeHtml).join(", ")}</p>
+  return `<article class="content-card searchable" id="${escapeHtml(stringValue(threat, "id"))}" data-search="${escapeHtml(documentSearchText(threat))}" data-activities="">
+<div class="card-heading"><div><p class="eyebrow">${stringValue(threat, "type") === "disease" ? "Bệnh hại" : "Sâu hại"}</p><h3>${escapeHtml(stringValue(threat, "title"))}</h3></div><span class="status">${escapeHtml(stringValue(threat, "status"))}</span></div>
+<p class="scope"><strong>Giai đoạn theo dõi:</strong> ${stringArray(threat, "stageIds").map(escapeHtml).join(", ")}</p>
 <div class="markdown">${renderMarkdown(stringValue(threat, "bodyMarkdown"))}</div>
-<div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(threat, "references"))}</div>`,
-  );
+<div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(threat, "references"))}</div>${renderMeta(threat)}</article>`;
+}
+
+function renderFertilizerGuide(guide: JsonRecord): string {
+  const sections = recordArray(guide, "sections");
+  return `<article class="catalogue searchable" data-search="${escapeHtml(documentSearchText(guide))}" data-activities="fertilizing">
+<div class="card-heading"><div><p class="eyebrow">Danh mục biên tập</p><h3>${escapeHtml(stringValue(guide, "title"))}</h3></div><span class="status">${escapeHtml(stringValue(guide, "status"))}</span></div>
+<div class="markdown prose">${renderMarkdown(stringValue(guide, "bodyMarkdown"))}</div>
+<div class="catalogue-sections">${sections
+    .map(
+      (section) =>
+        `<section><h4>${escapeHtml(stringValue(section, "title"))}</h4><dl>${recordArray(
+          section,
+          "items",
+        )
+          .map(
+            (item) =>
+              `<div><dt>${escapeHtml(stringValue(item, "name"))}<code>${escapeHtml(stringValue(item, "group"))}</code></dt><dd>${renderInline(stringValue(item, "description"))}</dd></div>`,
+          )
+          .join("")}</dl></section>`,
+    )
+    .join("")}</div>
+<div class="sources"><strong>Nguồn:</strong>${renderReferences(stringArray(guide, "references"))}</div>${renderMeta(guide)}</article>`;
 }
 
 function safeHttpUrl(value: string): string | null {
@@ -360,7 +427,7 @@ function safeHttpUrl(value: string): string | null {
 
 function renderReference(reference: JsonRecord): string {
   const url = safeHttpUrl(stringValue(reference, "url"));
-  return `<article class="card reference searchable" id="${escapeHtml(stringValue(reference, "id"))}" data-search="${escapeHtml(`${stringValue(reference, "title")} ${stringValue(reference, "publisher")}`)}">
+  return `<article class="reference searchable" id="${escapeHtml(stringValue(reference, "id"))}" data-search="${escapeHtml(documentSearchText(reference))}" data-activities="">
 <p class="eyebrow">${escapeHtml(stringValue(reference, "publisher"))}</p><h3>${escapeHtml(stringValue(reference, "title"))}</h3>
 <p><code>${escapeHtml(stringValue(reference, "id"))}</code></p>
 <p class="scope">${escapeHtml(stringValue(reference, "sourceType"))} · truy cập ${escapeHtml(stringValue(reference, "accessed"))} · ${escapeHtml(stringValue(reference, "status"))}</p>
@@ -371,16 +438,44 @@ ${url ? `<a class="source-link" href="${escapeHtml(url)}" target="_blank" rel="n
 
 function section(
   id: string,
-  eyebrow: string,
+  label: string,
   title: string,
   count: string,
   content: string,
+  className = "appendix",
 ): string {
-  return `<section class="page-section" id="${id}"><div class="section-heading"><div><p class="eyebrow">${eyebrow}</p><h2>${title}</h2></div><span class="count-pill">${count}</span></div><div class="grid">${content || '<p class="empty-section">Không có nội dung trong bundle này.</p>'}</div></section>`;
+  return `<section class="book-section ${className}" id="${id}"><header class="section-heading"><div><p class="part-label">${label}</p><h2>${title}</h2></div><span class="count-pill">${count}</span></header><div class="card-grid">${content || '<p class="empty-section">Không có nội dung trong bundle này.</p>'}</div></section>`;
+}
+
+function renderContents(
+  bundle: PreviewBundle,
+  stageById: ReadonlyMap<string, JsonRecord>,
+): string {
+  const speciesEntries = bundle.species
+    .map((species) => {
+      const lifecycles = recordValue(species, "lifecycles");
+      const lifecycleEntries = ["development", "production"]
+        .map((key) => {
+          const lifecycle = lifecycles ? recordValue(lifecycles, key) : null;
+          if (!lifecycle) return "";
+          const stages = recordArray(lifecycle, "stages")
+            .map((stageRef) => stageById.get(stringValue(stageRef, "id")))
+            .filter((stage): stage is JsonRecord => stage !== undefined);
+          return `<li><span>${escapeHtml(stringValue(lifecycle, "title"))}</span><ol>${stages.map((stage) => `<li><a href="#${escapeHtml(stringValue(stage, "id"))}">${escapeHtml(stringValue(stage, "title"))}</a></li>`).join("")}</ol></li>`;
+        })
+        .join("");
+      return `<li><a href="#species-${escapeHtml(stringValue(species, "id"))}"><strong>${escapeHtml(stringValue(species, "title"))}</strong></a><ul>${lifecycleEntries}</ul></li>`;
+    })
+    .join("");
+
+  return `<section class="contents" id="contents"><p class="part-label">Mục lục</p><h2>Đọc như một cuốn cẩm nang</h2><div class="contents-grid"><ol class="toc-main">${speciesEntries}</ol><ol class="toc-appendices"><li><a href="#threats">Phụ lục A · Sâu bệnh cần quan sát</a></li><li><a href="#fertilizer-catalogue">Phụ lục B · Vai trò phân bón</a></li><li><a href="#references">Thư mục nguồn tham khảo</a></li></ol></div></section>`;
 }
 
 export function renderKnowledgePreview(input: unknown): string {
   const bundle = parseBundle(input);
+  const stageById = new Map(
+    bundle.stagePlaybooks.map((stage) => [stringValue(stage, "id"), stage]),
+  );
   const fertilizerRoles = new Map<string, JsonRecord>();
   for (const guide of bundle.fertilizerGuides.filter(
     (candidate) => stringValue(candidate, "id") === "fertilizer-guide.focused",
@@ -391,29 +486,90 @@ export function renderKnowledgePreview(input: unknown): string {
       }
     }
   }
-  const threatCount = bundle.diseases.length + bundle.pests.length;
+
+  const threats = [...bundle.diseases, ...bundle.pests];
+  const renderedStages = new Set<string>();
+  let chapterNumber = 0;
+  const bookBody = bundle.species
+    .map((species) => {
+      const lifecycles = recordValue(species, "lifecycles");
+      const lifecycleParts = ["development", "production"]
+        .map((key) => {
+          const lifecycle = lifecycles ? recordValue(lifecycles, key) : null;
+          if (!lifecycle) return "";
+          const chapters = recordArray(lifecycle, "stages")
+            .map((stageRef) => stageById.get(stringValue(stageRef, "id")))
+            .filter((stage): stage is JsonRecord => stage !== undefined)
+            .map((stage) => {
+              const stageId = stringValue(stage, "id");
+              renderedStages.add(stageId);
+              chapterNumber += 1;
+              return renderStageChapter(
+                stage,
+                chapterNumber,
+                bundle.carePlans.filter((plan) =>
+                  stringArray(plan, "stageIds").includes(stageId),
+                ),
+                bundle.guides.filter((guide) =>
+                  stringArray(guide, "stageIds").includes(stageId),
+                ),
+                threats.filter((threat) =>
+                  stringArray(threat, "stageIds").includes(stageId),
+                ),
+                fertilizerRoles,
+              );
+            })
+            .join("");
+          return `<section class="lifecycle-part"><header class="lifecycle-divider"><p class="part-label">${key === "development" ? "Phần I" : "Phần II"}</p><h2>${escapeHtml(stringValue(lifecycle, "title"))}</h2><p>${lifecycle.repeatable === true ? "Chu kỳ lặp lại" : "Hành trình một lần"} · ${recordArray(lifecycle, "stages").length} giai đoạn</p></header>${chapters}</section>`;
+        })
+        .join("");
+      return `${renderSpecies(species)}${lifecycleParts}`;
+    })
+    .join("");
+
+  const unplacedStages = bundle.stagePlaybooks
+    .filter((stage) => !renderedStages.has(stringValue(stage, "id")))
+    .map((stage) => {
+      chapterNumber += 1;
+      return renderStageChapter(
+        stage,
+        chapterNumber,
+        bundle.carePlans.filter((plan) =>
+          stringArray(plan, "stageIds").includes(stringValue(stage, "id")),
+        ),
+        bundle.guides.filter((guide) =>
+          stringArray(guide, "stageIds").includes(stringValue(stage, "id")),
+        ),
+        threats.filter((threat) =>
+          stringArray(threat, "stageIds").includes(stringValue(stage, "id")),
+        ),
+        fertilizerRoles,
+      );
+    })
+    .join("");
   const modeLabel =
     bundle.mode === "preview" ? "Bản xem trước" : "Bản sản xuất";
 
   return `<!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Trang duyệt bundle kiến thức Sổ Tay Trồng Cây"><title>Cẩm nang duyệt kiến thức</title>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Cẩm nang duyệt bundle kiến thức Sổ Tay Trồng Cây"><title>Cẩm nang duyệt kiến thức</title>
 <style>
-:root{--bg:#f4f6f1;--surface:#fff;--ink:#172019;--muted:#647067;--line:#dbe3d7;--brand:#315d3a;--brand-soft:#e6f0e5;--warn:#85560f;--warn-soft:#fff3d8;--code:#f1f3ef;--shadow:0 12px 36px rgba(28,48,31,.07)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--brand)}code{padding:.15em .38em;border-radius:6px;background:var(--code);font-size:.86em;overflow-wrap:anywhere}.topbar{position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line);background:rgba(244,246,241,.94);backdrop-filter:blur(14px)}.topbar-inner{max-width:1440px;margin:auto;padding:12px 24px;display:flex;align-items:center;gap:20px}.brand{font-weight:800;color:var(--ink);text-decoration:none}.topbar nav{display:flex;gap:14px;overflow:auto;margin-left:auto}.topbar nav a{color:var(--muted);font-size:14px;font-weight:650;text-decoration:none;white-space:nowrap}.page{max-width:1440px;margin:auto;padding:30px 24px 80px}.hero{padding:42px;border-radius:28px;color:#fff;background:linear-gradient(135deg,#244b2d,#47704c 72%,#6f4d75);box-shadow:var(--shadow)}.hero h1{max-width:850px;margin:4px 0 12px;font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.045em}.hero p{max-width:850px;color:rgba(255,255,255,.84)}.hero .eyebrow{color:#d9edd7}.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.stat{padding:10px 14px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(255,255,255,.1)}.review-banner{margin:20px 0 40px;padding:18px 20px;border:1px solid #edcf91;border-radius:18px;background:var(--warn-soft);color:#6f470a}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}.search{min-width:min(100%,360px);flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit}.filter{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font:inherit;cursor:pointer}.filter.active{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}.page-section{scroll-margin-top:70px;margin:0 0 54px}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px}.section-heading h2{margin:0;font-size:34px;letter-spacing:-.025em}.eyebrow{margin:0 0 5px;color:var(--brand);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.count-pill,.status{padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:12px;font-weight:750;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{min-width:0;padding:24px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow);scroll-margin-top:80px}.card-heading,.subheading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.card h3{margin:0;font-size:23px;line-height:1.25}.card h4{margin:20px 0 7px;color:var(--brand);font-size:13px;letter-spacing:.07em;text-transform:uppercase}.lead{font-size:17px;color:#344138}.duration,.scope{color:var(--muted)}.criteria,.lifecycle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.lifecycle{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fafbf9}.subheading h3{font-size:17px}.subheading span{color:var(--muted);font-size:13px}.journey{padding-left:22px}.journey li{margin:10px 0}.journey a{display:flex;flex-direction:column;text-decoration:none}.journey span{display:block;color:var(--muted);font-size:12px}.markdown h2,.markdown h3,.markdown h4,.markdown h5{margin:22px 0 8px;font-size:18px}.markdown p{margin:8px 0}.markdown li{margin:5px 0}.sources{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:20px}.ref-chip{padding:3px 7px;border-radius:7px;background:var(--code);font:12px/1.5 ui-monospace,SFMono-Regular,monospace;text-decoration:none}.review-block{margin-top:16px;padding:1px 14px 12px;border-left:3px solid var(--line);background:#fafbf9}.review-block p{margin:7px 0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.technical{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}.technical summary{cursor:pointer;color:var(--muted);font-weight:650}.technical dl>div{display:grid;grid-template-columns:100px 1fr;gap:10px}.technical dt{color:var(--muted)}.technical dd{margin:0}.reference h3{font-size:20px}.source-link{display:inline-block;margin-top:12px;font-weight:700}.missing{color:var(--warn)}.empty-section{grid-column:1/-1;color:var(--muted)}.searchable.hidden{display:none}.no-results{display:none;padding:30px;text-align:center;color:var(--muted)}.no-results.show{display:block}.footer{padding:28px;text-align:center;color:var(--muted);border-top:1px solid var(--line)}
-@media(max-width:850px){.topbar nav{display:none}.page{padding:20px 14px 60px}.hero{padding:28px}.grid,.criteria,.lifecycle-grid{grid-template-columns:1fr}.section-heading{align-items:flex-start}.section-heading h2{font-size:29px}.card{padding:19px}}
+:root{--canvas:#e9e6dd;--paper:#fffdf8;--ink:#25281f;--muted:#6e7167;--line:#ddd8ca;--brand:#315d3a;--brand-dark:#203f28;--brand-soft:#e8f0e5;--accent:#8b5c34;--warn:#7b4d0b;--warn-soft:#fff4d9;--code:#f1efe7;--shadow:0 24px 70px rgba(42,45,34,.13)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--canvas);color:var(--ink);font:17px/1.72 Georgia,"Times New Roman",serif}a{color:var(--brand)}code,.eyebrow,.part-label,.status,.count-pill,.topbar,.toolbar,.scope,.duration,.technical,.chapter-number,figcaption,.footer,table{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}code{padding:.15em .38em;border-radius:5px;background:var(--code);font-size:.78em;overflow-wrap:anywhere}.topbar{position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(49,93,58,.18);background:rgba(255,253,248,.94);backdrop-filter:blur(14px)}.topbar-inner{max-width:1180px;margin:auto;padding:11px 24px;display:flex;align-items:center;gap:24px}.brand{font-weight:800;color:var(--ink);text-decoration:none}.topbar nav{display:flex;gap:18px;overflow:auto;margin-left:auto}.topbar nav a{color:var(--muted);font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}.book{max-width:1180px;margin:28px auto 70px;background:var(--paper);box-shadow:var(--shadow)}.cover{min-height:680px;padding:76px clamp(28px,8vw,100px);display:flex;flex-direction:column;justify-content:space-between;color:#fff;background:linear-gradient(145deg,rgba(22,54,31,.97),rgba(54,94,61,.92)),radial-gradient(circle at 80% 18%,#9e7b54,transparent 38%)}.cover-copy{max-width:780px}.cover h1{margin:16px 0 18px;font-size:clamp(48px,8vw,92px);line-height:.98;letter-spacing:-.045em}.cover .subtitle{max-width:690px;color:rgba(255,255,255,.8);font-size:21px}.cover .eyebrow{color:#d9ead6}.edition{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.2)}.edition span{padding:14px;background:rgba(23,48,29,.76);font:600 13px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.review-banner{margin:0;padding:20px clamp(24px,7vw,82px);border-bottom:1px solid #ead3a3;background:var(--warn-soft);color:#65430f}.toolbar{position:sticky;top:47px;z-index:8;display:flex;flex-wrap:wrap;gap:9px;padding:15px clamp(24px,7vw,82px);border-bottom:1px solid var(--line);background:rgba(255,253,248,.96)}.search{min-width:min(100%,340px);flex:1;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit}.filter{padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);font:700 13px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer}.filter.active{border-color:var(--brand);background:var(--brand);color:#fff}.contents,.species-opening,.book-section{padding:72px clamp(24px,7vw,82px);scroll-margin-top:116px}.contents{border-bottom:1px solid var(--line)}.contents h2,.species-opening h2,.section-heading h2,.lifecycle-divider h2{margin:6px 0 24px;font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-.03em}.contents-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:50px}.toc-main,.toc-appendices{margin:0;padding-left:22px}.toc-main>li{margin-bottom:20px}.toc-main ul{padding-left:20px;list-style:none}.toc-main ul>li{margin:14px 0}.toc-main ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 18px;margin-top:7px;padding-left:20px}.toc-main a,.toc-appendices a{text-decoration:none}.toc-appendices li{margin:12px 0}.part-label{margin:0;color:var(--accent);font-size:12px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}.eyebrow{margin:0 0 4px;color:var(--brand);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.species-opening{border-bottom:1px solid var(--line)}.species-opening>h2{font-size:64px}.prose{max-width:760px}.lifecycle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:34px}.lifecycle{padding:22px;border:1px solid var(--line);background:#fff}.subheading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.subheading h3{margin:0;font-size:22px}.subheading span{color:var(--muted);font:13px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.journey{padding-left:22px}.journey li{margin:12px 0}.journey a{display:flex;justify-content:space-between;gap:12px;text-decoration:none}.journey a span,.journey small{display:block;color:var(--muted);font:12px/1.45 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.lifecycle-divider{padding:90px clamp(24px,7vw,82px) 46px;color:#fff;background:var(--brand-dark)}.lifecycle-divider .part-label{color:#c8dfc8}.lifecycle-divider p:last-child{color:#c8d5c9}.chapter{padding:78px clamp(24px,7vw,82px);border-bottom:1px solid var(--line);scroll-margin-top:116px}.chapter-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:34px}.chapter-number{margin:0;color:var(--accent);font-size:13px;font-weight:800;text-transform:uppercase}.chapter-heading h2{margin:2px 0 0;font-size:clamp(40px,6vw,68px);line-height:1.03;letter-spacing:-.04em}.status,.count-pill{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:800;white-space:nowrap}.stage-intro{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);gap:36px;align-items:start}.stage-figure{margin:0}.stage-figure img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--brand-soft)}.stage-figure figcaption{padding:8px 2px;color:var(--muted);font-size:12px}.lead{font-size:20px;line-height:1.55;color:#3a4438}.duration,.scope{color:var(--muted);font-size:14px}.criteria{display:grid;gap:14px}.criteria>div{padding-top:12px;border-top:1px solid var(--line)}.criteria h3{margin:0 0 5px;color:var(--brand);font:800 12px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-transform:uppercase;letter-spacing:.06em}.criteria ul{margin:0;padding-left:20px}.markdown h2,.markdown h3,.markdown h4,.markdown h5{margin:28px 0 9px;font-size:22px;line-height:1.3}.markdown p{margin:10px 0}.markdown li{margin:6px 0}.sources{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:22px;font-size:14px}.ref-chip{padding:3px 7px;border-radius:5px;background:var(--code);font:12px/1.5 ui-monospace,SFMono-Regular,monospace;text-decoration:none}.chapter-section{margin-top:58px}.minor-heading{margin-bottom:18px}.minor-heading h3{margin:0;font-size:31px}.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.content-card,.catalogue,.reference{min-width:0;padding:24px;border:1px solid var(--line);background:#fff;scroll-margin-top:116px}.card-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.card-heading h3,.reference h3{margin:0;font-size:22px;line-height:1.3}.content-card h4{margin:22px 0 8px;color:var(--brand);font:800 12px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.06em;text-transform:uppercase}.review-block{margin-top:18px;padding:2px 14px 12px;border-left:3px solid var(--line);background:#faf9f4}.review-block p{margin:8px 0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.technical{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);font-size:13px}.technical summary{cursor:pointer;color:var(--muted);font-weight:700}.technical dl>div{display:grid;grid-template-columns:100px 1fr;gap:10px}.technical dt{color:var(--muted)}.technical dd{margin:0}.related{margin-top:50px;padding:22px 26px;border-left:4px solid var(--accent);background:#f7f2e9}.related h3{margin:0;font-size:20px}.related ul{columns:2}.book-section{border-bottom:1px solid var(--line)}.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px}.catalogue{grid-column:1/-1}.catalogue-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:26px}.catalogue-sections section{padding:20px;border:1px solid var(--line);background:#faf9f4}.catalogue-sections h4{margin:0 0 14px;color:var(--brand);font-size:18px}.catalogue-sections dl{margin:0}.catalogue-sections dl>div{padding:12px 0;border-top:1px solid var(--line)}.catalogue-sections dt{font-weight:700}.catalogue-sections dt code{margin-left:7px}.catalogue-sections dd{margin:4px 0 0;color:#51564d}.bibliography .reference{border-width:0 0 1px;padding:22px 0}.source-link{display:inline-block;margin-top:10px;font-weight:700}.missing{color:var(--warn)}.empty-section{grid-column:1/-1;color:var(--muted)}.searchable.hidden{display:none}.no-results{display:none;margin:0;padding:40px;text-align:center;color:var(--muted)}.no-results.show{display:block}.footer{padding:28px;text-align:center;color:var(--muted);font-size:13px}.back-to-top{position:fixed;right:20px;bottom:20px;width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--paper);box-shadow:0 8px 24px rgba(42,45,34,.14);font:800 17px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-decoration:none}.searchable{transition:opacity .18s ease}
+@media(max-width:820px){body{font-size:16px}.topbar nav{display:none}.book{margin:0}.cover{min-height:620px;padding:54px 24px}.edition{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{top:46px;padding:12px 14px}.contents,.species-opening,.book-section,.chapter{padding:52px 20px}.contents-grid,.lifecycle-grid,.stage-intro,.card-grid,.catalogue-sections{grid-template-columns:1fr}.toc-main ol{grid-template-columns:1fr}.species-opening>h2{font-size:48px}.lifecycle-divider{padding:64px 20px 36px}.chapter-heading h2{font-size:44px}.related ul{columns:1}.back-to-top{right:12px;bottom:12px}}
+@media print{body{background:#fff}.topbar,.toolbar,.back-to-top{display:none}.book{max-width:none;margin:0;box-shadow:none}.cover,.lifecycle-divider{print-color-adjust:exact}.cover,.contents,.species-opening,.lifecycle-divider,.chapter,.book-section{break-before:page}.content-card,.stage-figure,.related{break-inside:avoid}.chapter{border:0}.searchable.hidden{display:block}}
 </style></head><body>
-<header class="topbar"><div class="topbar-inner"><a class="brand" href="#top">Sổ Tay Trồng Cây · Knowledge Review</a><nav><a href="#species">Loài</a><a href="#stages">Giai đoạn</a><a href="#care-plans">Chăm sóc</a><a href="#guides">Hướng dẫn</a><a href="#threats">Sâu bệnh</a><a href="#references">Nguồn</a></nav></div></header>
-<main class="page" id="top"><section class="hero"><p class="eyebrow">${modeLabel}</p><h1>Cẩm nang duyệt kiến thức</h1><p>Trang này được tạo trực tiếp từ bundle JSON để kiểm tra nội dung hiển thị, metadata kiểm duyệt, quan hệ nguồn và các giá trị thực thi.</p><div class="stats"><span class="stat">Schema ${escapeHtml(bundle.schemaVersion)}</span><span class="stat">Nội dung ${escapeHtml(bundle.contentVersion)}</span><span class="stat">${plural(bundle.stagePlaybooks.length, "giai đoạn")}</span><span class="stat">${plural(bundle.carePlans.length, "kế hoạch chăm sóc")}</span><span class="stat">${plural(threatCount, "mục sâu bệnh")}</span></div></section>
-<aside class="review-banner"><strong>Chỉ dành cho biên tập và duyệt nội dung.</strong> Tài liệu trạng thái <code>review</code> chưa được phê duyệt để phát hành trong ứng dụng. Các giá trị như <code>suggestAfterDays</code> và <code>intervalDays</code> là hành vi máy đọc được; hãy đối chiếu chúng với câu chữ hiển thị.</aside>
-<div class="toolbar"><input class="search" id="search" type="search" placeholder="Tìm theo tiêu đề, ID hoặc nội dung…" aria-label="Tìm nội dung"><button class="filter active" data-filter="all">Tất cả</button><button class="filter" data-filter="watering">Tưới nước</button><button class="filter" data-filter="fertilizing">Bón phân</button><button class="filter" data-filter="spraying">Phun/xịt</button></div>
-${section("species", "Danh mục", "Loài cây", plural(bundle.species.length, "loài"), bundle.species.map(renderSpecies).join(""))}
-${section("stages", "Vòng đời", "Giai đoạn sinh trưởng", plural(bundle.stagePlaybooks.length, "giai đoạn"), bundle.stagePlaybooks.map(renderStage).join(""))}
-${section("care-plans", "Theo dõi được", "Kế hoạch chăm sóc", plural(bundle.carePlans.length, "kế hoạch"), bundle.carePlans.map((plan) => renderCarePlan(plan, fertilizerRoles)).join(""))}
-${section("guides", "Thông tin", "Hướng dẫn kỹ thuật", plural(bundle.guides.length, "hướng dẫn"), bundle.guides.map(renderGuide).join(""))}
-${section("threats", "Quan sát", "Sâu bệnh", plural(threatCount, "mục"), [...bundle.diseases, ...bundle.pests].map(renderThreat).join(""))}
-${section("references", "Bằng chứng", "Nguồn tham khảo", plural(bundle.references.length, "nguồn"), bundle.references.map(renderReference).join(""))}
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="#top">Sổ Tay Trồng Cây · Cẩm nang</a><nav><a href="#contents">Mục lục</a><a href="#chapters">Các chương</a><a href="#threats">Sâu bệnh</a><a href="#fertilizer-catalogue">Phân bón</a><a href="#references">Nguồn</a></nav></div></header>
+<main class="book" id="top"><section class="cover"><div class="cover-copy"><p class="eyebrow">${modeLabel}</p><h1>Cẩm nang<br>trồng cây</h1><p class="subtitle">Bản đọc có cấu trúc từ Knowledge Base: đi theo vòng đời cây, từng giai đoạn, kế hoạch chăm sóc và nguồn tham khảo.</p></div><div class="edition"><span>Schema ${escapeHtml(bundle.schemaVersion)}</span><span>Nội dung ${escapeHtml(bundle.contentVersion)}</span><span>${plural(bundle.species.length, "loài cây")}</span><span>${plural(bundle.stagePlaybooks.length, "giai đoạn")}</span><span>${plural(bundle.carePlans.length, "kế hoạch chăm sóc")}</span></div></section>
+<aside class="review-banner"><strong>Chỉ dành cho biên tập và duyệt nội dung.</strong> Tài liệu trạng thái <code>review</code> chưa được phê duyệt để phát hành trong ứng dụng. Hình ảnh là minh họa tham chiếu của Stage Playbook, không phải ảnh cây của người dùng hay bằng chứng xác nhận giai đoạn.</aside>
+<div class="toolbar"><input class="search" id="search" type="search" placeholder="Tìm trong cẩm nang…" aria-label="Tìm nội dung trong cẩm nang"><button class="filter active" data-filter="all">Tất cả</button><button class="filter" data-filter="watering">Tưới nước</button><button class="filter" data-filter="fertilizing">Bón phân</button><button class="filter" data-filter="spraying">Phun/xịt</button></div>
+${renderContents(bundle, stageById)}
+<div id="chapters">${bookBody}${unplacedStages}</div>
+${section("threats", "Phụ lục A", "Sâu bệnh cần quan sát", plural(threats.length, "mục"), threats.map(renderThreat).join(""))}
+${section("fertilizer-catalogue", "Phụ lục B", "Vai trò phân bón", plural(bundle.fertilizerGuides.length, "danh mục"), bundle.fertilizerGuides.map(renderFertilizerGuide).join(""))}
+${section("references", "Thư mục", "Nguồn tham khảo", plural(bundle.references.length, "nguồn"), bundle.references.map(renderReference).join(""), "bibliography")}
 <p class="no-results" id="no-results">Không tìm thấy nội dung phù hợp.</p></main>
+<a class="back-to-top" href="#top" aria-label="Trở về đầu trang">↑</a>
 <footer class="footer">Bundle ${escapeHtml(bundle.mode)} · schema ${escapeHtml(bundle.schemaVersion)} · nội dung ${escapeHtml(bundle.contentVersion)}</footer>
 <script>
-const search=document.getElementById("search");const cards=[...document.querySelectorAll(".searchable")];const empty=document.getElementById("no-results");let filter="all";function normalize(value){return(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}function apply(){const query=normalize(search.value);let visible=0;for(const card of cards){const activity=card.dataset.activity;const show=(!query||normalize(card.dataset.search+" "+card.textContent).includes(query))&&(filter==="all"||!activity||activity===filter);card.classList.toggle("hidden",!show);if(show)visible++}empty.classList.toggle("show",visible===0)}search.addEventListener("input",apply);for(const button of document.querySelectorAll(".filter")){button.addEventListener("click",()=>{for(const item of document.querySelectorAll(".filter"))item.classList.remove("active");button.classList.add("active");filter=button.dataset.filter;apply()})}
+const search=document.getElementById("search");const entries=[...document.querySelectorAll(".searchable")];const empty=document.getElementById("no-results");let filter="all";function normalize(value){return(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}function apply(){const query=normalize(search.value);let visible=0;for(const entry of entries){const activities=(entry.dataset.activities||"").split(" ").filter(Boolean);const matchesQuery=!query||normalize(entry.dataset.search+" "+entry.textContent).includes(query);const matchesFilter=filter==="all"||activities.includes(filter);const show=matchesQuery&&matchesFilter;entry.classList.toggle("hidden",!show);if(show)visible++}empty.classList.toggle("show",visible===0)}search.addEventListener("input",apply);for(const button of document.querySelectorAll(".filter")){button.addEventListener("click",()=>{for(const item of document.querySelectorAll(".filter"))item.classList.remove("active");button.classList.add("active");filter=button.dataset.filter;apply()})}
 </script></body></html>\n`;
 }

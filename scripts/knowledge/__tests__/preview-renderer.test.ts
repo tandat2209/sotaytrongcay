@@ -55,6 +55,7 @@ const bundle = {
       entryCriteria: ["Cây đã bén rễ"],
       exitCriteria: ["Có chồi chính"],
       estimatedDuration: "2–4 tuần",
+      imageId: "image.grape.stage.seedling",
       bodyMarkdown: "Theo dõi cây.",
     },
   ],
@@ -113,11 +114,22 @@ describe("knowledge preview renderer", () => {
     expect(html).toContain("Nội dung 1.0.0");
     expect(html).toContain("1 giai đoạn");
     expect(html).toContain("1 kế hoạch chăm sóc");
+    expect(html).toContain('id="contents"');
+    expect(html).toContain("Chương 1");
+    expect(html).toContain("Phụ lục A");
     expect(html).toContain("grape.recommendation.seedling.watering");
     expect(html).toContain("suggestAfterDays: 3");
     expect(html).toContain("intervalDays: 3");
     expect(html).toContain("Mỗi 5–7 ngày");
     expect(html).toContain("Chỉ dành cho biên tập và duyệt nội dung");
+  });
+
+  it("places referenced stage images inside their chapters", () => {
+    const html = renderKnowledgePreview(bundle);
+
+    expect(html).toContain('src="../assets/images/grape/stages/seedling.webp"');
+    expect(html).toContain('alt="Minh họa giai đoạn Cây con"');
+    expect(html).toContain("image.grape.stage.seedling");
   });
 
   it("renders supported Markdown and escapes bundle-provided HTML", () => {
