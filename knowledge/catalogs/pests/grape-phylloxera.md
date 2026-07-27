@@ -12,7 +12,8 @@ stage_ids:
   - grape.stage.trellis-training
   - grape.stage.canopy-formation
   - grape.stage.pruning
-warning_sign_ids: []
+warning_sign_ids:
+  - sign.grape.weak-growth-abnormal-roots
 version: 1.0.0
 status: review
 references:

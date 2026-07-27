@@ -54,10 +54,8 @@ type MarkdownBlock =
 function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
   const blocks: MarkdownBlock[] = [];
   let paragraphLines: string[] = [];
-
   const addParagraph = () => {
     if (paragraphLines.length === 0) return;
-
     blocks.push({ kind: "paragraph", text: paragraphLines.join(" ") });
     paragraphLines = [];
   };
@@ -67,10 +65,8 @@ function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
     const heading = trimmed.match(/^#{1,6}\s+(.+)$/);
     const bullet = trimmed.match(/^[-*]\s+(.+)$/);
     const numbered = trimmed.match(/^(\d+)\.\s+(.+)$/);
-
-    if (trimmed.length === 0) {
-      addParagraph();
-    } else if (heading?.[1]) {
+    if (trimmed.length === 0) addParagraph();
+    else if (heading?.[1]) {
       addParagraph();
       blocks.push({ kind: "heading", text: heading[1] });
     } else if (bullet?.[1]) {
@@ -79,11 +75,8 @@ function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
     } else if (numbered?.[1] && numbered[2]) {
       addParagraph();
       blocks.push({ kind: "numbered", marker: numbered[1], text: numbered[2] });
-    } else {
-      paragraphLines.push(trimmed);
-    }
+    } else paragraphLines.push(trimmed);
   }
-
   addParagraph();
   return blocks;
 }

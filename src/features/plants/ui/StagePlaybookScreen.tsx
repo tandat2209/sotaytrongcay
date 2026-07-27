@@ -5,8 +5,8 @@ import { StageIcon } from "@/features/knowledge/stage-icons";
 import type {
   CareGuide,
   CarePlan,
-  StageThreat,
   StagePlaybook,
+  WarningSign,
 } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
 import { Screen } from "@/shared/ui/Screen";
@@ -17,7 +17,7 @@ import { colors, spacing } from "@/shared/ui/theme";
 import { StageCarePlanSection } from "./StageCarePlanSection";
 import { StageInformationalGuideSection } from "./StageInformationalGuideSection";
 import { StagePlaybookHero } from "./StagePlaybookHero";
-import { StageThreatSection } from "./StageThreatSection";
+import { StageWarningSignSection } from "./StageWarningSignSection";
 
 type Props = Readonly<{
   carePlans: readonly CarePlan[];
@@ -26,10 +26,11 @@ type Props = Readonly<{
   nextStage: StagePlaybook | null;
   onBack: () => void;
   onOpenNextStage?: () => void;
+  onOpenWarningSign?: (id: string) => void;
   playbook: StagePlaybook;
   renderCarePlanSchedule?: (plan: CarePlan) => ReactNode;
   screenTitle?: string;
-  threats?: readonly StageThreat[];
+  warningSigns?: readonly WarningSign[];
 }>;
 
 export function StagePlaybookScreen({
@@ -39,10 +40,11 @@ export function StagePlaybookScreen({
   nextStage,
   onBack,
   onOpenNextStage,
+  onOpenWarningSign,
   playbook,
   renderCarePlanSchedule,
   screenTitle,
-  threats = [],
+  warningSigns = [],
 }: Props) {
   return (
     <Screen introduction={null} title="">
@@ -65,7 +67,10 @@ export function StagePlaybookScreen({
 
       <StageInformationalGuideSection guides={informationalGuides} />
 
-      <StageThreatSection threats={threats} />
+      <StageWarningSignSection
+        {...(onOpenWarningSign ? { onOpenSign: onOpenWarningSign } : {})}
+        signs={warningSigns}
+      />
 
       {playbook.exitCriteria.length > 0 ? (
         <View style={styles.section}>

@@ -7,11 +7,28 @@ import { validateRelationships } from "../relationship-validator";
 import { validateStageGraphs } from "../stage-graph-validator";
 import { validateContentQuality } from "../content-quality-validator";
 import type {
+  LifecycleDefinition,
   NormalizedCarePlan,
   NormalizedDisease,
   NormalizedFertilizerGuide,
+  NormalizedKnowledgeDocument,
+  NormalizedWarningSign,
+  StageJourneyItem,
   ValidatedSourceDocument,
 } from "../types";
+
+function lifecycle(
+  title: string,
+  repeatable: boolean,
+  stages: readonly StageJourneyItem[],
+): LifecycleDefinition {
+  return {
+    title,
+    repeatable,
+    initialStageId: stages[0]?.id ?? "",
+    stages,
+  };
+}
 
 describe("graph validation and normalization", () => {
   describe("normalization", () => {
@@ -108,6 +125,40 @@ describe("graph validation and normalization", () => {
         speciesIds: ["plant.grape"],
         stageIds: ["grape.stage.bud-break"],
         warningSignIds: [],
+      });
+    });
+
+    it("normalizes warning-sign scope and possible-cause references", () => {
+      const mockDoc: ValidatedSourceDocument = {
+        id: "sign.grape.white-powder",
+        type: "warning_sign",
+        path: "knowledge/catalogs/warning-signs/grape-white-powder.md",
+        absolutePath: "/path/to/grape-white-powder.md",
+        body: "## Bạn có thể quan sát thấy\n\nMảng trắng dạng bột.",
+        frontmatter: {
+          title: "Bột trắng trên lá hoặc quả",
+          summary: "Quan sát nhiều vị trí trước khi kết luận.",
+          version: "1.0.0",
+          locale: "vi-VN",
+          status: "review",
+          species_ids: ["plant.grape"],
+          stage_ids: ["grape.stage.bud-break"],
+          plant_parts: ["lá", "quả"],
+          urgency: "review_soon",
+          image_id: "image.grape.warning-sign.white-powder",
+          possible_cause_ids: ["disease.grape.powdery-mildew"],
+          references: ["ref.example"],
+        },
+      };
+
+      expect(normalizeDocument(mockDoc)).toMatchObject({
+        id: "sign.grape.white-powder",
+        type: "warning_sign",
+        speciesIds: ["plant.grape"],
+        stageIds: ["grape.stage.bud-break"],
+        plantParts: ["lá", "quả"],
+        imageId: "image.grape.warning-sign.white-powder",
+        possibleCauseIds: ["disease.grape.powdery-mildew"],
       });
     });
 
@@ -317,7 +368,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("detects duplicate global IDs", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "duplicate.id",
           type: "plant_species",
@@ -329,8 +380,8 @@ describe("graph validation and normalization", () => {
           status: "approved",
           scientificName: "Vitis vinifera",
           lifecycles: {
-            development: { stages: [] },
-            production: { stages: [] },
+            development: lifecycle("Development", false, []),
+            production: lifecycle("Production", true, []),
           },
           references: [],
         },
@@ -359,7 +410,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("detects missing or wrong-type references", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "grape.stage.trunk-development",
           type: "growth_stage_playbook",
@@ -370,11 +421,12 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           speciesId: "plant.grape", // Correct type
+          sequence: 1,
+          lifecycleId: "development",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
           estimatedDuration: "1 week",
-          recommendedPlaybook: "playbook",
           references: ["missing.ref"], // Missing reference
         },
         {
@@ -388,17 +440,15 @@ describe("graph validation and normalization", () => {
           status: "approved",
           scientificName: "Vitis vinifera",
           lifecycles: {
-            development: {
-              stages: [
-                {
-                  id: "grape.stage.trunk-development",
-                  title: "Nuôi thân",
-                  sequence: 1,
-                  playbookStatus: "approved",
-                },
-              ],
-            },
-            production: { stages: [] },
+            development: lifecycle("Development", false, [
+              {
+                id: "grape.stage.trunk-development",
+                title: "Nuôi thân",
+                sequence: 1,
+                playbookStatus: "approved",
+              },
+            ]),
+            production: lifecycle("Production", true, []),
           },
           references: [],
         },
@@ -413,11 +463,53 @@ describe("graph validation and normalization", () => {
         }),
       );
     });
+
+    it("requires warning signs and possible causes to reference each other", () => {
+      const warningSign: NormalizedWarningSign = {
+        id: "sign.grape.white-powder",
+        type: "warning_sign",
+        path: "warning-sign.md",
+        title: "Bột trắng trên lá hoặc quả",
+        summary: "Quan sát nhiều vị trí trước khi kết luận.",
+        version: "1.0.0",
+        bodyMarkdown: "Nội dung dấu hiệu.",
+        locale: "vi-VN",
+        status: "review",
+        references: [],
+        speciesIds: [],
+        stageIds: [],
+        plantParts: ["lá"],
+        urgency: "review_soon",
+        possibleCauseIds: ["disease.grape.powdery-mildew"],
+      };
+      const disease: NormalizedDisease = {
+        id: "disease.grape.powdery-mildew",
+        type: "disease",
+        path: "disease.md",
+        title: "Bệnh phấn trắng trên nho",
+        version: "1.0.0",
+        bodyMarkdown: "Nội dung bệnh.",
+        locale: "vi-VN",
+        status: "review",
+        references: [],
+        speciesIds: [],
+        stageIds: [],
+        warningSignIds: [],
+      };
+
+      expect(validateRelationships([warningSign, disease])).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_RELATIONSHIP_MISSING",
+          documentId: warningSign.id,
+          field: "possibleCauseIds",
+        }),
+      );
+    });
   });
 
   describe("stage graph validation", () => {
     it("flags missing cross-lifecycle transition", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "plant.grape",
           type: "plant_species",
@@ -429,23 +521,21 @@ describe("graph validation and normalization", () => {
           status: "approved",
           scientificName: "Vitis vinifera",
           lifecycles: {
-            development: {
-              stages: [
-                {
-                  id: "stage1",
-                  title: "Stage 1",
-                  sequence: 1,
-                  playbookStatus: "approved",
-                },
-                {
-                  id: "stage2",
-                  title: "Stage 2",
-                  sequence: 3,
-                  playbookStatus: "approved",
-                }, // Gap: sequence 2 missing
-              ],
-            },
-            production: { stages: [] },
+            development: lifecycle("Development", false, [
+              {
+                id: "stage1",
+                title: "Stage 1",
+                sequence: 1,
+                playbookStatus: "approved",
+              },
+              {
+                id: "stage2",
+                title: "Stage 2",
+                sequence: 3,
+                playbookStatus: "approved",
+              }, // Gap: sequence 2 missing
+            ]),
+            production: lifecycle("Production", true, []),
           },
           references: [],
         },
@@ -462,7 +552,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("verifies nextStageId successor matching and status alignment", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "plant.grape",
           type: "plant_species",
@@ -474,35 +564,31 @@ describe("graph validation and normalization", () => {
           status: "approved",
           scientificName: "Vitis vinifera",
           lifecycles: {
-            development: {
-              stages: [
-                {
-                  id: "stage1",
-                  title: "Stage 1",
-                  sequence: 1,
-                  playbookStatus: "approved",
-                  transitions: [{ to: "stage2" }],
-                },
-                {
-                  id: "stage2",
-                  title: "Stage 2",
-                  sequence: 2,
-                  playbookStatus: "approved",
-                  transitions: [{ to: "stage3" }],
-                },
-              ],
-            },
-            production: {
-              stages: [
-                {
-                  id: "stage3",
-                  title: "Stage 3",
-                  sequence: 1,
-                  playbookStatus: "approved",
-                  transitions: [],
-                },
-              ],
-            },
+            development: lifecycle("Development", false, [
+              {
+                id: "stage1",
+                title: "Stage 1",
+                sequence: 1,
+                playbookStatus: "approved",
+                transitions: [{ to: "stage2" }],
+              },
+              {
+                id: "stage2",
+                title: "Stage 2",
+                sequence: 2,
+                playbookStatus: "approved",
+                transitions: [{ to: "stage3" }],
+              },
+            ]),
+            production: lifecycle("Production", true, [
+              {
+                id: "stage3",
+                title: "Stage 3",
+                sequence: 1,
+                playbookStatus: "approved",
+                transitions: [],
+              },
+            ]),
           },
           references: [],
         },
@@ -516,11 +602,12 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           speciesId: "plant.grape",
+          sequence: 1,
+          lifecycleId: "development",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
           estimatedDuration: "1 week",
-          recommendedPlaybook: "playbook",
           references: [],
         },
         {
@@ -533,11 +620,12 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           speciesId: "plant.grape",
+          sequence: 2,
+          lifecycleId: "development",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
           estimatedDuration: "1 week",
-          recommendedPlaybook: "playbook",
           references: [],
         },
         {
@@ -550,11 +638,12 @@ describe("graph validation and normalization", () => {
           locale: "vi-VN",
           status: "approved",
           speciesId: "plant.grape",
+          sequence: 1,
+          lifecycleId: "production",
           primaryObjective: "Objective",
           entryCriteria: [],
           exitCriteria: [],
           estimatedDuration: "1 week",
-          recommendedPlaybook: "playbook",
           references: [],
         },
       ];
@@ -666,7 +755,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("reports missing goal in care guides", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "guide.test",
           type: "care_guide",
@@ -693,7 +782,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("requires references when avoid or safety advice is present", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "stage.test",
           type: "growth_stage_playbook",
@@ -705,9 +794,11 @@ describe("graph validation and normalization", () => {
           status: "approved",
           speciesId: "plant.grape",
           sequence: 1,
-          careRecommendationIds: [],
-          guideIds: [],
-          nextStageId: null,
+          lifecycleId: "production",
+          primaryObjective: "Theo dõi giai đoạn ra hoa.",
+          entryCriteria: [],
+          exitCriteria: [],
+          estimatedDuration: "1 week",
           references: [], // Safety section requires references
         },
       ];
@@ -723,7 +814,7 @@ describe("graph validation and normalization", () => {
     });
 
     it("detects lack of Vietnamese content in user-facing documents", () => {
-      const docs = [
+      const docs: readonly NormalizedKnowledgeDocument[] = [
         {
           id: "plant.grape",
           type: "plant_species",
@@ -736,8 +827,8 @@ describe("graph validation and normalization", () => {
           status: "approved",
           scientificName: "Vitis vinifera",
           lifecycles: {
-            development: { stages: [] },
-            production: { stages: [] },
+            development: lifecycle("Development", false, []),
+            production: lifecycle("Production", true, []),
           },
           references: [],
         },
@@ -790,6 +881,47 @@ Kiểm tra trước khi xử lý.
         expect.objectContaining({
           code: "KNOWLEDGE_REQUIRED_SECTION_MISSING",
           documentId: disease.id,
+          field: "bodyMarkdown",
+        }),
+      );
+    });
+
+    it("requires complete canonical warning-sign article sections", () => {
+      const warningSign: NormalizedWarningSign = {
+        id: "sign.grape.white-powder",
+        type: "warning_sign",
+        path: "warning-sign.md",
+        title: "Bột trắng trên lá hoặc quả",
+        summary: "Quan sát kỹ trước khi kết luận.",
+        version: "1.0.0",
+        bodyMarkdown: `## Bạn có thể quan sát thấy
+
+Mảng trắng dạng bột.
+
+## Nguyên nhân có thể
+
+- Bụi bám.
+
+## Hãy kiểm tra
+
+Mặt dưới lá.
+
+## Nên làm gì
+`,
+        locale: "vi-VN",
+        status: "review",
+        references: ["ref.example"],
+        speciesIds: ["plant.grape"],
+        stageIds: ["grape.stage.bud-break"],
+        plantParts: ["lá"],
+        urgency: "review_soon",
+        possibleCauseIds: [],
+      };
+
+      expect(validateContentQuality([warningSign])).toContainEqual(
+        expect.objectContaining({
+          code: "KNOWLEDGE_REQUIRED_SECTION_MISSING",
+          documentId: warningSign.id,
           field: "bodyMarkdown",
         }),
       );

@@ -244,17 +244,17 @@ fertilize. Conditional supplements remain explicitly conditional.
 
 **Example:** `pest.aphid` / “Rệp mềm”, linked to curled young leaves and sticky residue.
 
-**Current pilot implementation:** `disease` and `pest` source schemas use stable IDs plus species, stage, status, version, and reference relationships. Required agronomic concepts are stored under validated Vietnamese Markdown headings so reviewers can assess them without making them executable rules. `warning_sign_ids` is required but must be empty until the separate Warning Sign entity and relationship validator are implemented; authored observable evidence remains in the target document in the meantime. Target `stage_ids` means monitoring relevance only, never permission or timing to spray.
+**Current pilot implementation:** `disease` and `pest` source schemas use stable IDs plus species, stage, status, version, and reference relationships. Required agronomic concepts remain in the target documents for editorial review and spraying-target identity. Populated `warning_sign_ids` connect targets as possible causes of canonical Warning Sign articles; they do not copy the article or establish diagnosis. Target `stage_ids` means monitoring relevance only, never permission or timing to spray.
 
 ### 5.12 Warning Sign
 
 **Purpose:** Represents an observable condition without prematurely deciding its cause.
 
-**Required fields:** ID, Vietnamese label, observation description, affected plant parts, urgency, possible disease/pest/nutrient IDs, status, version, references.
+**Required fields:** ID, Vietnamese title, short observation summary, affected species and monitoring stages, affected plant parts, urgency, possible disease/pest cause IDs, status, version, references, and non-empty “Bạn có thể quan sát thấy”, “Nguyên nhân có thể”, “Hãy kiểm tra”, and “Nên làm gì” sections.
 
-**Optional fields:** Images, stage relevance, weather context, questions for the user.
+**Optional fields:** One stable `image_id` resolving to a curated offline illustration, stage relevance, weather context, questions for the user. A Warning Sign image supports observation and never confirms a cause or diagnosis.
 
-**Relationships:** Links observations to multiple possible causes and Troubleshooting Guides.
+**Relationships:** Links observations to multiple possible causes and monitoring stages. Stage Playbook and the Mở rộng library both resolve the same article; neither stores a copy.
 
 **Example:** `sign.yellow-young-leaves` / “Lá non bị vàng”; possible causes remain plural until evidence improves.
 

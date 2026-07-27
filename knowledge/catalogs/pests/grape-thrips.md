@@ -10,7 +10,8 @@ stage_ids:
   - grape.stage.flowering
   - grape.stage.fruit-set
   - grape.stage.fruit-development
-warning_sign_ids: []
+warning_sign_ids:
+  - sign.grape.flower-young-fruit-damage
 version: 1.0.0
 status: review
 references:

@@ -9,6 +9,7 @@ import type {
   NormalizedCarePlan,
   NormalizedCareGuide,
   NormalizedThreatBase,
+  NormalizedWarningSign,
 } from "./types";
 
 export interface SelectionResult {
@@ -136,6 +137,23 @@ export function selectEligibleContent(
         }
         for (const stId of threat.stageIds) {
           checkUfDependency(threat, stId, "stageIds");
+        }
+        for (const signId of threat.warningSignIds) {
+          checkUfDependency(threat, signId, "warningSignIds");
+        }
+        break;
+      }
+
+      case "warning_sign": {
+        const sign = doc as NormalizedWarningSign;
+        for (const spId of sign.speciesIds) {
+          checkUfDependency(sign, spId, "speciesIds");
+        }
+        for (const stId of sign.stageIds) {
+          checkUfDependency(sign, stId, "stageIds");
+        }
+        for (const causeId of sign.possibleCauseIds) {
+          checkUfDependency(sign, causeId, "possibleCauseIds");
         }
         break;
       }

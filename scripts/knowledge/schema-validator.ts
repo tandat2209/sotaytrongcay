@@ -27,6 +27,7 @@ const TYPE_TO_SCHEMA_FILENAME = new Map<KnowledgeDocumentType, string>([
   ["fertilizer_guide", "fertilizer-guide.schema.json"],
   ["disease", "disease.schema.json"],
   ["pest", "pest.schema.json"],
+  ["warning_sign", "warning-sign.schema.json"],
   ["reference_source", "reference.schema.json"],
 ]);
 
@@ -149,6 +150,8 @@ function matchesPlacement(
       return /^knowledge\/catalogs\/diseases\/[^/]+\.md$/.test(path);
     case "pest":
       return /^knowledge\/catalogs\/pests\/[^/]+\.md$/.test(path);
+    case "warning_sign":
+      return /^knowledge\/catalogs\/warning-signs\/[^/]+\.md$/.test(path);
     case "reference_source":
       return /^knowledge\/references\/[^/]+\.md$/.test(path);
   }

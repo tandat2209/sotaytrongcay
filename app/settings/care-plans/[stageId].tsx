@@ -8,7 +8,7 @@ import {
   getNextStagePlaybook,
   getStagePlaybook,
   listInformationalGuidesForStage,
-  listThreatsForStageId,
+  listWarningSignsForStageId,
 } from "@/features/knowledge/preview-knowledge";
 import { StagePlaybookScreen } from "@/features/plants/ui/StagePlaybookScreen";
 import {
@@ -66,6 +66,12 @@ export default function StageCarePlanDetailRoute() {
       informationalGuides={listInformationalGuidesForStage(stageId)}
       nextStage={nextStage}
       onBack={() => router.back()}
+      onOpenWarningSign={(warningSignId) =>
+        router.push({
+          pathname: "/more/warning-signs/[id]",
+          params: { id: warningSignId },
+        })
+      }
       {...(nextStage
         ? {
             onOpenNextStage: () =>
@@ -148,7 +154,7 @@ export default function StageCarePlanDetailRoute() {
         );
       }}
       screenTitle={t("settings.carePlans.title")}
-      threats={listThreatsForStageId(stageId)}
+      warningSigns={listWarningSignsForStageId(stageId)}
     />
   );
 }

@@ -320,6 +320,32 @@ export function normalizeDocument(
       };
     }
 
+    case "warning_sign": {
+      const imageId = typeof fm.image_id === "string" ? fm.image_id : undefined;
+      const urgency =
+        fm.urgency === "review_soon" || fm.urgency === "seek_help"
+          ? fm.urgency
+          : "observe";
+      return {
+        id: doc.id,
+        type: "warning_sign",
+        path: doc.path,
+        title: String(fm.title),
+        summary: String(fm.summary),
+        version: String(fm.version),
+        bodyMarkdown: doc.body,
+        locale: String(fm.locale),
+        status: userFacingStatus(fm.status),
+        references: stringList(fm.references),
+        speciesIds: stringList(fm.species_ids),
+        stageIds: stringList(fm.stage_ids),
+        plantParts: stringList(fm.plant_parts),
+        urgency,
+        ...(imageId !== undefined && { imageId }),
+        possibleCauseIds: stringList(fm.possible_cause_ids),
+      };
+    }
+
     case "reference_source": {
       return {
         id: doc.id,

@@ -59,7 +59,7 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Evaluate `monitor` and `withhold` only after reviewed weather, symptom, observation, or risk inputs exist.
 - [ ] Evaluate recommended watering intensity only after the engine has sufficient reviewed context; never prefill exact volume.
 - [ ] Evaluate one-time or event-based schedules only after the engine can observe the triggering event.
-- [ ] Implement normalized Warning Sign entities and relationship validation before allowing non-empty `warningSignIds` in pest or disease targets.
+- [x] Implement normalized Warning Sign entities, relationship validation, stage-scoped “Cần chú ý” links, and the canonical “Dấu hiệu thường gặp” library before allowing non-empty `warningSignIds` in pest or disease targets.
 - [ ] Evaluate spray inventory, product-label data, and separate spraying-related activity types only after user research demonstrates a management or safety need.
 
 ## Product validation

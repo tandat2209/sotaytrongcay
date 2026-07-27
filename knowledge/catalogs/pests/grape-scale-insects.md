@@ -11,7 +11,9 @@ stage_ids:
   - grape.stage.trellis-training
   - grape.stage.pruning
   - grape.stage.bud-break
-warning_sign_ids: []
+warning_sign_ids:
+  - sign.grape.brown-scales-on-wood
+  - sign.grape.sticky-residue-or-aphids
 version: 1.0.0
 status: review
 references:

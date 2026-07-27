@@ -6,7 +6,7 @@ import {
   getStagePlaybook,
   listCarePlans,
   listInformationalGuidesForStage,
-  listThreatsForStage,
+  listWarningSignsForStage,
 } from "@/features/knowledge/preview-knowledge";
 import { t } from "@/shared/i18n";
 import { getActivePlant } from "@/features/plants";
@@ -46,7 +46,10 @@ export default function StagePlaybookRoute() {
 
   const carePlans = listCarePlans({ speciesId: plant.speciesId, stageId });
   const informationalGuides = listInformationalGuidesForStage(stageId);
-  const threats = listThreatsForStage({ speciesId: plant.speciesId, stageId });
+  const warningSigns = listWarningSignsForStage({
+    speciesId: plant.speciesId,
+    stageId,
+  });
   const nextStage = getNextStagePlaybook(stageId);
 
   return (
@@ -55,6 +58,12 @@ export default function StagePlaybookRoute() {
       informationalGuides={informationalGuides}
       nextStage={nextStage}
       onBack={() => router.back()}
+      onOpenWarningSign={(warningSignId) =>
+        router.push({
+          pathname: "/more/warning-signs/[id]",
+          params: { id: warningSignId },
+        })
+      }
       {...(nextStage
         ? {
             onOpenNextStage: () =>
@@ -65,7 +74,7 @@ export default function StagePlaybookRoute() {
           }
         : {})}
       playbook={playbook}
-      threats={threats}
+      warningSigns={warningSigns}
     />
   );
 }

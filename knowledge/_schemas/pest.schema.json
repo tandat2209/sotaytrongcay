@@ -45,7 +45,6 @@
     },
     "warning_sign_ids": {
       "type": "array",
-      "maxItems": 0,
       "uniqueItems": true,
       "items": {
         "type": "string",

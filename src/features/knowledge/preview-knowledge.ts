@@ -107,11 +107,14 @@ export type SprayTarget = Readonly<{
   title: string;
 }>;
 
-export type StageThreat = Readonly<{
+export type WarningSign = Readonly<{
   id: string;
-  kind: "disease" | "pest";
   title: string;
+  summary: string;
   bodyMarkdown: string;
+  plantParts: readonly string[];
+  urgency: "observe" | "review_soon" | "seek_help";
+  imageId: string | null;
 }>;
 
 // ---------------------------------------------------------------------------
@@ -212,6 +215,18 @@ type RawFertilizerGuide = {
   }[];
 };
 
+type RawWarningSign = {
+  id: string;
+  title: string;
+  summary: string;
+  speciesIds: string[];
+  stageIds: string[];
+  plantParts: string[];
+  urgency: WarningSign["urgency"];
+  imageId?: string;
+  bodyMarkdown: string;
+};
+
 type PreviewBundle = {
   species: RawSpecies[];
   stagePlaybooks: RawPlaybook[];
@@ -220,6 +235,7 @@ type PreviewBundle = {
   fertilizerGuides?: RawFertilizerGuide[];
   diseases?: RawSprayTarget[];
   pests?: RawSprayTarget[];
+  warningSigns?: RawWarningSign[];
 };
 
 // ---------------------------------------------------------------------------
@@ -361,40 +377,41 @@ export function listSprayTargets(speciesId: string): readonly SprayTarget[] {
     }));
 }
 
-export function listThreatsForStage(input: {
+export function listWarningSigns(): readonly WarningSign[] {
+  return [...(bundle.warningSigns ?? [])]
+    .sort((left, right) => left.title.localeCompare(right.title, "vi-VN"))
+    .map(toWarningSign);
+}
+
+export function getWarningSign(id: string): WarningSign | null {
+  const sign = bundle.warningSigns?.find((candidate) => candidate.id === id);
+  return sign ? toWarningSign(sign) : null;
+}
+
+export function listWarningSignsForStage(input: {
   speciesId: string;
   stageId: string;
-}): readonly StageThreat[] {
-  return listStageThreats(
-    (target) =>
-      target.speciesIds.includes(input.speciesId) &&
-      target.stageIds.includes(input.stageId),
+}): readonly WarningSign[] {
+  return listMatchingWarningSigns(
+    (sign) =>
+      sign.speciesIds.includes(input.speciesId) &&
+      sign.stageIds.includes(input.stageId),
   );
 }
 
-/**
- * Returns curated threat guidance for an authored, globally stable stage ID.
- * This supports browsing a stage playbook without selecting a plant first.
- */
-export function listThreatsForStageId(stageId: string): readonly StageThreat[] {
-  return listStageThreats((target) => target.stageIds.includes(stageId));
+export function listWarningSignsForStageId(
+  stageId: string,
+): readonly WarningSign[] {
+  return listMatchingWarningSigns((sign) => sign.stageIds.includes(stageId));
 }
 
-function listStageThreats(
-  matches: (target: RawSprayTarget) => boolean,
-): readonly StageThreat[] {
-  return [...(bundle.diseases ?? []), ...(bundle.pests ?? [])]
+function listMatchingWarningSigns(
+  matches: (sign: RawWarningSign) => boolean,
+): readonly WarningSign[] {
+  return (bundle.warningSigns ?? [])
     .filter(matches)
-    .sort(
-      (left, right) =>
-        left.type.localeCompare(right.type) || left.id.localeCompare(right.id),
-    )
-    .map((target) => ({
-      id: target.id,
-      kind: target.type,
-      title: target.title,
-      bodyMarkdown: target.bodyMarkdown,
-    }));
+    .sort((left, right) => left.title.localeCompare(right.title, "vi-VN"))
+    .map(toWarningSign);
 }
 
 // ---------------------------------------------------------------------------
@@ -475,5 +492,17 @@ function toPlaybook(raw: RawPlaybook): StagePlaybook {
     exitCriteria: raw.exitCriteria ?? [],
     imageId: raw.imageId ?? null,
     bodyMarkdown: raw.bodyMarkdown ?? "",
+  };
+}
+
+function toWarningSign(raw: RawWarningSign): WarningSign {
+  return {
+    id: raw.id,
+    title: raw.title,
+    summary: raw.summary,
+    bodyMarkdown: raw.bodyMarkdown,
+    plantParts: raw.plantParts,
+    urgency: raw.urgency,
+    imageId: raw.imageId ?? null,
   };
 }

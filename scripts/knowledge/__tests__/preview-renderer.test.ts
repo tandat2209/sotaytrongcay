@@ -89,6 +89,20 @@ const bundle = {
   guides: [],
   diseases: [],
   pests: [],
+  warningSigns: [
+    {
+      id: "sign.grape.white-powder",
+      type: "warning_sign",
+      title: "Bột trắng trên lá hoặc quả",
+      summary: "Quan sát nhiều vị trí trước khi kết luận.",
+      imageId: "image.grape.warning-sign.white-powder",
+      status: "review",
+      stageIds: ["grape.stage.seedling"],
+      references: ["ref.grape"],
+      bodyMarkdown:
+        "## Bạn có thể quan sát thấy\n\nMảng trắng.\n\n## Nguyên nhân có thể\n\n- Bụi bám.\n\n## Hãy kiểm tra\n\nMặt dưới lá.\n\n## Nên làm gì\n\nGiữ cây thông thoáng.",
+    },
+  ],
   references: [
     {
       id: "ref.grape",
@@ -117,6 +131,12 @@ describe("knowledge preview renderer", () => {
     expect(html).toContain('id="contents"');
     expect(html).toContain("Chương 1");
     expect(html).toContain("Phụ lục A");
+    expect(html).toContain("Dấu hiệu thường gặp");
+    expect(html).toContain("Xem cách nhận biết →");
+    expect(html).toContain('href="#sign.grape.white-powder"');
+    expect(html).toContain(
+      'src="../assets/images/grape/warning-signs/white-powder.webp"',
+    );
     expect(html).toContain("grape.recommendation.seedling.watering");
     expect(html).toContain("suggestAfterDays: 3");
     expect(html).toContain("intervalDays: 3");

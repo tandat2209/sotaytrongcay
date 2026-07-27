@@ -296,7 +296,7 @@ Plant Detail reuses the same compact app-level weather summary as Today. Setup a
 - "Chăm sóc cần theo dõi" section: one initially collapsed card per stage Care Plan. Its activity icon and title identify the care; expanding it reveals the goal, separate ground/container frequency when authored, fertilizer-role recommendations, optional stage-specific fertilizer-group guidance, and important notes. The single primary role appears as “Ưu tiên: {name}”; each alternative appears as “Có thể thay thế: {name}”. Names and groups resolve from the focused catalogue. Group guidance derives its label from the canonical taxonomy and includes the same deficiency/immediate-use disclaimer as Plant Detail.
 - A short statement clarifies that Care Plan content is general to the stage and does not replace assessment of soil, weather, growing method, or the plant's actual condition.
 - "Hướng dẫn bổ sung" section: one initially collapsed card per generic informational Care Guide. Opening a card shows its authored goal and Markdown instructions; these do not represent tracked activities.
-- "Sâu bệnh cần theo dõi" section: collapsed, read-only Pest and Disease cards whose authored species and monitoring-stage relationships match the playbook. It carries an explicit observation-only disclaimer and expands to the authored content. It is omitted when no target matches; it never creates a diagnosis, spraying instruction, reminder, recommendation card, entry prefill, or history.
+- "Cần chú ý" section: a compact list of Warning Signs whose authored species and monitoring-stage relationships match the playbook. Each item shows only its canonical title and short observation summary plus “Xem cách nhận biết”, which opens the same read-only article available under `Mở rộng → Dấu hiệu thường gặp`. It is omitted when no sign matches and never embeds the full article, creates a diagnosis, spraying instruction, reminder, recommendation card, entry prefill, or history.
 - "Tiêu chí hoàn thành giai đoạn" card: `exitCriteria` bullet list with flag icon.
 - "Sắp tới" card: next stage from the current stage's authored transition; tapping navigates to Stage Playbook for that stage. This may cross from the final development stage into the production lifecycle.
 
@@ -308,7 +308,15 @@ All content is sourced from authored fields in the preview bundle and remains vi
 
 **Error state:** Plant not found shows "Không tìm thấy cây trồng." Stage without playbook shows "Chưa có hướng dẫn cho giai đoạn này."
 
-**User actions:** Read guidance, tap "Sắp tới" to browse the next stage, or tap back to return to Plant Detail.
+**User actions:** Read guidance, open a referenced Warning Sign article, tap "Sắp tới" to browse the next stage, or tap back to return to Plant Detail.
+
+### 7.5.2 Dấu hiệu thường gặp
+
+**Purpose:** Let growers browse canonical, source-backed observation articles without first choosing a plant or growth stage.
+
+**Entry point:** `Mở rộng → Dấu hiệu thường gặp` or “Xem cách nhận biết” from a Stage Playbook warning-sign item.
+
+The library lists each available Warning Sign by title and short observation summary. Selecting one opens a read-only article with its optional authored illustration followed by “Bạn có thể quan sát thấy”, “Nguyên nhân có thể”, “Hãy kiểm tra”, and “Nên làm gì”. The illustration is omitted when absent or unreadable and never confirms a cause. Possible causes remain plural and conditional; the article does not assert diagnosis or authorize treatment. Missing or unsupported IDs show an explicit unavailable state. All content is local and remains visibly review-stage.
 
 ### 7.6 Journal — “Nhật ký”
 

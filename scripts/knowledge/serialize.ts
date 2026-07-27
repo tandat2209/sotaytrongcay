@@ -10,11 +10,12 @@ import type {
   NormalizedThreatBase,
   NormalizedReferenceSource,
   NormalizedFertilizerGuide,
+  NormalizedWarningSign,
   StageJourneyItem,
 } from "./types";
 
 export const PRODUCTION_BUNDLE_SCHEMA_VERSION = "1.0.0";
-export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.3.0";
+export const PREVIEW_BUNDLE_SCHEMA_VERSION = "2.4.0";
 export const KNOWLEDGE_CONTENT_VERSION = "1.0.0";
 
 function sortArray(arr: readonly string[]): readonly string[] {
@@ -58,6 +59,12 @@ export function serializeBundle(
 
   const pestDocs = (
     documents.filter((d) => d.type === "pest") as NormalizedPest[]
+  ).sort((a, b) => a.id.localeCompare(b.id));
+
+  const warningSignDocs = (
+    documents.filter(
+      (d) => d.type === "warning_sign",
+    ) as NormalizedWarningSign[]
   ).sort((a, b) => a.id.localeCompare(b.id));
 
   const refDocs = (
@@ -235,6 +242,24 @@ export function serializeBundle(
   const compiledDiseases = diseaseDocs.map(compileThreat);
   const compiledPests = pestDocs.map(compileThreat);
 
+  const compiledWarningSigns = warningSignDocs.map((sign) => ({
+    id: sign.id,
+    type: sign.type,
+    title: sign.title,
+    summary: sign.summary,
+    locale: sign.locale,
+    version: sign.version,
+    status: sign.status,
+    references: sortArray(sign.references),
+    speciesIds: sortArray(sign.speciesIds),
+    stageIds: sortArray(sign.stageIds),
+    plantParts: sortArray(sign.plantParts),
+    urgency: sign.urgency,
+    ...(sign.imageId !== undefined && { imageId: sign.imageId }),
+    possibleCauseIds: sortArray(sign.possibleCauseIds),
+    bodyMarkdown: sign.bodyMarkdown,
+  }));
+
   const compiledReferences = refDocs.map((r) => ({
     id: r.id,
     type: r.type,
@@ -264,6 +289,7 @@ export function serializeBundle(
       fertilizerGuides: compiledFertilizerGuides,
       diseases: compiledDiseases,
       pests: compiledPests,
+      warningSigns: compiledWarningSigns,
     }),
     references: compiledReferences,
   };

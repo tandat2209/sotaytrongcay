@@ -26,6 +26,13 @@ const PEST_REQUIRED_SECTIONS = [
   "## Khi nào cần chuyên gia",
 ] as const;
 
+const WARNING_SIGN_REQUIRED_SECTIONS = [
+  "## Bạn có thể quan sát thấy",
+  "## Nguyên nhân có thể",
+  "## Hãy kiểm tra",
+  "## Nên làm gì",
+] as const;
+
 function earliestDisplayedIntervalDays(display: string): number | null {
   if (/^Hàng tuần(?:\s|$)/i.test(display.trim())) {
     return 7;
@@ -155,6 +162,18 @@ export function validateContentQuality(
             documentId: doc.id,
             field: "bodyMarkdown",
             message: `Threat document ${doc.id} requires a non-empty ${heading} section.`,
+          });
+        }
+      }
+    } else if (doc.type === "warning_sign") {
+      for (const heading of WARNING_SIGN_REQUIRED_SECTIONS) {
+        if (extractMarkdownSection(doc.bodyMarkdown, heading).length === 0) {
+          diagnostics.push({
+            code: "KNOWLEDGE_REQUIRED_SECTION_MISSING",
+            path: doc.path,
+            documentId: doc.id,
+            field: "bodyMarkdown",
+            message: `Warning Sign ${doc.id} requires a non-empty ${heading} section.`,
           });
         }
       }

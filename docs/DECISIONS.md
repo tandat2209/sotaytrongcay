@@ -8,6 +8,20 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-27 — Reference canonical warning-sign articles from stage guidance
+
+**Status:** Accepted
+
+**Decision:** Add `warning_sign` as a review-stage Knowledge Base entity with one stable `sign.*` ID, Vietnamese title, short observation summary, species and monitoring-stage relationships, affected plant parts, urgency, possible Pest or Disease causes, references, an optional stable `image_id`, and a structured article. The article owns the full “Bạn có thể quan sát thấy”, “Nguyên nhân có thể”, “Hãy kiểm tra”, and “Nên làm gì” content. A resolved image illustrates the visible sign in the canonical article but never confirms its cause or establishes a diagnosis.
+
+Stage Playbook replaces expandable “Sâu bệnh cần theo dõi” target bodies with a compact “Cần chú ý” list of stage-matched Warning Signs. Each row shows only the Warning Sign title and canonical summary and opens its article through “Xem cách nhận biết”. “Mở rộng → Dấu hiệu thường gặp” exposes the same articles as a browseable library. Stage Playbooks, Pest and Disease documents, and UI copy do not duplicate article content.
+
+Pest and Disease entities remain possible causes and optional spraying-history targets. A Warning Sign relationship never establishes diagnosis, proof of presence, treatment authorization, recommendation eligibility, reminder timing, Care Entry prefill, or saved history. This supersedes the Stage Playbook target-body presentation accepted on 2026-07-16 and completes the previously deferred Warning Sign relationship slice; it does not change spraying-history identity or Care Plan behavior.
+
+**Rationale:** Growers may begin from either their current growth stage or a visible symptom. One canonical article supports both paths, keeps stage guidance scannable, and preserves uncertainty when several causes can look similar.
+
+**Consequences:** The preview bundle advances to schema `2.4.0` with a `warningSigns` collection; production remains `1.0.0` until content approval. Existing review-stage Pest and Disease documents may populate `warning_sign_ids`, and relationship validation checks both directions. The app adds read-only warning-sign list and detail routes under Mở rộng. Older bundles without `warningSigns` expose empty stage and library lists.
+
 ## 2026-07-26 — Reference fertilizer roles from Care Plans
 
 **Status:** Accepted

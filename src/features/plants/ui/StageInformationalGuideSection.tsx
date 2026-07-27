@@ -6,7 +6,7 @@ import { t } from "@/shared/i18n";
 import { SurfaceCard } from "@/shared/ui/SurfaceCard";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, spacing } from "@/shared/ui/theme";
-import { KnowledgeMarkdown } from "./KnowledgeMarkdown";
+import { KnowledgeMarkdown } from "@/features/knowledge";
 
 export function StageInformationalGuideSection({
   guides,

@@ -6,6 +6,7 @@ export const KNOWLEDGE_DOCUMENT_TYPES = [
   "fertilizer_guide",
   "disease",
   "pest",
+  "warning_sign",
   "reference_source",
 ] as const;
 
@@ -248,6 +249,17 @@ export interface NormalizedPest extends NormalizedThreatBase {
   readonly type: "pest";
 }
 
+export interface NormalizedWarningSign extends NormalizedUserFacingBaseDocument {
+  readonly type: "warning_sign";
+  readonly summary: string;
+  readonly speciesIds: readonly string[];
+  readonly stageIds: readonly string[];
+  readonly plantParts: readonly string[];
+  readonly urgency: "observe" | "review_soon" | "seek_help";
+  readonly imageId?: string;
+  readonly possibleCauseIds: readonly string[];
+}
+
 export interface GuideRecommendedInput {
   readonly group: string;
   readonly examples: string;
@@ -273,5 +285,6 @@ export type NormalizedKnowledgeDocument =
   | NormalizedCareGuide
   | NormalizedDisease
   | NormalizedPest
+  | NormalizedWarningSign
   | NormalizedReferenceSource
   | NormalizedFertilizerGuide;

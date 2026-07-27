@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import {
   Bell,
+  AlertTriangle,
   Ellipsis,
   Info,
   ListTree,
@@ -13,6 +14,15 @@ import {
   MoreNavigationGroup,
   type MoreDestination,
 } from "./MoreNavigationGroup";
+
+const knowledgeDestinations: readonly MoreDestination[] = [
+  {
+    description: t("more.row.warningSignsDescription"),
+    icon: AlertTriangle,
+    label: t("more.row.warningSigns"),
+    path: "/more/warning-signs",
+  },
+];
 
 const managementDestinations: readonly MoreDestination[] = [
   {
@@ -57,6 +67,11 @@ export function MoreScreen() {
       title={t("navigation.tabs.more")}
       titleIcon={Ellipsis}
     >
+      <MoreNavigationGroup
+        destinations={knowledgeDestinations}
+        onOpen={(path) => router.push(path)}
+        title={t("more.section.knowledge")}
+      />
       <MoreNavigationGroup
         destinations={managementDestinations}
         onOpen={(path) => router.push(path)}

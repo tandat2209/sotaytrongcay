@@ -1,11 +1,14 @@
 import {
   getCarePlansForStage,
+  getWarningSign,
   getNextStagePlaybook,
   getPreviewPlantKnowledge,
   getStagePlaybook,
   listFertilizerSuggestions,
   listInformationalGuidesForStage,
-  listThreatsForStageId,
+  listWarningSigns,
+  listWarningSignsForStage,
+  listWarningSignsForStageId,
 } from "./preview-knowledge";
 import * as previewKnowledge from "./preview-knowledge";
 
@@ -160,12 +163,15 @@ describe("preview knowledge", () => {
     });
   });
 
-  it("lists stage threat guidance without requiring a plant record", () => {
+  it("lists compact warning signs without requiring a plant record", () => {
     expect(
-      listThreatsForStageId("grape.stage.trunk-development").map(
-        (threat) => threat.id,
+      listWarningSignsForStageId("grape.stage.trunk-development").map(
+        (sign) => sign.id,
       ),
-    ).toContain("pest.grape.scale-insects");
+    ).toEqual([
+      "sign.grape.weak-growth-abnormal-roots",
+      "sign.grape.brown-scales-on-wood",
+    ]);
   });
 
   it("lists curated spraying targets by species without using stage eligibility", () => {
@@ -212,33 +218,38 @@ describe("preview knowledge", () => {
     expect(listSprayTargets("plant.unknown")).toEqual([]);
   });
 
-  it("lists review-stage threats for monitoring in a matching stage", () => {
-    const listThreatsForStage: unknown = Reflect.get(
-      previewKnowledge,
-      "listThreatsForStage",
-    );
-
-    expect(typeof listThreatsForStage).toBe("function");
-    if (typeof listThreatsForStage !== "function") return;
-
+  it("lists species- and stage-matched warning signs", () => {
     expect(
-      listThreatsForStage({
+      listWarningSignsForStage({
         speciesId: "plant.grape",
         stageId: "grape.stage.bud-break",
-      }).map((threat: { id: string }) => threat.id),
+      }).map((sign) => sign.id),
     ).toEqual([
-      "disease.grape.powdery-mildew",
-      "pest.grape.aphids",
-      "pest.grape.mealybugs",
-      "pest.grape.scale-insects",
-      "pest.grape.thrips",
+      "sign.grape.white-powder",
+      "sign.grape.flower-young-fruit-damage",
+      "sign.grape.sticky-residue-or-aphids",
+      "sign.grape.brown-scales-on-wood",
     ]);
     expect(
-      listThreatsForStage({
+      listWarningSignsForStage({
         speciesId: "plant.grape",
         stageId: "grape.stage.nonexistent",
       }),
     ).toEqual([]);
+  });
+
+  it("opens one canonical warning-sign article from the library", () => {
+    const signs = listWarningSigns();
+    const sign = getWarningSign("sign.grape.white-powder");
+
+    expect(signs).toContainEqual(sign);
+    expect(sign).toMatchObject({
+      title: "Bột trắng trên lá hoặc quả",
+      summary: expect.stringContaining("tán cây bí"),
+      imageId: "image.grape.warning-sign.white-powder",
+    });
+    expect(sign?.bodyMarkdown).toContain("## Hãy kiểm tra");
+    expect(getWarningSign("sign.unknown")).toBeNull();
   });
 
   it("lists the focused fertilizer guide in authored section order", () => {

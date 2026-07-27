@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sotaytrongcay.local/schemas/warning-sign.schema.json",
+  "title": "Warning Sign",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "title",
+    "summary",
+    "locale",
+    "species_ids",
+    "stage_ids",
+    "plant_parts",
+    "urgency",
+    "possible_cause_ids",
+    "version",
+    "status",
+    "references"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^sign\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+    },
+    "type": { "const": "warning_sign" },
+    "title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+    },
+    "species_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" }
+    },
+    "stage_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+    },
+    "plant_parts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "urgency": { "enum": ["observe", "review_soon", "seek_help"] },
+    "image_id": {
+      "type": "string",
+      "pattern": "^image\\.[a-z0-9.-]+$"
+    },
+    "possible_cause_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?:disease|pest)\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+      }
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "enum": ["draft", "review", "approved", "deprecated", "archived"]
+    },
+    "references": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^ref\\.[a-z0-9.-]+$" }
+    }
+  }
+}

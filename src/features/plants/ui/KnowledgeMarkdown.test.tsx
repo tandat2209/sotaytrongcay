@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react-native";
-import { KnowledgeMarkdown } from "./KnowledgeMarkdown";
+import { KnowledgeMarkdown } from "@/features/knowledge";
 
 describe("KnowledgeMarkdown", () => {
   it("joins soft-wrapped paragraph lines", () => {

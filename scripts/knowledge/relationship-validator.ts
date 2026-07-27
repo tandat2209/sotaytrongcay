@@ -258,8 +258,60 @@ export function validateRelationships(
         for (const stId of doc.stageIds) {
           validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
         }
-        // Warning Sign entities are not implemented yet. Empty lists are valid;
-        // populated relationships will be validated when that document type ships.
+        for (const signId of doc.warningSignIds) {
+          validateIdRef(doc, signId, "warningSignIds", "warning_sign");
+          const sign = idMap.get(signId);
+          if (
+            sign?.type === "warning_sign" &&
+            !sign.possibleCauseIds.includes(doc.id)
+          ) {
+            diagnostics.push({
+              code: "KNOWLEDGE_RELATIONSHIP_MISSING",
+              path: doc.path,
+              documentId: doc.id,
+              field: "warningSignIds",
+              message: `Threat ${doc.id} references Warning Sign ${signId}, but the sign does not include the threat as a possible cause.`,
+            });
+          }
+        }
+        break;
+      }
+
+      case "warning_sign": {
+        for (const spId of doc.speciesIds) {
+          validateIdRef(doc, spId, "speciesIds", "plant_species");
+        }
+        for (const stId of doc.stageIds) {
+          validateIdRef(doc, stId, "stageIds", "growth_stage_playbook");
+        }
+        for (const causeId of doc.possibleCauseIds) {
+          const cause = idMap.get(causeId);
+          if (!cause) {
+            diagnostics.push({
+              code: "KNOWLEDGE_RELATIONSHIP_MISSING",
+              path: doc.path,
+              documentId: doc.id,
+              field: "possibleCauseIds",
+              message: `Warning Sign ${doc.id} references missing possible cause ${causeId}.`,
+            });
+          } else if (cause.type !== "disease" && cause.type !== "pest") {
+            diagnostics.push({
+              code: "KNOWLEDGE_RELATIONSHIP_WRONG_TYPE",
+              path: doc.path,
+              documentId: doc.id,
+              field: "possibleCauseIds",
+              message: `Warning Sign ${doc.id} references possible cause ${causeId} with type ${cause.type}, expected disease or pest.`,
+            });
+          } else if (!cause.warningSignIds.includes(doc.id)) {
+            diagnostics.push({
+              code: "KNOWLEDGE_RELATIONSHIP_MISSING",
+              path: doc.path,
+              documentId: doc.id,
+              field: "possibleCauseIds",
+              message: `Warning Sign ${doc.id} references threat ${causeId}, but the threat does not include the sign.`,
+            });
+          }
+        }
         break;
       }
 

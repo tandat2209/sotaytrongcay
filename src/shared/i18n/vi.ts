@@ -385,6 +385,12 @@ export const vi = {
     "Hiểu phạm vi hỗ trợ và cách sử dụng thông tin an toàn.",
     [],
   ],
+  "more.row.warningSigns": ["Dấu hiệu thường gặp", []],
+  "more.row.warningSignsDescription": [
+    "Nhận biết dấu hiệu trên cây và xem các bước kiểm tra an toàn.",
+    [],
+  ],
+  "more.section.knowledge": ["Thư viện kiến thức", []],
   "more.section.management": ["Quản lý chăm sóc", []],
   "more.section.settings": ["Cài đặt và thông tin", []],
   "navigation.tabs.journal": ["Nhật ký", []],
@@ -508,6 +514,8 @@ export const vi = {
     "Ảnh minh hoạ giai đoạn {stage}",
     ["stage"],
   ],
+  "plants.guide.warningSignAction": ["Xem cách nhận biết", []],
+  "plants.guide.warningSigns": ["Cần chú ý", []],
   "plants.guide.threatDisclaimer": [
     "Nội dung dùng để quan sát và tham khảo, không phải chẩn đoán hoặc chỉ định phun.",
     [],
@@ -519,6 +527,22 @@ export const vi = {
     "Mở hoặc thu gọn hướng dẫn về {title}",
     ["title"],
   ],
+  "warningSigns.detail.title": ["Dấu hiệu thường gặp", []],
+  "warningSigns.disclaimer": [
+    "Một dấu hiệu có thể có nhiều nguyên nhân. Hãy kiểm tra thêm trước khi xử lý; nội dung này không thay thế chẩn đoán chuyên môn.",
+    [],
+  ],
+  "warningSigns.library.introduction": [
+    "Tìm theo điều bạn đang quan sát thấy trên cây.",
+    [],
+  ],
+  "warningSigns.library.title": ["Dấu hiệu thường gặp", []],
+  "warningSigns.imageAccessibility": [
+    "Ảnh minh họa dấu hiệu {title}",
+    ["title"],
+  ],
+  "warningSigns.notFound": ["Chưa tìm thấy bài dấu hiệu này.", []],
+  "warningSigns.openAccessibility": ["Xem cách nhận biết {title}", ["title"]],
   "plants.list.emptyDescription": [
     "Thêm cây để theo dõi giai đoạn sinh trưởng và lịch sử chăm sóc.",
     [],

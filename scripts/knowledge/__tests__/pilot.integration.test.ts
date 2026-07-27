@@ -54,11 +54,12 @@ describe("grape knowledge pilot integration test", () => {
       }>[];
       diseases: readonly Readonly<{ id: string }>[];
       pests: readonly Readonly<{ id: string }>[];
+      warningSigns: readonly Readonly<{ id: string }>[];
       references: readonly Readonly<{ id: string }>[];
     }>;
 
     // Check sizes
-    expect(bundle.schemaVersion).toBe("2.3.0");
+    expect(bundle.schemaVersion).toBe("2.4.0");
     expect(bundle.species).toHaveLength(1);
     expect(bundle.stagePlaybooks).toHaveLength(12);
     expect(bundle.carePlans).toHaveLength(22);
@@ -66,6 +67,7 @@ describe("grape knowledge pilot integration test", () => {
     expect(bundle.fertilizerGuides).toHaveLength(1);
     expect(bundle.diseases).toHaveLength(1);
     expect(bundle.pests).toHaveLength(5);
+    expect(bundle.warningSigns).toHaveLength(6);
     expect(bundle.references).toHaveLength(19);
 
     // Verify IDs

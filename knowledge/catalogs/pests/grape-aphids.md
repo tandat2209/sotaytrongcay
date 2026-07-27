@@ -9,7 +9,8 @@ stage_ids:
   - grape.stage.bud-break
   - grape.stage.flowering
   - grape.stage.fruit-set
-warning_sign_ids: []
+warning_sign_ids:
+  - sign.grape.sticky-residue-or-aphids
 version: 1.0.0
 status: review
 references:

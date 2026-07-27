@@ -11,7 +11,8 @@ stage_ids:
   - grape.stage.fruit-set
   - grape.stage.fruit-development
   - grape.stage.ripening
-warning_sign_ids: []
+warning_sign_ids:
+  - sign.grape.white-powder
 version: 1.0.0
 status: review
 references:

@@ -84,9 +84,9 @@ The latest displayed plant photo is derived from the first photo of the newest p
 A structured condition selected for an observation, such as yellow leaves, pests, or wilting. It is not a diagnosis.
 _Avoid_: Chẩn đoán bệnh, trạng thái cây
 
-**Dấu hiệu cảnh báo** (Warning sign):
-An observable plant condition that may have several possible causes and can start a troubleshooting path.
-_Avoid_: Bệnh, chẩn đoán
+**Dấu hiệu thường gặp** (Warning sign):
+An observable plant condition that may have several possible causes and opens a read-only troubleshooting article. It is not a diagnosis, confirmation that a cause is present, or instruction to spray.
+_Avoid_: Dấu hiệu cảnh báo (unless urgency is established), bệnh, chẩn đoán
 
 **Sâu hại** (Pest):
 A curated Knowledge Base entity describing a harmful organism, observable evidence, relevant monitoring stages, prevention context, safe first response, and escalation guidance. Its presence in the catalog or selection while logging is not a diagnosis or instruction to spray.
@@ -96,9 +96,9 @@ _Avoid_: Dấu hiệu cảnh báo, thuốc phun, chẩn đoán
 A curated Knowledge Base entity describing a plant disease, observable evidence, relevant monitoring stages, risk context, prevention, safe first response, and escalation guidance without asserting that a plant has the disease.
 _Avoid_: Dấu hiệu cảnh báo, tình trạng cây, chẩn đoán
 
-**Sâu bệnh cần theo dõi** (Stage threat guidance):
-A read-only, stage-matched list of curated pests and diseases in the preview Stage Playbook. It supports observation and escalation only; it does not diagnose a plant, prescribe spraying, create a recommendation, or record history.
-_Avoid_: Việc cần làm, chẩn đoán, lịch phun
+**Cần chú ý** (Stage warning-sign guidance):
+A short, stage-matched list of curated Warning Signs in the preview Stage Playbook. Each item links to its canonical “Dấu hiệu thường gặp” article and never embeds the full article, diagnoses a plant, prescribes spraying, creates a recommendation, or records history.
+_Avoid_: Sâu bệnh cần theo dõi, việc cần làm, chẩn đoán, lịch phun
 
 **Nhật ký trồng cây** (Gardening journal):
 The chronological history of saved core care activities and plant updates.

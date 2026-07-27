@@ -9,7 +9,7 @@
       "if": {
         "properties": {
           "schemaVersion": {
-            "enum": ["1.1.0", "2.0.0", "2.1.0", "2.2.0", "2.3.0"]
+            "enum": ["1.1.0", "2.0.0", "2.1.0", "2.2.0", "2.3.0", "2.4.0"]
           }
         },
         "required": ["schemaVersion"]
@@ -35,12 +35,30 @@
     },
     {
       "if": {
-        "properties": { "schemaVersion": { "enum": ["2.2.0", "2.3.0"] } },
+        "properties": {
+          "schemaVersion": { "enum": ["2.2.0", "2.3.0", "2.4.0"] }
+        },
         "required": ["schemaVersion"]
       },
       "then": {
         "properties": { "fertilizerGuides": true },
         "required": ["fertilizerGuides"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "schemaVersion": { "const": "2.4.0" } },
+        "required": ["schemaVersion"]
+      },
+      "then": {
+        "properties": { "warningSigns": true },
+        "required": ["warningSigns"]
+      },
+      "else": {
+        "not": {
+          "properties": { "warningSigns": true },
+          "required": ["warningSigns"]
+        }
       }
     }
   ],
@@ -472,6 +490,11 @@
       "uniqueItems": true,
       "items": { "$ref": "#/$defs/compiled_pest" }
     },
+    "warningSigns": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/compiled_warning_sign" }
+    },
     "references": {
       "type": "array",
       "uniqueItems": true,
@@ -773,7 +796,6 @@
         },
         "warningSignIds": {
           "type": "array",
-          "maxItems": 0,
           "uniqueItems": true,
           "items": {
             "type": "string",
@@ -834,7 +856,6 @@
         },
         "warningSignIds": {
           "type": "array",
-          "maxItems": 0,
           "uniqueItems": true,
           "items": {
             "type": "string",
@@ -842,6 +863,77 @@
           }
         },
         "scientificName": { "type": "string", "minLength": 1 },
+        "bodyMarkdown": { "type": "string" }
+      }
+    },
+    "compiled_warning_sign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "title",
+        "summary",
+        "locale",
+        "version",
+        "status",
+        "references",
+        "speciesIds",
+        "stageIds",
+        "plantParts",
+        "urgency",
+        "possibleCauseIds",
+        "bodyMarkdown"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^sign\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+        },
+        "type": { "const": "warning_sign" },
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "locale": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(?:-[A-Z]{2})?$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "status": { "$ref": "#/$defs/status" },
+        "references": { "$ref": "#/$defs/references" },
+        "speciesIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^plant\\.[a-z0-9-]+$" }
+        },
+        "stageIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9.-]+$" }
+        },
+        "plantParts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "urgency": { "enum": ["observe", "review_soon", "seek_help"] },
+        "imageId": {
+          "type": "string",
+          "pattern": "^image\\.[a-z0-9.-]+$"
+        },
+        "possibleCauseIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?:disease|pest)\\.[a-z0-9-]+(?:\\.[a-z0-9-]+)*$"
+          }
+        },
         "bodyMarkdown": { "type": "string" }
       }
     },
