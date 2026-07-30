@@ -53,6 +53,7 @@ export function BatchActivityTypeScreen({ onBack, onChoose, plants }: Props) {
               accessibilityRole="button"
               key={type}
               onPress={() => onChoose(type)}
+              style={({ pressed }) => pressed && styles.pressed}
             >
               <SurfaceCard style={styles.option}>
                 <View
@@ -87,4 +88,5 @@ const styles = StyleSheet.create({
   label: { flex: 1 },
   option: { alignItems: "center", flexDirection: "row", gap: spacing.base },
   options: { gap: spacing.md },
+  pressed: { opacity: 0.78 },
 });

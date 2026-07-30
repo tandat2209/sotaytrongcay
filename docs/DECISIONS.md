@@ -8,6 +8,16 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-30 — Record journal occurrence with date and coarse day period
+
+**Status:** Accepted
+
+**Decision:** Care Entry, batch Care Entry, and “Thêm nhật ký” ask for a calendar date plus “Sáng”, “Chiều”, or “Tối” instead of an exact clock time. The existing timestamp contract remains unchanged for storage, sorting, pagination, stage history, and compatibility. Past-date selections use representative local times of 08:00, 18:00, and 22:00 respectively. On the current date, periods later than the current period are unavailable; when the current period's representative time is still ahead, the app stores the current time instead. Existing exact timestamps resolve to morning before 12:00, afternoon from 12:00 through 20:59, and evening from 21:00 onward.
+
+**Rationale:** Home growers can reliably recall the day and broad part of day for watering, fertilizing, spraying, or an observation, but requiring the exact minute creates false precision and slows the core logging path. Coarse periods retain enough chronological context without a schema migration.
+
+**Consequences:** Entry, batch confirmation, care detail, and care rows show the coarse period. Plant Update detail may retain its legacy formatted timestamp until its presentation is migrated, while editing uses the coarse control. Representative timestamps are ordering keys rather than claims about exact performance time. Existing records and repository contracts require no migration, and an ADR is unnecessary because the mapping is backward-compatible and locally reversible.
+
 ## 2026-07-27 — Reference canonical warning-sign articles from stage guidance
 
 **Status:** Accepted

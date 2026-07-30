@@ -11,7 +11,7 @@ import { t } from "@/shared/i18n";
 import { IconButton } from "@/shared/ui/IconButton";
 import { SelectableChip } from "@/shared/ui/SelectableChip";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, radius, spacing } from "@/shared/ui/theme";
+import { colors, fontFamily, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
   failed: boolean;
@@ -148,13 +148,19 @@ const styles = StyleSheet.create({
   },
   search: {
     alignItems: "center",
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
+    backgroundColor: colors.surfaceMuted,
+    borderColor: colors.divider,
+    borderRadius: radius.small,
+    borderWidth: StyleSheet.hairlineWidth,
     flexDirection: "row",
     gap: spacing.sm,
     minHeight: 48,
     paddingHorizontal: spacing.base,
   },
-  searchInput: { color: colors.text, flex: 1, fontSize: 16 },
+  searchInput: {
+    color: colors.textPrimary,
+    flex: 1,
+    fontFamily: fontFamily.medium,
+    fontSize: 16,
+  },
 });

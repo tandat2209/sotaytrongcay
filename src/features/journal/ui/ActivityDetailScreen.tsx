@@ -1,6 +1,7 @@
 import { Pencil } from "lucide-react-native";
 import { Pressable, StyleSheet } from "react-native";
 import {
+  formatCareOccurrence,
   getCareActivityLabel,
   getCareActivityOriginLabel,
   getWateringIntensityLabel,
@@ -71,6 +72,7 @@ export function ActivityDetailScreen({
         badge={getCareActivityOriginLabel(activity.origin)}
         icon={visual.icon}
         occurredAt={activity.occurredAt}
+        occurredAtLabel={formatCareOccurrence(new Date(activity.occurredAt))}
         title={getCareActivityLabel(activity.type)}
       />
       <JournalDetailPlantCard

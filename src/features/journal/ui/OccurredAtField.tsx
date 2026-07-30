@@ -3,12 +3,19 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { CalendarDays } from "lucide-react-native";
 import { useState } from "react";
-import { Platform, Pressable, StyleSheet } from "react-native";
-import { mergeLocalDateAndTime } from "@/features/journal/models/occurred-at";
-import { datePickerLocale, formatDateTime, t } from "@/shared/i18n";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
+import {
+  getOccurrencePeriod,
+  isOccurrencePeriodAvailable,
+  OCCURRENCE_PERIODS,
+  resolveOccurrenceAt,
+  type OccurrencePeriod,
+} from "@/features/journal/models/occurred-at";
+import { datePickerLocale, formatDate, t } from "@/shared/i18n";
 import { FormField } from "@/shared/ui/FormField";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
+import { getOccurrencePeriodLabel } from "./care-activity-copy";
 
 type Props = Readonly<{
   accessibilityLabel: string;
@@ -25,16 +32,15 @@ export function OccurredAtField({
   onChange,
   value,
 }: Props) {
-  const [showCombinedPicker, setShowCombinedPicker] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  function openAndroidTimePicker(selectedDate: Date) {
-    DateTimePickerAndroid.open({
-      mode: "time",
-      onValueChange: (_, selectedTime) => {
-        onChange(mergeLocalDateAndTime(selectedDate, selectedTime));
-      },
-      value: selectedDate,
-    });
+  function selectDate(selectedDate: Date) {
+    const now = new Date();
+    const currentPeriod = getOccurrencePeriod(value);
+    const period = isOccurrencePeriodAvailable(selectedDate, currentPeriod, now)
+      ? currentPeriod
+      : getOccurrencePeriod(now);
+    onChange(resolveOccurrenceAt(selectedDate, period, now));
   }
 
   function openPicker() {
@@ -43,13 +49,17 @@ export function OccurredAtField({
         maximumDate: new Date(),
         mode: "date",
         onValueChange: (_, selectedDate) => {
-          openAndroidTimePicker(mergeLocalDateAndTime(selectedDate, value));
+          selectDate(selectedDate);
         },
         value,
       });
       return;
     }
-    setShowCombinedPicker(true);
+    setShowDatePicker(true);
+  }
+
+  function selectPeriod(period: OccurrencePeriod) {
+    onChange(resolveOccurrenceAt(value, period, new Date()));
   }
 
   return (
@@ -60,23 +70,23 @@ export function OccurredAtField({
         onPress={openPicker}
         style={styles.control}
       >
-        <Typography variant="bodyLarge">{formatDateTime(value)}</Typography>
+        <Typography variant="bodyLarge">{formatDate(value)}</Typography>
         <CalendarDays color={colors.textSecondary} size={20} />
       </Pressable>
-      {Platform.OS !== "android" && showCombinedPicker ? (
+      {Platform.OS !== "android" && showDatePicker ? (
         <DateTimePicker
           locale={datePickerLocale}
           maximumDate={new Date()}
-          mode="datetime"
-          onValueChange={(_, selected) => onChange(selected)}
+          mode="date"
+          onValueChange={(_, selected) => selectDate(selected)}
           value={value}
         />
       ) : null}
-      {Platform.OS === "ios" && showCombinedPicker ? (
+      {Platform.OS === "ios" && showDatePicker ? (
         <Pressable
           accessibilityLabel={t("common.actions.done")}
           accessibilityRole="button"
-          onPress={() => setShowCombinedPicker(false)}
+          onPress={() => setShowDatePicker(false)}
           style={styles.done}
         >
           <Typography color="primary" variant="bodyLarge">
@@ -84,6 +94,44 @@ export function OccurredAtField({
           </Typography>
         </Pressable>
       ) : null}
+      <View style={styles.periodField}>
+        <Typography variant="label">
+          {t("journal.careEntry.period.title")}
+        </Typography>
+        <View accessibilityRole="radiogroup" style={styles.periods}>
+          {OCCURRENCE_PERIODS.map((period) => {
+            const now = new Date();
+            const selected = getOccurrencePeriod(value) === period;
+            const available = isOccurrencePeriodAvailable(value, period, now);
+            const periodLabel = getOccurrencePeriodLabel(period);
+            return (
+              <Pressable
+                accessibilityLabel={t("journal.careEntry.period.select", {
+                  period: periodLabel,
+                })}
+                accessibilityRole="radio"
+                accessibilityState={{ checked: selected, disabled: !available }}
+                disabled={!available}
+                key={period}
+                onPress={() => selectPeriod(period)}
+                style={({ pressed }) => [
+                  styles.period,
+                  selected && styles.selectedPeriod,
+                  !available && styles.unavailablePeriod,
+                  pressed && styles.pressedPeriod,
+                ]}
+              >
+                <Typography
+                  color={selected ? "primary" : "textSecondary"}
+                  variant={selected ? "bodyStrong" : "body"}
+                >
+                  {periodLabel}
+                </Typography>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
     </FormField>
   );
 }
@@ -92,13 +140,31 @@ const styles = StyleSheet.create({
   control: {
     alignItems: "center",
     backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
+    borderColor: colors.divider,
+    borderRadius: radius.small,
+    borderWidth: StyleSheet.hairlineWidth,
     flexDirection: "row",
     justifyContent: "space-between",
     minHeight: 48,
     paddingHorizontal: spacing.base,
   },
   done: { alignSelf: "flex-end", padding: spacing.sm },
+  period: {
+    alignItems: "center",
+    borderColor: colors.divider,
+    borderRadius: radius.small,
+    borderWidth: StyleSheet.hairlineWidth,
+    flex: 1,
+    justifyContent: "center",
+    minHeight: 48,
+  },
+  periodField: { gap: spacing.sm },
+  periods: { flexDirection: "row", gap: spacing.sm },
+  pressedPeriod: { opacity: 0.78 },
+  selectedPeriod: {
+    backgroundColor: colors.primarySoft,
+    borderColor: colors.primary,
+    borderWidth: 1,
+  },
+  unavailablePeriod: { opacity: 0.4 },
 });

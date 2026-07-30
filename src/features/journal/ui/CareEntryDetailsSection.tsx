@@ -5,7 +5,7 @@ import type { CareActivityType } from "../models/care-activity";
 import { t } from "@/shared/i18n";
 import { FormField } from "@/shared/ui/FormField";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, radius, spacing } from "@/shared/ui/theme";
+import { colors, fontFamily, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
   amountAccessibilityLabel?: string;
@@ -38,7 +38,7 @@ export function CareEntryDetailsSection({
         onPress={() => setExpanded((value) => !value)}
         style={styles.toggle}
       >
-        <Typography color="primary" variant="bodyLarge">
+        <Typography color="primary" variant="bodyStrong">
           {t(
             expanded
               ? "journal.careEntry.details.collapse"
@@ -92,11 +92,12 @@ const styles = StyleSheet.create({
   fields: { gap: spacing.base },
   input: {
     backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.control,
+    borderColor: colors.divider,
+    borderRadius: radius.small,
     borderWidth: 1,
     color: colors.text,
     flex: 1,
+    fontFamily: fontFamily.medium,
     fontSize: 16,
     lineHeight: 24,
     minHeight: 48,
@@ -106,9 +107,12 @@ const styles = StyleSheet.create({
   section: { gap: spacing.base },
   toggle: {
     alignItems: "center",
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.medium,
     flexDirection: "row",
     justifyContent: "space-between",
     minHeight: 48,
+    paddingHorizontal: spacing.base,
   },
   unit: { minWidth: 32 },
 });

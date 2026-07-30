@@ -5,10 +5,12 @@ import { formatTime, t } from "@/shared/i18n";
 import { Typography } from "@/shared/ui/Typography";
 import { colors, radius, spacing } from "@/shared/ui/theme";
 import { CARE_ACTIVITY_VISUALS } from "../models/care-activity-icon";
+import { getOccurrencePeriod } from "../models/occurred-at";
 import type { JournalItem } from "../models/journal-item";
 import {
   getCareActivityLabel,
   getCareActivityOriginLabel,
+  getOccurrencePeriodLabel,
   getWateringIntensityLabel,
 } from "./care-activity-copy";
 
@@ -36,8 +38,6 @@ export function JournalEntryRow({
   plantName,
 }: Props) {
   const name = plant?.name ?? plantName ?? t("common.fallback.plant");
-  const time = formatTime(new Date(item.occurredAt));
-
   if (item.kind === "care") {
     const { record } = item;
     const visual = CARE_ACTIVITY_VISUALS[record.type];
@@ -63,7 +63,9 @@ export function JournalEntryRow({
               {getCareActivityLabel(record.type)}
             </Typography>
             <Typography color="textMuted" variant="secondary">
-              {time}
+              {getOccurrencePeriodLabel(
+                getOccurrencePeriod(new Date(item.occurredAt)),
+              )}
             </Typography>
           </View>
           <JournalPlantContext name={name} stageTitle={plant?.stageTitle} />
@@ -101,6 +103,7 @@ export function JournalEntryRow({
   const summary =
     record.notes ??
     t("journal.list.photoSummary", { count: record.photos.length });
+  const time = formatTime(new Date(item.occurredAt));
 
   return (
     <Pressable

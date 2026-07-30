@@ -18,7 +18,7 @@ Stage guidance supports care tracking through concise tips. It does not create a
 ### Track important care
 
 - Watering, fertilizing, and spraying are dedicated tracked activities.
-- Plant and time form the minimum care-entry path because the Today button supplies the activity type.
+- Plant, date, and a coarse day period form the minimum care-entry path because the Today button supplies the activity type. Entry never asks for an exact clock time.
 - Product, amount, method, dosage, notes, and photos remain optional.
 - Last-care summaries are visible before the Timeline.
 
@@ -115,9 +115,9 @@ Care Entry is the first route to fertilizer selection and creation: `Bón phân 
 
 “Chọn nhiều” enters a temporary selection mode local to Plant List. Plant rows expose accessible selected state, tapping a row toggles it instead of opening Plant Detail, and the pinned “Tiếp tục ({count})” action remains disabled until two active Plants are selected. Cancel exits selection mode without changing history.
 
-The activity choice opens a focused batch Care Entry outside the persistent tabs. Occurrence time, watering intensity, optional per-Plant estimated liters, fertilizer identities, spraying target, and notes apply independently to every selected Plant. The amount label states “Lượng nước ước tính mỗi cây”; the app never treats the entered value as a total or divides it. Batch fertilizing retains access to “Phân bón của tôi” but omits stage-specific Knowledge Base suggestions. A spraying target is available only when it applies to every selected Plant species.
+The activity choice opens a focused batch Care Entry outside the persistent tabs. Occurrence date and day period, watering intensity, optional per-Plant estimated liters, fertilizer identities, spraying target, and notes apply independently to every selected Plant. The amount label states “Lượng nước ước tính mỗi cây”; the app never treats the entered value as a total or divides it. Batch fertilizing retains access to “Phân bón của tôi” but omits stage-specific Knowledge Base suggestions. A spraying target is available only when it applies to every selected Plant species.
 
-Confirmation shows the activity, time, shared details, selected count, and every Plant name. “Lưu cho {count} cây” atomically creates one ordinary Care Activity per Plant with independent IDs and copied Fertilizer Applications where applicable. A failure creates no partial journal history and preserves the draft. The saved records remain independently editable and visible in each Plant's history and the global Journal. No persistent batch entity is created.
+Confirmation shows the activity, date and day period, shared details, selected count, and every Plant name. “Lưu cho {count} cây” atomically creates one ordinary Care Activity per Plant with independent IDs and copied Fertilizer Applications where applicable. A failure creates no partial journal history and preserves the draft. The saved records remain independently editable and visible in each Plant's history and the global Journal. No persistent batch entity is created.
 
 ### Add a plant update or change stage
 
@@ -271,7 +271,7 @@ Plant Detail displays the first photo from the newest photo-bearing saved Plant 
 
 Place the age chip beside the species chip in the wrapping identity metadata row. Current-stage age uses only the persisted time when the current stage became active; planted age uses only the optional planting date. When both values exist, show current-stage age first and switch to planted age every ten seconds with a short vertical slide and crossfade. When only one exists, keep it static; when neither exists, omit the chip. Under reduced motion, show both available labels statically. The visual text may change, but screen readers receive one stable label containing every available value. Never derive stage age from planting date, plant creation date, lifecycle position, authored duration, photos, or care history. Health status remains absent until a persisted source contract exists.
 
-“Nhật ký gần đây” interleaves saved Care Activities and Plant Updates by occurrence time and shows at most three entries. Care rows show the activity icon, title, and time. Plant Update rows show the first saved photo thumbnail when available or a note icon otherwise, plus a note/photo summary and time. Selecting a row opens the matching care or update detail screen. Plant Updates remain journal records rather than dedicated care activities.
+“Nhật ký gần đây” interleaves saved Care Activities and Plant Updates by occurrence time and shows at most three entries. Care rows show the activity icon, title, and coarse day period. Plant Update rows show the first saved photo thumbnail when available or a note icon otherwise, plus a note/photo summary and time. Selecting a row opens the matching care or update detail screen. Plant Updates remain journal records rather than dedicated care activities.
 
 Plant Detail reuses the same compact app-level weather summary as Today. Setup and retry actions appear only when weather is unavailable; available weather has no location-update action. Weather never changes Plant Detail care status, schedule, reminder, or saved history in the current scope.
 
@@ -344,7 +344,9 @@ No result shows “Không tìm thấy nội dung phù hợp” + “Xóa bộ l�
 
 **Purpose:** Save performed watering, fertilizing, or spraying with minimal input.
 
-**Components:** Read-only or preselected activity type; plant; time; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”. The parent fertilizing sheet shows selected fertilizer chips and “Thêm”; one focused add sheet owns recent selection, catalog search, and compact creation.
+**Components:** Read-only or preselected activity type; plant; date; one of “Sáng”, “Chiều”, or “Tối”; keyboard-pinned “Lưu hoạt động”; collapsed “Thêm chi tiết”. The parent fertilizing sheet shows selected fertilizer chips and “Thêm”; one focused add sheet owns recent selection, catalog search, and compact creation.
+
+Care Entry and “Thêm nhật ký” never ask for an exact clock time. For backward-compatible ordering in the existing timestamp field, past-date choices use representative local times: “Sáng” at 08:00, “Chiều” at 18:00, and “Tối” at 22:00. On the current date, later periods stay unavailable; if the current period's representative time has not arrived, saving uses the current time instead of creating future history. Existing exact timestamps remain valid and display through their matching period.
 
 Plant identity uses the latest persisted journal photo when available and falls back to the leaf treatment without blocking the form if photo loading fails.
 
@@ -374,7 +376,7 @@ When opened for several Plants, Care Entry uses a selected-Plant summary instead
 
 **Error state:** Preserve all values. Show field errors locally. Mark individual failed photos with retry/remove actions.
 
-**User actions:** Confirm plant/time, add optional detail/photos, save, or close with unsaved-change confirmation.
+**User actions:** Confirm plant/date/day period, add optional detail/photos, save, or close with unsaved-change confirmation.
 
 After save, show “Đã lưu · Hoàn tác”. Optionally suggest a reminder with “7 ngày”, “14 ngày”, “30 ngày”, or “Không nhắc”.
 
@@ -382,7 +384,7 @@ After save, show “Đã lưu · Hoàn tác”. Optionally suggest a reminder wi
 
 **Purpose:** Record a visual or written update about a plant without forcing it into a care activity type.
 
-**Components:** Plant; date/time; prominent “Thêm ảnh”; optional “Ghi chú”; “Giai đoạn hiện tại”; secondary “Thay đổi”; keyboard-pinned “Lưu nhật ký”.
+**Components:** Plant; date; one of “Sáng”, “Chiều”, or “Tối”; prominent “Thêm ảnh”; optional “Ghi chú”; “Giai đoạn hiện tại”; secondary “Thay đổi”; keyboard-pinned “Lưu nhật ký”.
 
 The note may describe pruning, an observation, growth, fruit development, damage, or any other update. These concepts are not separate activity selectors.
 
@@ -394,13 +396,13 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 
 **Error state:** Preserve the note, stage selection, and local photo references. Show failed uploads individually with retry/remove actions.
 
-**User actions:** Select a plant, take or choose photos, write a note, optionally change stage, change time, save, or close with unsaved-change confirmation.
+**User actions:** Select a plant, take or choose photos, write a note, optionally change stage, change the date or day period, save, or close with unsaved-change confirmation.
 
 ### 7.9 Activity or Journal Detail
 
 **Purpose:** Review and correct one saved care activity or plant update.
 
-**Components:** Record type, plant, date/time, origin, optional care details, notes, photos, “Chỉnh sửa”, and delete menu.
+**Components:** Record type, plant, date and day period, origin, optional care details, notes, photos, “Chỉnh sửa”, and delete menu.
 
 **Empty state:** Not applicable; an existing entry is required.
 

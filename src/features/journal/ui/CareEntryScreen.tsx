@@ -2,15 +2,15 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { getCareActivityLabel } from "./care-activity-copy";
 import type { WateringIntensity } from "@/features/journal/models/care-activity";
-import { CARE_ACTIVITY_VISUALS } from "@/features/journal/models/care-activity-icon";
 import { PlantIdentity } from "@/features/plants/ui/PlantIdentity";
 import { t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
-import { spacing } from "@/shared/ui/theme";
+import { colors, radius, spacing } from "@/shared/ui/theme";
 import { CareEntryContextFields } from "./CareEntryContextFields";
 import { CareEntryDetailsSection } from "./CareEntryDetailsSection";
+import { CareEntrySheetTitle } from "./CareEntrySheetTitle";
 import { FertilizingApplicationsSection } from "./FertilizingApplicationsSection";
 import { WateringIntensityPicker } from "./WateringIntensityPicker";
 import { SprayTargetPicker } from "./SprayTargetPicker";
@@ -39,8 +39,6 @@ export function CareEntryScreen(props: CareEntryScreenProps) {
   );
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const visual = CARE_ACTIVITY_VISUALS[props.type];
-  const ActivityIcon = visual.icon;
   const sprayTargets = mergeInitialSprayTarget(props);
 
   async function submit() {
@@ -90,35 +88,33 @@ export function CareEntryScreen(props: CareEntryScreenProps) {
     <BottomSheet
       footer={
         <PrimaryButton
-          backgroundColor={visual.backgroundColor}
           label={props.saveLabel ?? t("journal.careEntry.save")}
           loading={saving}
           onPress={submit}
-          textColor={visual.color}
         />
       }
       onDismiss={props.onDismiss}
       title={
-        <View style={styles.title}>
-          <ActivityIcon color={visual.color} size={22} />
-          <Typography variant="headlineSmall">
-            {getCareActivityLabel(props.type)}
-          </Typography>
-        </View>
+        <CareEntrySheetTitle
+          label={getCareActivityLabel(props.type)}
+          type={props.type}
+        />
       }
       visible={props.visible}
     >
       {props.contextKind === "custom" ? (
         props.context
       ) : (
-        <PlantIdentity
-          imageUri={props.imageUri ?? null}
-          name={props.plantName}
-          size="list"
-          speciesTitle={props.speciesTitle}
-          stageId={props.stageId}
-          stageTitle={props.stageTitle}
-        />
+        <View style={styles.plantContext}>
+          <PlantIdentity
+            imageUri={props.imageUri ?? null}
+            name={props.plantName}
+            size="list"
+            speciesTitle={props.speciesTitle}
+            stageId={props.stageId}
+            stageTitle={props.stageTitle}
+          />
+        </View>
       )}
       <CareEntryContextFields
         dateError={
@@ -180,5 +176,9 @@ export function CareEntryScreen(props: CareEntryScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  title: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
+  plantContext: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.medium,
+    padding: spacing.md,
+  },
 });

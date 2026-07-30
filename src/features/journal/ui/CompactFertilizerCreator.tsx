@@ -10,7 +10,7 @@ import {
 import { t } from "@/shared/i18n";
 import { IconButton } from "@/shared/ui/IconButton";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, radius, spacing } from "@/shared/ui/theme";
+import { colors, fontFamily, radius, spacing } from "@/shared/ui/theme";
 
 type Props = Readonly<{
   onCancel: () => void;
@@ -38,7 +38,7 @@ export function CompactFertilizerCreator({
   return (
     <View style={styles.creator}>
       <View style={styles.heading}>
-        <Typography variant="headlineSmall">
+        <Typography variant="cardTitle">
           {t("fertilizers.editor.addTitle")}
         </Typography>
         <IconButton
@@ -139,15 +139,16 @@ const styles = StyleSheet.create({
   creator: { gap: spacing.sm },
   entryRow: {
     alignItems: "center",
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
+    backgroundColor: colors.surface,
+    borderColor: colors.divider,
+    borderRadius: radius.small,
+    borderWidth: StyleSheet.hairlineWidth,
     flexDirection: "row",
     paddingRight: spacing.xs,
   },
   groupControl: {
     alignItems: "center",
-    borderLeftColor: colors.border,
+    borderLeftColor: colors.divider,
     borderLeftWidth: StyleSheet.hairlineWidth,
     flexDirection: "row",
     gap: spacing.xs,
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.base,
   },
   groupOptionBorder: {
-    borderBottomColor: colors.border,
+    borderBottomColor: colors.divider,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   groupOptionLabel: {
@@ -170,13 +171,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing.sm,
   },
-  groupOptionPressed: { backgroundColor: colors.surfaceSubtle },
+  groupOptionPressed: { backgroundColor: colors.surfaceMuted },
   groupOptionSelected: { backgroundColor: colors.primarySoft },
   groupOptions: {
     backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
+    borderColor: colors.divider,
+    borderRadius: radius.small,
+    borderWidth: StyleSheet.hairlineWidth,
     overflow: "hidden",
   },
   heading: {
@@ -185,8 +186,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   input: {
-    color: colors.text,
+    color: colors.textPrimary,
     flex: 1,
+    fontFamily: fontFamily.medium,
     fontSize: 16,
     minHeight: 48,
     paddingHorizontal: spacing.base,

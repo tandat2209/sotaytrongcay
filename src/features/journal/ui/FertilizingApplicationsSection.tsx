@@ -58,7 +58,7 @@ export function FertilizingApplicationsSection({
   );
   return (
     <View style={styles.section}>
-      <Typography variant="headlineSmall">
+      <Typography variant="cardTitle">
         {t("journal.fertilizing.usedTitle")}
       </Typography>
       <FertilizerSuggestionChips
@@ -125,5 +125,5 @@ export function FertilizingApplicationsSection({
 
 const styles = StyleSheet.create({
   error: { gap: spacing.sm },
-  section: { gap: spacing.base },
+  section: { gap: spacing.md },
 });

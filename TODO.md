@@ -8,7 +8,7 @@ Prioritize care-tracking usefulness and entry speed before expanding guidance.
 - [x] Migrate Hôm nay to the shared visual system while preserving grouped care prompts, recent history, weather boundaries, and the plant rail.
 - [x] Migrate Plant Detail to the shared visual system.
 - [x] Migrate Journal to the shared visual system.
-- [ ] Migrate Care Entry flows to the shared visual system.
+- [x] Migrate Care Entry flows to the shared visual system.
 - [x] Migrate Mở rộng to the shared visual system.
 - [ ] Complete a remaining-screen visual consistency sweep.
 

@@ -67,8 +67,8 @@ function ContextRow({
 
 const styles = StyleSheet.create({
   context: {
-    backgroundColor: colors.surfaceSubtle,
-    borderRadius: radius.control,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.medium,
     gap: spacing.xs,
     padding: spacing.base,
   },

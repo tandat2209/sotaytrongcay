@@ -17,7 +17,7 @@ export function SprayTargetPicker({ onChange, targets, value }: Props) {
   return (
     <View style={styles.section}>
       <View style={styles.copy}>
-        <Typography variant="headlineSmall">
+        <Typography variant="cardTitle">
           {t("journal.spraying.targetTitle")}
         </Typography>
         <Typography color="textSecondary" variant="bodyMedium">

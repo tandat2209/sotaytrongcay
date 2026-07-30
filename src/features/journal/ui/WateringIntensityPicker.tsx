@@ -1,4 +1,10 @@
-import { CloudRain, Droplet, Droplets, Waves } from "lucide-react-native";
+import {
+  Check,
+  CloudRain,
+  Droplet,
+  Droplets,
+  Waves,
+} from "lucide-react-native";
 import { Pressable, StyleSheet, View } from "react-native";
 import type { WateringIntensity } from "../models/care-activity";
 import {
@@ -47,22 +53,30 @@ export function WateringIntensityPicker({ error, onChange, value }: Props) {
                 pressed && styles.pressed,
               ]}
             >
-              <Icon
-                color={selected ? colors.activityWater : colors.textSecondary}
-                size={20}
-              />
-              <Typography variant="bodyMedium">{label}</Typography>
+              <View
+                accessibilityElementsHidden
+                style={[styles.icon, selected && styles.selectedIcon]}
+              >
+                <Icon
+                  color={selected ? colors.activityWater : colors.textSecondary}
+                  size={20}
+                />
+              </View>
+              <View style={styles.copy}>
+                <Typography variant="bodyStrong">{label}</Typography>
+                <Typography color="textSecondary" variant="secondary">
+                  {description}
+                </Typography>
+              </View>
+              {selected ? (
+                <View accessibilityElementsHidden style={styles.check}>
+                  <Check color={colors.surface} size={16} strokeWidth={3} />
+                </View>
+              ) : null}
             </Pressable>
           );
         })}
       </View>
-      {value ? (
-        <Typography color="primary" variant="bodyMedium">
-          {t("journal.careEntry.intensity.selected", {
-            label: getWateringIntensityLabel(value),
-          })}
-        </Typography>
-      ) : null}
       {error ? (
         <Typography
           accessibilityRole="alert"
@@ -81,20 +95,37 @@ const styles = StyleSheet.create({
   option: {
     alignItems: "center",
     backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.control,
-    borderWidth: 1,
+    borderColor: colors.divider,
+    borderRadius: radius.medium,
+    borderWidth: StyleSheet.hairlineWidth,
     flexDirection: "row",
-    gap: spacing.xs,
-    justifyContent: "center",
-    minHeight: 48,
-    paddingHorizontal: spacing.sm,
+    gap: spacing.md,
+    minHeight: 68,
+    padding: spacing.md,
   },
-  options: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
-  pressed: { opacity: 0.8 },
+  options: { gap: spacing.sm },
+  pressed: { opacity: 0.78 },
   selectedOption: {
     backgroundColor: colors.activityWaterSoft,
     borderColor: colors.activityWater,
-    borderWidth: 2,
+    borderWidth: 1.5,
+  },
+  icon: {
+    alignItems: "center",
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.small,
+    height: 40,
+    justifyContent: "center",
+    width: 40,
+  },
+  selectedIcon: { backgroundColor: colors.surface },
+  copy: { flex: 1, gap: spacing.xs },
+  check: {
+    alignItems: "center",
+    backgroundColor: colors.activityWater,
+    borderRadius: radius.pill,
+    height: 24,
+    justifyContent: "center",
+    width: 24,
   },
 });

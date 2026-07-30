@@ -1,16 +1,18 @@
 import { Pressable, StyleSheet, View } from "react-native";
 import type { Plant } from "@/features/plants";
-import { formatDateTime, formatNumber, t } from "@/shared/i18n";
+import { formatNumber, t } from "@/shared/i18n";
 import { BottomSheet } from "@/shared/ui/BottomSheet";
 import { PrimaryButton } from "@/shared/ui/PrimaryButton";
 import { Typography } from "@/shared/ui/Typography";
-import { colors, spacing } from "@/shared/ui/theme";
+import { colors, radius, spacing } from "@/shared/ui/theme";
 import type { CareActivityType } from "../models/care-activity";
 import {
   getCareActivityLabel,
+  formatCareOccurrence,
   getWateringIntensityLabel,
 } from "./care-activity-copy";
 import type { CareEntryDetails } from "./care-entry-types";
+import { CareEntrySheetTitle } from "./CareEntrySheetTitle";
 
 type Props = Readonly<{
   details: CareEntryDetails;
@@ -35,7 +37,7 @@ export function BatchCareConfirmationSheet(props: Props) {
     },
     {
       label: t("journal.batch.timeLabel"),
-      value: formatDateTime(new Date(props.details.occurredAt)),
+      value: formatCareOccurrence(new Date(props.details.occurredAt)),
     },
     ...(props.details.intensity
       ? [
@@ -103,7 +105,12 @@ export function BatchCareConfirmationSheet(props: Props) {
         </View>
       }
       onDismiss={props.onEdit}
-      title={t("journal.batch.confirmTitle")}
+      title={
+        <CareEntrySheetTitle
+          label={t("journal.batch.confirmTitle")}
+          type={props.type}
+        />
+      }
       visible={props.visible}
     >
       <View style={styles.rows}>
@@ -142,5 +149,9 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     paddingVertical: spacing.md,
   },
-  rows: { gap: spacing.xs },
+  rows: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.medium,
+    paddingHorizontal: spacing.base,
+  },
 });

@@ -3,7 +3,11 @@ import type {
   CareActivityType,
   WateringIntensity,
 } from "../models/care-activity";
-import { t } from "@/shared/i18n";
+import {
+  getOccurrencePeriod,
+  type OccurrencePeriod,
+} from "../models/occurred-at";
+import { formatDate, t } from "@/shared/i18n";
 
 export function getCareActivityLabel(type: CareActivityType): string {
   return t(
@@ -31,6 +35,24 @@ export function getCareActivityOriginLabel(origin: CareActivityOrigin): string {
 
 export function getCareActivityUnitLabel(unit: "liter"): string {
   return t("journal.activityUnit.liter");
+}
+
+export function getOccurrencePeriodLabel(period: OccurrencePeriod): string {
+  return t(
+    (
+      {
+        afternoon: "journal.careEntry.period.afternoon",
+        evening: "journal.careEntry.period.evening",
+        morning: "journal.careEntry.period.morning",
+      } as const
+    )[period],
+  );
+}
+
+export function formatCareOccurrence(value: Date): string {
+  return `${formatDate(value)} · ${getOccurrencePeriodLabel(
+    getOccurrencePeriod(value),
+  )}`;
 }
 
 export function getWateringIntensityLabel(

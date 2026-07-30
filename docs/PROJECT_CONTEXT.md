@@ -52,7 +52,7 @@ Users can:
 
 - **Track essential care:** watering, fertilizing, and spraying are first-class activity history.
 - **Journal the rest:** pruning, observations, and other updates belong in photo-and-note journal entries.
-- **Keep logging fast:** the minimum path is plant, activity, time, and Save.
+- **Keep logging fast:** the minimum path is plant, activity, date, coarse day period, and Save.
 - **Guide in context:** tips live with the plant and stage instead of becoming a task list.
 - **Do not manufacture work:** informational tips have no completion state, reminder, or journal entry.
 - **Prompt, then confirm:** a Today care button may prefill entry, but the user saves what actually happened.

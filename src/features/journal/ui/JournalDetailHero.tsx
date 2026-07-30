@@ -10,6 +10,7 @@ type Props = Readonly<{
   backgroundColor: string;
   icon: LucideIcon;
   occurredAt: string;
+  occurredAtLabel?: string;
   title: string;
 }>;
 
@@ -19,6 +20,7 @@ export function JournalDetailHero({
   backgroundColor,
   icon: RecordIcon,
   occurredAt,
+  occurredAtLabel,
   title,
 }: Props) {
   return (
@@ -39,7 +41,7 @@ export function JournalDetailHero({
         <View style={styles.occurredAt}>
           <CalendarDays color={accentColor} size={18} />
           <Typography color="textSecondary" variant="body">
-            {formatDateTime(new Date(occurredAt))}
+            {occurredAtLabel ?? formatDateTime(new Date(occurredAt))}
           </Typography>
         </View>
       </View>
