@@ -76,18 +76,20 @@ Users can:
 - Today care prompts deep-link into a prefilled care form; they are not persistent tasks.
 - Plant Timeline and global Journal.
 - Care Plan-derived recurring schedules and local notifications, with stage defaults and optional plant snapshots.
+- Manual local backup and replace-restore of durable user records and journal photos through a versioned, validated folder archive.
 
 ## Capability rationale
 
-| Capability          | User value                         | MVP constraint                           |
-| ------------------- | ---------------------------------- | ---------------------------------------- |
-| Quick care tracking | Preserves reliable history         | Minimum required fields only             |
-| Plant Dashboard     | Answers when care last happened    | Summary, not analytics                   |
-| Stage tips          | Adds relevant learning             | Informational and non-trackable          |
-| Today care prompts  | Surfaces likely next care          | User must confirm by saving activity     |
-| Weather context     | Shows local conditions at a glance | Display-only, icon-led, user-approved    |
-| Care Plan schedules | Supports planned future care       | User snapshots never alter curated plans |
-| Journal             | Makes activity history searchable  | No knowledge articles mixed into history |
+| Capability          | User value                         | MVP constraint                              |
+| ------------------- | ---------------------------------- | ------------------------------------------- |
+| Quick care tracking | Preserves reliable history         | Minimum required fields only                |
+| Plant Dashboard     | Answers when care last happened    | Summary, not analytics                      |
+| Stage tips          | Adds relevant learning             | Informational and non-trackable             |
+| Today care prompts  | Surfaces likely next care          | User must confirm by saving activity        |
+| Weather context     | Shows local conditions at a glance | Display-only, icon-led, user-approved       |
+| Care Plan schedules | Supports planned future care       | User snapshots never alter curated plans    |
+| Journal             | Makes activity history searchable  | No knowledge articles mixed into history    |
+| Local backup        | Lets growers retain or move data   | Manual folder archive; replace-only restore |
 
 ## Conceptual data model
 

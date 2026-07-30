@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import {
   Bell,
   AlertTriangle,
+  DatabaseBackup,
   Ellipsis,
   Info,
   ListTree,
@@ -46,6 +47,12 @@ const managementDestinations: readonly MoreDestination[] = [
 ];
 
 const settingsDestinations: readonly MoreDestination[] = [
+  {
+    description: t("more.row.dataManagementDescription"),
+    icon: DatabaseBackup,
+    label: t("dataManagement.title"),
+    path: "/data-management",
+  },
   {
     description: t("more.row.notificationsDescription"),
     icon: Bell,

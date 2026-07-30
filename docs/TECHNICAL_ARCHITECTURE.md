@@ -110,6 +110,7 @@ Feature ownership, small public interfaces, content provenance, runtime validati
 │   │   ├── today/
 │   │   ├── auth/
 │   │   ├── more/
+│   │   ├── data-management/
 │   │   └── settings/
 │   ├── sync/                    # Outbox, push/pull, checkpoints, conflicts
 │   ├── infrastructure/
@@ -180,6 +181,7 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 - `knowledge`: read-only species, stage playbooks, tips, care recommendations, health, fertilizer, seasonal, and weather-rule content.
 - `today`: derived guidance/weather/reminder/journal read model; owns no source data.
 - `more`: composition-only index for secondary destinations such as Fertilizer Management and settings; owns no business records.
+- `data-management`: cross-feature local backup and recovery boundary. It owns the archive schema, consistent SQLite snapshot, photo copying, validation, and transactional replace-restore; it does not own or reinterpret the underlying domain records.
 - `settings`: notification and Care Plan schedule configuration routes; owns no fertilizer or care records.
 
 **Context:** A configuration-only fourth tab cannot expose reusable fertilizer management without mislabelling user-owned data as settings.
@@ -194,6 +196,8 @@ Each feature is a deep module with one public `index.ts`. Export only screens, p
 - `sync`: mutation envelopes, checkpoints, and sync status.
 
 Features never import another feature's internals or database tables.
+
+Data management is the narrow recovery exception to ordinary feature table ownership: its adapter reads and writes the explicit durable SQLite record set without importing another feature's internal repository or model. Its versioned Zod archive schema mirrors persisted shapes, validates foreign references and unique constraints before destructive work, and must be updated with every durable schema change. It excludes `weather_cache` and `plant_care_plan_notification_states`; restore recreates derived cache and OS notification state instead of transporting device-specific values.
 
 ### Localization boundary
 
@@ -214,6 +218,8 @@ The `(tabs)` layout owns four destination tabs. Route files remain thin and impo
 Today and Plant Detail open public care-entry and new-journal-entry routes with validated plant and activity parameters. Fertilizing add/edit views are child routes or feature-owned nested screens of the Care Entry draft; they are not destinations and never persist independently.
 
 Fertilizer Management is reachable from More and contextually from fertilizing Care Entry. The More route opens the standalone manager; Care Entry passes return-selection context so choosing or creating a fertilizer resumes the existing draft. Schedule customization remains secondary settings behavior beneath More, with separate notification, stage-Care-Plan, and plant-first routes; Plant Detail may open its current plant's customization directly. Today remains action-only.
+
+Local backup and restore are reachable only from More. Backup serializes a write-queue-protected SQLite snapshot, copies every referenced journal photo, and writes the manifest last so an interrupted folder is not accepted as complete. Restore selects the manifest, validates the archive and its photos, stages photos under a unique application-document directory, cancels existing OS notifications, and performs one exclusive replace transaction. On commit it removes superseded photo roots on a best-effort basis and reconciles notifications from restored schedules. A transaction failure deletes staged files and retains prior database records.
 
 There is no global action overlay. Today derives relevant core-care prompts; Plant Detail supplies the current plant context directly.
 

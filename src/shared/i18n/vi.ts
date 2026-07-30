@@ -36,6 +36,54 @@ export const vi = {
     "Không thể đọc dữ liệu trên thiết bị.",
     [],
   ],
+  "dataManagement.backup.action": ["Chọn nơi lưu", []],
+  "dataManagement.backup.description": [
+    "Lưu cây trồng, nhật ký, ảnh, phân bón và lịch chăm sóc vào một thư mục trên thiết bị.",
+    [],
+  ],
+  "dataManagement.backup.error": [
+    "Chưa thể tạo bản sao lưu. Dữ liệu hiện tại không bị thay đổi.",
+    [],
+  ],
+  "dataManagement.backup.success": ["Đã tạo bản sao lưu: {folder}", ["folder"]],
+  "dataManagement.backup.title": ["Tạo bản sao lưu", []],
+  "dataManagement.introduction": [
+    "Giữ một bản dữ liệu riêng trên thiết bị để chuyển máy hoặc khôi phục khi cần.",
+    [],
+  ],
+  "dataManagement.restore.action": ["Khôi phục", []],
+  "dataManagement.restore.confirmBody": [
+    "Dữ liệu hiện tại sẽ được thay thế bằng {plants} cây và {entries} mục nhật ký từ bản sao lưu ngày {date}.",
+    ["plants", "entries", "date"],
+  ],
+  "dataManagement.restore.confirmTitle": ["Thay thế dữ liệu hiện tại?", []],
+  "dataManagement.restore.description": [
+    "Chọn thư mục sao lưu đã tạo trước đó. Toàn bộ dữ liệu hiện tại sẽ được thay thế sau khi bạn xác nhận.",
+    [],
+  ],
+  "dataManagement.restore.error": [
+    "Khôi phục chưa hoàn tất. Hãy thử lại với bản sao lưu khác.",
+    [],
+  ],
+  "dataManagement.restore.invalid": [
+    "Bản sao lưu không hợp lệ, thiếu tệp hoặc được tạo bởi phiên bản ứng dụng mới hơn.",
+    [],
+  ],
+  "dataManagement.restore.successBody": [
+    "Cây trồng, nhật ký, ảnh và lịch chăm sóc đã được khôi phục.",
+    [],
+  ],
+  "dataManagement.restore.successReminderWarning": [
+    "Dữ liệu đã được khôi phục, nhưng một số thông báo chưa thể tạo lại. Ứng dụng sẽ thử lại khi mở lần sau.",
+    [],
+  ],
+  "dataManagement.restore.successTitle": ["Đã khôi phục dữ liệu", []],
+  "dataManagement.restore.title": ["Khôi phục từ bản sao lưu", []],
+  "dataManagement.title": ["Sao lưu và khôi phục", []],
+  "dataManagement.unsupported": [
+    "Tính năng này hiện chỉ dùng được trên ứng dụng iOS và Android.",
+    [],
+  ],
   "journal.activityDetail.amount": ["Lượng nước ước tính", []],
   "journal.activityDetail.delete": ["Xóa hoạt động", []],
   "journal.activityDetail.deleteConfirmation": [
@@ -371,6 +419,10 @@ export const vi = {
   ],
   "more.row.carePlansDescription": [
     "Xem hướng dẫn và điều chỉnh lịch theo từng giai đoạn.",
+    [],
+  ],
+  "more.row.dataManagementDescription": [
+    "Tạo bản sao dữ liệu trên thiết bị hoặc khôi phục từ bản đã lưu.",
     [],
   ],
   "more.row.fertilizers": ["Quản lý phân bón", []],

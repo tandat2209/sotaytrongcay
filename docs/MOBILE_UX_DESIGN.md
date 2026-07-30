@@ -438,6 +438,7 @@ Show the confirmed stage, such as “Giai đoạn hiện tại: Nuôi thân”. 
 - “Thông báo”
 - “Chăm sóc theo giai đoạn”
 - “Tùy chỉnh theo cây”
+- “Sao lưu và khôi phục”
 - “Lưu ý sử dụng”
 
 “Quản lý phân bón” separates “Phân bón của tôi” from “Gợi ý trọng tâm”. The private section lists reusable fertilizers with their optional group icon and label plus newest saved use; it supports add, edit, and delete. The suggestion section shows the ordered, Knowledge Base-authored Fertilizer Role catalogue under four headings: “Nhóm nền tảng”, “Nhóm phát triển thân lá và bộ rễ”, “Nhóm ra hoa và nuôi quả”, and “Nhóm bổ sung khi cần”. These headings organize this management guide only; they are not additional fertilizer types. Each remaining row shows the product-independent role name, concise description, canonical group, and one “Thêm” action. Roles already linked to the private catalog are omitted. Adding creates or reuses a stable-ID-linked User Fertilizer, then moves it into “Phân bón của tôi”; it never creates a Care Activity or saved-use status.
@@ -454,7 +455,23 @@ Supporting text explains that the focused guide is a compact reference rather th
 
 “Lưu ý sử dụng” is a read-only, scrollable explanation of the app's scope, schedule and weather limitations, product-label priority, symptom uncertainty, and user responsibility. It requires no acknowledgement and stores no state.
 
-**User actions:** Manage saved fertilizers, review notification permission, browse read-only stage guidance, customize stage schedules, customize one plant schedule, or read the usage notice.
+**User actions:** Manage saved fertilizers, review notification permission, browse read-only stage guidance, customize stage schedules, customize one plant schedule, back up or restore local data, or read the usage notice.
+
+### 7.12 Local backup and restore
+
+**Purpose:** Let a grower manually retain or move durable local records and journal photos without requiring an account or network connection.
+
+**Navigation:** `Mở rộng → Sao lưu và khôi phục` opens one secondary screen with “Tạo bản sao lưu” and “Khôi phục từ bản sao lưu” cards.
+
+**Backup behavior:** “Chọn nơi lưu” opens the operating-system directory picker. The app creates one clearly named backup folder inside that location and reports its folder name on success. Cancelling the picker changes nothing. The explanatory copy names plants, journal, photos, fertilizers, and care schedules so the scope is visible before selection.
+
+**Restore behavior:** “Khôi phục” opens the operating-system directory picker for a backup folder. The app reads its `manifest.json` and validates archive version, record relationships, and referenced photo files before showing confirmation. Confirmation states that current data will be replaced and shows the archive date plus plant and journal-entry counts. “Hủy” keeps current data. A successful restore returns to Today after clearing stale query results. A restored database remains successful if notification recreation must retry; tell the grower that the app will retry at next startup.
+
+**Loading state:** Only the active backup or restore button shows progress and both actions are unavailable until it completes.
+
+**Error state:** An invalid, incomplete, or newer-version archive is rejected before confirmation. Backup failure states that current data was not changed. Restore failure does not claim success or partially merge records.
+
+**Platform state:** The shipped native interaction is available on iOS and Android. Web shows that the feature is unavailable and disables both actions.
 
 ## 8. Shared interaction patterns
 

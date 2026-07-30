@@ -8,6 +8,16 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-30 — Use a validated local folder archive for backup and replace-restore
+
+**Status:** Accepted
+
+**Decision:** “Mở rộng → Sao lưu và khôi phục” creates a user-owned folder containing a versioned `manifest.json` and copied journal photos. The archive contains durable local user records: plants, care activities, plant updates and stage history, fertilizer records and immutable applications, Care Plan schedule snapshots, the master reminder preference, and the selected growing location. It excludes transient weather cache and device-specific operating-system notification identifiers. Restore requires the user to select `manifest.json`, validates the complete archive and all photo references before confirmation, then replaces current data in one SQLite transaction. Photos are staged in application storage before that transaction. Existing scheduled notifications are cancelled and rebuilt from the restored schedules and preferences.
+
+**Rationale:** A folder keeps photos as files instead of inflating one in-memory JSON document, while a versioned and relationship-validated manifest makes incompatible or incomplete archives fail before current data is touched. Replace-restore is understandable for an MVP and avoids ambiguous record merging or duplicate history.
+
+**Consequences:** Restore is intentionally destructive and always shows archive date and record counts before proceeding. A failed database transaction retains the previous database and removes staged photos. Successful restore may still report that notification rebuilding must retry at the next startup; restored user data remains valid. Archive evolution requires an explicit format version and adapter rather than silently accepting unknown shapes. Local export, selective merge, cloud backup, and automatic recurring backup remain separate capabilities.
+
 ## 2026-07-30 — Record journal occurrence with date and coarse day period
 
 **Status:** Accepted

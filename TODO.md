@@ -144,7 +144,9 @@ Follow the accepted direction in [the 2026-07-16 Knowledge model and UI impact a
 - [ ] Define differentiated recommendation priorities only after reviewed product ordering policy exists.
 - [ ] Extend reviewed deterministic care suggestions to additional stages and care types.
 - [ ] Add offline synchronization.
-- [ ] Verify backup, restore, export, deletion, and content-version migration.
+- [x] Add a schema-validated local folder backup and atomic replace-restore flow for durable records and journal photos.
+- [ ] Verify local backup and restore with photos on physical iOS and Android devices.
+- [ ] Verify export, deletion, and content-version migration.
 
 ## Future
 
