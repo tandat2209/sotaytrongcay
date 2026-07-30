@@ -8,11 +8,21 @@ Each entry includes a date, status, decision, and rationale. Valid statuses are 
 
 Hard-to-reverse technical decisions with real trade-offs belong in `docs/adr/` and are linked from this log.
 
+## 2026-07-30 — Group More destinations by user intent
+
+**Status:** Accepted
+
+**Decision:** Keep every existing More destination on one screen, but replace tall descriptive navigation rows with compact full-width icon-and-label rows separated by hairlines under three groups: “Kiến thức và hướng dẫn” for Warning Signs and stage guidance, “Dữ liệu của bạn” for Plants, Fertilizers, and local backup, and “Cài đặt” for notifications and the usage notice. Descriptions remain accessibility hints rather than repeated visible copy.
+
+**Rationale:** Seven description-heavy rows make secondary navigation feel like an undifferentiated settings list and require unnecessary scrolling. Intent-based groups improve scanning, while compact full-width rows remain familiar, readable at larger text sizes, and easy to tap without adding submenu routes.
+
+**Consequences:** More remains a composition-only index and every route stays unchanged. Compact labels may differ from destination screen titles, rows retain at least 44-point touch targets and may grow vertically for larger text, and chevrons preserve navigation affordance. New destinations must fit one of the three user-facing groups or trigger a fresh navigation review rather than extending a miscellaneous list.
+
 ## 2026-07-30 — Use a validated local folder archive for backup and replace-restore
 
 **Status:** Accepted
 
-**Decision:** “Mở rộng → Sao lưu và khôi phục” creates a user-owned folder containing a versioned `manifest.json` and copied journal photos. The archive contains durable local user records: plants, care activities, plant updates and stage history, fertilizer records and immutable applications, Care Plan schedule snapshots, the master reminder preference, and the selected growing location. It excludes transient weather cache and device-specific operating-system notification identifiers. Restore requires the user to select `manifest.json`, validates the complete archive and all photo references before confirmation, then replaces current data in one SQLite transaction. Photos are staged in application storage before that transaction. Existing scheduled notifications are cancelled and rebuilt from the restored schedules and preferences.
+**Decision:** “Mở rộng → Sao lưu và khôi phục” creates a user-owned folder containing a versioned `manifest.json` and copied journal photos. The archive contains durable local user records: plants, care activities, plant updates and stage history, fertilizer records and immutable applications, Care Plan schedule snapshots, the master reminder preference, and the selected growing location. It excludes transient weather cache and device-specific operating-system notification identifiers. Restore requires the user to select the backup folder containing `manifest.json`, validates the complete archive and all photo references before confirmation, then replaces current data in one SQLite transaction. Photos are staged in application storage before that transaction. Existing scheduled notifications are cancelled and rebuilt from the restored schedules and preferences.
 
 **Rationale:** A folder keeps photos as files instead of inflating one in-memory JSON document, while a versioned and relationship-validated manifest makes incompatible or incomplete archives fail before current data is touched. Replace-restore is understandable for an MVP and avoids ambiguous record merging or duplicate history.
 

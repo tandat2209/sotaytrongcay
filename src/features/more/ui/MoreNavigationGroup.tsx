@@ -38,12 +38,9 @@ export function MoreNavigationGroup({ destinations, onOpen, title }: Props) {
             <View accessibilityElementsHidden style={styles.icon}>
               <Icon color={colors.primary} size={21} />
             </View>
-            <View style={styles.copy}>
-              <Typography variant="cardTitle">{label}</Typography>
-              <Typography color="textSecondary" variant="secondary">
-                {description}
-              </Typography>
-            </View>
+            <Typography style={styles.label} variant="bodyStrong">
+              {label}
+            </Typography>
             <ChevronRight color={colors.textMuted} size={20} />
           </Pressable>
         ))}
@@ -53,7 +50,6 @@ export function MoreNavigationGroup({ destinations, onOpen, title }: Props) {
 }
 
 const styles = StyleSheet.create({
-  copy: { flex: 1, gap: spacing.xs, minWidth: 0 },
   divider: {
     borderBottomColor: colors.divider,
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -72,13 +68,15 @@ const styles = StyleSheet.create({
     width: 44,
   },
   pressed: { backgroundColor: colors.surfaceMuted },
+  label: { flex: 1 },
   row: {
     alignItems: "center",
     flexDirection: "row",
     gap: spacing.md,
-    minHeight: 84,
+    minHeight: 68,
+    minWidth: 0,
     paddingHorizontal: spacing.base,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.sm,
   },
   section: { gap: spacing.md },
 });

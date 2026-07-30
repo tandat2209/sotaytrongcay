@@ -23,9 +23,21 @@ const knowledgeDestinations: readonly MoreDestination[] = [
     label: t("more.row.warningSigns"),
     path: "/more/warning-signs",
   },
+  {
+    description: t("more.row.carePlansDescription"),
+    icon: ListTree,
+    label: t("settings.row.carePlans"),
+    path: "/settings/care-plans",
+  },
 ];
 
-const managementDestinations: readonly MoreDestination[] = [
+const dataDestinations: readonly MoreDestination[] = [
+  {
+    description: t("more.row.plantsDescription"),
+    icon: Sprout,
+    label: t("more.row.plants"),
+    path: "/settings/plants",
+  },
   {
     description: t("more.row.fertilizersDescription"),
     icon: PackageOpen,
@@ -33,26 +45,14 @@ const managementDestinations: readonly MoreDestination[] = [
     path: "/more/fertilizers",
   },
   {
-    description: t("more.row.carePlansDescription"),
-    icon: ListTree,
-    label: t("settings.row.carePlans"),
-    path: "/settings/care-plans",
-  },
-  {
-    description: t("more.row.plantsDescription"),
-    icon: Sprout,
-    label: t("settings.row.plants"),
-    path: "/settings/plants",
+    description: t("more.row.dataManagementDescription"),
+    icon: DatabaseBackup,
+    label: t("more.row.dataManagement"),
+    path: "/data-management",
   },
 ];
 
 const settingsDestinations: readonly MoreDestination[] = [
-  {
-    description: t("more.row.dataManagementDescription"),
-    icon: DatabaseBackup,
-    label: t("dataManagement.title"),
-    path: "/data-management",
-  },
   {
     description: t("more.row.notificationsDescription"),
     icon: Bell,
@@ -80,9 +80,9 @@ export function MoreScreen() {
         title={t("more.section.knowledge")}
       />
       <MoreNavigationGroup
-        destinations={managementDestinations}
+        destinations={dataDestinations}
         onOpen={(path) => router.push(path)}
-        title={t("more.section.management")}
+        title={t("more.section.data")}
       />
       <MoreNavigationGroup
         destinations={settingsDestinations}

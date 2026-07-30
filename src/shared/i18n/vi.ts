@@ -414,18 +414,19 @@ export const vi = {
   "fertilizers.management.title": ["Quản lý phân bón", []],
   "fertilizers.validation.name": ["Hãy nhập tên phân bón", []],
   "more.introduction": [
-    "Quản lý vật tư và điều chỉnh cách ứng dụng hỗ trợ bạn.",
+    "Tìm hướng dẫn, quản lý dữ liệu và điều chỉnh ứng dụng.",
     [],
   ],
   "more.row.carePlansDescription": [
     "Xem hướng dẫn và điều chỉnh lịch theo từng giai đoạn.",
     [],
   ],
+  "more.row.dataManagement": ["Sao lưu dữ liệu", []],
   "more.row.dataManagementDescription": [
     "Tạo bản sao dữ liệu trên thiết bị hoặc khôi phục từ bản đã lưu.",
     [],
   ],
-  "more.row.fertilizers": ["Quản lý phân bón", []],
+  "more.row.fertilizers": ["Phân bón", []],
   "more.row.fertilizersDescription": [
     "Lưu các loại phân thường dùng để chọn nhanh khi ghi chăm sóc.",
     [],
@@ -434,6 +435,7 @@ export const vi = {
     "Kiểm tra quyền và cài đặt thông báo trên thiết bị.",
     [],
   ],
+  "more.row.plants": ["Cây trồng", []],
   "more.row.plantsDescription": [
     "Điều chỉnh lịch chăm sóc riêng cho từng cây.",
     [],
@@ -447,9 +449,9 @@ export const vi = {
     "Nhận biết dấu hiệu trên cây và xem các bước kiểm tra an toàn.",
     [],
   ],
-  "more.section.knowledge": ["Thư viện kiến thức", []],
-  "more.section.management": ["Quản lý chăm sóc", []],
-  "more.section.settings": ["Cài đặt và thông tin", []],
+  "more.section.data": ["Dữ liệu của bạn", []],
+  "more.section.knowledge": ["Kiến thức và hướng dẫn", []],
+  "more.section.settings": ["Cài đặt", []],
   "navigation.tabs.journal": ["Nhật ký", []],
   "navigation.tabs.more": ["Mở rộng", []],
   "navigation.tabs.plants": ["Cây trồng", []],
